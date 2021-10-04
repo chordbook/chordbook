@@ -1,5 +1,5 @@
-import { Controller } from "stimulus"
-import * as vexchords from 'vexchords';
+import { Controller } from "@hotwired/stimulus"
+import * as vexchords from "vexchords";
 
 import guitar from '@tombatossals/chords-db/lib/guitar.json';
 
