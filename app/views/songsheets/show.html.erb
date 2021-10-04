@@ -1,6 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<div data-controller="songsheet"><%= @songsheet.body %></div>
+<div data-controller="songsheet">
+  <pre hidden data-songsheet-target="source"><%= @songsheet.body %></pre>
+  <div data-songsheet-target="output"></div>
+  Chords:
+  <div data-songsheet-target="chords">
+    <template>
+      <div data-controller="chord">
+        <div data-chord-target="name"></div>
+        <div data-chord-target="diagram"></div>
+      </div>
+    </template>
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_songsheet_path(@songsheet) %> |
 <%= link_to 'Back', songsheets_path %>

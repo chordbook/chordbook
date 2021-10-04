@@ -991,6 +991,16 @@
   resolved "https://registry.yarnpkg.com/@stimulus/webpack-helpers/-/webpack-helpers-2.0.0.tgz#54296d2a2dffd4f962d2e802d99a3fdd84b8845f"
   integrity sha512-D6tJWsAC024MwGEIKlUVYU8Ln87mlrmiwHvYAjipg+s8H4eLxUMQ3PZkWyPevfipH+oR3leuHsjYsK1gN5ViQA==
 
+"@svgdotjs/svg.js@^3.0.12":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@svgdotjs/svg.js/-/svg.js-3.1.1.tgz#3cf6a59e6d8708cd76d38b26e7d682dacb2f3670"
+  integrity sha512-73FggAUBS+zuHhJOMZiAsuE5qpwA4pmWUbLuvof2g3YnWEc3QhXA3tjqZlJJukBobSA23a/avf1Vb1U1QbER1Q==
+
+"@tombatossals/chords-db@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@tombatossals/chords-db/-/chords-db-0.5.1.tgz#bd112b4cefb751933433ad1f7fe143e7fdf56ef8"
+  integrity sha512-5kLLtwOxmnFfpVTYfYiw1Q22NJ8msb5JeyDLre09XnUFx2l6KSeqPtJQPsVPOak4BUenlsv/j2H65KBVhB6qgQ==
+
 "@types/glob@^7.1.1":
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-7.1.4.tgz#ea59e21d2ee5c517914cb4bc8e4153b99e566672"
@@ -6746,6 +6756,13 @@ vendors@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/vendors/-/vendors-1.0.4.tgz#e2b800a53e7a29b93506c3cf41100d16c4c4ad8e"
   integrity sha512-/juG65kTL4Cy2su4P8HjtkTxk6VmJDiOPBufWniqQ6wknac6jNiXS9vU+hO3wgusiyqWlzTbVHi0dyJqRONg3w==
+
+vexchords@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/vexchords/-/vexchords-1.2.0.tgz#844041935cc90d7ed3e90e8a91ad9c4bd62b5e5a"
+  integrity sha512-ObhyFjGiN4pj+oFBGmCa9/geY6H6xqbEipTp1k8de7UXjvv30CriHjD8FR3Lf3jo1vSVUCePSJd7024qmJyNlA==
+  dependencies:
+    "@svgdotjs/svg.js" "^3.0.12"
 
 vm-browserify@^1.0.1:
   version "1.1.2"

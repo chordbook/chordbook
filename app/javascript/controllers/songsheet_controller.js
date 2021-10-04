@@ -2,9 +2,7 @@ import { Controller } from "stimulus"
 import ChordSheetJS from "chordsheetjs"
 
 export default class extends Controller {
-  static values = {
-    format: String
-  }
+  static targets = ["source", "output", "chords"]
 
   static parsers = {
     chordpro: new ChordSheetJS.ChordProParser(),
@@ -13,24 +11,40 @@ export default class extends Controller {
   }
 
   initialize() {
-    this.parsed = this.constructor.parsers[this.format].parse(this.source)
+    this.song = this.constructor.parsers[this.format].parse(this.source)
   }
 
   connect() {
-    const output = new ChordSheetJS.HtmlDivFormatter().format(this.parsed)
-    this.element.innerHTML = output
-    // document.getElementById('chords').replaceChildren(...chords.guitar.forSong(parsed).map(chord => {
-    //   let diagram = new ChordDiagram(chord)
-    //   return diagram.generate()
-    // }));
+    this.outputTarget.innerHTML = new ChordSheetJS.HtmlDivFormatter().format(this.song)
+
+    const chordTemplate = this.chordsTarget.querySelector('template');
+
+    this.chordsTarget.replaceChildren(...this.chords.map(chord => {
+      let node = chordTemplate.content.cloneNode(true).firstElementChild;
+      node.dataset.name = chord
+      return node
+    }));
   }
 
   get source() {
-    return this.element.innerHTML
+    return this.sourceTarget.innerHTML
   }
 
   get format() {
-    return this.formatValue || detectFormat(this.source);
+    return detectFormat(this.source);
+  }
+
+  // Return names of chords used
+  get chords() {
+    let chords = []
+    this.song.lines.forEach(line => {
+      line.items.forEach(item => {
+        if(item.chords && chords.indexOf(item.chords) == -1) {
+          chords.push(item.chords)
+        }
+      })
+    })
+    return chords
   }
 }
 
