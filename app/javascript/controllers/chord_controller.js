@@ -3,18 +3,32 @@ import * as vexchords from "vexchords";
 
 import guitar from '@tombatossals/chords-db/lib/guitar.json';
 
+const keyAliases = {
+  "Asharp": "Bb",
+  "Db": "Csharp",
+  "Dsharp": "Eb",
+  "Gb": "Fsharp"
+}
+
 const aliases = {
   '': 'major',
-  'm': 'minor'
+  'm': 'minor',
+  '+': 'aug'
 }
 
 export default class extends Controller {
   static targets = ["name", "diagram"]
 
   connect() {
-    this.chord = this.find(this.name).positions[0];
-    this.nameTarget.innerText = this.name
-    this.diagramTarget.replaceChildren(this.generate())
+    this.chord = this.find(this.name)
+    if(this.chord) {
+      this.nameTarget.innerText = this.name
+      this.diagramTarget.replaceChildren(this.generate())
+    } else {
+      // No chord
+      console.log("No chord found", this.name)
+      this.element.remove();
+    }
   }
 
   generate() {
@@ -33,12 +47,20 @@ export default class extends Controller {
 
   get fingerings() {
     let string = 1;
-    return this.chord.frets.reverse().map(fret => [string++, fret >= 0 ? fret : 'x'])
+    return this.chord.positions[0].frets.reverse().map(fret => [string++, fret >= 0 ? fret : 'x'])
   }
 
   find(name) {
-    let [_, key, suffix] = name.match(/([A-G][#b]?)(.*)/)
-    if(aliases[suffix]) suffix = aliases[suffix]
+    let [chord, key, sign, suffix] = name.match(/([A-G])([#b]?)(.*)/) || []
+
+    if(!chord) return;
+
+    if(sign == "#") sign = "sharp"
+    if(sign) key = key + sign
+
+    key = keyAliases[key] || key
+    suffix = aliases[suffix] || suffix
+
     return guitar.chords[key].find(chord => chord.suffix == suffix)
   }
 }
