@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Songsheets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @songsheets.each do |songsheet| %>
+      <tr>
+        <td><%= songsheet.body %></td>
+        <td><%= link_to 'Show', songsheet %></td>
+        <td><%= link_to 'Edit', edit_songsheet_path(songsheet) %></td>
+        <td><%= link_to 'Destroy', songsheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Songsheet', new_songsheet_path %>

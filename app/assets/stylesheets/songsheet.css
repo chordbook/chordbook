@@ -1,0 +1,48 @@
+.paragraph {
+  margin-bottom: 2em;
+  margin-left: 12%
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment {
+  position: absolute;
+  left: -12%;
+  width: 12%;
+  top: 0;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.comment, .lyrics {
+  font-family: "Times New Roman", serif;
+}
+
+.chord, .lyrics {
+  white-space: pre;
+}
+
+.lyrics {}
+
+.chord {
+  flex-grow: 1;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #036;
+  padding-right: 0.5rem;
+}
+
+.chorus {
+  border-left: 5px solid #666;
+  padding-left: 1em;
+}
