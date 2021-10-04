@@ -3,4 +3,4 @@
 <%= render 'form', songsheet: @songsheet %>
 
 <%= link_to 'Show', @songsheet %> |
-<%= link_to 'Back', songsheets_path %>
+<%= link_to 'Destroy', @songsheet, method: :delete, data: { confirm: 'Are you sure?' } %>

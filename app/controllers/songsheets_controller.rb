@@ -3,7 +3,7 @@ class SongsheetsController < ApplicationController
 
   # GET /songsheets or /songsheets.json
   def index
-    @songsheets = Songsheet.all
+    @songsheets = Songsheet.recent
   end
 
   # GET /songsheets/1 or /songsheets/1.json
@@ -64,6 +64,6 @@ class SongsheetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def songsheet_params
-      params.require(:songsheet).permit(:body)
+      params.require(:songsheet).permit(:title, :subtitle, :body)
     end
 end

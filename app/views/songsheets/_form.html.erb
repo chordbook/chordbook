@@ -1,22 +1,41 @@
-<%= form_with(model: songsheet) do |form| %>
-  <% if songsheet.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(songsheet.errors.count, "error") %> prohibited this songsheet from being saved:</h2>
+<%= form_with model: songsheet,
+              class: "flex flex-col h-full",
+              data: { controller: "songsheet" } do |form| %>
+  <div class="h-full overflow-auto flex-grow grid grid-cols-2">
+    <div class="p-10">
+      <% if songsheet.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(songsheet.errors.count, "error") %> prohibited this songsheet from being saved:</h2>
 
-      <ul>
-        <% songsheet.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+          <ul>
+            <% songsheet.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="grid my-2">
+        <%= form.label :title, class: "w-25" %>
+        <%= form.text_field :title %>
+      </div>
+      <div class="grid my-2">
+        <%= form.label :subtitle %>
+        <%= form.text_field :subtitle %>
+      </div>
+      <div class="my-2">
+        <%= form.label :body %>
+        <%= form.text_area :body, rows: 10, class: "w-full", data: { songsheet_target: "source", action: "keyup->songsheet#render" } %>
+      </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body %>
+    <div class="p-10 h-full overflow-auto">
+      <div data-songsheet-target="output"></div>
+      <%= render "chords" %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="w-full p-4 sticky bottom">
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

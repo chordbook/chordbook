@@ -10,24 +10,27 @@ export default class extends Controller {
     ultimate: new ChordSheetJS.UltimateGuitarParser({preserveWhitespace: false}),
   }
 
-  initialize() {
-    this.song = this.constructor.parsers[this.format].parse(this.source)
+  connect() {
+    this.render()
   }
 
-  connect() {
+  initialize() {
+    this.chordTemplate = this.chordsTarget.querySelector('template');
+  }
+
+  render() {
+    this.song = this.constructor.parsers[this.format].parse(this.source)
     this.outputTarget.innerHTML = new ChordSheetJS.HtmlDivFormatter().format(this.song)
 
-    const chordTemplate = this.chordsTarget.querySelector('template');
-
     this.chordsTarget.replaceChildren(...this.chords.map(chord => {
-      let node = chordTemplate.content.cloneNode(true).firstElementChild;
+      let node = this.chordTemplate.content.cloneNode(true).firstElementChild;
       node.dataset.name = chord
       return node
     }));
   }
 
   get source() {
-    return this.sourceTarget.innerHTML
+    return this.sourceTarget.value || this.sourceTarget.innerHTML
   }
 
   get format() {

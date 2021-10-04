@@ -4,3 +4,12 @@
 
 @import "base";
 @import "songsheet";
+
+.btn {
+  @apply inline-block px-3 py-2 text-sm font-semibold text-center
+    text-white uppercase transition
+    duration-200 ease-in-out
+    bg-green-500 rounded-md
+    cursor-pointer
+    hover:bg-green-600;
+}

@@ -1,5 +1,17 @@
+h1, h2, h3, h4, h5, h6 {
+  column-span: all
+}
+
+.chord-sheet {
+  counter-reset: verse;
+}
+
 .paragraph {
-  margin-bottom: 1em;
+  break-inside: avoid;
+}
+
+.paragraph + .paragraph {
+  @apply mt-6;
 }
 
 .row {
@@ -38,6 +50,17 @@
 .chorus {
   border-left: 4px solid #999;
   padding-left: 1em;
+
+  &::before {
+    content: "Chorus:";
+    @extend .comment;
+  }
+}
+
+.verse::before {
+  counter-increment: verse;
+  content: "Verse " counter(verse) ":";
+  @extend .comment;
 }
 
 .chord:after, .lyrics:after {
