@@ -19,7 +19,11 @@ export default class extends Controller {
 
   generate() {
     const el = document.createElement('div');
-    vexchords.draw(el, { chord: this.fingerings });
+    vexchords.draw(el, { chord: this.fingerings }, {
+      showTuning: false,
+      width: 50,
+      height: 60,
+    });
     return el.children[0];
   }
 

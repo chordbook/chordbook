@@ -1,6 +1,5 @@
 .paragraph {
-  margin-bottom: 2em;
-  margin-left: 12%
+  margin-bottom: 1em;
 }
 
 .row {
@@ -15,17 +14,9 @@
 }
 
 .comment {
-  position: absolute;
-  left: -12%;
-  width: 12%;
-  top: 0;
   font-weight: bold;
   font-style: italic;
   font-size: 1rem;
-}
-
-.comment, .lyrics {
-  font-family: "Times New Roman", serif;
 }
 
 .chord, .lyrics {
@@ -36,13 +27,19 @@
 
 .chord {
   flex-grow: 1;
-  font-weight: bold;
   font-size: 1rem;
   color: #036;
-  padding-right: 0.5rem;
+
+  &:not(:last-child) {
+    padding-right: 0.5rem;
+  }
 }
 
 .chorus {
-  border-left: 5px solid #666;
+  border-left: 4px solid #999;
   padding-left: 1em;
+}
+
+.chord:after, .lyrics:after {
+  content: '\200b';
 }

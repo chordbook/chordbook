@@ -1,18 +1,18 @@
-<p id="notice"><%= notice %></p>
-
-<div data-controller="songsheet">
+<div data-controller="songsheet" class="h-screen flex flex-col">
   <pre hidden data-songsheet-target="source"><%= @songsheet.body %></pre>
-  <div data-songsheet-target="output"></div>
-  Chords:
-  <div data-songsheet-target="chords">
+  <div class="flex-grow overflow-auto p-6 flex justify-center">
+    <div>
+      <div data-songsheet-target="output"></div>
+      <%= link_to 'Edit', edit_songsheet_path(@songsheet) %>
+    </div>
+  </div>
+
+  <div data-songsheet-target="chords" class="grid grid-flow-col auto-cols-max justify-center p-2 bg-gray-50 border-t">
     <template>
-      <div data-controller="chord">
+      <div data-controller="chord" class="text-center">
         <div data-chord-target="name"></div>
-        <div data-chord-target="diagram"></div>
+        <div data-chord-target="diagram" class="inline-block"></div>
       </div>
     </template>
   </div>
 </div>
-
-<%= link_to 'Edit', edit_songsheet_path(@songsheet) %> |
-<%= link_to 'Back', songsheets_path %>
