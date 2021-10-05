@@ -47,7 +47,12 @@ export default class extends Controller {
 
   get fingerings() {
     let string = 1;
-    return this.chord.positions[0].frets.reverse().map(fret => [string++, fret >= 0 ? fret : 'x'])
+    return this.frets.map(fret => [string++, fret >= 0 ? fret : 'x'])
+  }
+
+  get frets() {
+    // Return copy of frets reversed
+    return this.chord.positions[0].frets.slice().reverse()
   }
 
   find(name) {
