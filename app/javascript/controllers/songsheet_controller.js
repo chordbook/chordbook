@@ -53,7 +53,7 @@ export default class extends Controller {
 
 const HEURISTICS = {
   ultimate: /\[(Verse.*|Chorus)\]/i,
-  chordpro: /\[[A-G].*\]/i,
+  chordpro: /{\w+:.*|\[[A-G].*\]/i,
   chordsheet: /.*/
 }
 
