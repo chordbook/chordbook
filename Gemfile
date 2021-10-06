@@ -58,3 +58,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "tailwindcss-rails-webpacker", "~> 0.2.1"
 
 gem "tailwindcss-rails", "~> 0.5.0"
+
+gem "http", "~> 5.0"

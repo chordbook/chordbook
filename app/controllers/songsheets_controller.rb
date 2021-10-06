@@ -15,6 +15,27 @@ class SongsheetsController < ApplicationController
     @songsheet = Songsheet.new
   end
 
+  def import
+    @songsheet = Songsheet.new
+
+    response = HTTP.get(params[:url], headers: {user_agent: 'ChordPro.io/1.0'})
+    doc = Nokogiri::HTML(response.body.to_s)
+
+    if params[:url].include?('ultimate-guitar.com')
+      data = JSON.parse(doc.at_css('.js-store')["data-content"])
+      @songsheet.attributes = {
+        title: data["store"]["page"]["data"]["tab"]["song_name"],
+        subtitle: data["store"]["page"]["data"]["tab"]["artist_name"],
+        body: data["store"]["page"]["data"]["tab_view"]["wiki_tab"]["content"].gsub(/\[.?(?:tab|ch)\]/, ''),
+      }
+    else
+      chords = doc.at_css('pre')
+      @songsheet.body = chords.text
+    end
+
+    render :new
+  end
+
   # GET /songsheets/1/edit
   def edit
   end

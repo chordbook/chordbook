@@ -1,1 +1,7 @@
 <%= render 'form', songsheet: @songsheet %>
+
+<%= form_with url: import_songsheets_path do |f| %>
+  <%= f.label :url %>
+  <%= f.text_field :url %>
+  <%= f.submit "Import", class: "btn btn-primary" %>
+<% end %>
