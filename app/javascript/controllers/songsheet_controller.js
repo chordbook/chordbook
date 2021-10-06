@@ -15,18 +15,23 @@ export default class extends Controller {
   }
 
   initialize() {
-    this.chordTemplate = this.chordsTarget.querySelector('template');
+    this.chordTemplate = this.chordsTarget.querySelector('template')
   }
 
   render() {
     this.song = this.constructor.parsers[this.format].parse(this.source)
     this.outputTarget.innerHTML = new ChordSheetJS.HtmlDivFormatter().format(this.song)
 
-    this.chordsTarget.replaceChildren(...this.chords.map(chord => {
-      let node = this.chordTemplate.content.cloneNode(true).firstElementChild;
-      node.dataset.name = chord
-      return node
-    }));
+    this.chords.forEach(chord => {
+      const template = this.chordTemplate.content.cloneNode(true).firstElementChild
+      template.dataset.name = chord
+
+      this.chordsTargets.forEach(chords => {
+        const chord = template.cloneNode(true)
+        chord.dataset.instrument = chords.dataset.instrument
+        chords.appendChild(chord)
+      })
+    })
   }
 
   get source() {
@@ -34,7 +39,7 @@ export default class extends Controller {
   }
 
   get format() {
-    return detectFormat(this.source);
+    return detectFormat(this.source)
   }
 
   // Return names of chords used
@@ -59,6 +64,6 @@ const HEURISTICS = {
 
 function detectFormat(source) {
   for(const name in HEURISTICS) {
-    if(source.match(HEURISTICS[name])) return name;
+    if(source.match(HEURISTICS[name])) return name
   }
 }

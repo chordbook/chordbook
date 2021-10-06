@@ -2,6 +2,9 @@ import { Controller } from "@hotwired/stimulus"
 import * as vexchords from "vexchords";
 
 import guitar from '@tombatossals/chords-db/lib/guitar.json';
+import ukulele from '@tombatossals/chords-db/lib/ukulele.json';
+
+const instruments = window.instruments = {guitar, ukulele}
 
 const keyAliases = {
   "Asharp": "Bb",
@@ -22,6 +25,7 @@ export default class extends Controller {
   connect() {
     this.chord = this.find(this.name)
     if(this.chord) {
+      this.position = this.chord.positions[this.element.dataset.position || 0]
       this.nameTarget.innerText = this.name
       this.diagramTarget.replaceChildren(this.generate())
     } else {
@@ -33,11 +37,19 @@ export default class extends Controller {
 
   generate() {
     const el = document.createElement('div');
-    vexchords.draw(el, { chord: this.fingerings }, {
+
+    vexchords.draw(el, {
+      chord: this.fingerings,
+      position: this.position.baseFret,
+      barres: this.barres
+    }, {
+      numStrings: this.instrument.main.strings,
+      numFrets: 4,
       showTuning: false,
       width: 50,
-      height: 60,
+      height: 65,
     });
+
     return el.children[0];
   }
 
@@ -45,14 +57,26 @@ export default class extends Controller {
     return this.element.dataset.name;
   }
 
+  get instrument() {
+    return instruments[this.element.dataset.instrument || "guitar"]
+  }
+
   get fingerings() {
-    let string = 1;
-    return this.frets.map(fret => [string++, fret >= 0 ? fret : 'x'])
+    let string = this.instrument.main.strings
+    return this.position.frets.map(fret => [string--, fret >= 0 ? fret : 'x'])
+  }
+
+  get barres() {
+    return this.position.barres.map(fret => {
+      const fromString = this.instrument.main.strings - this.position.frets.findIndex(f => f >= fret);
+      const toString = this.position.frets.slice().reverse().findIndex(f => f >= fret) + 1
+      return { fret, fromString, toString }
+    })
   }
 
   get frets() {
     // Return copy of frets reversed
-    return this.chord.positions[0].frets.slice().reverse()
+    return this.position.frets.slice().reverse()
   }
 
   find(name) {
@@ -66,6 +90,6 @@ export default class extends Controller {
     key = keyAliases[key] || key
     suffix = aliases[suffix] || suffix
 
-    return guitar.chords[key].find(chord => chord.suffix == suffix)
+    return this.instrument.chords[key].find(chord => chord.suffix == suffix)
   }
 }

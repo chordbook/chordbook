@@ -1,12 +1,24 @@
 
 <!-- FIXME: make sticky -->
 <div id="chords" class="absolute right-12 top-12">
- <div data-songsheet-target="chords" class="grid grid-flow-row p-2 bg-gray-100 border rounded-lg overflow-auto shadow">
-    <template>
-      <div data-controller="chord" class="text-center">
-        <div data-chord-target="name"></div>
-        <div data-chord-target="diagram" class="inline-block"></div>
+  <div class="grid grid-flow-row grid-cols-2 gap-4">
+    <% ["guitar", "ukulele"].each do |instrument| %>
+      <div data-songsheet-target="chords" data-instrument="<%= instrument %>" class="grid grid-flow-row p-2 bg-gray-100 border rounded-lg overflow-auto shadow">
+        <template>
+          <div data-controller="chord" class="text-center">
+            <div data-chord-target="name"></div>
+            <div data-chord-target="diagram" class="inline-block"></div>
+          </div>
+        </template>
+        <div class="text-xs uppercase text-center text-gray-500 mb-2"><%= instrument %></div>
+
+
+          <div data-controller="chord" data-name="Dsus2" data-position="3" class="text-center">
+            <div data-chord-target="name"></div>
+            <div data-chord-target="diagram" class="inline-block"></div>
+          </div>
+
       </div>
-    </template>
+    <% end %>
   </div>
 </div>
