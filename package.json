@@ -14,6 +14,7 @@
     "autoprefixer": "^9",
     "chordsheetjs": "^4.7.1",
     "daisyui": "^1.14.2",
+    "heroicons": "^1.0.4",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "tailwindcss-multi-column": "^1.0.2",

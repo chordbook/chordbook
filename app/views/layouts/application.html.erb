@@ -11,21 +11,23 @@
   </head>
 
   <body>
-    <div class="flex flex-col h-screen">
-      <header class="p-4 bg-green-400">
-        <div class="container flex mx-auto content-center">
-          <h1 class="flex-grow">
-            <%= link_to "Song Book", root_url %>
-          </h1>
+    <%= with_icon_sprite do %>
+      <div class="flex flex-col h-screen">
+        <header class="py-4 bg-gray-800 text-white">
+          <div class="container flex mx-auto">
+            <h1 class="flex-grow">
+              <%= link_to "Song Book", root_url %>
+            </h1>
 
-          <div>
-            <%= link_to "Add Song", new_songsheet_path, class: "btn" %>
+            <div>
+              <%= link_to "Add Song", new_songsheet_path, class: "btn btn-primary" %>
+            </div>
           </div>
-        </div>
-      </header>
-      <main class="flex-grow overflow-auto">
-        <%= yield %>
-      </main>
-    </div>
+        </header>
+        <main class="flex-grow overflow-auto">
+          <%= yield %>
+        </main>
+      </div>
+    <% end %>
   </body>
 </html>

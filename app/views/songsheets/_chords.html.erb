@@ -1,4 +1,7 @@
-  <div data-songsheet-target="chords" class="grid grid-flow-col auto-cols-max justify-center p-2 bg-gray-50 border-t">
+
+<!-- FIXME: make sticky -->
+<div id="chords" class="absolute right-12 top-12">
+ <div data-songsheet-target="chords" class="grid grid-flow-row p-2 bg-gray-100 border rounded-lg overflow-auto shadow">
     <template>
       <div data-controller="chord" class="text-center">
         <div data-chord-target="name"></div>
@@ -6,3 +9,4 @@
       </div>
     </template>
   </div>
+</div>

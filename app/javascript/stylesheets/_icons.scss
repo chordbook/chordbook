@@ -1,0 +1,47 @@
+.icon {
+  display: inline-block;
+  stroke: currentColor;
+  fill: transparent;
+  width: 24px;
+  height: 24px;
+}
+
+.icon-small {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-medium {
+  width: 32px;
+  height: 32px;
+}
+
+.icon-large {
+  width: 50px;
+  height: 50px;
+}
+
+.icon-xlarge {
+  width: 60px;
+  height: 60px;
+}
+
+.icon-fill, .icon-fill-hover:hover {
+  fill: currentcolor;
+}
+
+.icon-shadow {
+  -webkit-filter: drop-shadow( 1px 2px 2px rgba(0, 0, 0, .4));
+  filter: drop-shadow( 1px 2px 2px rgba(0, 0, 0, .4));
+}
+
+svg {
+  // Use current color as fill color
+  &[fill*='#'], *[fill*='#'] { fill: currentcolor; }
+
+  // Use current color as stroke color
+  &[stroke*='#'], *[stroke*='#'] { stroke: currentcolor; }
+
+  // Allow filling shapes with fill explicitly set to none
+  &[fill=none], *[fill=none] { fill: inherit; }
+}

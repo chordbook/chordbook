@@ -4,12 +4,46 @@
 
 @import "base";
 @import "songsheet";
+@import "icons";
 
 .btn {
-  @apply inline-block px-3 py-2 text-sm font-semibold text-center
-    text-white uppercase transition
-    duration-200 ease-in-out
-    bg-green-500 rounded-md
-    cursor-pointer
-    hover:bg-green-600;
+  @apply inline-block px-3 py-2 text-sm font-semibold text-center uppercase
+    transition duration-200 ease-in-out rounded-md cursor-pointer shadow-sm hover:shadow-md;
+}
+
+.btn-small {
+  @apply text-xs px-2 py-1 rounded #{!important};
+}
+
+.btn-primary {
+  @apply text-white bg-green-500 hover:bg-green-600;
+}
+
+.btn-muted {
+  @apply bg-gray-100 border border-gray-300;
+}
+
+.toggle {
+  @apply flex text-sm text-center transition duration-200 ease-in-out rounded overflow-hidden;
+
+  input[type="radio"], input[type="checkbox"] { @apply hidden-input; }
+
+  label { @apply inline-block p-1; }
+  input[type="radio"]:checked + label, input[type="checkbox"]:checked + label {
+    @apply bg-gray-200 shadow-inner shadow-sm;
+  }
+}
+
+.hidden-input {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+
+  & + label {
+    // border: 1px solid transparent;
+  }
+
+  &:checked + .hidden-input-label {
+    // border: 1px solid $tab-item-active-border;
+  }
 }
