@@ -34,6 +34,7 @@ module IconHelper
     sprite = Nokogiri::XML::Node.new("svg", Nokogiri::XML::Document.new)
     sprite.default_namespace = "http://www.w3.org/2000/svg"
     sprite["style"] = "display: none"
+    sprite["class"] = "icons"
 
     icons_to_render.each do |id, path|
       svg = Nokogiri::XML::Document.parse(File.read(path)).children.first
