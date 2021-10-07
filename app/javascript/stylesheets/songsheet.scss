@@ -6,6 +6,12 @@ h1, h2, h3, h4, h5, h6 {
   counter-reset: verse;
 }
 
+h1, h2 {
+  & + .chord-sheet {
+    @apply mt-8;
+  }
+}
+
 .paragraph {
   break-inside: avoid;
 }
