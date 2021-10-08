@@ -1,17 +1,17 @@
 <form class="container mx-auto" name="settings" data-controller="localstorage" data-action="input->localstorage#save">
   <div class="grid grid-flow-col auto-cols-max divide-x items-center">
     <div class="pr-3 hidden lg:block">
-      <div class="flex" data-controller="toggle" data-target=".chord-sheet">
+      <div class="flex" data-controller="toggle" data-target="#output">
         <div class="toggle">
-          <input id="settings-columns-1" type="radio" name="columns" value="1" data-toggle-target="input" data-action="toggle#classes">
+          <input id="settings-columns-1" type="radio" name="columns" value="1" data-toggle-target="input" data-action="toggle#classes" data-toggle-classes="container mx-auto">
           <label for="settings-columns-1">
-            <%= icon_tag "document" %>
+            <%= icon_tag "file" %>
           </label>
         </div>
         <div class="toggle">
-          <input id="settings-columns-2" type="radio" name="columns" value="2" checked data-toggle-target="input" data-action="toggle#classes" data-toggle-classes="lg:col-count-2">
+          <input id="settings-columns-2" type="radio" name="columns" value="2" checked data-toggle-target="input" data-action="toggle#classes" data-toggle-classes="horizontal-columns gap-0 p-12 overflow-x-auto h-full">
           <label for="settings-columns-2">
-            <%= icon_tag "book-open" %>
+            <%= icon_tag "layout-three-columns" %>
           </label>
         </div>
       </div>

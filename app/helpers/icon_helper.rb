@@ -55,6 +55,7 @@ module IconHelper
   # Paths to search for icons
   ICON_SOURCES = [
     "app/icons",
+    "node_modules/bootstrap-icons/icons",
     "node_modules/heroicons/outline",
   ]
 

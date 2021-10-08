@@ -22,6 +22,9 @@ export default class extends Controller {
     this.song = this.constructor.parsers[this.format].parse(this.source)
     this.outputTarget.innerHTML = new ChordSheetJS.HtmlDivFormatter().format(this.song)
 
+    // Set column width to width of rendered output
+    document.documentElement.style.setProperty('--column-width', this.outputTarget.clientWidth + "px")
+
     this.chords.forEach(chord => {
       const template = this.chordTemplate.content.cloneNode(true).firstElementChild
       template.dataset.name = chord

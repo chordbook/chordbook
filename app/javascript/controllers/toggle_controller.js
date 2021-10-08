@@ -17,7 +17,7 @@ export default class extends Controller {
 
     this.inputTargets.forEach(input => {
       if(input.dataset.toggleClasses) {
-        (input.checked ? classesToAdd : classesToRemove).push(input.dataset.toggleClasses)
+        (input.checked ? classesToAdd : classesToRemove).push(...input.dataset.toggleClasses.split(" "))
       }
     })
 

@@ -2,11 +2,19 @@ h1, h2, h3, h4, h5, h6 {
   column-span: all
 }
 
+.horizontal-columns {
+  column-count: auto;
+  column-width: var(--column-width);
+  column-fill: auto;
+}
+
 .chord-sheet {
   counter-reset: verse;
 }
 
 h1, h2 {
+  column-span: all;
+
   & + .chord-sheet {
     @apply mt-8;
   }
@@ -22,8 +30,9 @@ h1, h2 {
 
 .row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   position: relative;
+  break-inside: avoid;
 }
 
 .column {
@@ -34,7 +43,6 @@ h1, h2 {
 .comment {
   font-weight: bold;
   font-style: italic;
-  font-size: 1rem;
 }
 
 .chord, .lyrics {
@@ -45,7 +53,6 @@ h1, h2 {
 
 .chord {
   flex-grow: 1;
-  font-size: 1rem;
   color: #036;
 
   &:not(:last-child) {

@@ -4,10 +4,10 @@
     <%= render "settings" %>
   </div>
 
-  <div class="flex-grow overflow-auto relative">
-    <div class="container mx-auto py-12">
-      <%= render "chords" %>
-      <div id="output" data-songsheet-target="output"></div>
+  <div class="flex-grow overflow-auto relative h-full">
+    <%= render "chords" %>
+    <div id="output" class="py-12 z-0 relative">
+      <div class="inline-block" data-songsheet-target="output"></div>
     </div>
   </div>
 </div>
