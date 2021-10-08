@@ -6,7 +6,11 @@
     @apply text-xl;
   }
 
-  input[type=text], textarea {
+  .input-transparent {
+    @apply border-none focus:ring focus:ring-indigo-300 focus:ring-opacity-50 focus:ring-inset
+  }
+
+  .input-text {
     @apply rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
   }
 }

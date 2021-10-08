@@ -1,14 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
 import ChordSheetJS from "chordsheetjs"
+import detectFormat from "../lib/detect_format"
 
 export default class extends Controller {
   static targets = ["source", "output", "chords"]
-
-  static parsers = {
-    chordpro: new ChordSheetJS.ChordProParser(),
-    chordsheet: new ChordSheetJS.ChordSheetParser({preserveWhitespace: false}),
-    ultimate: new ChordSheetJS.UltimateGuitarParser({preserveWhitespace: false}),
-  }
 
   connect() {
     this.render()
@@ -19,7 +14,7 @@ export default class extends Controller {
   }
 
   render() {
-    this.song = this.constructor.parsers[this.format].parse(this.source)
+    this.song = this.format.parse(this.source)
     this.outputTarget.innerHTML = new ChordSheetJS.HtmlDivFormatter().format(this.song)
 
     // Set column width to width of rendered output
@@ -56,17 +51,5 @@ export default class extends Controller {
       })
     })
     return chords
-  }
-}
-
-const HEURISTICS = {
-  ultimate: /\[(Verse.*|Chorus)\]/i,
-  chordpro: /{\w+:.*|\[[A-G].*\]/i,
-  chordsheet: /.*/
-}
-
-function detectFormat(source) {
-  for(const name in HEURISTICS) {
-    if(source.match(HEURISTICS[name])) return name
   }
 }

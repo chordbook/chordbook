@@ -1,8 +1,8 @@
 <%= form_with model: songsheet,
-              class: "flex flex-col h-full",
-              data: { controller: "songsheet" } do |form| %>
-  <div class="h-full overflow-auto flex-grow grid grid-cols-2">
-    <div class="p-10">
+              class: "h-full",
+              data: { controller: "songsheet editor" } do |form| %>
+  <div class="h-full overflow-hidden flex-grow grid grid-cols-2 divide-x divide-solid divide-gray-300">
+    <div class="h-full flex flex-col divide-y divide-solid divide-gray-300"">
       <% if songsheet.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(songsheet.errors.count, "error") %> prohibited this songsheet from being saved:</h2>
@@ -15,27 +15,31 @@
         </div>
       <% end %>
 
-      <div class="grid my-2">
-        <%= form.label :title, class: "w-25" %>
-        <%= form.text_field :title %>
+      <div class="">
+        <%= form.text_field :title, placeholder: "Title", class: "input-transparent w-full px-8 py-4" %>
       </div>
-      <div class="grid my-2">
-        <%= form.label :subtitle %>
-        <%= form.text_field :subtitle %>
+      <div class="">
+        <%= form.text_field :subtitle, placeholder: "Subtitle", class: "input-transparent w-full px-8 py-4" %>
       </div>
-      <div class="my-2">
-        <%= form.label :body %>
-        <%= form.text_area :body, rows: 10, class: "w-full", data: { songsheet_target: "source", action: "keyup->songsheet#render" } %>
+      <div class="flex-grow">
+        <%= form.text_area :body, rows: 10, class: "w-full h-full input-transparent px-8 py-4",
+          data: { songsheet_target: "source", editor_target: "body", action: "keyup->songsheet#render paste->editor#paste" } %>
+      </div>
+      <div class="px-8 py-3 bg-gray-100 text-gray-600 flex gap-6 items-center">
+        <div class="flex-grow">
+          <%= link_to "Delete", songsheet, method: :delete, class: "text-red-600",
+            data: { confirm: "Are you sure?" } if songsheet.persisted? %>
+        </div>
+
+        <div><%= link_to "Cancel", songsheet %></div>
+        <div><%= form.submit "Save", class: "btn btn-primary" %></div>
       </div>
     </div>
 
     <div class="p-10 h-full overflow-auto">
+      <h2 class="text-center uppercase text-gray-400">Preview</h2>
       <div data-songsheet-target="output"></div>
       <%= render "chords" %>
     </div>
-  </div>
-
-  <div class="w-full p-4 sticky bottom">
-    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>
