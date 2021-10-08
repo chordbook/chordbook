@@ -15,15 +15,22 @@
         </div>
       <% end %>
 
+      <%= form.hidden_field :metadata, data: { editor_target: "metadata" } %>
+
       <div class="">
-        <%= form.text_field :title, placeholder: "Title", class: "input-transparent w-full px-8 py-4" %>
+        <%= form.text_field :title, placeholder: "Title", class: "input-transparent w-full px-8 py-4",
+            data: { editor_target: "title" } %>
       </div>
       <div class="">
-        <%= form.text_field :subtitle, placeholder: "Subtitle", class: "input-transparent w-full px-8 py-4" %>
+        <%= form.text_field :subtitle, placeholder: "Subtitle", class: "input-transparent w-full px-8 py-4",
+            data: { editor_target: "subtitle" } %>
       </div>
       <div class="flex-grow">
         <%= form.text_area :body, rows: 10, class: "w-full h-full input-transparent px-8 py-4",
-          data: { songsheet_target: "source", editor_target: "body", action: "keyup->songsheet#render paste->editor#paste" } %>
+          data: {
+              songsheet_target: "source",
+              editor_target: "body",
+              action: "input->songsheet#render input->editor#update paste->editor#paste" } %>
       </div>
       <div class="px-8 py-3 bg-gray-100 text-gray-600 flex gap-6 items-center">
         <div class="flex-grow">
