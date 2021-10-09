@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Chords</title>
+    <title>Chord Book</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,9 +14,11 @@
     <%= with_icon_sprite do %>
       <div class="lg:flex lg:flex-col lg:h-screen">
         <header class="py-4 bg-gray-800 text-white">
-          <div class="container flex mx-auto">
+          <div class="container flex mx-auto items-center">
             <h1 class="flex-grow">
-              <%= link_to "Song Book", root_url %>
+              <%= link_to root_url, class: "font-semibold" do %>
+                <%= image_tag "logo.svg", alt: "Chord Book" %>
+              <% end %>
             </h1>
 
             <div>
