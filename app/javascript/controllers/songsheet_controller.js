@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
-import ChordSheetJS from "chordsheetjs"
 import detectFormat from "../lib/detect_format"
+import ChordSheetFormatter  from "../lib/chord_sheet_formatter"
 
 export default class extends Controller {
   static targets = ["source", "output", "chords"]
@@ -15,7 +15,7 @@ export default class extends Controller {
 
   render() {
     this.song = this.format.parse(this.source)
-    this.outputTarget.innerHTML = new ChordSheetJS.HtmlDivFormatter().format(this.song)
+    this.outputTarget.innerHTML = new ChordSheetFormatter().format(this.song)
 
     // Set column width to width of rendered output
     document.documentElement.style.setProperty('--column-width', this.outputTarget.clientWidth + "px")
