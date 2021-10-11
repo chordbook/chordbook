@@ -30,7 +30,7 @@ h1, h2 {
 
 .row {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   position: relative;
   break-inside: avoid;
 }

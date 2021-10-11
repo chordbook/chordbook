@@ -1,4 +1,4 @@
-<form class="container mx-auto" name="settings" data-controller="localstorage" data-action="input->localstorage#save">
+<form class="2xl-container mx-auto md:px-8 lg:px-12" name="settings" data-controller="localstorage" data-action="input->localstorage#save">
   <div class="grid grid-flow-col auto-cols-max divide-x items-center">
     <div class="pr-3 hidden lg:block">
       <div class="flex" data-controller="toggle" data-target="#output">
@@ -9,7 +9,7 @@
           </label>
         </div>
         <div class="toggle">
-          <input id="settings-columns-2" type="radio" name="columns" value="2" checked data-toggle-target="input" data-action="toggle#classes" data-toggle-classes="horizontal-columns gap-0 p-12 overflow-x-auto h-full">
+          <input id="settings-columns-2" type="radio" name="columns" value="2" checked data-toggle-target="input" data-action="toggle#classes" data-toggle-classes="horizontal-columns gap-0 p-6 md:p-8 lg:p-12 overflow-x-auto h-full">
           <label for="settings-columns-2">
             <%= icon_tag "layout-three-columns" %>
           </label>

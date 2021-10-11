@@ -13,16 +13,20 @@
   <body>
     <%= with_icon_sprite do %>
       <div class="lg:flex lg:flex-col lg:h-screen">
-        <header class="py-4 bg-gray-800 text-white">
-          <div class="container flex mx-auto items-center">
+        <header class="p-4 md:px-8 lg:px-12 bg-gray-800 text-white">
+          <div class="2xl:container flex mx-auto items-center mx-auto">
             <h1 class="flex-grow">
-              <%= link_to root_url, class: "font-semibold" do %>
-                <%= image_tag "logo.svg", alt: "Chord Book" %>
+              <%= link_to root_url, class: "font-semibold flex items-center" do %>
+                <%= icon_tag "journal", class: "text-green-500 mr-3" %>
+                <span class="uppercase">Chord Book</span>
               <% end %>
             </h1>
 
             <div>
-              <%= link_to "Add Song", new_songsheet_path, class: "btn btn-primary" %>
+              <%= link_to new_songsheet_path, class: "btn btn-primary btn-small" do %>
+                <%= icon_tag "journal-plus", class: "small" %>
+                <span class="hidden sm:inline ml-2">Add Song</span>
+              <% end %>
             </div>
           </div>
         </header>
