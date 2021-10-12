@@ -2,8 +2,8 @@
 (
   [
     root_url,
-    asset_path("icon@192"),
-    asset_path("icon@512")
+    asset_path("icon@192.png"),
+    asset_path("icon@512.png")
   ] +
   Songsheet.all.map { |songsheet| songsheet_url(songsheet) }
 ).to_json.html_safe
