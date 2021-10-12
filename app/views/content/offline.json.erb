@@ -1,0 +1,10 @@
+<%=
+(
+  [
+    root_url,
+    asset_path("icon@192"),
+    asset_path("icon@512")
+  ] +
+  Songsheet.all.map { |songsheet| songsheet_url(songsheet) }
+).to_json.html_safe
+%>

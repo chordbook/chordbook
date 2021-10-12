@@ -1,5 +1,9 @@
 class ContentController < ActionController::Base
   def manifest
     render format: :json
-  en
+  end
+
+  def offline
+    render format: :json
+  end
 end
