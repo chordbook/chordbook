@@ -53,7 +53,7 @@ h1, h2 {
 
 .chord {
   flex-grow: 1;
-  color: #036;
+  @apply text-blue-900 dark:text-white;
 
   &:not(:last-child) {
     padding-right: 0.5rem;

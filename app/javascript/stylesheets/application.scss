@@ -21,7 +21,7 @@
   }
 
   .btn-muted {
-    @apply bg-gray-100 border border-gray-300;
+    @apply bg-gray-100 dark:bg-transparent border border-gray-300 dark:border-gray-400 dark:text-gray-300;
   }
 
   .toggle {
@@ -31,7 +31,7 @@
 
     label { @apply inline-block p-1; }
     input[type="radio"]:checked + label, input[type="checkbox"]:checked + label {
-      @apply bg-gray-200 shadow-inner shadow-sm;
+      @apply bg-gray-200 dark:bg-gray-800 dark:text-gray-400 shadow-inner shadow-sm;
     }
   }
 
@@ -39,13 +39,5 @@
     position: fixed;
     opacity: 0;
     pointer-events: none;
-
-    & + label {
-      // border: 1px solid transparent;
-    }
-
-    &:checked + .hidden-input-label {
-      // border: 1px solid $tab-item-active-border;
-    }
   }
 }
