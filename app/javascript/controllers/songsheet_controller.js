@@ -1,24 +1,24 @@
-import { Controller } from "@hotwired/stimulus"
-import detectFormat from "../lib/detect_format"
-import ChordSheetFormatter  from "../lib/chord_sheet_formatter"
+import { Controller } from '@hotwired/stimulus'
+import detectFormat from '../lib/detect_format'
+import ChordSheetFormatter from '../lib/chord_sheet_formatter'
 
 export default class extends Controller {
-  static targets = ["source", "output", "chords"]
+  static targets = ['source', 'output', 'chords']
 
-  connect() {
+  connect () {
     this.render()
   }
 
-  initialize() {
+  initialize () {
     this.chordTemplate = this.chordsTarget.querySelector('template')
   }
 
-  render() {
+  render () {
     this.song = this.format.parse(this.source)
     this.outputTarget.innerHTML = new ChordSheetFormatter().format(this.song)
 
     // Set column width to width of rendered output
-    document.documentElement.style.setProperty('--column-width', this.outputTarget.clientWidth + "px")
+    document.documentElement.style.setProperty('--column-width', this.outputTarget.clientWidth + 'px')
 
     this.chords.forEach(chord => {
       const template = this.chordTemplate.content.cloneNode(true).firstElementChild
@@ -32,20 +32,20 @@ export default class extends Controller {
     })
   }
 
-  get source() {
+  get source () {
     return this.sourceTarget.value || this.sourceTarget.innerHTML
   }
 
-  get format() {
+  get format () {
     return detectFormat(this.source)
   }
 
   // Return names of chords used
-  get chords() {
-    let chords = []
+  get chords () {
+    const chords = []
     this.song.lines.forEach(line => {
       line.items.forEach(item => {
-        if(item.chords && chords.indexOf(item.chords) == -1) {
+        if (item.chords && !chords.includes(item.chords)) {
           chords.push(item.chords)
         }
       })

@@ -27,7 +27,15 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@babel/eslint-parser": "^7.15.8",
     "standard": "^16.0.4",
     "webpack-dev-server": "^3"
+  },
+  "scripts": {
+    "lint": "standard --env browser app/javascript"
+  },
+  "standard": {
+    "env": "browser",
+    "parser": "@babel/eslint-parser"
   }
 }

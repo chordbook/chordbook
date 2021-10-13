@@ -1,5 +1,5 @@
-import Handlebars from "handlebars"
-import "chordsheetjs/lib/handlebars_helpers";
+import Handlebars from 'handlebars'
+import 'chordsheetjs/lib/handlebars_helpers'
 
 const template = Handlebars.compile(`
 {{~#with song~}}
@@ -45,7 +45,7 @@ const template = Handlebars.compile(`
 
 // Custom HTML formatter for chordsheets
 export default class ChordSheetFormatter {
-  format(song) {
-    return template({ song }, { allowProtoPropertiesByDefault: true });
+  format (song) {
+    return template({ song }, { allowProtoPropertiesByDefault: true })
   }
 }
