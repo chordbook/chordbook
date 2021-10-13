@@ -27,6 +27,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "standard": "^16.0.4",
     "webpack-dev-server": "^3"
   }
 }
