@@ -47,6 +47,8 @@ default: &default
     - .jpeg
     - .jpg
 
+  service_workers_entry_path: service_workers
+
 development:
   <<: *default
   compile: true

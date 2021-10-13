@@ -22,10 +22,12 @@
     "turbolinks": "^5.2.0",
     "vexchords": "^1.2.0",
     "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "webpack-cli": "^3.3.12",
+    "webpacker-pwa": "^0.1.2"
   },
   "version": "0.1.0",
   "devDependencies": {
+    "standard": "^16.0.4",
     "webpack-dev-server": "^3"
   }
 }

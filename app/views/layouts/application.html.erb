@@ -8,6 +8,8 @@
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="<%= asset_path "icon@192.png" %>">
   </head>
 
   <body>
@@ -17,7 +19,7 @@
           <div class="2xl:container flex mx-auto items-center mx-auto">
             <h1 class="flex-grow">
               <%= link_to root_url, class: "font-semibold flex items-center" do %>
-                <%= icon_tag "journal", class: "text-green-500 mr-3" %>
+                <%= icon_tag "journal-text", class: "text-green-500 mr-3" %>
                 <span class="uppercase">Chord Book</span>
               <% end %>
             </h1>

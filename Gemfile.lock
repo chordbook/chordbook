@@ -195,6 +195,9 @@ GEM
       rack-proxy (>= 0.6.1)
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
+    webpacker-pwa (0.1.0)
+      rack-proxy (>= 0.6.1)
+      webpacker (>= 4.0.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -226,6 +229,7 @@ DEPENDENCIES
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)
+  webpacker-pwa (~> 0.1.0)
 
 RUBY VERSION
    ruby 3.0.2p107
