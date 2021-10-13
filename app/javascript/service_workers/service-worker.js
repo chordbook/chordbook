@@ -11,20 +11,10 @@ self.addEventListener('install', async event => {
     caches.open(CACHES.prefetch).then(async cache => {
       const urlsToPrefetch = await fetch('/offline.json').then(response => response.json())
 
-      await Promise.all(urlsToPrefetch.map(async urlToPrefetch => {
-        const url = new URL(urlToPrefetch, location.href)
-        const request = new Request(url, { mode: 'no-cors' })
-
-        const response = await fetch(request)
-
-        if (response.status >= 400) {
-          throw new Error(`request for ${urlToPrefetch} failed:`, response.statusText)
-        }
-
-        cache.put(request, response)
-      }))
-
-      console.log('Pre-fetching complete.')
+      return cache.addAll(urlsToPrefetch).then(() => {
+        console.log('Pre-fetching complete.')
+        self.skipWaiting()
+      })
     }).catch(function (error) {
       console.error('Pre-fetching failed:', error)
     })
@@ -40,9 +30,9 @@ self.addEventListener('activate', event => {
       if (!Object.values(CACHES).includes(cacheName)) {
         console.log('Deleting out of date cache:', cacheName)
         return caches.delete(cacheName)
+      } else {
+        return Promise.resolve()
       }
-
-      return Promise.resolve()
     }))
   }))
 })
