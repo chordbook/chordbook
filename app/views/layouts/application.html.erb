@@ -10,13 +10,15 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="<%= asset_path "icon@192.png" %>">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   </head>
 
-  <body>
+  <body class="bg-gray-800">
     <%= with_icon_sprite do %>
-      <div class="lg:flex lg:flex-col lg:h-screen">
-        <header class="p-4 md:px-8 lg:px-12 bg-gray-800 text-white">
-          <div class="2xl:container flex mx-auto items-center mx-auto">
+      <div class="flex flex-col h-screen">
+        <header class="p-4 md:px-8 lg:px-12 text-white">
+          <div class="2xl:container sticky flex items-center mx-auto">
             <h1 class="flex-grow">
               <%= link_to root_url, class: "font-semibold flex items-center" do %>
                 <%= icon_tag "journal-text", class: "text-green-500 mr-3" %>
@@ -32,7 +34,7 @@
             </div>
           </div>
         </header>
-        <main class="flex-grow overflow-auto dark:bg-gray-800 dark:text-gray-200">
+        <main class="bg-white flex-grow overflow-auto dark:bg-gray-800 dark:text-gray-200">
           <%= yield %>
         </main>
       </div>
