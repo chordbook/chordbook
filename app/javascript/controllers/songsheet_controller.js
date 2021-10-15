@@ -18,7 +18,9 @@ export default class extends Controller {
     this.outputTarget.innerHTML = new ChordSheetFormatter().format(this.song)
 
     // Set column width to width of rendered output
-    document.documentElement.style.setProperty('--column-width', this.outputTarget.clientWidth + 'px')
+    this.outputTarget.style.width = 'max-content'
+    document.documentElement.style.setProperty('--column-width', this.outputTarget.offsetWidth + 'px')
+    this.outputTarget.style.removeProperty('width')
 
     this.chords.forEach(chord => {
       const template = this.chordTemplate.content.cloneNode(true).firstElementChild

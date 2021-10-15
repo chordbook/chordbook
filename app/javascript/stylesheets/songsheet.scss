@@ -8,6 +8,12 @@ h1, h2, h3, h4, h5, h6 {
   column-fill: auto;
 }
 
+.single-column {
+  .row {
+    flex-wrap: wrap;
+  }
+}
+
 .chord-sheet {
   counter-reset: verse;
 }
@@ -30,7 +36,7 @@ h1, h2 {
 
 .row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   position: relative;
   break-inside: avoid;
 }
@@ -43,6 +49,7 @@ h1, h2 {
 .comment {
   font-weight: bold;
   font-style: italic;
+  break-after: avoid;
 }
 
 .chord, .lyrics {

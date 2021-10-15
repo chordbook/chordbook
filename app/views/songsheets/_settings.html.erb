@@ -3,13 +3,13 @@
     <div class="pr-3">
       <div class="flex" data-controller="toggle" data-target="#output">
         <div class="toggle">
-          <input id="settings-columns-1" type="radio" name="columns" value="1" data-toggle-target="input" data-action="toggle#classes" data-toggle-classes="container mx-auto">
+          <input id="settings-columns-1" type="radio" name="columns" value="1" data-toggle-target="input" data-action="toggle#classes" data-toggle-classes="container mx-auto single-column">
           <label for="settings-columns-1">
             <%= icon_tag "file" %>
           </label>
         </div>
         <div class="toggle">
-          <input id="settings-columns-2" type="radio" name="columns" value="2" checked data-toggle-target="input" data-action="toggle#classes" data-toggle-classes="horizontal-columns gap-0 p-6 md:p-8 lg:p-12 overflow-x-auto h-full">
+          <input id="settings-columns-2" type="radio" name="columns" value="2" checked data-toggle-target="input" data-action="toggle#classes" data-toggle-classes="horizontal-columns overflow-x-auto h-full gap-x-2">
           <label for="settings-columns-2">
             <%= icon_tag "layout-three-columns" %>
           </label>
