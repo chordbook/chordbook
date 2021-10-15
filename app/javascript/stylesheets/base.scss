@@ -7,7 +7,7 @@
   }
 
   .input-transparent {
-    @apply border-none focus:ring focus:ring-indigo-300 focus:ring-opacity-50 focus:ring-inset
+    @apply border-none focus:ring focus:ring-indigo-300 focus:ring-opacity-50 focus:ring-inset bg-transparent
   }
 
   .input-text {
