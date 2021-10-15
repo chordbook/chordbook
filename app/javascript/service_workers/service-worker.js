@@ -25,39 +25,52 @@ self.addEventListener('activate', event => {
   clients.claim()
 
   // Delete all old caches
-  event.waitUntil(caches.keys().then(async cacheNames => {
-    return Promise.all(cacheNames.map(cacheName => {
-      if (!Object.values(CACHES).includes(cacheName)) {
-        console.log('Deleting out of date cache:', cacheName)
-        return caches.delete(cacheName)
-      } else {
-        return Promise.resolve()
-      }
-    }))
+  event.waitUntil(caches.keys().then(cacheNames => {
+    return Promise.all(
+      cacheNames.filter(cacheName => !Object.values(CACHES).includes(cacheName))
+        .map(cacheName => {
+          console.log('Deleting out of date cache:', cacheName)
+          return caches.delete(cacheName)
+        })
+    )
   }))
 })
 
 self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request.url).then(async response => {
-      // Return cached response
-      if (response) {
-        console.log('Found response in cache:', response)
-        return response
-      }
-
-      // No response found in cache, fetch from network
-      return fetch(event.request).then(async response => {
-        if (response.status < 400 && event.request.type === 'basic') {
-          console.log('Caching response from network:', response)
-
-          // Cache response
-          const cache = await caches.open(CACHES.readthrough)
-          cache.put(event.request, response.clone())
-        }
-
-        return response
-      })
+  const response = (navigator.onLine ? requestFromNetwork(event) : Promise.reject(new Error('Offline')))
+    .then(response => {
+      event.waitUntil(cacheResponse(event, response.clone()))
+      return response
     })
-  )
+    .catch(() => requestFromCache(event))
+
+  event.respondWith(response)
 })
+
+async function withTimeout (fn, delay = 3000) {
+  const controller = new AbortController()
+  const id = setTimeout(() => controller.abort(), delay)
+
+  const result = await fn(controller.signal)
+  clearTimeout(id)
+  return result
+}
+
+function requestFromNetwork (event, timeout = 1000) {
+  return withTimeout(signal => fetch(event.request, { signal }), timeout)
+}
+
+async function requestFromCache (event) {
+  const response = await caches.match(event.request.url)
+  return response || Promise.reject(new Error(`Not cached: ${event.request.url}`))
+}
+
+async function cacheResponse (event, response) {
+  console.log('Caching response', event.request.url, response)
+  if (response.status < 400 && response.type === 'basic') {
+    const cache = await caches.open(CACHES.readthrough)
+    await cache.put(event.request, response)
+  }
+
+  return response
+}
