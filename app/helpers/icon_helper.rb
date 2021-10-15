@@ -3,14 +3,15 @@ module IconHelper
   def icon_tag(id, options = {})
     path = find_icon(id)
     if path
-      icons_to_render[id] = path
+      svg = Nokogiri::XML::Document.parse(File.read(path)).children.first
+      icons_to_render[id] ||= svg
     else
       raise "Could not find icon #{id.inspect} in:\n#{ICON_SOURCES.join("\n")}"
     end
 
     options = options.with_defaults(
       xmlns: "http://www.w3.org/2000/svg",
-      viewBox: "0 0 20 20",
+      viewBox: svg["viewBox"] || "0 0 20 20",
       role: "image",
       title: id
     )
@@ -36,8 +37,7 @@ module IconHelper
     sprite["style"] = "display: none"
     sprite["class"] = "icons"
 
-    icons_to_render.each do |id, path|
-      svg = Nokogiri::XML::Document.parse(File.read(path)).children.first
+    icons_to_render.each do |id, svg|
       svg.name = "symbol"
       svg["id"] = "icon-#{id}"
       sprite << svg
