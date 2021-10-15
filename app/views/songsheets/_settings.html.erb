@@ -19,9 +19,17 @@
 
     <div class="px-3">
       <div class="toggle" data-controller="toggle" data-target="#chords">
-        <input id="settings-chord-diagram" type="checkbox" name="chord-diagram" checked data-toggle-target="input" data-action="toggle#visibility">
+        <input id="settings-chord-diagram" type="checkbox" name="chord-diagram" data-toggle-target="input" data-action="toggle#visibility">
         <label for="settings-chord-diagram"><%= icon_tag "chord-diagram" %></label>
       </div>
+    </div>
+
+    <div class="px-3">
+      <div class="toggle" data-controller="wakelock">
+        <input id="settings-wakelock" type="checkbox" name="wakelock" data-wakelock-target="toggle" data-action="wakelock#toggle">
+        <label for="settings-wakelock"><%= icon_tag "lightbulb" %></label>
+      </div>
+
     </div>
     <div class="px-3"><%= link_to 'Edit', edit_songsheet_path(@songsheet), class: "btn btn-muted btn-small" %></div>
   </div>
