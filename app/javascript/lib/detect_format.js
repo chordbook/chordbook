@@ -2,12 +2,12 @@ import ChordSheetJS from 'chordsheetjs'
 
 const PARSERS = [
   {
-    pattern: /\[(Verse.*|Chorus)\]/i,
-    parser: new ChordSheetJS.UltimateGuitarParser({ preserveWhitespace: false })
-  },
-  {
     pattern: /{\w+:.*|\[[A-G].*\]/i,
     parser: new ChordSheetJS.ChordProParser()
+  },
+  {
+    pattern: /\[(Verse.*|Chorus)\]/i,
+    parser: new ChordSheetJS.UltimateGuitarParser({ preserveWhitespace: false })
   },
   {
     pattern: /.*/,
