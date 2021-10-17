@@ -14,6 +14,10 @@ const template = Handlebars.compile(`
     <h2>by {{artist}}</h2>
   {{~/if~}}
 
+  {{~#if capo~}}
+    <div class="capo">Capo: {{capo}}</div>
+  {{~/if~}}
+
   <div class="chord-sheet">
     {{~#each paragraphs as |paragraph|~}}
       <div class="{{paragraphClasses paragraph}}">
