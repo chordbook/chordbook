@@ -6,4 +6,8 @@ class ContentController < ActionController::Base
   def offline
     render format: :json
   end
+
+  def tuner
+    render layout: false
+  end
 end

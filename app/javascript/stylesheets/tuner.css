@@ -1,0 +1,160 @@
+html {
+  height: 100%;
+}
+
+body {
+  position: fixed;
+  font-family: sans-serif;
+  color: #2c3e50;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+.notes {
+  margin: auto;
+  width: 400px;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.note {
+  font-size: 90px;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  padding-right: 30px;
+  padding-left: 10px;
+}
+
+.note.active {
+  color: #e74c3c;
+}
+
+.notes-list {
+  overflow: auto;
+  overflow: -moz-scrollbars-none;
+  white-space: nowrap;
+  -ms-overflow-style: none;
+  -webkit-mask-image: -webkit-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0),
+    #fff,
+    rgba(255, 255, 255, 0)
+  );
+}
+
+.notes-list::-webkit-scrollbar {
+  display: none;
+}
+
+.note {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.note span {
+  position: absolute;
+  right: 0.25em;
+  font-size: 40%;
+  font-weight: normal;
+}
+
+.note-sharp {
+  top: 0.3em;
+}
+
+.note-octave {
+  bottom: 0.3em;
+}
+
+.frequency {
+  font-size: 32px;
+}
+
+.frequency span {
+  font-size: 50%;
+  margin-left: 0.25em;
+}
+
+.meter {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 50%;
+  width: 400px;
+  height: 33%;
+  margin: 0 auto 5vh auto;
+}
+
+.meter-pointer {
+  width: 2px;
+  height: 100%;
+  background: #2c3e50;
+  transform: rotate(45deg);
+  transform-origin: bottom;
+  transition: transform 0.5s;
+  position: absolute;
+  right: 50%;
+}
+
+.meter-dot {
+  width: 10px;
+  height: 10px;
+  background: #2c3e50;
+  border-radius: 50%;
+  position: absolute;
+  bottom: -5px;
+  right: 50%;
+  margin-right: -4px;
+}
+
+.meter-scale {
+  width: 1px;
+  height: 100%;
+  transform-origin: bottom;
+  transition: transform 0.2s;
+  box-sizing: border-box;
+  border-top: 10px solid;
+  position: absolute;
+  right: 50%;
+}
+
+.meter-scale-strong {
+  width: 2px;
+  border-top-width: 20px;
+}
+
+.frequency-bars {
+  position: fixed;
+  bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .meter {
+    width: 100%;
+  }
+
+  .notes {
+    width: 100%;
+  }
+}
+
+.swal-button {
+  background: #2c3e50;
+}
+
+.a4 {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+
+.a4 span {
+  color: #e74c3c;
+}
