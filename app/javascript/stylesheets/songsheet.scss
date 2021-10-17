@@ -57,9 +57,17 @@ h1, h2 {
   white-space: pre;
 }
 
+.tab {
+  @apply font-mono text-xs;
+}
+
 .lyrics {}
 
-.chord {
+.capo {
+  @apply text-sm;
+}
+
+*:not(.tab) .chord {
   flex-grow: 1;
   @apply text-blue-900 dark:text-white;
 

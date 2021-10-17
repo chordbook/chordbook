@@ -2020,17 +2020,11 @@ chokidar@^2.1.8:
   optionalDependencies:
     fsevents "^1.2.7"
 
-chordjs@^1.1.1:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/chordjs/-/chordjs-1.2.0.tgz#9b09d6b7840c331c1cb5016084b25aef74f41679"
-  integrity sha512-XolVLJE3zS2d8oHb5otrE4YazVzvrAU37WTStaeyBtChYP8loKdikfOZhMBGTVhRf0oOjCkuAKzv4mkX6VAQ8Q==
-
-chordsheetjs@^4.7.1:
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/chordsheetjs/-/chordsheetjs-4.7.1.tgz#080cec3c0c332601729df01c6eed8d51a773942f"
-  integrity sha512-llfcldnlxbFJek9EE6TXO/kgrd8HUyCY4lpuOGrZ105ENvPgGX2Nn4KJSxPPSPZopdDWeii8tS16J/0N+KcL+g==
+chordsheetjs@^4.10.0:
+  version "4.10.0"
+  resolved "https://registry.yarnpkg.com/chordsheetjs/-/chordsheetjs-4.10.0.tgz#201167b298da5813282f62c3f2080841ba8764d9"
+  integrity sha512-hByEwr72RezP1DX7btV7H41NR3ynwbnSE7/cy1ksx4gpIxQLq5KvbX8iqMtN0mOaGboCP3lJM0Ryzl5hsUaPJg==
   dependencies:
-    chordjs "^1.1.1"
     handlebars "^4.7.6"
 
 chownr@^1.1.1:
