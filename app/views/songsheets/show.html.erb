@@ -1,5 +1,5 @@
 <div data-controller="songsheet" class="h-full flex flex-col">
-  <pre hidden data-songsheet-target="source"><%= @songsheet.body %></pre>
+  <%= text_area_tag nil, @songsheet.body, data: { songsheet_target: "source" }, hidden: true %>
   <div class="border-b border-t border-gray-300 dark:border-gray-900 bg-gray-100 py-2 text-gray-500 dark:bg-gray-700 shadow-md">
     <%= render "settings" %>
   </div>
