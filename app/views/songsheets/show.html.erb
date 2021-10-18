@@ -1,13 +1,1 @@
-<div data-controller="songsheet" class="h-full flex flex-col">
-  <%= text_area_tag nil, @songsheet.body, data: { songsheet_target: "source" }, hidden: true %>
-  <div class="border-b border-t border-gray-300 dark:border-gray-900 bg-gray-100 py-2 text-gray-500 dark:bg-gray-700 shadow-md">
-    <%= render "settings" %>
-  </div>
-
-  <div class="flex-grow overflow-auto relative h-full">
-    <%= render "chords" %>
-    <div id="output" class="z-0 p-4 md:p-8 lg:p-12">
-      <div data-songsheet-target="output"></div>
-    </div>
-  </div>
-</div>
+<%= tag.songsheet source: @songsheet.body %>
