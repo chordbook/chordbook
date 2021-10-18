@@ -7,7 +7,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'vue', 'data-turbolinks-track': 'reload' %>
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="<%= asset_path "icon@192.png" %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,7 +16,7 @@
 
   <body class="bg-gray-800">
     <%= with_icon_sprite do %>
-      <div class="flex flex-col h-screen">
+      <div id="app" class="flex flex-col h-screen">
         <header class="p-4 md:px-8 lg:px-12 text-white">
           <div class="2xl:container sticky flex items-center mx-auto">
             <h1 class="flex-grow">
