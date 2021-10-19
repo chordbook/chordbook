@@ -34,7 +34,7 @@
           </div>
 
           <div class="px-3">
-            <a href="" class="btn btn-muted btn-small">Edit</a>
+            <a :href="edit" class="btn btn-muted btn-small">Edit</a>
           </div>
         </div>
       </div>
@@ -92,7 +92,8 @@ export default {
   },
 
   props: {
-    source: String
+    source: String,
+    edit: String
   },
 
   mounted() {
