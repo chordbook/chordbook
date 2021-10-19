@@ -4,6 +4,10 @@
       <!--<toolbar></toolbar>-->
     </div>
 
+    <svg hidden xmlns="http://www.w3.org/2000/svg">
+      <chord-diagram v-for="chord in chords" :name="chord"/>
+    </svg>
+
     <div class="flex-grow overflow-auto relative h-full">
       <div class="z-0 p-4 md:p-8 lg:p-12">
         <h1 v-if="song.title">{{ song.title }}</h1>
@@ -13,9 +17,13 @@
 
         <div class="chord-sheet">
           <div v-for="paragraph in song.paragraphs" :class="paragraph.type + ' paragraph'">
-            <div v-for="line in paragraph.lines" v-if="line.hasRenderableItems()" class="row">
-              <component v-for="item in line.items" v-if="item.isRenderable()" :is="componentFor(item)" :item="item" />
-            </div>
+            <template v-for="line in paragraph.lines">
+              <div v-if="line.hasRenderableItems()" class="row">
+                <template v-for="item in line.items">
+                  <component v-if="item.isRenderable()" :is="componentFor(item)" :item="item" />
+                </template>
+              </div>
+            </template>
           </div>
         </div>
       </div>
@@ -59,7 +67,9 @@ export default {
     chords() {
       const chords = new Set()
       this.song.lines.forEach(line => {
-        line.items.forEach(pair => chords.add(pair.chords))
+        line.items.forEach(pair => {
+          if(pair.chords) chords.add(pair.chords)
+        })
       })
       return chords
     },
