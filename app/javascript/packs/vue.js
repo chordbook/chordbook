@@ -1,15 +1,14 @@
 import TurbolinksAdapter from 'vue-turbolinks'
-import Vue from 'vue/dist/vue.esm'
-import App from '../app.vue'
+import { createApp } from 'vue/dist/vue.esm-bundler'
 import Songsheet from '../components/songsheet'
-
-Vue.use(TurbolinksAdapter)
-
-Vue.component('songsheet', Songsheet)
+import Chord from '../components/chord'
+import ChordDiagram from '../components/chord-diagram'
 
 document.addEventListener('turbolinks:load', () => {
-  window.app = new Vue({
-    el: '[data-behavior=vue]',
-    components: { App }
-  })
+  const app = createApp({})
+  app.use(TurbolinksAdapter)
+  app.component('songsheet', Songsheet)
+  app.component('chord', Chord)
+  app.component('chord-diagram', ChordDiagram)
+  app.mount('[data-behavior=vue]')
 })
