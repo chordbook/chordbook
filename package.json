@@ -8,7 +8,7 @@
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "5.4.3",
+    "@rails/webpacker": "^6.0.0-rc.5",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
     "@tombatossals/chords-db": "^0.5.1",
@@ -35,7 +35,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.15.8",
     "standard": "^16.0.4",
-    "webpack-dev-server": "^3"
+    "webpack-dev-server": "^4.3.1"
   },
   "scripts": {
     "lint": "standard --env browser app/javascript"
