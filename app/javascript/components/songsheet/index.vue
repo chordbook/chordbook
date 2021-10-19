@@ -1,18 +1,18 @@
 <template>
   <div class="h-full flex flex-col">
     <div class="border-b border-t border-gray-300 dark:border-gray-900 bg-gray-100 py-2 text-gray-500 dark:bg-gray-700 shadow-md">
-      <form class="2xl-container mx-auto md:px-8 lg:px-12" name="settings">
+      <div class="container">
         <div class="grid grid-flow-col auto-cols-max divide-x dark:divide-gray-500 items-center">
           <div class="pr-3">
-            <div class="flex" data-controller="toggle" data-target="#output">
+            <div class="flex">
               <div class="toggle">
-                <input id="settings-columns-1" type="radio" name="columns" value="1" data-toggle-target="input" data-action="toggle#classes" data-toggle-classes="container mx-auto single-column">
+                <input id="settings-columns-1" type="radio" name="columns" v-model="columns" value="1">
                 <label for="settings-columns-1">
                   1
                 </label>
               </div>
               <div class="toggle">
-                <input id="settings-columns-2" type="radio" name="columns" value="2" checked data-toggle-target="input" data-action="toggle#classes" data-toggle-classes="horizontal-columns overflow-x-auto h-full gap-x-2">
+                <input id="settings-columns-2" type="radio" name="columns" v-model="columns" value="2">
                 <label for="settings-columns-2">
                   2
                 </label>
@@ -37,41 +37,42 @@
             <a href="" class="btn btn-muted btn-small">Edit</a>
           </div>
         </div>
-      </form>
+      </div>
     </div>
-
     <svg hidden xmlns="http://www.w3.org/2000/svg">
       <chord-diagram v-for="chord in chords" :name="chord"/>
     </svg>
 
-    <div class="flex-grow overflow-auto relative h-full">
-      <div class="z-0 p-4 md:p-8 lg:p-12">
-        <div v-if="showChords" class="flex">
-          <div v-for="name in chords" class="text-center">
-            <div>{{ name }}</div>
+    <div class="flex-grow overflow-hidden">
+      <div class="flex flex-col sm:flex-row h-full">
+        <div v-if="showChords" class="flex flex-row sm:flex-col border-b sm:border-r border-gray-200 p-4 overflow-y-auto">
+          <div v-for="name in chords" class="text-center text-sm">
+            <div class="chord">{{ name }}</div>
             <svg class="chord-diagram" xmlns="http://www.w3.org/2000/svg" role="image" :title="name">
               <use :xlink:href="`#chord-${name}`" viewBox="0 0 50 65"></use>
             </svg>
           </div>
         </div>
 
+        <div class="overflow-auto flex-grow h-full">
+          <div :class="'py-4 md:py-8 lg:py-12 ' + (columns == 1 ? 'single-column' : 'horizontal-columns')">
 
+            <h1 v-if="song.title">{{ song.title }}</h1>
+            <h2 v-if="song.subtitle">{{ song.subtitle }}</h2>
+            <h2 v-if="song.artist">by {{ song.artist }}</h2>
+            <div v-if="song.capo">Capo {{ song.capo }}</div>
 
-
-        <h1 v-if="song.title">{{ song.title }}</h1>
-        <h2 v-if="song.subtitle">{{ song.subtitle }}</h2>
-        <h2 v-if="song.artist">by {{ song.artist }}</h2>
-        <div v-if="song.capo">Capo {{ song.capo }}</div>
-
-        <div class="chord-sheet">
-          <div v-for="paragraph in song.paragraphs" :class="paragraph.type + ' paragraph'">
-            <template v-for="line in paragraph.lines">
-              <div v-if="line.hasRenderableItems()" class="row">
-                <template v-for="item in line.items">
-                  <component v-if="item.isRenderable()" :is="componentFor(item)" :item="item" />
+            <div ref="output" class="chord-sheet">
+              <div v-for="paragraph in song.paragraphs" :class="paragraph.type + ' paragraph'">
+                <template v-for="line in paragraph.lines">
+                  <div v-if="line.hasRenderableItems()" class="row">
+                    <template v-for="item in line.items">
+                      <component v-if="item.isRenderable()" :is="componentFor(item)" :item="item" />
+                    </template>
+                  </div>
                 </template>
               </div>
-            </template>
+            </div>
           </div>
         </div>
       </div>
@@ -94,14 +95,13 @@ export default {
     source: String
   },
 
-  // TODO: set colum with after rendering
-  // updated: function() {
-  //   this.$nextTick(() => {
-  //     this.outputTarget.style.width = 'max-content'
-  //     document.documentElement.style.setProperty('--column-width', this.outputTarget.offsetWidth + 'px')
-  //     this.outputTarget.style.removeProperty('width')
-  //   })
-  // }
+  mounted() {
+    this.updateColumnWidth();
+  },
+
+  updated() {
+    this.updateColumnWidth()
+  },
 
   computed: {
     format() {
@@ -125,12 +125,24 @@ export default {
     showChords: {
       get() { return this.$store.state.showChords },
       set(value) { this.$store.commit('update', {showChords: !!value}) }
+    },
+
+    columns: {
+      get() { return this.$store.state.columns || 1 },
+      set(value) { this.$store.commit('update', {columns: value}) }
     }
   },
 
   methods: {
     componentFor(item) {
       return [ChordLyricsPair, Tag].find(c => c.for(item))
+    },
+
+    updateColumnWidth() {
+      const output = this.$refs.output
+      output.classList.add('content-width')
+      document.documentElement.style.setProperty('--column-width', output.offsetWidth + 'px')
+      output.classList.remove('content-width')
     }
   }
 }
