@@ -1,7 +1,7 @@
 <template>
   <div class="h-full flex flex-col">
     <div class="border-b border-t border-gray-300 dark:border-gray-900 bg-gray-100 py-2 text-gray-500 dark:bg-gray-700 shadow-md">
-      <form class="2xl-container mx-auto md:px-8 lg:px-12" name="settings" data-controller="localstorage" data-action="input->localstorage#save">
+      <form class="2xl-container mx-auto md:px-8 lg:px-12" name="settings">
         <div class="grid grid-flow-col auto-cols-max divide-x dark:divide-gray-500 items-center">
           <div class="pr-3">
             <div class="flex" data-controller="toggle" data-target="#output">
@@ -21,8 +21,8 @@
           </div>
 
           <div class="px-3">
-            <div class="toggle" data-controller="toggle" data-target="#chords">
-              <input id="settings-chord-diagram" type="checkbox" name="chord-diagram" data-toggle-target="input" data-action="toggle#visibility">
+            <div class="toggle">
+              <input id="settings-chord-diagram" type="checkbox" v-model="showChords">
               <label for="settings-chord-diagram">
                 chords
               </label>
@@ -46,6 +46,18 @@
 
     <div class="flex-grow overflow-auto relative h-full">
       <div class="z-0 p-4 md:p-8 lg:p-12">
+        <div v-if="showChords" class="flex">
+          <div v-for="name in chords" class="text-center">
+            <div>{{ name }}</div>
+            <svg class="chord-diagram" xmlns="http://www.w3.org/2000/svg" role="image" :title="name">
+              <use :xlink:href="`#chord-${name}`" viewBox="0 0 50 65"></use>
+            </svg>
+          </div>
+        </div>
+
+
+
+
         <h1 v-if="song.title">{{ song.title }}</h1>
         <h2 v-if="song.subtitle">{{ song.subtitle }}</h2>
         <h2 v-if="song.artist">by {{ song.artist }}</h2>
@@ -109,6 +121,11 @@ export default {
       })
       return chords
     },
+
+    showChords: {
+      get() { return this.$store.state.showChords },
+      set(value) { this.$store.commit('update', {showChords: !!value}) }
+    }
   },
 
   methods: {
@@ -117,5 +134,4 @@ export default {
     }
   }
 }
-
 </script>

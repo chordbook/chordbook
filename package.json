@@ -26,6 +26,7 @@
     "vue": "^3.2.20",
     "vue-loader": "^16.8.1",
     "vue-turbolinks": "^2.2.2",
+    "vuex": "^4.0.2",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
     "webpacker-pwa": "^0.1.2"
