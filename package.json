@@ -13,7 +13,6 @@
     "chordsheetjs": "^4.10.0",
     "css-loader": "^6.4.0",
     "css-minimizer-webpack-plugin": "^3.1.1",
-    "daisyui": "^1.14.2",
     "mini-css-extract-plugin": "^2.4.2",
     "postcss": "^8.3.9",
     "postcss-flexbugs-fixes": "^5.0.2",
