@@ -35,10 +35,6 @@
           </div>
 
           <div class="px-3">
-            <wakelock></wakelock>
-          </div>
-
-          <div class="px-3">
             <a :href="edit" class="btn btn-muted btn-small">Edit</a>
           </div>
         </div>

@@ -1,7 +1,6 @@
 {
   "app/icons": "*",
   "node_modules/bootstrap-icons/icons": [
-    "brightness-high",
     "layout-three-columns",
     "file",
     "journal-text",
