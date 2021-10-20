@@ -1,5 +1,10 @@
 <template>
-  <div class="h-full flex flex-col">
+  <!-- Hidden sprite of chord diagrams -->
+  <svg hidden xmlns="http://www.w3.org/2000/svg">
+    <chord-diagram v-for="chord in chords" :name="chord"/>
+  </svg>
+
+  <div class="h-full flex flex-col overflow-hidden">
     <div class="border-b border-t border-gray-300 dark:border-gray-900 bg-gray-100 py-2 text-gray-500 dark:bg-gray-700 shadow-md">
       <div class="container">
         <div class="grid grid-flow-col auto-cols-max divide-x dark:divide-gray-500 items-center">
@@ -39,13 +44,10 @@
         </div>
       </div>
     </div>
-    <svg hidden xmlns="http://www.w3.org/2000/svg">
-      <chord-diagram v-for="chord in chords" :name="chord"/>
-    </svg>
 
     <div class="flex-grow overflow-hidden">
       <div class="flex flex-col sm:flex-row h-full">
-        <div v-if="showChords" class="flex flex-row sm:flex-col border-b sm:border-r sm:border-b-0 border-gray-200 dark:border-gray-700 p-4 overflow-y-auto">
+        <div v-if="showChords" class="flex flex-row sm:flex-col border-b sm:border-r sm:border-b-0 border-gray-200 dark:border-gray-700 p-4 overflow-auto">
           <div v-for="name in chords" class="text-center text-sm">
             <div class="chord">{{ name }}</div>
             <svg class="chord-diagram" xmlns="http://www.w3.org/2000/svg" role="image" :title="name">
@@ -56,11 +58,12 @@
 
         <div class="overflow-auto flex-grow h-full">
           <div :class="'py-4 md:py-8 lg:py-12 ' + (columns == 1 ? 'single-column' : 'horizontal-columns')">
-
-            <h1 v-if="song.title">{{ song.title }}</h1>
-            <h2 v-if="song.subtitle">{{ song.subtitle }}</h2>
-            <h2 v-if="song.artist">by {{ song.artist }}</h2>
-            <div v-if="song.capo">Capo {{ song.capo }}</div>
+            <div class="column-span-all">
+              <h1 v-if="song.title">{{ song.title }}</h1>
+              <h2 v-if="song.subtitle">{{ song.subtitle }}</h2>
+              <h2 v-if="song.artist">by {{ song.artist }}</h2>
+              <div v-if="song.capo">Capo {{ song.capo }}</div>
+            </div>
 
             <div ref="output" class="chord-sheet">
               <div v-for="paragraph in song.paragraphs" :class="paragraph.type + ' paragraph'">
