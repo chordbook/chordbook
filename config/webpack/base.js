@@ -1,6 +1,8 @@
 const { webpackConfig, merge } = require('@rails/webpacker')
-const vueConfig = require('./rules/vue')
-const cssConfig = require('./rules/css')
+const vue = require('./rules/vue')
+const css = require('./rules/css')
+const icons = require('./rules/icons')
+const aliases = require('./rules/aliases')
 
 // FIXME: make this work with lastest webpacker
 // const WebpackerPwa = require('webpacker-pwa')
@@ -14,13 +16,6 @@ const cssConfig = require('./rules/css')
 //   }
 // })
 
-const config = merge(vueConfig, cssConfig, webpackConfig, {
-  resolve: {
-    alias: {
-      'handlebars' : 'handlebars/dist/handlebars.js',
-      'vue': 'vue/dist/vue.esm-bundler.js'
-    }
-  }
-})
+const config = merge(vue, css, icons, aliases, webpackConfig)
 
 module.exports = config

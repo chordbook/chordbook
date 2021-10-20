@@ -8,13 +8,13 @@
               <div class="toggle">
                 <input id="settings-columns-1" type="radio" name="columns" v-model="columns" value="1">
                 <label for="settings-columns-1">
-                  1
+                  <icon name="file"/>
                 </label>
               </div>
               <div class="toggle">
                 <input id="settings-columns-2" type="radio" name="columns" v-model="columns" value="2">
                 <label for="settings-columns-2">
-                  2
+                  <icon name="layout-three-columns"/>
                 </label>
               </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="toggle">
               <input id="settings-chord-diagram" type="checkbox" v-model="showChords">
               <label for="settings-chord-diagram">
-                chords
+                <icon name="chord-diagram"/>
               </label>
             </div>
           </div>
@@ -45,7 +45,7 @@
 
     <div class="flex-grow overflow-hidden">
       <div class="flex flex-col sm:flex-row h-full">
-        <div v-if="showChords" class="flex flex-row sm:flex-col border-b sm:border-r border-gray-200 p-4 overflow-y-auto">
+        <div v-if="showChords" class="flex flex-row sm:flex-col border-b sm:border-r sm:border-b-0 border-gray-200 dark:border-gray-700 p-4 overflow-y-auto">
           <div v-for="name in chords" class="text-center text-sm">
             <div class="chord">{{ name }}</div>
             <svg class="chord-diagram" xmlns="http://www.w3.org/2000/svg" role="image" :title="name">
