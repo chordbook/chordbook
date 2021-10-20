@@ -2,9 +2,9 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import "base";
-@import "songsheet";
-@import "icons";
+@import "stylesheets/base";
+@import "stylesheets/songsheet";
+@import "stylesheets/icons";
 
 @layer components {
   .btn {
