@@ -3,41 +3,7 @@
 @import "tailwindcss/utilities";
 
 @import "stylesheets/base";
-@import "stylesheets/songsheet";
+@import "stylesheets/components";
 @import "stylesheets/icons";
-
-@layer components {
-  .btn {
-    @apply inline-block px-3 py-2 text-sm font-semibold text-center uppercase
-      transition duration-200 ease-in-out rounded-md cursor-pointer shadow-sm hover:shadow-md;
-  }
-
-  .btn-small {
-    @apply text-xs px-2 py-2 rounded #{!important};
-  }
-
-  .btn-primary {
-    @apply text-white bg-green-500 hover:bg-green-600;
-  }
-
-  .btn-muted {
-    @apply bg-gray-100 dark:bg-transparent border border-gray-300 dark:border-gray-400 dark:text-gray-300;
-  }
-
-  .toggle {
-    @apply flex text-sm text-center transition duration-200 ease-in-out rounded overflow-hidden;
-
-    input[type="radio"], input[type="checkbox"] { @apply hidden-input; }
-
-    label { @apply inline-block p-1; }
-    input[type="radio"]:checked + label, input[type="checkbox"]:checked + label {
-      @apply bg-gray-200 dark:bg-gray-800 dark:text-gray-400 shadow-inner shadow-sm;
-    }
-  }
-
-  .hidden-input {
-    position: fixed;
-    opacity: 0;
-    pointer-events: none;
-  }
-}
+@import "stylesheets/tooltips";
+@import "stylesheets/songsheet";

@@ -10,13 +10,13 @@
         <div class="grid grid-flow-col auto-cols-max divide-x dark:divide-gray-500 items-center">
           <div class="pr-3">
             <div class="flex">
-              <div class="toggle">
+              <div class="toggle" tooltip="Scroll vertically" tooltip-pos="bottom">
                 <input id="settings-columns-1" type="radio" name="columns" v-model="columns" value="1">
                 <label for="settings-columns-1">
                   <icon name="file"/>
                 </label>
               </div>
-              <div class="toggle">
+              <div class="toggle" tooltip="Scroll horizontally" tooltip-pos="bottom">
                 <input id="settings-columns-2" type="radio" name="columns" v-model="columns" value="2">
                 <label for="settings-columns-2">
                   <icon name="layout-three-columns"/>
@@ -26,7 +26,7 @@
           </div>
 
           <div class="px-3">
-            <div class="toggle">
+            <div class="toggle" tooltip="Show Chords" tooltip-pos="bottom">
               <input id="settings-chord-diagram" type="checkbox" v-model="showChords">
               <label for="settings-chord-diagram">
                 <icon name="chord-diagram"/>
@@ -53,6 +53,7 @@
         </div>
 
         <div class="overflow-auto flex-grow h-full">
+
           <div :class="'py-4 md:py-8 lg:py-12 ' + (columns == 1 ? 'single-column' : 'horizontal-columns')">
             <div class="column-span-all">
               <h1 v-if="song.title">{{ song.title }}</h1>

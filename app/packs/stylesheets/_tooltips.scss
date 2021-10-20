@@ -1,0 +1,223 @@
+// https://raw.githubusercontent.com/iamsgokul/pureCSSToolTip
+
+:root {
+  --tooltip-bg-color: rgba(0, 0, 0, 0.7);
+  --tooltip-color: background-color: rgba(249, 250, 251, 1);
+}
+
+[tooltip] {
+  position: relative;
+}
+
+[tooltip]:before {
+  width: 0;
+  height: 0;
+  content: '';
+  position: absolute;
+  opacity: 0;
+  transition: .1s all;
+  transition: all .18s ease-out .18s;
+  border: 5px solid transparent;
+  z-index: 10;
+}
+
+[tooltip]:after {
+  content: attr(tooltip);
+  position: absolute;
+  padding: 10px;
+  color: var(--tooltip-color);
+  opacity: 0;
+  transition: .1s all;
+  white-space: nowrap;
+  transition: all .18s ease-out .18s;
+  z-index: 10;
+  pointer-events: none;
+  border-radius: 4px;
+  background-color: var(--tooltip-bg-color);
+  font-size:14px;
+}
+
+
+[tooltip]:hover:before,
+[tooltip]:hover:after {
+  opacity: 1;
+  pointer-events: none;
+}
+
+[tooltip][tooltip-pos='top']:hover:before,
+[tooltip][tooltip-pos='top']:hover:after,
+[tooltip][tooltip-pos='bottom']:hover:before,
+[tooltip][tooltip-pos='bottom']:hover:after {
+  transform: translate(-50%, 0);
+}
+
+[tooltip][tooltip-pos^="top"]:after,
+[tooltip][tooltip-pos^="top"]:before {
+  bottom: 100%;
+  transform-origin: top;
+  transform: translate(0, 4px);
+}
+
+[tooltip][tooltip-pos^="top"]:after {
+  margin-bottom: 10px;
+}
+
+[tooltip][tooltip-pos^="top"]:before {
+  border-top-color: var(--tooltip-bg-color);
+}
+
+[tooltip][tooltip-pos='top']:before,
+[tooltip][tooltip-pos='top']:after {
+  left: 50%;
+  transform: translate(-50%, 4px);
+}
+
+[tooltip][tooltip-pos='top']:before {
+  border: 5px solid transparent;
+  border-top-color: var(--tooltip-bg-color);
+}
+
+[tooltip][tooltip-pos='top']:after {
+  margin-bottom: 10px;
+}
+
+
+
+/*--Bottom--*/
+[tooltip][tooltip-pos^="bottom"]:after,
+[tooltip][tooltip-pos^="bottom"]:before {
+  top: 100%;
+  transform-origin: bottom;
+  transform: translate(0, 4px);
+}
+
+[tooltip][tooltip-pos^="bottom"]:after {
+  margin-top: 10px;
+}
+
+[tooltip][tooltip-pos^="bottom"]:before {
+  border-bottom-color: var(--tooltip-bg-color);
+}
+
+
+[tooltip][tooltip-pos='bottom']:before,
+[tooltip][tooltip-pos='bottom']:after {
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 4px);
+}
+
+[tooltip][tooltip-pos='bottom']:before {
+  border: 5px solid transparent;
+  border-bottom-color: var(--tooltip-bg-color);
+}
+
+[tooltip][tooltip-pos='bottom']:after {
+  margin-top: 10px;
+}
+
+[tooltip][tooltip-pos='left']:before,
+[tooltip][tooltip-pos='left']:after {
+  top: 50%;
+  right: 100%;
+  transform: translate(0, -50%);
+}
+
+[tooltip][tooltip-pos='left']:before {
+  border: 5px solid transparent;
+  border-left-color: var(--tooltip-bg-color);
+}
+
+[tooltip][tooltip-pos='left']:after {
+  margin-right: 10px;
+}
+
+[tooltip][tooltip-pos='left']:hover:before,
+[tooltip][tooltip-pos='left']:hover:after {
+  right: 100%;
+  top: 50%;
+  transform: translate(4px, -50%);
+  transform-origin: bottom;
+}
+
+[tooltip][tooltip-pos='right']:before,
+[tooltip][tooltip-pos='right']:after {
+  top: 50%;
+  left: 100%;
+  transform: translate(0, -50%);
+}
+
+[tooltip][tooltip-pos='right']:before {
+  border: 5px solid transparent;
+  border-right-color: var(--tooltip-bg-color);
+}
+
+[tooltip][tooltip-pos='right']:after {
+  margin-left: 10px;
+}
+
+[tooltip][tooltip-pos='right']:hover:before,
+[tooltip][tooltip-pos='right']:hover:after {
+  left: 100%;
+  top: 50%;
+  transform: translate(4px, -50%);
+  transform-origin: bottom;
+}
+
+
+
+
+
+
+/*-- Right --*/
+
+[tooltip][tooltip-pos*='-right']:after {
+  right: 0;
+}
+
+
+[tooltip][tooltip-pos*='-right']:before {
+  right: 5px;
+}
+
+[tooltip][tooltip-pos*='-right']:hover:after,
+[tooltip][tooltip-pos*='-right']:hover:before,
+[tooltip][tooltip-pos*='-left']:hover:after,
+[tooltip][tooltip-pos*='-left']:hover:before {
+  transform: translate(0, 0);
+}
+
+
+[tooltip][tooltip-pos*='-left']:after {
+  left: 0;
+}
+
+
+[tooltip][tooltip-pos*='-left']:before {
+  left: 5px;
+}
+
+[tooltip][tooltip-size='sm']:after {
+  white-space: normal;
+  width: 90px;
+}
+
+[tooltip][tooltip-size='md']:after {
+  white-space: normal;
+  width: 150px;
+}
+
+[tooltip][tooltip-size='lg']:after {
+  white-space: normal;
+  width: 260px;
+}
+
+[tooltip][tooltip-size='xlg']:after {
+  white-space: normal;
+  width: 380px;
+}
+
+[tooltip][tooltip-size='fit']:after {
+  white-space: normal;
+  width: 100%;
+}
