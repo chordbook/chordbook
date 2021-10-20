@@ -6,10 +6,19 @@ const cssConfig = require('./rules/css')
 // const WebpackerPwa = require('webpacker-pwa')
 // new WebpackerPwa(config, environment)
 
+// Delete `node_modules` from excluded path so they get transpiled
+// https://github.com/rails/webpacker/issues/1239
+// webpackConfig.module.rules.forEach(rule => {
+//   if (String(rule.exclude) === '/node_modules/') {
+//     delete rule.exclude
+//   }
+// })
+
 const config = merge(vueConfig, cssConfig, webpackConfig, {
   resolve: {
-    fallback: {
-      fs: false
+    alias: {
+      'handlebars' : 'handlebars/dist/handlebars.js',
+      'vue': 'vue/dist/vue.esm-bundler.js'
     }
   }
 })

@@ -29,7 +29,7 @@ group :development do
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
   gem 'rack-mini-profiler'
   gem 'listen'
-  gem "webpacker-pwa"
+  gem "webpacker-pwa", require: false
 end
 
 group :test do
