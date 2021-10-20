@@ -108,8 +108,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
-    rack-mini-profiler (2.3.3)
-      rack (>= 1.2.0)
     rack-proxy (0.7.0)
       rack
     rack-test (1.1.0)
@@ -200,11 +198,9 @@ DEPENDENCIES
   listen
   pg
   puma
-  rack-mini-profiler
   rails
   selenium-webdriver
   turbolinks
-  tzinfo-data
   web-console
   webdrivers
   webpacker (>= 6.0.0.beta)
