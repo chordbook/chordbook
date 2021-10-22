@@ -7,7 +7,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'vue', 'data-turbolinks-track': 'reload' %>
     <link rel="manifest" href="/manifest.json">
     <link rel="apple-touch-icon" href="<%= asset_path "icon@192.png" %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,29 +15,27 @@
   </head>
 
   <body class="bg-gray-800">
-    <%= with_icon_sprite do %>
-      <div class="flex flex-col h-screen">
-        <header class="p-4 md:px-8 lg:px-12 text-white">
-          <div class="2xl:container sticky flex items-center mx-auto">
-            <h1 class="flex-grow">
-              <%= link_to root_url, class: "font-semibold flex items-center" do %>
-                <%= icon_tag "journal-text", class: "text-green-500 mr-3" %>
-                <span class="uppercase">Chord Book</span>
-              <% end %>
-            </h1>
+    <div data-behavior="vue" class="flex flex-col h-screen">
+      <header class="py-4 text-white">
+        <div class="container sticky flex items-center">
+          <h1 class="flex-grow">
+            <%= link_to root_url, class: "font-semibold flex items-center" do %>
+              <icon name="journal-text" class="text-green-500 mr-3"></icon>
+              <span class="uppercase">Chord Book</span>
+            <% end %>
+          </h1>
 
-            <div>
-              <%= link_to new_songsheet_path, class: "btn btn-primary btn-small" do %>
-                <%= icon_tag "journal-plus", class: "small" %>
-                <span class="hidden sm:inline ml-2">Add Song</span>
-              <% end %>
-            </div>
+          <div>
+            <%= link_to new_songsheet_path, class: "btn btn-primary btn-small" do %>
+              <icon name="journal-plus" class="small"></icon>
+              <span class="hidden sm:inline ml-2">Add Song</span>
+            <% end %>
           </div>
-        </header>
-        <main class="bg-white flex-grow overflow-auto dark:bg-gray-800 dark:text-gray-200">
-          <%= yield %>
-        </main>
-      </div>
-    <% end %>
+        </div>
+      </header>
+      <main class="bg-white flex-grow overflow-auto dark:bg-gray-800 dark:text-gray-200">
+        <%= yield %>
+      </main>
+    </div>
   </body>
 </html>

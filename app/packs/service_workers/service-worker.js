@@ -66,8 +66,7 @@ async function requestFromCache (event) {
 }
 
 async function cacheResponse (event, response) {
-  console.log('Caching response', event.request.url, response)
-  if (response.status < 400 && response.type === 'basic') {
+  if (event.request.method === 'GET' && response.status < 400 && response.type === 'basic') {
     const cache = await caches.open(CACHES.readthrough)
     await cache.put(event.request, response)
   }

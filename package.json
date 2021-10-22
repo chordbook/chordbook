@@ -2,36 +2,44 @@
   "name": "chords",
   "private": true,
   "dependencies": {
-    "@hotwired/stimulus": "^3.0.0",
-    "@hotwired/stimulus-webpack-helpers": "^1.0.1",
-    "@rails/actioncable": "^6.0.0",
-    "@rails/activestorage": "^6.0.0",
-    "@rails/ujs": "^6.0.0",
-    "@rails/webpacker": "5.4.3",
+    "@headlessui/vue": "^1.4.1",
+    "@rails/webpacker": "^6.0.0-rc.5",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
     "@tombatossals/chords-db": "^0.5.1",
     "aubiojs": "^0.0.1",
-    "autoprefixer": "^9",
+    "autoprefixer": "^10.3.7",
+    "babel-plugin-macros": "^3.1.0",
     "bootstrap-icons": "^1.5.0",
     "chordsheetjs": "^4.10.0",
-    "daisyui": "^1.14.2",
-    "heroicons": "^1.0.4",
-    "nosleep.js": "^0.12.0",
-    "postcss": "^7",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat",
+    "css-loader": "^6.4.0",
+    "css-minimizer-webpack-plugin": "^3.1.1",
+    "mini-css-extract-plugin": "^2.4.2",
+    "postcss": "^8.3.9",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^14.0.2",
+    "postcss-loader": "^6.2.0",
+    "postcss-preset-env": "^6.7.0",
+    "sass": "^1.43.2",
+    "sass-loader": "^12.2.0",
+    "style-loader": "^3.3.0",
+    "svg-spritemap-webpack-plugin": "^4.3.3",
+    "tailwindcss": "^2.2.17",
     "tailwindcss-multi-column": "^1.0.2",
     "turbolinks": "^5.2.0",
     "vexchords": "^1.2.0",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12",
+    "vue": "^3.2.20",
+    "vue-loader": "^16.8.1",
+    "vue-turbolinks": "^2.2.2",
+    "vuex": "^4.0.2",
+    "webpack": "^5.59.0",
     "webpacker-pwa": "^0.1.2"
   },
   "version": "0.1.0",
   "devDependencies": {
     "@babel/eslint-parser": "^7.15.8",
     "standard": "^16.0.4",
-    "webpack-dev-server": "^3"
+    "webpack-dev-server": "^4.3.1"
   },
   "scripts": {
     "lint": "standard --env browser app/javascript"
@@ -39,5 +47,13 @@
   "standard": {
     "env": "browser",
     "parser": "@babel/eslint-parser"
-  }
+  },
+  "babel": {
+    "presets": [
+      "./node_modules/@rails/webpacker/package/babel/preset.js"
+    ]
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }
