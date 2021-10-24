@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { Tuner } from 'tuner/tuner'
+import { Tuner } from '../lib/tuner'
 import Meter from './tuner/meter.vue'
 import Note from './tuner/note.vue'
 
