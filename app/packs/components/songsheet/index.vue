@@ -1,7 +1,7 @@
 <template>
   <!-- Hidden sprite of chord diagrams -->
   <svg hidden xmlns="http://www.w3.org/2000/svg">
-    <chord-diagram v-for="chord in chords" :name="chord"/>
+    <chord-diagram v-for="chord in chords" :name="chord" :key="chord"/>
   </svg>
 
   <div class="h-full flex flex-col overflow-hidden">
@@ -44,7 +44,7 @@
     <div class="flex-grow overflow-hidden">
       <div class="flex flex-col sm:flex-row h-full">
         <div v-if="showChords" class="flex flex-row sm:flex-col border-b sm:border-r sm:border-b-0 border-gray-200 dark:border-gray-700 p-4 overflow-auto">
-          <div v-for="name in chords" class="text-center text-sm">
+          <div v-for="name in chords" class="text-center text-sm" :key="name">
             <div class="chord">{{ name }}</div>
             <svg class="chord-diagram" xmlns="http://www.w3.org/2000/svg" role="image" :title="name">
               <use :xlink:href="`#chord-${name}`" viewBox="0 0 50 65"></use>

@@ -1,111 +1,73 @@
 import aubio from 'aubiojs'
 
+const AudioContext = window.AudioContext || window.webkitAudioContext
+
+let mediaDevices = navigator.mediaDevices
+// Older browsers might not implement mediaDevices at all, so we set an empty object first
+if (mediaDevices === undefined) {
+  mediaDevices = {}
+}
+
+// Some browsers partially implement mediaDevices. We can't just assign an object
+// with getUserMedia as it would overwrite existing properties.
+// Here, we will just add the getUserMedia property if it's missing.
+if (mediaDevices.getUserMedia === undefined) {
+  mediaDevices.getUserMedia = function (constraints) {
+    // First get ahold of the legacy getUserMedia, if present
+    const getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia
+
+    return new Promise(function (resolve, reject) {
+      // Some browsers just don't implement it - return a rejected promise with an error
+      // to keep a consistent interface
+      if (!getUserMedia) {
+        reject(new Error('getUserMedia is not implemented in this browser'))
+      }
+
+      // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
+      getUserMedia.call(navigator, constraints, resolve, reject)
+    })
+  }
+}
+
 export class Tuner {
   constructor (a4) {
     this.middleA = a4 || 440
     this.semitone = 69
     this.bufferSize = 4096
-    this.noteStrings = [
-      'C',
-      'C♯',
-      'D',
-      'D♯',
-      'E',
-      'F',
-      'F♯',
-      'G',
-      'G♯',
-      'A',
-      'A♯',
-      'B'
-    ]
-
-    this.initGetUserMedia()
+    this.noteStrings = [ 'C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B' ]
   }
 
-  initGetUserMedia () {
-    window.AudioContext = window.AudioContext || window.webkitAudioContext
-    if (!window.AudioContext) {
-      return alert('AudioContext not supported')
-    }
+  async start (callback) {
+    if (!AudioContext) return alert('AudioContext not supported')
 
-    // Older browsers might not implement mediaDevices at all, so we set an empty object first
-    if (navigator.mediaDevices === undefined) {
-      navigator.mediaDevices = {}
-    }
+    this.audioContext = new AudioContext()
+    this.analyser = this.audioContext.createAnalyser()
+    this.scriptProcessor = this.audioContext.createScriptProcessor(this.bufferSize, 1, 1 )
 
-    // Some browsers partially implement mediaDevices. We can't just assign an object
-    // with getUserMedia as it would overwrite existing properties.
-    // Here, we will just add the getUserMedia property if it's missing.
-    if (navigator.mediaDevices.getUserMedia === undefined) {
-      navigator.mediaDevices.getUserMedia = function (constraints) {
-        // First get ahold of the legacy getUserMedia, if present
-        const getUserMedia =
-          navigator.webkitGetUserMedia || navigator.mozGetUserMedia
+    const { Pitch } = await aubio()
+    this.pitchDetector = new Pitch('default', this.bufferSize, 1, this.audioContext.sampleRate)
+    const stream = await mediaDevices.getUserMedia({ audio: true })
+    this.audioContext.createMediaStreamSource(stream).connect(this.analyser)
+    this.analyser.connect(this.scriptProcessor)
+    this.scriptProcessor.connect(this.audioContext.destination)
+    this.scriptProcessor.addEventListener('audioprocess', (event) => {
+      const frequency = this.pitchDetector.do(event.inputBuffer.getChannelData(0))
 
-        // Some browsers just don't implement it - return a rejected promise with an error
-        // to keep a consistent interface
-        if (!getUserMedia) {
-          alert('getUserMedia is not implemented in this browser')
-        }
-
-        // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
-        return new Promise(function (resolve, reject) {
-          getUserMedia.call(navigator, constraints, resolve, reject)
+      if (frequency) {
+        const note = this.getNote(frequency)
+        callback({
+          name: this.noteStrings[note % 12],
+          value: note,
+          cents: this.getCents(frequency, note),
+          octave: parseInt(note / 12) - 1,
+          frequency: frequency
         })
       }
-    }
-  }
-
-  startRecord () {
-    const self = this
-    navigator.mediaDevices
-      .getUserMedia({ audio: true })
-      .then(function (stream) {
-        self.audioContext.createMediaStreamSource(stream).connect(self.analyser)
-        self.analyser.connect(self.scriptProcessor)
-        self.scriptProcessor.connect(self.audioContext.destination)
-        self.scriptProcessor.addEventListener('audioprocess', function (event) {
-          const frequency = self.pitchDetector.do(
-            event.inputBuffer.getChannelData(0)
-          )
-          if (frequency && self.onNoteDetected) {
-            const note = self.getNote(frequency)
-            self.onNoteDetected({
-              name: self.noteStrings[note % 12],
-              value: note,
-              cents: self.getCents(frequency, note),
-              octave: parseInt(note / 12) - 1,
-              frequency: frequency
-            })
-          }
-        })
-      })
-      .catch(function (error) {
-        alert(error.name + ': ' + error.message)
-      })
-  }
-
-  init () {
-    this.audioContext = new window.AudioContext()
-    this.analyser = this.audioContext.createAnalyser()
-    this.scriptProcessor = this.audioContext.createScriptProcessor(
-      this.bufferSize,
-      1,
-      1
-    )
-
-    const self = this
-
-    aubio().then(function (aubio) {
-      self.pitchDetector = new aubio.Pitch(
-        'default',
-        self.bufferSize,
-        1,
-        self.audioContext.sampleRate
-      )
-      self.startRecord()
     })
+  }
+
+  stop() {
+    return this.audioContext.close()
   }
 
   /**
@@ -140,24 +102,5 @@ export class Tuner {
     return Math.floor(
       (1200 * Math.log(frequency / this.getStandardFrequency(note))) / Math.log(2)
     )
-  }
-
-  /**
-   * play the musical note
-   *
-   * @param {number} frequency
-   */
-  play (frequency) {
-    if (!this.oscillator) {
-      this.oscillator = this.audioContext.createOscillator()
-      this.oscillator.connect(this.audioContext.destination)
-      this.oscillator.start()
-    }
-    this.oscillator.frequency.value = frequency
-  }
-
-  stop () {
-    this.oscillator.stop()
-    this.oscillator = null
   }
 }

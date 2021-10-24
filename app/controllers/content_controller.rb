@@ -8,6 +8,6 @@ class ContentController < ActionController::Base
   end
 
   def tuner
-    render layout: false
+    render layout: 'application'
   end
 end
