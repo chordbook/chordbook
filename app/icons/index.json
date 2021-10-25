@@ -1,9 +1,0 @@
-{
-  "app/icons": "*",
-  "node_modules/bootstrap-icons/icons": [
-    "layout-three-columns",
-    "file",
-    "journal-text",
-    "journal-plus"
-  ]
-}

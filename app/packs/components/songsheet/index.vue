@@ -13,13 +13,13 @@
               <div class="toggle" tooltip="Scroll vertically" tooltip-pos="bottom">
                 <input id="settings-columns-1" type="radio" name="columns" v-model="columns" value="1">
                 <label for="settings-columns-1">
-                  <icon name="file"/>
+                  <icon-bi:file/>
                 </label>
               </div>
               <div class="toggle" tooltip="Scroll horizontally" tooltip-pos="bottom">
                 <input id="settings-columns-2" type="radio" name="columns" v-model="columns" value="2">
                 <label for="settings-columns-2">
-                  <icon name="layout-three-columns"/>
+                  <icon-bi:layout-three-columns/>
                 </label>
               </div>
             </div>
@@ -29,7 +29,7 @@
             <div class="toggle" tooltip="Show Chords" tooltip-pos="bottom">
               <input id="settings-chord-diagram" type="checkbox" v-model="showChords">
               <label for="settings-chord-diagram">
-                <icon name="chord-diagram"/>
+                <icon-app-chord-diagram/>
               </label>
             </div>
           </div>

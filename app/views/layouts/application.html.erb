@@ -17,23 +17,7 @@
 
   <body class="bg-gray-800">
     <div data-behavior="vue" class="flex flex-col h-screen">
-      <header class="py-4 text-white">
-        <div class="container sticky flex items-center">
-          <h1 class="flex-grow">
-            <%= link_to root_url, class: "font-semibold flex items-center" do %>
-              <icon name="journal-text" class="text-green-500 mr-3"></icon>
-              <span class="uppercase">Chord Book</span>
-            <% end %>
-          </h1>
-
-          <div>
-            <%= link_to new_songsheet_path, class: "btn btn-primary btn-small" do %>
-              <icon name="journal-plus" class="small"></icon>
-              <span class="hidden sm:inline ml-2">Add Song</span>
-            <% end %>
-          </div>
-        </div>
-      </header>
+      <app-header></app-header>
       <main class="bg-white flex-grow overflow-auto dark:bg-gray-800 dark:text-gray-200">
         <%= yield %>
       </main>

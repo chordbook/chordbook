@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@headlessui/vue": "^1.4.1",
+    "@iconify-json/bi": "^1.0.6",
     "@rails/webpacker": "^6.0.0-rc.5",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
@@ -28,6 +29,8 @@
     "tailwindcss": "^2.2.17",
     "tailwindcss-multi-column": "^1.0.2",
     "turbolinks": "^5.2.0",
+    "unplugin-icons": "^0.12.17",
+    "unplugin-vue-components": "^0.16.0",
     "vexchords": "^1.2.0",
     "vue": "^3.2.20",
     "vue-loader": "^16.8.1",
