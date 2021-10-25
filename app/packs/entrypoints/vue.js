@@ -1,11 +1,11 @@
 import TurbolinksAdapter from 'vue-turbolinks'
 import { createApp } from 'vue'
-import store from '../store'
-import Songsheet from '../components/songsheet'
-import Chord from '../components/chord'
-import Icon from '../components/icon'
-import ChordDiagram from '../components/chord-diagram'
-import Tuner from '../components/tuner'
+import store from '~/store'
+import Songsheet from '~/components/songsheet/index.vue'
+import Chord from '~/components/chord.vue'
+import Icon from '~/components/icon.vue'
+import ChordDiagram from '~/components/chord-diagram.vue'
+import Tuner from '~/components/tuner.vue'
 
 document.addEventListener('turbolinks:load', () => {
   const app = createApp({})

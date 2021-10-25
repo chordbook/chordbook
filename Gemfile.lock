@@ -78,6 +78,7 @@ GEM
     childprocess (4.1.0)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
+    dry-cli (0.7.0)
     erubi (1.10.0)
     ffi (1.15.4)
     globalid (0.5.2)
@@ -163,6 +164,13 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
+    vite_rails (3.0.0)
+      railties (>= 5.1, < 8)
+      vite_ruby (~> 3.0)
+    vite_ruby (3.0.0)
+      dry-cli (~> 0.7.0)
+      rack-proxy (~> 0.6, >= 0.6.1)
+      zeitwerk (~> 2.2)
     web-console (4.1.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -201,6 +209,7 @@ DEPENDENCIES
   rails
   selenium-webdriver
   turbolinks
+  vite_rails
   web-console
   webdrivers
   webpacker (>= 6.0.0.beta)
