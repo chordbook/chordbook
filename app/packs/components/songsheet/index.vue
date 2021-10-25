@@ -35,6 +35,27 @@
           </div>
 
           <div class="px-3">
+            <button @click="toggleTuner">
+              <icon-app-tuning-fork/>
+            </button>
+
+            <TransitionRoot appear :show="showTuner"
+                enter="duration-400 ease-out" enter-from="opacity-0" enter-to="opacity-100"
+                leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
+              <Dialog :open="showTuner" @close="toggleTuner" class="fixed inset-0 z-10 overflow-y-auto">
+                <div class="flex items-center justify-center min-h-screen">
+
+                  <DialogOverlay class="fixed inset-0 bg-black opacity-50" />
+
+                  <div class="relative max-w-sm mx-auto border bg-white dark:bg-gray-800 dark:text-gray-200 dark:border-black rounded drop-shadow-lg">
+                    <tuner></tuner>
+                  </div>
+                </div>
+              </Dialog>
+            </TransitionRoot>
+          </div>
+
+          <div class="px-3">
             <a :href="edit" class="btn btn-muted btn-small">Edit</a>
           </div>
         </div>
@@ -84,11 +105,23 @@
 import detectFormat from '../../lib/detect_format'
 import ChordLyricsPair from './chord-lyrics-pair.vue'
 import Tag from './tag.vue'
+  import {
+    Dialog,
+    DialogOverlay,
+  } from "@headlessui/vue";
 
 export default {
   components: {
     'chord-lyrics-pair': ChordLyricsPair,
     'tag': Tag,
+    Dialog,
+    DialogOverlay
+  },
+
+  data() {
+    return {
+      showTuner: false
+    }
   },
 
   props: {
@@ -144,6 +177,10 @@ export default {
       output.classList.add('content-width')
       document.documentElement.style.setProperty('--column-width', output.offsetWidth + 'px')
       output.classList.remove('content-width')
+    },
+
+    toggleTuner(showTuner = !this.showTuner) {
+      this.showTuner = showTuner
     }
   }
 }

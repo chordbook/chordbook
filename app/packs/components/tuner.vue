@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="p-4 relative cursor-default select-none">
+    <canvas class="opacity-10 absolute right-0 bottom-0 left-0 h-1/2 w-full z-0" ref="frequency-bars"></canvas>
     <tuner-meter :cents="note.cents"></tuner-meter>
-    <div ref="notes" class="notes">
-      <div class="notes-list">
+    <div ref="notes" class="text-center">
+      <div class="notes-list overflow-y-hidden overflow-x-auto whitespace-nowrap my-2">
         <tuner-note v-for="note in notes"
           :key="note.name"
           :name="note.name"
@@ -10,13 +11,17 @@
           :frequency="note.frequency"
           :active="this.note.name == note.name && this.note.octave == note.octave"></tuner-note>
       </div>
-      <div class="frequency">{{ note.frequency.toFixed(1) }} <span>Hz</span></div>
+      <div class="text-gray-500">{{ note.frequency.toFixed(1) }} <span>Hz</span></div>
     </div>
-    <canvas class="frequency-bars" ref="frequency-bars"></canvas>
-    <div class="a4">A<sub>4</sub> = <span>440</span> Hz</div>
 
-    <button class="btn btn-primary" @click="start">Start</button>
-    <button class="btn btn-default" @click="stop">Stop</button>
+    <div class="mt-4 text-center">
+      <button v-if="!active" class="btn btn-primary" @click="start" tooltip="Start" tooltip-pos="bottom">
+        <icon-bi:mic />
+      </button>
+      <button v-if="active" class="btn btn-primary bg-blue-500 hover:bg-blue-600" @click="stop" tooltip="Stop" tooltip-pos="bottom">
+        <icon-bi:mic-fill class="animate-pulse" />
+      </button>
+    </div>
   </div>
 </template>
 
@@ -37,12 +42,6 @@ export default {
       note: { name: 'A', frequency: 440, octave: 4, cents: 0 },
       active: false
     }
-  },
-
-  mounted() {
-    const canvas = this.$refs["frequency-bars"]
-    canvas.width = document.body.clientWidth
-    canvas.height = document.body.clientHeight / 2
   },
 
   computed: {
@@ -71,6 +70,10 @@ export default {
   },
 
   methods: {
+    toggle() {
+      return this.active ? this.stop() : this.start()
+    },
+
     async start() {
       this.active = true
       return this.tuner.start(note => this.$data.note = note).then(() => {
@@ -79,9 +82,10 @@ export default {
       })
     },
 
-    stop() {
+    async stop() {
       this.active = false
-      return this.tuner.stop()
+      await this.tuner.stop()
+      Object.assign(this.$data, this.$options.data())
     },
 
     updateFrequencyBars () {
@@ -112,49 +116,9 @@ export default {
 </script>
 
 <style>
-html {
-  height: 100%;
-}
-
-body {
-  position: fixed;
-  font-family: sans-serif;
-  color: #2c3e50;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  cursor: default;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-}
-
-.notes {
-  margin: auto;
-  width: 400px;
-  position: fixed;
-  top: 50%;
-  left: 0;
-  right: 0;
-  text-align: center;
-}
-
-.note {
-  font-size: 90px;
-  font-weight: bold;
-  position: relative;
-  display: inline-block;
-  padding-right: 30px;
-  padding-left: 10px;
-}
-
-.note.active {
-  color: #e74c3c;
-}
-
 .notes-list {
-  overflow: auto;
+  scroll-behavior: smooth;
   overflow: -moz-scrollbars-none;
-  white-space: nowrap;
   -ms-overflow-style: none;
   -webkit-mask-image: -webkit-linear-gradient(
     left,
@@ -165,62 +129,6 @@ body {
 }
 
 .notes-list::-webkit-scrollbar {
-  display: none;
-}
-
-.note {
-  -webkit-tap-highlight-color: transparent;
-}
-
-.note span {
-  position: absolute;
-  right: 0.25em;
-  font-size: 40%;
-  font-weight: normal;
-}
-
-.note-sharp {
-  top: 0.3em;
-}
-
-.note-octave {
-  bottom: 0.3em;
-}
-
-.frequency {
-  font-size: 32px;
-}
-
-.frequency span {
-  font-size: 50%;
-  margin-left: 0.25em;
-}
-
-.frequency-bars {
-  opacity: 0.5;
-  position: fixed;
-  bottom: 0;
-}
-
-@media (max-width: 768px) {
-  .meter {
-    width: 100%;
-  }
-
-  .notes {
-    width: 100%;
-  }
-}
-
-/*
-.a4 {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-}
-*/
-
-.a4 span {
-  color: #e74c3c;
+  @apply hidden;
 }
 </style>

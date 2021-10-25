@@ -1,7 +1,6 @@
 <template>
-  <div class="meter">
-    <div class="meter-dot"></div>
-    <div class="meter-pointer" :style="`transform: ${this.transform}`"></div>
+  <div class="meter" style="position:relative">
+    <div class="meter-pointer" :style="`left: ${this.left}`"></div>
   </div>
 </template>
 
@@ -15,7 +14,7 @@ export default {
     for (let i = 0; i <= 10; i += 1) {
       const $scale = document.createElement('div')
       $scale.className = 'meter-scale'
-      $scale.style.transform = 'rotate(' + (i * 9 - 45) + 'deg)'
+      $scale.style.left = (i * 10) + '%'
       if (i % 5 === 0) {
         $scale.classList.add('meter-scale-strong')
       }
@@ -25,11 +24,16 @@ export default {
 
   computed: {
     degrees () {
+      console.log(this.cents)
       return (this.cents / 50) * 45
     },
 
     transform () {
       return 'rotate(' + this.degrees + 'deg)'
+    },
+
+    left () {
+      return (this.cents + 50) + '%'
     }
   }
 }
@@ -37,46 +41,30 @@ export default {
 
 <style>
 .meter {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 50%;
-  width: 400px;
-  height: 33%;
-  margin: 0 auto 5vh auto;
+  position: relative;
+  height: 25px;
 }
 
 .meter-pointer {
-  width: 2px;
-  height: 100%;
-  background: #2c3e50;
-  transform: rotate(45deg);
-  transform-origin: bottom;
-  transition: transform 0.5s;
+  z-index: 20;
+  width: 4px;
+  height: 20px;
+  transform: translate(-50%); /* Center items */
+  @apply bg-green-500;
+  transition: left 1s;
   position: absolute;
-  right: 50%;
-}
-
-.meter-dot {
-  width: 10px;
-  height: 10px;
-  background: #2c3e50;
-  border-radius: 50%;
-  position: absolute;
-  bottom: -5px;
-  right: 50%;
-  margin-right: -4px;
+  left: 50%;
 }
 
 .meter-scale {
+  opacity: 0.5;
   width: 1px;
+  margin-left:-0.5px;
   height: 100%;
-  transform-origin: bottom;
-  transition: transform 0.2s;
   box-sizing: border-box;
   border-top: 10px solid;
   position: absolute;
-  right: 50%;
+  left: 50%;
 }
 
 .meter-scale-strong {

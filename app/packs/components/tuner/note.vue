@@ -1,8 +1,8 @@
 <template>
-  <div :class="'note' + (active ? ' active' : '')" @click="select">
+  <div :class="'note mx-5 text-6xl font-bold relative inline-block ' + (active ? 'text-green-500' : '')" @click="select">
     {{name[0]}}
-    <span class="note-sharp">{{ name[1] || '' }}</span>
-    <span class="note-octave">{{ octave }}</span>
+    <span class="absolute font-normal note-sharp text-3xl top-0">{{ name[1] || '' }}</span>
+    <span class="absolute font-normal text-lg opacity-70 bottom-0">{{ octave }}</span>
   </div>
 </template>
 
@@ -23,7 +23,8 @@ export default {
     activate() {
       if(!this.active) return
       const parent = this.$el.parentElement
-      parent.scrollLeft = this.$el.offsetLeft - (parent.clientWidth - this.$el.clientWidth) / 2
+      const left = this.$el.offsetLeft - (parent.clientWidth - (this.$el.clientWidth / 2)) / 2;
+      parent.scrollTo({left, behavior: 'smooth'})
     },
 
     select() {
