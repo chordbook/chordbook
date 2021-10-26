@@ -1,6 +1,6 @@
 <template>
-  <div class="p-4 relative cursor-default select-none">
-    <canvas class="opacity-10 absolute right-0 bottom-0 left-0 h-1/2 w-full z-0" ref="frequency-bars"></canvas>
+  <div class="p-6 relative cursor-default select-none">
+    <canvas class="opacity-20 absolute right-0 bottom-0 left-0 h-1/2 w-full z-0" ref="frequency-bars"></canvas>
     <tuner-meter :cents="note.cents"></tuner-meter>
     <div ref="notes" class="text-center">
       <div class="notes-list overflow-y-hidden overflow-x-auto whitespace-nowrap my-2">
@@ -18,7 +18,7 @@
       <button v-if="!active" class="btn btn-primary" @click="start" tooltip="Start" tooltip-pos="bottom">
         <icon-bi:mic />
       </button>
-      <button v-if="active" class="btn btn-primary bg-blue-500 hover:bg-blue-600" @click="stop" tooltip="Stop" tooltip-pos="bottom">
+      <button v-if="active" class="btn btn-primary bg-red-500 hover:bg-red-600" @click="stop" tooltip="Stop" tooltip-pos="bottom">
         <icon-bi:mic-fill class="animate-pulse" />
       </button>
     </div>
@@ -96,16 +96,19 @@ export default {
       const length = 64 // low frequency only
       const width = el.width / length - 0.5
 
+      window.frequencyData = this.frequencyData
+      const scale = el.height / Math.max(...this.frequencyData.slice(0, length))
+
       const canvasContext = el.getContext('2d')
       canvasContext.clearRect(0, 0, el.width, el.height)
 
       for (let i = 0; i < length; i += 1) {
-        canvasContext.fillStyle = '#ecf0f1'
+        canvasContext.fillStyle = 'rgb(120,120,120)'
         canvasContext.fillRect(
           i * (width + 0.5),
-          el.height - this.frequencyData[i],
+          el.height - Math.floor(this.frequencyData[i] * scale),
           width,
-          this.frequencyData[i]
+          Math.floor(this.frequencyData[i] * scale)
         )
       }
 

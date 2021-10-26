@@ -47,7 +47,7 @@
 
                   <DialogOverlay class="fixed inset-0 bg-black opacity-50" />
 
-                  <div class="relative max-w-sm mx-auto border bg-white dark:bg-gray-800 dark:text-gray-200 dark:border-black rounded drop-shadow-lg">
+                  <div class="relative max-w-sm mx-auto border bg-white dark:bg-gray-800 dark:text-gray-200 dark:border-black rounded-md overflow-hidden drop-shadow-lg">
                     <tuner></tuner>
                   </div>
                 </div>
