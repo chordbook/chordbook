@@ -117,7 +117,6 @@ export default {
 
 <style>
 .notes-list {
-  scroll-behavior: smooth;
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;
   -webkit-mask-image: -webkit-linear-gradient(

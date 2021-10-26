@@ -7,6 +7,7 @@ declare module 'vue' {
     IconAppChordDiagram: typeof import('~icons/app/chord-diagram')['default']
     IconAppTuningFork: typeof import('~icons/app/tuning-fork')['default']
     'IconBi:file': typeof import('~icons/bi/file')['default']
+    'IconBi:journalPlus': typeof import('~icons/bi/journal-plus')['default']
     'IconBi:journalText': typeof import('~icons/bi/journal-text')['default']
     'IconBi:layoutThreeColumns': typeof import('~icons/bi/layout-three-columns')['default']
     'IconBi:mic': typeof import('~icons/bi/mic')['default']

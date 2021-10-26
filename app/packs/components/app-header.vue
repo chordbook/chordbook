@@ -10,7 +10,7 @@
 
       <div>
         <a href="/songsheets/new" class="btn btn-primary btn-small">
-          <icon-bi-journal-plus />
+          <icon-bi:journal-plus />
           <span class="hidden sm:inline ml-2">Add Song</span>
         </a>
       </div>

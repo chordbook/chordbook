@@ -35,7 +35,7 @@
           </div>
 
           <div class="px-3">
-            <button @click="toggleTuner">
+            <button class="toggle" @click="toggleTuner" tooltip="Tuner" tooltip-pos="bottom">
               <icon-app-tuning-fork/>
             </button>
 

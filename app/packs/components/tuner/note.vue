@@ -23,8 +23,7 @@ export default {
     activate() {
       if(!this.active) return
       const parent = this.$el.parentElement
-      const left = this.$el.offsetLeft - (parent.clientWidth - (this.$el.clientWidth / 2)) / 2;
-      parent.scrollTo({left, behavior: 'smooth'})
+      parent.scrollLeft = this.$el.offsetLeft - (parent.clientWidth - (this.$el.clientWidth / 2)) / 2;
     },
 
     select() {
