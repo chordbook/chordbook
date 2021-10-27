@@ -39,10 +39,11 @@
               <icon-app-tuning-fork/>
             </button>
 
-            <TransitionRoot appear :show="showTuner"
-                enter="duration-400 ease-out" enter-from="opacity-0" enter-to="opacity-100"
-                leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
-              <Dialog :open="showTuner" @close="toggleTuner" class="fixed inset-0 z-10 overflow-y-auto">
+            <TransitionRoot :show="showTuner"
+              enter="transition-opacity duration-75" enter-from="opacity-0" enter-to="opacity-100"
+              leave="transition-opacity duration-150" leave-from="opacity-100" leave-to="opacity-0">
+
+              <Dialog @close="toggleTuner" class="fixed inset-0 z-10 overflow-y-auto">
                 <div class="flex items-center justify-center min-h-screen">
 
                   <DialogOverlay class="fixed inset-0 bg-black opacity-50" />
@@ -105,22 +106,27 @@
 import detectFormat from '../../lib/detect_format'
 import ChordLyricsPair from './chord-lyrics-pair.vue'
 import Tag from './tag.vue'
-  import {
-    Dialog,
-    DialogOverlay,
-  } from "@headlessui/vue";
+import {
+  Dialog,
+  DialogOverlay,
+  TransitionRoot
+} from "@headlessui/vue"
+import { ref } from "vue"
 
 export default {
   components: {
     'chord-lyrics-pair': ChordLyricsPair,
     'tag': Tag,
     Dialog,
-    DialogOverlay
+    DialogOverlay,
+    TransitionRoot
   },
 
-  data() {
+  setup() {
+    const showTuner = ref(false)
+
     return {
-      showTuner: false
+      showTuner
     }
   },
 
@@ -179,8 +185,8 @@ export default {
       output.classList.remove('content-width')
     },
 
-    toggleTuner(showTuner = !this.showTuner) {
-      this.showTuner = showTuner
+    toggleTuner() {
+      this.showTuner = !this.showTuner
     }
   }
 }
