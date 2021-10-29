@@ -9,6 +9,7 @@ gem 'puma'
 gem 'turbolinks'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'vite_rails'
+gem 'jbuilder'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

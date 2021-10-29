@@ -1,14 +1,14 @@
 <template>
-  <div class="flex flex-col sm:flex-row h-full">
+  <div v-if="source" class="flex flex-col sm:flex-row h-full">
     <!-- Hidden sprite of chord diagrams -->
     <svg hidden xmlns="http://www.w3.org/2000/svg">
       <chord-diagram v-for="chord in chords" :name="chord" :key="chord"/>
     </svg>
 
-    <div v-if="showChords" class="flex flex-row sm:flex-col border-b sm:border-r sm:border-b-0 border-gray-200 dark:border-gray-700 p-4 overflow-auto">
+    <div v-if="showChords" :class="(showChords == 'last' ? 'order-last border-t sm:border-l sm:border-t-0' : 'border-b sm:border-r sm:border-b-0') + ' flex flex-row sm:flex-col p-4 overflow-auto border-gray-200 dark:border-gray-700'">
       <div v-for="name in chords" class="text-center text-sm" :key="name">
         <div class="chord">{{ name }}</div>
-        <svg class="chord-diagram" xmlns="http://www.w3.org/2000/svg" role="image" :title="name">
+        <svg class="chord-diagram inline-block" xmlns="http://www.w3.org/2000/svg" role="image" :title="name">
           <use :xlink:href="`#chord-${name}`" viewBox="0 0 50 65"></use>
         </svg>
       </div>
@@ -51,7 +51,7 @@ export default {
     source: String,
 
     showChords: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false
     },
 
@@ -96,9 +96,12 @@ export default {
 
     updateColumnWidth() {
       const output = this.$refs.output
-      output.classList.add('content-width')
-      document.documentElement.style.setProperty('--column-width', output.offsetWidth + 'px')
-      output.classList.remove('content-width')
+
+      if(output) {
+        output.classList.add('content-width')
+        document.documentElement.style.setProperty('--column-width', output.offsetWidth + 'px')
+        output.classList.remove('content-width')
+      }
     },
 
     toggleTuner() {

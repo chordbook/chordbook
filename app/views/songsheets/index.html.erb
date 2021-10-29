@@ -7,7 +7,7 @@
     <% @songsheets.each do |songsheet| %>
       <li class="my-4">
         <%= link_to songsheet do %>
-          <strong><%= songsheet.title || truncate(songsheet.body) %></strong>
+          <strong><%= songsheet.title %></strong>
           <div><%= songsheet.subtitle %></div>
         <% end %>
       </li>

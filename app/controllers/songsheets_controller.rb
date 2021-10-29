@@ -64,8 +64,6 @@ class SongsheetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def songsheet_params
-      params.require(:songsheet).permit(:title, :subtitle, :body, :metadata).tap do |p|
-        p[:metadata] =  JSON.parse(p[:metadata])
-      end
+      params.require(:songsheet).permit(:source, metadata: {})
     end
 end

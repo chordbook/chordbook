@@ -10,6 +10,7 @@
     "@vitejs/plugin-vue": "^1.9.3",
     "aubiojs": "^0.0.1",
     "autoprefixer": "^10.3.7",
+    "axios": "^0.24.0",
     "chordsheetjs": "^4.10.0",
     "postcss": "^8.3.9",
     "postcss-flexbugs-fixes": "^5.0.2",
