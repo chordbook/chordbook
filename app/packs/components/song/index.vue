@@ -75,7 +75,8 @@ export default {
     },
 
     song() {
-      return this.format.parse(this.source)
+      // FIXME: somehow \r is getting added by Ace
+      return this.format.parse(this.source.replace(/\r\n/gm, "\n"))
     },
 
     chords() {
