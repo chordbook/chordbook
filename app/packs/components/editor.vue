@@ -1,7 +1,6 @@
 <template>
   <div class="h-full overflow-hidden flex-grow grid md:grid-cols-2 divide-x divide-solid divide-gray-300 dark:divide-gray-700">
     <div class="h-full flex flex-col divide-y divide-solid divide-gray-300 dark:divide-gray-700">
-
       <div v-if="Object.keys(errors).length">
         <ul class="px-8 py-4 text-red-600">
           <li v-for="(messages, attr) in errors" :key="attr">
@@ -11,7 +10,7 @@
       </div>
 
       <div class="flex-grow relative">
-        <v-ace-editor @init="setupEditor" v-model:value="source" theme="chrome" lang="chordpro" style="height: 100%" :printMargin="false"></v-ace-editor>
+        <v-ace-editor @init="setupEditor" v-model:value="source" :theme="theme" lang="chordpro" style="height: 100%" :printMargin="false" :options="{fontSize: '1rem'}"></v-ace-editor>
       </div>
 
       <div class="px-8 py-3 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 flex gap-2 sm:gap-4 items-center">
@@ -44,7 +43,8 @@ import ChordSheetJS from 'chordsheetjs'
 import detectFormat from '../lib/detect_format'
 import axios from 'axios'
 import { VAceEditor } from 'vue3-ace-editor'
-import 'ace-builds/src-noconflict/theme-chrome'
+import 'ace-builds/src-noconflict/theme-clouds'
+import 'ace-builds/src-noconflict/theme-chaos'
 import 'ace-builds/src-noconflict/ext-language_tools'
 import '~/ace/mode-chordpro'
 import '~/ace/snippets/chordpro'
@@ -55,7 +55,10 @@ export default {
   data() {
     return {
       source: '',
-      errors: {}
+      errors: {},
+      themes: {dark: 'chaos', light: 'clouds'},
+      theme: 'clouds',
+      darkModeDetector: window.matchMedia('(prefers-color-scheme: dark)'),
     }
   },
 
@@ -67,6 +70,9 @@ export default {
   mounted() {
     // FIXME: for some reason `this.song.source` is not reactive, so this is a hack
     this.source = this.song.source
+
+    this.setupTheme()
+    this.darkModeDetector.addEventListener('change', () => this.setupTheme())
   },
 
   computed: {
@@ -80,12 +86,18 @@ export default {
   },
 
   methods: {
+    setupTheme(dark = this.darkModeDetector.matches) {
+      this.theme = dark ? this.themes.dark : this.themes.light
+    },
+
     setupEditor(editor) {
       editor.setOptions({
         enableBasicAutocompletion: true,
         enableSnippets: true,
         behavioursEnabled: true
       })
+
+      editor.renderer.setScrollMargin(20, 20)
     },
 
     async save() {
@@ -130,7 +142,6 @@ export default {
 </script>
 
 <style>
-
 #editor-view {
     position: absolute;
     top: 0;
@@ -138,4 +149,15 @@ export default {
     bottom: 0;
     left: 0;
 }
+
+.ace_scroller { padding-left: 0.5em }
+
+/* FIXME: Move to a proper ace theme */
+.ace_editor { background: transparent !important; }
+.ace_editor .ace_gutter { @apply bg-gray-50 dark:bg-gray-900 }
+.ace_editor .ace_string { @apply text-black dark:text-white font-bold }
+.ace_editor .ace_meta { @apply text-red-400 }
+.ace_editor .ace_meta.ace_tag,
+.ace_editor .ace_constant { @apply text-gray-400 dark:text-gray-500 }
+.ace_editor .ace_keyword { @apply text-blue-700 dark:text-blue-400 }
 </style>
