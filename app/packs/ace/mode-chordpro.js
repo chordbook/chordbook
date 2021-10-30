@@ -1,6 +1,6 @@
 // https://github.com/buzcarter/UkeGeeks
 
-import { define } from 'ace-builds'
+const { define } = ace
 
 define('ace/mode/chordpro', ['require', 'exports', 'module', 'ace/lib/oop', 'ace/mode/text', 'ace/mode/chordpro_highlight_rules'], function(require, exports, module) {
 	var oop = require("../lib/oop");
@@ -19,6 +19,7 @@ define('ace/mode/chordpro', ['require', 'exports', 'module', 'ace/lib/oop', 'ace
 		};
 
 		this.$id = "ace/mode/chordpro";
+		this.snippetFileId = "ace/snippets/chordpro"
 	}).call(Mode.prototype);
 
 	exports.Mode = Mode;

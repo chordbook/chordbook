@@ -1,7 +1,6 @@
 // https://github.com/buzcarter/UkeGeeks
 
-define('ace/snippets/chordpro', ['require', 'exports', 'module'], function(require, exports, module) {
-
+ace.define('ace/snippets/chordpro', ['require', 'exports', 'module'], function(require, exports, module) {
 	exports.snippetText = [
 		// title tag
 		'snippet t',
