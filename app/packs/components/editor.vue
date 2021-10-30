@@ -10,8 +10,8 @@
         </ul>
       </div>
 
-      <div class="flex-grow">
-        <textarea v-model="source" @paste="paste" rows="10" class="w-full h-full input-transparent px-8 py-4"></textarea>
+      <div class="flex-grow relative">
+        <v-ace-editor v-model:value="source" theme="chrome" lang="chordpro" style="height: 100%" :printMargin="false"></v-ace-editor>
       </div>
 
       <div class="px-8 py-3 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 flex gap-2 sm:gap-4 items-center">
@@ -43,8 +43,14 @@ import Turbolinks from 'turbolinks'
 import ChordSheetJS from 'chordsheetjs'
 import detectFormat from '../lib/detect_format'
 import axios from 'axios'
+import { VAceEditor } from 'vue3-ace-editor'
+import 'ace-builds/src-noconflict/mode-text'
+import '~/ace/mode-chordpro'
+import 'ace-builds/src-noconflict/theme-chrome'
 
 export default {
+  components: { VAceEditor },
+
   data() {
     return {
       source: '',
@@ -113,3 +119,14 @@ export default {
   },
 }
 </script>
+
+<style>
+
+#editor-view {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+</style>
