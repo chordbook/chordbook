@@ -5,11 +5,13 @@ import Icons from 'unplugin-icons/vite'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
+import { string } from "rollup-plugin-string"
 
 export default defineConfig({
   plugins: [
     vue(),
     RubyPlugin(),
+    string({ include: "**/*.snippets" }),
     Icons({
       compiler: 'vue3',
       defaultClass: 'icon',

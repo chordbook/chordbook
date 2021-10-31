@@ -50,7 +50,7 @@ define('ace/mode/chordpro_highlight_rules', ['require', 'exports', 'module', 'ac
 				regex: "^#.*$" // debated this, for now MUST be first character (otherwise allow \\s*)
 			}, {
 				token: [tkBrace, tkSingleTag, tkBrace],
-				regex: reOpenBrace + "(column_break|new_page|np|colb|start_of_chorus|soc|end_of_chorus|eoc)" + reCloseBrace,
+				regex: reOpenBrace + "(column_break|new_page|np|colb|start_of_verse|sov|end_of_verse|eov|start_of_chorus|soc|end_of_chorus|eoc)" + reCloseBrace,
 				caseInsensitive: true
 			}, {
 				token: [tkBrace, tkSingleTag, tkBrace],
