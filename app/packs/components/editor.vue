@@ -24,7 +24,7 @@
           <a :href="url">Cancel</a>
         </div>
         <div>
-          <button :disabled="!source" @click="save" class="btn btn-primary">Save</button>
+          <button @click="save" class="btn btn-primary">Save</button>
         </div>
       </div>
     </div>
@@ -49,30 +49,33 @@ import 'ace-builds/src-noconflict/ext-language_tools'
 import '~/ace/mode-chordpro'
 import '~/ace/snippets/chordpro'
 
+const darkModeDetector = window.matchMedia('(prefers-color-scheme: dark)')
+
 export default {
   components: { VAceEditor },
 
   data() {
     return {
-      source: '',
       errors: {},
       themes: {dark: 'chaos', light: 'clouds'},
       theme: 'clouds',
-      darkModeDetector: window.matchMedia('(prefers-color-scheme: dark)'),
     }
   },
 
   props: {
     url: String,
-    song: Object
+    source: String,
+    id: String,
   },
 
   mounted() {
-    // FIXME: for some reason `this.song.source` is not reactive, so this is a hack
-    this.source = this.song.source
+    this.toggleTheme = this.toggleTheme.bind(this)
+    darkModeDetector.addEventListener('change', this.toggleTheme)
+    this.toggleTheme()
+  },
 
-    this.setupTheme()
-    this.darkModeDetector.addEventListener('change', () => this.setupTheme())
+  unmounted() {
+    darkModeDetector.removeEventListener('change', this.toggleTheme)
   },
 
   computed: {
@@ -86,8 +89,8 @@ export default {
   },
 
   methods: {
-    setupTheme(dark = this.darkModeDetector.matches) {
-      this.theme = dark ? this.themes.dark : this.themes.light
+    toggleTheme() {
+      this.theme = darkModeDetector.matches ? this.themes.dark : this.themes.light
     },
 
     setupEditor(editor) {
@@ -97,24 +100,29 @@ export default {
         behavioursEnabled: true
       })
 
+      editor.getSession().on('change', () => {
+        // console.log("CHANGE", editor.getSession().getValue())
+        // this.source = editor.getSession().getValue()
+      })
+
       editor.renderer.setScrollMargin(20, 20)
     },
 
     async save() {
-      Object.assign(this.song, {
-        metadata: this.parsedSong.metadata,
-        source: this.source
-      })
-
       axios({
         url: this.url,
-        method: this.song.id ? 'PATCH' : 'POST',
+        method: this.id ? 'PATCH' : 'POST',
         headers: {
           'Content-Type': 'application/json',
           'X-Requested-With': 'XMLHttpRequest',
           'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         },
-        data: {songsheet: this.song},
+        data: {
+          songsheet: {
+            source: this.source,
+            metadata: this.parsedSong.metadata
+          }
+        },
       }).then(response => {
         Turbolinks.visit(response.headers.location || url)
       }).catch(error => {
@@ -142,14 +150,6 @@ export default {
 </script>
 
 <style>
-#editor-view {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
 .ace_scroller { padding-left: 0.5em }
 
 /* FIXME: Move to a proper ace theme */

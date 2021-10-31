@@ -1,1 +1,1 @@
-<%= tag "song-editor", url: polymorphic_url(songsheet), ":song": songsheet.to_json %>
+<%= tag "song-editor", url: polymorphic_url(songsheet), source: songsheet.source, id: songsheet.id %>
