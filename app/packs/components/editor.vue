@@ -10,7 +10,7 @@
       </div>
 
       <div class="flex-grow relative">
-        <v-ace-editor @init="setupEditor" v-model:value="source" :theme="theme" lang="chordpro" style="height: 100%" :printMargin="false" :options="{fontSize: '1rem'}"></v-ace-editor>
+        <v-ace-editor @init="setupEditor" v-model:value="source" :theme="theme" lang="chordpro" style="height: 100%" :printMargin="false" :options="{fontSize: '0.9rem'}"></v-ace-editor>
       </div>
 
       <div class="px-8 py-3 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 flex gap-2 sm:gap-4 items-center">
@@ -43,6 +43,7 @@ import ChordSheetJS from 'chordsheetjs'
 import detectFormat from '../lib/detect_format'
 import axios from 'axios'
 import { VAceEditor } from 'vue3-ace-editor'
+import ChordCompleter from '~/ace/chord-completer'
 import 'ace-builds/src-noconflict/theme-clouds'
 import 'ace-builds/src-noconflict/theme-chaos'
 import 'ace-builds/src-noconflict/ext-language_tools'
@@ -97,15 +98,10 @@ export default {
       editor.setOptions({
         enableBasicAutocompletion: true,
         enableSnippets: true,
-        behavioursEnabled: true
+        enableLiveAutocompletion: true,
       })
-
-      editor.getSession().on('change', () => {
-        // console.log("CHANGE", editor.getSession().getValue())
-        // this.source = editor.getSession().getValue()
-      })
-
       editor.renderer.setScrollMargin(20, 20)
+      editor.completers = [new ChordCompleter()]
     },
 
     async save() {
@@ -153,7 +149,7 @@ export default {
 .ace_scroller { padding-left: 0.5em }
 
 /* FIXME: Move to a proper ace theme */
-.ace_editor { background: transparent !important; }
+/* .ace_editor { background: transparent !important; } */
 .ace_editor .ace_gutter { @apply bg-gray-50 dark:bg-gray-900 }
 .ace_editor .ace_string { @apply text-black dark:text-white font-bold }
 .ace_editor .ace_meta { @apply text-red-400 }
