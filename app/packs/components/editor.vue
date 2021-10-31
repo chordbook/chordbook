@@ -101,7 +101,9 @@ export default {
         enableLiveAutocompletion: true,
       })
       editor.renderer.setScrollMargin(20, 20)
-      editor.completers = [new ChordCompleter()]
+
+      const { snippetCompleter } = ace.require('ace/ext/language_tools')
+      editor.completers = [new ChordCompleter(), snippetCompleter]
     },
 
     async save() {
@@ -149,7 +151,7 @@ export default {
 .ace_scroller { padding-left: 0.5em }
 
 /* FIXME: Move to a proper ace theme */
-/* .ace_editor { background: transparent !important; } */
+.ace_editor { background: transparent; }
 .ace_editor .ace_gutter { @apply bg-gray-50 dark:bg-gray-900 }
 .ace_editor .ace_string { @apply text-black dark:text-white font-bold }
 .ace_editor .ace_meta { @apply text-red-400 }
