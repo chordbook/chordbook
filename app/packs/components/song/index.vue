@@ -191,7 +191,7 @@ export default {
   @apply text-sm;
 }
 
-*:not(.tab) .chord {
+.chord-sheet *:not(.tab) .chord {
   @apply text-blue-900 dark:text-blue-200 pr-1;
 }
 

@@ -39,7 +39,8 @@ export default {
         numFrets: 4,
         showTuning: false,
         width: this.width,
-        height: this.height
+        height: this.height,
+        defaultColor: 'currentColor',
       }).draw({
         chord: this.chord.fingerings,
         position: this.chord.data.baseFret,
