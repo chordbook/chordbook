@@ -52,7 +52,7 @@ class SongsheetsController < ApplicationController
     @songsheet.destroy
     respond_to do |format|
       format.html { redirect_to songsheets_url, notice: "Songsheet was successfully destroyed." }
-      format.json { head :no_content }
+      format.json { head :no_content, location: songsheets_url }
     end
   end
 

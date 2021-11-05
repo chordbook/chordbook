@@ -15,7 +15,7 @@
 
       <div class="px-8 py-3 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 flex gap-2 sm:gap-4 items-center">
         <div class="flex-grow">
-          <a :href="url" data-method="delete" data-confirm="Are you sure?" rel="nofollow" class="text-red-600">
+          <a @click.prevent="destroy" data-confirm="Are you sure?" rel="nofollow" class="text-red-600">
             Delete
           </a>
         </div>
@@ -60,6 +60,11 @@ export default {
       errors: {},
       themes: {dark: 'chaos', light: 'clouds'},
       theme: 'clouds',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      }
     }
   },
 
@@ -110,11 +115,7 @@ export default {
       axios({
         url: this.url,
         method: this.id ? 'PATCH' : 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
+        headers: this.headers,
         data: {
           songsheet: {
             source: this.source,
@@ -129,6 +130,18 @@ export default {
         } else {
           console.error(error, error.response)
         }
+      })
+    },
+
+    async destroy(e) {
+      if(!confirm(e.target.dataset.confirm)) return
+
+      axios({
+        url: this.url,
+        method: 'DELETE',
+        headers: this.headers
+      }).then(response => {
+        Turbolinks.visit(response.headers.location)
       })
     },
 
