@@ -2,10 +2,29 @@
   <div v-if="source" class="flex flex-col sm:flex-row h-full">
     <!-- Hidden sprite of chord diagrams -->
     <svg hidden xmlns="http://www.w3.org/2000/svg">
-      <chord-diagram v-for="chord in chords" :name="chord" :key="chord"/>
+      <chord-diagram v-for="chord in chords" :name="chord" :key="chord + instrument" :instrument="instrument" />
     </svg>
 
     <div v-if="showChords" :class="(showChords == 'last' ? 'order-last border-t sm:border-l sm:border-t-0' : 'border-b sm:border-r sm:border-b-0') + ' flex flex-row sm:flex-col p-4 overflow-auto border-gray-200 dark:border-gray-700'">
+      <div class="text-xs uppercase mb-4 text-gray-400 relative">
+        <Listbox v-model="instrument">
+          <ListboxButton class="uppercase btn btn-small btn-muted">
+            {{ instrument }}
+            <icon-bi:chevron-down class="icon-xs ml-1" />
+          </ListboxButton>
+          <ListboxOptions class="absolute btn btn-small btn-muted bg-white dark:bg-black block p-0 overflow-hidden w-full mt-2">
+            <ListboxOption as="template" v-slot="{ active, selected }"
+              v-for="instrument in instruments" :key="instrument" :value="instrument">
+                <li :class="['px-3 py-2 cursor-pointer', {
+            'bg-white dark:bg-gray-900': !(active || selected),
+            'bg-green-400 text-white dark:bg-gray-600': selected,
+            'bg-green-100 dark:bg-gray-700': active,
+          }]">{{ instrument }}</li>
+            </ListboxOption>
+          </ListboxOptions>
+        </Listbox>
+      </div>
+
       <div v-for="name in chords" class="text-center text-sm" :key="name">
         <div class="chord">{{ name }}</div>
         <svg class="chord-diagram inline-block" xmlns="http://www.w3.org/2000/svg" role="image" :title="name">
@@ -43,9 +62,25 @@
 import detectFormat from '../../lib/detect_format'
 import ChordLyricsPair from './chord-lyrics-pair.vue'
 import Tag from './tag.vue'
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOptions,
+  ListboxOption,
+} from '@headlessui/vue'
 
 export default {
-  components: { ChordLyricsPair, Tag },
+  components: { ChordLyricsPair, Tag,   Listbox,
+  ListboxButton,
+  ListboxOptions,
+  ListboxOption,
+ },
+
+  data() {
+    return {
+      instruments: ['guitar', 'ukulele']
+    }
+  },
 
   props: {
     source: String,
@@ -87,6 +122,11 @@ export default {
         })
       })
       return chords
+    },
+
+    instrument: {
+      get() { return this.$store.state.instrument || 'guitar' },
+      set(value) { this.$store.commit('update', {instrument: value}) }
     },
   },
 
@@ -196,7 +236,7 @@ export default {
 }
 
 .chorus {
-  border-left: 4px solid #999;
+  btner-left: 4px solid #999;
   padding-left: 1em;
 
   &::before {

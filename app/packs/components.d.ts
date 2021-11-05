@@ -6,6 +6,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     IconAppChordDiagram: typeof import('~icons/app/chord-diagram')['default']
     IconAppTuningFork: typeof import('~icons/app/tuning-fork')['default']
+    'IconBi:chevronDown': typeof import('~icons/bi/chevron-down')['default']
     'IconBi:file': typeof import('~icons/bi/file')['default']
     'IconBi:journalPlus': typeof import('~icons/bi/journal-plus')['default']
     'IconBi:journalText': typeof import('~icons/bi/journal-text')['default']

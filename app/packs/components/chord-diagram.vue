@@ -9,7 +9,6 @@ import Chord from '../lib/chord'
 export default {
   data: () => {
     return {
-      instrument: 'guitar',
       position: 0,
       width: 50,
       height: 65
@@ -17,7 +16,11 @@ export default {
   },
 
   props: {
-    name: String
+    name: String,
+    instrument: {
+      type: String,
+      default: 'guitar'
+    }
   },
 
   computed: {

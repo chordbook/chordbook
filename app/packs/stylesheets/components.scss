@@ -5,7 +5,7 @@
   }
 
   .btn-small {
-    @apply text-xs px-2 py-2 rounded #{!important};
+    @apply text-xs p-2 rounded;
   }
 
   .btn-primary {
@@ -13,7 +13,7 @@
   }
 
   .btn-muted {
-    @apply bg-gray-100 dark:bg-transparent border border-gray-300 dark:border-gray-400 dark:text-gray-300;
+    @apply border border-gray-200 dark:border-gray-600 dark:text-gray-300;
   }
 
   .toggle {
