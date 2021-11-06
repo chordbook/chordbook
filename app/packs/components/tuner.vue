@@ -120,6 +120,7 @@ export default {
 
 <style>
 .notes-list {
+  scrollbar-width: none;
   overflow: -moz-scrollbars-none;
   -ms-overflow-style: none;
   -webkit-mask-image: -webkit-linear-gradient(
