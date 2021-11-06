@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Chord Book</title>
+    <meta name="description" content="Chord sheets for Guitar and Ukulele">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -10,9 +13,15 @@
     <%= vite_javascript_tag 'application', 'vue', 'data-turbolinks-track': 'reload' %>
     <%= vite_stylesheet_tag 'application.scss', media: 'all', 'data-turbolinks-track': 'reload' %>
     <link rel="manifest" href="/manifest.json">
-    <link rel="apple-touch-icon" href="<%= asset_path "icon@192.png" %>">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000">
+    <meta name="msapplication-TileColor" content="#10b981">
+    <meta name="theme-color" content="#ffffff">
   </head>
 
   <body class="bg-gray-800">
