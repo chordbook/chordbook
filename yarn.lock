@@ -1633,6 +1633,21 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.20.tgz#53746961f731a8ea666e3316271e944238dc31db"
   integrity sha512-FbpX+hD5BvXCQerEYO7jtAGHlhAkhTQ4KIV73kmLWNlawWhTiVuQxizgVb0BOkX5oG9cIRZ42EG++d/k/Efp0w==
 
+"@vueuse/core@^6.8.0":
+  version "6.8.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-6.8.0.tgz#dc004bc30031e053e9ef5011203c4a80f00986ed"
+  integrity sha512-C6KMBus29L/mVtA5eK26WAqj6tyPlugrKaPLi2uLtbV//BHjbxe1uo3gVXCc5SwouDEdc7zswlGPw/l0/++NRg==
+  dependencies:
+    "@vueuse/shared" "6.8.0"
+    vue-demi "*"
+
+"@vueuse/shared@6.8.0":
+  version "6.8.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-6.8.0.tgz#50713b770941293e557a4eae9424cad2aad44a85"
+  integrity sha512-+YjehQ8Qe4Qgyq8iTToVOzp4sZBAZvScv3AGJSMi6HYbe54+nyjrRfS8DN4fA0eUahyftHKZ00WKgMe7TS5N0w==
+  dependencies:
+    vue-demi "*"
+
 "@wry/equality@^0.1.2":
   version "0.1.11"
   resolved "https://registry.yarnpkg.com/@wry/equality/-/equality-0.1.11.tgz#35cb156e4a96695aa81a9ecc4d03787bc17f1790"
@@ -8204,6 +8219,11 @@ vue-codemod@^0.0.5:
     lru-cache "^6.0.0"
     source-map "^0.6.1"
     yargs "^16.2.0"
+
+vue-demi@*:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.12.1.tgz#f7e18efbecffd11ab069d1472d7a06e319b4174c"
+  integrity sha512-QL3ny+wX8c6Xm1/EZylbgzdoDolye+VpCXRhI2hug9dJTP3OUJ3lmiKN3CsVV3mOJKwFi0nsstbgob0vG7aoIw==
 
 vue-turbolinks@^2.2.2:
   version "2.2.2"

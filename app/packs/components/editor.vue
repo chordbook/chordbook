@@ -49,8 +49,7 @@ import 'ace-builds/src-noconflict/theme-chaos'
 import 'ace-builds/src-noconflict/ext-language_tools'
 import '~/ace/mode-chordpro'
 import '~/ace/snippets/chordpro'
-
-const darkModeDetector = window.matchMedia('(prefers-color-scheme: dark)')
+import { useMediaQuery } from '@vueuse/core'
 
 export default {
   components: { VAceEditor },
@@ -59,7 +58,7 @@ export default {
     return {
       errors: {},
       themes: {dark: 'chaos', light: 'clouds'},
-      theme: 'clouds',
+      isDarkMode: useMediaQuery('(prefers-color-scheme: dark)'),
       headers: {
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
@@ -74,16 +73,6 @@ export default {
     id: String,
   },
 
-  mounted() {
-    this.toggleTheme = this.toggleTheme.bind(this)
-    darkModeDetector.addEventListener('change', this.toggleTheme)
-    this.toggleTheme()
-  },
-
-  unmounted() {
-    darkModeDetector.removeEventListener('change', this.toggleTheme)
-  },
-
   computed: {
     format() {
       return detectFormat(this.source)
@@ -92,13 +81,13 @@ export default {
     parsedSong() {
       return this.format.parse(this.source)
     },
+
+    theme() {
+      return this.isDarkMode ? this.themes.dark : this.themes.light
+    }
   },
 
   methods: {
-    toggleTheme() {
-      this.theme = darkModeDetector.matches ? this.themes.dark : this.themes.light
-    },
-
     setupEditor(editor) {
       editor.setOptions({
         enableBasicAutocompletion: true,
