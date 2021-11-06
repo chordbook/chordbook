@@ -59,9 +59,9 @@
 </template>
 
 <script>
-import detectFormat from '../../lib/detect_format'
-import ChordLyricsPair from './chord-lyrics-pair.vue'
-import Tag from './tag.vue'
+import detectFormat from '../lib/detect_format'
+import ChordLyricsPair from './song/chord-lyrics-pair.vue'
+import Tag from './song/tag.vue'
 import {
   Listbox,
   ListboxButton,
