@@ -158,25 +158,17 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .horizontal-columns {
   @apply max-w-none w-auto mx-0 overflow-x-auto h-full gap-x-2 px-4 md:px-8 lg:px-12;
   column-count: auto;
   column-width: var(--column-width);
   column-fill: auto;
-
-  .column-span-all {
-    column-span: all;
-  }
 }
+.horizontal-columns .column-span-all { column-span: all; }
 
-.single-column {
-  @apply container;
-
-  .row {
-    flex-wrap: wrap;
-  }
-}
+.single-column { @apply container; }
+.single-column .row { flex-wrap: wrap; }
 
 .content-width {
   overflow: auto !important;
