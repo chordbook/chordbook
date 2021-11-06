@@ -68,16 +68,14 @@ import {
   ListboxOptions,
   ListboxOption,
 } from '@headlessui/vue'
+import { useCssVar } from '@vueuse/core'
 
 export default {
-  components: { ChordLyricsPair, Tag,   Listbox,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption,
- },
+  components: { ChordLyricsPair, Tag, Listbox, ListboxButton, ListboxOptions, ListboxOption },
 
   data() {
     return {
+      columnWidth: useCssVar('--column-width', this.$el),
       instruments: ['guitar', 'ukulele']
     }
   },
@@ -140,7 +138,8 @@ export default {
 
       if(output) {
         output.classList.add('content-width')
-        document.documentElement.style.setProperty('--column-width', output.offsetWidth + 'px')
+        this.columnWidth = output.offsetWidth + 'px'
+        // document.documentElement.style.setProperty('--column-width', )
         output.classList.remove('content-width')
       }
     },
