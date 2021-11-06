@@ -1,5 +1,5 @@
 <template>
-  <symbol :id="`chord-${name}`" :width="width" :height="height" :viewBox="`0 0 ${width} ${height}`" v-html="diagram"></symbol>
+  <component :is="as" :id="`chord-${name}`" :width="width" :height="height" :viewBox="`0 0 ${width} ${height}`" v-html="diagram"></component>
 </template>
 
 <script>
@@ -7,19 +7,25 @@ import { ChordBox } from 'vexchords'
 import Chord from '../lib/chord'
 
 export default {
-  data: () => {
-    return {
-      position: 0,
-      width: 50,
-      height: 65
-    }
-  },
-
   props: {
+    as: {
+      type: String,
+      default: 'symbol'
+    },
     name: String,
     instrument: {
       type: String,
       default: 'guitar'
+    },
+    position: {
+      type: Number,
+      default: 0
+    },
+    width: {
+      default: "50"
+    },
+    height: {
+      default: "65"
     }
   },
 
@@ -39,11 +45,10 @@ export default {
 
       const chordbox = new ChordBox(el, {
         numStrings: this.chord.strings,
-        numFrets: 4,
         showTuning: false,
         width: this.width,
         height: this.height,
-        defaultColor: 'currentColor',
+        defaultColor: 'currentColor'
       }).draw({
         chord: this.chord.fingerings,
         position: this.chord.data.baseFret,
