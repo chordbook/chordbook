@@ -7,6 +7,7 @@ import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 import { string } from "rollup-plugin-string"
+import manifest from "./public/manifest.json"
 
 export default defineConfig({
   plugins: [
@@ -17,29 +18,8 @@ export default defineConfig({
       filename: "offline.js",
       workbox: {
         sourcemap: true,
-        debug: true
       },
-      manifest: {
-        short_name: "Chord Book",
-        name: "Chord Book",
-        icons: [
-          {
-            src: "/android-chrome-192.png",
-            sizes: "192x192",
-            type: "image/png"
-          },
-          {
-            src: "/android-chrome-512.png",
-            sizes: "512x512",
-            type: "image/png"
-          }
-        ],
-        start_url: "/",
-        background_color: "#3367D6",
-        display: "standalone",
-        scope: "/",
-        theme_color: "#3367D6"
-      }
+      manifest
     }),
     string({ include: "**/*.snippets" }),
     Icons({
