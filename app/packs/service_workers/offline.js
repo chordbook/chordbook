@@ -3,19 +3,28 @@ import { precacheAndRoute } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing';
 import { CacheFirst, NetworkFirst } from 'workbox-strategies';
 import { ExpirationPlugin } from 'workbox-expiration';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
 registerRoute(
   ({request}) => request.destination === 'script' || request.destination === 'style',
   new CacheFirst()
 );
 
+// Loading pages (and turbolinks requests), checks the network first
 registerRoute(
-  ({url, request}) => url.origin === self.location.origin && request.destination === 'document',
+  ({request}) => request.destination === "document" || (
+    request.destination === "" &&
+    request.mode === "cors" &&
+    request.headers.get('Turbolinks-Referrer') !== null
+  ),
   new NetworkFirst({
     networkTimeoutSeconds: 3,
     cacheName: 'documents',
     plugins: [
       new ExpirationPlugin({ maxEntries: 500 }),
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      })
     ],
   })
 );
