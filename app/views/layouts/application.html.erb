@@ -12,7 +12,6 @@
     <%#= vite_client_tag %>
     <%= vite_javascript_tag 'application', 'vue', 'data-turbolinks-track': 'reload' %>
     <%= vite_stylesheet_tag 'application.scss', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <link rel="manifest" href="/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -26,6 +25,7 @@
 
   <body class="bg-gray-800">
     <div data-behavior="vue" class="flex flex-col h-screen">
+      <reload-pwa></reload-pwa>
       <app-header></app-header>
       <main class="bg-white flex-grow overflow-auto dark:bg-gray-800 dark:text-gray-200">
         <%= yield %>
