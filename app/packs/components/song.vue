@@ -157,7 +157,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .horizontal-columns {
   @apply max-w-none w-auto mx-0 overflow-x-auto h-full gap-x-2 px-4 md:px-8 lg:px-12;
   column-count: auto;
@@ -202,7 +202,7 @@ export default {
   flex-direction: column;
 }
 
-.comment {
+.comment, .chorus:before, .verse::before {
   font-weight: bold;
   font-style: italic;
   break-after: avoid;
@@ -227,19 +227,17 @@ export default {
 }
 
 .chorus {
-  btner-left: 4px solid #999;
+  border-left: 4px solid #999;
   padding-left: 1em;
+}
 
-  &::before {
-    content: "Chorus:";
-    @extend .comment;
-  }
+.chorus::before {
+  content: "Chorus:";
 }
 
 .verse::before {
   counter-increment: verse;
   content: "Verse " counter(verse) ":";
-  @extend .comment;
 }
 
 .chord:after, .lyrics:after {

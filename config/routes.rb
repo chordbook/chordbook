@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   root "songsheets#index"
   resources :songsheets
-  get "manifest.json", to: "content#manifest"
   get "offline.json", to: "content#offline"
   get "tuner", to: "content#tuner"
 end
