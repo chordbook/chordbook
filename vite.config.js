@@ -13,12 +13,9 @@ export default defineConfig({
     vue(),
     RubyPlugin(),
     VitePWA({
-      // mode: process.env.NODE_ENV || 'development',
-      // base: "/",
       srcDir: "service_workers",
-      filename: "service-worker.js",
+      filename: "offline.js",
       includeAssets: ["/favicon-16x16.png"],
-      // strategies: "injectManifest",
       manifest: {
         short_name: "Chord Book",
         name: "Chord Book",
