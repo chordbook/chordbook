@@ -15,7 +15,10 @@ export default defineConfig({
     VitePWA({
       srcDir: "service_workers",
       filename: "offline.js",
-      includeAssets: ["/favicon-16x16.png"],
+      workbox: {
+        sourcemap: true,
+        debug: true
+      },
       manifest: {
         short_name: "Chord Book",
         name: "Chord Book",
