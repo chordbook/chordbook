@@ -16,6 +16,6 @@ const PARSERS = [
 ]
 
 export default function detectFormat (source) {
-  if(!source) return;
+  if (!source) return
   return PARSERS.find(({ pattern }) => source.match(pattern))?.parser
 }

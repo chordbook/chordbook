@@ -34,15 +34,15 @@ export class Tuner {
     this.middleA = a4 || 440
     this.semitone = 69
     this.bufferSize = 4096
-    this.noteStrings = [ 'C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B' ]
+    this.noteStrings = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B']
   }
 
-  async start (callback) {
+  async start (onNote) {
     if (!AudioContext) return alert('AudioContext not supported')
 
     this.audioContext = new AudioContext()
     this.analyser = this.audioContext.createAnalyser()
-    this.scriptProcessor = this.audioContext.createScriptProcessor(this.bufferSize, 1, 1 )
+    this.scriptProcessor = this.audioContext.createScriptProcessor(this.bufferSize, 1, 1)
 
     const { Pitch } = await aubio()
     this.pitchDetector = new Pitch('default', this.bufferSize, 1, this.audioContext.sampleRate)
@@ -55,7 +55,7 @@ export class Tuner {
 
       if (frequency) {
         const note = this.getNote(frequency)
-        callback({
+        onNote({
           name: this.noteStrings[note % 12],
           value: note,
           cents: this.getCents(frequency, note),
@@ -66,7 +66,7 @@ export class Tuner {
     })
   }
 
-  stop() {
+  stop () {
     return this.audioContext.close()
   }
 

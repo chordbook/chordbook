@@ -34,18 +34,19 @@
   },
   "version": "0.1.0",
   "devDependencies": {
-    "@babel/eslint-parser": "^7.15.8",
     "@vue/cli": "^4.5.14",
+    "eslint": "^8.2.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.1",
+    "eslint-plugin-vue": "^8.0.3",
     "standard": "^16.0.4",
     "vite": "^2.5.0",
     "vite-plugin-ruby": "^3.0.0"
   },
   "scripts": {
-    "lint": "standard --env browser app/javascript"
-  },
-  "standard": {
-    "env": "browser",
-    "parser": "@babel/eslint-parser"
+    "lint": "eslint --fix --ext .js,.vue app"
   },
   "browserslist": [
     "defaults"

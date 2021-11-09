@@ -5,46 +5,86 @@
         <div class="grid grid-flow-col auto-cols-max divide-x dark:divide-gray-500 items-center">
           <div class="pr-3">
             <div class="flex">
-              <div class="toggle" tooltip="Scroll vertically" tooltip-pos="bottom">
-                <input id="settings-columns-1" type="radio" name="columns" v-model="columns" :value="1">
+              <div
+                class="toggle"
+                tooltip="Scroll vertically"
+                tooltip-pos="bottom"
+              >
+                <input
+                  id="settings-columns-1"
+                  v-model="columns"
+                  type="radio"
+                  name="columns"
+                  :value="1"
+                >
                 <label for="settings-columns-1">
-                  <icon-bi:file/>
+                  <icon-bi:file />
                 </label>
               </div>
-              <div class="toggle" tooltip="Scroll horizontally" tooltip-pos="bottom">
-                <input id="settings-columns-2" type="radio" name="columns" v-model="columns" :value="2">
+              <div
+                class="toggle"
+                tooltip="Scroll horizontally"
+                tooltip-pos="bottom"
+              >
+                <input
+                  id="settings-columns-2"
+                  v-model="columns"
+                  type="radio"
+                  name="columns"
+                  :value="2"
+                >
                 <label for="settings-columns-2">
-                  <icon-bi:layout-three-columns/>
+                  <icon-bi:layout-three-columns />
                 </label>
               </div>
             </div>
           </div>
 
           <div class="px-3">
-            <div class="toggle" tooltip="Show Chords" tooltip-pos="bottom">
-              <input id="settings-chord-diagram" type="checkbox" v-model="showChords">
+            <div
+              class="toggle"
+              tooltip="Show Chords"
+              tooltip-pos="bottom"
+            >
+              <input
+                id="settings-chord-diagram"
+                v-model="showChords"
+                type="checkbox"
+              >
               <label for="settings-chord-diagram">
-                <icon-app-chord-diagram/>
+                <icon-app-chord-diagram />
               </label>
             </div>
           </div>
 
           <div class="px-3">
-            <button class="toggle" @click="toggleTuner" tooltip="Tuner" tooltip-pos="bottom">
-              <icon-app-tuning-fork/>
+            <button
+              class="toggle"
+              tooltip="Tuner"
+              tooltip-pos="bottom"
+              @click="toggleTuner"
+            >
+              <icon-app-tuning-fork />
             </button>
 
-            <TransitionRoot :show="showTuner"
-              enter="transition-opacity duration-75" enter-from="opacity-0" enter-to="opacity-100"
-              leave="transition-opacity duration-150" leave-from="opacity-100" leave-to="opacity-0">
-
-              <Dialog @close="toggleTuner" class="fixed inset-0 z-10 overflow-y-auto">
+            <TransitionRoot
+              :show="showTuner"
+              enter="transition-opacity duration-75"
+              enter-from="opacity-0"
+              enter-to="opacity-100"
+              leave="transition-opacity duration-150"
+              leave-from="opacity-100"
+              leave-to="opacity-0"
+            >
+              <Dialog
+                class="fixed inset-0 z-10 overflow-y-auto"
+                @close="toggleTuner"
+              >
                 <div class="flex items-center justify-center min-h-screen">
-
                   <DialogOverlay class="fixed inset-0 bg-black opacity-50" />
 
                   <div class="relative max-w-sm mx-auto border bg-white dark:bg-gray-800 dark:text-gray-200 dark:border-black rounded-md overflow-hidden drop-shadow-lg">
-                    <tuner></tuner>
+                    <tuner />
                   </div>
                 </div>
               </Dialog>
@@ -52,14 +92,21 @@
           </div>
 
           <div class="px-3">
-            <a :href="edit" class="btn btn-muted btn-small">Edit</a>
+            <a
+              :href="edit"
+              class="btn btn-muted btn-small"
+            >Edit</a>
           </div>
         </div>
       </div>
     </div>
 
     <div class="flex-grow overflow-hidden">
-      <song :source="source" :columns="columns" :showChords="showChords"></song>
+      <song
+        :source="source"
+        :columns="columns"
+        :show-chords="showChords"
+      />
     </div>
   </div>
 </template>
@@ -69,13 +116,24 @@ import {
   Dialog,
   DialogOverlay,
   TransitionRoot
-} from "@headlessui/vue"
-import { ref } from "vue"
+} from '@headlessui/vue'
+import { ref } from 'vue'
 
 export default {
   components: { Dialog, DialogOverlay, TransitionRoot },
 
-  setup() {
+  props: {
+    source: {
+      type: String,
+      default: ''
+    },
+    edit: {
+      type: String,
+      default: null
+    }
+  },
+
+  setup () {
     const showTuner = ref(false)
 
     return {
@@ -83,25 +141,20 @@ export default {
     }
   },
 
-  props: {
-    source: String,
-    edit: String
-  },
-
   computed: {
     showChords: {
-      get() { return this.$store.state.showChords },
-      set(value) { this.$store.commit('update', {showChords: !!value}) }
+      get () { return this.$store.state.showChords },
+      set (value) { this.$store.commit('update', { showChords: !!value }) }
     },
 
     columns: {
-      get() { return this.$store.state.columns || 1 },
-      set(value) { this.$store.commit('update', {columns: value}) }
+      get () { return this.$store.state.columns || 1 },
+      set (value) { this.$store.commit('update', { columns: value }) }
     }
   },
 
   methods: {
-    toggleTuner() {
+    toggleTuner () {
       this.showTuner = !this.showTuner
     }
   }

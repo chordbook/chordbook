@@ -1,5 +1,13 @@
 <template>
-  <component :is="as" :id="`chord-${name}`" :width="width" :height="height" :viewBox="`0 0 ${width} ${height}`" v-html="diagram"></component>
+  <!-- eslint-disable vue/no-v-html -->
+  <component
+    :is="as"
+    :id="`chord-${name}`"
+    :width="width"
+    :height="height"
+    :viewBox="`0 0 ${width} ${height}`"
+    v-html="diagram"
+  />
 </template>
 
 <script>
@@ -12,7 +20,10 @@ export default {
       type: String,
       default: 'symbol'
     },
-    name: String,
+    name: {
+      type: String,
+      required: true
+    },
     instrument: {
       type: String,
       default: 'guitar'
@@ -22,28 +33,26 @@ export default {
       default: 0
     },
     width: {
-      default: "50"
+      type: [Number, String],
+      default: '50'
     },
     height: {
-      default: "65"
+      type: [Number, String],
+      default: '65'
     }
   },
 
   computed: {
-    chord() {
-      try {
-        return new Chord(this.name, this.instrument, this.position)
-      } catch(err) {
-        console.error(err)
-      }
+    chord () {
+      return new Chord(this.name, this.instrument, this.position)
     },
 
-    diagram() {
-      if(!this.chord) return "";
+    diagram () {
+      if (!this.chord) return ''
 
       const el = document.createElement('div')
 
-      const chordbox = new ChordBox(el, {
+      new ChordBox(el, {
         numStrings: this.chord.strings,
         showTuning: false,
         width: this.width,
@@ -56,7 +65,7 @@ export default {
       })
 
       return el.querySelector('svg').innerHTML
-    },
+    }
   }
 }
 </script>

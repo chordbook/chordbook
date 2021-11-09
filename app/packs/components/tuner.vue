@@ -1,24 +1,46 @@
 <template>
   <div class="p-6 relative cursor-default select-none">
-    <canvas class="opacity-20 absolute right-0 bottom-0 left-0 h-1/2 w-full z-0" ref="frequency-bars"></canvas>
-    <tuner-meter :cents="note.cents"></tuner-meter>
-    <div ref="notes" class="text-center">
+    <canvas
+      ref="frequency-bars"
+      class="opacity-20 absolute right-0 bottom-0 left-0 h-1/2 w-full z-0"
+    />
+    <tuner-meter :cents="note.cents" />
+    <div
+      ref="notes"
+      class="text-center"
+    >
       <div class="notes-list overflow-y-hidden overflow-x-auto whitespace-nowrap my-2">
-        <tuner-note v-for="note in notes"
-          :key="note.name"
-          :name="note.name"
-          :octave="note.octave"
-          :frequency="note.frequency"
-          :active="this.note.name == note.name && this.note.octave == note.octave"></tuner-note>
+        <tuner-note
+          v-for="n in notes"
+          :key="n.name"
+          :name="n.name"
+          :octave="n.octave"
+          :frequency="n.frequency"
+          :active="this.n.name == n.name && this.n.octave == n.octave"
+        />
       </div>
-      <div class="text-gray-500">{{ note.frequency.toFixed(1) }} <span>Hz</span></div>
+      <div class="text-gray-500">
+        {{ note.frequency.toFixed(1) }} <span>Hz</span>
+      </div>
     </div>
 
     <div class="mt-4 text-center">
-      <button v-if="!active" class="btn btn-primary" @click="start" tooltip="Start" tooltip-pos="bottom">
+      <button
+        v-if="!active"
+        class="btn btn-primary"
+        tooltip="Start"
+        tooltip-pos="bottom"
+        @click="start"
+      >
         <icon-bi:mic />
       </button>
-      <button v-if="active" class="btn btn-primary bg-red-500 hover:bg-red-600" @click="stop" tooltip="Stop" tooltip-pos="bottom">
+      <button
+        v-if="active"
+        class="btn btn-primary bg-red-500 hover:bg-red-600"
+        tooltip="Stop"
+        tooltip-pos="bottom"
+        @click="stop"
+      >
         <icon-bi:mic-fill class="animate-pulse" />
       </button>
     </div>
@@ -27,16 +49,9 @@
 
 <script>
 import { Tuner } from '../lib/tuner'
-import Meter from './tuner/meter.vue'
-import Note from './tuner/note.vue'
 
 export default {
-  components: {
-    "tuner-meter": Meter,
-    "tuner-note": Note,
-  },
-
-  data() {
+  data () {
     return {
       a4: 440,
       note: { name: 'A', frequency: 440, octave: 4, cents: 0 },
@@ -45,11 +60,11 @@ export default {
   },
 
   computed: {
-    tuner() {
+    tuner () {
       return new Tuner(this.a4)
     },
 
-    notes() {
+    notes () {
       const minOctave = 2
       const maxOctave = 5
       const notes = []
@@ -70,19 +85,19 @@ export default {
   },
 
   methods: {
-    toggle() {
+    toggle () {
       return this.active ? this.stop() : this.start()
     },
 
-    async start() {
+    async start () {
       this.active = true
-      return this.tuner.start(note => this.$data.note = note).then(() => {
+      return this.tuner.start(n => { this.note = n }).then(() => {
         this.frequencyData = new Uint8Array(this.tuner.analyser.frequencyBinCount)
         this.updateFrequencyBars()
       })
     },
 
-    async stop() {
+    async stop () {
       this.active = false
       await this.tuner.stop()
       Object.assign(this.$data, this.$options.data())
@@ -92,7 +107,7 @@ export default {
       if (!this.active) return
 
       this.tuner.analyser.getByteFrequencyData(this.frequencyData)
-      const el = this.$refs["frequency-bars"]
+      const el = this.$refs['frequency-bars']
       const length = 64 // low frequency only
       const width = el.width / length - 0.5
 
@@ -113,7 +128,7 @@ export default {
       }
 
       requestAnimationFrame(this.updateFrequencyBars.bind(this))
-    },
+    }
   }
 }
 </script>

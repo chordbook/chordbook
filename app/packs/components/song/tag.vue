@@ -1,13 +1,15 @@
 <template>
-  <div class="comment">{{ item.value }}</div>
+  <div class="comment">
+    {{ item.value }}
+  </div>
 </template>
 
 <script>
-import { Tag } from "chordsheetjs"
+import { Tag } from 'chordsheetjs'
 
 export default {
-  for: function(item) {
-    return item instanceof Tag && item.name == "comment"
+  for: function (item) {
+    return item instanceof Tag && item.name === 'comment'
   },
 
   props: {

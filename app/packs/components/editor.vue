@@ -3,19 +3,36 @@
     <div class="h-full flex flex-col divide-y divide-solid divide-gray-300 dark:divide-gray-700">
       <div v-if="Object.keys(errors).length">
         <ul class="px-8 py-4 text-red-600">
-          <li v-for="(messages, attr) in errors" :key="attr">
-            {{ attr }} {{ messages.join(', ')}}
+          <li
+            v-for="(messages, attr) in errors"
+            :key="attr"
+          >
+            {{ attr }} {{ messages.join(', ') }}
           </li>
         </ul>
       </div>
 
+      <!-- eslint-disable vue/no-mutating-props -->
       <div class="flex-grow relative">
-        <v-ace-editor @init="setupEditor" v-model:value="source" :theme="theme" lang="chordpro" style="height: 100%" :printMargin="false" :options="{fontSize: '0.9rem'}"></v-ace-editor>
+        <v-ace-editor
+          v-model:value="source"
+          :theme="theme"
+          lang="chordpro"
+          style="height: 100%"
+          :print-margin="false"
+          :options="{fontSize: '0.9rem'}"
+          @init="setupEditor"
+        />
       </div>
 
       <div class="px-8 py-3 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 flex gap-2 sm:gap-4 items-center">
         <div class="flex-grow">
-          <a @click.prevent="destroy" data-confirm="Are you sure?" rel="nofollow" class="text-red-600">
+          <a
+            data-confirm="Are you sure?"
+            rel="nofollow"
+            class="text-red-600"
+            @click.prevent="destroy"
+          >
             Delete
           </a>
         </div>
@@ -24,20 +41,34 @@
           <a :href="url">Cancel</a>
         </div>
         <div>
-          <button @click="save" class="btn btn-primary">Save</button>
+          <button
+            class="btn btn-primary"
+            @click="save"
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>
 
     <div class="md:block h-full overflow-auto relative">
-      <h2 class="text-center uppercase text-gray-400 absolute inset-x-5 top-5">Preview</h2>
+      <h2 class="text-center uppercase text-gray-400 absolute inset-x-5 top-5">
+        Preview
+      </h2>
 
-      <song :source="source" showChords="last" :columns="1"></song>
+      <song
+        :source="source"
+        show-chords="last"
+        :columns="1"
+      />
     </div>
   </div>
 </template>
 
 <script>
+/* global ace */
+/* eslint-disable vue/no-mutating-props */
+
 import Turbolinks from 'turbolinks'
 import ChordSheetJS from 'chordsheetjs'
 import detectFormat from '../lib/detect_format'
@@ -54,10 +85,25 @@ import { useMediaQuery } from '@vueuse/core'
 export default {
   components: { VAceEditor },
 
-  data() {
+  props: {
+    url: {
+      type: String,
+      required: true
+    },
+    source: {
+      type: String,
+      required: true
+    },
+    id: {
+      type: String,
+      default: null
+    }
+  },
+
+  data () {
     return {
       errors: {},
-      themes: {dark: 'chaos', light: 'clouds'},
+      themes: { dark: 'chaos', light: 'clouds' },
       isDarkMode: useMediaQuery('(prefers-color-scheme: dark)'),
       headers: {
         'Content-Type': 'application/json',
@@ -67,32 +113,26 @@ export default {
     }
   },
 
-  props: {
-    url: String,
-    source: String,
-    id: String,
-  },
-
   computed: {
-    format() {
+    format () {
       return detectFormat(this.source)
     },
 
-    parsedSong() {
+    parsedSong () {
       return this.format.parse(this.source)
     },
 
-    theme() {
+    theme () {
       return this.isDarkMode ? this.themes.dark : this.themes.light
     }
   },
 
   methods: {
-    setupEditor(editor) {
+    setupEditor (editor) {
       editor.setOptions({
         enableBasicAutocompletion: true,
         enableSnippets: true,
-        enableLiveAutocompletion: true,
+        enableLiveAutocompletion: true
       })
       editor.renderer.setScrollMargin(20, 20)
 
@@ -100,7 +140,7 @@ export default {
       editor.completers = [new ChordCompleter(), snippetCompleter]
     },
 
-    async save() {
+    async save () {
       axios({
         url: this.url,
         method: this.id ? 'PATCH' : 'POST',
@@ -110,11 +150,11 @@ export default {
             source: this.source,
             metadata: this.parsedSong.metadata
           }
-        },
+        }
       }).then(response => {
-        Turbolinks.visit(response.headers.location || url)
+        Turbolinks.visit(response.headers.location)
       }).catch(error => {
-        if(error.response) {
+        if (error.response) {
           this.errors = error.response.data
         } else {
           console.error(error, error.response)
@@ -122,8 +162,8 @@ export default {
       })
     },
 
-    async destroy(e) {
-      if(!confirm(e.target.dataset.confirm)) return
+    async destroy (e) {
+      if (!confirm(e.target.dataset.confirm)) return
 
       axios({
         url: this.url,
@@ -134,7 +174,7 @@ export default {
       })
     },
 
-    paste(e) {
+    paste (e) {
       const paste = (e.clipboardData || window.clipboardData).getData('text')
       const format = detectFormat(paste)
 
@@ -145,7 +185,7 @@ export default {
       e.preventDefault()
       this.source = new ChordSheetJS.ChordProFormatter().format(format.parse(paste))
     }
-  },
+  }
 }
 </script>
 

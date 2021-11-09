@@ -1,11 +1,25 @@
 <template>
-  <div v-if="source" class="flex flex-col sm:flex-row h-full">
+  <div
+    v-if="source"
+    class="flex flex-col sm:flex-row h-full"
+  >
     <!-- Hidden sprite of chord diagrams -->
-    <svg hidden xmlns="http://www.w3.org/2000/svg">
-      <chord-diagram v-for="chord in chords" :name="chord" :key="chord + instrument" :instrument="instrument" />
+    <svg
+      hidden
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <chord-diagram
+        v-for="chord in chords"
+        :key="chord + instrument"
+        :name="chord"
+        :instrument="instrument"
+      />
     </svg>
 
-    <div v-if="showChords" :class="(showChords == 'last' ? 'order-last border-t sm:border-l sm:border-t-0' : 'border-b sm:border-r sm:border-b-0') + ' flex flex-row sm:flex-col p-4 overflow-auto border-gray-200 dark:border-gray-700'">
+    <div
+      v-if="showChords"
+      :class="(showChords == 'last' ? 'order-last border-t sm:border-l sm:border-t-0' : 'border-b sm:border-r sm:border-b-0') + ' flex flex-row sm:flex-col p-4 overflow-auto border-gray-200 dark:border-gray-700'"
+    >
       <div class="text-xs uppercase mb-4 text-gray-400 relative">
         <Listbox v-model="instrument">
           <ListboxButton class="uppercase btn btn-small btn-muted">
@@ -13,22 +27,45 @@
             <icon-bi:chevron-down class="icon-xs ml-1" />
           </ListboxButton>
           <ListboxOptions class="absolute btn btn-small btn-muted bg-white dark:bg-black block p-0 overflow-hidden w-full mt-2">
-            <ListboxOption as="template" v-slot="{ active, selected }"
-              v-for="instrument in instruments" :key="instrument" :value="instrument">
-                <li :class="['px-3 py-2 cursor-pointer', {
-            'bg-white dark:bg-gray-900': !(active || selected),
-            'bg-green-400 text-white dark:bg-gray-600': selected,
-            'bg-green-100 dark:bg-gray-700': active,
-          }]">{{ instrument }}</li>
+            <ListboxOption
+              v-for="i in instruments"
+              v-slot="{ active, selected }"
+              :key="i"
+              as="template"
+              :value="i"
+            >
+              <li
+                :class="['px-3 py-2 cursor-pointer', {
+                  'bg-white dark:bg-gray-900': !(active || selected),
+                  'bg-green-400 text-white dark:bg-gray-600': selected,
+                  'bg-green-100 dark:bg-gray-700': active,
+                }]"
+              >
+                {{ i }}
+              </li>
             </ListboxOption>
           </ListboxOptions>
         </Listbox>
       </div>
 
-      <div v-for="name in chords" class="text-center text-sm" :key="name">
-        <div class="chord">{{ name }}</div>
-        <svg class="chord-diagram inline-block" xmlns="http://www.w3.org/2000/svg" role="image" :title="name">
-          <use :xlink:href="`#chord-${name}`" viewBox="0 0 50 65"></use>
+      <div
+        v-for="name in chords"
+        :key="name"
+        class="text-center text-sm"
+      >
+        <div class="chord">
+          {{ name }}
+        </div>
+        <svg
+          class="chord-diagram inline-block"
+          xmlns="http://www.w3.org/2000/svg"
+          role="image"
+          :title="name"
+        >
+          <use
+            :xlink:href="`#chord-${name}`"
+            viewBox="0 0 50 65"
+          />
         </svg>
       </div>
     </div>
@@ -36,18 +73,46 @@
     <div class="overflow-auto flex-grow h-full">
       <div :class="'py-4 md:py-8 lg:py-12 ' + (columns == 1 ? 'single-column' : 'horizontal-columns')">
         <div class="column-span-all">
-          <h1 v-if="song.title">{{ song.title }}</h1>
-          <h2 v-if="song.subtitle">{{ song.subtitle }}</h2>
-          <h2 v-if="song.artist">by {{ song.artist }}</h2>
-          <div v-if="song.capo">Capo {{ song.capo }}</div>
+          <h1 v-if="song.title">
+            {{ song.title }}
+          </h1>
+          <h2 v-if="song.subtitle">
+            {{ song.subtitle }}
+          </h2>
+          <h2 v-if="song.artist">
+            by {{ song.artist }}
+          </h2>
+          <div v-if="song.capo">
+            Capo {{ song.capo }}
+          </div>
         </div>
 
-        <div ref="output" class="chord-sheet">
-          <div v-for="paragraph in song.paragraphs" :class="paragraph.type + ' paragraph'">
-            <template v-for="line in paragraph.lines">
-              <div v-if="line.hasRenderableItems()" class="row">
-                <template v-for="item in line.items">
-                  <component v-if="item.isRenderable()" :is="componentFor(item)" :item="item" />
+        <div
+          ref="output"
+          class="chord-sheet"
+        >
+          <div
+            v-for="{ type, lines } in song.paragraphs"
+            :key="type + JSON.stringify(lines)"
+            :class="type + ' paragraph'"
+          >
+            <template
+              v-for="line in lines"
+              :key="JSON.stringify(line)"
+            >
+              <div
+                v-if="line.hasRenderableItems()"
+                class="row"
+              >
+                <template
+                  v-for="item in line.items"
+                  :key="JSON.stringify(item)"
+                >
+                  <component
+                    :is="componentFor(item)"
+                    v-if="item.isRenderable()"
+                    :item="item"
+                  />
                 </template>
               </div>
             </template>
@@ -66,22 +131,18 @@ import {
   Listbox,
   ListboxButton,
   ListboxOptions,
-  ListboxOption,
+  ListboxOption
 } from '@headlessui/vue'
 import { useCssVar } from '@vueuse/core'
 
 export default {
   components: { ChordLyricsPair, Tag, Listbox, ListboxButton, ListboxOptions, ListboxOption },
 
-  data() {
-    return {
-      columnWidth: useCssVar('--column-width', this.$el),
-      instruments: ['guitar', 'ukulele']
-    }
-  },
-
   props: {
-    source: String,
+    source: {
+      type: String,
+      default: null
+    },
 
     showChords: {
       type: [Boolean, String],
@@ -94,49 +155,62 @@ export default {
     }
   },
 
-  mounted() {
-    this.updateColumnWidth();
-  },
-
-  updated() {
-    this.updateColumnWidth()
+  data () {
+    return {
+      columnWidth: useCssVar('--column-width', this.$el),
+      instruments: ['guitar', 'ukulele']
+    }
   },
 
   computed: {
-    format() {
+    format () {
       return detectFormat(this.source)
     },
 
-    song() {
+    song () {
       // FIXME: somehow \r is getting added by Ace
-      return this.format.parse(this.source.replace(/\r\n/gm, "\n"))
+      return this.format.parse(this.source.replace(/\r\n/gm, '\n'))
     },
 
-    chords() {
+    chords () {
       const chords = new Set()
       this.song.lines.forEach(line => {
         line.items.forEach(pair => {
-          if(pair.chords) chords.add(pair.chords)
+          if (pair.chords) chords.add(pair.chords)
         })
       })
       return chords
     },
 
     instrument: {
-      get() { return this.$store.state.instrument || 'guitar' },
-      set(value) { this.$store.commit('update', {instrument: value}) }
-    },
+      get () { return this.$store.state.instrument || 'guitar' },
+      set (value) { this.$store.commit('update', { instrument: value }) }
+    }
+  },
+
+  watch: {
+    columns () {
+      this.updateColumnWidth()
+    }
+  },
+
+  mounted () {
+    this.updateColumnWidth()
+  },
+
+  updated () {
+    this.updateColumnWidth()
   },
 
   methods: {
-    componentFor(item) {
+    componentFor (item) {
       return [ChordLyricsPair, Tag].find(c => c.for(item))
     },
 
-    updateColumnWidth() {
+    updateColumnWidth () {
       const output = this.$refs.output
 
-      if(output) {
+      if (output) {
         output.classList.add('content-width')
         this.columnWidth = output.offsetWidth + 'px'
         // document.documentElement.style.setProperty('--column-width', )
@@ -144,14 +218,8 @@ export default {
       }
     },
 
-    toggleTuner() {
+    toggleTuner () {
       this.showTuner = !this.showTuner
-    }
-  },
-
-  watch: {
-    columns() {
-      this.updateColumnWidth()
     }
   }
 }

@@ -1,4 +1,4 @@
 import Turbolinks from 'turbolinks'
-import "./application.scss"
+import './application.scss'
 
 Turbolinks.start()

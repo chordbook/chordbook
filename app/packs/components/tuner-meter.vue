@@ -1,24 +1,21 @@
 <template>
-  <div class="meter" style="position:relative">
-    <div class="meter-pointer" :style="`left: ${this.left}`"></div>
+  <div
+    class="meter"
+    style="position:relative"
+  >
+    <div
+      class="meter-pointer"
+      :style="`left: ${left}`"
+    />
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    cents: Number
-  },
-
-  mounted () {
-    for (let i = 0; i <= 10; i += 1) {
-      const $scale = document.createElement('div')
-      $scale.className = 'meter-scale'
-      $scale.style.left = (i * 10) + '%'
-      if (i % 5 === 0) {
-        $scale.classList.add('meter-scale-strong')
-      }
-      this.$el.appendChild($scale)
+    cents: {
+      type: Number,
+      required: true
     }
   },
 
@@ -34,6 +31,18 @@ export default {
 
     left () {
       return (this.cents + 50) + '%'
+    }
+  },
+
+  mounted () {
+    for (let i = 0; i <= 10; i += 1) {
+      const $scale = document.createElement('div')
+      $scale.className = 'meter-scale'
+      $scale.style.left = (i * 10) + '%'
+      if (i % 5 === 0) {
+        $scale.classList.add('meter-scale-strong')
+      }
+      this.$el.appendChild($scale)
     }
   }
 }
