@@ -1,24 +1,16 @@
-# README
+# Chord Book
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+> A web app for chord sheets - https://chordbook.app
 
-Things you may want to cover:
+## Development
 
-* Ruby version
+Assuming you have these dependencies installed:
 
-* System dependencies
+* Ruby 3.x
+* NodeJS
+* PostgreSQL
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+$ bin/setup
+$ bin/dev
+```
