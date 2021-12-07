@@ -22,6 +22,7 @@
           :print-margin="false"
           :options="{fontSize: '0.9rem'}"
           @init="setupEditor"
+          @paste="paste"
         />
       </div>
 
@@ -175,15 +176,14 @@ export default {
     },
 
     paste (e) {
-      const paste = (e.clipboardData || window.clipboardData).getData('text')
-      const format = detectFormat(paste)
+      const format = detectFormat(e.text)
 
       // No need to convert if it's already in chordpro
       if (!format || format instanceof ChordSheetJS.ChordProParser) return
 
       // Convert to ChordPro
-      e.preventDefault()
-      this.source = new ChordSheetJS.ChordProFormatter().format(format.parse(paste))
+      // Modifying text property will change text pasted into Ace editor
+      e.text = new ChordSheetJS.ChordProFormatter().format(format.parse(e.text))
     }
   }
 }
