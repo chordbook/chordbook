@@ -7,7 +7,7 @@
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
     "@tombatossals/chords-db": "^0.5.1",
-    "@vitejs/plugin-vue": "^1.9.3",
+    "@vitejs/plugin-vue": "^1.10.2",
     "@vueuse/core": "^6.8.0",
     "ace-builds": "^1.4.13",
     "aubiojs": "^0.0.1",
