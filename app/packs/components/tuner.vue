@@ -16,7 +16,7 @@
           :name="n.name"
           :octave="n.octave"
           :frequency="n.frequency"
-          :active="this.n.name == n.name && this.n.octave == n.octave"
+          :active="this.note.name == n.name && this.note.octave == n.octave"
         />
       </div>
       <div class="text-gray-500">
@@ -29,7 +29,7 @@
         v-if="!active"
         class="btn btn-primary"
         tooltip="Start"
-        tooltip-pos="bottom"
+        tooltip-pos="top"
         @click="start"
       >
         <icon-bi:mic />
@@ -38,7 +38,7 @@
         v-if="active"
         class="btn btn-primary bg-red-500 hover:bg-red-600"
         tooltip="Stop"
-        tooltip-pos="bottom"
+        tooltip-pos="top"
         @click="stop"
       >
         <icon-bi:mic-fill class="animate-pulse" />
