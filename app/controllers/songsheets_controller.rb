@@ -1,5 +1,5 @@
 class SongsheetsController < ApplicationController
-  before_action :set_songsheet, only: %i[ show edit update destroy ]
+  before_action :set_songsheet, only: %i[show edit update destroy]
 
   # GET /songsheets or /songsheets.json
   def index
@@ -57,13 +57,14 @@ class SongsheetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_songsheet
-      @songsheet = Songsheet.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def songsheet_params
-      params.require(:songsheet).permit(:source, metadata: {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_songsheet
+    @songsheet = Songsheet.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def songsheet_params
+    params.require(:songsheet).permit(:source, metadata: {})
+  end
 end
