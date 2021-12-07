@@ -139,6 +139,9 @@ export default {
 
       const { snippetCompleter } = ace.require('ace/ext/language_tools')
       editor.completers = [new ChordCompleter(), snippetCompleter]
+
+      // Expose ace editor for tests
+      window.editor = editor
     },
 
     async save () {
