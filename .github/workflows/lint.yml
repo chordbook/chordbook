@@ -6,8 +6,8 @@ on:
   pull_request:
 
 jobs:
-  eslint:
-    name: Lint JS
+  js:
+    name: JS
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,3 +18,16 @@ jobs:
         run: |
           yarn install
           yarn lint
+  ruby:
+    name: Ruby
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          cache-version: 1
+      - name: Run ruby lint
+        run: |
+          bundle install --jobs 4
+          bundle exec standardrb
