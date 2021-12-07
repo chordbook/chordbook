@@ -24,7 +24,7 @@
     "tailwindcss-multi-column": "^1.0.2",
     "turbolinks": "^5.2.0",
     "unplugin-icons": "^0.12.17",
-    "unplugin-vue-components": "^0.16.0",
+    "unplugin-vue-components": "^0.17.6",
     "vexchords": "^1.2.0",
     "vite-plugin-pwa": "^0.11.3",
     "vue": "^3.2.20",
