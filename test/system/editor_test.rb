@@ -3,7 +3,7 @@ require "application_system_test_case"
 class EditorTest < ApplicationSystemTestCase
   test "creating new songsheet" do
     visit new_songsheet_path
-    fill_in_editor_field file_fixture('drunken-sailor.pro').read
+    fill_in_editor_field file_fixture("drunken-sailor.pro").read
 
     # Updates preview
     assert_content "Drunken Sailor"
@@ -11,7 +11,7 @@ class EditorTest < ApplicationSystemTestCase
 
     click_button "Save"
 
-    assert_no_css '.ace_editor' # No more editor
+    assert_no_css ".ace_editor" # No more editor
 
     assert_content "Drunken Sailor"
     assert_content "Traditional sea shanty"
@@ -30,7 +30,7 @@ class EditorTest < ApplicationSystemTestCase
     fill_in_editor_field(source)
 
     click_button "Save"
-    assert_no_css '.ace_editor' # No more editor
+    assert_no_css ".ace_editor" # No more editor
 
     songsheet.reload
     assert_equal "New Title", songsheet.title

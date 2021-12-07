@@ -1,0 +1,33 @@
+name: Lint
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  js:
+    name: JS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+      - name: Run yarn lint
+        run: |
+          yarn install
+          yarn lint
+  ruby:
+    name: Ruby
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          cache-version: 1
+      - name: Run ruby lint
+        run: |
+          bundle install --jobs 4
+          bundle exec standardrb

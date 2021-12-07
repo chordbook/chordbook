@@ -46,7 +46,7 @@
     "vite-plugin-ruby": "^3.0.2"
   },
   "scripts": {
-    "lint": "eslint --fix --ext .js,.vue app"
+    "lint": "eslint --ext .js,.vue app"
   },
   "browserslist": [
     "defaults"

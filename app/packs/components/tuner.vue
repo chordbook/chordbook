@@ -16,7 +16,7 @@
           :name="n.name"
           :octave="n.octave"
           :frequency="n.frequency"
-          :active="this.note.name == n.name && this.note.octave == n.octave"
+          :active="note.name == n.name && note.octave == n.octave"
         />
       </div>
       <div class="text-gray-500">
