@@ -20,7 +20,7 @@
     "postcss-preset-env": "^6.7.0",
     "rollup-plugin-string": "^3.0.0",
     "sass": "^1.44.0",
-    "tailwindcss": "^2.2.17",
+    "tailwindcss": "^2.2.19",
     "tailwindcss-multi-column": "^1.0.2",
     "turbolinks": "^5.2.0",
     "unplugin-icons": "^0.12.22",
