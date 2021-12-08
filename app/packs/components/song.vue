@@ -124,6 +124,7 @@
 </template>
 
 <script>
+import { Chord } from "chordsheetjs"
 import detectFormat from '../lib/detect_format'
 import ChordLyricsPair from './song/chord-lyrics-pair.vue'
 import Tag from './song/tag.vue'
@@ -152,6 +153,11 @@ export default {
     columns: {
       type: Number,
       default: 1
+    },
+
+    transpose: {
+      type: Number,
+      default: 0
     }
   },
 
@@ -169,14 +175,29 @@ export default {
 
     song () {
       // FIXME: somehow \r is getting added by Ace
-      return this.format.parse(this.source.replace(/\r\n/gm, '\n'))
+      const song = this.format.parse(this.source.replace(/\r\n/gm, '\n'))
+
+      // Transpose chords
+      const chords = {}
+      song.lines.forEach(line => {
+        line.items.forEach(pair => {
+          if (pair.chords) {
+            if (!chords[pair.chords]) {
+              chords[pair.chords] = Chord.parse(pair.chords)?.transpose(this.transpose).toString()
+            }
+            pair.transposed = chords[pair.chords]
+          }
+        })
+      })
+
+      return song
     },
 
     chords () {
       const chords = new Set()
       this.song.lines.forEach(line => {
         line.items.forEach(pair => {
-          if (pair.chords) chords.add(pair.chords)
+          if (pair.transposed) chords.add(pair.transposed)
         })
       })
       return chords

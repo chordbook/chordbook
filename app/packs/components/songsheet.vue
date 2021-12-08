@@ -41,6 +41,42 @@
           </div>
 
           <div class="px-3">
+            <div class="flex">
+              <div
+                class="toggle"
+                tooltip="Transpose down"
+                tooltip-pos="bottom"
+              >
+                <input
+                  id="settings-transpose-down"
+                  type="radio"
+                  name="transpose"
+                  :value="-1"
+                >
+                <label for="settings-transpose-down">
+                  <icon-bi:arrow-down />
+                </label>
+              </div>
+              <input type="number" v-model.number="transpose">
+              <div
+                class="toggle"
+                tooltip="Transpose up"
+                tooltip-pos="bottom"
+              >
+                <input
+                  id="settings-transpose-up"
+                  type="radio"
+                  name="transpose"
+                  :value="1"
+                >
+                <label for="settings-transpose-up">
+                  <icon-bi:arrow-up />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="px-3">
             <div
               class="toggle"
               tooltip="Show Chords"
@@ -106,6 +142,7 @@
         :source="source"
         :columns="columns"
         :show-chords="showChords"
+        :transpose="transpose"
       />
     </div>
   </div>
@@ -138,6 +175,12 @@ export default {
 
     return {
       showTuner
+    }
+  },
+
+  data () {
+    return {
+      transpose: 0
     }
   },
 
