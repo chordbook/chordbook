@@ -12,7 +12,8 @@
 
 <script>
 import { ChordBox } from 'vexchords'
-import Chord from '../lib/chord'
+import { Chord } from 'chordsheetjs'
+import ChordData from '../lib/chord-data'
 
 export default {
   props: {
@@ -44,24 +45,28 @@ export default {
 
   computed: {
     chord () {
-      return new Chord(this.name, this.instrument, this.position)
+      return Chord.parse(this.name)
+    },
+
+    chordData () {
+      return ChordData.find(this.chord, this.instrument, this.position)
     },
 
     diagram () {
-      if (!this.chord) return ''
+      if (!this.chordData) return ''
 
       const el = document.createElement('div')
 
       new ChordBox(el, {
-        numStrings: this.chord.strings,
+        numStrings: this.chordData.strings,
         showTuning: false,
         width: this.width,
         height: this.height,
         defaultColor: 'currentColor'
       }).draw({
-        chord: this.chord.fingerings,
-        position: this.chord.data.baseFret,
-        barres: this.chord.barres
+        chord: this.chordData.fingerings,
+        position: this.chordData.data.baseFret,
+        barres: this.chordData.barres
       })
 
       return el.querySelector('svg').innerHTML

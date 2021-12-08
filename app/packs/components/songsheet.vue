@@ -41,6 +41,52 @@
           </div>
 
           <div class="px-3">
+            <div class="flex items-center">
+              <button
+                class="flex"
+                tooltip="Transpose down"
+                tooltip-pos="bottom"
+                @click="transposeDown"
+              >
+                <icon-bi:arrow-down class="icon-small" />
+              </button>
+              <select
+                v-model="transpose"
+                class="mx-1 py-1 pl-2 pr-6 btn btn-muted font-normal normal-case"
+              >
+                <template
+                  v-for="note in transpositions"
+                  :key="note.step"
+                >
+                  <option
+                    v-if="note.step === 0"
+                    disabled
+                  >
+                    -
+                  </option>
+                  <option :value="note.step">
+                    {{ note.name }}
+                  </option>
+                  <option
+                    v-if="note.step === 0"
+                    disabled
+                  >
+                    -
+                  </option>
+                </template>
+              </select>
+              <button
+                class="flex"
+                tooltip="Transpose up"
+                tooltip-pos="bottom"
+                @click="transposeUp"
+              >
+                <icon-bi:arrow-up class="icon-small" />
+              </button>
+            </div>
+          </div>
+
+          <div class="px-3">
             <div
               class="toggle"
               tooltip="Show Chords"
@@ -106,6 +152,8 @@
         :source="source"
         :columns="columns"
         :show-chords="showChords"
+        :transpose="transpose"
+        @update:key="key = $event.value"
       />
     </div>
   </div>
@@ -118,6 +166,7 @@ import {
   TransitionRoot
 } from '@headlessui/vue'
 import { ref } from 'vue'
+import { Chord } from 'chordsheetjs'
 
 export default {
   components: { Dialog, DialogOverlay, TransitionRoot },
@@ -141,6 +190,13 @@ export default {
     }
   },
 
+  data () {
+    return {
+      key: 'C',
+      transpose: 0
+    }
+  },
+
   computed: {
     showChords: {
       get () { return this.$store.state.showChords },
@@ -150,12 +206,39 @@ export default {
     columns: {
       get () { return this.$store.state.columns || 1 },
       set (value) { this.$store.commit('update', { columns: value }) }
+    },
+
+    transpositions () {
+      const key = Chord.parse(this.key)
+      const steps = []
+      for (let i = -11; i <= 11; i++) {
+        steps.push({ step: i, name: key.transpose(i) })
+      }
+      return steps
+    }
+  },
+
+  watch: {
+    transpose (newValue) {
+      if (newValue > 11) {
+        this.transpose = -11
+      } else if (newValue < -11) {
+        this.transpose = 11
+      }
     }
   },
 
   methods: {
     toggleTuner () {
       this.showTuner = !this.showTuner
+    },
+
+    transposeUp () {
+      this.transpose++
+    },
+
+    transposeDown () {
+      this.transpose--
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="column">
-    <chord :name="item.chords" />
+    <chord :name="item.transposed" />
     <div class="lyrics">
       {{ item.lyrics }}
     </div>

@@ -13,11 +13,15 @@
   }
 
   .btn-muted {
-    @apply border border-gray-200 dark:border-gray-600 dark:text-gray-300;
+    @apply border border-gray-200 dark:border-gray-600 dark:text-gray-300 bg-transparent;
+  }
+
+  select.btn-muted option {
+    @apply bg-gray-200 dark:bg-gray-700;
   }
 
   .toggle {
-    @apply flex text-sm text-center transition duration-200 ease-in-out rounded;
+    @apply flex text-sm text-center transition duration-200 ease-in-out rounded overflow-hidden;
 
     input[type="radio"], input[type="checkbox"] { @apply hidden-input; }
 
