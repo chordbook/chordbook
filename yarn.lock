@@ -1816,10 +1816,10 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
-"@headlessui/vue@^1.4.1":
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/@headlessui/vue/-/vue-1.4.1.tgz#bc1a37d3180eeeae28ad467f020c2dfdc8d43645"
-  integrity sha512-yLgpqxJGdGw+ylouZfxxuXXBqCWRZq+Jh1jb23cXQIuAngbisN5BlSO8pPpvKOvk6hXr8dx9bPohSn45cbIIHw==
+"@headlessui/vue@^1.4.2":
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/@headlessui/vue/-/vue-1.4.2.tgz#1098f52cb6c583772708a980b3487222ac0ae65e"
+  integrity sha512-+uOaPwHncxHZ6JBwYycu3YxDDrY0v1tcxCtK04H1WGBLBm07dqVi38Q2RB7eY867FUhD0sL6q+Fj69rVn8P0OQ==
 
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.2"

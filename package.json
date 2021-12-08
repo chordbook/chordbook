@@ -2,7 +2,7 @@
   "name": "chords",
   "private": true,
   "dependencies": {
-    "@headlessui/vue": "^1.4.1",
+    "@headlessui/vue": "^1.4.2",
     "@iconify-json/bi": "^1.0.10",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
