@@ -11,7 +11,7 @@
     "@vueuse/core": "^6.8.0",
     "ace-builds": "^1.4.13",
     "aubiojs": "^0.0.1",
-    "autoprefixer": "^10.3.7",
+    "autoprefixer": "^10.4.0",
     "axios": "^0.24.0",
     "chordsheetjs": "^4.10.0",
     "postcss": "^8.4.4",
