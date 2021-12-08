@@ -41,4 +41,5 @@ jobs:
           POSTGRES_PASSWORD: postgres
         run: |
           bin/setup
+          bin/rake assets:precompile
           bin/rails test:all
