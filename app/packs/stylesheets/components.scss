@@ -21,13 +21,13 @@
   }
 
   .toggle {
-    @apply flex text-sm text-center transition duration-200 ease-in-out rounded overflow-hidden;
+    @apply flex text-sm text-center transition duration-200 ease-in-out;
 
     input[type="radio"], input[type="checkbox"] { @apply hidden-input; }
 
     label { @apply inline-block p-1; }
     input[type="radio"]:checked + label, input[type="checkbox"]:checked + label {
-      @apply bg-gray-200 dark:bg-gray-800 dark:text-gray-400 shadow-inner shadow-sm;
+      @apply bg-gray-200 dark:bg-gray-800 dark:text-gray-400 shadow-inner shadow-sm rounded overflow-hidden;
     }
   }
 

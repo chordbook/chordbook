@@ -1,7 +1,7 @@
 <template>
   <div class="h-full flex flex-col overflow-hidden">
     <div class="border-b border-t border-gray-300 dark:border-gray-900 bg-gray-100 py-2 text-gray-500 dark:bg-gray-700 shadow-md">
-      <div class="container">
+      <div class="max-w-8xl mx-auto px-4 md:px-6">
         <div class="grid grid-flow-col auto-cols-max divide-x dark:divide-gray-500 items-center">
           <div class="pr-3">
             <div class="flex">

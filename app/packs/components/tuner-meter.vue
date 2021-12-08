@@ -21,7 +21,6 @@ export default {
 
   computed: {
     degrees () {
-      console.log(this.cents)
       return (this.cents / 50) * 45
     },
 

@@ -1,6 +1,6 @@
 <template>
-  <header class="py-4 text-white">
-    <div class="container sticky flex items-center">
+  <header class="py-4 text-white px-4 md:px-6">
+    <div class="max-w-8xl mx-auto sticky flex items-center">
       <h1 class="flex-grow">
         <a
           href="/"
