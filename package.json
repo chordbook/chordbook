@@ -26,7 +26,7 @@
     "unplugin-icons": "^0.12.17",
     "unplugin-vue-components": "^0.17.6",
     "vexchords": "^1.2.0",
-    "vite-plugin-pwa": "^0.11.3",
+    "vite-plugin-pwa": "^0.11.10",
     "vue": "^3.2.20",
     "vue-turbolinks": "^2.2.2",
     "vue3-ace-editor": "^2.2.1",
