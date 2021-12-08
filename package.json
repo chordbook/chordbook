@@ -13,7 +13,7 @@
     "aubiojs": "^0.0.1",
     "autoprefixer": "^10.4.0",
     "axios": "^0.24.0",
-    "chordsheetjs": "^4.10.0",
+    "chordsheetjs": "^5.1.2",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^14.0.2",
