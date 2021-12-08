@@ -1847,12 +1847,17 @@
   resolved "https://registry.yarnpkg.com/@iconify/types/-/types-1.0.10.tgz#951122c19d3717e308a3ceac6eaafda27bd9993d"
   integrity sha512-SN3z6einVeUckDQiE8p4POF7X4hk4/y2+a7a4ogJOCxX5XT6z1zXNN8dwS5O1vloXpc6mkHizRZm2qPnhK6NnQ==
 
-"@iconify/utils@^1.0.18":
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/@iconify/utils/-/utils-1.0.18.tgz#569737b78218034d19f3f067af9196293a71f145"
-  integrity sha512-uCfJ7FdTxDk1DLKsvynTsYX4LnkGIDw+LCpoY0mRdl+NrNPCjYZ8HHYs4xzmo7cryRe0ZT0yuF2f3oipPIHn8w==
+"@iconify/types@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@iconify/types/-/types-1.0.12.tgz#839f1f784b7030b94482d51996570f4dbd7d6796"
+  integrity sha512-6er6wSGF3hgc1JEZqiGpg21CTCjHBYOUwqLmb2Idzkjiw6ogalGP0ZMLVutCzah+0WB4yP+Zd2oVPN8jvJ+Ftg==
+
+"@iconify/utils@^1.0.20":
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/@iconify/utils/-/utils-1.0.20.tgz#b265fe2288cb30666bf64b80b246b55b0b952d90"
+  integrity sha512-J5IriR8KeANs8vIEFKWzOlOvNgZHkwqkmqaIwvqtuDbBeFHtXGfM/LYMDmjtRJ0AAa7f254qw6TK7gAibYfHUA==
   dependencies:
-    "@iconify/types" "^1.0.10"
+    "@iconify/types" "^1.0.12"
 
 "@josephg/resolvable@^1.0.0":
   version "1.0.1"
@@ -3788,10 +3793,10 @@ debug@^3.1.1, debug@^3.2.7:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.2.tgz#f0a49c18ac8779e31d4a0c6029dfb76873c7428b"
-  integrity sha512-mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw==
+debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.3.tgz#04266e0b70a98d4462e6e288e38259213332b664"
+  integrity sha512-/zxw5+vh1Tfv+4Qn7a5nsbcJKPaSvCDhojn6FEl9vupwK2VCSDtEiEtqr8DFtzYFOdz63LBkxec7DYuc2jon6Q==
   dependencies:
     ms "2.1.2"
 
@@ -9272,18 +9277,18 @@ unpipe@1.0.0, unpipe@~1.0.0:
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=
 
-unplugin-icons@^0.12.17:
-  version "0.12.17"
-  resolved "https://registry.yarnpkg.com/unplugin-icons/-/unplugin-icons-0.12.17.tgz#309fc513d7799a2f9ea509a1f38a01dedf229f34"
-  integrity sha512-y6KNKlwcLXlbfpZY48lO0blsH/uwHbvxD2sgCaw1AhgFk9Bjw7hA1kQxhUWPAIRySeobve2YP7HGKLHoIctXPA==
+unplugin-icons@^0.12.22:
+  version "0.12.22"
+  resolved "https://registry.yarnpkg.com/unplugin-icons/-/unplugin-icons-0.12.22.tgz#544b8f9f53919fa819f8b45c8d26ffcd95926b66"
+  integrity sha512-GG6WAK1jqc50NXqoc3dYW9ui9k2UK0eOvilwr0MQ79iGvBtATbHoDyLTgSRsuous7Qfq8n+odL8TJgELaqvNCA==
   dependencies:
     "@antfu/install-pkg" "^0.1.0"
     "@antfu/utils" "^0.3.0"
-    "@iconify/utils" "^1.0.18"
-    debug "^4.3.2"
+    "@iconify/utils" "^1.0.20"
+    debug "^4.3.3"
     kolorist "^1.5.0"
     local-pkg "^0.4.0"
-    unplugin "^0.2.18"
+    unplugin "^0.2.21"
 
 unplugin-vue-components@^0.17.6:
   version "0.17.6"
@@ -9301,7 +9306,7 @@ unplugin-vue-components@^0.17.6:
     resolve "^1.20.0"
     unplugin "^0.2.21"
 
-unplugin@^0.2.18, unplugin@^0.2.21:
+unplugin@^0.2.21:
   version "0.2.21"
   resolved "https://registry.yarnpkg.com/unplugin/-/unplugin-0.2.21.tgz#7852cddd9f78f0b32881812fd2efd5a39dcc64e5"
   integrity sha512-IJ15/L5XbhnV7J09Zjk0FT5HEkBjkXucWAXQWRsmEtUxmmxwh23yavrmDbCF6ZPxWiVB28+wnKIHePTRRpQPbQ==
