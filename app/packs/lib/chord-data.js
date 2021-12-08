@@ -51,7 +51,7 @@ export default class ChordData {
     this.data = data
   }
 
-  get strings() {
+  get strings () {
     return this.data.frets.length
   }
 

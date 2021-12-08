@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { Chord } from "chordsheetjs"
+import { Chord } from 'chordsheetjs'
 import detectFormat from '../lib/detect_format'
 import ChordLyricsPair from './song/chord-lyrics-pair.vue'
 import Tag from './song/tag.vue'
@@ -160,6 +160,8 @@ export default {
       default: 0
     }
   },
+
+  emits: ['update:key'],
 
   data () {
     return {
@@ -203,6 +205,11 @@ export default {
       return chords
     },
 
+    key () {
+      // FIXME: use declared key or intelligent key detection
+      return this.chords.values().next()
+    },
+
     instrument: {
       get () { return this.$store.state.instrument || 'guitar' },
       set (value) { this.$store.commit('update', { instrument: value }) }
@@ -217,6 +224,7 @@ export default {
 
   mounted () {
     this.updateColumnWidth()
+    this.$emit('update:key', this.key)
   },
 
   updated () {
