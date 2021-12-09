@@ -10,12 +10,11 @@ registerRoute(
   new CacheFirst()
 )
 
-// Loading pages (and turbolinks requests), checks the network first
+// Loading pages, checks the network first
 registerRoute(
   ({ request }) => request.destination === 'document' || (
     request.destination === '' &&
-    request.mode === 'cors' &&
-    request.headers.get('Turbolinks-Referrer') !== null
+    request.mode === 'cors'
   ),
   new NetworkFirst({
     networkTimeoutSeconds: 3,

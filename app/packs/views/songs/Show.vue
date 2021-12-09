@@ -138,10 +138,12 @@
           </div>
 
           <div class="px-3">
-            <a
-              :href="edit"
+            <router-link
+              :to="{ name: 'song.edit', params: { id: $route.params.id } }"
               class="btn btn-muted btn-small"
-            >Edit</a>
+            >
+              Edit
+            </router-link>
           </div>
         </div>
       </div>
@@ -149,6 +151,7 @@
 
     <div class="flex-grow overflow-hidden">
       <song
+        v-if="source"
         :source="source"
         :columns="columns"
         :show-chords="showChords"
@@ -165,33 +168,28 @@ import {
   DialogOverlay,
   TransitionRoot
 } from '@headlessui/vue'
-import { ref } from 'vue'
 import { Chord } from 'chordsheetjs'
+import api from '~/api'
 
 export default {
   components: { Dialog, DialogOverlay, TransitionRoot },
 
+  async beforeRouteEnter (to, from, next) {
+    const response = await api.get(`/api/songsheets/${to.params.id}.json`)
+    next(vm => (vm.source = response.data.source))
+  },
+
   props: {
-    source: {
-      type: String,
-      default: ''
-    },
     edit: {
       type: String,
       default: null
     }
   },
 
-  setup () {
-    const showTuner = ref(false)
-
-    return {
-      showTuner
-    }
-  },
-
   data () {
     return {
+      showTuner: false,
+      source: '',
       key: 'C',
       transpose: 0
     }

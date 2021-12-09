@@ -6,7 +6,6 @@ ruby "3.0.2"
 gem "rails"
 gem "pg"
 gem "puma"
-gem "turbolinks"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "vite_rails"
 gem "jbuilder"

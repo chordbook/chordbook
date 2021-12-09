@@ -58,6 +58,7 @@
       </h2>
 
       <song
+        vi-if="source"
         :source="source"
         show-chords="last"
         :columns="1"
@@ -70,10 +71,9 @@
 /* global ace */
 /* eslint-disable vue/no-mutating-props */
 
-import Turbolinks from 'turbolinks'
 import ChordSheetJS from 'chordsheetjs'
-import detectFormat from '../lib/detect_format'
-import axios from 'axios'
+import detectFormat from '~/lib/detect_format'
+import api from '~/api'
 import { VAceEditor } from 'vue3-ace-editor'
 import ChordCompleter from '~/ace/chord-completer'
 import 'ace-builds/src-noconflict/theme-clouds'
@@ -86,15 +86,16 @@ import { useMediaQuery } from '@vueuse/core'
 export default {
   components: { VAceEditor },
 
+  async beforeRouteEnter (to, from, next) {
+    if (to.params.id) {
+      const response = await api.get(`/api/songsheets/${to.params.id}.json`)
+      next(vm => (vm.source = response.data.source))
+    } else {
+      next()
+    }
+  },
+
   props: {
-    url: {
-      type: String,
-      required: true
-    },
-    source: {
-      type: String,
-      required: true
-    },
     id: {
       type: String,
       default: null
@@ -103,14 +104,10 @@ export default {
 
   data () {
     return {
+      source: '',
       errors: {},
       themes: { dark: 'chaos', light: 'clouds' },
-      isDarkMode: useMediaQuery('(prefers-color-scheme: dark)'),
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-      }
+      isDarkMode: useMediaQuery('(prefers-color-scheme: dark)')
     }
   },
 
@@ -125,6 +122,10 @@ export default {
 
     theme () {
       return this.isDarkMode ? this.themes.dark : this.themes.light
+    },
+
+    url () {
+      return this.id ? `/api/songsheets/${this.id}.json` : '/api/songsheets.json'
     }
   },
 
@@ -145,10 +146,9 @@ export default {
     },
 
     async save () {
-      axios({
+      api({
         url: this.url,
         method: this.id ? 'PATCH' : 'POST',
-        headers: this.headers,
         data: {
           songsheet: {
             source: this.source,
@@ -156,7 +156,7 @@ export default {
           }
         }
       }).then(response => {
-        Turbolinks.visit(response.headers.location)
+        this.$router.push({ name: 'song', params: { id: response.data.id } })
       }).catch(error => {
         if (error.response) {
           this.errors = error.response.data
@@ -169,12 +169,12 @@ export default {
     async destroy (e) {
       if (!confirm(e.target.dataset.confirm)) return
 
-      axios({
+      api({
         url: this.url,
         method: 'DELETE',
         headers: this.headers
       }).then(response => {
-        Turbolinks.visit(response.headers.location)
+        // FIXME: navigate to view song
       })
     },
 

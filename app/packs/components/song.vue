@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="source"
+    v-if="source && song"
     class="flex flex-col sm:flex-row h-full"
   >
     <!-- Hidden sprite of chord diagrams -->
@@ -177,7 +177,9 @@ export default {
 
     song () {
       // FIXME: somehow \r is getting added by Ace
-      const song = this.format.parse(this.source.replace(/\r\n/gm, '\n'))
+      const song = this.format?.parse(this.source.replace(/\r\n/gm, '\n'))
+
+      if (!song) return
 
       // Transpose chords
       const chords = {}
@@ -197,11 +199,15 @@ export default {
 
     chords () {
       const chords = new Set()
-      this.song.lines.forEach(line => {
-        line.items.forEach(pair => {
-          if (pair.transposed) chords.add(pair.transposed)
+
+      if (this.song) {
+        this.song.lines.forEach(line => {
+          line.items.forEach(pair => {
+            if (pair.transposed) chords.add(pair.transposed)
+          })
         })
-      })
+      }
+
       return chords
     },
 

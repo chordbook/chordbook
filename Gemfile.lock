@@ -185,9 +185,6 @@ GEM
       rubocop (= 1.23.0)
       rubocop-performance (= 1.12.0)
     thor (1.1.0)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
@@ -229,7 +226,6 @@ DEPENDENCIES
   rails
   selenium-webdriver
   standard
-  turbolinks
   vite_rails
   web-console
   webdrivers

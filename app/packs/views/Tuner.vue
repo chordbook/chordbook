@@ -1,0 +1,5 @@
+<template>
+  <div class="border my-20 mx-auto rounded dark:border-gray-700" style="max-width:400px">
+    <tuner></tuner>
+  </div>
+</template>

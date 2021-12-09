@@ -2,7 +2,9 @@ require "application_system_test_case"
 
 class EditorTest < ApplicationSystemTestCase
   test "creating new songsheet" do
-    visit new_songsheet_path
+    visit "/"
+    click_on "Add Song"
+
     fill_in_editor_field file_fixture("drunken-sailor.pro").read
 
     # Updates preview
@@ -26,7 +28,10 @@ class EditorTest < ApplicationSystemTestCase
     )
 
     source = "{t:New Title}\n{st:New Subtitle}\nnew body"
-    visit edit_songsheet_path(songsheet)
+    visit "/"
+    click_on songsheet.title
+    click_on "Edit"
+
     fill_in_editor_field(source)
 
     click_button "Save"
@@ -41,7 +46,7 @@ class EditorTest < ApplicationSystemTestCase
   private
 
   def fill_in_editor_field(text)
+    assert_css '.ace_editor' # wait for editor to appear
     execute_script("editor.setValue(#{text.to_json})")
-    # find_ace_editor_field.send_keys text
   end
 end

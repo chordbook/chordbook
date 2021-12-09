@@ -1,13 +1,16 @@
 import { createApp } from 'vue'
-import TurbolinksAdapter from 'vue-turbolinks'
+import VueAxios from 'vue-axios'
 import store from '~/store'
+import router from '~/router'
+import api from '~/api'
 
 const components = import.meta.globEager('../components/*.vue')
 
-document.addEventListener('turbolinks:load', () => {
+document.addEventListener('DOMContentLoaded', () => {
   const app = createApp({})
+  app.use(VueAxios, api)
   app.use(store)
-  app.use(TurbolinksAdapter)
+  app.use(router)
 
   Object.entries(components).forEach(([path, definition]) => {
     const componentName = path.split('/').pop().replace(/\.vue$/, '')
