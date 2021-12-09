@@ -6,43 +6,43 @@ import Icons from 'unplugin-icons/vite'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
-import { string } from "rollup-plugin-string"
-import manifest from "./public/manifest.json"
+import { string } from 'rollup-plugin-string'
+import manifest from './public/manifest.json'
 
 export default defineConfig({
   plugins: [
     vue(),
     RubyPlugin(),
     VitePWA({
-      srcDir: "service_workers",
-      filename: "offline.js",
+      srcDir: 'service_workers',
+      filename: 'offline.js',
       workbox: {
-        sourcemap: true,
+        sourcemap: true
       },
       manifest
     }),
-    string({ include: "**/*.snippets" }),
+    string({ include: '**/*.snippets' }),
     Icons({
       compiler: 'vue3',
       defaultClass: 'icon',
       customCollections: {
-        app: FileSystemIconLoader('app/frontend/icons'),
-      },
+        app: FileSystemIconLoader('app/frontend/icons')
+      }
     }),
     Components({
       dts: true,
       resolvers: [
         IconsResolver({
           prefix: 'icon',
-          customCollections: ['app'],
-        }),
-      ],
-    }),
+          customCollections: ['app']
+        })
+      ]
+    })
   ],
   resolve: {
     alias: {
-      'handlebars' : 'handlebars/dist/handlebars.js',
-      'vue': 'vue/dist/vue.esm-bundler.js'
+      handlebars: 'handlebars/dist/handlebars.js',
+      vue: 'vue/dist/vue.esm-bundler.js'
     }
   }
 })
