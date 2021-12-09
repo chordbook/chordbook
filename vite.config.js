@@ -26,7 +26,7 @@ export default defineConfig({
       compiler: 'vue3',
       defaultClass: 'icon',
       customCollections: {
-        app: FileSystemIconLoader('app/packs/icons'),
+        app: FileSystemIconLoader('app/frontend/icons'),
       },
     }),
     Components({

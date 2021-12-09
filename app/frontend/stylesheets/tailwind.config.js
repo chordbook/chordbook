@@ -5,8 +5,8 @@ module.exports = {
     content: [
       './**/*.html.erb',
       './app/helpers/**/*.rb',
-      './app/packs/**/*.js',
-      './app/packs/**/*.vue'
+      './app/frontend/**/*.js',
+      './app/frontend/**/*.vue'
     ]
   },
   darkMode: 'media', // or 'media' or 'class'
