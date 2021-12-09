@@ -10,7 +10,7 @@
     <%= csp_meta_tag %>
 
     <%= vite_client_tag %>
-    <%= vite_javascript_tag 'application', 'vue' %>
+    <%= vite_javascript_tag 'application' %>
     <%= vite_stylesheet_tag 'application.scss', media: 'all' %>
     <link rel="manifest" href="/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,12 +25,6 @@
   </head>
 
   <body class="bg-gray-900">
-    <div data-behavior="vue" class="flex flex-col h-screen">
-      <reload-pwa></reload-pwa>
-      <app-header></app-header>
-      <main class="bg-white flex-grow overflow-auto dark:bg-gray-800 dark:text-gray-200">
-        <%= yield %>
-      </main>
-    </div>
+    <%= yield %>
   </body>
 </html>
