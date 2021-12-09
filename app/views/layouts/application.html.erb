@@ -12,6 +12,9 @@
     <%= vite_client_tag %>
     <%= vite_javascript_tag 'application' %>
     <%= vite_stylesheet_tag 'application.scss', media: 'all' %>
+    <% if ENV["HOSTNAME"] %>
+      <script defer data-domain="<%= ENV["HOSTNAME"] %>" src="https://plausible.io/js/plausible.js"></script>
+    <% end %>
     <link rel="manifest" href="/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
