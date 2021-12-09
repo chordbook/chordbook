@@ -22,7 +22,7 @@ import api from '~/api'
 
 export default {
   async beforeRouteEnter (to, from, next) {
-    const response = await api.get('/api/songsheets.json')
+    const response = await api.get('/api/songs.json')
     next(vm => (vm.songs = response.data))
   },
 

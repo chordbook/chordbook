@@ -1,7 +1,7 @@
 require "application_system_test_case"
 
 class EditorTest < ApplicationSystemTestCase
-  test "creating new songsheet" do
+  test "creating new song" do
     visit "/"
     click_on "Add Song"
 
@@ -17,11 +17,11 @@ class EditorTest < ApplicationSystemTestCase
 
     assert_content "Drunken Sailor"
     assert_content "Traditional sea shanty"
-    assert_equal 1, Songsheet.count
+    assert_equal 1, Song.count
   end
 
-  test "editing existing songsheet" do
-    songsheet = Songsheet.create!(
+  test "editing existing song" do
+    song = Song.create!(
       title: "Song Name",
       subtitle: "Song Subtitle",
       source: "Song source"
@@ -29,7 +29,7 @@ class EditorTest < ApplicationSystemTestCase
 
     source = "{t:New Title}\n{st:New Subtitle}\nnew body"
     visit "/"
-    click_on songsheet.title
+    click_on song.title
     click_on "Edit"
 
     fill_in_editor_field(source)
@@ -37,10 +37,10 @@ class EditorTest < ApplicationSystemTestCase
     click_button "Save"
     assert_no_css ".ace_editor" # No more editor
 
-    songsheet.reload
-    assert_equal "New Title", songsheet.title
-    assert_equal "New Subtitle", songsheet.subtitle
-    assert_equal source, songsheet.source
+    song.reload
+    assert_equal "New Title", song.title
+    assert_equal "New Subtitle", song.subtitle
+    assert_equal source, song.source
   end
 
   private

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "offline.json", to: "content#offline"
 
   namespace :api do
-    resources :songsheets
+    resources :songs
   end
 
   get "*anything", to: "content#index"

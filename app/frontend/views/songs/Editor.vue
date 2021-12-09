@@ -39,7 +39,7 @@
         </div>
 
         <div>
-          <router-link :to="{ name: 'song', params: { id }}">Cancel</router-link>
+          <router-link v-if="id" :to="{ name: 'song', params: { id }}">Cancel</router-link>
         </div>
         <div>
           <button
@@ -88,7 +88,7 @@ export default {
 
   async beforeRouteEnter (to, from, next) {
     if (to.params.id) {
-      const response = await api.get(`/api/songsheets/${to.params.id}.json`)
+      const response = await api.get(`/api/songs/${to.params.id}.json`)
       next(vm => (vm.source = response.data.source))
     } else {
       next()
@@ -98,6 +98,7 @@ export default {
   props: {
     id: {
       type: String,
+      required: false,
       default: null
     }
   },
@@ -125,7 +126,7 @@ export default {
     },
 
     url () {
-      return this.id ? `/api/songsheets/${this.id}.json` : '/api/songsheets.json'
+      return this.id ? `/api/songs/${this.id}.json` : '/api/songs.json'
     }
   },
 
@@ -150,7 +151,7 @@ export default {
         url: this.url,
         method: this.id ? 'PATCH' : 'POST',
         data: {
-          songsheet: {
+          song: {
             source: this.source,
             metadata: this.parsedSong.metadata
           }

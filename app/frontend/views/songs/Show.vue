@@ -175,7 +175,7 @@ export default {
   components: { Dialog, DialogOverlay, TransitionRoot },
 
   async beforeRouteEnter (to, from, next) {
-    const response = await api.get(`/api/songsheets/${to.params.id}.json`)
+    const response = await api.get(`/api/songs/${to.params.id}.json`)
     next(vm => (vm.source = response.data.source))
   },
 
