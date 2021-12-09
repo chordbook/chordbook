@@ -28,18 +28,18 @@
 
       <div class="px-8 py-3 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 flex gap-2 sm:gap-4 items-center">
         <div class="flex-grow">
-          <a
+          <button
             data-confirm="Are you sure?"
             rel="nofollow"
             class="text-red-600"
             @click.prevent="destroy"
           >
             Delete
-          </a>
+          </button>
         </div>
 
         <div>
-          <a :href="url">Cancel</a>
+          <router-link :to="{ name: 'song', params: { id }}">Cancel</router-link>
         </div>
         <div>
           <button
