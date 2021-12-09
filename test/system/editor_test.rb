@@ -46,7 +46,7 @@ class EditorTest < ApplicationSystemTestCase
   private
 
   def fill_in_editor_field(text)
-    assert_css '.ace_editor' # wait for editor to appear
+    assert_css ".ace_editor" # wait for editor to appear
     execute_script("editor.setValue(#{text.to_json})")
   end
 end
