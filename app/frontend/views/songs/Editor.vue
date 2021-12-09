@@ -174,7 +174,7 @@ export default {
         method: 'DELETE',
         headers: this.headers
       }).then(response => {
-        // FIXME: navigate to view song
+        this.$router.push('/')
       })
     },
 
