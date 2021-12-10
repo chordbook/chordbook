@@ -38,7 +38,7 @@ const routes = [
           name: '404',
           replace: true,
           // Convert previous path into array
-          params: { path: to.redirectedFrom.path.slice(1).split('/'), },
+          params: { path: to.redirectedFrom.path.slice(1).split('/') },
           query: to.redirectedFrom.query,
           hash: to.redirectedFrom.hash
         })

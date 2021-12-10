@@ -39,7 +39,12 @@
         </div>
 
         <div>
-          <router-link v-if="id" :to="{ name: 'song', params: { id }}">Cancel</router-link>
+          <router-link
+            v-if="id"
+            :to="{ name: 'song', params: { id }}"
+          >
+            Cancel
+          </router-link>
         </div>
         <div>
           <button
