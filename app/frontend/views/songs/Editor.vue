@@ -86,10 +86,13 @@ import { useMediaQuery } from '@vueuse/core'
 export default {
   components: { VAceEditor },
 
-  async beforeRouteEnter (to, from, next) {
+  beforeRouteEnter (to, from, next) {
     if (to.params.id) {
-      const response = await api.get(`/api/songs/${to.params.id}.json`)
-      next(vm => (vm.source = response.data.source))
+      return api.get(`/api/songs/${to.params.id}.json`).then(response => {
+        next(vm => (vm.source = response.data.source))
+      }).catch(() => {
+        next({ name: '404', params: [to.path] })
+      })
     } else {
       next()
     }

@@ -174,9 +174,12 @@ import api from '~/api'
 export default {
   components: { Dialog, DialogOverlay, TransitionRoot },
 
-  async beforeRouteEnter (to, from, next) {
-    const response = await api.get(`/api/songs/${to.params.id}.json`)
-    next(vm => (vm.source = response.data.source))
+  beforeRouteEnter (to, from, next) {
+    return api.get(`/api/songs/${to.params.id}.json`).then(response => {
+      next(vm => (vm.source = response.data.source))
+    }).catch(() => {
+      next({ name: '404', replace: true })
+    })
   },
 
   props: {
