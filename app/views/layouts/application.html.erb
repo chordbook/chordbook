@@ -11,6 +11,7 @@
 
     <%= vite_client_tag %>
     <%= vite_javascript_tag 'application' %>
+    <%= vite_javascript_tag 'errors' if Rails.env.test? %>
     <%= vite_stylesheet_tag 'application.scss', media: 'all' %>
     <% if ENV["HOSTNAME"] %>
       <script defer data-domain="<%= ENV["HOSTNAME"] %>" src="https://plausible.io/js/plausible.js"></script>

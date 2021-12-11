@@ -8,7 +8,11 @@ import api from '~/api'
 const components = import.meta.globEager('../components/*.vue')
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = createApp({})
+  const app = createApp({
+    errorCaptured (error, instance, info) {
+      window.captureError && window.captureError(error)
+    }
+  })
   app.use(VueAxios, api)
   app.use(store)
   app.use(router)

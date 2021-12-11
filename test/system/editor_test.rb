@@ -4,6 +4,7 @@ class EditorTest < ApplicationSystemTestCase
   test "creating new song" do
     visit "/"
     click_on "Add Song"
+    assert_no_js_errors
 
     fill_in_editor_field file_fixture("drunken-sailor.pro").read
 
@@ -12,6 +13,7 @@ class EditorTest < ApplicationSystemTestCase
     assert_content "Traditional sea shanty"
 
     click_button "Save"
+    assert_no_js_errors
 
     assert_no_css ".ace_editor" # No more editor
 
@@ -33,6 +35,7 @@ class EditorTest < ApplicationSystemTestCase
     click_on "Edit"
 
     fill_in_editor_field(source)
+    assert_no_js_errors
 
     click_button "Save"
     assert_no_css ".ace_editor" # No more editor
@@ -41,6 +44,7 @@ class EditorTest < ApplicationSystemTestCase
     assert_equal "New Title", song.title
     assert_equal "New Subtitle", song.subtitle
     assert_equal source, song.source
+    assert_no_js_errors
   end
 
   private

@@ -10,6 +10,9 @@ import { string } from 'rollup-plugin-string'
 import manifest from './public/manifest.json'
 
 export default defineConfig({
+  build: {
+    sourcemap: true
+  },
   plugins: [
     vue(),
     RubyPlugin(),
