@@ -5,6 +5,6 @@
     asset_path("icon@192.png"),
     asset_path("icon@512.png")
   ] +
-  Songsheet.all.map { |songsheet| songsheet_url(songsheet) }
+  Song.all.map { |song| api_song_url(song, format: :json) }
 ).to_json.html_safe
 %>

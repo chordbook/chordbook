@@ -1,9 +1,9 @@
 class ContentController < ActionController::Base
-  def offline
-    render format: :json
+  def index
+    render layout: "application"
   end
 
-  def tuner
-    render layout: "application"
+  def offline
+    render format: :json
   end
 end

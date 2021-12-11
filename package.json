@@ -22,13 +22,13 @@
     "sass": "^1.44.0",
     "tailwindcss": "^2.2.19",
     "tailwindcss-multi-column": "^1.0.2",
-    "turbolinks": "^5.2.0",
     "unplugin-icons": "^0.12.22",
     "unplugin-vue-components": "^0.17.6",
     "vexchords": "^1.2.0",
     "vite-plugin-pwa": "^0.11.10",
     "vue": "^3.2.24",
-    "vue-turbolinks": "^2.2.2",
+    "vue-axios": "^3.4.0",
+    "vue-router": "^4.0.12",
     "vue3-ace-editor": "^2.2.1",
     "vuex": "^4.0.2"
   },
@@ -46,7 +46,7 @@
     "vite-plugin-ruby": "^3.0.2"
   },
   "scripts": {
-    "lint": "eslint --ext .js,.vue app"
+    "lint": "eslint --ignore-path .gitignore --ignore-pattern vendor/ --ext .js,.vue ."
   },
   "browserslist": [
     "defaults"

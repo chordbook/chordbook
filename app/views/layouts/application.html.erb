@@ -10,8 +10,12 @@
     <%= csp_meta_tag %>
 
     <%= vite_client_tag %>
-    <%= vite_javascript_tag 'application', 'vue', 'data-turbolinks-track': 'reload' %>
-    <%= vite_stylesheet_tag 'application.scss', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= vite_javascript_tag 'application' %>
+    <%= vite_javascript_tag 'errors' if Rails.env.test? %>
+    <%= vite_stylesheet_tag 'application.scss', media: 'all' %>
+    <% if ENV["HOSTNAME"] %>
+      <script defer data-domain="<%= ENV["HOSTNAME"] %>" src="https://plausible.io/js/plausible.js"></script>
+    <% end %>
     <link rel="manifest" href="/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -25,12 +29,6 @@
   </head>
 
   <body class="bg-gray-900">
-    <div data-behavior="vue" class="flex flex-col h-screen">
-      <reload-pwa></reload-pwa>
-      <app-header></app-header>
-      <main class="bg-white flex-grow overflow-auto dark:bg-gray-800 dark:text-gray-200">
-        <%= yield %>
-      </main>
-    </div>
+    <%= yield %>
   </body>
 </html>

@@ -1,8 +1,11 @@
 require "application_system_test_case"
 
 class EditorTest < ApplicationSystemTestCase
-  test "creating new songsheet" do
-    visit new_songsheet_path
+  test "creating new song" do
+    visit "/"
+    click_on "Add Song"
+    assert_no_js_errors
+
     fill_in_editor_field file_fixture("drunken-sailor.pro").read
 
     # Updates preview
@@ -10,38 +13,44 @@ class EditorTest < ApplicationSystemTestCase
     assert_content "Traditional sea shanty"
 
     click_button "Save"
+    assert_no_js_errors
 
     assert_no_css ".ace_editor" # No more editor
 
     assert_content "Drunken Sailor"
     assert_content "Traditional sea shanty"
-    assert_equal 1, Songsheet.count
+    assert_equal 1, Song.count
   end
 
-  test "editing existing songsheet" do
-    songsheet = Songsheet.create!(
+  test "editing existing song" do
+    song = Song.create!(
       title: "Song Name",
       subtitle: "Song Subtitle",
       source: "Song source"
     )
 
     source = "{t:New Title}\n{st:New Subtitle}\nnew body"
-    visit edit_songsheet_path(songsheet)
+    visit "/"
+    click_on song.title
+    click_on "Edit"
+
     fill_in_editor_field(source)
+    assert_no_js_errors
 
     click_button "Save"
     assert_no_css ".ace_editor" # No more editor
 
-    songsheet.reload
-    assert_equal "New Title", songsheet.title
-    assert_equal "New Subtitle", songsheet.subtitle
-    assert_equal source, songsheet.source
+    song.reload
+    assert_equal "New Title", song.title
+    assert_equal "New Subtitle", song.subtitle
+    assert_equal source, song.source
+    assert_no_js_errors
   end
 
   private
 
   def fill_in_editor_field(text)
+    assert_css ".ace_editor" # wait for editor to appear
     execute_script("editor.setValue(#{text.to_json})")
-    # find_ace_editor_field.send_keys text
   end
 end
