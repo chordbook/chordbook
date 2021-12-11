@@ -230,7 +230,7 @@ export default {
 
   mounted () {
     this.updateColumnWidth()
-    this.$emit('update:key', this.key)
+    if (this.key) this.$emit('update:key', this.key)
   },
 
   updated () {

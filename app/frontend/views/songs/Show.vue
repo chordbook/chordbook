@@ -210,6 +210,8 @@ export default {
     },
 
     transpositions () {
+      if (!this.key) return
+
       const key = Chord.parse(this.key)
       const steps = []
       for (let i = -11; i <= 11; i++) {
