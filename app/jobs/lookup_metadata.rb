@@ -1,6 +1,6 @@
 class LookupMetadata < ApplicationJob
   include HTTParty
-  API_KEY = ENV["THEAUDIODB_API_KEY"]
+  API_KEY = ENV["THEAUDIODB_API_KEY"] || "2" # default public key
   base_uri "https://www.theaudiodb.com"
 
   delegate :get, :path, to: :class
