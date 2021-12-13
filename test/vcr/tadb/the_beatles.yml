@@ -3000,4 +3000,534 @@ http_interactions:
         Sessions 1.1.62","strAlbumStripped":"Decca Sessions 1162","strArtist":"The
         Beatles","strArtistStripped":"The Beatles","intYearReleased":"1987","strStyle":null,"strGenre":null,"strLabel":"EMI","strReleaseFormat":"Album","intSales":"0","strAlbumThumb":"https://www.theaudiodb.com/images/media/album/thumb/tp1emo1613120453.jpg","strAlbumThumbHQ":null,"strAlbumThumbBack":null,"strAlbumCDart":null,"strAlbumSpine":null,"strAlbum3DCase":null,"strAlbum3DFlat":null,"strAlbum3DFace":null,"strAlbum3DThumb":null,"strDescription":null,"strDescriptionDE":null,"strDescriptionFR":null,"strDescriptionCN":null,"strDescriptionIT":null,"strDescriptionJP":null,"strDescriptionRU":null,"strDescriptionES":null,"strDescriptionPT":null,"strDescriptionSE":null,"strDescriptionNL":null,"strDescriptionHU":null,"strDescriptionNO":null,"strDescriptionIL":null,"strDescriptionPL":null,"intLoved":null,"intScore":null,"intScoreVotes":null,"strReview":null,"strMood":null,"strTheme":null,"strSpeed":null,"strLocation":null,"strMusicBrainzID":"dab0ccaf-ed6b-4da7-b052-46cce264ff5f","strMusicBrainzArtistID":"b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d","strAllMusicID":null,"strBBCReviewID":null,"strRateYourMusicID":null,"strDiscogsID":null,"strWikidataID":null,"strWikipediaID":null,"strGeniusID":null,"strLyricWikiID":null,"strMusicMozID":null,"strItunesID":null,"strAmazonID":null,"strLocked":"unlocked"}]}'
   recorded_at: Mon, 13 Dec 2021 16:51:30 GMT
+- request:
+    method: get
+    uri: https://www.theaudiodb.com/api/v1/json/<APIKEY>/artist.php?i=111247
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 13 Dec 2021 21:00:54 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Powered-By:
+      - PHP/7.4.1
+      Access-Control-Allow-Origin:
+      - "*"
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Report-To:
+      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=%2FwvUQ5441xCGakRRcyBmvlOdYH41Dc7o3FYGcqsaI7Yp7fsIfTXjyFpk%2FvFvPk3uKMo4Wqw6k%2FoXFbeqqcJsNPECYj7DY6JHShLHdAuiQGERm6rcnLNAwLeVNDjW1JJ9U65c5d4%3D"}],"group":"cf-nel","max_age":604800}'
+      Nel:
+      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 6bd21fe7b87f0c3a-DFW
+      Alt-Svc:
+      - h3=":443"; ma=86400, h3-29=":443"; ma=86400, h3-28=":443"; ma=86400, h3-27=":443";
+        ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: '{"artists":[{"idArtist":"111247","strArtist":"The Beatles","strArtistStripped":null,"strArtistAlternate":"Beatles","strLabel":"EMI","idLabel":"43827","intFormedYear":"1957","intBornYear":null,"intDiedYear":"1970","strDisbanded":"Yes","strStyle":"Rock/Pop","strGenre":"Rock","strMood":"Happy","strWebsite":"thebeatles.com","strFacebook":"www.facebook.com/thebeatles","strTwitter":"twitter.com/thebeatles","strBiographyEN":"The
+        Beatles were an English rock band formed in Liverpool in 1960, becoming one
+        of the most commercially successful and critically acclaimed acts in the history
+        of popular music. The group''s best-known lineup consisted of John Lennon
+        (rhythm guitar/vocals), Paul McCartney (bass guitar/vocals), George Harrison
+        (lead guitar/vocals), and Ringo Starr (drums/vocals). Rooted in skiffle and
+        1950s rock and roll, the group later utilised many genres, ranging from pop
+        ballads to psychedelic rock, often incorporating classical and other elements,
+        in innovative ways. In the early 1960s, their enormous popularity first emerged
+        as \"Beatlemania\", but as their songwriting grew in sophistication, they
+        came to be perceived by many fans and cultural observers as an embodiment
+        of the ideals shared by the era''s sociocultural revolutions.\nAs a five-piece
+        line-up of Lennon, McCartney and Harrison on guitar and vocals, with Stuart
+        Sutcliffe (bass), and Pete Best (drums), the band built their reputation playing
+        clubs in Liverpool and Hamburg over a three-year period from 1960. Sutcliffe
+        left the group in 1961, and Best was replaced by Starr the following year.
+        They were moulded into a professional act by manager Brian Epstein, and their
+        musical potential was enhanced by the creativity of producer George Martin.
+        They gained popularity in the United Kingdom after their first single, \"Love
+        Me Do\", became a modest hit in late 1962. They acquired the nickname the
+        \"Fab Four\" as Beatlemania grew in Britain over the following year, and by
+        early 1964 they had become international stars, leading the \"British Invasion\"
+        of the United States pop market. The band toured extensively around the world
+        until August 1966, when they performed their final commercial concert. From
+        1966 they produced what many critics consider to be some of their finest material,
+        including the innovative and widely influential albums Revolver (1966), Sgt.
+        Pepper''s Lonely Hearts Club Band (1967), The Beatles (1968), and Abbey Road
+        (1969). After their break-up in 1970, the ex-Beatles each found success in
+        individual musical careers. Lennon was murdered in 1980, and Harrison died
+        of cancer in 2001. McCartney and Starr remain active.\nThe Beatles are the
+        best-selling band in history, with sales of over one billion units estimated
+        by EMI Records. They have had more number-one albums on the British charts
+        and sold more singles in the UK than any other act. According to the RIAA,
+        as of 2012 they have sold 177 million units in the US, more than any other
+        artist, and in 2008 they topped Billboard magazine''s list of the all-time
+        most successful Hot 100 artists. As of 2012, they hold the record for most
+        number-one hits on the Hot 100 chart with 20. They have received 7 Grammy
+        Awards from the American National Academy of Recording Arts and Sciences,
+        an Academy Award for Best Original Song Score and 15 Ivor Novello Awards from
+        the British Academy of Songwriters, Composers and Authors. They were collectively
+        included in Time magazine''s compilation of the 20th century''s 100 most influential
+        people.","strBiographyDE":"The Beatles waren eine britische Rockband in den
+        1960er Jahren. Mit mehr als 600 Millionen \u2013 nach Sch\u00e4tzungen ihrer
+        Plattenfirma EMI sogar mehr als einer Milliarde \u2013 verkauften Tontr\u00e4gern
+        geh\u00f6ren sie zu den kommerziell erfolgreichsten Bands der Musikgeschichte.\nDie
+        musikalischen Urspr\u00fcnge der Band liegen im Rock \u2019n\u2019 Roll der
+        ausgehenden 1950er Jahre, in den dann sehr bald Stilelemente der Liverpooler
+        Beatmusik einflossen. Ihre erste Single Love Me Do erschien 1962. Den weltweiten
+        Durchbruch schaffte die Gruppe im Jahr 1963 mit der Single I Want to Hold
+        Your Hand. Aufgrund ihres damals neuartigen Musikstils und ihrem \u00f6ffentlichen
+        Auftreten entwickelten sich die Beatles schnell zu einer der popul\u00e4rsten
+        Bands. Den H\u00f6hepunkt ihrer Karriere erreichten die Beatles zwischen 1964
+        und 1968, als sie zeitweise in fast allen L\u00e4ndern die Hitparaden anf\u00fchrten.\nIm
+        Jahr 1970 trennten sich die Wege der vier Bandmitglieder aufgrund interner
+        Spannungen. Die Musiker verfolgten danach eigene erfolgreiche Musikprojekte.","strBiographyFR":"The
+        Beatles est un groupe musical originaire de Liverpool, compos\u00e9 de John
+        Lennon, Paul McCartney, George Harrison et Ringo Starr. \nIl demeure, en d\u00e9pit
+        de sa s\u00e9paration en 1970, l''un des groupes de rock les plus populaires
+        au monde. \nEn dix ans d''existence, et seulement huit ans de carri\u00e8re
+        discographique (de 1962 \u00e0 1970), les Beatles ont enregistr\u00e9 douze
+        albums originaux et ont compos\u00e9 plus de 200 chansons. Une productivit\u00e9
+        particuli\u00e8rement remarquable dans la p\u00e9riode 1963\u20131966, o\u00f9,
+        entre les tourn\u00e9es incessantes et la participation \u00e0 deux longs
+        m\u00e9trages, ils ont publi\u00e9 sept albums, treize singles et douze EPs,
+        par ailleurs emport\u00e9s dans un ph\u00e9nom\u00e8ne d''ampleur d\u00e9nomm\u00e9
+        Beatlemania.\n\nConsid\u00e9r\u00e9es comme la \u00ab bande-son \u00bb des
+        ann\u00e9es 1960, les chansons des Beatles ont marqu\u00e9 leur d\u00e9cennie
+        ainsi que les g\u00e9n\u00e9rations suivantes, et leurs m\u00e9lodies ont
+        \u00e9t\u00e9 adapt\u00e9es \u00e0 de nombreux genres musicaux, notamment
+        le jazz, la salsa, le reggae, la soul ou la musique classique et baroque.
+        \nAu XXIe si\u00e8cle, le groupe jouit toujours d''une grande popularit\u00e9
+        ; ses chansons sont jou\u00e9es et reprises dans le monde entier. Le duo d''auteurs-compositeurs
+        Lennon/McCartney reste c\u00e9l\u00e8bre comme cr\u00e9ateur de standards
+        qui ont fait l''objet de milliers d''adaptations dans les d\u00e9cennies suivantes.\n\nLes
+        Beatles demeurent les artistes ayant vendu le plus grand nombre de disques
+        au monde. Ce chiffre \u00e9tait d\u00e9j\u00e0 estim\u00e9 par EMI dans les
+        ann\u00e9es 1980 \u00e0 plus d''un milliard de CD, vinyles, et m\u00eame 78
+        tours en Inde, vendus \u00e0 travers la plan\u00e8te et il a continu\u00e9
+        \u00e0 augmenter jusqu''\u00e0 aujourd''hui atteignant un chiffre sup\u00e9rieur
+        \u00e0 2 milliards. \nPar ailleurs, on a calcul\u00e9 dans les ann\u00e9es
+        1970 qu''\u00e0 tout moment, l''une des interpr\u00e9tations de la chanson
+        Yesterday (on en d\u00e9nombre plus de 3 000) \u00e9tait jou\u00e9e par une
+        radio quelque part dans le monde.\n\n\u00ab Plac\u00e9s \u00e0 la proue \u00bb
+        de l''\u00e9volution de la jeunesse et de la culture populaire des ann\u00e9es
+        1960, leur style, leur habillement, leurs discours, leurs orientations, leur
+        popularit\u00e9 plan\u00e9taire, leur conscience sociale et politique grandissantes
+        au fil du temps, ont \u00e9tendu l''influence des Beatles bien au-del\u00e0
+        de la musique, jusqu''aux r\u00e9volutions sociales et culturelles de leur
+        \u00e9poque.","strBiographyCN":"\u62ab\u5934\u58eb\uff08\u82f1\u8bed\uff1aThe
+        Beatles\uff09\uff0c\u4ea6\u79f0\u4e3a\u201c\u7532\u58f3\u866b\u4e50\u961f\u201d\u3001\u201c\u62ab\u5934\u56db\u4e50\u961f\u201d\uff0c[1]
+        \uff0c\u6765\u81ea\u4e8e\u82f1\u56fd\u5229\u7269\u6d66\u7684\u6447\u6eda\u4e50\u961f\uff081960\uff5e1970\uff09\uff0c\u6210\u54e1\u70ba\u7ea6\u7ff0\u00b7\u5217\u4fac\uff08\u4e3b\u97f3\u3001\u7bc0\u594f\u5409\u4ed6\u624b\u3001\u4f5c\u8a5e\u4f5c\u66f2\uff09\u3001\u4fdd\u7f85\u00b7\u9ea5\u5361\u5c3c\uff08\u4e3b\u97f3\u3001\u8d1d\u65af\u624b\u3001\u4f5c\u8a5e\u4f5c\u66f2\uff09\u3001\u55ac\u6cbb\u00b7\u54c8\u91cc\u68ee\uff08\u4e3b\u97f3\u5409\u4ed6\u624b\uff09\u53ca\u6797\u6208\u00b7\u65af\u5854\u5c14\uff08\u9f13\u624b\uff09\uff0c\u661f\u63a2\u53ca\u7ecf\u7eaa\u4eba\u70ba\u5e03\u840a\u6069\u00b7\u827e\u666e\u65af\u5766\u3002\n\u62ab\u5934\u58eb\u6a02\u968a\u88ab\u516c\u8a8d\u70ba\u82f1\u570b\u97f3\u6a02\u57281960\u5e74\u4ee3\u300c\u82f1\u570b\u5165\u4fb5\u300d\u7f8e\u570b\u7684\u4ee3\u8868\u4e50\u961f\u3002\u5176\u97f3\u6a02\u98a8\u683c\u6e90\u81ea1950\u5e74\u4ee3\u7684\u6416\u6efe\uff0c\u4e4b\u5f8c\u958b\u62d3\u4e86\u5404\u7a2e\u66f2\u98a8\u5982\u8ff7\u5e7b\u6416\u6efe\u3001\u6d41\u884c\u6416\u6efe\u3001\u53e4\u5178\u97f3\u6a02\u7684\u878d\u5408\u7b49\uff0c\u5176\u97f3\u6a02\u6027\u4e4b\u5275\u65b0\u6df1\u6df1\u5f71\u97ff\u4e86\u4e4b\u5f8c\u7684\u6b50\u7f8e\u6a02\u58c7\u767c\u5c55\uff0c\u5c24\u5176\u662f\u5217\u4fac\u4e0e\u9ea6\u5361\u7279\u5c3c\u8fd9\u4e00\u53cc\u5b50\u661f\u642d\u6863\u66f4\u662f\u97f3\u4e50\u4e50\u53f2\u4e0a\u6700\u4f73\u5531\u4f5c\u642d\u6863\u4e4b\u4e00\u3002\u800c\u4e14\u96a8\u8457\u4f5c\u54c1\u7684\u793e\u6703\u610f\u8b58\u65e5\u6f38\u52a0\u6df1\uff0c\u4ed6\u5011\u7684\u5f71\u97ff\u529b\u4e5f\u4f38\u5ef6\u5230\u516d\u5341\u5e74\u4ee3\u7684\u793e\u6703\u53ca\u6587\u5316\u9769\u547d\u65b9\u9762\u3002\n\u62ab\u5934\u58eb\u5e38\u88ab\u8a8d\u70ba\u662f\u6a02\u58c7\u6b77\u53f2\u4e0a\uff0c\u65e0\u8bba\u5546\u696d\u6027\u6216\u6587\u827a\u6027\u5747\u662f\u6700\u6210\u529f\u6700\u5049\u5927\u7684\u81f3\u5c0a\u6a02\u5718\uff0c\u4f9d\u7f8e\u56fd\u5531\u7247\u4e1a\u534f\u4f1a\u6b63\u5f0f\u7d71\u8a08\uff0c\u5176\u70ba\u7f8e\u570b\u570b\u5167\u751f\u6daf\u92b7\u91cf\u6700\u9ad8\u6b4c\u624b\uff0c\u7e3d\u92b7\u8d85\u904e1\u51047\u5343\u842c\u5f35\uff0c\u800c\u5168\u7403\u92b7\u91cf\u64da\u4fe1\u8d85\u904e10\u5104\u5f35\u3002\u5728\u82f1\u570b\uff0c\u4ed6\u5011\u670915\u5f35\u51a0\u8ecd\u5c08\u8f2f\uff0c\u5728\u7f8e\u570b\u670919\u5f35\u51a0\u8ecd\u5c08\u8f2f\u820720\u5f35\u51a0\u8ecd\u55ae\u66f2\uff0c\u7686\u70ba\u53f2\u4e0a\u6700\u9ad8\u3002\n\u5929\u4e0a\u6709\u4e94\u9897\u5c0f\u884c\u661f\u5206\u522b\u547d\u540d\u4e3a\u62ab\u5934\u58eb\u661f\u3001\u5217\u4fac\u661f\u3001\u9ea6\u5361\u7279\u5c3c\u661f\u3001\u54c8\u91cc\u68ee\u661f\u548c\u65af\u5854\u661f\u3002","strBiographyIT":"The
+        Beatles (in italiano I Beatles, pronunciato /\u02c8bitols/, in inglese /\u02c8bi\u02d0t(\u0259)lz/),
+        soprannominati The Fab Four (I favolosi quattro), sono stati un gruppo rock
+        britannico, originario di Liverpool e attivo dal 1960 al 1970. La formazione,
+        composta da John Lennon, Paul McCartney, George Harrison e Ringo Starr, ha
+        segnato un''epoca nella musica, nel costume, nella moda e nella pop art. Ritenuti
+        un fenomeno di comunicazione di massa di proporzioni mondiali[11] e considerati
+        tra le maggiori espressioni della musica contemporanea, a distanza di vari
+        decenni dal loro scioglimento ufficiale \u2013 e dopo la morte di due dei
+        quattro componenti \u2013 i Beatles contano ancora un enorme seguito e numerosi
+        sono i loro fan club esistenti in ogni parte del mondo.\n\nSecondo una stima
+        del 2001, \u00e8 risultato in assoluto il gruppo musicale di maggior successo
+        commerciale, con vendite complessive che superano il miliardo di dischi e
+        di musicassette, e per la rivista Rolling Stone i Beatles sono i pi\u00f9
+        grandi artisti di tutti i tempi.\n\nL''aura \u2013 per molti versi non sempre
+        codificabile secondo i canoni comuni \u2013 che circonda lo sviluppo del loro
+        successo mediatico e che ha favorito la nascita della cosiddetta Beatlemania
+        e lo straordinario esito artistico raggiunto come musicisti rock sono inoltre
+        oggetto di studio di universit\u00e0, psicologi e addetti del settore","strBiographyJP":"\u30b6\u30fb\u30d3\u30fc\u30c8\u30eb\u30ba\uff08The
+        Beatles\uff09\u306f\u3001\u30a4\u30ae\u30ea\u30b9\u30fb\u30ea\u30f4\u30a1\u30d7\u30fc\u30eb\u51fa\u8eab\u306e\u30ed\u30c3\u30af\u30d0\u30f3\u30c9\u3067\u3042\u308b\u3002
+        \u4e3b\u306b1960\u5e74\u4ee3\u306b\u6d3b\u52d5\u3057\u305f\u30ed\u30c3\u30af\u30d0\u30f3\u30c9\u30021962\u5e7410\u6708\u306b\u30ec\u30b3\u30fc\u30c9\u30c7\u30d3\u30e5\u30fc\u30011970\u5e744\u6708\u306b\u4e8b\u5b9f\u4e0a\u89e3\u6563\uff08\u8a73\u7d30\u306f#\u89e3\u6563\u3068\u305d\u306e\u5f8c\u306e\u30e1\u30f3\u30d0\u30fc\u306e\u95a2\u4fc2\u3092\u53c2\u7167\uff09\u3002\"Fab
+        Four\"[\u6ce8\u91c8 1]\u3068\u3044\u3046\u611b\u79f0\u3082\u3042\u308b[1]\u3002\n\u30d0\u30f3\u30c9\u306e\u6d3b\u52d5\u671f\u9593\u5185\u306b\u6bcd\u56fd\u30a4\u30ae\u30ea\u30b9\u306712\u4f5c[\u6ce8\u91c8
+        2]\u306e\u30aa\u30ea\u30b8\u30ca\u30eb\u30fb\u30a2\u30eb\u30d0\u30e0\u3092\u767a\u58f2\u3057\u3001\u305d\u306e\u518511\u4f5c\u304c\u5168\u82f1\u30a2\u30eb\u30d0\u30e0\u30c1\u30e3\u30fc\u30c8\u3067\u9031\u95931\u4f4d\u3092\u7372\u5f97\u3057\u305f\u300211\u4f5c\u306e\u9031\u95931\u4f4d\u7372\u5f97\u5408\u8a08\u6570\u306f162\u9031[\u6ce8\u91c8
+        3]\u3002\u5e74\u9593\u58f2\u308a\u4e0a\u3052\u6700\u9ad8\u30a2\u30eb\u30d0\u30e0\u7372\u5f97\u65704\u4f5c[\u6ce8\u91c8
+        4]\u3068\u7b2c1\u4f5c\u300e\u30d7\u30ea\u30fc\u30ba\u30fb\u30d7\u30ea\u30fc\u30ba\u30fb\u30df\u30fc\u300f\u306b\u3088\u308b\u9023\u7d9a1\u4f4d\u7372\u5f9730\u9031[\u6ce8\u91c8
+        5]\u306f\u3044\u305a\u308c\u30821960\u5e74\u4ee3\u306e\u6700\u9ad8\u6570[\u6ce8\u91c8
+        6]\u3002\u30b7\u30f3\u30b0\u30eb\u306f22\u4f5c[\u6ce8\u91c8 7]\u767a\u58f2\u3057\u3001\u305d\u306e\u518517\u4f5c\u304c1\u4f4d\u3092\u7372\u5f97\u3002\u3055\u3089\u306b\u30a2\u30e1\u30ea\u30ab\u3092\u521d\u3081\u5404\u56fd\u3067\u3082\u9ad8\u3044\u30bb\u30fc\u30eb\u30b9\u3092\u8a18\u9332\uff08\u8a73\u7d30\u306f\u300c\u30d3\u30fc\u30c8\u30eb\u30ba\u306e\u4f5c\u54c1\u300d\u3092\u53c2\u7167\uff09\u3057\u3001\u30ae\u30cd\u30b9\u30fb\u30ef\u30fc\u30eb\u30c9\u30fb\u30ec\u30b3\u30fc\u30ba\u306b\u6700\u3082\u6210\u529f\u3057\u305f\u30b0\u30eb\u30fc\u30d7\u30a2\u30fc\u30c6\u30a3\u30b9\u30c8\u3068\u8a8d\u5b9a\u3055\u308c\u3066\u3044\u308b\u3002\u307e\u305f\u300c\u30ed\u30fc\u30ea\u30f3\u30b0\u30fb\u30b9\u30c8\u30fc\u30f3\u306e\u9078\u3076\u6b74\u53f2\u4e0a\u6700\u3082\u5049\u5927\u306a100\u7d44\u306e\u30a2\u30fc\u30c6\u30a3\u30b9\u30c8\u300d\u306b\u65bc\u3044\u3066\u7b2c1\u4f4d\u306b\u9078\u51fa\u3055\u308c\u3066\u3044\u308b[\u6ce8\u91c8
+        8]\u3002\n\u672c\u56fd\u30a4\u30ae\u30ea\u30b9\u3067\u306f1965\u5e74\u306b\u5916\u8ca8\u7372\u5f97\u306b\u8ca2\u732e\u3057\u305f\u3068\u3057\u3066\u30a8\u30ea\u30b6\u30d9\u30b92\u4e16\u304b\u3089MBE\u52f2\u7ae0\u3092\u6388\u4e0e\u3055\u308c\u3066\u3044\u308b[2]\u30021988\u5e74\u306b\u30ed\u30c3\u30af\u306e\u6bbf\u5802\u5165\u308a\u3002\u6d3b\u52d5\u524d\u671f\u306b\u304a\u3044\u3066\u306f\u30a2\u30a4\u30c9\u30eb\u3068\u3057\u3066\u300c\u30d3\u30fc\u30c8\u30eb\u30de\u30cb\u30a2\u300d\u3068\u79f0\u3055\u308c\u308b\u4eba\u6c17\u3092\u7372\u5f97\u3002\u305d\u308c\u306b\u52a0\u3048\u3066\u5f8c\u671f\u306b\u306f\u97f3\u697d\u7684\u306b\u3082\u8a55\u4fa1\u3055\u308c\u3066\u3044\u308b\uff08\u8a55\u4fa1\u3068\u5f71\u97ff\u3092\u53c2\u7167\uff09\u3002
+        \u300cBEATLES\u300d\u3068\u3044\u3046\u540d\u79f0\u306f\u3001\u30b8\u30e7\u30f3\u3068\u30b9\u30c1\u30e5\u30a2\u30fc\u30c8\u30fb\u30b5\u30c8\u30af\u30ea\u30d5\u304c\u8003\u3048\u305f\u9020\u8a9e\u3067\u3042\u308b\u3002\u30b8\u30e7\u30f3\u306e\u767a\u8a00[3]\u306b\u3088\u308c\u3070\u3001\u3053\u306e\u540d\u524d\u3092\u63d0\u6848\u3057\u305f\u306e\u306f1960\u5e74\u306e4\u6708\u3067\u3001\u30d0\u30c7\u30a3\u30fb\u30db\u30ea\u30fc\u306e\u30d0\u30f3\u30c9\u540d\u3067\u3042\u308b\u300c\u30d0\u30c7\u30a3\u30fb\u30db\u30ea\u30fc&\u30b6\u30fb\u30af\u30ea\u30b1\u30c3\u30c4\u300d\u306e\u30af\u30ea\u30b1\u30c3\u30c4[\u6ce8\u91c8
+        9]\u306b\u3042\u3084\u304b\u308a\u3001\u540c\u3058\u6606\u866b\u3067\u3001\u540c\u3058\u3088\u3046\u306b2\u3064\u306e\u610f\u5473\u3092\u542b\u3093\u3067\u3044\u308b\u8a00\u8449\u3068\u3057\u3066\u30d3\u30fc\u30c8\u30eb\u30ba[\u6ce8\u91c8
+        10]\u3092\u300e\u4e71\u66b4\u8005\u300f[\u6ce8\u91c8 11]\u304b\u3089\u601d\u3044\u3064\u3044\u305f\u3002\u3057\u304b\u3057\u3001\u30d0\u30f3\u30c9\u540d\u3092\u300c\u30d3\u30fc\u30c8\u30eb\u30ba\u300d\u3068\u3057\u305f\u9803\u3001\u30af\u30e9\u30d6\u51fa\u6f14\u306e\u4ed5\u4e8b\u3092\u4f9d\u983c\u3057\u3066\u304d\u305f\u30d6\u30e9\u30a4\u30a2\u30f3\u30fb\u30ad\u30e3\u30b9[3]\u306b\u305d\u306e\u540d\u524d\u3092\u5acc\u308f\u308c[\u6ce8\u91c8
+        12]\u3001\u51fa\u6f14\u6761\u4ef6\u3068\u3057\u3066\u6539\u540d\u3092\u63d0\u6848\u3055\u308c\u300c\u30ed\u30f3\u30b0\u30fb\u30b8\u30e7\u30f3&\u30d4\u30fc\u30b7\u30ba\u30fb\u30aa\u30d6\u30fb\u30b7\u30eb\u30f4\u30a1\u30fc\u300d\u3068\u3044\u3046\u540d\u524d\u304c\u63d0\u793a\u3055\u308c\u305f\u3002\u8a71\u3057\u5408\u3044\u306e\u4e0a\u3001\u304a\u4e92\u3044\u8b72\u308a\u5408\u3046\u5f62\u3067\u300e\u30ed\u30f3\u30b0\u30fb\u30b8\u30e7\u30f3&\u30b7\u30eb\u30f4\u30a1\u30fc\u30fb\u30d3\u30fc\u30c8\u30eb\u30ba\u300f\u3068\u540d\u4e57\u308b\u4e8b\u306b\u306a\u3063\u305f\u304c\u3001\u305d\u306e\u5f8c\u30ed\u30f3\u30b0\u30fb\u30b8\u30e7\u30f3\u304c\u3068\u308c\u3066\u300c\u30b7\u30eb\u30f4\u30a1\u30fc\u30fb\u30d3\u30fc\u30c8\u30eb\u30ba\u300d\u3068\u540d\u4e57\u308b\u69d8\u306b\u306a\u3063\u305f[3]\u3002\u305f\u3060\u3057\u540c\u5e748\u6708\u304b\u3089\u884c\u308f\u308c\u305f\u6700\u521d\u306e\u30cf\u30f3\u30d6\u30eb\u30af\u5de1\u696d\u3067\u51fa\u6f14\u3057\u305f\u30af\u30e9\u30d6\u300c\u30ab\u30a4\u30b6\u30fc\u30fb\u30b1\u30e9\u30fc\u300d\u306e\u5e83\u544a[4]\u306b\u51fa\u6f14\u8005\u3068\u3057\u3066\u8a18\u8f09\u3055\u308c\u305f\u6642\u70b9\u3067\u300cThe
+        Beatles\u300d\u3068\u306a\u3063\u3066\u3044\u308b\u3002","strBiographyRU":"The
+        Beatles (\u043e\u0442\u0434\u0435\u043b\u044c\u043d\u043e \u0443\u0447\u0430\u0441\u0442\u043d\u0438\u043a\u043e\u0432
+        \u0430\u043d\u0441\u0430\u043c\u0431\u043b\u044f \u043d\u0430\u0437\u044b\u0432\u0430\u044e\u0442
+        \u00ab\u0431\u0438\u0442\u043b\u0430\u043c\u0438\u00bb, \u0442\u0430\u043a\u0436\u0435
+        \u0438\u0445 \u043d\u0430\u0437\u044b\u0432\u0430\u044e\u0442 \u00ab\u0432\u0435\u043b\u0438\u043a\u043e\u043b\u0435\u043f\u043d\u043e\u0439
+        \u0447\u0435\u0442\u0432\u0451\u0440\u043a\u043e\u0439\u00bb (\u0430\u043d\u0433\u043b.
+        Fab Four)) \u2014 \u0431\u0440\u0438\u0442\u0430\u043d\u0441\u043a\u0430\u044f
+        \u0440\u043e\u043a-\u0433\u0440\u0443\u043f\u043f\u0430 \u0438\u0437 \u041b\u0438\u0432\u0435\u0440\u043f\u0443\u043b\u044f,
+        \u043e\u0441\u043d\u043e\u0432\u0430\u043d\u043d\u0430\u044f \u0432 1960 \u0433\u043e\u0434\u0443,
+        \u0432 \u0441\u043e\u0441\u0442\u0430\u0432\u0435 \u043a\u043e\u0442\u043e\u0440\u043e\u0439
+        \u0438\u0433\u0440\u0430\u043b\u0438: \u0414\u0436\u043e\u043d \u041b\u0435\u043d\u043d\u043e\u043d,
+        \u041f\u043e\u043b \u041c\u0430\u043a\u043a\u0430\u0440\u0442\u043d\u0438,
+        \u0414\u0436\u043e\u0440\u0434\u0436 \u0425\u0430\u0440\u0440\u0438\u0441\u043e\u043d,
+        \u0420\u0438\u043d\u0433\u043e \u0421\u0442\u0430\u0440\u0440. \u0422\u0430\u043a\u0436\u0435
+        \u0432 \u0440\u0430\u0437\u043d\u043e\u0435 \u0432\u0440\u0435\u043c\u044f
+        \u0432 \u0441\u043e\u0441\u0442\u0430\u0432\u0435 \u0433\u0440\u0443\u043f\u043f\u044b
+        \u0432\u044b\u0441\u0442\u0443\u043f\u0430\u043b\u0438 \u041f\u0438\u0442
+        \u0411\u0435\u0441\u0442, \u0421\u0442\u044e\u0430\u0440\u0442 \u0421\u0430\u0442\u043a\u043b\u0438\u0444\u0444
+        \u0438 \u0414\u0436\u0438\u043c\u043c\u0438 \u041d\u0438\u043a\u043e\u043b.
+        \u0411\u043e\u043b\u044c\u0448\u0438\u043d\u0441\u0442\u0432\u043e \u043a\u043e\u043c\u043f\u043e\u0437\u0438\u0446\u0438\u0439
+        The Beatles \u0441\u043e\u0437\u0434\u0430\u043d\u044b \u0432 \u0441\u043e\u0430\u0432\u0442\u043e\u0440\u0441\u0442\u0432\u0435
+        \u0438 \u043f\u043e\u0434\u043f\u0438\u0441\u0430\u043d\u044b \u0438\u043c\u0435\u043d\u0430\u043c\u0438
+        \u0414\u0436\u043e\u043d\u0430 \u041b\u0435\u043d\u043d\u043e\u043d\u0430
+        \u0438 \u041f\u043e\u043b\u0430 \u041c\u0430\u043a\u043a\u0430\u0440\u0442\u043d\u0438.\n\n\u041d\u0430\u0447\u0430\u0432
+        \u0441 \u043f\u043e\u0434\u0440\u0430\u0436\u0430\u043d\u0438\u044f \u043a\u043b\u0430\u0441\u0441\u0438\u043a\u0430\u043c
+        \u0430\u043c\u0435\u0440\u0438\u043a\u0430\u043d\u0441\u043a\u043e\u0433\u043e
+        \u0440\u043e\u043a-\u043d-\u0440\u043e\u043b\u043b\u0430 1950-\u0445, The
+        Beatles \u043f\u0440\u0438\u0448\u043b\u0438 \u043a \u0441\u043e\u0431\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u043c\u0443
+        \u0441\u0442\u0438\u043b\u044e \u0438 \u0437\u0432\u0443\u0447\u0430\u043d\u0438\u044e.
+        The Beatles \u043e\u043a\u0430\u0437\u0430\u043b\u0438 \u0437\u043d\u0430\u0447\u0438\u0442\u0435\u043b\u044c\u043d\u043e\u0435
+        \u0432\u043b\u0438\u044f\u043d\u0438\u0435 \u043d\u0430 \u0440\u043e\u043a-\u043c\u0443\u0437\u044b\u043a\u0443
+        \u0438 \u043f\u0440\u0438\u0437\u043d\u0430\u044e\u0442\u0441\u044f \u0441\u043f\u0435\u0446\u0438\u0430\u043b\u0438\u0441\u0442\u0430\u043c\u0438,
+        \u043a\u0430\u043a \u043e\u0434\u043d\u0430 \u0438\u0437 \u043d\u0430\u0438\u0431\u043e\u043b\u0435\u0435
+        \u0443\u0441\u043f\u0435\u0448\u043d\u044b\u0445 \u0433\u0440\u0443\u043f\u043f
+        XX \u0432\u0435\u043a\u0430 \u043a\u0430\u043a \u0432 \u0442\u0432\u043e\u0440\u0447\u0435\u0441\u043a\u043e\u043c,
+        \u0442\u0430\u043a \u0438 \u0432 \u043a\u043e\u043c\u043c\u0435\u0440\u0447\u0435\u0441\u043a\u043e\u043c
+        \u0441\u043c\u044b\u0441\u043b\u0435. \u041c\u043d\u043e\u0433\u0438\u0435
+        \u0438\u0437\u0432\u0435\u0441\u0442\u043d\u044b\u0435 \u0440\u043e\u043a-\u043c\u0443\u0437\u044b\u043a\u0430\u043d\u0442\u044b
+        \u043f\u0440\u0438\u0437\u043d\u0430\u044e\u0442, \u0447\u0442\u043e \u0441\u0442\u0430\u043b\u0438
+        \u0442\u0430\u043a\u043e\u0432\u044b\u043c\u0438 \u043f\u043e\u0434 \u0432\u043b\u0438\u044f\u043d\u0438\u0435\u043c
+        \u043f\u0435\u0441\u0435\u043d the Beatles. \u0421 \u043c\u043e\u043c\u0435\u043d\u0442\u0430
+        \u0432\u044b\u043f\u0443\u0441\u043a\u0430 \u0441\u0438\u043d\u0433\u043b\u0430
+        \u00abPlease Please Me / Ask Me Why\u00bb \u0432 1963 \u0433. \u0433\u0440\u0443\u043f\u043f\u0430
+        \u043d\u0430\u0447\u0430\u043b\u0430 \u0432\u043e\u0441\u0445\u043e\u0436\u0434\u0435\u043d\u0438\u0435
+        \u043a\u043e \u0432\u0441\u0435\u043c\u0438\u0440\u043d\u043e\u043c\u0443
+        \u043f\u0440\u0438\u0437\u043d\u0430\u043d\u0438\u044e, \u0441\u0432\u043e\u0438\u043c
+        \u0442\u0432\u043e\u0440\u0447\u0435\u0441\u0442\u0432\u043e\u043c \u043f\u043e\u0440\u043e\u0434\u0438\u0432
+        \u0433\u043b\u043e\u0431\u0430\u043b\u044c\u043d\u043e\u0435 \u044f\u0432\u043b\u0435\u043d\u0438\u0435
+        \u043f\u043e\u0434 \u043d\u0430\u0437\u0432\u0430\u043d\u0438\u0435\u043c
+        \u0431\u0438\u0442\u043b\u043e\u043c\u0430\u043d\u0438\u044f. \u0427\u0435\u0442\u0432\u0451\u0440\u043a\u0430
+        \u0441\u0442\u0430\u043b\u0430 \u043f\u0435\u0440\u0432\u043e\u0439 \u0431\u0440\u0438\u0442\u0430\u043d\u0441\u043a\u043e\u0439
+        \u0433\u0440\u0443\u043f\u043f\u043e\u0439, \u043f\u043b\u0430\u0441\u0442\u0438\u043d\u043a\u0438
+        \u043a\u043e\u0442\u043e\u0440\u043e\u0439 \u0437\u0430\u0432\u043e\u0435\u0432\u0430\u043b\u0438
+        \u043f\u043e\u043f\u0443\u043b\u044f\u0440\u043d\u043e\u0441\u0442\u044c \u0438
+        \u043f\u0435\u0440\u0432\u044b\u0435 \u043c\u0435\u0441\u0442\u0430 \u0432
+        \u0447\u0430\u0440\u0442\u0430\u0445 \u0421\u0428\u0410, \u0438 \u0441 \u043d\u0435\u0451
+        \u043d\u0430\u0447\u0430\u043b\u043e\u0441\u044c \u0432\u0441\u0435\u043c\u0438\u0440\u043d\u043e\u0435
+        \u043f\u0440\u0438\u0437\u043d\u0430\u043d\u0438\u0435 \u0431\u0440\u0438\u0442\u0430\u043d\u0441\u043a\u0438\u0445
+        \u043a\u043e\u043b\u043b\u0435\u043a\u0442\u0438\u0432\u043e\u0432, \u0430
+        \u0442\u0430\u043a\u0436\u0435 \u00ab\u043b\u0438\u0432\u0435\u0440\u043f\u0443\u043b\u044c\u0441\u043a\u043e\u0433\u043e\u00bb
+        (Merseybeat) \u0437\u0432\u0443\u0447\u0430\u043d\u0438\u044f \u0440\u043e\u043a-\u043c\u0443\u0437\u044b\u043a\u0438.
+        \u041c\u0443\u0437\u044b\u043a\u0430\u043d\u0442\u0430\u043c \u0433\u0440\u0443\u043f\u043f\u044b
+        \u0438 \u0438\u0445 \u043f\u0440\u043e\u0434\u044e\u0441\u0435\u0440\u0443
+        \u0438 \u0437\u0432\u0443\u043a\u043e\u0440\u0435\u0436\u0438\u0441\u0441\u0451\u0440\u0443
+        \u0414\u0436\u043e\u0440\u0434\u0436\u0443 \u041c\u0430\u0440\u0442\u0438\u043d\u0443
+        \u043f\u0440\u0438\u043d\u0430\u0434\u043b\u0435\u0436\u0430\u0442 \u043d\u043e\u0432\u0430\u0442\u043e\u0440\u0441\u043a\u0438\u0435
+        \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u0432 \u043e\u0431\u043b\u0430\u0441\u0442\u0438
+        \u0437\u0432\u0443\u043a\u043e\u0437\u0430\u043f\u0438\u0441\u0438; \u043a\u043e\u043c\u0431\u0438\u043d\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f
+        \u0440\u0430\u0437\u043b\u0438\u0447\u043d\u044b\u0445 \u0441\u0442\u0438\u043b\u0435\u0439,
+        \u0432\u043a\u043b\u044e\u0447\u0430\u044f \u0441\u0438\u043c\u0444\u043e\u043d\u0438\u0447\u0435\u0441\u043a\u0443\u044e
+        \u0438 \u043f\u0441\u0438\u0445\u043e\u0434\u0435\u043b\u0438\u0447\u0435\u0441\u043a\u0443\u044e
+        \u043c\u0443\u0437\u044b\u043a\u0443; \u0430 \u0442\u0430\u043a\u0436\u0435
+        \u0441\u044a\u0451\u043c\u043e\u043a \u0432\u0438\u0434\u0435\u043e\u043a\u043b\u0438\u043f\u043e\u0432.\n\n\u0412
+        \u0441\u043f\u0438\u0441\u043a\u0435 Rolling Stone 500 \u043f\u0435\u0440\u0432\u043e\u0435
+        \u043c\u0435\u0441\u0442\u043e \u0437\u0430\u043d\u0438\u043c\u0430\u0435\u0442
+        \u0430\u043b\u044c\u0431\u043e\u043c Sgt. Pepper\u2019s Lonely Hearts Club
+        Band. \u0413\u0440\u0443\u043f\u043f\u0430 \u0437\u0430\u0432\u043e\u0435\u0432\u0430\u043b\u0430
+        \u0441\u0435\u043c\u044c \u043d\u0430\u0433\u0440\u0430\u0434 \u0413\u0440\u044d\u043c\u043c\u0438.
+        \u0412\u0441\u044f \u0447\u0435\u0442\u0432\u0451\u0440\u043a\u0430, \u0432
+        \u0437\u043d\u0430\u043a \u043f\u0440\u0438\u0437\u043d\u0430\u043d\u0438\u044f
+        \u0437\u0430\u0441\u043b\u0443\u0433 \u043f\u0435\u0440\u0435\u0434 \u0441\u0442\u0440\u0430\u043d\u043e\u0439,
+        \u043d\u0430\u0433\u0440\u0430\u0436\u0434\u0435\u043d\u0430 \u043e\u0440\u0434\u0435\u043d\u0430\u043c\u0438
+        MBE. \u041f\u043e \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044e \u043d\u0430
+        2001 \u0433\u043e\u0434 \u0442\u043e\u043b\u044c\u043a\u043e \u0432 \u0421\u0428\u0410
+        \u0431\u044b\u043b\u043e \u043f\u0440\u043e\u0434\u0430\u043d\u043e \u0441\u0432\u044b\u0448\u0435
+        163 \u043c\u0438\u043b\u043b\u0438\u043e\u043d\u043e\u0432 \u0434\u0438\u0441\u043a\u043e\u0432
+        \u0433\u0440\u0443\u043f\u043f\u044b. \u041e\u0431\u0449\u0438\u0439 \u043e\u0431\u044a\u0451\u043c
+        \u043f\u0440\u043e\u0434\u0430\u0436 \u0435\u0434\u0438\u043d\u0438\u0446
+        \u043c\u0435\u0434\u0438\u0430 \u043a\u043e\u043d\u0442\u0435\u043d\u0442\u0430
+        (\u0434\u0438\u0441\u043a\u0438 \u0438 \u043a\u0430\u0441\u0441\u0435\u0442\u044b)
+        \u0441\u0432\u044f\u0437\u0430\u043d\u043d\u043e\u0433\u043e \u0441 \u0433\u0440\u0443\u043f\u043f\u043e\u0439
+        \u043d\u0430 \u044d\u0442\u043e\u0442 \u043c\u043e\u043c\u0435\u043d\u0442
+        \u043f\u0440\u0435\u0432\u044b\u0441\u0438\u043b \u043e\u0434\u0438\u043d
+        \u043c\u0438\u043b\u043b\u0438\u0430\u0440\u0434 \u044d\u043a\u0437\u0435\u043c\u043f\u043b\u044f\u0440\u043e\u0432.\n\nThe
+        Beatles \u043f\u0440\u0435\u043a\u0440\u0430\u0442\u0438\u043b\u0438 \u0441\u043e\u0432\u043c\u0435\u0441\u0442\u043d\u0443\u044e
+        \u0440\u0430\u0431\u043e\u0442\u0443 \u0432 1970 \u0433\u043e\u0434\u0443,
+        \u0445\u043e\u0442\u044f \u0443\u0436\u0435 \u043f\u043e \u043c\u0435\u043d\u044c\u0448\u0435\u0439
+        \u043c\u0435\u0440\u0435 \u0441 1967 \u0433\u043e\u0434\u0430 \u041f\u043e\u043b
+        \u0438 \u0414\u0436\u043e\u043d \u0432\u0435\u043b\u0438 \u0441\u043e\u0431\u0441\u0442\u0432\u0435\u043d\u043d\u044b\u0435
+        \u043f\u0440\u043e\u0435\u043a\u0442\u044b. \u041f\u043e\u0441\u043b\u0435
+        \u0440\u0430\u0441\u043f\u0430\u0434\u0430 \u043a\u0430\u0436\u0434\u044b\u0439
+        \u0438\u0437 \u043c\u0443\u0437\u044b\u043a\u0430\u043d\u0442\u043e\u0432
+        \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0438\u043b \u0441\u043e\u043b\u044c\u043d\u0443\u044e
+        \u043a\u0430\u0440\u044c\u0435\u0440\u0443. \u0412 1980 \u0433\u043e\u0434\u0443
+        \u0432\u043e\u0437\u043b\u0435 \u0441\u0432\u043e\u0435\u0433\u043e \u0434\u043e\u043c\u0430
+        \u0431\u044b\u043b \u0443\u0431\u0438\u0442 \u0414\u0436\u043e\u043d \u041b\u0435\u043d\u043d\u043e\u043d,
+        \u0432 2001 \u0433\u043e\u0434\u0443 \u043e\u0442 \u0440\u0430\u043a\u0430
+        \u0441\u043a\u043e\u043d\u0447\u0430\u043b\u0441\u044f \u0414\u0436\u043e\u0440\u0434\u0436
+        \u0425\u0430\u0440\u0440\u0438\u0441\u043e\u043d. \u041f\u043e\u043b \u041c\u0430\u043a\u043a\u0430\u0440\u0442\u043d\u0438
+        \u0438 \u0420\u0438\u043d\u0433\u043e \u0421\u0442\u0430\u0440\u0440 \u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0430\u044e\u0442
+        \u0437\u0430\u043d\u0438\u043c\u0430\u0442\u044c\u0441\u044f \u0442\u0432\u043e\u0440\u0447\u0435\u0441\u0442\u0432\u043e\u043c
+        \u0438 \u043f\u0438\u0448\u0443\u0442 \u043c\u0443\u0437\u044b\u043a\u0443.","strBiographyES":"The
+        Beatles fue una banda de rock inglesa activa durante la d\u00e9cada de 1960,
+        y reconocida como la m\u00e1s exitosa comercialmente y cr\u00edticamente aclamada
+        en la historia de la m\u00fasica popular. Formada en Liverpool, estuvo constituida
+        desde 1962 por John Lennon (guitarra r\u00edtmica, vocalista), Paul McCartney
+        (bajo, vocalista), George Harrison (guitarra solista, vocalista) y Ringo Starr
+        (bater\u00eda, vocalista). Enraizada en el skiffle y el rock and roll de los
+        a\u00f1os cincuenta, la banda trabaj\u00f3 m\u00e1s tarde con distintos g\u00e9neros
+        musicales, que iban desde las baladas pop hasta el rock psicod\u00e9lico,
+        incorporando a menudo elementos cl\u00e1sicos, entre otros, de forma innovadora
+        en sus canciones. La naturaleza de su enorme popularidad, que hab\u00eda emergido
+        primeramente con la moda de la \u00abBeatleman\u00eda\u00bb, se transform\u00f3
+        al tiempo que sus composiciones se volvieron m\u00e1s sofisticadas. Llegaron
+        a ser percibidos como la encarnaci\u00f3n de los ideales progresistas, extendiendo
+        su influencia en las revoluciones sociales y culturales de la d\u00e9cada
+        de 1960.\n\nCon una formaci\u00f3n inicial de cinco componentes que inclu\u00eda
+        a Lennon, McCartney, Harrison, Stuart Sutcliffe (bajo) y Pete Best (bater\u00eda),
+        la banda construy\u00f3 su reputaci\u00f3n en los clubes de Liverpool y Hamburgo
+        sobre un per\u00edodo de tres a\u00f1os a partir de 1960. Sutcliffe abandon\u00f3
+        la formaci\u00f3n en 1961, y Best fue reemplazado por Starr al a\u00f1o siguiente.
+        Establecidos como grupo profesional despu\u00e9s de que Brian Epstein les
+        ofreciera ser su representante, y con su potencial musical mejorado por la
+        creatividad del productor George Martin, lograron \u00e9xito comercial en
+        el Reino Unido a finales de 1962 con su primer sencillo, \u00abLove Me Do\u00bb.
+        A partir de ah\u00ed, fueron adquiriendo popularidad internacional a lo largo
+        de los siguientes a\u00f1os, en los cuales hicieron un extenso n\u00famero
+        de giras hasta 1966, a\u00f1o en que cesaron la actividad en vivo para dedicarse
+        \u00fanicamente a la grabaci\u00f3n en el estudio hasta su disoluci\u00f3n
+        en 1970. Despu\u00e9s, todos sus integrantes se embarcaron en exitosas carreras
+        independientes. Lennon ser\u00eda asesinado a las afueras de su casa de Nueva
+        York en 1980, y Harrison fallecer\u00eda de c\u00e1ncer en 2001. McCartney
+        y Starr a\u00fan permanecen activos.\n\nDurante sus a\u00f1os de estudio crearon
+        algunos de sus mejores materiales, incluyendo el \u00e1lbum Sgt. Pepper''s
+        Lonely Hearts Club Band (1967), considerado por muchos como una obra maestra.
+        Cuatro d\u00e9cadas despu\u00e9s de su separaci\u00f3n, la m\u00fasica que
+        crearon contin\u00faa siendo popular. Se mantienen como el grupo con m\u00e1s
+        n\u00fameros uno en las listas brit\u00e1nicas, situando m\u00e1s \u00e1lbumes
+        en esta posici\u00f3n que cualquier otra agrupaci\u00f3n musical. De acuerdo
+        con las certificaciones de la RIAA, han vendido m\u00e1s discos en los Estados
+        Unidos que cualquier otro artista.5 En 2008, la revista Billboard public\u00f3
+        una lista de los artistas m\u00e1s exitosos de todos los tiempos en el Hot
+        100 con motivo del 50\u00ba aniversario de la lista de \u00e9xitos, y The
+        Beatles fueron colocados en el n\u00famero uno. Fueron galardonados con siete
+        premios Grammy, y recibieron un total de quince premios Ivor Novello de parte
+        de la British Academy of Songwriters, Composers and Authors. En 2004, la revista
+        Rolling Stone los clasific\u00f3 en el n\u00famero uno en su lista de los
+        \u00ab100 artistas m\u00e1s grandes de todos los tiempos\u00bb.1 De acuerdo
+        con la misma publicaci\u00f3n, la m\u00fasica innovadora de The Beatles y
+        su impacto cultural ayudaron a definir los a\u00f1os sesenta. En 2010, el
+        canal de televisi\u00f3n especializado en m\u00fasica VH1 los clasific\u00f3
+        en el n\u00famero uno en su lista de los \u00ab100 artistas m\u00e1s grandes
+        de todos los tiempos\u00bb. Tambi\u00e9n fueron colocados en el puesto No.
+        1 por el sitio de Internet Acclaimed Music en su lista \u00abThe Top 1000
+        Artists of All Time\u00bb y por Digital Dream Door en su lista \u00ab100 Greatest
+        Rock Artists\u00bb.","strBiographyPT":"The Beatles foi uma banda de rock brit\u00e2nica,
+        formada em Liverpool em 1960. \u00c9 o grupo musical mais bem-sucedido e aclamado
+        da hist\u00f3ria da m\u00fasica popular. A partir de 1962, o grupo era formado
+        por John Lennon (guitarra r\u00edtmica e vocal), Paul McCartney (baixo e vocal),
+        George Harrison (guitarra solo e vocal) e Ringo Starr (bateria e vocal). Enraizada
+        do skiffle e do rock and roll da d\u00e9cada de 1950, a banda veio mais tarde
+        a assumir diversos g\u00eaneros que v\u00e3o do folk rock ao rock psicod\u00e9lico,
+        muitas vezes incorporando elementos da m\u00fasica cl\u00e1ssica e outros,
+        em formas inovadoras e criativas. Sua crescente popularidade, que a imprensa
+        brit\u00e2nica chamava de \"Beatlemania\", fez com que eles crescessem em
+        sofistica\u00e7\u00e3o. Os Beatles vieram a ser percebidos como a encarna\u00e7\u00e3o
+        de ideais progressistas e sua influ\u00eancia se estendeu at\u00e9 as revolu\u00e7\u00f5es
+        sociais e culturais da d\u00e9cada de 1960.\n\nCom a forma\u00e7\u00e3o inicial
+        de Lennon, McCartney, Harrison, Stuart Sutcliffe (baixo) e Pete Best (bateria),
+        os Beatles constru\u00edram sua reputa\u00e7\u00e3o nos pubs de Liverpool
+        e Hamburgo durante um per\u00edodo de tr\u00eas anos a partir de 1960. Sutcliffe
+        deixou o grupo em 61, e Best foi substitu\u00eddo por Starr no ano seguinte.
+        Abastecida de equipamentos profissionais moldados por Brian Epstein, que depois
+        se ofereceu para gerenciar a banda, e com seu potencial refor\u00e7ado pela
+        criatividade do produtor George Martin, os Beatles alcan\u00e7aram um sucesso
+        imediato no Reino Unido com seu primeiro single \"Love Me Do\". Ganhando popularidade
+        internacional a partir do ano seguinte, excursionaram extensivamente at\u00e9
+        1966, quando retiraram-se para trabalhar em est\u00fadio at\u00e9 sua dissolu\u00e7\u00e3o
+        definitiva em 1970. Cada m\u00fasico ent\u00e3o seguiu para uma carreira independente.
+        McCartney e Starr continuam ativos; Lennon foi baleado e morto em 1980, e
+        Harrison morreu de c\u00e2ncer em 2001.\n\nDurante seus anos de est\u00fadio,
+        os Beatles produziram o que a cr\u00edtica considera um dos seus melhores
+        materiais, incluindo o \u00e1lbum Sgt. Pepper''s Lonely Hearts Club Band (1967),
+        amplamente visto como uma obra-prima. Quatro d\u00e9cadas ap\u00f3s sua dissolu\u00e7\u00e3o,
+        a m\u00fasica do grupo continua a ser muito popular. Os Beatles tiveram mais
+        \u00e1lbuns em n\u00famero 1 nas paradas brit\u00e2nicas do que qualquer outro
+        grupo musical. De acordo com a RIAA, eles venderam mais \u00e1lbuns nos Estados
+        Unidos do que qualquer outro artista. Em 2008, a Billboard divulgou uma lista
+        dos top-selling de todos os tempos dos artistas Hot 100 para celebrar o cinquenten\u00e1rio
+        das paradas de singles dos Estados Unidos, e a banda permaneceu em primeiro
+        lugar. Eles j\u00e1 foram honrados com 8 Grammy Awards, e 15 Ivor Novello
+        Awards da BASCA. . J\u00e1 venderam mais de um bilh\u00e3o de discos. Os Beatles
+        foram coletivamente inclu\u00eddos na compila\u00e7\u00e3o da revista Time
+        das 100 pessoas mais importantes e influentes do s\u00e9culo XX.","strBiographySE":"The
+        Beatles var en stilbildande brittisk rockgrupp sprungen ur 1960-talet. Gruppen
+        bestod av fyra medlemmar: John Lennon (1940-1980), Paul McCartney (f\u00f6dd
+        1942), George Harrison (1943-2001) och Ringo Starr (f\u00f6dd 1940). Samtliga
+        fr\u00e5n Liverpool i Storbritannien. The Beatles \u00e4r fortfarande en av
+        v\u00e4rldens popul\u00e4raste rockgrupper och deras skivor/l\u00e5tar brukar
+        toppa omr\u00f6stningar n\u00e4r kritiker och lyssnare r\u00f6star om v\u00e4rldens
+        b\u00e4sta skiva/l\u00e5t.\n\n1957 ledde John Lennon gruppen The Quarrymen.
+        Han tr\u00e4ffade Paul McCartney den 6 juli 1957 p\u00e5 ett torg i St Peter\u00b4s
+        Church i Wolton, Liverpool d\u00e4r d\u00e5 John upptr\u00e4dde. John Lennon
+        blev imponerad \u00f6ver Pauls kunskaper om ackord och hur gitarrer skulle
+        st\u00e4mmas, s\u00e5 John l\u00e4t honom vara med. Paul, som hade kontakt
+        med George Harrison, ville ha med \u00e4ven honom (det s\u00e4gs att John
+        l\u00e4t George vara med f\u00f6r att han hade ett st\u00e4lle att repa p\u00e5).
+        I b\u00f6rjan var de mycket inspirerade av samtida amerikanska musiker som
+        Chuck Berry, Elvis Presley, Buddy Holly med flera och gruppen var f\u00f6rst
+        ett rent coverband. Ganska snart b\u00f6rjade Lennon och McCartney att skriva
+        egna l\u00e5tar. Gruppens namn \u00e4ndrades flitigt under de f\u00f6rsta
+        \u00e5ren, bland annat hette de Johnny and The Moondogs och Long John and
+        the Silver Beatles. Men fr\u00e5n och med 1960 var det det dubbeltydiga namnet
+        The Beatles som g\u00e4llde. Namnet kommer av orden beat, som betyder takt,
+        och beetle, (skalbagge). Ett ord som ocks\u00e5 associerade till den frisyr
+        med l\u00e5ng lugg som gruppen skaffade sig. Den som anses vara uppfinnaren
+        av namnet The Beatles \u00e4r gruppens d\u00e5varande basist Stu Sutcliffe.","strBiographyNL":"The
+        Beatles is een voormalige popgroep uit de Engelse stad Liverpool. De bezetting
+        bestond uit John Lennon, Paul McCartney, George Harrison en Ringo Starr. De
+        groep was actief van 1960 tot 1970 en wordt nu nog steeds beschouwd als de
+        meest invloedrijke band uit de geschiedenis van de popmuziek. Al vrij snel
+        na hun doorbraak kregen de leden van The Beatles te maken met hysterische
+        reacties van voornamelijk jonge tienermeisjes, die tijdens concerten de muziek
+        met hun gegil overstemden. Voor dit gedrag raakte de term \"Beatlemania\"
+        in zwang. Tijdens hun carri\u00e8re verrichtten ze pionierswerk in de geluidsstudio,
+        waarvoor ze in brede kring lof oogstten. Onder hun invloed groeide de popmuziek
+        uit van een op Amerikaanse rhythm and blues gebaseerd genre tot een veel breder
+        geori\u00ebnteerde muzieksoort.\n\nThe Beatles-leden John Lennon en Paul McCartney
+        waren de belangrijkste liedjesschrijvers van het viertal. Tot de bekendste
+        hits van The Beatles behoren: I Want to Hold Your Hand, She Loves You, Yesterday,
+        Michelle, Yellow Submarine, Lucy in the Sky with Diamonds, All You Need Is
+        Love, Hey Jude, Let It Be, Help!, Penny Lane, Come Together en Strawberry
+        Fields Forever.\n\nHun album Sgt. Pepper''s Lonely Hearts Club Band uit 1967
+        geldt als een mijlpaal in de popgeschiedenis.","strBiographyHU":"A The Beatles
+        angol rockzenekar volt a rockzene egyik legnagyobb hat\u00e1s\u00fa \u00e9s
+        legsikeresebb zenekara, amely 2004 v\u00e9g\u00e9ig vil\u00e1gszerte t\u00f6bb
+        mint 1,3 milli\u00e1rd lemezt adott el, t\u00f6bbet mint b\u00e1rmely m\u00e1s
+        egy\u00fcttes. A m\u0171v\u00e9szetek b\u00e1rmely \u00e1g\u00e1t is n\u00e9zve,
+        kevesen voltak, akik n\u00e9pszer\u0171s\u00e9g\u00fckh\u00f6z, kritikai elismerts\u00e9g\u00fckh\u00f6z
+        \u00e9s sz\u00e9les k\u00f6r\u0171 kultur\u00e1lis hat\u00e1sukhoz m\u00e9rhet\u0151ek.\nA
+        Beatles t\u00f6bb elad\u00e1si rekordot is fel\u00e1ll\u00edtott \u00e9s t\u00f6bb
+        mint \u00f6tven Top 40-es kislemez\u00fck jelent meg. Az els\u0151 brit zenekar
+        volt, mely folyamatos n\u00e9pszer\u0171s\u00e9gre tett szert az USA-ban,
+        nem kevesebb, mint 27 no.1. helyezett dalt jegyezve csak Nagy-Britanni\u00e1ban
+        \u00e9s az USA-ban; ennek k\u00f6sz\u00f6nhet\u0151en a Beatles a 20. sz\u00e1zad
+        legsikeresebb zenekara lett. Az EMI 1985-\u00f6s becsl\u00e9sei szerint addigra
+        m\u00e1r t\u00f6bb mint egymilli\u00e1rd lemezt adtak el vil\u00e1gszerte.
+        \u201eYesterday\u201d c\u00edm\u0171 daluk a modern kori zenet\u00f6rt\u00e9net
+        legt\u00f6bbsz\u00f6r feldolgozott dala (t\u00f6bb mint 3000 v\u00e1ltozata
+        l\u00e9tezik).","strBiographyNO":"The Beatles var et engelsk rockeband fra
+        Liverpool som ble dannet i 1959/1960. Bandet besto av James Paul McCartney,
+        John Winston Lennon, George Harrison og Ringo Starr (Richard Starkey). De
+        debuterte p\u00e5 plate i 1962 med singelen \u00abLove Me Do\u00bb som hadde
+        moderat suksess. Det store gjennombruddet i Storbritannia kom i 1963 med gruppens
+        andre singel, \u00abPlease Please Me\u00bb, som gikk til topps p\u00e5 de
+        engelske hitlistene. Gjennombruddet i De forente stater kom i februar 1964,
+        med singelen \u00abI Want to Hold Your Hand\u00bb.\n\nGruppen forble en av
+        de fremste popul\u00e6rmusikkgruppene gjennom hele 1960-tallet, frem til den
+        ble offisielt oppl\u00f8st i 1970. De hadde da dominert hitlistene og musikkbransjen
+        p\u00e5 begge sider av Atlanteren gjennom hele karrieren.\n\nDe p\u00e5virket
+        etterkrigstidens babyboom-generasjon i Storbritannia, De forente stater og
+        mange andre land i 1960-\u00e5rene. De er utvilsomt den mest popul\u00e6re
+        gruppen i rockehistorien, med over 1 milliard solgte plater verden over.\n\nSelv
+        om de helt i begynnelsen var kjent for en variant av lett popmusikk som ble
+        kalt merseybeat, ble deres senere verker mottatt med en popularitet og kritisk
+        hyllest som kanskje overg\u00e5r alt i det 20. \u00e5rhundre. De ble mer enn
+        kun plateartister, og p\u00e5virket moter og kultur, med ringvirkninger til
+        film og politisk aktivisme. De oppn\u00e5dde en ikonstatus som ga dem enorm
+        p\u00e5virkningskraft.\n\nI 1988 ble The Beatles innvotert i Rockens \u00e6resgalleri.
+        Senere har Lennon, McCartney og Harrison oppn\u00e5dd det samme som soloartister.","strBiographyIL":"\u05d4\u05d1\u05d9\u05d8\u05dc\u05e1
+        (\u05d1\u05d0\u05e0\u05d2\u05dc\u05d9\u05ea: The Beatles; \u05e0\u05e7\u05e8\u05d0\u05d9\u05dd
+        \u05d2\u05dd \u05d4\u05d7\u05d9\u05e4\u05d5\u05e9\u05d9\u05d5\u05ea), \u05d4\u05d9\u05d9\u05ea\u05d4
+        \u05dc\u05d4\u05e7\u05d4 \u05d1\u05e8\u05d9\u05d8\u05d9\u05ea \u05e9\u05d6\u05db\u05ea\u05d4
+        \u05dc\u05d4\u05e6\u05dc\u05d7\u05d4 \u05e8\u05d1\u05d4 \u05d1\u05e9\u05e0\u05d5\u05ea
+        \u05d4\u05e9\u05d9\u05e9\u05d9\u05dd \u05e9\u05dc \u05d4\u05de\u05d0\u05d4
+        \u05d4\u05e2\u05e9\u05e8\u05d9\u05dd, \u05d5\u05de\u05d9\u05dc\u05d0\u05d4
+        \u05ea\u05e4\u05e7\u05d9\u05d3 \u05de\u05e8\u05db\u05d6\u05d9 \u05d1\u05ea\u05e8\u05d1\u05d5\u05ea
+        \u05d0\u05d5\u05ea\u05d4 \u05d4\u05ea\u05e7\u05d5\u05e4\u05d4. \u05d4\u05de\u05d5\u05d6\u05d9\u05e7\u05d4
+        \u05e9\u05d9\u05e6\u05e8\u05d4 \u05d4\u05dc\u05d4\u05e7\u05d4 \u05d4\u05d9\u05d9\u05ea\u05d4
+        \u05d1\u05e2\u05dc\u05ea \u05d4\u05e9\u05e4\u05e2\u05d4 \u05de\u05db\u05e8\u05e2\u05ea
+        \u05d5\u05de\u05ea\u05de\u05e9\u05db\u05ea \u05e2\u05dc \u05d4\u05ea\u05e4\u05ea\u05d7\u05d5\u05ea
+        \u05d4\u05de\u05d5\u05d6\u05d9\u05e7\u05d4 \u05d4\u05e4\u05d5\u05e4\u05d5\u05dc\u05e8\u05d9\u05ea.
+        \u05d7\u05d1\u05e8\u05d9 \u05d4\u05dc\u05d4\u05e7\u05d4 \u05d1\u05d4\u05e8\u05db\u05d1\u05d4
+        \u05d4\u05e1\u05d5\u05e4\u05d9 \u05d4\u05d9\u05d5 \u05d2''\u05d5\u05df \u05dc\u05e0\u05d5\u05df,
+        \u05e4\u05d5\u05dc \u05de\u05e7\u05e8\u05d8\u05e0\u05d9, \u05d2''\u05d5\u05e8\u05d2''
+        \u05d4\u05d0\u05e8\u05d9\u05e1\u05d5\u05df \u05d5\u05e8\u05d9\u05e0\u05d2\u05d5
+        \u05e1\u05d8\u05d0\u05e8 (\u05e8\u05d9\u05e6''\u05e8\u05d3 \u05e1\u05d8\u05d0\u05e8\u05e7\u05d9).
+        \u05d1\u05ea\u05e7\u05d5\u05e4\u05d5\u05ea \u05de\u05d5\u05e7\u05d3\u05de\u05d5\u05ea
+        \u05d9\u05d5\u05ea\u05e8 \u05d4\u05d9\u05d5 \u05d7\u05d1\u05e8\u05d9\u05dd
+        \u05d1\u05d4 \u05e1\u05d8\u05d9\u05d5\u05d0\u05e8\u05d8 \u05e1\u05d0\u05d8\u05e7\u05dc\u05d9\u05e3
+        (1960) \u05d5\u05e4\u05d9\u05d8 \u05d1\u05e1\u05d8 (1960-62).\n\u05d4\u05dc\u05d4\u05e7\u05d4
+        \u05e0\u05d5\u05e6\u05e8\u05d4 \u05d5\u05d4\u05ea\u05d2\u05d1\u05e9\u05d4
+        \u05e1\u05d1\u05d9\u05d1 \u05d4\u05e6\u05de\u05d3 \u05dc\u05e0\u05d5\u05df
+        \u05d5\u05de\u05e7\u05e8\u05d8\u05e0\u05d9, \u05e9\u05d4\u05d9\u05d5 \u05d4\u05de\u05d5\u05d6\u05d9\u05e7\u05d0\u05d9\u05dd
+        \u05d4\u05d1\u05d5\u05dc\u05d8\u05d9\u05dd \u05d1\u05d4 \u05dc\u05d0\u05d5\u05e8\u05da
+        \u05db\u05dc \u05d3\u05e8\u05db\u05d4, \u05d5\u05db\u05d5\u05ea\u05d1\u05d9
+        \u05e8\u05d5\u05d1 \u05e9\u05d9\u05e8\u05d9\u05d4. \u05d1\u05e8\u05d0\u05e9\u05d9\u05ea
+        \u05d3\u05e8\u05db\u05d4 (1962) \u05e9\u05d0\u05d1\u05d5 \u05d7\u05d1\u05e8\u05d9\u05d4
+        \u05d4\u05e9\u05e8\u05d0\u05d4 \u05d1\u05e2\u05d9\u05e7\u05e8 \u05de\u05de\u05d5\u05d6\u05d9\u05e7\u05ea
+        \u05e8\u05d5\u05e7 \u05d0\u05e0\u05d3 \u05e8\u05d5\u05dc \u05d0\u05de\u05e8\u05d9\u05e7\u05e0\u05d9\u05ea.
+        \u05de\u05d0\u05d5\u05d7\u05e8 \u05d9\u05d5\u05ea\u05e8, \u05d4\u05ea\u05e2\u05e9\u05e8\u05d5
+        \u05de\u05e7\u05d5\u05e8\u05d5\u05ea \u05d4\u05d4\u05e9\u05e4\u05e2\u05d4
+        \u05e9\u05dc\u05d4\u05dd, \u05d5\u05db\u05dc\u05dc\u05d5 \u05d1\u05d9\u05df
+        \u05d4\u05e9\u05d0\u05e8 \u05de\u05d5\u05d6\u05d9\u05e7\u05d4 \u05e7\u05dc\u05d0\u05e1\u05d9\u05ea
+        \u05d5\u05e4\u05d5\u05dc\u05e7. \u05e9\u05d9\u05dc\u05d5\u05d1\u05df \u05e9\u05dc
+        \u05d4\u05e9\u05e4\u05e2\u05d5\u05ea \u05d0\u05dc\u05d5 \u05d1\u05e9\u05d9\u05e8\u05d9
+        \u05e4\u05d5\u05e4, \u05d4\u05de\u05d1\u05e0\u05d9\u05dd \u05d4\u05de\u05dc\u05d5\u05d3\u05d9\u05d9\u05dd
+        \u05d5\u05d4\u05d4\u05e8\u05de\u05d5\u05e0\u05d9\u05d9\u05dd \u05d4\u05de\u05d5\u05e8\u05db\u05d1\u05d9\u05dd,
+        \u05d5\u05e4\u05e8\u05d9\u05e6\u05d5\u05ea \u05d4\u05d3\u05e8\u05da \u05d4\u05d7\u05e9\u05d5\u05d1\u05d5\u05ea
+        \u05e9\u05dc \u05d4\u05d1\u05d9\u05d8\u05dc\u05e1 \u05d1\u05ea\u05d7\u05d5\u05dd
+        \u05d4\u05e7\u05dc\u05d8\u05ea \u05d4\u05de\u05d5\u05d6\u05d9\u05e7\u05d4
+        \u05d4\u05e2\u05dc\u05d5 \u05ea\u05e8\u05d5\u05de\u05d4 \u05de\u05db\u05e8\u05e2\u05ea
+        \u05dc\u05d4\u05e4\u05d9\u05db\u05ea \u05de\u05d5\u05d6\u05d9\u05e7\u05ea
+        \u05d4\u05e8\u05d5\u05e7 \u05d5\u05d4\u05e4\u05d5\u05e4 \u05dc\u05e1\u05d5\u05d2\u05d4
+        \u05d0\u05de\u05e0\u05d5\u05ea\u05d9\u05ea \u05de\u05de\u05e9\u05d9\u05ea,
+        \u05d5\u05d4\u05e2\u05de\u05d9\u05d3\u05d5 \u05d0\u05ea \u05d4\u05d1\u05d9\u05d8\u05dc\u05e1
+        \u05db\u05d9\u05d5\u05e6\u05e8\u05d9\u05dd \u05d4\u05d1\u05d5\u05dc\u05d8\u05d9\u05dd
+        \u05d1\u05d9\u05d5\u05ea\u05e8 \u05e9\u05dc \u05d4\u05de\u05d5\u05d6\u05d9\u05e7\u05d4
+        \u05d4\u05e4\u05d5\u05e4\u05d5\u05dc\u05e8\u05d9\u05ea \u05d1\u05e9\u05e0\u05d5\u05ea
+        \u05d4-60.\n\u05d4\u05e6\u05dc\u05d7\u05ea\u05d4 \u05e9\u05dc \u05d4\u05dc\u05d4\u05e7\u05d4
+        \u05d4\u05d7\u05dc \u05de\u05e9\u05e0\u05ea 1962 \u05d9\u05e6\u05e8\u05d4
+        \u05e1\u05d1\u05d9\u05d1\u05d4 \u05ea\u05d5\u05e4\u05e2\u05d4 \u05e9\u05dc
+        \u05d4\u05d9\u05e1\u05d8\u05e8\u05d9\u05d4 \u05d4\u05de\u05d5\u05e0\u05d9\u05ea
+        \u05e9\u05db\u05d5\u05e0\u05ea\u05d4 \"\u05d1\u05d9\u05d8\u05dc\u05de\u05e0\u05d9\u05d4\".
+        \u05d4\u05ea\u05d5\u05e4\u05e2\u05d4 \u05d4\u05ea\u05e4\u05e9\u05d8\u05d4
+        \u05de\u05d1\u05e8\u05d9\u05d8\u05e0\u05d9\u05d4 \u05dc\u05d0\u05e8\u05e6\u05d5\u05ea
+        \u05d4\u05d1\u05e8\u05d9\u05ea \u05d5\u05de\u05e9\u05dd \u05dc\u05de\u05d3\u05d9\u05e0\u05d5\u05ea
+        \u05e8\u05d1\u05d5\u05ea \u05e0\u05d5\u05e1\u05e4\u05d5\u05ea, \u05d5\u05e4\u05d9\u05dc\u05e1\u05d4
+        \u05d0\u05ea \u05d4\u05d3\u05e8\u05da \u05dc\u05e9\u05d5\u05e8\u05d4 \u05d0\u05e8\u05d5\u05db\u05d4
+        \u05e9\u05dc \u05dc\u05d4\u05e7\u05d5\u05ea \u05e8\u05d5\u05e7 \u05d1\u05e8\u05d9\u05d8\u05d9\u05d5\u05ea
+        (\u05d4\u05e4\u05dc\u05d9\u05e9\u05d4 \u05d4\u05d1\u05e8\u05d9\u05d8\u05d9\u05ea).
+        \u05e4\u05e8\u05e1\u05d5\u05de\u05d4 \u05d4\u05d2\u05d3\u05d5\u05dc \u05e9\u05dc
+        \u05d4\u05dc\u05d4\u05e7\u05d4, \u05db\u05de\u05d5 \u05d2\u05dd \u05d4\u05e2\u05d9\u05e1\u05d5\u05e7
+        \u05d1\u05e1\u05de\u05d9\u05dd \u05e7\u05dc\u05d9\u05dd \u05d5\u05d4\u05d6\u05d9\u05d9\u05ea\u05d9\u05d9\u05dd,
+        \u05e9\u05dc\u05d5\u05dd \u05d5\u05d0\u05d4\u05d1\u05d4, \u05e7\u05d9\u05d1\u05e2\u05d5
+        \u05d0\u05ea \u05d4\u05d9\u05d5\u05ea\u05d4 \u05e9\u05dc \u05d4\u05dc\u05d4\u05e7\u05d4
+        \u05db\u05e1\u05de\u05dc \u05e9\u05dc \u05d4\u05ea\u05e7\u05d5\u05e4\u05d4
+        \u05d5\u05d4\u05e7\u05e0\u05d5 \u05dc\u05d4 \u05de\u05e2\u05de\u05d3 \u05d4\u05d7\u05d5\u05e8\u05d2
+        \u05d1\u05d4\u05e8\u05d1\u05d4 \u05de\u05d6\u05d4 \u05e9\u05dc \u05dc\u05d4\u05e7\u05d5\u05ea
+        \u05d0\u05d7\u05e8\u05d5\u05ea. \u05d1\u05e9\u05e0\u05ea 2004 \u05d3\u05d9\u05e8\u05d2
+        \u05de\u05d2\u05d6\u05d9\u05df \u05d4\u05e8\u05d5\u05dc\u05d9\u05e0\u05d2
+        \u05e1\u05d8\u05d5\u05df \u05d0\u05ea \u05d4\u05d1\u05d9\u05d8\u05dc\u05e1
+        \u05d1\u05de\u05e7\u05d5\u05dd \u05d4\u05e8\u05d0\u05e9\u05d5\u05df \u05d1\u05e8\u05e9\u05d9\u05de\u05ea
+        100 \u05d4\u05d0\u05de\u05e0\u05d9\u05dd \u05d4\u05d2\u05d3\u05d5\u05dc\u05d9\u05dd
+        \u05d1\u05db\u05dc \u05d4\u05d6\u05de\u05e0\u05d9\u05dd\u200f[1].","strBiographyPL":"The
+        Beatles \u2013 zesp\u00f3\u0142 rockowy z Liverpoolu, istniej\u0105cy od 1960
+        (jako The Quarrymen od 1957) do 1970 roku. Wed\u0142ug RIAA, jego cz\u0142onkowie
+        s\u0105 najpopularniejszymi muzykami wszech czas\u00f3w. W historii ameryka\u0144skiego
+        rynku fonograficznego nikt nie sprzeda\u0142 wi\u0119cej p\u0142yt ni\u017c
+        oni.","strGender":"Male","intMembers":"4","strCountry":"Liverpool, England","strCountryCode":"GB","strArtistThumb":"https://www.theaudiodb.com/images/media/artist/thumb/qpvwuv1347996168.jpg","strArtistLogo":"https://www.theaudiodb.com/images/media/artist/logo/sqtvqw1519816358.png","strArtistClearart":"https://www.theaudiodb.com/images/media/artist/clearart/rrywwv1512575176.png","strArtistWideThumb":"https://www.theaudiodb.com/images/media/artist/widethumb/styrrt1518621883.jpg","strArtistFanart":"https://www.theaudiodb.com/images/media/artist/fanart/xrqqqu1541458809.jpg","strArtistFanart2":"https://www.theaudiodb.com/images/media/artist/fanart/sssrqr1341917298.jpg","strArtistFanart3":"https://www.theaudiodb.com/images/media/artist/fanart/wwvtpp1341917310.jpg","strArtistFanart4":"https://www.theaudiodb.com/images/media/artist/fanart/b6zl6c1613120079.jpg","strArtistBanner":"https://www.theaudiodb.com/images/media/artist/banner/utwpss1346162520.jpg","strMusicBrainzID":"b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d","strISNIcode":null,"strLastFMChart":null,"intCharted":"3","strLocked":"unlocked"}]}'
+  recorded_at: Mon, 13 Dec 2021 21:00:54 GMT
 recorded_with: VCR 6.0.0
