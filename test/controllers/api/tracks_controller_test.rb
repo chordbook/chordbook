@@ -1,28 +1,24 @@
 require "test_helper"
 
 class Api::TracksControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get api_tracks_index_url
-    assert_response :success
+  setup do
+    @artist = Artist.create! name: "The Beatles"
+    @album = Album.create! title: "Abbey Road", artist: @artist
+    @track = Track.create! title: "Come Together", artist: @artist, album: @album
   end
 
-  test "should get title:string" do
-    get api_tracks_title:string_url
+  test "index with album" do
+    get api_artist_album_tracks_url(@artist, @album, format: :json)
     assert_response :success
+    body = JSON.parse(response.body)
+    assert_equal 1, body.length
   end
 
-  test "should get metadata:json" do
-    get api_tracks_metadata:json_url
+  test "index with artist" do
+    get api_artist_tracks_url(@artist, format: :json)
     assert_response :success
+    body = JSON.parse(response.body)
+    assert_equal 1, body.length
   end
 
-  test "should get references:album" do
-    get api_tracks_references:album_url
-    assert_response :success
-  end
-
-  test "should get references:artist" do
-    get api_tracks_references:artist_url
-    assert_response :success
-  end
 end

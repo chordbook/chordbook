@@ -1,4 +1,4 @@
-class Api::SongsController < ApplicationController
+class Api::SongsController < ApiController
   before_action :set_song, only: %i[show update destroy]
 
   # GET /songs.json

@@ -1,4 +1,4 @@
-class Api::AlbumsController < ApplicationController
+class Api::AlbumsController < ApiController
   before_action :set_artist
 
   def index

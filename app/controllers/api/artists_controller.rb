@@ -1,4 +1,4 @@
-class Api::ArtistsController < ApplicationController
+class Api::ArtistsController < ApiController
   before_action :set_artist, only: %i[show]
 
   def index
