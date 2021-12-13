@@ -9,7 +9,9 @@
         <h1 class="text-white text-shadow-md text-5xl font-bold">
           {{ artist.name }}
         </h1>
-        <div class="opacity-50">{{ artist.metadata?.strStyle }}</div>
+        <div class="opacity-50">
+          {{ artist.metadata?.strStyle }}
+        </div>
       </div>
     </div>
 
@@ -21,12 +23,23 @@
         {{ artist.biography }}
       </p>
 
-      <div v-if="albums.length > 0" class="my-6">
-        <h2 class="text-2xl mb-3">Albums</h2>
+      <div
+        v-if="albums.length > 0"
+        class="my-6"
+      >
+        <h2 class="text-2xl mb-3">
+          Albums
+        </h2>
 
         <ul class="grid grid-cols-6 gap-6">
-          <li v-for="album in albums">
-            <a href="" class="block">
+          <li
+            v-for="album in albums"
+            :key="album.id"
+          >
+            <a
+              href=""
+              class="block"
+            >
               <div class="bg-white dark:bg-gray-900 shadow hover:shadow-lg relative overflow-hidden">
                 <canvas
                   width="200"
@@ -46,13 +59,29 @@
         </ul>
       </div>
       <div class="my-6">
-        <h2 class="text-2xl mb-3">Popular Songs</h2>
+        <h2 class="text-2xl mb-3">
+          Popular Songs
+        </h2>
         <ul>
-          <li v-for="track in tracks" class="my-3">
-            <a href="" class="flex gap-4">
+          <li
+            v-for="track in tracks"
+            :key="track.id"
+            class="my-3"
+          >
+            <a
+              href=""
+              class="flex gap-4"
+            >
               <div class="relative bg-black">
-                <canvas width="40" height="40"></canvas>
-                <img v-if="track.album.thumbnail" :src="track.album.thumbnail" class="absolute inset-0">
+                <canvas
+                  width="40"
+                  height="40"
+                />
+                <img
+                  v-if="track.album.thumbnail"
+                  :src="track.album.thumbnail"
+                  class="absolute inset-0"
+                >
               </div>
               <div>
                 <div>{{ track.title }}</div>

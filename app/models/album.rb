@@ -6,7 +6,7 @@ class Album < ApplicationRecord
     thumbnail: :strAlbumThumb,
     released: :intYearReleased,
     style: :strStyle,
-    genre: :strGenre,
+    genre: :strGenre
   }.each do |accessor, key|
     define_method(accessor) do
       metadata && metadata[key.to_s]

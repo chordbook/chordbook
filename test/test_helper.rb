@@ -1,7 +1,7 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
-require 'vcr'
+require "vcr"
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
@@ -17,7 +17,7 @@ VCR.configure do |config|
   config.cassette_library_dir = "test/vcr"
   config.hook_into :webmock
   config.ignore_localhost = true
-  config.ignore_hosts 'chromedriver.storage.googleapis.com'
+  config.ignore_hosts "chromedriver.storage.googleapis.com"
 
   # Run specs with `VCR=all` or `VCR=new_episodes` to record new cassettes
   config.default_cassette_options = {record: ENV["VCR"] ? ENV["VCR"].to_sym : :once}

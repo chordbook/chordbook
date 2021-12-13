@@ -5,7 +5,7 @@ class LookupMetadataTest < ActiveJob::TestCase
     VCR.use_cassette("tadb/the_beatles") do
       artist = Artist.create! name: "The Beatles"
 
-      assert_difference ->{ artist.albums.count }, 50 do
+      assert_difference -> { artist.albums.count }, 50 do
         LookupMetadata.perform_now artist
       end
 
@@ -16,13 +16,13 @@ class LookupMetadataTest < ActiveJob::TestCase
   end
 
   test "update existing artist" do
-    artist = Artist.create! name: "The Beatles", metadata: { idArtist: 111247, intFormedYear: 1900 }
+    artist = Artist.create! name: "The Beatles", metadata: {idArtist: 111247, intFormedYear: 1900}
     artist.reload # Reload so it is not a new record
     assert !artist.id_previously_changed?
 
     VCR.use_cassette("tadb/the_beatles") do
       # Should not recursively sync on update
-      assert_difference ->{ artist.albums.count }, 0 do
+      assert_difference -> { artist.albums.count }, 0 do
         LookupMetadata.perform_now artist
       end
 
@@ -34,10 +34,10 @@ class LookupMetadataTest < ActiveJob::TestCase
 
   test "album" do
     VCR.use_cassette("tadb/the_beatles/the_white_album") do
-      artist = Artist.create! name: "The Beatles", metadata: { idArtist: 111247 }
+      artist = Artist.create! name: "The Beatles", metadata: {idArtist: 111247}
       album = Album.create! title: "The White Album", artist: artist
 
-      assert_difference ->{ album.tracks.count }, 30 do
+      assert_difference -> { album.tracks.count }, 30 do
         LookupMetadata.perform_now album
       end
 

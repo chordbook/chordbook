@@ -20,5 +20,4 @@ class Api::TracksControllerTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
     assert_equal 1, body.length
   end
-
 end

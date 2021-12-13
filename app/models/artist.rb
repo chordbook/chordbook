@@ -10,7 +10,7 @@ class Artist < ApplicationRecord
   end
 
   def banner
-    %w(strArtistFanart strArtistWideThumb).map { |x| metadata&.fetch(x) }.compact.first
+    %w[strArtistFanart strArtistWideThumb].map { |x| metadata&.fetch(x) }.compact.first
   end
 
   def style

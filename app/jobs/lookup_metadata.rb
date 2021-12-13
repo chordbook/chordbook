@@ -12,12 +12,12 @@ class LookupMetadata < ApplicationJob
   def sync_artist(artist, recursive: false, metadata: nil)
     # No new metadata provided, look it up
     unless metadata
-      if artist.metadata
+      response = if artist.metadata
         # Artist was previously synced, but lookup by known id to refresh
-        response = get path("artist.php"), query: { i: artist.metadata["idArtist"] }
+        get path("artist.php"), query: {i: artist.metadata["idArtist"]}
       else
         # New artist, search and use first result
-        response = get path("search.php"), query: { s: artist.name }
+        get path("search.php"), query: {s: artist.name}
       end
 
       metadata = response["artists"].first
@@ -28,7 +28,7 @@ class LookupMetadata < ApplicationJob
 
     if recursive
       # Look up albums
-      response = get path("album.php"), query: { i: metadata["idArtist"] }
+      response = get path("album.php"), query: {i: metadata["idArtist"]}
       response["album"].each_with_index do |album_data, i|
         album = artist.albums.find_or_create_by!(title: album_data["strAlbum"]) do |a|
           a.metadata = album_data
@@ -42,14 +42,14 @@ class LookupMetadata < ApplicationJob
 
   def sync_album(album, recursive: artist.id_previously_changed?, metadata: nil)
     unless metadata
-      response = get path("album.php"), query: { i: album.artist.metadata["idArtist"] }
+      response = get path("album.php"), query: {i: album.artist.metadata["idArtist"]}
       metadata = response["album"].detect { |data| data["strAlbum"] == album.title }
     end
 
     album.update metadata: metadata
 
     if recursive
-      response = get path("track.php"), query: { m: metadata["idAlbum"] }
+      response = get path("track.php"), query: {m: metadata["idAlbum"]}
       response["track"].each do |track_data|
         album.tracks.find_or_create_by!(title: track_data["strTrack"]) do |t|
           t.artist = album.artist
