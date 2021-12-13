@@ -1,5 +1,6 @@
 class Artist < ApplicationRecord
   has_many :albums
+  has_many :tracks
 
   after_create { LookupMetadata.perform_later(self) unless metadata }
 

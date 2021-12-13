@@ -36,7 +36,10 @@ class LookupMetadataTest < ActiveJob::TestCase
     VCR.use_cassette("tadb/the_beatles/the_white_album") do
       artist = Artist.create! name: "The Beatles", metadata: { idArtist: 111247 }
       album = Album.create! title: "The White Album", artist: artist
-      LookupMetadata.perform_now album
+
+      assert_difference ->{ album.tracks.count }, 30 do
+        LookupMetadata.perform_now album
+      end
 
       assert_instance_of Hash, album.metadata
       assert_equal "2213204", album.metadata["idAlbum"]

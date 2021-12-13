@@ -48,15 +48,15 @@
       <div class="my-6">
         <h2 class="text-2xl mb-3">Popular Songs</h2>
         <ul>
-          <li v-for="song in songs" class="my-3">
+          <li v-for="track in tracks" class="my-3">
             <a href="" class="flex gap-4">
               <div class="relative bg-black">
                 <canvas width="40" height="40"></canvas>
-                <img v-if="song.thumbnail" class="absolute inset-0">
+                <img v-if="track.album.thumbnail" :src="track.album.thumbnail" class="absolute inset-0">
               </div>
               <div>
-                <div>{{ song.title }}</div>
-                <div class="text-sm opacity-50">{{ song.album }}</div>
+                <div>{{ track.title }}</div>
+                <div class="text-sm opacity-50">{{ track.album?.title }}</div>
               </div>
             </a>
           </li>
@@ -80,6 +80,10 @@ export default {
         api.get(`/api/artists/${to.params.id}/albums.json`).then(response => {
           vm.albums = response.data
         })
+
+        api.get(`/api/artists/${to.params.id}/tracks.json`).then(response => {
+          vm.tracks = response.data
+        })
       })
     }).catch(() => {
       next({ name: '404' })
@@ -89,14 +93,7 @@ export default {
   data () {
     return {
       artist: {},
-      songs: [
-        { id: 1, title: 'Across the Universe', album: "Album name" },
-        { id: 1, title: 'Here Comes the Sun', album: "Album name" },
-        { id: 1, title: 'Song Title 1', album: "Album name" },
-        { id: 1, title: 'Song Title 2', album: "Album name" },
-        { id: 1, title: 'Song Title 3', album: "Album name" },
-        { id: 1, title: 'Song Title 4', album: "Album name" }
-      ],
+      tracks: [],
       albums: []
     }
   }

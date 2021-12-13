@@ -47,6 +47,16 @@ class LookupMetadata < ApplicationJob
     end
 
     album.update metadata: metadata
+
+    if recursive
+      response = get path("track.php"), query: { m: metadata["idAlbum"] }
+      response["track"].each do |track_data|
+        album.tracks.find_or_create_by!(title: track_data["strTrack"]) do |t|
+          t.artist = album.artist
+          t.metadata = track_data
+        end
+      end
+    end
   end
 
   def self.path(path)
