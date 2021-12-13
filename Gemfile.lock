@@ -82,6 +82,10 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     dry-cli (0.7.0)
     erubi (1.10.0)
     ffi (1.15.4)
@@ -227,6 +231,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara
+  dotenv-rails
   httparty
   jbuilder
   listen
