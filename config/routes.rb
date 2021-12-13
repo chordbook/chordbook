@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   get "offline.json", to: "content#offline"
 
   namespace :api do
-    resources :artists
+    resources :artists do
+      resources :albums
+    end
     resources :songs
   end
 

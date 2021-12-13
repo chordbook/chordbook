@@ -21,7 +21,7 @@
         {{ artist.biography }}
       </p>
 
-      <div class="my-6">
+      <div v-if="albums.length > 0" class="my-6">
         <h2 class="text-2xl mb-3">Albums</h2>
 
         <ul class="grid grid-cols-6 gap-6">
@@ -39,7 +39,7 @@
                 >
               </div>
               <div class="mt-2 text-ellipsis">
-                {{ album.name }}
+                {{ album.title }}
               </div>
             </a>
           </li>
@@ -74,7 +74,13 @@ import api from '~/api'
 export default {
   async beforeRouteEnter (to, from, next) {
     return api.get(`/api/artists/${to.params.id}.json`).then(response => {
-      next(vm => (vm.artist = response.data))
+      next(vm => {
+        vm.artist = response.data
+
+        api.get(`/api/artists/${to.params.id}/albums.json`).then(response => {
+          vm.albums = response.data
+        })
+      })
     }).catch(() => {
       next({ name: '404' })
     })
@@ -91,18 +97,7 @@ export default {
         { id: 1, title: 'Song Title 3', album: "Album name" },
         { id: 1, title: 'Song Title 4', album: "Album name" }
       ],
-      albums: [
-        { name: 'Album 1' },
-        { name: 'Album 2' },
-        { name: 'Album 3' },
-        { name: 'Album 4' },
-        { name: 'Album 5' },
-        { name: 'Album 6' },
-        { name: 'Album 7' },
-        { name: 'Album 8' },
-        { name: 'Album 9' },
-        { name: 'Album 10' }
-      ]
+      albums: []
     }
   }
 }
