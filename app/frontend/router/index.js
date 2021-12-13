@@ -3,11 +3,20 @@ import { createWebHistory, createRouter } from 'vue-router'
 const routes = [
   {
     path: '/',
-    component: () => import('~/views/Index.vue')
+    component: () => import('~/views/artists/Index.vue')
+  },
+  {
+    path: '/artists/:id',
+    name: 'artist',
+    component: () => import('~/views/artists/Show.vue')
   },
   {
     path: '/tuner',
     component: () => import('~/views/Tuner.vue')
+  },
+  {
+    path: '/songs',
+    component: () => import('~/views/songs/Index.vue')
   },
   {
     path: '/songs/new',
