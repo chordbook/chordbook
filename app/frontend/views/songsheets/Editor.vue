@@ -41,7 +41,7 @@
         <div>
           <router-link
             v-if="id"
-            :to="{ name: 'song', params: { id }}"
+            :to="{ name: 'songsheet', params: { id }}"
           >
             Cancel
           </router-link>
@@ -93,7 +93,7 @@ export default {
 
   beforeRouteEnter (to, from, next) {
     if (to.params.id) {
-      return api.get(`/api/songs/${to.params.id}.json`).then(response => {
+      return api.get(`/api/songsheets/${to.params.id}.json`).then(response => {
         next(vm => (vm.source = response.data.source))
       }).catch(() => {
         next({ name: '404', params: [to.path] })
@@ -134,7 +134,7 @@ export default {
     },
 
     url () {
-      return this.id ? `/api/songs/${this.id}.json` : '/api/songs.json'
+      return this.id ? `/api/songsheets/${this.id}.json` : '/api/songsheets.json'
     }
   },
 
@@ -159,13 +159,13 @@ export default {
         url: this.url,
         method: this.id ? 'PATCH' : 'POST',
         data: {
-          song: {
+          songsheet: {
             source: this.source,
             metadata: this.parsedSong.metadata
           }
         }
       }).then(response => {
-        this.$router.push({ name: 'song', params: { id: response.data.id } })
+        this.$router.push({ name: 'songsheet', params: { id: response.data.id } })
       }).catch(error => {
         if (error.response) {
           this.errors = error.response.data

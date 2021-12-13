@@ -13,7 +13,7 @@
 
       <div>
         <router-link
-          to="/songs/new"
+          to="/songsheets/new"
           class="btn btn-primary btn-small"
         >
           <icon-bi:journal-plus />

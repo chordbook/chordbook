@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       end
       resources :tracks
     end
-    resources :songs
+    resources :songsheets
   end
 
   get "*anything", to: "content#index"

@@ -139,7 +139,7 @@
 
           <div class="px-3">
             <router-link
-              :to="{ name: 'song.edit', params: { id: $route.params.id } }"
+              :to="{ name: 'songsheet.edit', params: { id: $route.params.id } }"
               class="btn btn-muted btn-small"
             >
               Edit
@@ -175,7 +175,7 @@ export default {
   components: { Dialog, DialogOverlay, TransitionRoot },
 
   beforeRouteEnter (to, from, next) {
-    return api.get(`/api/songs/${to.params.id}.json`).then(response => {
+    return api.get(`/api/songsheets/${to.params.id}.json`).then(response => {
       next(vm => (vm.source = response.data.source))
     }).catch(() => {
       next({ name: '404', replace: true })

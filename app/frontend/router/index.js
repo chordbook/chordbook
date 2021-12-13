@@ -15,22 +15,22 @@ const routes = [
     component: () => import('~/views/Tuner.vue')
   },
   {
-    path: '/songs',
-    component: () => import('~/views/songs/Index.vue')
+    path: '/songsheets',
+    component: () => import('~/views/songsheets/Index.vue')
   },
   {
-    path: '/songs/new',
-    component: () => import('~/views/songs/Editor.vue')
+    path: '/songsheets/new',
+    component: () => import('~/views/songsheets/Editor.vue')
   },
   {
-    path: '/songs/:id',
-    name: 'song',
-    component: () => import('~/views/songs/Show.vue')
+    path: '/songsheets/:id',
+    name: 'songsheet',
+    component: () => import('~/views/songsheets/Show.vue')
   },
   {
-    path: '/songs/:id/edit',
-    name: 'song.edit',
-    component: () => import('~/views/songs/Editor.vue'),
+    path: '/songsheets/:id/edit',
+    name: 'songsheet.edit',
+    component: () => import('~/views/songsheets/Editor.vue'),
     props: true
   },
   {

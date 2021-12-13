@@ -1,4 +1,4 @@
-class Song < ApplicationRecord
+class Songsheet < ApplicationRecord
   scope :recent, -> { order(created_at: :desc) }
   store_accessor :metadata, :title, :subtitle, :artist
   validates :title, :subtitle, presence: true

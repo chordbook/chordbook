@@ -19,19 +19,19 @@ class EditorTest < ApplicationSystemTestCase
 
     assert_content "Drunken Sailor"
     assert_content "Traditional sea shanty"
-    assert_equal 1, Song.count
+    assert_equal 1, Songsheet.count
   end
 
   test "editing existing song" do
-    song = Song.create!(
+    songsheet = Songsheet.create!(
       title: "Song Name",
       subtitle: "Song Subtitle",
       source: "Song source"
     )
 
     source = "{t:New Title}\n{st:New Subtitle}\nnew body"
-    visit "/"
-    click_on song.title
+    visit "/songsheets"
+    click_on songsheet.title
     click_on "Edit"
 
     fill_in_editor_field(source)
@@ -40,10 +40,10 @@ class EditorTest < ApplicationSystemTestCase
     click_button "Save"
     assert_no_css ".ace_editor" # No more editor
 
-    song.reload
-    assert_equal "New Title", song.title
-    assert_equal "New Subtitle", song.subtitle
-    assert_equal source, song.source
+    songsheet.reload
+    assert_equal "New Title", songsheet.title
+    assert_equal "New Subtitle", songsheet.subtitle
+    assert_equal source, songsheet.source
     assert_no_js_errors
   end
 
