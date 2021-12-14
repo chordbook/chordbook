@@ -2,7 +2,7 @@ class Api::ArtistsController < ApiController
   before_action :set_artist, only: %i[show]
 
   def index
-    @artists = Artist.all
+    @artists = params[:letter] ? Artist.starts_with(:name, params[:letter]) : Artist.all
   end
 
   def show

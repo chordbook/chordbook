@@ -1,7 +1,9 @@
 <template>
   <div class="bg-gray-100 dark:bg-gray-800 h-full">
     <div class="max-w-8xl mx-auto p-4 md:p-6">
-      <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+      <alpha-paginate />
+
+      <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-10">
         <li
           v-for="artist in artists"
           :key="artist.id"
@@ -10,7 +12,7 @@
             :to="{ name: 'artist', params: { id: artist.id }}"
             class="block"
           >
-            <div class="bg-white dark:bg-gray-900 shadow hover:shadow-lg relative overflow-hidden">
+            <div class="bg-white dark:bg-gray-900 shadow hover:shadow-lg relative overflow-hidden rounded-full">
               <canvas
                 width="400"
                 height="400"
@@ -21,8 +23,13 @@
                 class="w-full h-full absolute inset-0"
               >
             </div>
-            <div class="mt-2 whitespace-nowrap overflow-hidden text-ellipsis">
-              {{ artist.name }}
+            <div class="mt-3 text-center">
+              <h3 class="whitespace-nowrap text-sm font-bold overflow-hidden text-ellipsis">
+                {{ artist.name }}
+              </h3>
+              <div class="text-xs opacity-70">
+                Artist
+              </div>
             </div>
           </router-link>
         </li>
@@ -33,16 +40,27 @@
 
 <script>
 import api from '~/api'
+import alphaPaginate from '../../components/alpha-paginate.vue'
 
 export default {
-  async beforeRouteEnter (to, from, next) {
-    const response = await api.get('/api/artists.json')
-    next(vm => (vm.artists = response.data))
-  },
-
+  components: { alphaPaginate },
   data () {
     return {
       artists: []
+    }
+  },
+
+  watch: {
+    $route: 'fetchData'
+  },
+
+  created () {
+    this.fetchData()
+  },
+
+  methods: {
+    async fetchData () {
+      this.artists = (await api.get('/api/artists.json', { params: this.$route.query })).data
     }
   }
 }

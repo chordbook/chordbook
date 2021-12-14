@@ -1,4 +1,6 @@
 class Artist < ApplicationRecord
+  include AlphaPaginate
+
   has_many :albums
   has_many :tracks
 
