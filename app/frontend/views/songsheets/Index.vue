@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-8xl mx-auto p-4 md:p-6">
+  <div class="max-w-8xl mx-auto p-4 md:p-6 lg:p-8">
     <h2>Recently Added</h2>
 
     <ul>

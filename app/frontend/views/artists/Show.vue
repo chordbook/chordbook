@@ -1,11 +1,11 @@
 <template>
-  <div class="bg-gray-100 dark:bg-gray-800 min-h-full">
+  <div class="bg-slate-100 dark:bg-slate-800 min-h-full">
     <div
       class="bg-black relative bg-cover bg-fixed"
       :style="`background-image: url(${artist.banner});`"
     >
       <div class="absolute inset-0 bg-gradient-to-b to-black from-transparent" />
-      <div class="relative max-w-8xl mx-auto p-4 md:p-6 h-full min-h-screen-2/3 flex flex-col place-content-end">
+      <div class="relative max-w-8xl mx-auto p-4 md:p-6 lg:px-8 h-full min-h-screen-2/3 flex flex-col place-content-end">
         <h1 class="text-white text-shadow-md text-5xl font-bold">
           {{ artist.name }}
         </h1>
@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="max-w-8xl mx-auto p-4 md:p-6">
+    <div class="max-w-8xl mx-auto p-4 md:p-6 lg:px-8">
       <p
         class="my-4 text-sm line-clamp-3"
         onclick="this.classList.toggle('line-clamp-3')"
@@ -40,7 +40,7 @@
               href=""
               class="block"
             >
-              <div class="bg-white dark:bg-gray-900 shadow hover:shadow-lg relative overflow-hidden">
+              <div class="bg-white dark:bg-slate-900 shadow hover:shadow-lg relative overflow-hidden">
                 <canvas
                   width="200"
                   height="200"
