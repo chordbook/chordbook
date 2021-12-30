@@ -1,4 +1,6 @@
 class Track < ApplicationRecord
-  belongs_to :album
+  include AlphaPaginate
+
+  belongs_to :album, optional: true
   belongs_to :artist
 end

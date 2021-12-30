@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_13_195640) do
+ActiveRecord::Schema.define(version: 2021_12_18_204534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2021_12_13_195640) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["artist_id"], name: "index_albums_on_artist_id"
+  end
+
+  create_table "artist_works", force: :cascade do |t|
+    t.bigint "artist_id", null: false
+    t.string "work_type", null: false
+    t.bigint "work_id", null: false
+    t.integer "order"
+    t.index ["artist_id", "work_id", "work_type", "order"], name: "uniq_by_artist_and_work", unique: true
+    t.index ["artist_id"], name: "index_artist_works_on_artist_id"
+    t.index ["work_type", "work_id"], name: "index_artist_works_on_work"
   end
 
   create_table "artists", force: :cascade do |t|
@@ -36,6 +46,8 @@ ActiveRecord::Schema.define(version: 2021_12_13_195640) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.json "metadata"
+    t.bigint "track_id"
+    t.index ["track_id"], name: "index_songsheets_on_track_id"
   end
 
   create_table "tracks", force: :cascade do |t|
@@ -49,4 +61,6 @@ ActiveRecord::Schema.define(version: 2021_12_13_195640) do
     t.index ["artist_id"], name: "index_tracks_on_artist_id"
   end
 
+  add_foreign_key "artist_works", "artists"
+  add_foreign_key "songsheets", "tracks"
 end
