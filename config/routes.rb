@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "offline.json", to: "content#offline"
 
   namespace :api do
+    get "autocomplete", to: "autocomplete#index"
     resources :artists do
       resources :albums do
         resources :tracks

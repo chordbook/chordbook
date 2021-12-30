@@ -67,6 +67,7 @@
         :source="source"
         show-chords="last"
         :columns="1"
+        @parse="onParse"
       />
     </div>
   </div>
@@ -81,6 +82,7 @@ import detectFormat from '~/lib/detect_format'
 import api from '~/api'
 import { VAceEditor } from 'vue3-ace-editor'
 import ChordCompleter from '~/ace/chord-completer'
+import MetadataCompleter from '~/ace/metadata-completer'
 import 'ace-builds/src-noconflict/theme-clouds'
 import 'ace-builds/src-noconflict/theme-chaos'
 import 'ace-builds/src-noconflict/ext-language_tools'
@@ -116,19 +118,12 @@ export default {
       source: '',
       errors: {},
       themes: { dark: 'chaos', light: 'clouds' },
-      isDarkMode: useMediaQuery('(prefers-color-scheme: dark)')
+      isDarkMode: useMediaQuery('(prefers-color-scheme: dark)'),
+      song: null
     }
   },
 
   computed: {
-    format () {
-      return detectFormat(this.source)
-    },
-
-    parsedSong () {
-      return this.format.parse(this.source)
-    },
-
     theme () {
       return this.isDarkMode ? this.themes.dark : this.themes.light
     },
@@ -148,7 +143,22 @@ export default {
       editor.renderer.setScrollMargin(20, 20)
 
       const { snippetCompleter } = ace.require('ace/ext/language_tools')
-      editor.completers = [new ChordCompleter(), snippetCompleter]
+
+      editor.completers = [
+        new ChordCompleter(),
+        new MetadataCompleter(),
+        snippetCompleter
+      ]
+
+      // Start autocomplete on [ or { characters
+      editor.commands.addCommand({
+        name: 'chordproStartAutocomplete',
+        bindKey: '[|{',
+        exec () {
+          editor.commands.byName.startAutocomplete.exec(editor)
+          return false
+        }
+      })
 
       // Expose ace editor for tests
       window.editor = editor
@@ -161,7 +171,7 @@ export default {
         data: {
           songsheet: {
             source: this.source,
-            metadata: this.parsedSong.metadata
+            metadata: this.song.metadata
           }
         }
       }).then(response => {
@@ -196,6 +206,10 @@ export default {
       // Convert to ChordPro
       // Modifying text property will change text pasted into Ace editor
       e.text = new ChordSheetJS.ChordProFormatter().format(format.parse(e.text))
+    },
+
+    onParse (e) {
+      this.song = e
     }
   }
 }
