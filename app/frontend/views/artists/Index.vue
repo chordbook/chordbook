@@ -12,7 +12,7 @@
             :to="{ name: 'artist', params: { id: artist.id }}"
             class="block"
           >
-            <div class="bg-white dark:bg-slate-900 shadow hover:shadow-lg relative overflow-hidden rounded-full">
+            <div class="bg-white dark:bg-slate-900 shadow-md hover:shadow-lg relative overflow-hidden rounded-full">
               <canvas
                 width="400"
                 height="400"
