@@ -80,7 +80,7 @@
             {{ song.subtitle }}
           </h2>
           <h2 v-if="song.artist">
-            by {{ song.artist }}
+            by {{ formatArray(song.artist) }}
           </h2>
           <div v-if="song.capo">
             Capo {{ song.capo }}
@@ -135,6 +135,7 @@ import {
   ListboxOption
 } from '@headlessui/vue'
 import { useCssVar } from '@vueuse/core'
+import arrify from 'arrify'
 
 export default {
   components: { ChordLyricsPair, Tag, Listbox, ListboxButton, ListboxOptions, ListboxOption },
@@ -161,7 +162,7 @@ export default {
     }
   },
 
-  emits: ['update:key'],
+  emits: ['update:key', 'parse', 'error'],
 
   data () {
     return {
@@ -176,25 +177,29 @@ export default {
     },
 
     song () {
-      // FIXME: somehow \r is getting added by Ace
-      const song = this.format?.parse(this.source.replace(/\r\n/gm, '\n'))
+      try {
+        // FIXME: somehow \r is getting added by Ace
+        const song = this.format?.parse(this.source.replace(/\r\n/gm, '\n'))
 
-      if (!song) return
-
-      // Transpose chords
-      const chords = {}
-      song.lines.forEach(line => {
-        line.items.forEach(pair => {
-          if (pair.chords) {
-            if (!chords[pair.chords]) {
-              chords[pair.chords] = Chord.parse(pair.chords)?.transpose(this.transpose).toString()
+        // Transpose chords
+        const chords = {}
+        song.lines.forEach(line => {
+          line.items.forEach(pair => {
+            if (pair.chords) {
+              if (!chords[pair.chords]) {
+                chords[pair.chords] = Chord.parse(pair.chords)?.transpose(this.transpose).toString()
+              }
+              pair.transposed = chords[pair.chords]
             }
-            pair.transposed = chords[pair.chords]
-          }
+          })
         })
-      })
 
-      return song
+        this.$emit('parse', song)
+        return song
+      } catch (error) {
+        this.$emit('error', error)
+        return null
+      }
     },
 
     chords () {
@@ -255,6 +260,10 @@ export default {
 
     toggleTuner () {
       this.showTuner = !this.showTuner
+    },
+
+    formatArray (args) {
+      return new Intl.ListFormat().format(arrify(args))
     }
   }
 }

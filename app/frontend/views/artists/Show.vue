@@ -5,11 +5,11 @@
       :style="`background-image: url(${artist.banner});`"
     >
       <div class="absolute inset-0 bg-blend-screen opacity-80 bg-gradient-to-b to-black from-transparent" />
-      <div class="relative max-w-8xl mx-auto p-4 md:p-6 lg:px-8 h-full min-h-screen-2/3 flex flex-col place-content-end">
-        <h1 class="text-white text-shadow-md text-5xl font-bold">
+      <div class="relative max-w-8xl mx-auto p-4 md:p-6 lg:px-8 h-full min-h-screen-2/3 flex flex-col place-content-end text-white text-shadow-md">
+        <h1 class="text-5xl font-bold">
           {{ artist.name }}
         </h1>
-        <div class="opacity-50">
+        <div class="opacity-60">
           {{ artist.metadata?.strStyle }}
         </div>
       </div>
@@ -63,34 +63,16 @@
         <h2 class="text-2xl mb-3">
           Popular Songs
         </h2>
-        <ul>
-          <li
-            v-for="track in tracks"
-            :key="track.id"
-            class="my-3"
-          >
-            <a
-              href=""
-              class="flex gap-4"
-            >
-              <div class="relative bg-black">
-                <canvas
-                  width="40"
-                  height="40"
-                />
-                <img
-                  v-if="track.album.thumbnail"
-                  :src="track.album.thumbnail"
-                  class="absolute inset-0 w-full h-full"
-                >
-              </div>
-              <div>
-                <div>{{ track.title }}</div>
-                <div class="text-sm opacity-50">{{ track.album?.title }}</div>
-              </div>
-            </a>
-          </li>
-        </ul>
+
+        <album-track
+          v-for="track in tracks"
+          :key="track.id"
+          :title="track.title"
+          :album="track.album?.title"
+          :artist="track.artist?.name"
+          :thumbnail="track.album?.thumbnail"
+          class="my-3"
+        />
 
         <a href="">View All</a>
       </div>
