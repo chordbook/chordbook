@@ -1,21 +1,13 @@
 <template>
   <div class="flex gap-4">
-    <div class="relative bg-black">
-      <canvas
-        width="40"
-        height="40"
-      />
-      <img
-        v-if="thumbnail"
-        :src="thumbnail"
-        class="absolute inset-0 w-full h-full"
-      >
+    <div class="w-12 h-12">
+      <album-artwork :src="album?.thumbnail" class="shadow-sm hover:shadow-md" />
     </div>
     <div>
       <div>{{ title }}</div>
-      <div class="text-sm opacity-50">
-        {{ album }}
-      </div>
+      <router-link :to="{ name: 'album', params: { id: album.id } }" class="text-sm opacity-50">
+        {{ album.title }}
+      </router-link>
     </div>
   </div>
 </template>
@@ -27,16 +19,8 @@ export default {
       type: String,
       required: true
     },
-    artist: {
-      type: String,
-      required: true
-    },
     album: {
-      type: String,
-      default: null
-    },
-    thumbnail: {
-      type: String,
+      type: Object,
       default: null
     }
   }

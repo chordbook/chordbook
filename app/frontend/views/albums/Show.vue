@@ -3,15 +3,8 @@
     <div class="flex gap-8">
       <div class="w-64 h-64">
         <album-artwork :src="album.thumbnail" />
-
-        <!-- <div class="w-64 h-64 bg-slate-100 shadow-xl rounded relative overflow-hidden">
-          <img
-            :src="album.thumbnail"
-            class="w-full h-full"
-          >
-        </div> -->
       </div>
-      <div class="pt-8">
+      <div class="pt-6">
         <h1 class="text-4xl">
           {{ album.title }}
         </h1>
@@ -21,7 +14,7 @@
         >
           <router-link
             :to="{ name: 'artist', params: { id: album.artist.id }}"
-            class="text-green-600"
+            class="text-green-700"
           >
             {{ album.artist.name }}
           </router-link>

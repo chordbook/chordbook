@@ -80,11 +80,7 @@
         <album-track
           v-for="track in tracks"
           :key="track.id"
-          :title="track.title"
-          :album="track.album?.title"
-          :artist="track.artist?.name"
-          :thumbnail="track.album?.thumbnail"
-          :metadata="track.metadata"
+          v-bind="track"
           class="my-3"
         />
 
