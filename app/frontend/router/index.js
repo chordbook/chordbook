@@ -11,6 +11,11 @@ const routes = [
     component: () => import('~/views/artists/Show.vue')
   },
   {
+    path: '/albums/:id',
+    name: 'album',
+    component: () => import('~/views/albums/Show.vue')
+  },
+  {
     path: '/tuner',
     component: () => import('~/views/Tuner.vue')
   },

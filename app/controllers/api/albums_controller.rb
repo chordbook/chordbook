@@ -1,8 +1,12 @@
 class Api::AlbumsController < ApiController
-  before_action :set_artist
+  before_action :set_artist, only: :index
 
   def index
     @albums = @artist.albums.all
+  end
+
+  def show
+    @album = Album.find(params[:id])
   end
 
   private

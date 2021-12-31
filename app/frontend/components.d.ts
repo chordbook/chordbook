@@ -9,6 +9,8 @@ declare module 'vue' {
     'IconBi:arrowDown': typeof import('~icons/bi/arrow-down')['default']
     'IconBi:arrowUp': typeof import('~icons/bi/arrow-up')['default']
     'IconBi:chevronDown': typeof import('~icons/bi/chevron-down')['default']
+    'IconBi:chevronLeft': typeof import('~icons/bi/chevron-left')['default']
+    'IconBi:chevronRight': typeof import('~icons/bi/chevron-right')['default']
     'IconBi:file': typeof import('~icons/bi/file')['default']
     'IconBi:journalPlus': typeof import('~icons/bi/journal-plus')['default']
     'IconBi:journalText': typeof import('~icons/bi/journal-text')['default']

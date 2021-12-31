@@ -31,33 +31,46 @@
           Albums
         </h2>
 
-        <ul class="grid grid-cols-6 gap-6">
-          <li
-            v-for="album in albums"
-            :key="album.id"
-          >
-            <a
-              href=""
-              class="block"
+        <div class="relative -mx-8 group">
+          <ul class="flex flex-no-wrap overflow-x-scroll scrolling-touch mb-8 gap-8 overscroll-x-contain pb-4 px-8">
+            <li
+              v-for="album in albums"
+              :key="album.id"
+              class="flex-none w-1/6"
             >
-              <div class="bg-slate-100 dark:bg-slate-900  border border-slate-400/40 dark:border-slate-800/40 transition-shadow shadow-md hover:shadow-lg relative">
-                <canvas
-                  width="200"
-                  height="200"
-                />
-                <img
-                  v-if="album.thumbnail"
-                  :src="album.thumbnail"
-                  class="absolute inset-0 w-full h-full"
-                >
-              </div>
-              <div class="mt-2 text-sm">
-                <div class="whitespace-nowrap overflow-hidden text-ellipsis">{{ album.title }}</div>
-                <div class="text-xs opacity-50">{{ album.released }}</div>
-              </div>
-            </a>
-          </li>
-        </ul>
+              <router-link
+                :to="{ name: 'album', params: { id: album.id } }"
+                class="block"
+              >
+                <album-artwork :src="album.thumbnail" />
+                <div class="mt-2 text-sm">
+                  <div class="whitespace-nowrap overflow-hidden text-ellipsis">
+                    {{ album.title }}
+                  </div>
+                  <div class="text-xs opacity-50">
+                    {{ album.released }}
+                  </div>
+                </div>
+              </router-link>
+            </li>
+            <li class="absolute top-0 bottom-0 left-0 flex flex-col place-content-center bg-gradient-to-r via-white from-white w-16 pr-4 pb-10 mb-4">
+              <a
+                href=""
+                class="opacity-0 group-hover:opacity-50 transition ease-in-out"
+              >
+                <icon-bi:chevron-left />
+              </a>
+            </li>
+            <li class="absolute top-0 bottom-0 right-0 flex flex-col place-content-center bg-gradient-to-l via-white from-white w-16 pl-4 pb-10 mb-4 text-right">
+              <a
+                href=""
+                class="opacity-0 group-hover:opacity-50 transition ease-in-out"
+              >
+                <icon-bi:chevron-right />
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
       <div class="my-6">
         <h2 class="text-2xl mb-3">
@@ -71,6 +84,7 @@
           :album="track.album?.title"
           :artist="track.artist?.name"
           :thumbnail="track.album?.thumbnail"
+          :metadata="track.metadata"
           class="my-3"
         />
 

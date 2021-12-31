@@ -1,7 +1,7 @@
 <div data-behavior="vue" class="flex flex-col h-screen">
   <reload-pwa></reload-pwa>
   <app-header></app-header>
-  <main class="bg-white flex-grow overflow-auto dark:bg-gray-800 dark:text-gray-200">
+  <main class="bg-white grow overflow-auto dark:bg-gray-800 dark:text-gray-200">
     <router-view v-slot="{ Component, route }">
       <!-- Use any custom transition and fallback to `fade` -->
       <transition :name="route.meta.transition || 'fade'">

@@ -12,4 +12,9 @@ class Api::AlbumsControllerTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
     assert_equal 1, body.length
   end
+
+  test "show" do
+    get api_album_url(@album, format: :json)
+    assert_response :success
+  end
 end

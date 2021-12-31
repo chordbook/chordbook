@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-slate-100 dark:bg-slate-800 h-full">
+  <div class="bg-slate-100 dark:bg-slate-800 min-h-full">
     <div class="max-w-8xl mx-auto p-4 md:p-6 lg:p-8">
       <alpha-paginate />
 

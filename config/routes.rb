@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       end
       resources :tracks
     end
+    resources :albums
     resources :songsheets
   end
 

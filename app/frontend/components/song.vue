@@ -70,7 +70,7 @@
       </div>
     </div>
 
-    <div class="overflow-auto flex-grow h-full">
+    <div class="overflow-auto grow h-full">
       <div :class="'py-4 md:py-8 lg:py-12 ' + (columns == 1 ? 'single-column' : 'horizontal-columns')">
         <div class="column-span-all">
           <h1 v-if="song.title">

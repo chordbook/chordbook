@@ -149,7 +149,7 @@
       </div>
     </div>
 
-    <div class="flex-grow overflow-hidden">
+    <div class="grow overflow-hidden">
       <song
         v-if="source"
         :source="source"

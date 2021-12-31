@@ -1,7 +1,7 @@
 <template>
   <header class="py-4 text-white px-4 md:px-6">
     <div class="max-w-8xl mx-auto sticky flex items-center">
-      <h1 class="flex-grow">
+      <h1 class="grow">
         <router-link
           to="/"
           class="font-semibold flex items-center"

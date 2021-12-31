@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full overflow-hidden flex-grow grid md:grid-cols-2 divide-x divide-solid divide-gray-300 dark:divide-gray-700">
+  <div class="h-full overflow-hidden grow grid md:grid-cols-2 divide-x divide-solid divide-gray-300 dark:divide-gray-700">
     <div class="h-full flex flex-col divide-y divide-solid divide-gray-300 dark:divide-gray-700">
       <div v-if="Object.keys(errors).length">
         <ul class="px-8 py-4 text-red-600">
@@ -13,7 +13,7 @@
       </div>
 
       <!-- eslint-disable vue/no-mutating-props -->
-      <div class="flex-grow relative">
+      <div class="grow relative">
         <v-ace-editor
           v-model:value="source"
           :theme="theme"
@@ -27,7 +27,7 @@
       </div>
 
       <div class="px-8 py-3 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 flex gap-2 sm:gap-4 items-center">
-        <div class="flex-grow">
+        <div class="grow">
           <button
             data-confirm="Are you sure?"
             rel="nofollow"
