@@ -3,10 +3,6 @@ import api from '~/api'
 const RE = /\{\s*([\w_-]*)\s*:\s*([^}]*)/i
 
 export default class MetadataCompleter {
-  constructor () {
-    this.matches = {}
-  }
-
   find (params) {
     return api.get('/api/autocomplete.json', { params }).then(response => response.data)
   }
