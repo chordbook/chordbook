@@ -24,7 +24,7 @@
     "unplugin-icons": "^0.12.22",
     "unplugin-vue-components": "^0.17.6",
     "vexchords": "^1.2.0",
-    "vite-plugin-pwa": "^0.11.10",
+    "vite-plugin-pwa": "^0.11.12",
     "vue": "^3.2.24",
     "vue-axios": "^3.4.0",
     "vue-router": "^4.0.12",
