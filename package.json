@@ -34,7 +34,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "@vue/cli": "^4.5.15",
-    "eslint": "^8.4.1",
+    "eslint": "^8.6.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-node": "^11.1.0",
