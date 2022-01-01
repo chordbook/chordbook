@@ -42,7 +42,7 @@
     "eslint-plugin-vue": "^8.2.0",
     "standard": "^16.0.4",
     "vite": "^2.6.13",
-    "vite-plugin-ruby": "^3.0.2"
+    "vite-plugin-ruby": "^3.0.5"
   },
   "scripts": {
     "lint": "eslint --ignore-path .gitignore --ignore-pattern vendor/ --ext .js,.vue ."
