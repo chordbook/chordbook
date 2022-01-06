@@ -1,18 +1,19 @@
 class Album < ApplicationRecord
+  include Metadata
+
   belongs_to :artist
   has_many :tracks
 
-  {
-    thumbnail: :strAlbumThumb,
-    released: :intYearReleased,
-    style: :strStyle,
-    genre: :strGenre,
-    description: :strDescriptionEN
-  }.each do |accessor, key|
-    define_method(accessor) do
-      metadata && metadata[key.to_s]
-    end
-  end
+  scope :order_by_popular, -> { order("albums.score DESC NULLS LAST") }
+  scope :order_by_released, ->(dir = :desc) { order(released: "#{dir} NULLS LAST") }
+
+  map_metadata(
+    strAlbumThumb: :thumbnail,
+    intYearReleased: :released,
+    strStyle: :style,
+    strGenre: :genre,
+    strDescriptionEN: :description
+  )
 
   after_create { LookupMetadata.perform_later(self) unless metadata }
 end

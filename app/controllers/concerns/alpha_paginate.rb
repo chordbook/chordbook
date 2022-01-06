@@ -5,11 +5,13 @@ module AlphaPaginate
 
   included do
     scope :starts_with, ->(key, letter) {
-      if letter == "#"
+      result = if letter == "#"
         where(arel_table[key].matches_regexp("^[0-9]"))
       else
         where(arel_table[key].matches(letter + "%"))
       end
+
+      result.order(key)
     }
   end
 end

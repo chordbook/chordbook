@@ -2,7 +2,7 @@ class Api::AlbumsController < ApiController
   before_action :set_artist, only: :index
 
   def index
-    @albums = @artist.albums.all
+    @albums = @artist.albums.order_by_popular.limit(10)
   end
 
   def show

@@ -4,7 +4,7 @@
       <div class="w-64 h-64">
         <album-artwork :src="album.thumbnail" />
       </div>
-      <div class="pt-6">
+      <div class="pt-6 grow">
         <h1 class="text-4xl">
           {{ album.title }}
         </h1>
@@ -32,14 +32,15 @@
         </p>
 
         <div class="mt-16">
-          <ol class="w-full max-w-xl">
+          <ol class="max-w-xl">
             <li
               v-for="track in album.tracks"
               :key="track.id"
+              :class="{ 'opacity-30': !track.has_songsheet }"
             >
-              <a
-                href=""
-                class="px-4 -mx-4 py-2 flex items-baseline hover:bg-green-50"
+              <router-link
+                :to="songsheetLink(track)"
+                class="px-4 -mx-4 py-2 flex items-baseline hover:bg-green-50 dark:hover:bg-green-800/50 hover:rounded"
               >
                 <div class="w-8 text-sm opacity-50">
                   {{ track.number }}.
@@ -51,7 +52,7 @@
                 <div class="w-10 text-sm opacity-50">
                   <track-duration :value="track.duration" />
                 </div>
-              </a>
+              </router-link>
             </li>
           </ol>
         </div>
@@ -75,6 +76,15 @@ export default {
   data () {
     return {
       album: {}
+    }
+  },
+
+  methods: {
+    songsheetLink (track) {
+      return {
+        name: track.has_songsheet ? 'songsheet.track' : 'songsheet.new',
+        params: { track: track.id }
+      }
     }
   }
 }

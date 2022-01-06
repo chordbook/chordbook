@@ -1,18 +1,13 @@
 <template>
   <div class="max-w-8xl mx-auto p-4 md:p-6 lg:p-8">
-    <h2>Recently Added</h2>
+    <alpha-paginate />
 
     <ul>
-      <li
+      <songsheet-list-item
         v-for="songsheet in songsheets"
         :key="songsheet.id"
-        class="my-4"
-      >
-        <router-link :to="{ name: 'songsheet', params: { id: songsheet.id }}">
-          <strong>{{ songsheet.title }}</strong>
-          <div>{{ songsheet.subtitle }}</div>
-        </router-link>
-      </li>
+        :songsheet="songsheet"
+      />
     </ul>
   </div>
 </template>
@@ -21,14 +16,23 @@
 import api from '~/api'
 
 export default {
-  async beforeRouteEnter (to, from, next) {
-    const response = await api.get('/api/songsheets.json')
-    next(vm => (vm.songsheets = response.data))
-  },
-
   data () {
     return {
       songsheets: []
+    }
+  },
+
+  watch: {
+    $route: 'fetchData'
+  },
+
+  created () {
+    this.fetchData()
+  },
+
+  methods: {
+    async fetchData () {
+      this.songsheets = (await api.get('/api/songsheets.json', { params: this.$route.query })).data
     }
   }
 }

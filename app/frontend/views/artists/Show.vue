@@ -5,12 +5,12 @@
       :style="`background-image: url(${artist.banner});`"
     >
       <div class="absolute inset-0 bg-blend-screen opacity-80 bg-gradient-to-b to-black from-transparent" />
-      <div class="relative max-w-8xl mx-auto p-4 md:p-6 lg:px-8 h-full min-h-screen-2/3 flex flex-col place-content-end text-white text-shadow-md">
+      <div class="relative max-w-8xl mx-auto p-4 md:p-6 lg:px-8 h-full min-h-screen-3/4 flex flex-col place-content-end text-white text-shadow-md">
         <h1 class="text-5xl font-bold">
           {{ artist.name }}
         </h1>
         <div class="opacity-60">
-          {{ artist.metadata?.strStyle }}
+          {{ artist.genre }}
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@
                 </div>
               </router-link>
             </li>
-            <li class="absolute top-0 bottom-0 left-0 flex flex-col place-content-center bg-gradient-to-r via-white from-white w-16 pr-4 pb-10 mb-4">
+            <li class="absolute top-0 bottom-0 left-0 flex flex-col place-content-center bg-gradient-to-r via-white from-white dark:via-slate-800 dark:from-slate-800 w-16 pr-4 pb-10 mb-4">
               <a
                 href=""
                 class="opacity-0 group-hover:opacity-50 transition ease-in-out"
@@ -61,7 +61,7 @@
                 <icon-bi:chevron-left />
               </a>
             </li>
-            <li class="absolute top-0 bottom-0 right-0 flex flex-col place-content-center bg-gradient-to-l via-white from-white w-16 pl-4 pb-10 mb-4 text-right">
+            <li class="absolute top-0 bottom-0 right-0 flex flex-col place-content-center bg-gradient-to-l via-white from-white dark:via-slate-800 dark:from-slate-800 w-16 pl-4 pb-10 mb-4 text-right">
               <a
                 href=""
                 class="opacity-0 group-hover:opacity-50 transition ease-in-out"
@@ -72,19 +72,49 @@
           </ul>
         </div>
       </div>
+      <div
+        v-if="songsheets.length > 0"
+        class="my-6"
+      >
+        <h2 class="text-2xl mb-3">
+          Popular Songsheets
+        </h2>
+
+        <ul>
+          <songsheet-list-item
+            v-for="songsheet in songsheets"
+            :key="songsheet.id"
+            :songsheet="songsheet"
+            class="my-3"
+          />
+        </ul>
+
+        <a href="">View All</a>
+      </div>
       <div class="my-6">
         <h2 class="text-2xl mb-3">
           Popular Songs
         </h2>
 
-        <album-track
-          v-for="track in tracks"
-          :key="track.id"
-          v-bind="track"
-          class="my-3"
-        />
+        <div class="columns-4">
+          <album-track
+            v-for="track in tracks"
+            :key="track.id"
+            v-bind="track"
+            class="my-3"
+          />
+        </div>
 
         <a href="">View All</a>
+      </div>
+
+      <div class="grid gap-8 grid-cols-2">
+        <div
+          v-for="src in images"
+          :key="src"
+        >
+          <img :src="src">
+        </div>
       </div>
     </div>
   </div>
@@ -106,6 +136,10 @@ export default {
         api.get(`/api/artists/${to.params.id}/tracks.json`).then(response => {
           vm.tracks = response.data
         })
+
+        api.get(`/api/artists/${to.params.id}/songsheets.json`).then(response => {
+          vm.songsheets = response.data
+        })
       })
     }).catch(() => {
       next({ name: '404' })
@@ -116,7 +150,19 @@ export default {
     return {
       artist: {},
       tracks: [],
-      albums: []
+      albums: [],
+      songsheets: []
+    }
+  },
+
+  computed: {
+    metadata () {
+      return this.artist?.metadata || {}
+    },
+
+    images () {
+      if (!this.artist.metadata) return []
+      return ['', 2, 3, 4].map(i => this.artist?.metadata[`strArtistFanart${i}`]).filter(Boolean)
     }
   }
 }

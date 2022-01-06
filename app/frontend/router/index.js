@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 const routes = [
   {
     path: '/',
+    name: 'artists',
     component: () => import('~/views/artists/Index.vue')
   },
   {
@@ -25,6 +26,7 @@ const routes = [
   },
   {
     path: '/songsheets/new',
+    name: 'songsheet.new',
     component: () => import('~/views/songsheets/Editor.vue')
   },
   {
@@ -32,6 +34,14 @@ const routes = [
     name: 'songsheet',
     component: () => import('~/views/songsheets/Show.vue')
   },
+  // {
+  //   path: '/tracks/:id/songsheets',
+  //   name: 'track.songsheet',
+  //   redirect: to => {
+  //     api.get('/api/tracks/:id/songsheets')
+  //   }
+  //   // component: () => import('~/views/songsheets/Show.vue')
+  // },
   {
     path: '/songsheets/:id/edit',
     name: 'songsheet.edit',

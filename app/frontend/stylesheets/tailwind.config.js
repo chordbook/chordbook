@@ -14,7 +14,8 @@ module.exports = {
       full: '100%',
       'screen-1/4': '25vh',
       'screen-1/2': '50vh',
-      'screen-2/3': '66vh'
+      'screen-2/3': '66vh',
+      'screen-3/4': '75vh'
     }
   },
   plugins: [

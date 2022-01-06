@@ -11,15 +11,27 @@
         </router-link>
       </h1>
 
-      <div>
-        <router-link
-          to="/songsheets/new"
-          class="btn btn-primary btn-small"
-        >
-          <icon-bi:journal-plus />
-          <span class="hidden sm:inline ml-2">Add Song</span>
-        </router-link>
-      </div>
+      <ul class="flex gap-8 place-items-center">
+        <li>
+          <router-link to="/songsheets">
+            Songs
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'artists' }">
+            Artists
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            to="/songsheets/new"
+            class="btn btn-primary btn-small"
+          >
+            <icon-bi:journal-plus />
+            <span class="hidden sm:inline ml-2">Add Song</span>
+          </router-link>
+        </li>
+      </ul>
     </div>
   </header>
 </template>

@@ -3,7 +3,11 @@ class Api::SongsheetsController < ApiController
 
   # GET /songsheets.json
   def index
-    @songsheets = Songsheet.recent
+    @songsheets = if params[:letter]
+      current_scope.starts_with(:title, params[:letter])
+    else
+      current_scope.recent
+    end
   end
 
   # GET /songsheets/1.json

@@ -12,8 +12,12 @@ Rails.application.routes.draw do
         resources :tracks
       end
       resources :tracks
+      resources :songsheets, only: [:index]
     end
     resources :albums
+    resources :tracks do
+      resources :songsheets, only: [:index]
+    end
     resources :songsheets
   end
 

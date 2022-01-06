@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_18_204534) do
+ActiveRecord::Schema.define(version: 2022_01_05_203853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 2021_12_18_204534) do
     t.bigint "artist_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "released"
+    t.decimal "score", precision: 3, scale: 1
     t.index ["artist_id"], name: "index_albums_on_artist_id"
   end
 
@@ -39,6 +41,8 @@ ActiveRecord::Schema.define(version: 2021_12_18_204534) do
     t.json "metadata"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "genre"
+    t.string "style"
   end
 
   create_table "songsheets", force: :cascade do |t|
@@ -47,6 +51,7 @@ ActiveRecord::Schema.define(version: 2021_12_18_204534) do
     t.datetime "updated_at", precision: 6, null: false
     t.json "metadata"
     t.bigint "track_id"
+    t.string "title"
     t.index ["track_id"], name: "index_songsheets_on_track_id"
   end
 
@@ -57,6 +62,10 @@ ActiveRecord::Schema.define(version: 2021_12_18_204534) do
     t.bigint "album_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "has_songsheet"
+    t.integer "number"
+    t.integer "duration"
+    t.bigint "listeners"
     t.index ["album_id"], name: "index_tracks_on_album_id"
     t.index ["artist_id"], name: "index_tracks_on_artist_id"
   end

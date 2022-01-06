@@ -1,25 +1,26 @@
 class Songsheet < ApplicationRecord
+  include AlphaPaginate
+  include Metadata
+
   belongs_to :track, optional: true
   has_many :artist_works, as: :work
   has_many :artists, through: :artist_works
 
   scope :recent, -> { order(created_at: :desc) }
-  store_accessor :metadata, :title, :subtitle, :artist
 
-  validates :title, :subtitle, presence: true
+  validates :title, presence: true
 
-  before_save :associate_track_and_artists
-  after_create { LookupSongsheetMetadata.perform_later self }
-
-  def subtitle
-    super || artist
-  end
+  before_save :associate_metadata
 
   private
 
-  def associate_track_and_artists
-    self.artists = Array(metadata["artist"]).map { |name| Artist.find_by(name: name) }.compact
+  def associate_metadata
+    self.artists = Array(metadata["artist"]).map do |name|
+      Artist.find_or_initialize_by(name: name)
+    end
+
     self.track ||= Track.find_by(title: title, artist_id: artists.map(&:id))
-    true
+
+    track&.has_songsheet!
   end
 end
