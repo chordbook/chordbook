@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     resources :songsheets
   end
 
-  mount GoodJob::Engine => 'admin/jobs'
+  mount GoodJob::Engine => "admin/jobs"
 
   get "*anything", to: "content#index"
 end
