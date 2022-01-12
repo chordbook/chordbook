@@ -15,9 +15,9 @@ class LookupMetadata < ApplicationJob
   def sync_artist(artist, recursive: true, metadata: nil)
     # No new metadata provided, look it up
     unless metadata
-      response = if artist.metadata
+      response = if id = artist.metadata["idArtist"]
         # Artist was previously synced, but lookup by known id to refresh
-        get "artist.php", query: {i: artist.metadata["idArtist"]}
+        get "artist.php", query: {i: id}
       else
         # New artist, search and use first result
         get "search.php", query: {s: artist.name}
@@ -72,7 +72,7 @@ class LookupMetadata < ApplicationJob
     now = Time.now
 
     # Only allow 1 request/sec for this job
-    if last_requested_at
+    if last_requested_at && !Rails.env.test?
       diff = now - last_requested_at
       sleep diff if diff < 1.0
     end

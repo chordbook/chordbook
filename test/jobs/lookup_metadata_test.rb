@@ -11,19 +11,16 @@ class LookupMetadataTest < ActiveJob::TestCase
 
       assert_instance_of Hash, artist.metadata
       assert_equal "111247", artist.metadata["idArtist"]
-      assert_enqueued_jobs 52
     end
   end
 
-  test "update existing artist" do
+  test "artist, non-recursive" do
     artist = create :artist, name: "The Beatles", metadata: {idArtist: 111247, intFormedYear: 1900}
-    artist.reload # Reload so it is not a new record
-    assert !artist.id_previously_changed?
 
     VCR.use_cassette("tadb/the_beatles") do
-      # Should not recursively sync on update
+      # Should not recursively sync albums
       assert_difference -> { artist.albums.count }, 0 do
-        LookupMetadata.perform_now artist
+        LookupMetadata.perform_now artist, recursive: false
       end
 
       assert_instance_of Hash, artist.metadata
@@ -33,7 +30,7 @@ class LookupMetadataTest < ActiveJob::TestCase
   end
 
   test "album" do
-    VCR.use_cassette("tadb/the_beatles/the_white_album") do
+    VCR.use_cassette("tadb/the_beatles") do
       artist = create :artist, name: "The Beatles", metadata: {idArtist: 111247}
       album = create :album, title: "The White Album", artist: artist
 

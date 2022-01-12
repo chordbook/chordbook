@@ -1,7 +1,7 @@
 <template>
   <header class="py-4 text-white px-4 md:px-6">
-    <div class="max-w-8xl mx-auto sticky flex items-center">
-      <h1 class="grow">
+    <div class="max-w-8xl mx-auto sticky grid grid-cols-3 items-center">
+      <h1 class="">
         <router-link
           to="/"
           class="font-semibold flex items-center"
@@ -11,11 +11,11 @@
         </router-link>
       </h1>
 
-      <div class="mx-4">
+      <div class="flex place-content-center">
         <app-search />
       </div>
 
-      <ul class="flex gap-8 place-items-center">
+      <ul class="flex gap-8 place-items-center place-content-end">
         <li>
           <router-link to="/songsheets">
             Songs
