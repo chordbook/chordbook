@@ -6,7 +6,7 @@
         :key="id"
       >
         <router-link
-          :to="{ query: { type: id, q } }"
+          :to="{ query: { ...$route.query, type: id } }"
           :class="{
             'text-white bg-slate-500': id === type,
             'text-slate-400 bg-slate-200 hover:bg-slate-300 dark:bg-slate-600': id !== type,
@@ -75,14 +75,13 @@ export default {
     }
   },
 
+  watch: {
+    q: 'update',
+    type: 'update'
+  },
+
   created () {
     this.update()
-
-    this.$watch(
-      () => this.$route.params,
-      () => this.update(),
-      { immediate: true }
-    )
   },
 
   methods: {

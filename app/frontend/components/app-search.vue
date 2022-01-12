@@ -15,11 +15,15 @@
 export default {
   data () {
     return {
-      q: this.$route.params.q
+      q: ''
     }
   },
 
   watch: {
+    $route () {
+      this.q = this.$route.query.q
+    },
+
     q: 'search'
   },
 
@@ -31,7 +35,8 @@ export default {
           {},
           this.$route.query,
           { q: this.q }
-        )
+        ),
+        replace: this.$route.name === 'search'
       })
     }
   }
