@@ -53,22 +53,6 @@
                 </div>
               </router-link>
             </li>
-            <li class="absolute top-0 bottom-0 left-0 flex flex-col place-content-center bg-gradient-to-r via-white from-white dark:via-slate-800 dark:from-slate-800 w-16 pr-4 pb-10 mb-4">
-              <a
-                href=""
-                class="opacity-0 group-hover:opacity-50 transition ease-in-out"
-              >
-                <icon-bi:chevron-left />
-              </a>
-            </li>
-            <li class="absolute top-0 bottom-0 right-0 flex flex-col place-content-center bg-gradient-to-l via-white from-white dark:via-slate-800 dark:from-slate-800 w-16 pl-4 pb-10 mb-4 text-right">
-              <a
-                href=""
-                class="opacity-0 group-hover:opacity-50 transition ease-in-out"
-              >
-                <icon-bi:chevron-right />
-              </a>
-            </li>
           </ul>
         </div>
       </div>
