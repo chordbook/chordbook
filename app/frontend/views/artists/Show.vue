@@ -72,8 +72,6 @@
             class="my-3"
           />
         </ul>
-
-        <a href="">View All</a>
       </div>
       <div class="my-6">
         <h2 class="text-2xl mb-3">
@@ -88,8 +86,6 @@
             class="my-3"
           />
         </div>
-
-        <a href="">View All</a>
       </div>
 
       <div class="grid gap-8 grid-cols-2">
