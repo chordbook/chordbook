@@ -1,3 +1,5 @@
+require 'throttle'
+
 class LookupMetadata < ApplicationJob
   include HTTParty
   API_KEY = ENV["THEAUDIODB_API_KEY"] || "2" # default public key
@@ -6,7 +8,7 @@ class LookupMetadata < ApplicationJob
 
   delegate :get, :path, to: :class
 
-  class_attribute :last_requested_at
+  class_attribute :throttle, default: Throttle.new(1.second)
 
   def perform(model, recursive: true, **args)
     send "sync_#{model.class.name.underscore}", model, recursive: recursive, **args
@@ -63,20 +65,8 @@ class LookupMetadata < ApplicationJob
   end
 
   def self.get(path, *args)
-    one_request_per_second
-    super "/api/v1/json/#{API_KEY}/#{path}", *args
-  end
-
-  # FIXME: make this thread safe
-  def self.one_request_per_second
-    now = Time.now
-
-    # Only allow 1 request/sec for this job
-    if last_requested_at && !Rails.env.test?
-      diff = now - last_requested_at
-      sleep diff if diff < 1.0
+    throttle.call do
+      super "/api/v1/json/#{API_KEY}/#{path}", *args
     end
-
-    self.last_requested_at = now
   end
 end

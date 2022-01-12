@@ -1,6 +1,10 @@
 require "test_helper"
 
 class LookupMetadataTest < ActiveJob::TestCase
+  setup do
+    LookupMetadata.throttle = Throttle.new(0)
+  end
+
   test "new artist" do
     VCR.use_cassette("tadb/the_beatles") do
       artist = create :artist, name: "The Beatles"
