@@ -19,7 +19,7 @@ class ThrottleTest < ActiveSupport::TestCase
 
     threads.each(&:join)
     actual_elapsed = Time.now - start_at
-    expected_elapsed = 25 * duration * 0.99 # fudge factor
+    expected_elapsed = count * duration * 0.95 # fudge factor
 
     assert_equal 25, count
     assert actual_elapsed >= expected_elapsed, "Expected >=#{expected_elapsed} seconds to elapse, but was #{actual_elapsed}"

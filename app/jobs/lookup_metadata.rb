@@ -1,4 +1,4 @@
-require 'throttle'
+require "throttle"
 
 class LookupMetadata < ApplicationJob
   include HTTParty
