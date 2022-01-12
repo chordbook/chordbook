@@ -22,6 +22,9 @@
                 :src="artist.thumbnail"
                 class="w-full h-full absolute inset-0"
               >
+              <div v-else class="w-full h-full absolute inset-0 opacity-10 flex place-content-center items-center">
+                <icon-bi:person-fill class="icon-large" />
+              </div>
             </div>
             <div class="mt-3 text-center">
               <h3 class="whitespace-nowrap text-sm font-bold overflow-hidden text-ellipsis">

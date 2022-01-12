@@ -9,6 +9,9 @@
       :src="src"
       class="absolute inset-0 w-full h-full"
     >
+    <div v-else class="w-full h-full absolute inset-0 flex place-content-center items-center">
+      <icon-bi:disc class="text-slate-200 dark:text-slate-800" style="width: 50%; height: 50%" />
+    </div>
   </div>
 </template>
 
