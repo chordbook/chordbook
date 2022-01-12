@@ -5,6 +5,7 @@
     <input
       v-model="q"
       type="search"
+      placeholder="Search…"
       class="bg-transparent border-none focus:ring-0"
       @keyup.enter="search"
     >
