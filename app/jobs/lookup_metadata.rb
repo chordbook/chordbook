@@ -15,7 +15,7 @@ class LookupMetadata < ApplicationJob
   def sync_artist(artist, recursive: true, metadata: nil)
     # No new metadata provided, look it up
     unless metadata
-      response = if id = artist.metadata["idArtist"]
+      response = if (id = artist.metadata["idArtist"])
         # Artist was previously synced, but lookup by known id to refresh
         get "artist.php", query: {i: id}
       else

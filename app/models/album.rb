@@ -20,7 +20,7 @@ class Album < ApplicationRecord
       data: {
         title: title,
         subtitle: artist.name,
-        thumbnail: thumbnail,
+        thumbnail: thumbnail
       }
     }
   end

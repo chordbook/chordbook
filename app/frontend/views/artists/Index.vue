@@ -22,7 +22,10 @@
                 :src="artist.thumbnail"
                 class="w-full h-full absolute inset-0"
               >
-              <div v-else class="w-full h-full absolute inset-0 opacity-10 flex place-content-center items-center">
+              <div
+                v-else
+                class="w-full h-full absolute inset-0 opacity-10 flex place-content-center items-center"
+              >
                 <icon-bi:person-fill class="icon-large" />
               </div>
             </div>
