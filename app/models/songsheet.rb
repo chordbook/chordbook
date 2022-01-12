@@ -11,7 +11,6 @@ class Songsheet < ApplicationRecord
 
   validates :title, presence: true
 
-  after_initialize { self.metadata ||= {} }
   before_save :associate_metadata
   after_save :mark_track
 

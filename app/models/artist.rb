@@ -8,7 +8,7 @@ class Artist < ApplicationRecord
   has_many :artist_works, dependent: :destroy
   has_many :songsheets, through: :artist_works, source: :work, source_type: "Songsheet"
 
-  after_commit(on: :create) { LookupMetadata.perform_later(self, recursive: true) unless metadata }
+  after_commit(on: :create) { LookupMetadata.perform_later(self) }
 
   multisearchable against: [:name],
     additional_attributes: ->(record) { record.searchable_data }

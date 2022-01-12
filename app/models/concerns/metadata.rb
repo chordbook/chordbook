@@ -3,6 +3,7 @@ module Metadata
 
   included do
     class_attribute :metadata_mapping, default: HashWithIndifferentAccess.new
+    after_initialize { self.metadata ||= {} }
     before_validation :move_metadata_to_attributes
   end
 

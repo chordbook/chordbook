@@ -11,6 +11,7 @@ gem "vite_rails"
 gem "jbuilder"
 gem "httparty"
 gem "pg_search"
+gem "good_job"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
