@@ -7,6 +7,12 @@ const routes = [
     component: () => import('~/views/artists/Index.vue')
   },
   {
+    path: '/search',
+    name: 'search',
+    props: route => ({ q: route.query.q, type: route.query.type }),
+    component: () => import('~/views/Search.vue')
+  },
+  {
     path: '/artists/:id',
     name: 'artist',
     component: () => import('~/views/artists/Show.vue')
@@ -34,14 +40,15 @@ const routes = [
     name: 'songsheet',
     component: () => import('~/views/songsheets/Show.vue')
   },
-  // {
-  //   path: '/tracks/:id/songsheets',
-  //   name: 'track.songsheet',
-  //   redirect: to => {
-  //     api.get('/api/tracks/:id/songsheets')
-  //   }
-  //   // component: () => import('~/views/songsheets/Show.vue')
-  // },
+  {
+    path: '/tracks/:id',
+    name: 'track',
+    redirect: to => {
+      console.log('Redirecting!', to)
+      // api.get('/api/tracks/:id/songsheets')
+    }
+    // component: () => import('~/views/songsheets/Show.vue')
+  },
   {
     path: '/songsheets/:id/edit',
     name: 'songsheet.edit',

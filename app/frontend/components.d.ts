@@ -17,6 +17,7 @@ declare module 'vue' {
     'IconBi:layoutThreeColumns': typeof import('~icons/bi/layout-three-columns')['default']
     'IconBi:mic': typeof import('~icons/bi/mic')['default']
     'IconBi:micFill': typeof import('~icons/bi/mic-fill')['default']
+    'IconBi:search': typeof import('~icons/bi/search')['default']
     'IconBiLayoutThreeColumns\"': typeof import('~icons/bi/layout-three-columns/"')['default']
   }
 }

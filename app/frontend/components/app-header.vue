@@ -11,6 +11,10 @@
         </router-link>
       </h1>
 
+      <div class="mx-4">
+        <app-search />
+      </div>
+
       <ul class="flex gap-8 place-items-center">
         <li>
           <router-link to="/songsheets">

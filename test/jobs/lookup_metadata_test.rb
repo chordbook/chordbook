@@ -3,7 +3,7 @@ require "test_helper"
 class LookupMetadataTest < ActiveJob::TestCase
   test "new artist" do
     VCR.use_cassette("tadb/the_beatles") do
-      artist = Artist.create! name: "The Beatles"
+      artist = create :artist, name: "The Beatles"
 
       assert_difference -> { artist.albums.count }, 50 do
         LookupMetadata.perform_now artist
@@ -16,7 +16,7 @@ class LookupMetadataTest < ActiveJob::TestCase
   end
 
   test "update existing artist" do
-    artist = Artist.create! name: "The Beatles", metadata: {idArtist: 111247, intFormedYear: 1900}
+    artist = create :artist, name: "The Beatles", metadata: {idArtist: 111247, intFormedYear: 1900}
     artist.reload # Reload so it is not a new record
     assert !artist.id_previously_changed?
 
@@ -34,8 +34,8 @@ class LookupMetadataTest < ActiveJob::TestCase
 
   test "album" do
     VCR.use_cassette("tadb/the_beatles/the_white_album") do
-      artist = Artist.create! name: "The Beatles", metadata: {idArtist: 111247}
-      album = Album.create! title: "The White Album", artist: artist
+      artist = create :artist, name: "The Beatles", metadata: {idArtist: 111247}
+      album = create :album, title: "The White Album", artist: artist
 
       assert_difference -> { album.tracks.count }, 30 do
         LookupMetadata.perform_now album

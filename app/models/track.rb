@@ -1,6 +1,7 @@
 class Track < ApplicationRecord
   include AlphaPaginate
   include Metadata
+  include PgSearch::Model
 
   belongs_to :album, optional: true
   belongs_to :artist
@@ -10,14 +11,29 @@ class Track < ApplicationRecord
 
   after_create :associate_songsheets
 
+  multisearchable additional_attributes: ->(record) { {data: record.searchable_data} },
+    unless: :has_songsheet? # No need to index tracks with songsheets
+
   map_metadata(
     intTrackNumber: :number,
     intDuration: :duration,
     intTotalListeners: :listeners
   )
 
+  def searchable_text
+    [title, artist&.name, album&.title].compact.join(" ")
+  end
+
+  def searchable_data
+    {
+      title: title,
+      subtitle: artist.name,
+      thumbnail: album&.thumbnail
+    }
+  end
+
   def has_songsheet!
-    update_column :has_songsheet, true
+    update_attribute :has_songsheet, true
   end
 
   def associate_songsheets

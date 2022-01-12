@@ -1,6 +1,7 @@
 class Artist < ApplicationRecord
   include AlphaPaginate
   include Metadata
+  include PgSearch::Model
 
   has_many :albums, dependent: :destroy
   has_many :tracks, dependent: :destroy
@@ -8,6 +9,17 @@ class Artist < ApplicationRecord
   has_many :songsheets, through: :artist_works, source: :work, source_type: "Songsheet"
 
   after_create { LookupMetadata.perform_later(self, recursive: true) unless metadata }
+
+  multisearchable against: [:name],
+    additional_attributes: ->(record) { {data: record.searchable_data} }
+
+  def searchable_data
+    {
+      title: name,
+      subtitle: nil,
+      thumbnail: thumbnail
+    }
+  end
 
   map_metadata(
     strArtistThumb: :thumbnail,
@@ -17,6 +29,6 @@ class Artist < ApplicationRecord
   )
 
   def banner
-    %w[strArtistFanart strArtistWideThumb].map { |x| metadata&.fetch(x) }.compact.first
+    %w[strArtistFanart strArtistWideThumb].map { |x| metadata[x] if metadata }.compact.first
   end
 end

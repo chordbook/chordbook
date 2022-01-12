@@ -2,7 +2,7 @@ require "test_helper"
 
 class Api::ArtistsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @artist = Artist.create! name: "The Beatles"
+    @artist = create :artist
   end
 
   test "index" do

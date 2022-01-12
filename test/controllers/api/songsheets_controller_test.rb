@@ -2,7 +2,7 @@ require "test_helper"
 
 class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @songsheet = Songsheet.create! title: "Why Georgia", artist: "John Mayer"
+    @songsheet = create :songsheet, title: "Why Georgia", metadata: {artist: "John Mayer"}
   end
 
   test "GET /songsheets" do
@@ -21,10 +21,10 @@ class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
 
   test "GET /tracks/:track_id/songsheets" do
     # Create track, which will associate itself with the songsheet
-    track = Track.create!(title: @songsheet.title, artist: @songsheet.artists.first)
+    track = create :track, title: @songsheet.title, artist: @songsheet.artists.first
 
     # create another songsheet, which should not show up in results
-    Songsheet.create!(title: "Testing", subtitle: "Testing")
+    create :songsheet, title: "Testing", metadata: {subtitle: "Testing"}
 
     get api_track_songsheets_url(track, format: :json)
     assert_response :success
