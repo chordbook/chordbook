@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { useDebounceFn } from '@vueuse/core'
+
 export default {
   data () {
     return {
@@ -28,7 +30,9 @@ export default {
   },
 
   methods: {
-    search () {
+    search: useDebounceFn(function () {
+      if (!this.q) return
+
       this.$router.push({
         name: 'search',
         query: Object.assign(
@@ -38,7 +42,7 @@ export default {
         ),
         replace: this.$route.name === 'search'
       })
-    }
+    }, 500, { maxWait: 2000 })
   }
 }
 </script>
