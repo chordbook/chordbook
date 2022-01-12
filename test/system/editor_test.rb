@@ -25,7 +25,7 @@ class EditorTest < ApplicationSystemTestCase
   test "editing existing song" do
     songsheet = Songsheet.create!(
       title: "Song Name",
-      subtitle: "Song Subtitle",
+      metadata: {subtitle: "Song Subtitle"},
       source: "Song source"
     )
 
@@ -42,7 +42,7 @@ class EditorTest < ApplicationSystemTestCase
 
     songsheet.reload
     assert_equal "New Title", songsheet.title
-    assert_equal "New Subtitle", songsheet.subtitle
+    assert_equal "New Subtitle", songsheet.metadata["subtitle"]
     assert_equal source, songsheet.source
     assert_no_js_errors
   end
