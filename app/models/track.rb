@@ -11,7 +11,7 @@ class Track < ApplicationRecord
 
   after_create :associate_songsheets
 
-  multisearchable additional_attributes: ->(record) { {data: record.searchable_data} },
+  multisearchable additional_attributes: ->(record) { record.searchable_data },
     unless: :has_songsheet? # No need to index tracks with songsheets
 
   map_metadata(
@@ -26,9 +26,12 @@ class Track < ApplicationRecord
 
   def searchable_data
     {
-      title: title,
-      subtitle: artist.name,
-      thumbnail: album&.thumbnail
+      weight: 0.25,
+      data: {
+        title: title,
+        subtitle: artist.name,
+        thumbnail: album&.thumbnail
+      }
     }
   end
 

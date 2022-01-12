@@ -11,13 +11,16 @@ class Artist < ApplicationRecord
   after_create { LookupMetadata.perform_later(self, recursive: true) unless metadata }
 
   multisearchable against: [:name],
-    additional_attributes: ->(record) { {data: record.searchable_data} }
+    additional_attributes: ->(record) { record.searchable_data }
 
   def searchable_data
     {
-      title: name,
-      subtitle: nil,
-      thumbnail: thumbnail
+      weight: 0.8,
+      data: {
+        title: name,
+        subtitle: nil,
+        thumbnail: thumbnail
+      }
     }
   end
 

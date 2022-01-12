@@ -15,7 +15,7 @@ class Songsheet < ApplicationRecord
   before_save :associate_metadata
   after_save :mark_track
 
-  multisearchable additional_attributes: ->(record) { {data: record.searchable_data} }
+  multisearchable additional_attributes: ->(record) { record.searchable_data }
 
   def searchable_text
     [
@@ -27,9 +27,12 @@ class Songsheet < ApplicationRecord
 
   def searchable_data
     {
-      title: title,
-      subtitle: metadata["artist"] && "by #{Array(metadata["artist"]).to_sentence}",
-      thumbnail: track&.album&.thumbnail
+      weight: 1.0,
+      data: {
+        title: title,
+        subtitle: metadata["artist"] && "by #{Array(metadata["artist"]).to_sentence}",
+        thumbnail: track&.album&.thumbnail
+      }
     }
   end
 
