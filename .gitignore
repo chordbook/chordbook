@@ -45,3 +45,4 @@ node_modules
 .DS_Store
 
 .env
+app/frontend/components.d.ts

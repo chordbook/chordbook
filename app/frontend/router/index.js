@@ -7,10 +7,19 @@ const routes = [
     component: () => import('~/views/artists/Index.vue')
   },
   {
-    path: '/search',
-    name: 'search',
+    path: '/discover',
+    component: () => import('~/views/discover/Index.vue'),
     props: route => route.query,
-    component: () => import('~/views/Search.vue')
+    children: [
+      {
+        path: '',
+        name: 'discover',
+        components: {
+          search: () => import('~/views/discover/Search.vue'),
+          browse: () => import('~/views/discover/Browse.vue')
+        }
+      }
+    ]
   },
   {
     path: '/artists/:id',
@@ -24,6 +33,7 @@ const routes = [
   },
   {
     path: '/tuner',
+    name: 'tuner',
     component: () => import('~/views/Tuner.vue')
   },
   {

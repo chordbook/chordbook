@@ -1,6 +1,6 @@
 <template>
-  <div class="max-w-xl mx-auto py-12">
-    <ul class="flex place-content-center mb-10 gap-2">
+  <div>
+    <ul class="flex mb-10 gap-2">
       <li
         v-for="id, name in types"
         :key="id"
