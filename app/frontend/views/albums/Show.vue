@@ -82,7 +82,7 @@ export default {
   methods: {
     songsheetLink (track) {
       return {
-        name: track.has_songsheet ? 'songsheet.track' : 'songsheet.new',
+        name: track.has_songsheet ? 'track' : 'songsheet.new',
         params: { track: track.id }
       }
     }

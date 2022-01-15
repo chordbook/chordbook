@@ -1,5 +1,8 @@
 <template>
-  <div class="flex gap-4">
+  <router-link
+    :to="{ name: 'track', params: { id } }"
+    class="flex gap-4"
+  >
     <div class="w-12 h-12 flex-none">
       <album-artwork
         :src="album?.thumbnail"
@@ -17,12 +20,16 @@
         {{ album.title }}
       </router-link>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
 export default {
   props: {
+    id: {
+      type: Number,
+      required: true
+    },
     title: {
       type: String,
       required: true
