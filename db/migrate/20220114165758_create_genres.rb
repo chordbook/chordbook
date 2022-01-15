@@ -20,7 +20,7 @@ class CreateGenres < ActiveRecord::Migration[7.0]
     reversible do |dir|
       dir.up do
         Artist.distinct.pluck(:genre).each do |name|
-          unless name.blank
+          unless name.blank?
             genre = Genre.find_or_create_by!(name: name)
             Artist.where(genre: name).update_all(genre_id: genre.id)
           end
