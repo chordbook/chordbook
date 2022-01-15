@@ -7,7 +7,9 @@ class Artist < ApplicationRecord
   has_many :tracks, dependent: :destroy
   has_many :artist_works, dependent: :destroy
   has_many :songsheets, through: :artist_works, source: :work, source_type: "Songsheet"
+  belongs_to :genre, optional: true
 
+  before_validation :associate_genre
   after_commit(on: :create) { LookupMetadata.perform_later(self) }
 
   multisearchable against: [:name],
@@ -27,11 +29,15 @@ class Artist < ApplicationRecord
   map_metadata(
     strArtistThumb: :thumbnail,
     strStyle: :style,
-    strGenre: :genre,
     strBiographyEN: :biography
   )
 
   def banner
     %w[strArtistFanart strArtistWideThumb].map { |x| metadata[x] if metadata }.compact.first
+  end
+
+  def associate_genre
+    return unless metadata["strGenre"]
+    self.genre = Genre.find_or_create_by!(name: metadata["strGenre"])
   end
 end

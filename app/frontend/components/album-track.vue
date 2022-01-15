@@ -1,13 +1,15 @@
 <template>
   <div class="flex gap-4">
-    <div class="w-12 h-12">
+    <div class="w-12 h-12 flex-none">
       <album-artwork
         :src="album?.thumbnail"
         class="shadow-sm hover:shadow-lg"
       />
     </div>
-    <div>
-      <div>{{ title }}</div>
+    <div class="overflow-hidden">
+      <div class="truncate">
+        {{ title }}
+      </div>
       <router-link
         :to="{ name: 'album', params: { id: album.id } }"
         class="text-sm opacity-50"

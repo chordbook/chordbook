@@ -86,6 +86,8 @@ export default {
 
   methods: {
     update () {
+      if (!this.q) return
+
       this.$http.get('/api/search', { params: { q: this.q, type: this.type } }).then(response => {
         this.results = response.data
       })

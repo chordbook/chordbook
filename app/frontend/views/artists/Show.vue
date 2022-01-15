@@ -10,7 +10,12 @@
           {{ artist.name }}
         </h1>
         <div class="opacity-60">
-          {{ artist.genre }}
+          <router-link
+            v-if="artist.genre"
+            :to="{ name: 'genre', params: { id: artist.genre.id } }"
+          >
+            {{ artist.genre.name }}
+          </router-link>
         </div>
       </div>
     </div>

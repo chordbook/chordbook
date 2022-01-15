@@ -21,4 +21,8 @@ FactoryBot.define do
 
     artists { [track&.artist].compact }
   end
+
+  factory :genre do
+    name { Faker::Music.genre }
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_12_181445) do
+ActiveRecord::Schema.define(version: 2022_01_14_165758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -44,8 +44,15 @@ ActiveRecord::Schema.define(version: 2022_01_12_181445) do
     t.json "metadata"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "genre"
     t.string "style"
+    t.bigint "genre_id"
+    t.index ["genre_id"], name: "index_artists_on_genre_id"
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "good_job_processes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -111,10 +118,15 @@ ActiveRecord::Schema.define(version: 2022_01_12_181445) do
     t.integer "number"
     t.integer "duration"
     t.bigint "listeners"
+    t.bigint "genre_id"
     t.index ["album_id"], name: "index_tracks_on_album_id"
     t.index ["artist_id"], name: "index_tracks_on_artist_id"
+    t.index ["genre_id", "listeners"], name: "index_tracks_on_genre_id_and_listeners"
+    t.index ["genre_id"], name: "index_tracks_on_genre_id"
   end
 
   add_foreign_key "artist_works", "artists"
+  add_foreign_key "artists", "genres"
   add_foreign_key "songsheets", "tracks"
+  add_foreign_key "tracks", "genres"
 end

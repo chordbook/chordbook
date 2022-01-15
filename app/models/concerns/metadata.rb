@@ -14,6 +14,10 @@ module Metadata
           define_method(accessor) do
             read_store_attribute(:metadata, key)
           end
+
+          define_method("#{accessor}=") do |value|
+            write_store_attribute(:metadata, key, value)
+          end
         end
       end
       metadata_mapping.update(mapping)

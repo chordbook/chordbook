@@ -3,43 +3,13 @@
     <div class="max-w-8xl mx-auto p-4 md:p-6 lg:p-8">
       <alpha-paginate />
 
-      <ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-10">
-        <li
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-10">
+        <artist-list-item
           v-for="artist in artists"
           :key="artist.id"
-        >
-          <router-link
-            :to="{ name: 'artist', params: { id: artist.id }}"
-            class="block"
-          >
-            <div class="bg-white dark:bg-slate-900 shadow-md hover:shadow-lg relative overflow-hidden rounded-full">
-              <canvas
-                width="400"
-                height="400"
-              />
-              <img
-                v-if="artist.thumbnail"
-                :src="artist.thumbnail"
-                class="w-full h-full absolute inset-0"
-              >
-              <div
-                v-else
-                class="w-full h-full absolute inset-0 opacity-10 flex place-content-center items-center"
-              >
-                <icon-bi:person-fill class="icon-large" />
-              </div>
-            </div>
-            <div class="mt-3 text-center">
-              <h3 class="whitespace-nowrap text-sm font-bold overflow-hidden text-ellipsis">
-                {{ artist.name }}
-              </h3>
-              <div class="text-xs opacity-70">
-                Artist
-              </div>
-            </div>
-          </router-link>
-        </li>
-      </ul>
+          :artist="artist"
+        />
+      </div>
     </div>
   </div>
 </template>

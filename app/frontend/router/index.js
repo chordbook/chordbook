@@ -3,6 +3,10 @@ import { createWebHistory, createRouter } from 'vue-router'
 const routes = [
   {
     path: '/',
+    redirect: '/discover'
+  },
+  {
+    path: '/artists',
     name: 'artists',
     component: () => import('~/views/artists/Index.vue')
   },
@@ -20,6 +24,11 @@ const routes = [
         }
       }
     ]
+  },
+  {
+    path: '/genres/:id',
+    name: 'genre',
+    component: () => import('~/views/discover/Genre.vue')
   },
   {
     path: '/artists/:id',

@@ -29,7 +29,7 @@
     />
 
     <router-view
-      v-if="!query"
+      v-show="!query"
       name="browse"
     />
   </div>
@@ -47,7 +47,7 @@ export default {
     }
   },
 
-  data() {
+  data () {
     return { query: '' }
   },
 
@@ -63,7 +63,6 @@ export default {
   methods: {
     updateFromRoute () {
       const q = this.$route.query.q
-      console.log('Updating', { q })
       if (q) this.query = q
     },
 
@@ -71,7 +70,7 @@ export default {
       this.query = ''
     },
 
-    search: useDebounceFn(function () {
+    searchNow () {
       if (this.query === undefined) return
 
       this.$router.push({
@@ -83,6 +82,10 @@ export default {
         ),
         replace: this.$route.name === 'discover'
       })
+    },
+
+    search: useDebounceFn(function () {
+      this.searchNow()
     }, 500, { maxWait: 2000 })
   }
 }

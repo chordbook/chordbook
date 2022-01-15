@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       resources :songsheets, only: [:index]
     end
     resources :songsheets
+    resources :genres
   end
 
   mount GoodJob::Engine => "admin/jobs"
