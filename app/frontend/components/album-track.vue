@@ -12,7 +12,7 @@
       </div>
       <router-link
         :to="{ name: 'album', params: { id: album.id } }"
-        class="text-sm opacity-50"
+        class="block truncate text-sm opacity-50"
       >
         {{ album.title }}
       </router-link>

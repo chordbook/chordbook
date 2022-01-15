@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_14_165758) do
+ActiveRecord::Schema.define(version: 2022_01_15_051449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -26,7 +26,9 @@ ActiveRecord::Schema.define(version: 2022_01_14_165758) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "released"
     t.decimal "score", precision: 3, scale: 1
+    t.bigint "genre_id"
     t.index ["artist_id"], name: "index_albums_on_artist_id"
+    t.index ["genre_id"], name: "index_albums_on_genre_id"
   end
 
   create_table "artist_works", force: :cascade do |t|
@@ -125,6 +127,7 @@ ActiveRecord::Schema.define(version: 2022_01_14_165758) do
     t.index ["genre_id"], name: "index_tracks_on_genre_id"
   end
 
+  add_foreign_key "albums", "genres"
   add_foreign_key "artist_works", "artists"
   add_foreign_key "artists", "genres"
   add_foreign_key "songsheets", "tracks"

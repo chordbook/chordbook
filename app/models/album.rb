@@ -3,7 +3,10 @@ class Album < ApplicationRecord
   include PgSearch::Model
 
   belongs_to :artist
+  belongs_to :genre, optional: true
   has_many :tracks
+
+  before_validation :associate_genre
 
   scope :order_by_popular, -> { order("albums.score DESC NULLS LAST") }
   scope :order_by_released, ->(dir = :desc) { order(released: "#{dir} NULLS LAST") }
@@ -29,9 +32,11 @@ class Album < ApplicationRecord
     strAlbumThumb: :thumbnail,
     intYearReleased: :released,
     strStyle: :style,
-    strGenre: :genre,
     strDescriptionEN: :description
   )
 
-  after_create { LookupMetadata.perform_later(self) unless metadata }
+  def associate_genre
+    return unless metadata["strGenre"]
+    self.genre = Genre.find_or_create_by!(name: metadata["strGenre"])
+  end
 end

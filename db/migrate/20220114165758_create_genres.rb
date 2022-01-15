@@ -3,6 +3,8 @@ class CreateGenres < ActiveRecord::Migration[7.0]
 
   class Artist < ApplicationRecord; end
 
+  class Track < ApplicationRecord; end
+
   def change
     create_table :genres do |t|
       t.string :name

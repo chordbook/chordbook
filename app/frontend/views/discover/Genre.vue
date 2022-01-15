@@ -29,6 +29,27 @@
         />
       </div>
 
+      <div
+        v-if="genre.albums.length > 0"
+        class="my-6"
+      >
+        <h2 class="text-2xl mb-3">
+          Top Albums
+        </h2>
+
+        <div class="relative -mx-8 group">
+          <div class="flex flex-no-wrap overflow-x-scroll scrolling-touch mb-8 gap-8 overscroll-x-contain pb-4 px-8">
+            <album-list-item
+              v-for="album in genre.albums"
+              :key="album.id"
+              :album="album"
+              show="artist"
+              class="flex-none w-1/6"
+            />
+          </div>
+        </div>
+      </div>
+
       <h2 class="text-2xl mb-3">
         Top Artists
       </h2>

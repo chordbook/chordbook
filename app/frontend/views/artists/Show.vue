@@ -37,28 +37,14 @@
         </h2>
 
         <div class="relative -mx-8 group">
-          <ul class="flex flex-no-wrap overflow-x-scroll scrolling-touch mb-8 gap-8 overscroll-x-contain pb-4 px-8">
-            <li
+          <div class="flex flex-no-wrap overflow-x-scroll scrolling-touch mb-8 gap-8 overscroll-x-contain pb-4 px-8">
+            <album-list-item
               v-for="album in albums"
               :key="album.id"
+              :album="album"
               class="flex-none w-1/6"
-            >
-              <router-link
-                :to="{ name: 'album', params: { id: album.id } }"
-                class="block"
-              >
-                <album-artwork :src="album.thumbnail" />
-                <div class="mt-2 text-sm">
-                  <div class="whitespace-nowrap overflow-hidden text-ellipsis">
-                    {{ album.title }}
-                  </div>
-                  <div class="text-xs opacity-50">
-                    {{ album.released }}
-                  </div>
-                </div>
-              </router-link>
-            </li>
-          </ul>
+            />
+          </div>
         </div>
       </div>
       <div

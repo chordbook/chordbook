@@ -3,14 +3,15 @@ class Track < ApplicationRecord
   include Metadata
   include PgSearch::Model
 
-  belongs_to :album, optional: true
   belongs_to :artist
+  belongs_to :album, optional: true
   belongs_to :genre, optional: true
 
   has_many :songsheets
 
   scope :order_by_popular, -> { order("tracks.listeners DESC NULLS LAST") }
 
+  before_validation :associate_genre
   after_create :associate_songsheets
 
   multisearchable additional_attributes: ->(record) { record.searchable_data },
@@ -46,5 +47,10 @@ class Track < ApplicationRecord
       .where(artists: artist)
       .where(songsheets: {title: title})
       .update(track: self)
+  end
+
+  def associate_genre
+    return unless metadata["strGenre"]
+    self.genre = Genre.find_or_create_by!(name: metadata["strGenre"])
   end
 end
