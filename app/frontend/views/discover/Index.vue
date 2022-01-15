@@ -7,6 +7,7 @@
         </label>
         <input
           id="search-input"
+          ref="input"
           v-model="query"
           type="search"
           placeholder="Search…"
@@ -56,8 +57,9 @@ export default {
     query: 'search'
   },
 
-  created () {
+  mounted () {
     this.updateFromRoute()
+    this.focus()
   },
 
   methods: {
@@ -86,7 +88,11 @@ export default {
 
     search: useDebounceFn(function () {
       this.searchNow()
-    }, 500, { maxWait: 2000 })
+    }, 500, { maxWait: 2000 }),
+
+    focus () {
+      this.$refs.input.focus()
+    }
   }
 }
 </script>

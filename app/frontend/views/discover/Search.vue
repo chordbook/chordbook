@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-show="q">
     <ul class="flex mb-10 gap-2">
       <li
         v-for="id, name in types"
