@@ -2,8 +2,7 @@ require "application_system_test_case"
 
 class EditorTest < ApplicationSystemTestCase
   test "creating new song" do
-    visit "/"
-    click_on "Add Song"
+    visit "/songsheets/new"
     assert_no_js_errors
 
     fill_in_editor_field file_fixture("drunken-sailor.pro").read
