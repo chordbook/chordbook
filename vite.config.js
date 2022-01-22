@@ -48,8 +48,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": root,
-      "~": root,
+      '@': root,
+      '~': root,
       handlebars: 'handlebars/dist/handlebars.js',
       vue: 'vue/dist/vue.esm-bundler.js'
     }
@@ -59,5 +59,5 @@ export default defineConfig({
     proxy: {
       '/api': process.env.APP_URL || 'http://localhost:3000'
     }
-  },
+  }
 })
