@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite'
-import RubyPlugin from 'vite-plugin-ruby'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
 import Icons from 'unplugin-icons/vite'
@@ -8,14 +7,19 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 import { string } from 'rollup-plugin-string'
 import manifest from './public/manifest.json'
+import path from 'path'
 
+const root = path.resolve(__dirname, 'app', 'frontend')
+
+// https://vitejs.dev/config/
 export default defineConfig({
+  root,
   build: {
-    sourcemap: true
+    sourcemap: true,
+    outDir: path.resolve(__dirname, 'dist')
   },
   plugins: [
     vue(),
-    RubyPlugin(),
     VitePWA({
       srcDir: 'service_workers',
       filename: 'offline.js',
@@ -29,11 +33,11 @@ export default defineConfig({
       compiler: 'vue3',
       defaultClass: 'icon',
       customCollections: {
-        app: FileSystemIconLoader('app/frontend/icons')
+        app: FileSystemIconLoader('./app/frontend/icons')
       }
     }),
     Components({
-      dts: true,
+      dts: false,
       resolvers: [
         IconsResolver({
           prefix: 'icon',
@@ -44,8 +48,16 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      "@": root,
+      "~": root,
       handlebars: 'handlebars/dist/handlebars.js',
       vue: 'vue/dist/vue.esm-bundler.js'
     }
-  }
+  },
+  server: {
+    port: 8000,
+    proxy: {
+      '/api': process.env.APP_URL || 'http://localhost:3000'
+    }
+  },
 })

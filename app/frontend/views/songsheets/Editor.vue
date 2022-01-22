@@ -79,7 +79,7 @@
 
 import ChordSheetJS from 'chordsheetjs'
 import detectFormat from '~/lib/detect_format'
-import api from '~/api'
+import api from '~/client'
 import { VAceEditor } from 'vue3-ace-editor'
 import ChordCompleter from '~/ace/chord-completer'
 import MetadataCompleter from '~/ace/metadata-completer'

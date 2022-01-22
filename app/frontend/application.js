@@ -1,11 +1,11 @@
 import './application.scss'
 import { createApp } from 'vue'
 import VueAxios from 'vue-axios'
-import store from '~/store'
-import router from '~/router'
-import api from '~/api'
+import store from './store'
+import router from './router'
+import api from './client'
 
-const components = import.meta.globEager('../components/*.vue')
+const components = import.meta.globEager('./components/*.vue')
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = createApp({

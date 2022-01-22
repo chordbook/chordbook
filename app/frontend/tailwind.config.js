@@ -1,7 +1,6 @@
 module.exports = {
   content: [
-    './**/*.html.erb',
-    './app/helpers/**/*.rb',
+    './app/frontend/**/*.html',
     './app/frontend/**/*.js',
     './app/frontend/**/*.vue'
   ],

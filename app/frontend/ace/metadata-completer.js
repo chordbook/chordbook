@@ -1,4 +1,4 @@
-import api from '~/api'
+import api from '~/client'
 
 const RE = /\{\s*([\w_-]*)\s*:\s*([^}]*)/i
 

@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import api from '~/api'
+import api from '~/client'
 import { gradient } from '~/lib/gradient'
 
 export default {

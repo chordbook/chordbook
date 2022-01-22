@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import api from '~/api'
+import api from '~/client'
 import alphaPaginate from '../../components/alpha-paginate.vue'
 
 export default {

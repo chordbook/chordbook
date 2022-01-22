@@ -7,7 +7,6 @@ gem "rails"
 gem "pg"
 gem "puma"
 gem "bootsnap", ">= 1.4.4", require: false
-gem "vite_rails"
 gem "jbuilder"
 gem "httparty"
 gem "pg_search"

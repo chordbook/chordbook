@@ -169,7 +169,7 @@ import {
   TransitionRoot
 } from '@headlessui/vue'
 import { Chord } from 'chordsheetjs'
-import api from '~/api'
+import api from '~/client'
 
 export default {
   components: { Dialog, DialogOverlay, TransitionRoot },

@@ -2,11 +2,11 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import "~/stylesheets/base";
-@import "~/stylesheets/components";
-@import "~/stylesheets/icons";
-@import "~/stylesheets/tooltips";
-@import "~/stylesheets/text-shadow";
+@import "@/stylesheets/base";
+@import "@/stylesheets/components";
+@import "@/stylesheets/icons";
+@import "@/stylesheets/tooltips";
+@import "@/stylesheets/text-shadow";
 
 .fade-enter-active,
 .fade-leave-active {

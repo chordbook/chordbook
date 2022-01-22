@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chord Book</title>
+    <meta name="description" content="Chord sheets for Guitar and Ukulele">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#000000">
+    <meta name="msapplication-TileColor" content="#10b981">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body class="bg-gray-900">
+    <div data-behavior="vue" class="flex flex-col h-screen overflow-hidden">
+      <reload-pwa></reload-pwa>
+      <div class="grow flex h-full">
+        <app-header></app-header>
+        <main class="bg-white flex-1 overflow-auto dark:bg-gray-800 dark:text-gray-200">
+          <router-view v-slot="{ Component, route }">
+            <!-- Use any custom transition and fallback to `fade` -->
+            <transition :name="route.meta.transition || 'fade'">
+              <component :is="Component" />
+            </transition>
+          </router-view>
+        </main>
+      </div>
+    </div>
+    <script type="module" src="./application.js"></script>
+  </body>
+</html>
