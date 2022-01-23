@@ -25,8 +25,9 @@ export function gradient (uid, options = {}) {
       .spin(i * spin)
       .darken(n % 10 * sign)
       .desaturate(n % 15 * sign)
-    gradient.push(color)
+    const deg = (n % 360) + (i * (360 / colors))
+    gradient.push(`linear-gradient(${deg}deg, ${color}, ${color.clone().setAlpha(0)} 90%)`)
   }
 
-  return `linear-gradient(${n % 360}deg, ${gradient.join(', ')})`
+  return gradient.join(', ')
 }

@@ -5,6 +5,9 @@ module.exports = {
     './app/frontend/**/*.vue'
   ],
   theme: {
+    aspectRatio: {
+      '4/3': '4 / 3'
+    },
     container: (theme) => ({
       center: true,
       padding: theme('spacing.4')

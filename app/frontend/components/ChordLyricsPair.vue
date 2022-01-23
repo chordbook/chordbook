@@ -1,6 +1,6 @@
 <template>
   <div class="column">
-    <chord :name="item.transposed" />
+    <song-sheet-chord :name="item.transposed" />
     <div class="lyrics">
       {{ item.lyrics }}
     </div>
@@ -9,8 +9,11 @@
 
 <script>
 import { ChordLyricsPair } from 'chordsheetjs'
+import SongSheetChord from '@/components/SongSheetChord.vue'
 
 export default {
+  components: { SongSheetChord },
+
   for: function (item) {
     return item instanceof ChordLyricsPair
   },

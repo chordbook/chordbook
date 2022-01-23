@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="source && song"
-    class="flex flex-col sm:flex-row h-full"
-  >
+  <ion-content v-if="source && song">
     <!-- Hidden sprite of chord diagrams -->
     <svg
       hidden
@@ -16,66 +13,17 @@
       />
     </svg>
 
-    <div
-      v-if="showChords"
-      :class="(showChords == 'last' ? 'order-last border-t sm:border-l sm:border-t-0' : 'border-b sm:border-r sm:border-b-0') + ' flex flex-row sm:flex-col p-4 overflow-auto border-gray-200 dark:border-gray-700'"
-    >
-      <div class="text-xs uppercase mb-4 text-gray-400 relative">
-        <Listbox v-model="instrument">
-          <ListboxButton class="uppercase btn btn-small btn-muted">
-            {{ instrument }}
-            <icon-bi:chevron-down class="icon-xs ml-1" />
-          </ListboxButton>
-          <ListboxOptions class="absolute btn btn-small btn-muted bg-white dark:bg-black block p-0 overflow-hidden w-full mt-2">
-            <ListboxOption
-              v-for="i in instruments"
-              v-slot="{ active, selected }"
-              :key="i"
-              as="template"
-              :value="i"
-            >
-              <li
-                :class="['px-3 py-2 cursor-pointer', {
-                  'bg-white dark:bg-gray-900': !(active || selected),
-                  'bg-green-400 text-white dark:bg-gray-600': selected,
-                  'bg-green-100 dark:bg-gray-700': active,
-                }]"
-              >
-                {{ i }}
-              </li>
-            </ListboxOption>
-          </ListboxOptions>
-        </Listbox>
-      </div>
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">
+          {{ song.title }}
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-      <div
-        v-for="name in chords"
-        :key="name"
-        class="text-center text-sm"
-      >
-        <div class="chord">
-          {{ name }}
-        </div>
-        <svg
-          class="chord-diagram inline-block"
-          xmlns="http://www.w3.org/2000/svg"
-          role="image"
-          :title="name"
-        >
-          <use
-            :xlink:href="`#chord-${name}`"
-            viewBox="0 0 50 65"
-          />
-        </svg>
-      </div>
-    </div>
-
-    <div class="overflow-auto grow h-full">
-      <div :class="'py-4 md:py-8 lg:py-12 ' + (columns == 1 ? 'single-column' : 'horizontal-columns')">
+    <div class="ion-padding">
+      <div class="single-column">
         <div class="column-span-all">
-          <h1 v-if="song.title">
-            {{ song.title }}
-          </h1>
           <h2 v-if="song.subtitle">
             {{ song.subtitle }}
           </h2>
@@ -120,25 +68,48 @@
         </div>
       </div>
     </div>
-  </div>
+  </ion-content>
+  <ion-footer translucent v-if="showChords">
+    <ion-toolbar>
+      <div class="flex gap-2 overflow-x-auto place-content-center pt-2 px-4">
+        <div
+          v-for="name in chords"
+          :key="name"
+          class="text-center text-sm"
+        >
+          <div class="chord">
+            {{ name }}
+          </div>
+          <svg
+            class="chord-diagram inline-block"
+            xmlns="http://www.w3.org/2000/svg"
+            role="image"
+            :title="name"
+          >
+            <use
+              :xlink:href="`#chord-${name}`"
+              viewBox="0 0 50 65"
+            />
+          </svg>
+        </div>
+      </div>
+    </ion-toolbar>
+  </ion-footer>
 </template>
 
 <script>
 import { Chord } from 'chordsheetjs'
-import detectFormat from '../lib/detect_format'
-import ChordLyricsPair from './song/chord-lyrics-pair.vue'
-import Tag from './song/tag.vue'
-import {
-  Listbox,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption
-} from '@headlessui/vue'
+import detectFormat from '@/lib/detect_format'
+import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
+import SongSheetComment from '@/components/SongSheetComment.vue'
+import ChordDiagram from '@/components/ChordDiagram.vue'
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonFooter } from "@ionic/vue"
+
 import { useCssVar } from '@vueuse/core'
 import arrify from 'arrify'
 
 export default {
-  components: { ChordLyricsPair, Tag, Listbox, ListboxButton, ListboxOptions, ListboxOption },
+  components: { ChordLyricsPair, SongSheetComment, ChordDiagram, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter },
 
   props: {
     source: {
@@ -148,7 +119,7 @@ export default {
 
     showChords: {
       type: [Boolean, String],
-      default: false
+      default: true
     },
 
     columns: {
@@ -159,6 +130,11 @@ export default {
     transpose: {
       type: Number,
       default: 0
+    },
+
+    instrument: {
+      type: String,
+      default: 'guitar'
     }
   },
 
@@ -219,12 +195,12 @@ export default {
     key () {
       // FIXME: use declared key or intelligent key detection
       return this.chords.values().next()
-    },
-
-    instrument: {
-      get () { return this.$store.state.instrument || 'guitar' },
-      set (value) { this.$store.commit('update', { instrument: value }) }
     }
+
+    // instrument: {
+    //   get () { return this.$store.state.instrument || 'guitar' },
+    //   set (value) { this.$store.commit('update', { instrument: value }) }
+    // }
   },
 
   watch: {
@@ -244,7 +220,7 @@ export default {
 
   methods: {
     componentFor (item) {
-      return [ChordLyricsPair, Tag].find(c => c.for(item))
+      return [ChordLyricsPair, SongSheetComment].find(c => c.for(item))
     },
 
     updateColumnWidth () {
@@ -269,7 +245,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .horizontal-columns {
   @apply max-w-none w-auto mx-0 overflow-x-auto h-full gap-x-2 px-4 md:px-8 lg:px-12;
   column-count: auto;
@@ -278,7 +254,6 @@ export default {
 }
 .horizontal-columns .column-span-all { column-span: all; }
 
-.single-column { @apply container; }
 .single-column .row { flex-wrap: wrap; }
 
 .content-width {

@@ -13,7 +13,7 @@
 <script>
 import { ChordBox } from 'vexchords'
 import { Chord } from 'chordsheetjs'
-import ChordData from '../lib/chord-data'
+import ChordData from '@/lib/chord-data'
 
 export default {
   props: {
