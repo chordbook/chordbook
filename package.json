@@ -2,6 +2,7 @@
   "name": "chords",
   "private": true,
   "dependencies": {
+    "@capacitor/core": "^3.4.0",
     "@headlessui/vue": "^1.4.2",
     "@iconify-json/bi": "^1.0.10",
     "@ionic/vue": "^6.0.3",
@@ -39,6 +40,8 @@
   },
   "version": "0.1.0",
   "devDependencies": {
+    "@capacitor/cli": "^3.4.0",
+    "@capacitor/ios": "^3.4.0",
     "eslint": "^8.7.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
