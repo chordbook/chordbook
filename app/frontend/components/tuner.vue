@@ -49,8 +49,12 @@
 
 <script>
 import { Tuner } from '../lib/tuner'
+import TunerMeter from '@/components/tuner-meter.vue'
+import TunerNote from '@/components/tuner-note.vue'
 
 export default {
+  components: { TunerMeter, TunerNote },
+
   data () {
     return {
       a4: 440,

@@ -12,11 +12,13 @@
 
 <script>
 import { IonApp, IonRouterOutlet } from '@ionic/vue'
+import ReloadPwa from '@/components/reload-pwa.vue'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'App',
   components: {
+    ReloadPwa,
     IonApp,
     IonRouterOutlet
   },

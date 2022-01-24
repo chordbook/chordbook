@@ -69,7 +69,10 @@
       </div>
     </div>
   </ion-content>
-  <ion-footer translucent v-if="showChords">
+  <ion-footer
+    v-if="showChords"
+    translucent
+  >
     <ion-toolbar>
       <div class="flex gap-2 overflow-x-auto place-content-center pt-2 px-4">
         <div
@@ -103,7 +106,7 @@ import detectFormat from '@/lib/detect_format'
 import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
 import SongSheetComment from '@/components/SongSheetComment.vue'
 import ChordDiagram from '@/components/ChordDiagram.vue'
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonFooter } from "@ionic/vue"
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonFooter } from '@ionic/vue'
 
 import { useCssVar } from '@vueuse/core'
 import arrify from 'arrify'

@@ -8,7 +8,7 @@ import store from './store'
 import router from './router'
 import api from './client'
 
-const components = import.meta.globEager('./components/*.vue')
+// const components = import.meta.globEager('./components/*.vue')
 
 const app = createApp(App)
   .use(IonicVue)
@@ -17,10 +17,10 @@ const app = createApp(App)
   .use(router)
 
 router.isReady().then(() => {
-  Object.entries(components).forEach(([path, definition]) => {
-    const componentName = path.split('/').pop().replace(/\.vue$/, '')
-    app.component(componentName, definition.default)
-  })
+  // Object.entries(components).forEach(([path, definition]) => {
+  //   const componentName = path.split('/').pop().replace(/\.vue$/, '')
+  //   app.component(componentName, definition.default)
+  // })
 
   app.mount('[data-behavior=vue]')
 })

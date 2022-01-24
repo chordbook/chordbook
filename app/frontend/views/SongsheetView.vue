@@ -12,9 +12,9 @@
     <song-sheet
       v-if="songsheet.source"
       :source="songsheet.source"
-      :showChords="showChords"
+      :show-chords="showChords"
     />
-        <!-- :columns="columns"
+    <!-- :columns="columns"
           :show-chords="showChords ? 'last' : false"
           :transpose="transpose"
           @update:key="key = $event.value" -->
@@ -176,19 +176,13 @@
 </template>
 
 <script>
-// import {
-//   Dialog,
-//   DialogOverlay,
-//   TransitionRoot
-// } from '@headlessui/vue'
 // import { Chord } from 'chordsheetjs'
 import client from '@/client'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
 
 export default {
-  components: { SongSheet, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton },
-  // components: { Dialog, DialogOverlay, TransitionRoot },
+  components: { SongSheet, IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton },
 
   data () {
     return {

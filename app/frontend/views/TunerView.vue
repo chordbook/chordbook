@@ -17,4 +17,5 @@
 
 <script setup>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton } from '@ionic/vue'
+import Tuner from '@/components/tuner.vue'
 </script>
