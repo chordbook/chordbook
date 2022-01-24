@@ -1,0 +1,7 @@
+{
+  "name": "Chord Book",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}

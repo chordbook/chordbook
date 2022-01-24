@@ -53,11 +53,11 @@
   },
   "scripts": {
     "dev": "vite",
+    "dev:ios": "ionic capacitor run ios -l --external",
     "build": "vite build",
     "serve": "vite preview",
-    "lint": "eslint --ignore-path .gitignore --ignore-pattern vendor/ --ext .js,.vue ."
-  },
-  "browserslist": [
-    "defaults"
-  ]
+    "lint": "eslint --ignore-path .gitignore --ignore-pattern vendor/ --ext .js,.vue .",
+    "ionic:serve": "vite",
+    "ionic:build": "vite build"
+  }
 }
