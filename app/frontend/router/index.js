@@ -59,12 +59,12 @@ const routes = [
   {
     path: '/tuner',
     name: 'tuner',
-    component: () => import('~/views/TunerView.vue')
+    component: () => import('@/views/TunerView.vue')
   },
   {
     path: '/:path(.*)*',
     name: '404',
-    component: () => import('~/views/NotFound.vue'),
+    component: () => import('@/views/NotFound.vue'),
     beforeEnter (to, from, next) {
       if (to.params.path || !to.redirectedFrom) {
         next()
@@ -92,15 +92,15 @@ const routes = [
 //   },
 //   {
 //     path: '/discover',
-//     component: () => import('~/views/discover/Index.vue'),
+//     component: () => import('@/views/discover/Index.vue'),
 //     props: route => route.query,
 //     children: [
 //       {
 //         path: '',
 //         name: 'discover',
 //         components: {
-//           search: () => import('~/views/discover/Search.vue'),
-//           browse: () => import('~/views/discover/Browse.vue')
+//           search: () => import('@/views/discover/Search.vue'),
+//           browse: () => import('@/views/discover/Browse.vue')
 //         }
 //       }
 //     ]
@@ -108,12 +108,12 @@ const routes = [
 //   {
 //     path: '/songsheets/new',
 //     name: 'songsheet.new',
-//     component: () => import('~/views/songsheets/Editor.vue')
+//     component: () => import('@/views/songsheets/Editor.vue')
 //   },
 //   {
 //     path: '/songsheets/:id/edit',
 //     name: 'songsheet.edit',
-//     component: () => import('~/views/songsheets/Editor.vue'),
+//     component: () => import('@/views/songsheets/Editor.vue'),
 //     props: true
 //   },
 // ]

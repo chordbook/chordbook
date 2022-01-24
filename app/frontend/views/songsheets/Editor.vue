@@ -78,16 +78,16 @@
 /* eslint-disable vue/no-mutating-props */
 
 import ChordSheetJS from 'chordsheetjs'
-import detectFormat from '~/lib/detect_format'
-import api from '~/client'
+import detectFormat from '@/lib/detect_format'
+import api from '@/client'
 import { VAceEditor } from 'vue3-ace-editor'
-import ChordCompleter from '~/ace/chord-completer'
-import MetadataCompleter from '~/ace/metadata-completer'
+import ChordCompleter from '@/ace/chord-completer'
+import MetadataCompleter from '@/ace/metadata-completer'
 import 'ace-builds/src-noconflict/theme-clouds'
 import 'ace-builds/src-noconflict/theme-chaos'
 import 'ace-builds/src-noconflict/ext-language_tools'
-import '~/ace/mode-chordpro'
-import '~/ace/snippets/chordpro'
+import '@/ace/mode-chordpro'
+import '@/ace/snippets/chordpro'
 import { useMediaQuery } from '@vueuse/core'
 
 export default {

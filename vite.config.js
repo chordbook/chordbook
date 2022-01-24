@@ -49,9 +49,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': root,
-      '~': root,
-      handlebars: 'handlebars/dist/handlebars.js',
-      vue: 'vue/dist/vue.esm-bundler.js'
+      handlebars: 'handlebars/dist/handlebars.js'
     }
   },
   server: {
