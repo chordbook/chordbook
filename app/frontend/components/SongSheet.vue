@@ -1,18 +1,8 @@
 <template>
-  <ion-content v-if="source && song">
-    <!-- Hidden sprite of chord diagrams -->
-    <svg
-      hidden
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <chord-diagram
-        v-for="chord in chords"
-        :key="chord + instrument"
-        :name="chord"
-        :instrument="instrument"
-      />
-    </svg>
-
+  <ion-content
+    v-if="source && song"
+    fullscreen
+  >
     <ion-header collapse="condense">
       <ion-toolbar>
         <ion-title size="large">
@@ -22,6 +12,19 @@
     </ion-header>
 
     <div class="ion-padding">
+      <!-- Hidden sprite of chord diagrams -->
+      <svg
+        hidden
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <chord-diagram
+          v-for="chord in chords"
+          :key="chord + instrument"
+          :name="chord"
+          :instrument="instrument"
+        />
+      </svg>
+
       <div class="single-column">
         <div class="column-span-all">
           <h2 v-if="song.subtitle">

@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
+import svgLoader from 'vite-svg-loader'
 import Icons from 'unplugin-icons/vite'
 import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import IconsResolver from 'unplugin-icons/resolver'
@@ -20,6 +21,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    svgLoader(),
     VitePWA({
       srcDir: 'service_workers',
       filename: 'offline.js',

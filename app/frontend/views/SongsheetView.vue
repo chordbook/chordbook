@@ -3,9 +3,32 @@
     <ion-header :translucent="true">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button default-href="/songsheets" />
+          <ion-back-button
+            text=""
+            default-href="/songsheets"
+          />
         </ion-buttons>
-        <ion-title>{{ songsheet.title }}</ion-title>
+
+        <ion-buttons slot="end">
+          <ion-button id="transpose-button">
+            <ion-icon
+              slot="icon-only"
+              src="/icons/transpose.svg"
+            />
+          </ion-button>
+          <ion-button @click="showChords = !showChords">
+            <ion-icon
+              slot="icon-only"
+              src="/icons/chord-diagram.svg"
+            />
+          </ion-button>
+          <ion-button @click="openTuner">
+            <ion-icon
+              slot="icon-only"
+              src="/icons/tuning-fork.svg"
+            />
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -13,96 +36,26 @@
       v-if="songsheet.source"
       :source="songsheet.source"
       :show-chords="showChords"
+      :transpose="transpose"
+      @update:key="key = $event.value"
     />
-    <!-- :columns="columns"
-          :show-chords="showChords ? 'last' : false"
-          :transpose="transpose"
-          @update:key="key = $event.value" -->
 
+    <ion-popover trigger="transpose-button">
+      <ion-content>
+        <transpose-control
+          :note="key"
+          @update="updateTranspose"
+        />
+      </ion-content>
+    </ion-popover>
     <!--
     <div class="dark:border-gray-900 bg-gray-100 py-3 text-gray-500 dark:bg-slate-900 shadow-md">
       <div class="max-w-8xl mx-auto px-4 md:px-6">
         <div class="grid grid-flow-col auto-cols-max divide-x dark:divide-gray-500 items-center">
-          <div class="pr-3">
-            <div class="flex">
-              <div
-                class="toggle"
-                tooltip="Scroll vertically"
-                tooltip-pos="bottom"
-              >
-                <input
-                  id="settings-columns-1"
-                  v-model="columns"
-                  type="radio"
-                  name="columns"
-                  :value="1"
-                >
-                <label for="settings-columns-1">
-                  <icon-bi:file />
-                </label>
-              </div>
-              <div
-                class="toggle"
-                tooltip="Scroll horizontally"
-                tooltip-pos="bottom"
-              >
-                <input
-                  id="settings-columns-2"
-                  v-model="columns"
-                  type="radio"
-                  name="columns"
-                  :value="2"
-                >
-                <label for="settings-columns-2">
-                  <icon-bi:layout-three-columns />
-                </label>
-              </div>
-            </div>
-          </div>
 
           <div class="px-3">
             <div class="flex items-center">
-              <button
-                class="flex"
-                tooltip="Transpose down"
-                tooltip-pos="bottom"
-                @click="transposeDown"
-              >
-                <icon-bi:arrow-down class="icon-small" />
-              </button>
-              <select
-                v-model="transpose"
-                class="mx-1 py-1 pl-2 pr-6 btn btn-muted font-normal normal-case"
-              >
-                <template
-                  v-for="note in transpositions"
-                  :key="note.step"
-                >
-                  <option
-                    v-if="note.step === 0"
-                    disabled
-                  >
-                    -
-                  </option>
-                  <option :value="note.step">
-                    {{ note.name }}
-                  </option>
-                  <option
-                    v-if="note.step === 0"
-                    disabled
-                  >
-                    -
-                  </option>
-                </template>
-              </select>
-              <button
-                class="flex"
-                tooltip="Transpose up"
-                tooltip-pos="bottom"
-                @click="transposeUp"
-              >
-                <icon-bi:arrow-up class="icon-small" />
-              </button>
+
             </div>
           </div>
 
@@ -169,20 +122,20 @@
       </div>
     </div>
 
-    <div class="grow overflow-hidden px-4">
-    </div>
     -->
   </ion-page>
 </template>
 
 <script>
-// import { Chord } from 'chordsheetjs'
 import client from '@/client'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton } from '@ionic/vue'
+import { IonPage, IonContent, IonPopover, IonHeader, IonFooter, IonButton, IonIcon, IonToolbar, IonTitle, IonButtons, IonBackButton, modalController } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
+import { apps, arrowUp, arrowDown } from 'ionicons/icons'
+import TransposeControl from '@/components/TransposeControl.vue'
+import TunerView from '@/views/TunerView.vue'
 
 export default {
-  components: { SongSheet, IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton },
+  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonFooter, IonButton, IonIcon, IonToolbar, IonTitle, IonButtons, IonBackButton },
 
   data () {
     return {
@@ -190,8 +143,21 @@ export default {
       showTuner: false,
       source: '',
       key: 'C',
-      transpose: 0
+      transpose: 0,
+      icons: { apps, arrowUp, arrowDown }
     }
+  },
+
+  computed: {
+    showChords: {
+      get () { return this.$store.state.showChords },
+      set (value) { this.$store.commit('update', { showChords: !!value }) }
+    }
+
+    //   columns: {
+    //     get () { return this.$store.state.columns || 1 },
+    //     set (value) { this.$store.commit('update', { columns: value }) }
+    //   },
   },
 
   watch: {
@@ -205,54 +171,21 @@ export default {
   methods: {
     async fetchData () {
       this.songsheet = (await client.get(`/api/songsheets/${this.$route.params.id}.json`)).data
+    },
+
+    async openTuner () {
+      const modal = await modalController
+        .create({
+          component: TunerView,
+          initialBreakpoint: 0.5,
+          breakpoints: [0, 0.5]
+        })
+      return modal.present()
+    },
+
+    updateTranspose (value) {
+      this.transpose = value
     }
   }
-
-  // computed: {
-  //   showChords: {
-  //     get () { return this.$store.state.showChords },
-  //     set (value) { this.$store.commit('update', { showChords: !!value }) }
-  //   },
-
-  //   columns: {
-  //     get () { return this.$store.state.columns || 1 },
-  //     set (value) { this.$store.commit('update', { columns: value }) }
-  //   },
-
-  //   transpositions () {
-  //     if (!this.key) return
-
-  //     const key = Chord.parse(this.key)
-  //     const steps = []
-  //     for (let i = -11; i <= 11; i++) {
-  //       steps.push({ step: i, name: key.transpose(i) })
-  //     }
-  //     return steps
-  //   }
-  // },
-
-  // watch: {
-  //   transpose (newValue) {
-  //     if (newValue > 11) {
-  //       this.transpose = -11
-  //     } else if (newValue < -11) {
-  //       this.transpose = 11
-  //     }
-  //   }
-  // },
-
-  // methods: {
-  //   toggleTuner () {
-  //     this.showTuner = !this.showTuner
-  //   },
-
-  //   transposeUp () {
-  //     this.transpose++
-  //   },
-
-  //   transposeDown () {
-  //     this.transpose--
-  //   }
-  // }
 }
 </script>
