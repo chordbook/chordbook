@@ -28,6 +28,9 @@
               :icon="icons.tuningFork"
             />
           </ion-button>
+          <ion-button :router-link="{ name: 'songsheet.edit', params: { id: $route.params.id } }">
+            <ion-label>Edit</ion-label>
+          </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -48,87 +51,12 @@
         />
       </ion-content>
     </ion-popover>
-    <!--
-    <div class="dark:border-gray-900 bg-gray-100 py-3 text-gray-500 dark:bg-slate-900 shadow-md">
-      <div class="max-w-8xl mx-auto px-4 md:px-6">
-        <div class="grid grid-flow-col auto-cols-max divide-x dark:divide-gray-500 items-center">
-
-          <div class="px-3">
-            <div class="flex items-center">
-
-            </div>
-          </div>
-
-          <div class="px-3">
-            <div
-              class="toggle"
-              tooltip="Show Chords"
-              tooltip-pos="bottom"
-            >
-              <input
-                id="settings-chord-diagram"
-                v-model="showChords"
-                type="checkbox"
-              >
-              <label for="settings-chord-diagram">
-                <icon-app-chord-diagram />
-              </label>
-            </div>
-          </div>
-
-          <div class="px-3">
-            <button
-              class="toggle"
-              tooltip="Tuner"
-              tooltip-pos="bottom"
-              @click="toggleTuner"
-            >
-              <icon-app-tuning-fork />
-            </button>
-
-            <TransitionRoot
-              :show="showTuner"
-              enter="transition-opacity duration-75"
-              enter-from="opacity-0"
-              enter-to="opacity-100"
-              leave="transition-opacity duration-150"
-              leave-from="opacity-100"
-              leave-to="opacity-0"
-            >
-              <Dialog
-                class="fixed inset-0 z-10 overflow-y-auto"
-                @close="toggleTuner"
-              >
-                <div class="flex items-center justify-center min-h-screen">
-                  <DialogOverlay class="fixed inset-0 bg-black opacity-50" />
-
-                  <div class="relative max-w-sm mx-auto border bg-white dark:bg-gray-800 dark:text-gray-200 dark:border-black rounded-md overflow-hidden drop-shadow-lg">
-                    <tuner />
-                  </div>
-                </div>
-              </Dialog>
-            </TransitionRoot>
-          </div>
-
-          <div class="px-3">
-            <router-link
-              :to="{ name: 'songsheet.edit', params: { id: $route.params.id } }"
-              class="btn btn-muted btn-small"
-            >
-              Edit
-            </router-link>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    -->
   </ion-page>
 </template>
 
 <script>
 import client from '@/client'
-import { IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController } from '@ionic/vue'
+import { IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
 import { apps, arrowUp, arrowDown } from 'ionicons/icons'
 import transpose from '@/icons/transpose.svg?url'
@@ -138,7 +66,7 @@ import TransposeControl from '@/components/TransposeControl.vue'
 import TunerView from '@/views/TunerView.vue'
 
 export default {
-  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton },
+  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel },
 
   data () {
     return {

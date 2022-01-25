@@ -1,6 +1,22 @@
 <template>
-  <div class="h-full overflow-hidden grow grid md:grid-cols-2 divide-x divide-solid divide-gray-300 dark:divide-gray-700">
-    <div class="h-full flex flex-col divide-y divide-solid divide-gray-300 dark:divide-gray-700">
+  <ion-page>
+    <ion-header translucent>
+      <ion-toolbar>
+        <ion-buttons slot="secondary">
+          <ion-back-button
+            text="Cancel"
+            :default-href="`/songsheets/${id}`"
+          />
+        </ion-buttons>
+
+        <ion-buttons slot="primary">
+          <ion-button id="trigger-preview">
+            <ion-label>Preview</ion-label>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content fullscreen>
       <div v-if="Object.keys(errors).length">
         <ul class="px-8 py-4 text-red-600">
           <li
@@ -12,65 +28,62 @@
         </ul>
       </div>
 
-      <!-- eslint-disable vue/no-mutating-props -->
-      <div class="grow relative">
-        <v-ace-editor
-          v-model:value="source"
-          :theme="theme"
-          lang="chordpro"
-          style="height: 100%"
-          :print-margin="false"
-          :options="{fontSize: '0.9rem'}"
-          @init="setupEditor"
-          @paste="paste"
-        />
-      </div>
-
-      <div class="px-8 py-3 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 flex gap-2 sm:gap-4 items-center">
-        <div class="grow">
-          <button
-            data-confirm="Are you sure?"
-            rel="nofollow"
-            class="text-red-600"
-            @click.prevent="destroy"
+      <v-ace-editor
+        v-model:value="source"
+        :theme="theme"
+        lang="chordpro"
+        style="height: 100%"
+        :print-margin="false"
+        :options="{fontSize: '0.9rem'}"
+        @init="setupEditor"
+        @paste="paste"
+      />
+    </ion-content>
+    <ion-footer>
+      <ion-toolbar>
+        <ion-buttons slot="secondary">
+          <ion-button
+            fill="clear"
+            color="danger"
+            @click="destroy"
           >
             Delete
-          </button>
-        </div>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-footer>
 
-        <div>
-          <router-link
-            v-if="id"
-            :to="{ name: 'songsheet', params: { id }}"
-          >
-            Cancel
-          </router-link>
-        </div>
-        <div>
-          <button
-            class="btn btn-primary"
-            @click="save"
-          >
-            Save
-          </button>
-        </div>
-      </div>
-    </div>
+    <ion-modal
+      ref="preview"
+      trigger="trigger-preview"
+    >
+      <ion-header translucent>
+        <ion-toolbar>
+          <ion-title>Preview</ion-title>
 
-    <div class="md:block h-full overflow-auto relative">
-      <h2 class="text-center uppercase text-gray-400 absolute inset-x-5 top-5">
-        Preview
-      </h2>
+          <ion-buttons slot="secondary">
+            <ion-button @click="dismissPreview">
+              <ion-label>Edit</ion-label>
+            </ion-button>
+          </ion-buttons>
 
-      <song
-        vi-if="source"
-        :source="source"
-        show-chords="last"
-        :columns="1"
-        @parse="onParse"
-      />
-    </div>
-  </div>
+          <ion-buttons slot="primary">
+            <ion-button @click="save">
+              <ion-label>Save</ion-label>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content fullscreen>
+        <song-sheet
+          v-if="source"
+          :source="source"
+          :show-chords="true"
+          @parse="onParse"
+        />
+      </ion-content>
+    </ion-modal>
+  </ion-page>
 </template>
 
 <script>
@@ -79,7 +92,7 @@
 
 import ChordSheetJS from 'chordsheetjs'
 import detectFormat from '@/lib/detect_format'
-import api from '@/client'
+import client from '@/client'
 import { VAceEditor } from 'vue3-ace-editor'
 import ChordCompleter from '@/ace/chord-completer'
 import MetadataCompleter from '@/ace/metadata-completer'
@@ -89,21 +102,11 @@ import 'ace-builds/src-noconflict/ext-language_tools'
 import '@/ace/mode-chordpro'
 import '@/ace/snippets/chordpro'
 import { useMediaQuery } from '@vueuse/core'
+import { IonPage, IonHeader, IonToolbar, IonBackButton, IonButtons, IonContent, IonFooter, IonLabel, IonButton, IonModal, IonTitle, alertController, loadingController } from '@ionic/vue'
+import SongSheet from '@/components/SongSheet.vue'
 
 export default {
-  components: { VAceEditor },
-
-  beforeRouteEnter (to, from, next) {
-    if (to.params.id) {
-      return api.get(`/api/songsheets/${to.params.id}.json`).then(response => {
-        next(vm => (vm.source = response.data.source))
-      }).catch(() => {
-        next({ name: '404', params: [to.path] })
-      })
-    } else {
-      next()
-    }
-  },
+  components: { SongSheet, VAceEditor, IonPage, IonHeader, IonToolbar, IonBackButton, IonButtons, IonContent, IonFooter, IonLabel, IonButton, IonModal, IonTitle },
 
   props: {
     id: {
@@ -133,7 +136,21 @@ export default {
     }
   },
 
+  watch: {
+    $route: 'fetchData'
+  },
+
+  created () {
+    this.fetchData()
+  },
+
   methods: {
+    async fetchData () {
+      if (this.id) {
+        this.source = (await client.get(`/api/songsheets/${this.id}.json`)).data.source
+      }
+    },
+
     setupEditor (editor) {
       editor.setOptions({
         enableBasicAutocompletion: true,
@@ -165,7 +182,7 @@ export default {
     },
 
     async save () {
-      api({
+      client({
         url: this.url,
         method: this.id ? 'PATCH' : 'POST',
         data: {
@@ -176,25 +193,45 @@ export default {
         }
       }).then(response => {
         this.$router.push({ name: 'songsheet', params: { id: response.data.id } })
+        this.dismissPreview()
       }).catch(error => {
         if (error.response) {
           this.errors = error.response.data
         } else {
           console.error(error, error.response)
         }
+        this.dismissPreview()
       })
     },
 
     async destroy (e) {
-      if (!confirm(e.target.dataset.confirm)) return
-
-      api({
-        url: this.url,
-        method: 'DELETE',
-        headers: this.headers
-      }).then(response => {
-        this.$router.push('/')
-      })
+      const alert = await alertController
+        .create({
+          header: 'Are you sure?',
+          message: 'Do you want to delete this song?',
+          buttons: [
+            {
+              text: 'Cancel',
+              role: 'cancel'
+            },
+            {
+              text: 'Delete',
+              role: 'destructive',
+              handler: async () => {
+                const loading = await loadingController.create({
+                  message: 'Deleting…',
+                  duration: 5000,
+                  translucent: true
+                })
+                await loading.present()
+                await client({ url: this.url, method: 'DELETE', headers: this.headers })
+                this.$router.push('/')
+                loading.dismiss()
+              }
+            }
+          ]
+        })
+      return alert.present()
     },
 
     paste (e) {
@@ -210,6 +247,10 @@ export default {
 
     onParse (e) {
       this.song = e
+    },
+
+    dismissPreview () {
+      this.$refs.preview.$el.dismiss()
     }
   }
 }
