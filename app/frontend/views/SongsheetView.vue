@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
+    <ion-header translucent>
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-back-button
@@ -13,19 +13,19 @@
           <ion-button id="transpose-button">
             <ion-icon
               slot="icon-only"
-              src="/icons/transpose.svg"
+              :icon="icons.transpose"
             />
           </ion-button>
           <ion-button @click="showChords = !showChords">
             <ion-icon
               slot="icon-only"
-              src="/icons/chord-diagram.svg"
+              :icon="icons.chordDiagram"
             />
           </ion-button>
           <ion-button @click="openTuner">
             <ion-icon
               slot="icon-only"
-              src="/icons/tuning-fork.svg"
+              :icon="icons.tuningFork"
             />
           </ion-button>
         </ion-buttons>
@@ -128,14 +128,17 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonContent, IonPopover, IonHeader, IonFooter, IonButton, IonIcon, IonToolbar, IonTitle, IonButtons, IonBackButton, modalController } from '@ionic/vue'
+import { IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
 import { apps, arrowUp, arrowDown } from 'ionicons/icons'
+import transpose from '@/icons/transpose.svg?url'
+import tuningFork from '@/icons/tuning-fork.svg?url'
+import chordDiagram from '@/icons/chord-diagram.svg?url'
 import TransposeControl from '@/components/TransposeControl.vue'
 import TunerView from '@/views/TunerView.vue'
 
 export default {
-  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonFooter, IonButton, IonIcon, IonToolbar, IonTitle, IonButtons, IonBackButton },
+  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton },
 
   data () {
     return {
@@ -144,7 +147,7 @@ export default {
       source: '',
       key: 'C',
       transpose: 0,
-      icons: { apps, arrowUp, arrowDown }
+      icons: { apps, arrowUp, arrowDown, transpose, tuningFork, chordDiagram }
     }
   },
 

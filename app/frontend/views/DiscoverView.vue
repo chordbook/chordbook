@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-header>
+    <ion-header translucent>
       <ion-toolbar>
         <ion-title>Discover</ion-title>
       </ion-toolbar>

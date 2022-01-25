@@ -6,7 +6,10 @@
     >
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button default-href="/artists" />
+          <ion-back-button
+            text=""
+            default-href="/artists"
+          />
         </ion-buttons>
         <ion-title>{{ artist.name }}</ion-title>
       </ion-toolbar>

@@ -8,6 +8,7 @@
         <ion-buttons slot="start">
           <ion-back-button
             v-if="album.artist"
+            text=""
             :default-href="`/artists/${album.artist.id}`"
           />
         </ion-buttons>

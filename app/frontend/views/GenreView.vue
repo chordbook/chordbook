@@ -1,9 +1,12 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
+    <ion-header translucent>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button default-href="/discover" />
+          <ion-back-button
+            text=""
+            default-href="/discover"
+          />
         </ion-buttons>
         <ion-title>{{ genre.name }}</ion-title>
       </ion-toolbar>

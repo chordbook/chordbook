@@ -1,15 +1,18 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
+    <ion-header translucent>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button default-href="/library" />
+          <ion-back-button
+            text=""
+            default-href="/library"
+          />
         </ion-buttons>
         <ion-title>Songs</ion-title>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content fullscreen>
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">
