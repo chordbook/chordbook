@@ -1,7 +1,7 @@
 class ContentController < ActionController::Base
   def index
-    render layout: "application"
-  end
+`    render file: Rails.root.join('public/index.html')
+`  end
 
   def offline
     render format: :json

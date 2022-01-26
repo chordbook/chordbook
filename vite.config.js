@@ -53,11 +53,5 @@ export default defineConfig({
       '@': root,
       handlebars: 'handlebars/dist/handlebars.js'
     }
-  },
-  server: {
-    port: 8000,
-    proxy: {
-      '/api': process.env.APP_URL || 'http://localhost:3000'
-    }
   }
 })
