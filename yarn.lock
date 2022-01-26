@@ -24,6 +24,13 @@
   dependencies:
     "@types/throttle-debounce" "^2.1.0"
 
+"@antfu/utils@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@antfu/utils/-/utils-0.4.0.tgz#df100ed9922d7359bf6c99083765b5207086b9a7"
+  integrity sha512-gqkpvjkgFUu+s3kP+Ly33OKpo5zvVY3FDFhv5BIb98SncS3KD6DNxPfNDjwHIoyXbz1leWo1j8DtRLZ1D2Jv+Q==
+  dependencies:
+    "@types/throttle-debounce" "^2.1.0"
+
 "@apideck/better-ajv-errors@^0.3.1":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@apideck/better-ajv-errors/-/better-ajv-errors-0.3.1.tgz#a8d4ef3ce67c418b8b24f2b76b6bc84eb547baf7"
@@ -5429,10 +5436,10 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-kolorist@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/kolorist/-/kolorist-1.5.0.tgz#a06f7dd11d1b5fdb743d79c8acd4e1ecbcbd89b3"
-  integrity sha512-pPobydIHK884YBtkS/tWSZXpSAEpcMbilyun3KL37ot935qL2HNKm/tI45i/Rd+MxdIWEhm7/LmUQzWZYK+Qhg==
+kolorist@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/kolorist/-/kolorist-1.5.1.tgz#c3d66dc4fabde4f6b7faa6efda84c00491f9e52b"
+  integrity sha512-lxpCM3HTvquGxKGzHeknB/sUjuVoUElLlfYnXZT73K8geR9jQbroGlSCFBax9/0mpGoD3kzcMLnOlGQPJJNyqQ==
 
 launch-editor@^2.2.1:
   version "2.2.1"
@@ -8173,16 +8180,16 @@ unpipe@1.0.0, unpipe@~1.0.0:
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=
 
-unplugin-icons@^0.12.22:
-  version "0.12.22"
-  resolved "https://registry.yarnpkg.com/unplugin-icons/-/unplugin-icons-0.12.22.tgz#544b8f9f53919fa819f8b45c8d26ffcd95926b66"
-  integrity sha512-GG6WAK1jqc50NXqoc3dYW9ui9k2UK0eOvilwr0MQ79iGvBtATbHoDyLTgSRsuous7Qfq8n+odL8TJgELaqvNCA==
+unplugin-icons@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/unplugin-icons/-/unplugin-icons-0.13.0.tgz#9bb2e75c61609dae86938044186288590bb990ba"
+  integrity sha512-CyAl0HV3bZUGT7ut9agpPRhEYXCvufr80Fh72yrkD57BVCTZ7ze10Rt63ZrvPXiJQpd+aI/Bizm2aqOf3WPSfg==
   dependencies:
     "@antfu/install-pkg" "^0.1.0"
-    "@antfu/utils" "^0.3.0"
+    "@antfu/utils" "^0.4.0"
     "@iconify/utils" "^1.0.20"
     debug "^4.3.3"
-    kolorist "^1.5.0"
+    kolorist "^1.5.1"
     local-pkg "^0.4.0"
     unplugin "^0.2.21"
 
