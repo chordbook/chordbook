@@ -64,6 +64,7 @@ import tuningFork from '@/icons/tuning-fork.svg?url'
 import chordDiagram from '@/icons/chord-diagram.svg?url'
 import TransposeControl from '@/components/TransposeControl.vue'
 import TunerView from '@/views/TunerView.vue'
+import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 
 export default {
   components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel },
@@ -91,12 +92,16 @@ export default {
     //   },
   },
 
-  watch: {
-    $route: 'fetchData'
+  ionViewWillEnter () {
+    this.fetchData()
   },
 
-  created () {
-    this.fetchData()
+  ionViewDidEnter () {
+    return Insomnia.keepAwake()
+  },
+
+  ionViewWillLeave () {
+    return Insomnia.allowSleepAgain()
   },
 
   methods: {
