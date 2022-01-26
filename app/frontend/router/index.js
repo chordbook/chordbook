@@ -88,29 +88,8 @@ const routes = [
       }
     }
   }
-
 ]
 
-// [
-//   {
-//     path: '/',
-//     redirect: '/discover'
-//   },
-//   {
-//     path: '/discover',
-//     component: () => import('@/views/discover/Index.vue'),
-//     props: route => route.query,
-//     children: [
-//       {
-//         path: '',
-//         name: 'discover',
-//         components: {
-//           search: () => import('@/views/discover/Search.vue'),
-//           browse: () => import('@/views/discover/Browse.vue')
-//         }
-//       }
-//     ]
-//   },
 //   {
 //     path: '/songsheets/new',
 //     name: 'songsheet.new',
