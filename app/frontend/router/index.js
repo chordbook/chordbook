@@ -3,25 +3,75 @@ import { createWebHistory, createRouter } from 'vue-router'
 const routes = [
   {
     path: '/',
-    component: () => import('~/views/Index.vue')
+    redirect: '/discover'
+  },
+  {
+    path: '/artists',
+    name: 'artists',
+    component: () => import('~/views/artists/Index.vue')
+  },
+  {
+    path: '/discover',
+    component: () => import('~/views/discover/Index.vue'),
+    props: route => route.query,
+    children: [
+      {
+        path: '',
+        name: 'discover',
+        components: {
+          search: () => import('~/views/discover/Search.vue'),
+          browse: () => import('~/views/discover/Browse.vue')
+        }
+      }
+    ]
+  },
+  {
+    path: '/genres/:id',
+    name: 'genre',
+    component: () => import('~/views/discover/Genre.vue')
+  },
+  {
+    path: '/artists/:id',
+    name: 'artist',
+    component: () => import('~/views/artists/Show.vue')
+  },
+  {
+    path: '/albums/:id',
+    name: 'album',
+    component: () => import('~/views/albums/Show.vue')
   },
   {
     path: '/tuner',
+    name: 'tuner',
     component: () => import('~/views/Tuner.vue')
   },
   {
-    path: '/songs/new',
-    component: () => import('~/views/songs/Editor.vue')
+    path: '/songsheets',
+    component: () => import('~/views/songsheets/Index.vue')
   },
   {
-    path: '/songs/:id',
-    name: 'song',
-    component: () => import('~/views/songs/Show.vue')
+    path: '/songsheets/new',
+    name: 'songsheet.new',
+    component: () => import('~/views/songsheets/Editor.vue')
   },
   {
-    path: '/songs/:id/edit',
-    name: 'song.edit',
-    component: () => import('~/views/songs/Editor.vue'),
+    path: '/songsheets/:id',
+    name: 'songsheet',
+    component: () => import('~/views/songsheets/Show.vue')
+  },
+  {
+    path: '/tracks/:id',
+    name: 'track',
+    redirect: to => {
+      console.log('Redirecting!', to)
+      // api.get('/api/tracks/:id/songsheets')
+    }
+    // component: () => import('~/views/songsheets/Show.vue')
+  },
+  {
+    path: '/songsheets/:id/edit',
+    name: 'songsheet.edit',
+    component: () => import('~/views/songsheets/Editor.vue'),
     props: true
   },
   {

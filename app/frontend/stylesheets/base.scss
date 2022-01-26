@@ -6,6 +6,11 @@
     @apply text-xl;
   }
 
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+
   .input-transparent {
     @apply border-none focus:ring focus:ring-indigo-300 focus:ring-opacity-50 focus:ring-inset bg-transparent
   }

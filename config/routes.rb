@@ -6,8 +6,25 @@ Rails.application.routes.draw do
   get "offline.json", to: "content#offline"
 
   namespace :api do
-    resources :songs
+    get "search(.:format)", to: "search#index", as: :search
+
+    get "autocomplete", to: "autocomplete#index"
+    resources :artists do
+      resources :albums do
+        resources :tracks
+      end
+      resources :tracks
+      resources :songsheets, only: [:index]
+    end
+    resources :albums
+    resources :tracks do
+      resources :songsheets, only: [:index]
+    end
+    resources :songsheets
+    resources :genres
   end
+
+  mount GoodJob::Engine => "admin/jobs"
 
   get "*anything", to: "content#index"
 end

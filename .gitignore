@@ -44,3 +44,5 @@ node_modules
 *.local
 .DS_Store
 
+.env
+app/frontend/components.d.ts

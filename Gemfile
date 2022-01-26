@@ -9,10 +9,14 @@ gem "puma"
 gem "bootsnap", ">= 1.4.4", require: false
 gem "vite_rails"
 gem "jbuilder"
+gem "httparty"
+gem "pg_search"
+gem "good_job"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "standard"
+  gem "dotenv-rails"
 end
 
 group :development do
@@ -24,4 +28,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "vcr"
+  gem "webmock"
+  gem "factory_bot"
+  gem "faker"
 end

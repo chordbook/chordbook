@@ -8,7 +8,7 @@
       >
         {{ name }}
       </PopoverButton>
-      <PopoverPanel class="absolute z-10 transform -translate-x-1/2 left-1/2 bottom-full mb-1 p-1 pb-0 rounded text-center bg-gray-50 text-black shadow border border-gray-200">
+      <PopoverPanel class="absolute z-10 transform -translate-x-1/2 left-1/2 bottom-full mb-1 p-1 pb-0 rounded text-center bg-slate-50 dark:bg-slate-900 text-black dark:text-slate-50 shadow border border-gray-200 dark:border-black/80">
         {{ name }}
         <svg
           class="chord-diagram"
