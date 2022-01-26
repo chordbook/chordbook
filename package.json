@@ -16,7 +16,7 @@
     "autoprefixer": "^10.4.0",
     "axios": "^0.24.0",
     "chordsheetjs": "^5.1.2",
-    "postcss": "^8.4.4",
+    "postcss": "^8.4.5",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^14.0.2",
     "postcss-preset-env": "^7.0.1",
