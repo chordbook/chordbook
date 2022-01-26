@@ -19,7 +19,7 @@
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^14.0.2",
-    "postcss-preset-env": "^7.0.1",
+    "postcss-preset-env": "^7.2.3",
     "rollup-plugin-string": "^3.0.0",
     "sass": "^1.44.0",
     "string-hash": "^1.1.3",
