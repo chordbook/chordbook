@@ -7,6 +7,7 @@ import VueAxios from 'vue-axios'
 import client from './client'
 import store from './store'
 import router from './router'
+import telemetry from './telemetry'
 
 const app = createApp(App)
   .use(IonicVue)
@@ -15,5 +16,6 @@ const app = createApp(App)
   .use(router)
 
 router.isReady().then(() => {
+  telemetry()
   app.mount('[data-behavior=vue]')
 })
