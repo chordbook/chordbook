@@ -15,7 +15,7 @@ const root = path.resolve(__dirname, 'app', 'frontend')
 // https://vitejs.dev/config/
 export default defineConfig({
   envDir: __dirname,
-  envPrefix: "APP",
+  envPrefix: 'APP',
   root,
   build: {
     sourcemap: true,

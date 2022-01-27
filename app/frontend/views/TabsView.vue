@@ -7,14 +7,6 @@
         translucent
       >
         <ion-tab-button
-          tab="home"
-          href="/home"
-        >
-          <ion-icon :icon="home" />
-          <ion-label>Home</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button
           tab="discover"
           href="/discover"
         >
