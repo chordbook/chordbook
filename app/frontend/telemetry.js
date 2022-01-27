@@ -1,4 +1,4 @@
-const domain = import.meta.env.HOSTNAME
+const domain = import.meta.env.APP_HOSTNAME
 
 export default function () {
   if (domain) {
