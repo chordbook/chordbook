@@ -9,6 +9,14 @@
           />
         </ion-buttons>
         <ion-title>Songs</ion-title>
+        <ion-buttons slot="end">
+          <ion-button :router-link="{ name: 'songsheet.new' }">
+            <ion-icon
+              slot="icon-only"
+              :icon="icons.add"
+            />
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -35,14 +43,16 @@
 <script>
 import client from '@/client'
 import SongsheetItem from '@/components/SongsheetItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonButton, IonIcon } from '@ionic/vue'
+import { add } from 'ionicons/icons'
 
 export default {
-  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList },
+  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonButton, IonIcon },
 
   data () {
     return {
-      songsheets: []
+      songsheets: [],
+      icons: { add }
     }
   },
 

@@ -52,15 +52,20 @@ const routes = [
     ]
   },
   {
-    path: '/songsheets/:id',
-    name: 'songsheet',
-    component: () => import('@/views/SongsheetView.vue')
+    path: '/songsheets/new',
+    name: 'songsheet.new',
+    component: () => import('@/views/SongsheetEditorView.vue')
   },
   {
     path: '/songsheets/:id/edit',
     name: 'songsheet.edit',
     component: () => import('@/views/SongsheetEditorView.vue'),
     props: true
+  },
+  {
+    path: '/songsheets/:id',
+    name: 'songsheet',
+    component: () => import('@/views/SongsheetView.vue')
   },
   {
     path: '/tuner',
@@ -89,13 +94,6 @@ const routes = [
     }
   }
 ]
-
-//   {
-//     path: '/songsheets/new',
-//     name: 'songsheet.new',
-//     component: () => import('@/views/songsheets/Editor.vue')
-//   },
-// ]
 
 export default createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

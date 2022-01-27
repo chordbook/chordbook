@@ -5,7 +5,7 @@
         <ion-buttons slot="secondary">
           <ion-back-button
             text="Cancel"
-            :default-href="`/songsheets/${id}`"
+            :default-href="id ? `/songsheets/${id}` : '/songsheets'"
           />
         </ion-buttons>
 
@@ -39,7 +39,7 @@
         @paste="paste"
       />
     </ion-content>
-    <ion-footer>
+    <ion-footer v-if="id">
       <ion-toolbar>
         <ion-buttons slot="secondary">
           <ion-button
