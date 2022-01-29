@@ -28,7 +28,7 @@
               :icon="icons.tuningFork"
             />
           </ion-button>
-          <ion-button :router-link="{ name: 'songsheet.edit', params: { id: $route.params.id } }">
+          <ion-button :router-link="{ name: 'songsheet.edit', params: { id } }">
             <ion-label>Edit</ion-label>
           </ion-button>
         </ion-buttons>
@@ -69,6 +69,13 @@ import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 export default {
   components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel },
 
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+
   data () {
     return {
       songsheet: {},
@@ -106,7 +113,7 @@ export default {
 
   methods: {
     async fetchData () {
-      this.songsheet = (await client.get(`/api/songsheets/${this.$route.params.id}.json`)).data
+      this.songsheet = (await client.get(`/api/songsheets/${this.id}.json`)).data
     },
 
     async openTuner () {

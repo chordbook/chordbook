@@ -72,23 +72,26 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBa
 export default {
   components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonItem, IonText },
 
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+
   data () {
     return {
       album: {}
     }
   },
 
-  watch: {
-    $route: 'fetchData'
-  },
-
-  created () {
+  ionViewWillEnter () {
     this.fetchData()
   },
 
   methods: {
     async fetchData () {
-      this.album = (await client.get(`/api/albums/${this.$route.params.id}.json`)).data
+      this.album = (await client.get(`/api/albums/${this.id}.json`)).data
     }
   }
 }

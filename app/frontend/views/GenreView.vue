@@ -74,6 +74,13 @@ import TrackItem from '@/components/TrackItem.vue'
 export default {
   components: { ArtistItem, AlbumItem, TrackItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton },
 
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+
   data () {
     return {
       genre: {}
@@ -87,17 +94,13 @@ export default {
     }
   },
 
-  watch: {
-    $route: 'fetchData'
-  },
-
-  created () {
-    this.fetchData()
+  ionViewWillEnter () {
+    return this.fetchData()
   },
 
   methods: {
     async fetchData () {
-      this.genre = (await client.get(`/api/genres/${this.$route.params.id}.json`)).data
+      this.genre = (await client.get(`/api/genres/${this.id}.json`)).data
     }
   }
 }

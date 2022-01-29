@@ -46,11 +46,7 @@ export default {
     }
   },
 
-  watch: {
-    $route: 'fetchData'
-  },
-
-  created () {
+  ionViewWillEnter () {
     this.fetchData()
   },
 

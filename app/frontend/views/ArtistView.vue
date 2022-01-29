@@ -88,6 +88,13 @@ import AlbumItem from '@/components/AlbumItem.vue'
 export default {
   components: { TrackItem, AlbumItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton },
 
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+
   data () {
     return {
       artist: {},
@@ -96,12 +103,8 @@ export default {
     }
   },
 
-  watch: {
-    $route: 'fetchData'
-  },
-
-  created () {
-    this.fetchData()
+  ionViewWillEnter () {
+    return this.fetchData()
   },
 
   calculated: {
@@ -116,20 +119,18 @@ export default {
 
   methods: {
     async fetchData () {
-      const id = this.$route.params.id
-
-      return client.get(`/api/artists/${id}.json`).then(response => {
+      return client.get(`/api/artists/${this.id}.json`).then(response => {
         this.artist = response.data
 
-        client.get(`/api/artists/${id}/albums.json`).then(response => {
+        client.get(`/api/artists/${this.id}/albums.json`).then(response => {
           this.albums = response.data
         })
 
-        client.get(`/api/artists/${id}/tracks.json`).then(response => {
+        client.get(`/api/artists/${this.id}/tracks.json`).then(response => {
           this.tracks = response.data
         })
 
-        client.get(`/api/artists/${id}/songsheets.json`).then(response => {
+        client.get(`/api/artists/${this.id}/songsheets.json`).then(response => {
           this.songsheets = response.data
         })
       })

@@ -23,11 +23,13 @@ const routes = [
       {
         path: '/artists/:id',
         name: 'artist',
+        props: true,
         component: () => import('@/views/ArtistView.vue')
       },
       {
         path: '/albums/:id',
         name: 'album',
+        props: true,
         component: () => import('@/views/AlbumView.vue')
       },
       {
@@ -39,6 +41,7 @@ const routes = [
       {
         path: '/genres/:id',
         name: 'genre',
+        props: true,
         component: () => import('@/views/GenreView.vue')
       },
       {
@@ -56,12 +59,13 @@ const routes = [
   {
     path: '/songsheets/:id/edit',
     name: 'songsheet.edit',
-    component: () => import('@/views/SongsheetEditorView.vue'),
-    props: true
+    props: true,
+    component: () => import('@/views/SongsheetEditorView.vue')
   },
   {
     path: '/songsheets/:id',
     name: 'songsheet',
+    props: true,
     component: () => import('@/views/SongsheetView.vue')
   },
   {
