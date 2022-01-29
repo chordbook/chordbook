@@ -1,10 +1,5 @@
 <template>
   <ion-page>
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-title>Discover</ion-title>
-      </ion-toolbar>
-    </ion-header>
     <ion-content fullscreen>
       <ion-header collapse="condense">
         <ion-toolbar>
@@ -12,6 +7,8 @@
             Discover
           </ion-title>
         </ion-toolbar>
+      </ion-header>
+      <ion-header translucent class="sticky top-0">
         <ion-toolbar>
           <ion-searchbar
             ref="input"
@@ -77,10 +74,6 @@ export default {
     searchParams: { deep: true, handler: 'updateRoute' }
   },
 
-  mounted () {
-    this.focus()
-  },
-
   methods: {
     updateFromRoute () {
       this.searchParams = this.$route.query
@@ -95,11 +88,17 @@ export default {
         query: Object.assign({}, this.$route.query, this.searchParams),
         replace: true
       })
-    },
-
-    focus () {
-      this.$refs.input.$el.setFocus()
     }
   }
 }
 </script>
+
+<style scoped>
+.ios ion-searchbar {
+  padding-top: 15px;
+}
+
+.ios ion-header.header-collapse-condense {
+  padding-top: 44px;
+}
+</style>
