@@ -5,17 +5,4 @@
   h2 {
     @apply text-xl;
   }
-
-  canvas {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .input-transparent {
-    @apply border-none focus:ring focus:ring-indigo-300 focus:ring-opacity-50 focus:ring-inset bg-transparent
-  }
-
-  .input-text {
-    @apply rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
-  }
 }

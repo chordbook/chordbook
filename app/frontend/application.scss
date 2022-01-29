@@ -1,4 +1,3 @@
-
 /* Core CSS required for Ionic components to work properly */
 @import '@ionic/vue/css/core.css';
 
@@ -23,17 +22,4 @@
 @import "tailwindcss/utilities";
 
 @import "@/stylesheets/base";
-@import "@/stylesheets/components";
-@import "@/stylesheets/icons";
-@import "@/stylesheets/tooltips";
 @import "@/stylesheets/text-shadow";
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
