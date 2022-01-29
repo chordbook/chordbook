@@ -7,7 +7,7 @@ import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 import { string } from 'rollup-plugin-string'
-import manifest from './public/manifest.json'
+import manifest from './app/frontend/manifest.json'
 import path from 'path'
 
 const root = path.resolve(__dirname, 'app', 'frontend')
