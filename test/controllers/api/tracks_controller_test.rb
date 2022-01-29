@@ -23,6 +23,6 @@ class Api::TracksControllerTest < ActionDispatch::IntegrationTest
     get api_track_url(@track, format: :json)
     assert_response :success
     body = JSON.parse(response.body)
-    assert_equal @track.title, body['title']
+    assert_equal @track.title, body["title"]
   end
 end

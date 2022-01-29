@@ -30,7 +30,10 @@
         color="success"
         @click="start"
       >
-        <ion-icon :icon="icons.mic" slot="icon-only" />
+        <ion-icon
+          slot="icon-only"
+          :icon="icons.mic"
+        />
       </ion-button>
       <ion-button
         v-if="active"
@@ -38,7 +41,11 @@
         type="reset"
         @click="stop"
       >
-        <ion-icon :icon="icons.micOff" slot="icon-only" class="animate-pulse" />
+        <ion-icon
+          slot="icon-only"
+          :icon="icons.micOff"
+          class="animate-pulse"
+        />
       </ion-button>
     </div>
   </div>
@@ -49,7 +56,7 @@ import { Tuner } from '../lib/tuner'
 import TunerMeter from '@/components/tuner-meter.vue'
 import TunerNote from '@/components/tuner-note.vue'
 import { mic, micOff } from 'ionicons/icons'
-import { IonIcon, IonButton } from "@ionic/vue"
+import { IonIcon, IonButton } from '@ionic/vue'
 
 export default {
   components: { TunerMeter, TunerNote, IonIcon, IonButton },
