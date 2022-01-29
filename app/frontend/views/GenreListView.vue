@@ -1,25 +1,27 @@
 <template>
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-    <ion-card
-      v-for="genre in genres"
-      :key="genre.id"
-      :style="style(genre.name)"
-    >
-      <router-link
-        :to="{ name: 'genre', params: { id: genre.id, genre } }"
-        class="aspect-4/3 relative flex items-end"
+  <div class="ion-padding">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+      <ion-card
+        v-for="genre in genres"
+        :key="genre.id"
+        :style="style(genre.name)"
       >
-        <img
-          :src="genre.thumbnail"
-          class="object-cover object-center absolute inset-0 w-full h-full opacity-50 saturate-0 mix-blend-luminosity"
+        <router-link
+          :to="{ name: 'genre', params: { id: genre.id, genre } }"
+          class="aspect-4/3 relative flex items-end"
         >
-        <ion-card-header>
-          <ion-card-title class="text-shadow font-bold text-shadow text-xl text-white">
-            {{ genre.name }}
-          </ion-card-title>
-        </ion-card-header>
-      </router-link>
-    </ion-card>
+          <img
+            :src="genre.thumbnail"
+            class="object-cover object-center absolute inset-0 w-full h-full opacity-50 saturate-0 mix-blend-luminosity"
+          >
+          <ion-card-header>
+            <ion-card-title class="text-shadow font-bold text-shadow text-xl text-white">
+              {{ genre.name }}
+            </ion-card-title>
+          </ion-card-header>
+        </router-link>
+      </ion-card>
+    </div>
   </div>
 </template>
 
@@ -52,3 +54,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+ion-card {
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+</style>
