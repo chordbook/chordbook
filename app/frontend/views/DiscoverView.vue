@@ -8,7 +8,10 @@
           </ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-header translucent class="sticky top-0">
+      <ion-header
+        translucent
+        class="sticky top-0"
+      >
         <ion-toolbar>
           <ion-searchbar
             ref="input"
