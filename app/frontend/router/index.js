@@ -33,6 +33,7 @@ const routes = [
       {
         path: '/tracks/:id',
         name: 'track',
+        props: true,
         component: () => import('@/views/TrackView.vue')
       },
       {
