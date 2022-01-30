@@ -3,6 +3,7 @@
     <ion-item
       v-for="result in results"
       :key="result.type + result.id"
+      button
       :router-link="{ name: result.type.toLowerCase(), params: { id: result.id } }"
     >
       <ion-avatar slot="start">

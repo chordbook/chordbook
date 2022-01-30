@@ -37,6 +37,7 @@
         <ion-item
           v-for="(songsheet, index) in track.songsheets"
           :key="songsheet.id"
+          button
           :router-link="{ name: 'songsheet', params: { id: songsheet.id } }"
         >
           <ion-text slot="start">

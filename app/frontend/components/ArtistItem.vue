@@ -1,5 +1,8 @@
 <template>
-  <ion-item :router-link="{ name: 'artist', params: { id: artist.id } }">
+  <ion-item
+    button
+    :router-link="{ name: 'artist', params: { id: artist.id } }"
+  >
     <ion-avatar slot="start">
       <img :src="artist.thumbnail">
     </ion-avatar>
