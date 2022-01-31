@@ -27,11 +27,13 @@
           <ion-button>See All</ion-button>
         </ion-list-header>
 
-        <track-item
-          v-for="track in genre.tracks"
-          :key="track.id"
-          :track="track"
-        />
+        <div class="grid-scroll-x grid-rows-3 auto-cols-1/1 sm:auto-cols-1/2 lg:auto-cols-1/3 xl:auto-cols-1/4">
+          <track-item
+            v-for="track in genre.tracks"
+            :key="track.id"
+            :track="track"
+          />
+        </div>
       </ion-list>
 
       <ion-list v-if="genre.artists?.length > 0">
@@ -53,11 +55,13 @@
           <ion-button>See All</ion-button>
         </ion-list-header>
 
-        <album-item
-          v-for="album in genre.albums"
-          :key="album.id"
-          :album="album"
-        />
+        <div class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6">
+          <album-item
+            v-for="album in genre.albums"
+            :key="album.id"
+            :album="album"
+          />
+        </div>
       </ion-list>
     </ion-content>
   </ion-page>

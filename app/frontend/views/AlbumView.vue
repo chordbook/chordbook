@@ -17,22 +17,43 @@
     </ion-header>
 
     <ion-content fullscreen>
-      <div class="flex flex-col place-items-center mb-6">
-        <img
-          :src="album.thumbnail"
-          class="aspect-square w-3/4 m-4 rounded overflow-hidden shadow-lg"
-        >
-        <h1 class="text-2xl">
-          {{ album.title }}
-        </h1>
-        <h2 class="text-xl text-blue-500">
-          <router-link
+      <div class="ion-padding ion-margin flex gap-4 md:gap-6 flex-col md:flex-row">
+        <div class="text-center flex-shrink-0">
+          <ion-img
+            :src="album.thumbnail"
+            class="aspect-square w-3/4 md:w-60 rounded overflow-hidden shadow-lg"
+          />
+        </div>
+        <div class="text-center md:text-left md:pt-6">
+          <h1 class="text-xl md:text-3xl m-0">
+            {{ album.title }}
+          </h1>
+          <ion-label
             v-if="album.artist"
-            :to="{ name: 'artist', params: { id: album.artist.id } }"
+            button
+            router-link="{ name: 'artist', params: { id: album.artist.id } }"
+            class="block text-xl md:text-2xl text-blue-500 ion-activatable ion-focusable"
           >
             {{ album.artist.name }}
-          </router-link>
-        </h2>
+          </ion-label>
+          <ion-note class="text-xs uppercase font-semibold">
+            <ion-label
+              v-if="album.genre"
+              :router-link="{ name: 'genre', params: { id: album.genre.id } }"
+            >
+              {{ album.genre?.name }}
+            </ion-label>
+            •
+            {{ album.released }}
+          </ion-note>
+
+          <ion-note
+            class="block text-sm line-clamp-3 overflow-hidden mt-4"
+            onclick="this.classList.toggle('line-clamp-3')"
+          >
+            {{ album.description }}
+          </ion-note>
+        </div>
       </div>
 
       <ion-list v-if="album.tracks && album.tracks.length > 0">
@@ -49,28 +70,16 @@
           </ion-label>
         </ion-item>
       </ion-list>
-
-      <ion-list-header>
-        <ion-label>About</ion-label>
-      </ion-list-header>
-      <div class="ion-padding">
-        <p
-          class="text-sm line-clamp-6 overflow-hidden"
-          onclick="this.classList.toggle('line-clamp-6')"
-        >
-          {{ album.description }}
-        </p>
-      </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
 import client from '@/client'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonItem, IonText } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonImg } from '@ionic/vue'
 
 export default {
-  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonItem, IonText },
+  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonImg },
 
   props: {
     id: {

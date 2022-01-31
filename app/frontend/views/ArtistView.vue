@@ -18,17 +18,17 @@
     <ion-content>
       <div
         :style="`background-image: linear-gradient(rgba(0,0,0,0) 33%, rgba(0,0,0,0.8)), url(${artist.banner});`"
-        class="ion-padding bg-cover bg-center bg-top aspect-4/3 max-h-screen-3/4 w-full flex flex-col place-content-end text-white text-shadow"
+        class="ion-padding bg-cover bg-center aspect-16/9 max-h-screen-1/2 w-full flex flex-col place-content-end text-white text-shadow"
       >
-        <h2 class="opacity-80">
-          <router-link
-            v-if="artist.genre"
-            :to="{ name: 'genre', params: { id: artist.genre.id } }"
-          >
-            {{ artist.genre.name }}
-          </router-link>
-        </h2>
-        <h1 class="text-4xl font-bold">
+        <ion-note
+          v-if="artist.genre"
+          button
+          :router-link="{ name: 'genre', params: { id: artist.genre.id } }"
+          class="block text-xl opacity-80 ion-activatable ion-focusable"
+        >
+          {{ artist.genre.name }}
+        </ion-note>
+        <h1 class="text-4xl font-bold m-0">
           {{ artist.name }}
         </h1>
       </div>
@@ -39,10 +39,7 @@
           <ion-button>See All</ion-button>
         </ion-list-header>
 
-        <div
-          class="columns-3 overflow-x-auto"
-          style="column-width: 95vw"
-        >
+        <div class="grid-scroll-x grid-rows-3 auto-cols-1/1 sm:auto-cols-1/2 lg:auto-cols-1/3 xl:auto-cols-1/4">
           <track-item
             v-for="track in tracks"
             :key="track.id"
@@ -51,17 +48,22 @@
         </div>
       </ion-list>
 
-      <ion-list v-if="albums.length > 0">
+      <ion-list
+        v-if="albums.length > 0"
+        lines="none"
+      >
         <ion-list-header>
           <ion-label>Top Albums</ion-label>
           <ion-button>See All</ion-button>
         </ion-list-header>
 
-        <album-item
-          v-for="album in albums"
-          :key="album.id"
-          :album="album"
-        />
+        <div class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6">
+          <album-item
+            v-for="album in albums"
+            :key="album.id"
+            :album="album"
+          />
+        </div>
       </ion-list>
 
       <ion-list-header>
@@ -81,12 +83,12 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton, IonNote } from '@ionic/vue'
 import TrackItem from '@/components/TrackItem.vue'
 import AlbumItem from '@/components/AlbumItem.vue'
 
 export default {
-  components: { TrackItem, AlbumItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton },
+  components: { TrackItem, AlbumItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton, IonNote },
 
   props: {
     id: {
@@ -105,16 +107,6 @@ export default {
 
   ionViewWillEnter () {
     return this.fetchData()
-  },
-
-  calculated: {
-    classList () {
-      const columns = Math.ceil(this.tracks.length / 4)
-      const classes = `overflow-x-auto columns-${columns}`
-      return {
-        [classes]: columns > 0
-      }
-    }
   },
 
   methods: {
@@ -138,3 +130,14 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+/* .grid-scroll-x {
+  @apply grid grid-flow-col overflow-x-auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.grid-col-1\/5 { grid-auto-columns: 20%; }
+.grid-col-1\/3 { grid-auto-columns: 33.33%; } */
+</style>

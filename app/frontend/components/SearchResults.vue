@@ -7,7 +7,7 @@
       :router-link="{ name: result.type.toLowerCase(), params: { id: result.id } }"
     >
       <ion-avatar slot="start">
-        <img :src="result.thumbnail"> <!-- class="rounded" -->
+        <ion-img :src="result.thumbnail" /> <!-- class="rounded" -->
       </ion-avatar>
       <ion-label>
         <p class="uppercase">
@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import { IonList, IonItem, IonAvatar, IonLabel } from '@ionic/vue'
+import { IonList, IonItem, IonAvatar, IonLabel, IonImg } from '@ionic/vue'
 
 export default {
-  components: { IonList, IonItem, IonAvatar, IonLabel },
+  components: { IonList, IonItem, IonAvatar, IonLabel, IonImg },
 
   props: {
     params: {

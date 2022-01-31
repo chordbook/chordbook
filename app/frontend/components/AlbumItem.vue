@@ -2,25 +2,27 @@
   <ion-item
     button
     :router-link="{ name: 'album', params: { id: album.id } }"
+    class="rounded"
+    :detail="false"
+    lines="none"
   >
-    <ion-avatar slot="start">
-      <img
-        :src="album.thumbnail"
-        class="rounded"
-      >
-    </ion-avatar>
     <ion-label>
-      <h2>{{ album.title }}</h2>
+      <div class="rounded aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2">
+        <ion-img :src="album.thumbnail" />
+      </div>
+      <h2 class="text-sm">
+        {{ album.title }}
+      </h2>
       <p>{{ album.artist.name }}</p>
     </ion-label>
   </ion-item>
 </template>
 
 <script>
-import { IonItem, IonAvatar, IonLabel } from '@ionic/vue'
+import { IonItem, IonLabel, IonImg } from '@ionic/vue'
 
 export default {
-  components: { IonItem, IonAvatar, IonLabel },
+  components: { IonItem, IonLabel, IonImg },
 
   props: {
     album: {

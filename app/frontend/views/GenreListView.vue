@@ -1,25 +1,26 @@
 <template>
   <div class="ion-padding">
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
       <ion-card
         v-for="genre in genres"
         :key="genre.id"
+        button
         :style="style(genre.name)"
+        :router-link="{ name: 'genre', params: { id: genre.id, genre } }"
+        class="relative"
       >
-        <router-link
-          :to="{ name: 'genre', params: { id: genre.id, genre } }"
-          class="aspect-4/3 relative flex items-end"
+        <ion-img
+          :src="genre.thumbnail"
+          class="object-cover object-center absolute inset-0 w-full h-full opacity-50 saturate-0 mix-blend-luminosity"
+        />
+        <ion-card-header
+          translucent
+          class="aspect-4/3  flex items-end"
         >
-          <img
-            :src="genre.thumbnail"
-            class="object-cover object-center absolute inset-0 w-full h-full opacity-50 saturate-0 mix-blend-luminosity"
-          >
-          <ion-card-header>
-            <ion-card-title class="text-shadow font-bold text-shadow text-xl text-white">
-              {{ genre.name }}
-            </ion-card-title>
-          </ion-card-header>
-        </router-link>
+          <ion-card-title class="text-shadow font-bold text-xl text-white">
+            {{ genre.name }}
+          </ion-card-title>
+        </ion-card-header>
       </ion-card>
     </div>
   </div>
@@ -28,10 +29,10 @@
 <script>
 import client from '@/client'
 import { gradient } from '@/lib/gradient'
-import { IonCard, IonCardTitle, IonCardHeader } from '@ionic/vue'
+import { IonCard, IonCardTitle, IonCardHeader, IonImg } from '@ionic/vue'
 
 export default {
-  components: { IonCard, IonCardTitle, IonCardHeader },
+  components: { IonCard, IonCardTitle, IonCardHeader, IonImg },
 
   data () {
     return {

@@ -4,10 +4,10 @@
     :router-link="{ name: 'songsheet', params: { id: songsheet.id } }"
   >
     <ion-avatar slot="start">
-      <img
+      <ion-img
         :src="songsheet.track?.album?.thumbnail"
         class="rounded"
-      >
+      />
     </ion-avatar>
     <ion-label>
       <h2>{{ songsheet.title }}</h2>
@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import { IonItem, IonAvatar, IonLabel } from '@ionic/vue'
+import { IonItem, IonAvatar, IonLabel, IonImg } from '@ionic/vue'
 
 export default {
-  components: { IonItem, IonAvatar, IonLabel },
+  components: { IonItem, IonAvatar, IonLabel, IonImg },
 
   props: {
     songsheet: {

@@ -17,9 +17,13 @@
 /* Theme variables */
 @import '@/stylesheets/variables.css';
 
-@import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-
-@import "@/stylesheets/base";
 @import "@/stylesheets/text-shadow";
+
+@layer utilities {
+  .grid-scroll-x {
+    @apply grid grid-flow-col overflow-x-auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

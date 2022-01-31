@@ -14,10 +14,10 @@
 
     <ion-content>
       <div class="flex flex-col place-items-center mb-6">
-        <img
+        <ion-img
           :src="track.album?.thumbnail"
           class="aspect-square w-3/4 m-4 rounded overflow-hidden shadow-lg"
-        >
+        />
         <h1 class="text-2xl">
           {{ track.title }}
         </h1>
@@ -66,11 +66,11 @@
 </template>
 
 <script>
-import { IonPage, IonContent, IonHeader, IonBackButton, IonButtons, IonToolbar, IonTitle, IonList, IonLabel, IonItem, IonListHeader, IonText } from '@ionic/vue'
+import { IonPage, IonContent, IonHeader, IonBackButton, IonButtons, IonToolbar, IonTitle, IonList, IonLabel, IonItem, IonListHeader, IonText, IonImg } from '@ionic/vue'
 import client from '@/client'
 
 export default {
-  components: { IonPage, IonContent, IonHeader, IonBackButton, IonButtons, IonToolbar, IonTitle, IonList, IonLabel, IonItem, IonListHeader, IonText },
+  components: { IonPage, IonContent, IonHeader, IonBackButton, IonButtons, IonToolbar, IonTitle, IonList, IonLabel, IonItem, IonListHeader, IonText, IonImg },
 
   props: {
     id: {
