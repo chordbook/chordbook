@@ -13,14 +13,14 @@
           :src="genre.thumbnail"
           class="object-cover object-center absolute inset-0 w-full h-full opacity-50 saturate-0 mix-blend-luminosity"
         />
-        <ion-card-header
+        <div
           translucent
-          class="aspect-4/3  flex items-end"
+          class="aspect-4/3 flex items-end p-3"
         >
-          <ion-card-title class="text-shadow font-bold text-xl text-white">
+          <ion-card-title class="text-shadow font-bold text-lg sm:text-xl text-white">
             {{ genre.name }}
           </ion-card-title>
-        </ion-card-header>
+        </div>
       </ion-card>
     </div>
   </div>
