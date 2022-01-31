@@ -69,4 +69,18 @@ class LookupMetadata < ApplicationJob
       super "/api/v1/json/#{API_KEY}/#{path}", *args
     end
   end
+
+  def self.trending
+    get("trending.php?country=us&type=itunes&format=albums")["trending"].each do |trend|
+      Artist.find_or_create_by!(name: trend["strArtist"])
+    end
+  end
+
+  def self.most_loved
+    %w[track album].each do |format|
+      get("mostloved.php?format=#{format}")["loved"].each do |item|
+        Artist.find_or_create_by!(name: item["strArtist"])
+      end
+    end
+  end
 end
