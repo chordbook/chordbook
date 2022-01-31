@@ -25,37 +25,48 @@
     </div>
 
     <div class="mt-4 text-center">
-      <button
+      <ion-button
         v-if="!active"
-        class="btn btn-primary"
-        tooltip="Start"
-        tooltip-pos="top"
+        color="success"
         @click="start"
       >
-        <icon-bi:mic />
-      </button>
-      <button
+        <ion-icon
+          slot="icon-only"
+          :icon="icons.mic"
+        />
+      </ion-button>
+      <ion-button
         v-if="active"
-        class="btn btn-primary bg-red-500 hover:bg-red-600"
-        tooltip="Stop"
-        tooltip-pos="top"
+        color="danger"
+        type="reset"
         @click="stop"
       >
-        <icon-bi:mic-fill class="animate-pulse" />
-      </button>
+        <ion-icon
+          slot="icon-only"
+          :icon="icons.micOff"
+          class="animate-pulse"
+        />
+      </ion-button>
     </div>
   </div>
 </template>
 
 <script>
 import { Tuner } from '../lib/tuner'
+import TunerMeter from '@/components/tuner-meter.vue'
+import TunerNote from '@/components/tuner-note.vue'
+import { mic, micOff } from 'ionicons/icons'
+import { IonIcon, IonButton } from '@ionic/vue'
 
 export default {
+  components: { TunerMeter, TunerNote, IonIcon, IonButton },
+
   data () {
     return {
       a4: 440,
       note: { name: 'A', frequency: 440, octave: 4, cents: 0 },
-      active: false
+      active: false,
+      icons: { mic, micOff }
     }
   },
 

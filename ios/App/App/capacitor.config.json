@@ -1,0 +1,6 @@
+{
+	"appId": "app.chordbook.app",
+	"appName": "Chord Book",
+	"webDir": "public",
+	"bundledWebRuntime": false
+}

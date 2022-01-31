@@ -2,8 +2,8 @@
 (
   [
     root_url,
-    asset_path("icon@192.png"),
-    asset_path("icon@512.png")
+    "/icon@192.png",
+    "/icon@512.png"
   ] +
   Song.all.map { |song| api_song_url(song, format: :json) }
 ).to_json.html_safe

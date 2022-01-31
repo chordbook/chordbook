@@ -1,12 +1,14 @@
+shallow ||= false
+
 json.extract! songsheet, :id, :title, :metadata, :created_at, :updated_at
 
-if songsheet.track
+if !shallow && songsheet.track
   json.track do
     json.partial! "api/tracks/track", track: songsheet.track
   end
 end
 
-if songsheet.artists.any?
+if !shallow && songsheet.artists.any?
   json.artists do
     json.array! songsheet.artists, partial: "api/artists/artist", as: :artist
   end
