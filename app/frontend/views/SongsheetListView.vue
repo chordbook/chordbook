@@ -2,12 +2,6 @@
   <ion-page>
     <ion-header translucent>
       <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button
-            text=""
-            default-href="/library"
-          />
-        </ion-buttons>
         <ion-title>Songs</ion-title>
         <ion-buttons slot="end">
           <ion-button :router-link="{ name: 'songsheet.new' }">
@@ -43,11 +37,11 @@
 <script>
 import client from '@/client'
 import SongsheetItem from '@/components/SongsheetItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonButton, IonIcon } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonButton, IonIcon } from '@ionic/vue'
 import { add } from 'ionicons/icons'
 
 export default {
-  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonButton, IonIcon },
+  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonButton, IonIcon },
 
   data () {
     return {

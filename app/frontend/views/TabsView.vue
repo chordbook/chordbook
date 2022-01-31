@@ -5,6 +5,7 @@
       <ion-tab-bar
         slot="bottom"
         translucent
+        class="md:hidden"
       >
         <ion-tab-button
           tab="discover"

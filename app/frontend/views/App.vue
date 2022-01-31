@@ -1,21 +1,27 @@
 <template>
   <ion-app>
     <reload-pwa />
-    <ion-router-outlet />
+    <ion-split-pane content-id="main">
+      <app-menu content-id="main" />
+      <ion-router-outlet id="main" />
+    </ion-split-pane>
   </ion-app>
 </template>
 
 <script>
-import { IonApp, IonRouterOutlet } from '@ionic/vue'
+import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/vue'
 import ReloadPwa from '@/components/reload-pwa.vue'
+import AppMenu from '@/components/menu.vue'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'App',
 
   components: {
-    ReloadPwa,
     IonApp,
+    ReloadPwa,
+    IonSplitPane,
+    AppMenu,
     IonRouterOutlet
   },
 
@@ -24,3 +30,9 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+ion-split-pane {
+  --side-max-width: 220px;
+}
+</style>
