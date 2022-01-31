@@ -29,10 +29,10 @@
 <script>
 import client from '@/client'
 import { gradient } from '@/lib/gradient'
-import { IonCard, IonCardTitle, IonCardHeader, IonImg } from '@ionic/vue'
+import { IonCard, IonCardTitle, IonImg } from '@ionic/vue'
 
 export default {
-  components: { IonCard, IonCardTitle, IonCardHeader, IonImg },
+  components: { IonCard, IonCardTitle, IonImg },
 
   data () {
     return {

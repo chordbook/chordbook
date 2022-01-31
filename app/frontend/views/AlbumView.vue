@@ -18,11 +18,18 @@
 
     <ion-content fullscreen>
       <div class="ion-padding ion-margin flex gap-4 md:gap-6 flex-col md:flex-row">
-        <div class="text-center flex-shrink-0">
-          <ion-img
-            :src="album.thumbnail"
-            class="aspect-square w-3/4 md:w-60 rounded overflow-hidden shadow-lg"
-          />
+        <div class="text-center flex-shrink-0 flex place-content-center">
+          <div class="aspect-square w-3/4 md:w-60 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800">
+            <img
+              v-if="album.thumbnail"
+              :src="album.thumbnail"
+            >
+            <ion-icon
+              v-else
+              :icon="placeholderIcon"
+              class="text-slate-300 dark:text-slate-700 text-6xl"
+            />
+          </div>
         </div>
         <div class="text-center md:text-left md:pt-6">
           <h1 class="text-xl md:text-3xl m-0">
@@ -76,10 +83,11 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonImg } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote } from '@ionic/vue'
+import { albums } from 'ionicons/icons'
 
 export default {
-  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonImg },
+  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote },
 
   props: {
     id: {
@@ -90,7 +98,8 @@ export default {
 
   data () {
     return {
-      album: {}
+      album: {},
+      placeholderIcon: albums
     }
   },
 

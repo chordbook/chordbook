@@ -3,10 +3,19 @@
     button
     :router-link="{ name: 'songsheet', params: { id: songsheet.id } }"
   >
-    <ion-avatar slot="start">
+    <ion-avatar
+      slot="start"
+      class="bg-slate-100 flex place-content-center items-center rounded"
+    >
       <ion-img
+        v-if="songsheet.track?.album"
         :src="songsheet.track?.album?.thumbnail"
         class="rounded"
+      />
+      <ion-icon
+        v-else
+        :icon="musicalNote"
+        class="text-slate-300"
       />
     </ion-avatar>
     <ion-label>
@@ -19,16 +28,21 @@
 </template>
 
 <script>
-import { IonItem, IonAvatar, IonLabel, IonImg } from '@ionic/vue'
+import { IonItem, IonAvatar, IonLabel, IonImg, IonIcon } from '@ionic/vue'
+import { musicalNote } from 'ionicons/icons'
 
 export default {
-  components: { IonItem, IonAvatar, IonLabel, IonImg },
+  components: { IonItem, IonAvatar, IonLabel, IonImg, IonIcon },
 
   props: {
     songsheet: {
       type: Object,
       required: true
     }
+  },
+
+  data () {
+    return { musicalNote }
   },
 
   computed: {

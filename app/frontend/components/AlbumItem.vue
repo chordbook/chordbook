@@ -7,19 +7,28 @@
     lines="none"
   >
     <ion-label>
-      <div class="rounded aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2">
-        <ion-img :src="album.thumbnail" />
+      <div class="rounded aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2 flex place-content-center items-center">
+        <ion-img
+          v-if="album.thumbnail"
+          :src="album.thumbnail"
+        />
+        <ion-icon
+          v-else
+          :icon="albums"
+          class="text-slate-300 text-5xl"
+        />
       </div>
       <h2 class="text-sm">
         {{ album.title }}
       </h2>
-      <p>{{ album.artist.name }}</p>
+      <p>{{ album.artist.name }} • {{ album.released }}</p>
     </ion-label>
   </ion-item>
 </template>
 
 <script>
 import { IonItem, IonLabel, IonImg } from '@ionic/vue'
+import { albums } from 'ionicons/icons'
 
 export default {
   components: { IonItem, IonLabel, IonImg },
@@ -29,6 +38,10 @@ export default {
       type: Object,
       required: true
     }
+  },
+
+  data () {
+    return { albums }
   }
 }
 </script>
