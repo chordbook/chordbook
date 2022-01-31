@@ -23,7 +23,10 @@
 
 @layer utilities {
   .grid-scroll-x {
-    @apply grid grid-flow-col overflow-x-auto;
-    -webkit-overflow-scrolling: touch;
+    @apply grid grid-flow-col overflow-x-auto snap-x snap-mandatory;
+  }
+
+  .grid-scroll-x > * {
+    @apply snap-start
   }
 }

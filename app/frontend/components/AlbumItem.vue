@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import { IonItem, IonLabel, IonImg } from '@ionic/vue'
+import { IonItem, IonLabel, IonImg, IonIcon } from '@ionic/vue'
 import { albums } from 'ionicons/icons'
 
 export default {
-  components: { IonItem, IonLabel, IonImg },
+  components: { IonItem, IonLabel, IonImg, IonIcon },
 
   props: {
     album: {
