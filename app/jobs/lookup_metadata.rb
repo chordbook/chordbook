@@ -8,7 +8,7 @@ class LookupMetadata < ApplicationJob
 
   delegate :get, :path, to: :class
 
-  class_attribute :throttle, default: Throttle.new(1.second)
+  class_attribute :throttle, default: Throttle.new(2.5.seconds)
 
   def perform(model, recursive: true, **args)
     send "sync_#{model.class.name.underscore}", model, recursive: recursive, **args
