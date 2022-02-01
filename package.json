@@ -10,7 +10,7 @@
     "@ionic/vue-router": "^6.0.3",
     "@tailwindcss/line-clamp": "^0.3.0",
     "@tombatossals/chords-db": "^0.5.1",
-    "@vitejs/plugin-vue": "^1.10.2",
+    "@vitejs/plugin-vue": "^2.1.0",
     "@vueuse/core": "^7.5.4",
     "ace-builds": "^1.4.13",
     "arrify": "^3.0.0",
