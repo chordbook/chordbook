@@ -7,7 +7,7 @@
     lines="none"
   >
     <ion-label>
-      <div class="rounded aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2 flex place-content-center items-center">
+      <div class="rounded overflow-hidden relative aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2 flex place-content-center items-center">
         <ion-img
           v-if="album.thumbnail"
           :src="album.thumbnail"
