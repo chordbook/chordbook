@@ -15,23 +15,27 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
-      <div
-        :style="`background-image: linear-gradient(rgba(0,0,0,0) 33%, rgba(0,0,0,0.8)), url(${artist.banner});`"
-        class="ion-padding bg-cover bg-center aspect-16/9 max-h-screen-1/2 w-full flex flex-col place-content-end text-white text-shadow"
-      >
-        <ion-note
-          v-if="artist.genre"
-          button
-          :router-link="{ name: 'genre', params: { id: artist.genre.id } }"
-          class="block text-xl opacity-80 ion-activatable ion-focusable"
+    <ion-content fullscreen>
+      <ion-header collapse="condense">
+        <div
+          :style="`background-image: linear-gradient(rgba(0,0,0,0) 33%, rgba(0,0,0,0.8)), url(${artist.banner});`"
+          class="bg-slate-700 bg-cover bg-center aspect-16/9-max-h-screen-1/2"
         >
-          {{ artist.genre.name }}
-        </ion-note>
-        <h1 class="text-4xl font-bold m-0">
-          {{ artist.name }}
-        </h1>
-      </div>
+          <ion-toolbar class="absolute bottom-0 w-full ion-padding text-white text-shadow">
+            <ion-note
+              v-if="artist.genre"
+              button
+              :router-link="{ name: 'genre', params: { id: artist.genre.id } }"
+              class="block text-lg text-white opacity-60 ion-activatable ion-focusable"
+            >
+              {{ artist.genre.name }}
+            </ion-note>
+            <h1 class="text-4xl font-bold m-0">
+              {{ artist.name }}
+            </h1>
+          </ion-toolbar>
+        </div>
+      </ion-header>
 
       <ion-list v-if="tracks.length > 0">
         <ion-list-header>
@@ -132,12 +136,16 @@ export default {
 </script>
 
 <style scoped>
-
-/* .grid-scroll-x {
-  @apply grid grid-flow-col overflow-x-auto;
-  -webkit-overflow-scrolling: touch;
+/* Safari does not respect max-height with aspect-ratio, so workaround it */
+.aspect-16\/9-max-h-screen-1\/2 {
+  @apply max-h-screen-1/2 overflow-hidden relative;
+}
+.aspect-16\/9-max-h-screen-1\/2:before {
+  content: '';
+  @apply block aspect-16/9;
 }
 
-.grid-col-1\/5 { grid-auto-columns: 20%; }
-.grid-col-1\/3 { grid-auto-columns: 33.33%; } */
+ion-content ion-toolbar {
+  --background: transparent
+}
 </style>
