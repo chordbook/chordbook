@@ -21,21 +21,23 @@
       <ion-list
         lines="none"
       >
-        <ion-item
-          button
-          shape="round"
-          :router-link="{ name: 'discover' }"
-          router-direction="root"
-          :detail="false"
-          color="primary"
-        >
-          <ion-icon
-            slot="start"
-            size="small"
-            :icon="search"
-          />
-          <ion-label>Discover</ion-label>
-        </ion-item>
+        <ion-menu-toggle>
+          <ion-item
+            button
+            shape="round"
+            :router-link="{ name: 'discover' }"
+            router-direction="root"
+            :detail="false"
+            color="primary"
+          >
+            <ion-icon
+              slot="start"
+              size="small"
+              :icon="search"
+            />
+            <ion-label>Discover</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
       </ion-list>
 
       <ion-list
@@ -46,34 +48,38 @@
         >
           Library
         </ion-list-header>
-        <ion-item
-          button
-          shape="round"
-          router-link="/songsheets"
-          router-direction="root"
-          :detail="false"
-        >
-          <ion-icon
-            slot="start"
-            size="small"
-            :icon="musicalNote"
-          />
-          Songs
-        </ion-item>
-        <ion-item
-          button
-          shape="round"
-          router-link="/artists"
-          router-direction="root"
-          :detail="false"
-        >
-          <ion-icon
-            slot="start"
-            size="small"
-            :icon="peopleCircle"
-          />
-          Artists
-        </ion-item>
+        <ion-menu-toggle>
+          <ion-item
+            button
+            shape="round"
+            router-link="/songsheets"
+            router-direction="root"
+            :detail="false"
+          >
+            <ion-icon
+              slot="start"
+              size="small"
+              :icon="musicalNote"
+            />
+            Songs
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item
+            button
+            shape="round"
+            router-link="/artists"
+            router-direction="root"
+            :detail="false"
+          >
+            <ion-icon
+              slot="start"
+              size="small"
+              :icon="peopleCircle"
+            />
+            Artists
+          </ion-item>
+        </ion-menu-toggle>
       </ion-list>
     </ion-content>
   </ion-menu>
@@ -90,7 +96,8 @@ import {
   IonContent,
   IonIcon,
   IonLabel,
-  IonListHeader
+  IonListHeader,
+  IonMenuToggle
 } from '@ionic/vue'
 
 import { search, musicalNote, peopleCircle } from 'ionicons/icons'

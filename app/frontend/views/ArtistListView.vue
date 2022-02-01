@@ -3,6 +3,16 @@
     <ion-header translucent>
       <ion-toolbar>
         <ion-title>Artists</ion-title>
+
+        <ion-buttons slot="start">
+          <ion-menu-toggle>
+            <ion-back-button
+              text=""
+              type="reset"
+              default-href=""
+            />
+          </ion-menu-toggle>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -29,10 +39,10 @@
 <script>
 import client from '@/client'
 import ArtistItem from '@/components/ArtistItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton } from '@ionic/vue'
 
 export default {
-  components: { ArtistItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList },
+  components: { ArtistItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton },
 
   data () {
     return {

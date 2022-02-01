@@ -1,5 +1,19 @@
 <template>
   <ion-page>
+    <ion-header translucent collapse="fade" class="ion-no-border">
+      <ion-toolbar>
+        <ion-title>Discover</ion-title>
+        <ion-buttons slot="start">
+          <ion-menu-toggle>
+            <ion-back-button
+              text=""
+              type="reset"
+              default-href=""
+            />
+          </ion-menu-toggle>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
     <ion-content fullscreen>
       <ion-header collapse="condense">
         <ion-toolbar>
@@ -10,7 +24,8 @@
       </ion-header>
       <ion-header
         translucent
-        class="sticky top-0"
+        class="sticky"
+        style="top: -1px"
       >
         <ion-toolbar>
           <ion-searchbar
@@ -47,12 +62,12 @@
 </template>
 
 <script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonSegment, IonSegmentButton, IonLabel, IonButtons, IonMenuToggle, IonBackButton } from '@ionic/vue'
 import SearchResults from '@/components/SearchResults.vue'
 import GenreListView from '@/views/GenreListView.vue'
 
 export default {
-  components: { SearchResults, GenreListView, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonSearchbar, IonSegment, IonSegmentButton, IonLabel },
+  components: { SearchResults, GenreListView, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonSearchbar, IonSegment, IonSegmentButton, IonLabel, IonButtons, IonMenuToggle, IonBackButton },
 
   data () {
     return {
