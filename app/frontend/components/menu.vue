@@ -21,7 +21,7 @@
       <ion-list
         lines="none"
       >
-        <ion-menu-toggle>
+        <ion-menu-toggle auto-hide="false">
           <ion-item
             button
             shape="round"
@@ -48,7 +48,7 @@
         >
           Library
         </ion-list-header>
-        <ion-menu-toggle>
+        <ion-menu-toggle auto-hide="false">
           <ion-item
             button
             shape="round"
@@ -64,7 +64,7 @@
             Songs
           </ion-item>
         </ion-menu-toggle>
-        <ion-menu-toggle>
+        <ion-menu-toggle auto-hide="false">
           <ion-item
             button
             shape="round"
