@@ -1,8 +1,10 @@
 <template>
   <ion-page>
-    <ion-header translucent collapse="fade" class="ion-no-border">
+    <ion-header
+      collapse="fade"
+      class="ion-no-border"
+    >
       <ion-toolbar>
-        <ion-title>Discover</ion-title>
         <ion-buttons slot="start">
           <ion-menu-toggle>
             <ion-back-button
@@ -12,20 +14,24 @@
             />
           </ion-menu-toggle>
         </ion-buttons>
+        <ion-title>Discover</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content fullscreen>
-      <ion-header collapse="condense">
+      <ion-header
+        v-show="!isSearching"
+        collapse="condense"
+      >
         <ion-toolbar>
           <ion-title size="large">
             Discover
           </ion-title>
         </ion-toolbar>
       </ion-header>
+
       <ion-header
-        translucent
-        class="sticky"
-        style="top: -1px"
+        collapse="fade"
+        class="sticky top-0"
       >
         <ion-toolbar>
           <ion-searchbar
@@ -34,6 +40,8 @@
             :show-cancel-button="isSearching ? 'always' : 'focus'"
             debounce="250"
             animated
+            @ion-focus="setFocus(true)"
+            @ion-blur="setFocus(false)"
           />
         </ion-toolbar>
         <ion-toolbar v-show="isSearching">
@@ -77,13 +85,18 @@ export default {
         Artists: 'artist',
         Albums: 'album',
         Songs: 'track,songsheet'
-      }
+      },
+      hasFocus: false
     }
   },
 
   computed: {
-    isSearching () {
+    hasSearchQuery () {
       return !!this.searchParams.q
+    },
+
+    isSearching () {
+      return this.hasSearchQuery || this.hasFocus
     }
   },
 
@@ -93,6 +106,10 @@ export default {
   },
 
   methods: {
+    setFocus (bool) {
+      this.hasFocus = bool
+    },
+
     updateFromRoute () {
       this.searchParams = this.$route.query
     },
@@ -110,13 +127,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.ios ion-searchbar {
-  padding-top: 15px;
-}
-
-.ios ion-header.header-collapse-condense {
-  padding-top: 44px;
-}
-</style>

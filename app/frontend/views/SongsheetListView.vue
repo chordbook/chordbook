@@ -1,6 +1,9 @@
 <template>
   <ion-page>
-    <ion-header translucent collapse="fade">
+    <ion-header
+      translucent
+      collapse="fade"
+    >
       <ion-toolbar>
         <ion-title>Songs</ion-title>
 
