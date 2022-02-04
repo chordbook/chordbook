@@ -4163,10 +4163,10 @@ safe-buffer@~5.1.1:
   resolved "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.2.tgz"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
 
-sass@^1.49.0:
-  version "1.49.0"
-  resolved "https://registry.npmjs.org/sass/-/sass-1.49.0.tgz"
-  integrity sha512-TVwVdNDj6p6b4QymJtNtRS2YtLJ/CqZriGg0eIAbAKMlN8Xy6kbv33FsEZSF7FufFFM705SQviHjjThfaQ4VNw==
+sass@^1.49.3:
+  version "1.49.3"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.49.3.tgz#2953c6bb16a968d0b40c225a8025b3a95d6bd188"
+  integrity sha512-scKgxiDgYDlkBpDeo6+Xn/MEAGbPgk4Gi80SgACG2Mr67KXVmNpqhV13/cpOa6bEijrIiNMp0pRGm5ZWsQEiNw==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
