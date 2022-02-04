@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_15_051449) do
+ActiveRecord::Schema.define(version: 2022_02_04_151609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -106,6 +106,7 @@ ActiveRecord::Schema.define(version: 2022_01_15_051449) do
     t.json "metadata"
     t.bigint "track_id"
     t.string "title"
+    t.string "imported_from"
     t.index ["track_id"], name: "index_songsheets_on_track_id"
   end
 
