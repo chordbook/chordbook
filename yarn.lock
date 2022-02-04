@@ -1004,10 +1004,10 @@
     debug "^4.0.0"
     tslib "^2.0.1"
 
-"@ionic/core@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.0.4.tgz#f6ee01f17386b8abeab9e7be65c5493a205b6e35"
-  integrity sha512-s/hJidmB3qtuBE/IY6cfPYJb8U7pWP2c1oUfyZGp9dyqLy9F4fYOKBog6Pzgfs0U50CArCGJfHSp6ufPFA0G2w==
+"@ionic/core@^6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.0.5.tgz#6573a852d0d2cb914e4b04b4b9d170552cb2f7db"
+  integrity sha512-qCGBihMoIpvSAn3rmZ0imWWfpu02Ulbysq4O4JIB3xTwH3MUCPaMILOVq5e++lp3zessXzNLu8OKTOHarOZSzw==
   dependencies:
     "@stencil/core" "~2.12.0"
     ionicons "^6.0.0"
@@ -1086,19 +1086,19 @@
     untildify "^4.0.0"
     wrap-ansi "^7.0.0"
 
-"@ionic/vue-router@^6.0.3":
-  version "6.0.3"
-  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.0.3.tgz#f2c54bf09636fc4898c8719fa548b29a6ad704fa"
-  integrity sha512-XKVcbXE5/wZ8WADA0fEN9XhHDwbuPaUolSWCQk/KJszJj8Myfpl9hr9R4gVlnS1TFG1FlnJXsDC7sOK3mKnRpA==
+"@ionic/vue-router@^6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.0.5.tgz#4b13bf05df8d3b557f75100d0356fbbab1049693"
+  integrity sha512-wPJnj7DYhg35YnnZ77jToySOPJrxIXihCHKw7UgW7T7wPPgiVSZJ5xcej5oXQzI4HtwBYLZtEVa4NUn8DSlFEw==
   dependencies:
-    "@ionic/vue" "^6.0.3"
+    "@ionic/vue" "^6.0.5"
 
-"@ionic/vue@^6.0.3", "@ionic/vue@^6.0.4":
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.0.4.tgz#c064991adc6ad0f2743e3a2595cbd97e0302e30d"
-  integrity sha512-pitPBWZtUgFY2UMvD1/qIS2wvvRzDeAsuSxVEy4TJdL3T0+POG/5ZuL9p6+NHAvGSRB7DJUNVB1er/4BLOmubA==
+"@ionic/vue@^6.0.4", "@ionic/vue@^6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.0.5.tgz#e74f42cfba4946caf5b436e7a22456783652683f"
+  integrity sha512-bSUmjfvyPa+R58MgZjgOV7TmTFkvF0zvaUKVsWuPG7wUewumb+YHfR+JfLRrImOXIOMloG18e6WXz3cgQ9A+Rg==
   dependencies:
-    "@ionic/core" "^6.0.4"
+    "@ionic/core" "^6.0.5"
     ionicons "^6.0.0"
 
 "@nodelib/fs.scandir@2.1.5":
