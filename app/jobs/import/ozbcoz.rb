@@ -1,33 +1,8 @@
 require "throttle"
 require "addressable"
-require "chordpro"
 
-class Chordpro::Song
-  ALIASES = {
-    't' => 'title',
-    'st' => 'subtitle'
-  }
-
-  def directives
-    elements.select { |e| e.is_a?(Chordpro::Directive) }
-  end
-
-  def metadata
-    # FIXME: return enumerator
-    directives.each_with_object({}) do |directive, result|
-      key = ALIASES[directive.name] || directive.name
-      result[key] = directive.value
-    end
-  end
-end
-
-module Chordpro
-  def self.parse(input)
-    Chordpro::Transform.new.apply(Chordpro::Parser.new.parse(input))
-  end
-end
-
-class Import::Ozbcoz < ApplicationJob
+# Import songs from https://ozbcoz.com/
+class Import::Ozbcoz < Import::Chordpro
   include HTTParty
   base_uri "https://ozbcoz.com/"
 
@@ -36,14 +11,8 @@ class Import::Ozbcoz < ApplicationJob
   class_attribute :throttle, default: Throttle.new(1.second)
 
   def perform(url)
-    source = lint(get(url).body.force_encoding("UTF-8"))
-    chordpro = Chordpro.parse(source)
-
-    Songsheet.find_or_initialize_by(imported_from: url).tap do |s|
-      s.source = source
-      s.metadata = chordpro.metadata
-      s.save!
-    end
+    source = get(url).body.force_encoding("UTF-8")
+    super(source, songsheet: Songsheet.find_by(imported_from: url), imported_from: url)
   end
 
   def self.all
@@ -56,9 +25,5 @@ class Import::Ozbcoz < ApplicationJob
 
   def self.get(path, *args)
     throttle.call { super }
-  end
-
-  def lint(song)
-    song.gsub('{c: }', "")
   end
 end
