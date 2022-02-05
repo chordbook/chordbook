@@ -28,12 +28,12 @@
             :router-link="{ name: 'discover' }"
             router-direction="root"
             :detail="false"
-            color="primary"
+            :color="colorFor('discover')"
           >
             <ion-icon
               slot="start"
               size="small"
-              :icon="search"
+              :icon="icons.search"
             />
             <ion-label>Discover</ion-label>
           </ion-item>
@@ -55,11 +55,12 @@
             router-link="/songsheets"
             router-direction="root"
             :detail="false"
+            :color="colorFor('songs')"
           >
             <ion-icon
               slot="start"
               size="small"
-              :icon="musicalNote"
+              :icon="icons.musicalNote"
             />
             Songs
           </ion-item>
@@ -71,11 +72,12 @@
             router-link="/artists"
             router-direction="root"
             :detail="false"
+            :color="colorFor('artists')"
           >
             <ion-icon
               slot="start"
               size="small"
-              :icon="peopleCircle"
+              :icon="icons.peopleCircle"
             />
             Artists
           </ion-item>
@@ -85,7 +87,7 @@
   </ion-menu>
 </template>
 
-<script setup>
+<script>
 import {
   IonMenu,
   IonHeader,
@@ -101,6 +103,41 @@ import {
 } from '@ionic/vue'
 
 import { search, musicalNote, peopleCircle } from 'ionicons/icons'
+
+export default {
+  components: {
+    IonMenu,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonList,
+    IonItem,
+    IonContent,
+    IonIcon,
+    IonLabel,
+    IonListHeader,
+    IonMenuToggle
+  },
+
+  data () {
+    return {
+      icons: { search, musicalNote, peopleCircle },
+      selected: this.$route.meta?.selected || 'discover'
+    }
+  },
+
+  watch: {
+    $route () {
+      this.selected = this.$route.meta?.selected || this.selected
+    }
+  },
+
+  methods: {
+    colorFor(item) {
+      return item == this.selected ? 'primary' : ''
+    }
+  }
+}
 </script>
 
 <style scoped>
