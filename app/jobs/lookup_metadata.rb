@@ -1,14 +1,19 @@
 require "throttle"
 
 class LookupMetadata < ApplicationJob
+  include GoodJob::ActiveJobExtensions::Concurrency
   include HTTParty
   API_KEY = ENV["THEAUDIODB_API_KEY"] || "2" # default public key
   base_uri "https://www.theaudiodb.com"
   raise_on 400..600
+  queue_as :low
 
   delegate :get, :path, to: :class
 
   class_attribute :throttle, default: Throttle.new(2.5.seconds)
+
+  # Only allow one of this jobs to run at a time
+  good_job_control_concurrency_with(perform_limit: 1, key: self.name)
 
   def perform(model, recursive: true, **args)
     send "sync_#{model.class.name.underscore}", model, recursive: recursive, **args
