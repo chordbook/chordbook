@@ -44,6 +44,11 @@
         </ion-list-header>
 
         <div class="grid-scroll-x grid-rows-3 auto-cols-1/1 sm:auto-cols-1/2 lg:auto-cols-1/3 xl:auto-cols-1/4">
+          <songsheet-item
+            v-for="songsheet in songsheets"
+            :key="songsheet.id"
+            :songsheet="songsheet"
+          />
           <track-item
             v-for="track in tracks"
             :key="track.id"
@@ -90,9 +95,10 @@ import client from '@/client'
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton, IonNote } from '@ionic/vue'
 import TrackItem from '@/components/TrackItem.vue'
 import AlbumItem from '@/components/AlbumItem.vue'
+import SongsheetItem from '@/components/SongsheetItem.vue'
 
 export default {
-  components: { TrackItem, AlbumItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton, IonNote },
+  components: { SongsheetItem, TrackItem, AlbumItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton, IonNote },
 
   props: {
     id: {
