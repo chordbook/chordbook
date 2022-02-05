@@ -13,7 +13,7 @@ class LookupMetadata < ApplicationJob
   class_attribute :throttle, default: Throttle.new(2.5.seconds)
 
   # Only allow one of this jobs to run at a time
-  good_job_control_concurrency_with(perform_limit: 1, key: self.name)
+  good_job_control_concurrency_with(perform_limit: 1, key: name)
 
   def perform(model, recursive: true, **args)
     send "sync_#{model.class.name.underscore}", model, recursive: recursive, **args

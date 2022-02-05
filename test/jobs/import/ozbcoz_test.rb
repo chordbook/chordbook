@@ -11,7 +11,7 @@ class Import::OzbcozTest < ActiveJob::TestCase
 
   test "perform" do
     VCR.use_cassette("ozbcoz") do
-      assert_difference ->{ Songsheet.count } do
+      assert_difference -> { Songsheet.count } do
         songsheet = Import::Ozbcoz.perform_now("https://ozbcoz.com/Songs/guitarpdf/pro/Across-The-Universe.pro")
         assert_equal "Across The Universe", songsheet.title
         assert_equal({"artist" => "The Beatles", "key" => "C"}, songsheet.metadata)
@@ -21,11 +21,10 @@ class Import::OzbcozTest < ActiveJob::TestCase
 
   test "song with bad encoding" do
     VCR.use_cassette("ozbcoz") do
-      assert_difference ->{ Songsheet.count } do
+      assert_difference -> { Songsheet.count } do
         songsheet = Import::Ozbcoz.perform_now("https://ozbcoz.com/Songs/guitarpdf/pro/Aint-No-Cure-For-Love.pro")
         assert_equal "Ain’t No Cure For Love", songsheet.title
       end
     end
-    #
   end
 end

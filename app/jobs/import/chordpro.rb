@@ -15,16 +15,16 @@ class Import::Chordpro < ApplicationJob
   # Clean up Chordpro source
   def lint(source)
     source
-      .gsub(/\s+$/, '') # trailing whitespace from each line
-      .gsub('{c: }', "") # Blank comments
+      .gsub(/\s+$/, "") # trailing whitespace from each line
+      .gsub("{c: }", "") # Blank comments
   end
 end
 
 ## FIXME: move these into chordpro gem
 class Chordpro::Song
   ALIASES = {
-    't' => 'title',
-    'st' => 'subtitle'
+    "t" => "title",
+    "st" => "subtitle"
   }
 
   def directives

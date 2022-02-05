@@ -6,5 +6,5 @@ if Rails.env.production?
 end
 
 Rails.application.configure do
-  config.good_job.queues = 'default,low,*'
+  config.good_job.queues = "default,low,*"
 end
