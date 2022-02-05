@@ -7,6 +7,7 @@ class Songsheet < ApplicationRecord
   has_many :artist_works, as: :work
   has_many :artists, through: :artist_works
 
+  scope :order_by_popular, -> { includes(:track).order("tracks.listeners DESC NULLS LAST") }
   scope :recent, -> { order(created_at: :desc) }
 
   validates :title, presence: true
