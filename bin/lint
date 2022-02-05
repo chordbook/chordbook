@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -x
+
+bundle exec standardrb --fix
+yarn lint --fix
