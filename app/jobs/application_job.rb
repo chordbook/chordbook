@@ -4,4 +4,6 @@ class ApplicationJob < ActiveJob::Base
 
   # Most jobs are safe to ignore if the underlying records are no longer available
   # discard_on ActiveJob::DeserializationError
+
+  retry_on StandardError, wait: :exponentially_longer, attempts: 10
 end
