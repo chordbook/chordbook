@@ -14,6 +14,7 @@ gem "good_job"
 gem "rack-cors"
 gem "nokogiri"
 gem "chordpro", git: "https://github.com/bkeepers/chordpro"
+gem "kaminari"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

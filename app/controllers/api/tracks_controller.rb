@@ -1,6 +1,6 @@
 class Api::TracksController < ApiController
   def index
-    @tracks = current_scope.order_by_popular.limit(12)
+    @tracks = current_scope.order_by_popular.page(params[:page])
   end
 
   def show
