@@ -74,6 +74,7 @@
         </div>
       </div>
     </div>
+    <slot name="footer" />
   </ion-content>
   <ion-footer
     v-if="showChords"
