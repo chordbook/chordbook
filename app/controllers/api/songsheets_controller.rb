@@ -3,11 +3,8 @@ class Api::SongsheetsController < ApiController
 
   # GET /songsheets.json
   def index
-    @songsheets = if params[:letter]
-      current_scope.starts_with(:title, params[:letter])
-    else
-      current_scope.recent
-    end
+    @songsheets = current_scope.includes(:track, :artists).page(params[:page])
+    set_pagination_header @songsheets
   end
 
   # GET /songsheets/1.json
@@ -41,6 +38,14 @@ class Api::SongsheetsController < ApiController
   end
 
   private
+
+  def current_scope
+    if params[:letter]
+      super.starts_with(:title, params[:letter])
+    else
+      super.order_by_popular.recent
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_songsheet

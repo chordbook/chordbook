@@ -44,39 +44,41 @@
           :songsheet="songsheet"
         />
       </ion-list>
+
+      <ion-infinite-scroll
+        threshold="500px"
+        :disabled="dataSource.loading || dataSource.disabled"
+        @ion-infinite="dataSource.load().then(() => $event.target.complete())"
+      >
+        <ion-infinite-scroll-content
+          loading-spinner="bubbles"
+          loading-text="Loading…"
+        />
+      </ion-infinite-scroll>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import client from '@/client'
+import DataSource from '@/DataSource'
 import SongsheetItem from '@/components/SongsheetItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonButton, IonIcon, IonMenuToggle, IonBackButton } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonButton, IonIcon, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 import { add } from 'ionicons/icons'
 
 export default {
-  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonButton, IonIcon, IonMenuToggle, IonBackButton },
+  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonButton, IonIcon, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
 
   data () {
+    const dataSource = new DataSource('/api/songsheets.json', { params: this.$route.query })
     return {
-      songsheets: [],
+      dataSource,
+      songsheets: dataSource.items,
       icons: { add }
     }
   },
 
-  watch: {
-    $route: 'fetchData'
-  },
-
   created () {
-    this.fetchData()
-  },
-
-  methods: {
-    async fetchData () {
-      this.songsheets = (await client.get('/api/songsheets.json', { params: this.$route.query })).data
-    }
+    this.dataSource.load()
   }
-
 }
 </script>

@@ -7,6 +7,7 @@ class Songsheet < ApplicationRecord
   has_many :artist_works, as: :work
   has_many :artists, through: :artist_works
 
+  scope :order_by_popular, -> { includes(:track).order("tracks.listeners DESC NULLS LAST") }
   scope :recent, -> { order(created_at: :desc) }
 
   validates :title, presence: true
@@ -40,11 +41,11 @@ class Songsheet < ApplicationRecord
   def associate_metadata
     if metadata["artist"]
       self.artists = Array(metadata["artist"]).map do |name|
-        Artist.find_or_initialize_by(name: name)
+        Artist.find_or_initialize_by(name: name.strip)
       end
     end
 
-    self.track ||= Track.order_by_popular.find_by(title: title, artist_id: artists.map(&:id))
+    self.track ||= Track.order_by_popular.find_by(title: title.strip, artist_id: artists.map(&:id))
   end
 
   def mark_track

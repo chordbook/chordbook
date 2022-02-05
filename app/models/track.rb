@@ -7,9 +7,10 @@ class Track < ApplicationRecord
   belongs_to :album, optional: true
   belongs_to :genre, optional: true
 
-  has_many :songsheets
+  has_many :songsheets, dependent: :nullify
 
   scope :order_by_popular, -> { order("tracks.listeners DESC NULLS LAST") }
+  scope :with_songsheet, -> { where(has_songsheet: true) }
 
   before_validation :associate_genre
   after_create :associate_songsheets

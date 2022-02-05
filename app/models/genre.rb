@@ -6,7 +6,5 @@ class Genre < ApplicationRecord
   has_one :example_track, -> { Track.order_by_popular }, class_name: "Track"
   has_one :example_artist, through: :example_track, class_name: "Artist", source: :artist
 
-  scope :order_by_popular, -> { includes(:example_track).order("tracks.listeners DESC NULLS LAST") }
-
-  delegate :thumbnail, to: :example_artist, allow_nil: true
+  scope :order_by_popular, -> { order("listeners DESC NULLS LAST") }
 end

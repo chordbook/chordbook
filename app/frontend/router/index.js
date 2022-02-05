@@ -14,12 +14,14 @@ const routes = [
         path: '/discover',
         name: 'discover',
         props: route => ({ searchParams: route.query }),
-        component: () => import('@/views/DiscoverView.vue')
+        component: () => import('@/views/DiscoverView.vue'),
+        meta: { selected: 'discover' }
       },
       {
         path: '/artists',
         name: 'artists',
-        component: () => import('@/views/ArtistListView.vue')
+        component: () => import('@/views/ArtistListView.vue'),
+        meta: { selected: 'artists' }
       },
       {
         path: '/artists/:id',
@@ -43,31 +45,36 @@ const routes = [
         path: '/genres/:id',
         name: 'genre',
         props: true,
-        component: () => import('@/views/GenreView.vue')
+        component: () => import('@/views/GenreView.vue'),
+        meta: { selected: 'discover' }
       },
       {
         path: '/songsheets',
         name: 'songsheets',
-        component: () => import('@/views/SongsheetListView.vue')
+        component: () => import('@/views/SongsheetListView.vue'),
+        meta: { selected: 'songs' }
       }
     ]
   },
   {
     path: '/songsheets/new',
     name: 'songsheet.new',
-    component: () => import('@/views/SongsheetEditorView.vue')
+    component: () => import('@/views/SongsheetEditorView.vue'),
+    meta: { selected: 'songs' }
   },
   {
     path: '/songsheets/:id/edit',
     name: 'songsheet.edit',
     props: true,
-    component: () => import('@/views/SongsheetEditorView.vue')
+    component: () => import('@/views/SongsheetEditorView.vue'),
+    meta: { selected: 'songs' }
   },
   {
     path: '/songsheets/:id',
     name: 'songsheet',
     props: true,
-    component: () => import('@/views/SongsheetView.vue')
+    component: () => import('@/views/SongsheetView.vue'),
+    meta: { selected: 'songs' }
   },
   {
     path: '/tuner',

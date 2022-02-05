@@ -1,16 +1,7 @@
 <template>
   <ion-content
-    v-if="source && song"
     fullscreen
   >
-    <ion-header collapse="condense">
-      <ion-toolbar>
-        <ion-title size="large">
-          {{ song.title }}
-        </ion-title>
-      </ion-toolbar>
-    </ion-header>
-
     <div class="ion-padding">
       <!-- Hidden sprite of chord diagrams -->
       <svg
@@ -25,12 +16,24 @@
         />
       </svg>
 
-      <div class="single-column">
+      <div
+        v-if="song"
+        class="single-column"
+      >
         <div class="column-span-all">
-          <h2 v-if="song.subtitle">
+          <h1 class="text-4xl m-0">
+            {{ song?.title }}
+          </h1>
+          <h2
+            v-if="song.subtitle"
+            class="mt-0"
+          >
             {{ song.subtitle }}
           </h2>
-          <h2 v-if="song.artist">
+          <h2
+            v-if="song.artist"
+            class="mt-0"
+          >
             by {{ formatArray(song.artist) }}
           </h2>
           <div v-if="song.capo">
@@ -71,6 +74,7 @@
         </div>
       </div>
     </div>
+    <slot name="footer" />
   </ion-content>
   <ion-footer
     v-if="showChords"

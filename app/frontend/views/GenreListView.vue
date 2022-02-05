@@ -2,7 +2,7 @@
   <div class="ion-padding">
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
       <ion-card
-        v-for="genre in genres"
+        v-for="genre in dataSource.items"
         :key="genre.id"
         button
         :style="style(genre.name)"
@@ -23,32 +23,37 @@
         </div>
       </ion-card>
     </div>
+    <ion-infinite-scroll
+      threshold="500px"
+      :disabled="dataSource.loading || dataSource.disabled"
+      @ion-infinite="dataSource.load().then(() => $event.target.complete())"
+    >
+      <ion-infinite-scroll-content
+        loading-spinner="bubbles"
+        loading-text="Loading…"
+      />
+    </ion-infinite-scroll>
   </div>
 </template>
 
 <script>
-import client from '@/client'
+import DataSource from '@/DataSource'
 import { gradient } from '@/lib/gradient'
-import { IonCard, IonCardTitle, IonImg } from '@ionic/vue'
+import { IonCard, IonCardTitle, IonImg, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 
 export default {
-  components: { IonCard, IonCardTitle, IonImg },
+  components: { IonCard, IonCardTitle, IonImg, IonInfiniteScroll, IonInfiniteScrollContent },
 
   data () {
-    return {
-      genres: []
-    }
+    const dataSource = new DataSource('/api/genres.json')
+    return { dataSource }
   },
 
   created () {
-    this.fetchData()
+    this.dataSource.load()
   },
 
   methods: {
-    async fetchData () {
-      this.genres = (await client.get('/api/genres.json')).data
-    },
-
     style (uid) {
       return `background-image: ${gradient(uid, { colors: 3, spin: 40 })}`
     }

@@ -41,7 +41,23 @@
       :show-chords="showChords"
       :transpose="transpose"
       @update:key="key = $event.value"
-    />
+    >
+      <template #footer>
+        <div class="ion-padding text-sm opacity-50 mb-8 flex gap-4">
+          <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
+          <div v-if="songsheet.imported_from">
+            Imported from
+            <a
+              target="_blank"
+              :href="songsheet.imported_from"
+              class="text-inherit no-underline"
+            >
+              {{ hostname(songsheet.imported_from) }}
+            </a>
+          </div>
+        </div>
+      </template>
+    </song-sheet>
 
     <ion-popover trigger="transpose-button">
       <ion-content>
@@ -128,6 +144,16 @@ export default {
 
     updateTranspose (value) {
       this.transpose = value
+    },
+
+    formatDate (input) {
+      if (!input) return ''
+      const date = new Date(input)
+      return new Intl.DateTimeFormat(navigator.language).format(date)
+    },
+
+    hostname (url) {
+      return new URL(url).hostname
     }
   }
 }

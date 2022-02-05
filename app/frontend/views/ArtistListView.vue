@@ -27,38 +27,42 @@
 
       <ion-list>
         <artist-item
-          v-for="artist in artists"
+          v-for="artist in dataSource.items"
           :key="artist.id"
           :artist="artist"
         />
       </ion-list>
+
+      <ion-infinite-scroll
+        threshold="500px"
+        :disabled="dataSource.loading || dataSource.disabled"
+        @ion-infinite="dataSource.load().then(() => $event.target.complete())"
+      >
+        <ion-infinite-scroll-content
+          loading-spinner="bubbles"
+          loading-text="Loading…"
+        />
+      </ion-infinite-scroll>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import client from '@/client'
+import DataSource from '@/DataSource'
 import ArtistItem from '@/components/ArtistItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 
 export default {
-  components: { ArtistItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton },
+  components: { ArtistItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
 
   data () {
-    return {
-      artists: []
-    }
+    const dataSource = new DataSource('/api/artists.json', { params: this.$route.query })
+
+    return { dataSource }
   },
 
   ionViewWillEnter () {
-    this.fetchData()
-  },
-
-  methods: {
-    async fetchData () {
-      this.artists = (await client.get('/api/artists.json', { params: this.$route.query })).data
-    }
+    this.dataSource.load()
   }
-
 }
 </script>
