@@ -46,6 +46,7 @@
       </ion-list>
 
       <ion-infinite-scroll
+        threshold="500px"
         :disabled="dataSource.loading || dataSource.disabled"
         @ion-infinite="dataSource.load().then(() => $event.target.complete())"
       >
