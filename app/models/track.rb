@@ -7,7 +7,7 @@ class Track < ApplicationRecord
   belongs_to :album, optional: true
   belongs_to :genre, optional: true
 
-  has_many :songsheets
+  has_many :songsheets, dependent: :nullify
 
   scope :order_by_popular, -> { order("tracks.listeners DESC NULLS LAST") }
 

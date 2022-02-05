@@ -104,7 +104,6 @@ GEM
     erubi (1.10.0)
     et-orbi (1.2.6)
       tzinfo
-    execjs (2.8.1)
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
     faker (2.19.0)
@@ -284,7 +283,6 @@ DEPENDENCIES
   capybara
   chordpro!
   dotenv-rails
-  execjs
   factory_bot
   faker
   good_job

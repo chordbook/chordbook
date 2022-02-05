@@ -40,11 +40,11 @@ class Songsheet < ApplicationRecord
   def associate_metadata
     if metadata["artist"]
       self.artists = Array(metadata["artist"]).map do |name|
-        Artist.find_or_initialize_by(name: name)
+        Artist.find_or_initialize_by(name: name.strip)
       end
     end
 
-    self.track ||= Track.order_by_popular.find_by(title: title, artist_id: artists.map(&:id))
+    self.track ||= Track.order_by_popular.find_by(title: title.strip, artist_id: artists.map(&:id))
   end
 
   def mark_track

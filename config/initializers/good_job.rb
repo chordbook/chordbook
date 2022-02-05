@@ -4,3 +4,7 @@ if Rails.env.production?
       ActiveSupport::SecurityUtils.secure_compare(ENV.fetch("ADMIN_PASS"), password)
   end
 end
+
+Rails.application.configure do
+  config.good_job.queues = 'default,low,*'
+end
