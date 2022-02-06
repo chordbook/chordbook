@@ -13,7 +13,7 @@ gem "pg_search"
 gem "good_job"
 gem "rack-cors"
 gem "nokogiri"
-gem "chordpro", git: "https://github.com/bkeepers/chordpro"
+gem "chordpro"
 gem "kaminari"
 gem "addressable"
 
