@@ -12,6 +12,13 @@ class SongsheetTest < ActiveSupport::TestCase
     assert track.has_songsheet?
   end
 
+  test "associates with multiple artists" do
+    artists = [create(:artist), create(:artist)]
+    songsheet = create :songsheet, metadata: { artist: artists.map(&:name).join(', ') }
+
+    assert_equal artists, songsheet.artists
+  end
+
   test "does not association track by different artist" do
     artist = create :artist, name: "Trampled By Turtles"
     track = create :track, title: "Wildflowers", artist: artist

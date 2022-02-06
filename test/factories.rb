@@ -15,6 +15,8 @@ FactoryBot.define do
   end
 
   factory :songsheet do
+    title { Faker::Name.name }
+
     trait :with_track do
       track
     end

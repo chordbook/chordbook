@@ -40,7 +40,7 @@ class Songsheet < ApplicationRecord
 
   def associate_metadata
     if metadata["artist"]
-      self.artists = Array(metadata["artist"]).map do |name|
+      self.artists = Array(metadata["artist"]).map {|a| a.split(/\s*,\s*/) }.flatten.map do |name|
         Artist.find_or_initialize_by(name: name.strip)
       end
     end
