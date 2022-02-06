@@ -37,7 +37,7 @@
         </div>
       </ion-header>
 
-      <ion-list v-if="tracks.length > 0">
+      <ion-list v-if="tracks.length > 0 || songsheets.length > 0">
         <ion-list-header>
           <ion-label>Top Songs</ion-label>
           <ion-button>See All</ion-button>
@@ -75,16 +75,18 @@
         </div>
       </ion-list>
 
-      <ion-list-header>
-        <ion-label>About</ion-label>
-      </ion-list-header>
-      <div class="ion-padding">
-        <p
-          class="text-sm line-clamp-6 overflow-hidden"
-          onclick="this.classList.toggle('line-clamp-6')"
-        >
-          {{ artist.biography }}
-        </p>
+      <div v-if="artist.biography">
+        <ion-list-header>
+          <ion-label>About</ion-label>
+        </ion-list-header>
+        <div class="ion-padding">
+          <p
+            class="text-sm line-clamp-6 overflow-hidden"
+            onclick="this.classList.toggle('line-clamp-6')"
+          >
+            {{ artist.biography }}
+          </p>
+        </div>
       </div>
     </ion-content>
   </ion-page>
@@ -111,7 +113,8 @@ export default {
     return {
       artist: {},
       tracks: [],
-      albums: []
+      albums: [],
+      songsheets: []
     }
   },
 
@@ -121,21 +124,20 @@ export default {
 
   methods: {
     async fetchData () {
-      return client.get(`/api/artists/${this.id}.json`).then(response => {
-        this.artist = response.data
-
+      return Promise.all([
+        client.get(`/api/artists/${this.id}.json`).then(response => {
+          this.artist = response.data
+        }),
         client.get(`/api/artists/${this.id}/albums.json`).then(response => {
           this.albums = response.data
-        })
-
+        }),
         client.get(`/api/artists/${this.id}/tracks.json`).then(response => {
           this.tracks = response.data
-        })
-
+        }),
         client.get(`/api/artists/${this.id}/songsheets.json`).then(response => {
           this.songsheets = response.data
-        })
-      })
+        }),
+      ])
     }
   }
 }
