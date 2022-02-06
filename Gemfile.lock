@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/bkeepers/chordpro
-  revision: 8cb50cef4fe2845cde5a08955279a358d36d5eb8
+  revision: 40dc48606584f45725340f49431de15a8cd59885
   specs:
     chordpro (0.0.1)
       builder

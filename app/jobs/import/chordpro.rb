@@ -7,7 +7,7 @@ class Import::Chordpro < ApplicationJob
     chordpro = Chordpro.parse(source)
 
     (songsheet || Songsheet.new).tap do |s|
-      s.assign_attributes attrs.merge(source: source, metadata: chordpro.metadata)
+      s.assign_attributes attrs.merge(source: source, metadata: chordpro.metadata.to_h)
       s.save!
     end
   end
@@ -16,32 +16,6 @@ class Import::Chordpro < ApplicationJob
   def lint(source)
     source
       .gsub(/\s+$/, "") # trailing whitespace from each line
-      .gsub("{c: }", "") # Blank comments
-  end
-end
-
-## FIXME: move these into chordpro gem
-class Chordpro::Song
-  ALIASES = {
-    "t" => "title",
-    "st" => "subtitle"
-  }
-
-  def directives
-    elements.select { |e| e.is_a?(Chordpro::Directive) }
-  end
-
-  def metadata
-    # FIXME: return enumerator
-    directives.each_with_object({}) do |directive, result|
-      key = ALIASES[directive.name] || directive.name
-      result[key] = directive.value
-    end
-  end
-end
-
-module Chordpro
-  def self.parse(input)
-    Chordpro::Transform.new.apply(Chordpro::Parser.new.parse(input))
+      .gsub(/{c:\s*}/, "") # Blank comments
   end
 end
