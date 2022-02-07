@@ -21,5 +21,10 @@ module Chords
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.active_job.queue_adapter = :good_job
+
+    # Load routes from engine before app
+    config.railties_order = [:all, :main_app]
+
+    config.active_record.schema_format = :sql
   end
 end

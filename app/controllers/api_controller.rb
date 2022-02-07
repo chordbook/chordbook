@@ -24,8 +24,6 @@ class ApiController < ActionController::API
 
   def set_pagination_header(scope, options = {})
     page = {}
-    page[:first] = 1 if scope.total_pages > 1 && !scope.first_page?
-    page[:last] = scope.total_pages if scope.total_pages > 1 && !scope.last_page?
     page[:next] = scope.current_page + 1 unless scope.last_page?
     page[:prev] = scope.current_page - 1 unless scope.first_page?
 
