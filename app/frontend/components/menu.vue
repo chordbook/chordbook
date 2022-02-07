@@ -133,8 +133,8 @@ export default {
   },
 
   methods: {
-    colorFor(item) {
-      return item == this.selected ? 'primary' : ''
+    colorFor (item) {
+      return item === this.selected ? 'primary' : ''
     }
   }
 }

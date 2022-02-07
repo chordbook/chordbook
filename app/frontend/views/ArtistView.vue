@@ -136,7 +136,7 @@ export default {
         }),
         client.get(`/api/artists/${this.id}/songsheets.json`).then(response => {
           this.songsheets = response.data
-        }),
+        })
       ])
     }
   }

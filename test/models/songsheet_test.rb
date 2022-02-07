@@ -14,7 +14,7 @@ class SongsheetTest < ActiveSupport::TestCase
 
   test "associates with multiple artists" do
     artists = [create(:artist), create(:artist)]
-    songsheet = create :songsheet, metadata: { artist: artists.map(&:name).join(', ') }
+    songsheet = create :songsheet, metadata: {artist: artists.map(&:name).join(", ")}
 
     assert_equal artists, songsheet.artists
   end

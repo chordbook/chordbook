@@ -1,10 +1,10 @@
 PgSearch.multisearch_options = {
   using: {
     tsearch: {
-      dictionary: 'english',
-      tsvector_column: 'content_tsv',
+      dictionary: "english",
+      tsvector_column: "content_tsv",
       prefix: true,
-      normalization: 2,
+      normalization: 2
     },
     trigram: {}
   },
@@ -13,4 +13,4 @@ PgSearch.multisearch_options = {
 }
 
 # Otherwise AR overwrites this column to nil and the trigger doesn't work
-PgSearch::Document.ignored_columns = ['content_tsv']
+PgSearch::Document.ignored_columns = ["content_tsv"]
