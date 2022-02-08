@@ -2,6 +2,7 @@
   <ion-item
     button
     :router-link="{ name: 'songsheet', params: { id: songsheet.id } }"
+    detail="false"
   >
     <ion-avatar
       slot="start"
@@ -14,7 +15,7 @@
       />
       <ion-icon
         v-else
-        :icon="musicalNote"
+        :icon="icons.song"
         class="text-slate-300"
       />
     </ion-avatar>
@@ -24,15 +25,53 @@
         {{ artist }}
       </p>
     </ion-label>
+    <ion-button
+      :id="`songsheet-${songsheet.id}`"
+      slot="end"
+      fill="clear"
+      color="dark"
+      @click.prevent=""
+    >
+      <ion-icon
+        slot="icon-only"
+        size="small"
+        :ios="icons.iosEllipsis"
+        :md="icons.mdEllipsis"
+      />
+    </ion-button>
+    <ion-popover
+      :trigger="`songsheet-${songsheet.id}`"
+      translucent
+      dismiss-on-select
+    >
+      <ion-list lines="full">
+        <ion-item
+          v-if="songsheet.track"
+          button
+          :detail-icon="icons.artist"
+          :router-link="{ name: 'artist', params: { id: songsheet.track?.artist?.id } }"
+        >
+          View Artist
+        </ion-item>
+        <ion-item
+          v-if="songsheet.track"
+          button
+          :detail-icon="icons.album"
+          :router-link="{ name: 'album', params: { id: songsheet.track?.album?.id } }"
+        >
+          View Album
+        </ion-item>
+      </ion-list>
+    </ion-popover>
   </ion-item>
 </template>
 
 <script>
-import { IonItem, IonAvatar, IonLabel, IonImg, IonIcon } from '@ionic/vue'
-import { musicalNote } from 'ionicons/icons'
+import { IonItem, IonAvatar, IonLabel, IonImg, IonIcon, IonButton, IonPopover, IonList } from '@ionic/vue'
+import * as icons from '@/icons'
 
 export default {
-  components: { IonItem, IonAvatar, IonLabel, IonImg, IonIcon },
+  components: { IonItem, IonAvatar, IonLabel, IonImg, IonIcon, IonButton, IonPopover, IonList },
 
   props: {
     songsheet: {
@@ -42,7 +81,9 @@ export default {
   },
 
   data () {
-    return { musicalNote }
+    return {
+      icons
+    }
   },
 
   computed: {

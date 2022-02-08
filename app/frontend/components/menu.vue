@@ -60,7 +60,7 @@
             <ion-icon
               slot="start"
               size="small"
-              :icon="icons.musicalNote"
+              :icon="icons.song"
             />
             Songs
           </ion-item>
@@ -77,7 +77,7 @@
             <ion-icon
               slot="start"
               size="small"
-              :icon="icons.peopleCircle"
+              :icon="icons.artist"
             />
             Artists
           </ion-item>
@@ -102,7 +102,7 @@ import {
   IonMenuToggle
 } from '@ionic/vue'
 
-import { search, musicalNote, peopleCircle } from 'ionicons/icons'
+import * as icons from '@/icons'
 
 export default {
   components: {
@@ -121,7 +121,7 @@ export default {
 
   data () {
     return {
-      icons: { search, musicalNote, peopleCircle },
+      icons,
       selected: this.$route.meta?.selected || 'discover'
     }
   },
