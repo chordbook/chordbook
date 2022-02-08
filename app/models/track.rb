@@ -9,7 +9,7 @@ class Track < ApplicationRecord
 
   has_many :songsheets, dependent: :nullify
 
-  scope :order_by_popular, -> { order("tracks.listeners DESC NULLS LAST") }
+  scope :order_by_popular, -> { order("tracks.has_songsheet, tracks.listeners DESC NULLS LAST") }
   scope :with_songsheet, -> { where(has_songsheet: true) }
 
   before_validation :associate_genre
