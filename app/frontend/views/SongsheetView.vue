@@ -7,7 +7,10 @@
             text=""
             default-href="/songsheets"
           />
-          <ion-button id="versions-button" :disabled="versions.length <= 1">
+          <ion-button
+            id="versions-button"
+            :disabled="versions.length <= 1"
+          >
             <ion-icon :icon="icons.list" />
           </ion-button>
         </ion-buttons>
@@ -71,7 +74,10 @@
       </ion-content>
     </ion-popover>
 
-    <ion-popover trigger="versions-button" dismiss-on-select>
+    <ion-popover
+      trigger="versions-button"
+      dismiss-on-select
+    >
       <ion-list>
         <ion-list-header>Alternate Versions</ion-list-header>
         <template v-for="version in versions">
@@ -88,7 +94,7 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonListHeader, IonItem } from '@ionic/vue'
+import { IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonListHeader } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
 import { apps, arrowUp, arrowDown, list } from 'ionicons/icons'
 import transpose from '@/icons/transpose.svg?url'
@@ -100,12 +106,17 @@ import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import SongsheetItem from '@/components/SongsheetItem.vue'
 
 export default {
-  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, SongsheetItem, IonList, IonListHeader, IonItem },
+  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, SongsheetItem, IonList, IonListHeader },
 
   props: {
     id: {
       type: String,
       required: true
+    },
+
+    type: {
+      type: String,
+      default () { return 'songsheet' }
     }
   },
 
@@ -147,11 +158,27 @@ export default {
 
   methods: {
     async fetchData () {
-      this.songsheet = (await client.get(`/api/songsheets/${this.id}.json`)).data
-
-      if (this.songsheet.track) {
-        this.versions = (await client.get(`/api/tracks/${this.songsheet.track.id}/songsheets.json`)).data
+      if (this.type === 'songsheet') {
+        await this.fetchSongsheet(this.id)
+        if (this.songsheet.track) {
+          await this.fetchVersions(this.songsheet.track.id)
+        }
+      } else {
+        await this.fetchVersions(this.id)
+        if (this.versions.length > 0) {
+          this.fetchSongsheet(this.versions[0].id)
+        } else {
+          this.$router.push({ name: 'songsheet.new', params: { track: this.id }, replace: true })
+        }
       }
+    },
+
+    async fetchSongsheet (id) {
+      this.songsheet = (await client.get(`/api/songsheets/${id}.json`)).data
+    },
+
+    async fetchVersions (id) {
+      this.versions = (await client.get(`/api/tracks/${id}/songsheets.json`)).data
     },
 
     async openTuner () {
