@@ -7,6 +7,9 @@
             text=""
             default-href="/songsheets"
           />
+          <ion-button id="versions-button" :disabled="versions.length <= 1">
+            <ion-icon :icon="icons.list" />
+          </ion-button>
         </ion-buttons>
 
         <ion-buttons slot="end">
@@ -67,23 +70,37 @@
         />
       </ion-content>
     </ion-popover>
+
+    <ion-popover trigger="versions-button" dismiss-on-select>
+      <ion-list>
+        <ion-list-header>Alternate Versions</ion-list-header>
+        <template v-for="version in versions">
+          <songsheet-item
+            v-if="songsheet.id !== version.id"
+            :key="version.id"
+            :songsheet="version"
+          />
+        </template>
+      </ion-list>
+    </ion-popover>
   </ion-page>
 </template>
 
 <script>
 import client from '@/client'
-import { IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel } from '@ionic/vue'
+import { IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonListHeader, IonItem } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
-import { apps, arrowUp, arrowDown } from 'ionicons/icons'
+import { apps, arrowUp, arrowDown, list } from 'ionicons/icons'
 import transpose from '@/icons/transpose.svg?url'
 import tuningFork from '@/icons/tuning-fork.svg?url'
 import chordDiagram from '@/icons/chord-diagram.svg?url'
 import TransposeControl from '@/components/TransposeControl.vue'
 import TunerView from '@/views/TunerView.vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
+import SongsheetItem from '@/components/SongsheetItem.vue'
 
 export default {
-  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel },
+  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, SongsheetItem, IonList, IonListHeader, IonItem },
 
   props: {
     id: {
@@ -95,11 +112,12 @@ export default {
   data () {
     return {
       songsheet: {},
+      versions: [],
       showTuner: false,
       source: '',
       key: 'C',
       transpose: 0,
-      icons: { apps, arrowUp, arrowDown, transpose, tuningFork, chordDiagram }
+      icons: { apps, arrowUp, arrowDown, transpose, tuningFork, chordDiagram, list }
     }
   },
 
@@ -130,6 +148,10 @@ export default {
   methods: {
     async fetchData () {
       this.songsheet = (await client.get(`/api/songsheets/${this.id}.json`)).data
+
+      if (this.songsheet.track) {
+        this.versions = (await client.get(`/api/tracks/${this.songsheet.track.id}/songsheets.json`)).data
+      }
     },
 
     async openTuner () {
