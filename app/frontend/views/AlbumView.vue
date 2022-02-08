@@ -83,11 +83,11 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonIcon } from '@ionic/vue'
 import { albums } from 'ionicons/icons'
 
 export default {
-  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote },
+  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonIcon },
 
   props: {
     id: {

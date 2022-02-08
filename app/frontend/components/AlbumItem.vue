@@ -2,7 +2,7 @@
   <ion-item
     button
     :router-link="{ name: 'album', params: { id: album.id } }"
-    class="rounded"
+    class="rounded group"
     :detail="false"
     lines="none"
   >
@@ -14,34 +14,58 @@
         />
         <ion-icon
           v-else
-          :icon="albums"
+          :icon="icons.album"
           class="text-slate-300 text-5xl"
+        />
+        <ion-icon
+          :id="`album-${album.id}-popover`"
+          :ios="icons.iosEllipsis"
+          :md="icons.mdEllipsis"
+          class="absolute bottom-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity block ratio-square rounded-full bg-black/50 text-white p-1.5 text-xs"
+          @click.prevent=""
         />
       </div>
       <h2 class="text-sm">
         {{ album.title }}
       </h2>
-      <p>{{ album.artist.name }} • {{ album.released }}</p>
+      <p>
+        <span v-if="showArtist">{{ album.artist.name }} •</span>
+        {{ album.released }}
+      </p>
     </ion-label>
+    <ion-popover
+      :trigger="`album-${album.id}-popover`"
+      alignment="center"
+      translucent
+      dismiss-on-select
+      animated
+    >
+      <ion-list lines="full">
+        <ion-item
+          button
+          :detail-icon="icons.artist"
+          :router-link="{ name: 'artist', params: { id: album.artist?.id } }"
+        >
+          View Artist
+        </ion-item>
+      </ion-list>
+    </ion-popover>
   </ion-item>
 </template>
 
-<script>
-import { IonItem, IonLabel, IonImg, IonIcon } from '@ionic/vue'
-import { albums } from 'ionicons/icons'
+<script setup>
+import { defineProps } from 'vue'
+import { IonItem, IonLabel, IonImg, IonIcon, IonPopover, IonList } from '@ionic/vue'
+import * as icons from '@/icons'
 
-export default {
-  components: { IonItem, IonLabel, IonImg, IonIcon },
-
-  props: {
-    album: {
-      type: Object,
-      required: true
-    }
+defineProps({
+  album: {
+    type: Object,
+    required: true
   },
-
-  data () {
-    return { albums }
+  showArtist: {
+    type: Boolean,
+    default: true
   }
-}
+})
 </script>
