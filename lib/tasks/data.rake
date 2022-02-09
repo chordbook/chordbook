@@ -1,8 +1,8 @@
 # FIXME: delete after running on production
 namespace :data do
-  task clean: [:ozbcoz, :reassociate, :update_tracks_with_songsheets, :update_genres]
+  task clean: [:imported, :reassociate, :update_tracks_with_songsheets, :update_genres]
 
-  task ozbcoz: :environment do
+  task imported: :environment do
     before_count = Songsheet.where(track_id: nil).count
 
     Songsheet.where(track_id: nil).where.not(imported_from: nil).find_each do |songsheet|
