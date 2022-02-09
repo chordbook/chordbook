@@ -38,8 +38,8 @@ const routes = [
       {
         path: '/tracks/:id',
         name: 'track',
-        props: true,
-        component: () => import('@/views/TrackView.vue')
+        props: route => ({ id: route.params.id, type: 'track' }),
+        component: () => import('@/views/SongsheetView.vue')
       },
       {
         path: '/genres/:id',
@@ -72,7 +72,7 @@ const routes = [
   {
     path: '/songsheets/:id',
     name: 'songsheet',
-    props: true,
+    props: route => ({ id: route.params.id, type: 'songsheet' }),
     component: () => import('@/views/SongsheetView.vue'),
     meta: { selected: 'songs' }
   },
