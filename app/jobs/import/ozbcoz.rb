@@ -10,7 +10,26 @@ class Import::Ozbcoz < Import::Chordpro
 
   def perform(url)
     source = get(url).body.force_encoding("UTF-8")
-    Import::Chordpro.perform_later source, songsheet: Songsheet.find_by(imported_from: url), imported_from: url
+    Import::Chordpro.perform_later lint(source), songsheet: Songsheet.find_by(imported_from: url), imported_from: url
+  end
+
+  ENDASH = "–"
+
+  # Clean up Chordpro source
+  def lint(source)
+    source
+      .gsub(/\s+$/, "") # trailing whitespace from each line
+      .gsub(/{c:\s*}/, "") # Blank comments
+      .gsub(/({\s*t(?:itle)?:)\s*(.*)(})/) do |match|
+        prefix, suffix = $1, $3
+
+        title = $2
+          .gsub(/[\[\(]\w{1,2}[\]\)]/, '') # Remove key, e.g. `[C]`, `(C)`, or `[Fm]`
+          .gsub(/-?\s*Alt(?:ernative)?\s*$/i, '') # Remove ` - alt`
+          .gsub(/(.*),\s*(A|An|The)\s*$/i) { [$2, $1].join(' ') } # Restore a/an/the to beginning of title
+          .gsub(/ [-#{ENDASH}].*/, '') # Remove any other `- anything`
+        prefix + title + suffix
+      end
   end
 
   def self.all
