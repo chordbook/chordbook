@@ -45,7 +45,7 @@ class Songsheet < ApplicationRecord
       end
     end
 
-    self.track ||= Track.order_by_popular.find_by(title: title.strip, artist_id: artists.map(&:id))
+    self.track ||= Track.title_like(title).where(artist_id: artists.map(&:id)).order_by_popular.first
   end
 
   def mark_track

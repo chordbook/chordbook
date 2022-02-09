@@ -151,4 +151,182 @@ http_interactions:
       string: !binary |-
         e3Q6IEFpbuKAmXQgTm8gQ3VyZSBGb3IgTG92ZSB9ICANCntrZXk6IEZ9ICANCnthcnRpc3Q6TGVvbmFyZCBDb2hlbn0gIA0KRnJvbTogUmljaGFyZCBH4oCZcyBVa3VsZWxlIFNvbmdib29rICB3d3cuc2NvcnBleHVrZS5jb20gICANCkxlb25hcmQgQ29oZW46IGh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9TFlQN3VNV3N5QU0gICANCntjOiB9IA0KW0ZdIEkgbG92ZWQgeW91IGZvciBhIFtGN10gbG9uZyBsb25nIHRpbWUgW0JiXSBJIGtub3cgdGhpcyBsb3ZlIGlzIHJlYWwgICAgIA0KSXQgW0ZdIGRvbid0IG1hdHRlciBob3cgaXQgYWxsIHdlbnQgd3JvbmcgICAgDQpUaGF0IFtDXSBkb24ndCBjaGFuZ2UgdGhlIHdheSBJIFtDN10gZmVlbCAgICANCkFuZCBJIFtGXSBjYW4ndCBiZWxpZXZlIHRoYXQgW0E3XSB0aW1lJ3MgZ29ubmEgaGVhbCAgIA0KVGhpcyBbRG1dIHdvdW5kIHRoYXQgSSdtIHNwZWFraW5nIFtCYl0gb2YgICAgDQpUaGVyZSBbRl0gYWluJ3Qgbm8gY3VyZSB0aGVyZSBbQ10gYWluJ3Qgbm8gY3VyZSAgICANClRoZXJlIFtCYl0gYWluJ3Qgbm8gY3VyZSBmb3IgW0ZdIGxvdmUgICAgDQp7YzogfSANCltGXSBJJ20gYWNoaW5nIGZvciB5b3UgW0Y3XSBiYWJ5IFtCYl0gSSBjYW4ndCBwcmV0ZW5kIEknbSBub3QgICAgDQpJIFtGXSBuZWVkIHRvIHNlZSB5b3UgbmFrZWQgaW4geW91ciBbQ10gYm9keSBhbmQgeW91ciBbQzddIHRob3VnaHQgICAgDQpJJ3ZlIFtGXSBnb3QgeW91IGxpa2UgYSBbQTddIGhhYml0IGFuZCBJJ2xsIFtEbV0gbmV2ZXIgZ2V0IGVbQmJdbm91Z2ggICAgDQpUaGVyZSBbRl0gYWluJ3Qgbm8gY3VyZSB0aGVyZSBbQ10gYWluJ3Qgbm8gY3VyZSAgICANClRoZXJlIFtCYl0gYWluJ3Qgbm8gY3VyZSBmb3IgW0ZdIGxvdmUgICAgDQpUaGVyZSBhaW4ndCBubyBbRG1dIGN1cmUgZm9yIGxvdmUgW0ZdIHRoZXJlIGFpbid0IG5vIFtEbV0gY3VyZSBmb3IgW0ZdIGxvdmUgICAgDQp7YzogfSANCkFsbCB0aGUgcm9ja2V0IHNoaXBzIGFyZSBbQmJdIGNsaW1iaW5nIHRocm91Z2ggdGhlIHNreSAgICANCkhvbHkgYm9va3MgYXJlIG9wZW4gd2lkZSBkb2N0b3JzIFtDXSB3b3JraW5nIGRheSBhbmQgbmlnaHQgICAgDQpCdXQgdGhleSdsbCBuZXZlciBldmVyIGZpbmQgdGhhdCBbRG1dIGN1cmUgZm9yIFtGXSBsb3ZlICAgIA0KVGhlcmUgYWluJ3Qgbm8gW0JiXSBkcmluayBubyBkcnVnICAgIA0KW0c3XSBUaGVyZSdzIG5vdGhpbmcgcHVyZSBlbm91Z2ggdG8gYmUgYSBbQ10gY3VyZSBmb3IgW0M3XSBsb3ZlICAgIA0Ke2M6IH0gDQpbRl0gSSBzZWUgeW91IGluIHRoZSBbRjddIHN1YndheSBbQmJdIGFuZCBJIHNlZSB5b3Ugb24gdGhlIGJ1cyAgICANCltGXSBJIHNlZSB5b3UgbHlpbmcgZG93biB3aXRoIG1lIGFuZCBJIFtDXSBzZWUgeW91IHdha2luZyBbQzddIHVwICAgIA0KW0ZdIEkgc2VlIHlvdXIgaGFuZCBJIFtBXSBzZWUgeW91ciBoYWlyICAgIA0KWW91ciBbRG1dIGJyYWNlbGV0cyBhbmQgeW91ciBbQmJdIGJydXNoICAgIA0KQW5kIEkgW0ZdIGNhbGwgdG8geW91IEkgW0FdIGNhbGwgdG8geW91IGJ1dCBJIFtEbV0gZG9uJ3QgY2FsbCBzb2Z0IGVbQmJdbm91Z2ggICAgDQpUaGVyZSBbRl0gYWluJ3Qgbm8gY3VyZSB0aGVyZSBbQ10gYWluJ3Qgbm8gY3VyZSAgICANClRoZXJlIFtCYl0gYWluJ3Qgbm8gY3VyZSBmb3IgW0ZdIGxvdmUgICAgDQp7YzogfSANCltGXSBJIHdhbGtlZCBpbnRvIHRoaXMgW0Y3XSBlbXB0eSBjaHVyY2ggSSBoYWQgW0JiXSBubyBwbGFjZSBlbHNlIHRvIGdvICAgIA0KV2hlbiB0aGUgW0ZdIHN3ZWV0ZXN0IHZvaWNlIEkgZXZlciBoZWFyZCBbQ10gd2hpc3BlcmVkIHRvIG15IFtDN10gc291bCAgICANCltGXSBJIGRvbid0IG5lZWQgdG8gYmUgZm9yW0FdZ2l2ZW4gZm9yIFtEbV0gbG92aW5nIHlvdSBzbyBbQmJdIG11Y2ggICAgDQpbRl0gSXQncyB3cml0dGVuIGluIHRoZSBbQTddIHNjcmlwdHVyZXMgaXQncyBbRG1dIHdyaXR0ZW4gdGhlcmUgaW4gW0JiXSBibG9vZCAgICANCltGXSBJIGV2ZW4gaGVhcmQgdGhlIFtBN10gYW5nZWxzIGRlW0RtXWNsYXJlIGl0IGZyb20gYVtCYl1ib3ZlICAgIA0KW0ZdIFRoZXJlIGFpbid0IG5vIGN1cmUgdGhlcmUgW0NdIGFpbid0IG5vIGN1cmUgICAgDQpUaGVyZSBbQmJdIGFpbid0IG5vIGN1cmUgZm9yIFtGXSBsb3ZlICAgIA0Ke2M6IH0=
   recorded_at: Fri, 04 Feb 2022 16:19:56 GMT
+- request:
+    method: get
+    uri: https://ozbcoz.com/Songs/guitarpdf/pro/Act-Naturally-C.pro
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - Keep-Alive
+      Keep-Alive:
+      - timeout=5, max=100
+      Cache-Control:
+      - public, max-age=1209600
+      Expires:
+      - Wed, 23 Feb 2022 13:06:12 GMT
+      Content-Type:
+      - application/octet-stream
+      Last-Modified:
+      - Tue, 05 Nov 2019 17:10:14 GMT
+      Accept-Ranges:
+      - bytes
+      Content-Length:
+      - '1690'
+      Date:
+      - Wed, 09 Feb 2022 13:06:12 GMT
+      Server:
+      - LiteSpeed
+      Vary:
+      - User-Agent
+      Referrer-Policy:
+      - ''
+      - origin
+      Alt-Svc:
+      - h3=":443"; ma=2592000, h3-29=":443"; ma=2592000, h3-Q050=":443"; ma=2592000,
+        h3-Q046=":443"; ma=2592000, h3-Q043=":443"; ma=2592000, quic=":443"; ma=2592000;
+        v="43,46"
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        e3Q6IEFjdCBOYXR1cmFsbHkgW0NdIH0gIA0Ke2tleTogQ30gIA0Ke2FydGlzdDpCdWNrIE93ZW5zIGFuZCB0aGUgQnVja2Fyb29zfSAgDQpKb2hubnkgUnVzc2VsbCBhbmQgVm9uaSBNb3JyaXNvbiwgb3JpZ2luYWxseSByZWNvcmRlZCBieSBCdWNrIE93ZW5zIGFuZCB0aGUgQnVja2Fyb28gICANCmh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9R3BCRUJWMXdrcTQgIChCdXQgaW4gRykgICANCntjOiB9ICAgDQpJbnRybyBbRzddIFtHN10gW0NdIFtDXSANCntjOiB9ICAgDQpbQ10gVGhleSdyZSBnb25uYSBwdXQgbWUgaW4gdGhlIFtGXSBtb3ZpZXMuICAgIA0KW0NdIFRoZXkncmUgZ29ubmEgbWFrZSBhIGJpZyBzdGFyIG91dCBvZiBbRzddIG1lLiAgICANCltDXSBXZSdsbCBtYWtlIGEgZmlsbSBhYm91dCBhIG1hbiB0aGF0J3Mgc2FkIGFuZCBbRl0gbG9uZWx5ICAgIA0KQW5kIFtHN10gYWxsIEkgZ290dGEgZG8gaXMgYWN0IG5hdHVyYS1bQ11sbHkgICAgDQp7YzogfSANCldlbGwsIEknbGwgW0c3XSBiZXQgeW91IEknbSBnb25uYSBiZSBhIFtDXSBiaWcgc3RhciAgICANCk1pZ2h0IFtHN10gd2luIGFuIE9zY2FyIHlvdSBjYW4gbmV2ZXIgW0NdIHRlbGwgICAgDQpUaGUgW0c3XSBtb3ZpZXMgZ29ubmEgbWFrZSBtZSBhIFtDXSBiaWcgc3RhciAgIA0KJ0NhdXNlIFtEXSBJIGNhbiBwbGF5IHRoZSBwYXJ0IHNvIFtHN10gd2VsbCAgICANCntjOiB9IA0KW0NdIFdlbGwgSSBob3BlIHlvdSBjb21lIGFuZCBzZWUgbWUgaW4gdGhlIFtGXSBtb3ZpZXMgICAgDQpbQ10gVGhlbiBJ4oCZbGwga25vdyB0aGF0IHlvdSB3aWxsIHBsYWlubHkgW0c3XSBzZWUgICAgDQpUaGUgW0NdIGJpZ2dlc3QgZm9vbCB0aGF0IGV2ZXIgaGl0IHRoZSBbRl0gYmlnIHRpbWUgICAgDQpBbmQgW0c3XSBhbGwgSSBnb3R0YSBkbyBpcyBhY3QgbmF0dXJhLVtDXWxseSANCiAgIA0KW0c3XSBbRzddIFtDXSBbQ10gDQpbQ10gV2UnbGwgbWFrZSBhIHNjZW5lIGFib3V0IGEgbWFuIHdoYXQncyBzYWQgYW5kIFtGXSBsb25lbHkgICAgDQpBbmQgW0NdIGJlZ2dpbicgZG93biB1cG9uIGhpcyBiZW5kZWQgW0c3XSBrbmVlICAgIA0KW0NdIEknbGwgcGxheSB0aGUgcGFydCBidXQgSSB3b24ndCBuZWVkIHJlLVtGXWhlYXJzaW7igJkgICAgDQpBbmQgW0c3XSBhbGwgSSBnb3R0YSBkbyBpcyBhY3QgbmF0dXJhLVtDXWxseSAgICANCntjOiB9IA0KV2VsbCwgSSdsbCBbRzddIGJldCB5b3UgSSdtIGdvbm5hIGJlIGEgW0NdIGJpZyBzdGFyICAgIA0KTWlnaHQgW0c3XSB3aW4gYW4gT3NjYXIgeW91IGNhbiBuZXZlciBbQ10gdGVsbCAgICANClRoZSBbRzddIG1vdmllcyBnb25uYSBtYWtlIG1lIGEgW0NdIGJpZyBzdGFyICAgDQonQ2F1c2UgW0RdIEkgY2FuIHBsYXkgdGhlIHBhcnQgc28gW0c3XSB3ZWxsICAgIA0Ke2M6IH0gDQpbQ10gV2VsbCBJIGhvcGUgeW91IGNvbWUgYW5kIHNlZSBtZSBpbiB0aGUgW0ZdIG1vdmllcyAgICANCltDXSBUaGVuIEnigJlsbCBrbm93IHRoYXQgeW91IHdpbGwgcGxhaW5seSBbRzddIHNlZSAgICANClRoZSBbQ10gYmlnZ2VzdCBmb29sIHRoYXQgZXZlciBoaXQgdGhlIFtGXSBiaWcgdGltZSAgICANCkFuZCBbRzddIGFsbCBJIGdvdHRhIGRvIGlzIGFjdCBuYXR1cmEtW0NdbGx5ICAgIA0KQW5kIFtHXSBhbGwgSSBnb3R0YSBkbyBpcyBhY3QgbmF0dXJhLVtDXWxseSBbRzddIFtDXQ==
+  recorded_at: Wed, 09 Feb 2022 13:06:12 GMT
+- request:
+    method: get
+    uri: https://ozbcoz.com/Songs/guitarpdf/pro/Yellow-Rose-Of-Texas-The--Alt.pro
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - Keep-Alive
+      Keep-Alive:
+      - timeout=5, max=100
+      Cache-Control:
+      - public, max-age=1209600
+      Expires:
+      - Wed, 23 Feb 2022 14:23:46 GMT
+      Content-Type:
+      - application/octet-stream
+      Last-Modified:
+      - Wed, 07 Jul 2021 14:30:12 GMT
+      Accept-Ranges:
+      - bytes
+      Content-Length:
+      - '1723'
+      Date:
+      - Wed, 09 Feb 2022 14:23:46 GMT
+      Server:
+      - LiteSpeed
+      Vary:
+      - User-Agent
+      Referrer-Policy:
+      - ''
+      - origin
+      Alt-Svc:
+      - h3=":443"; ma=2592000, h3-29=":443"; ma=2592000, h3-Q050=":443"; ma=2592000,
+        h3-Q046=":443"; ma=2592000, h3-Q043=":443"; ma=2592000, quic=":443"; ma=2592000;
+        v="43,46"
+    body:
+      encoding: UTF-8
+      string: "{t: Yellow Rose Of Texas, The - Alt }\r\n{artist: Johnny Zero}\r\n{key:
+        G}\r\nhttps://www.youtube.com/watch?v=LArGlfEVYqM Capo 3\r\n{c: }  \r\nThere's
+        a [G] yellow rose of Texas I'm going for to see,\r\nno other feller [D] knows
+        her, no-[D7]body only me.\r\nShe [G] cried so when I left her, it like to
+        broke my heart,\r\nand [D7] if I ever [G] find her, we [D] never [D7] more
+        will [G] part.    \r\n \r\nShe's the [G] sweetest little rose bud that Texas
+        ever knew.  \r\nHer eyes are bright as [D] diamonds, they [D7] sparkle like
+        the dew.\r\nYou may [G] talk about your Valentine and sing of Rosalie,\r\nbut
+        the [D7] yellow rose of [G] Texas is the [D] only gal [D7] for [G] me\r\n
+        \r\nWhere the [G] Rio Grande is flowing and starry skies are bright,\r\nshe
+        walks along the [D] river in the [D7] quiet summer night.\r\nShe [G] thinks
+        if I remember we parted long ago;\r\nI [D7] promised to come [G] back again
+        and [D] never [D7] let her [G] go.    \r\n \r\nShe's the [G] sweetest little
+        rose bud that Texas ever knew.  \r\nHer eyes are bright as [D] diamonds, they
+        [D7]sparkle like the dew.\r\nYou may [G] talk about your Valentine and sing
+        of Rosalie,\r\nbut the [D7] yellow rose of [G] Texas is the [D] only gal [D7]
+        for [G] me\r\n \r\nOh, [G] now I'm going to find her, my heart is full of
+        woe;\r\nwe'll sing the song to-[D] gether we [D7] sang so long ago.\r\nWe'll
+        [G] play the banjo gaily and sing the songs of yore,\r\nand the [D] yellow
+        rose of [G] Texas will be [D] mine for-[D7]ever [G] more.    \r\n \r\nShe's
+        the [G] sweetest little rose bud that Texas ever knew.  \r\nHer eyes are bright
+        as [D] diamonds, they [D7] sparkle like the dew.\r\nYou may [G] talk about
+        your Valentine and sing of Rosalie,\r\nbut the [D7] yellow rose of [G] Texas
+        is the [D] only gal [D7] for [G] me"
+  recorded_at: Wed, 09 Feb 2022 14:23:46 GMT
+- request:
+    method: get
+    uri: https://ozbcoz.com/Songs/guitarpdf/pro/Only-You--Yazoo--F.pro
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Connection:
+      - Keep-Alive
+      Keep-Alive:
+      - timeout=5, max=100
+      Cache-Control:
+      - public, max-age=1209600
+      Expires:
+      - Wed, 23 Feb 2022 15:41:57 GMT
+      Content-Type:
+      - application/octet-stream
+      Last-Modified:
+      - Sat, 09 Feb 2019 11:15:10 GMT
+      Accept-Ranges:
+      - bytes
+      Content-Length:
+      - '1580'
+      Date:
+      - Wed, 09 Feb 2022 15:41:57 GMT
+      Server:
+      - LiteSpeed
+      Vary:
+      - User-Agent
+      Referrer-Policy:
+      - ''
+      - origin
+      Alt-Svc:
+      - h3=":443"; ma=2592000, h3-29=":443"; ma=2592000, h3-Q050=":443"; ma=2592000,
+        h3-Q046=":443"; ma=2592000, h3-Q043=":443"; ma=2592000, quic=":443"; ma=2592000;
+        v="43,46"
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        e3Q6IE9ubHkgWW91IOKAkyBZYXpvbyAgW0ZdIH0gIA0Ke2tleTogRn0gIA0Ke2FydGlzdDpZYXpvb30gIA0KaHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1EN09WWi1DZ013TSAgIENhcG8gb24gZnJldCAyICAgDQp7YzogQSAibWFkZSB1cCIgaW50cm99DQpJbnN0cnVtZW50YWw6DQpbQmJdIEFsbCBJIG5lZWRlZCB3YXMgdGhlIFtDN10gbG92ZSB5b3UgZ2F2ZQ0KW0ZdIEFsbCBJIG5lZWRlZCBmb3IgYS1bQmJdbm90aGVyIGRheQ0KQW5kIFtCYl0gYWxsIEkgZXZlciBbQzddIGtuZXcNCk9ubHkgW0ZdIHlvdSBbRm1hajddIFtEbV0gW0ZtYWo3XQ0Ke2M6IH0gDQpbRl0gTG9va2luZyBmcm9tIGEgW0NdIHdpbmRvdyBhLVtEbV1ib3ZlDQpJdCdzIGxpa2UgYSBbQ10gc3Rvcnkgb2YgW0JiXSBsb3ZlDQpDYW4geW91IFtGXSBoZWFyIFtDN10gbWUNCltGXSBDYW1lIGJhY2sgb25seSBbQzddIHllc3Rlci1bRG1dZGF5DQpJJ20gbW92aW5nIFtDN10gZmFydGhlciBhLVtCYl13YXkNCldhbnQgeW91IFtGXSBuZWFyIFtDN10gbWUNCg0KW0JiXSBBbGwgSSBuZWVkZWQgd2FzIHRoZSBbQzddIGxvdmUgeW91IGdhdmUNCltGXSBBbGwgSSBuZWVkZWQgZm9yIGEtW0JiXW5vdGhlciBkYXkNCkFuZCBbQmJdIGFsbCBJIGV2ZXIgW0M3XSBrbmV3DQpPbmx5IFtGXSB5b3UgW0ZtYWo3XSBbRG1dIFtGbWFqN10NCg0KW0ZdIFNvbWV0aW1lcyB3aGVuIEkgW0M3XSB0aGluayBvZiBoZXIgW0RtXSBuYW1lDQpXaGVuIGl0J3MgW0M3XSBvbmx5IGEgW0JiXSBnYW1lDQpBbmQgSSBbRl0gbmVlZCBbQzddIHlvdQ0KW0ZdIExpc3RlbmluZyB0byB0aGUgW0M3XSB3b3JkcyB0aGF0IHlvdSBbRG1dIHNheQ0KSXQncyBnZXR0aW5nIFtDN10gaGFyZGVyIHRvIFtCYl0gc3RheQ0KV2hlbiBJIFtGXSBzZWUgW0M3XSB5b3UNCg0KW0JiXSBBbGwgSSBuZWVkZWQgd2FzIHRoZSBbQzddIGxvdmUgeW91IGdhdmUNCltGXSBBbGwgSSBuZWVkZWQgZm9yIGEtW0JiXW5vdGhlciBkYXkNCkFuZCBbQmJdIGFsbCBJIGV2ZXIgW0M3XSBrbmV3DQpPbmx5IFtGXSB5b3UgW0ZtYWo3XSBbRG1dIFtGbWFqN10NCiANCltCYl0gQWxsIEkgbmVlZGVkIHdhcyB0aGUgW0M3XSBsb3ZlIHlvdSBnYXZlDQpbRl0gQWxsIEkgbmVlZGVkIGZvciBhLVtCYl1ub3RoZXIgZGF5DQpBbmQgW0JiXSBhbGwgSSBldmVyIFtDN10ga25ldw0KT25seSBbRl0geW91IFtGbWFqN10gW0RtXSBbRm1hajddDQogDQpbRl0gVGhpcyBpcyBnb25uYSBbQzddIHRha2UgYSBsb25nIFtEbV0gdGltZQ0KQW5kIEkgW0M3XSB3b25kZXIgd2hhdCdzIFtCYl0gbWluZQ0KQ2FuJ3QgW0ZdIHRha2Ugbm8gW0M3XSBtb3JlDQpbRl0gV29uZGVyIGlmIHlvdSdsbCBbQzddIHVuZGVyLVtEbV1zdGFuZA0KSXQncyBqdXN0IHRoZSBbQzddIHRvdWNoIG9mIHlvdXIgW0JiXSBoYW5kDQpCZWhpbmQgYSBbRl0gY2xvc2VkIFtDN10gZG9vcg0KDQpbQmJdIEFsbCBJIG5lZWRlZCB3YXMgdGhlIFtDN10gbG92ZSB5b3UgZ2F2ZQ0KW0ZdIEFsbCBJIG5lZWRlZCBmb3IgYS1bQmJdbm90aGVyIGRheQ0KQW5kIFtCYl0gYWxsIEkgZXZlciBbQzddIGtuZXcNCk9ubHkgW0ZdKiB5b3U=
+  recorded_at: Wed, 09 Feb 2022 15:41:57 GMT
 recorded_with: VCR 6.0.0
