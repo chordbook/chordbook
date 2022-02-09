@@ -1,7 +1,7 @@
 class Api::AutocompleteController < ApiController
   def index
     case params[:type]
-    when "title"
+    when "title", "t"
       @results = Track.includes(:album, :artist).starts_with(:title, params[:query]).limit(10)
     when "artist"
       @results = Artist.starts_with(:name, params[:query]).limit(10)
