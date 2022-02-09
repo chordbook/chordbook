@@ -38,7 +38,7 @@
           <ion-label
             v-if="album.artist"
             button
-            router-link="{ name: 'artist', params: { id: album.artist.id } }"
+            :router-link="{ name: 'artist', params: { id: album.artist.id } }"
             class="block text-xl md:text-2xl text-blue-500 ion-activatable ion-focusable"
           >
             {{ album.artist.name }}
@@ -68,9 +68,10 @@
           v-for="track in album.tracks"
           :key="track.id"
           :href="`/tracks/${track.id}`"
+          :class="{'opacity-40 hover:opacity-100 transition-opacity': !track.has_songsheet}"
         >
           <ion-text slot="start">
-            <span class="text-sm opacity-50">{{ track.number }}</span>
+            <span class="text-sm opacity-50 w-4 text-right inline-block">{{ track.number }}</span>
           </ion-text>
           <ion-label>
             <h2>{{ track.title }}</h2>

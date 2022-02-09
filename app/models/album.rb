@@ -4,7 +4,7 @@ class Album < ApplicationRecord
 
   belongs_to :artist
   belongs_to :genre, optional: true
-  has_many :tracks
+  has_many :tracks, -> { Track.order_by_number }
 
   before_validation :associate_genre
 
