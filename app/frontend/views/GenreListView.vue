@@ -10,6 +10,7 @@
         class="relative"
       >
         <ion-img
+          v-if="genre.thumbnail"
           :src="genre.thumbnail"
           class="object-cover object-center absolute inset-0 w-full h-full opacity-50 saturate-0 mix-blend-luminosity"
         />
