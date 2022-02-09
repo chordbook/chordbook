@@ -14,7 +14,7 @@ class SongsheetTest < ActiveSupport::TestCase
 
   test "ignores case when matching title" do
     track = create :track
-    songsheet = create :songsheet, title: track.title.upcase, metadata: { artist: track.artist.name }
+    songsheet = create :songsheet, title: track.title.upcase, metadata: {artist: track.artist.name}
 
     assert_equal track, songsheet.track
   end

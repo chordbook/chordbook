@@ -24,11 +24,14 @@ namespace :data do
 
   task reassociate: :environment do
     # Update metadata associations in case data has changed
-    Songsheet.find_each {|s| s.send(:associate_metadata); s.save }
+    Songsheet.find_each { |s|
+      s.send(:associate_metadata)
+      s.save
+    }
   end
 
   task update_tracks_with_songsheets: :environment do
-    Track.where(has_songsheet: true).find_each {|t| t.update has_songsheet: t.songsheets.length > 0 }
+    Track.where(has_songsheet: true).find_each { |t| t.update has_songsheet: t.songsheets.length > 0 }
   end
 
   task update_genres: :environment do

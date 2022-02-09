@@ -11,7 +11,7 @@ class Track < ApplicationRecord
 
   scope :order_by_popular, -> { order("tracks.has_songsheet, tracks.listeners DESC NULLS LAST") }
   scope :with_songsheet, -> { where(has_songsheet: true) }
-  scope :title_like, -> (title) { where("LOWER(title) = LOWER(:title)", title: title.strip) }
+  scope :title_like, ->(title) { where("LOWER(title) = LOWER(:title)", title: title.strip) }
 
   before_validation :associate_genre
   after_create :associate_songsheets

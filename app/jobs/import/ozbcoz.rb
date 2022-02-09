@@ -24,10 +24,10 @@ class Import::Ozbcoz < Import::Chordpro
         prefix, suffix = $1, $3
 
         title = $2
-          .gsub(/[\[\(]\w{1,2}[\]\)]/, '') # Remove key, e.g. `[C]`, `(C)`, or `[Fm]`
-          .gsub(/-?\s*Alt(?:ernative)?\s*$/i, '') # Remove ` - alt`
-          .gsub(/(.*),\s*(A|An|The)\s*$/i) { [$2, $1].join(' ') } # Restore a/an/the to beginning of title
-          .gsub(/ [-#{ENDASH}].*/, '') # Remove any other `- anything`
+          .gsub(/[\[(]\w{1,2}[\])]/, "") # Remove key, e.g. `[C]`, `(C)`, or `[Fm]`
+          .gsub(/-?\s*Alt(?:ernative)?\s*$/i, "") # Remove ` - alt`
+          .gsub(/(.*),\s*(A|An|The)\s*$/i) { [$2, $1].join(" ") } # Restore a/an/the to beginning of title
+          .gsub(/ [-#{ENDASH}].*/o, "") # Remove any other `- anything`
         prefix + title + suffix
       end
   end
