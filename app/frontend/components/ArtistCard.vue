@@ -22,7 +22,9 @@
           />
         </ion-avatar>
       </div>
-      <h3 class="text-center">{{ artist.name }}</h3>
+      <h3 class="text-center">
+        {{ artist.name }}
+      </h3>
     </ion-label>
   </ion-item>
 </template>

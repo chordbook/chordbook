@@ -67,7 +67,6 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
 import { IonItem, IonAvatar, IonLabel, IonImg, IonIcon, IonButton, IonPopover, IonList } from '@ionic/vue'
 import * as icons from '@/icons'
 
