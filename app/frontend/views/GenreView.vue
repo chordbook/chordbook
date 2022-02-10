@@ -27,7 +27,7 @@
           <ion-button>See All</ion-button>
         </ion-list-header>
 
-        <div class="grid-scroll-x grid-rows-3 auto-cols-1/1 sm:auto-cols-1/2 lg:auto-cols-1/3 xl:auto-cols-1/4">
+        <div class="grid-scroll-x grid-rows-3 auto-cols-1/1 sm:auto-cols-1/2 lg:auto-cols-1/3 2xl:auto-cols-1/4">
           <track-item
             v-for="track in genre.tracks"
             :key="track.id"
@@ -42,7 +42,7 @@
           <ion-button>See All</ion-button>
         </ion-list-header>
 
-        <div class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6">
+        <div class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8">
           <artist-card
             v-for="artist in genre.artists"
             :key="artist.id"
@@ -57,7 +57,7 @@
           <ion-button>See All</ion-button>
         </ion-list-header>
 
-        <div class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6">
+        <div class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8">
           <album-item
             v-for="album in genre.albums"
             :key="album.id"
