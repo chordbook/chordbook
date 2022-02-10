@@ -38,7 +38,7 @@
             ref="input"
             v-model="searchParams.q"
             :show-cancel-button="isSearching ? 'always' : 'focus'"
-            debounce="250"
+            debounce="500"
             animated
             @ion-focus="setFocus(true)"
             @ion-blur="setFocus(false)"
