@@ -34,7 +34,7 @@ class LookupMetadata < ApplicationJob
     end
 
     # Save new metadata
-    artist.update metadata: metadata if metadata
+    artist.update metadata: metadata, verified: true if metadata
 
     if recursive && metadata
       # Look up albums

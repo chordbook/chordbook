@@ -12,10 +12,9 @@ class SongsheetTest < ActiveSupport::TestCase
     assert track.has_songsheet?
   end
 
-  test "ignores case when matching title" do
+  test "ignores case when matching track title" do
     track = create :track
     songsheet = create :songsheet, title: track.title.upcase, metadata: {artist: track.artist.name}
-
     assert_equal track, songsheet.track
   end
 
@@ -24,6 +23,13 @@ class SongsheetTest < ActiveSupport::TestCase
     songsheet = create :songsheet, metadata: {artist: artists.map(&:name).join(", ")}
 
     assert_equal artists, songsheet.artists
+  end
+
+  test "finds verified artist with similar name" do
+    artist = create :artist, name: "The Everly Brothers", verified: true
+    songsheet = create :songsheet, metadata: {artist: "Everly Brothers"}
+
+    assert_equal [artist], songsheet.artists
   end
 
   test "does not association track by different artist" do

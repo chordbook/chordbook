@@ -39,13 +39,9 @@ class Songsheet < ApplicationRecord
   private
 
   def associate_metadata
-    if metadata["artist"]
-      self.artists = Array(metadata["artist"]).map { |a| a.split(/\s*,\s*/) }.flatten.map do |name|
-        Artist.find_or_initialize_by(name: name.strip)
-      end
-    end
-
-    self.track = Track.title_like(title).where(artist_id: artists.map(&:id)).order_by_popular.first
+    artist_names = Array(metadata["artist"]).map { |a| a.split(/\s*,\s*/) }.flatten
+    self.artists = artist_names.map { |name| Artist.lookup(name) || Artist.new(name: name.strip) }
+    self.track = Track.where(artist_id: artist_ids.compact).lookup(title)
   end
 
   def mark_track

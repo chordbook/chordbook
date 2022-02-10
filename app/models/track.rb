@@ -12,7 +12,13 @@ class Track < ApplicationRecord
   scope :order_by_popular, -> { order("tracks.has_songsheet, tracks.listeners DESC NULLS LAST") }
   scope :order_by_number, -> { order(:number) }
   scope :with_songsheet, -> { where(has_songsheet: true) }
-  scope :title_like, ->(title) { where("LOWER(title) = LOWER(:title)", title: title.strip) }
+
+  pg_search_scope :title_like,
+    against: :title,
+    using: {
+      trigram: {}
+    },
+    order_within_rank: "tracks.listeners DESC NULLS LAST, albums.released, albums.score DESC NULLS LAST, tracks.id"
 
   before_validation :associate_genre
   after_create :associate_songsheets
@@ -25,6 +31,10 @@ class Track < ApplicationRecord
     intDuration: :duration,
     intTotalListeners: :listeners
   )
+
+  def self.lookup(title)
+    joins(:album).title_like(title).order_by_popular.first
+  end
 
   def searchable_text
     [title, artist&.name, album&.title].compact.join(" ")
@@ -49,7 +59,7 @@ class Track < ApplicationRecord
     Songsheet.joins(:artists)
       .where(artists: artist)
       .where(songsheets: {title: title})
-      .update(track: self)
+      .each(&:save) # Just saving should cause songsheet to re-associate
   end
 
   def associate_genre

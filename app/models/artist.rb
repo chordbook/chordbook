@@ -15,9 +15,22 @@ class Artist < ApplicationRecord
   multisearchable against: [:name],
     additional_attributes: ->(record) { record.searchable_data }
 
+  pg_search_scope :name_like,
+    against: :name,
+    using: {
+      trigram: {}
+    },
+    ranked_by: ":trigram * CASE WHEN verified THEN 1.0 ELSE 0.75 END"
+
+  scope :verified, -> { where(verified: true) }
+
+  def self.lookup(name)
+    name_like(name).first
+  end
+
   def searchable_data
     {
-      weight: 0.8,
+      weight: verified ? 0.8 : 0.5,
       data: {
         title: name,
         subtitle: nil,

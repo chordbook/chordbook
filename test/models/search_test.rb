@@ -5,8 +5,8 @@ class PgSearchTest < ActiveSupport::TestCase
     @artist = create(:artist, name: "Ed Sheeran")
     @album = create(:album, title: "=", artist: @artist)
     @track = create(:track, title: "Shivers", album: @album)
-    @songsheet = create(:songsheet, :with_track, title: "Bad Habits",
-      track: create(:track, title: "Bad Habits", album: @album))
+    @songsheet = create(:songsheet, title: "Bad Habits", metadata: {artist: @artist.name},
+      track: create(:track, title: "Bad Habits", album: @album, artist: @artist))
   end
 
   test "stores result data" do

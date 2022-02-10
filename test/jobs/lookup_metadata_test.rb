@@ -8,6 +8,7 @@ class LookupMetadataTest < ActiveJob::TestCase
   test "new artist" do
     VCR.use_cassette("tadb/the_beatles") do
       artist = create :artist, name: "The Beatles"
+      refute artist.reload.verified?
 
       assert_difference -> { artist.albums.count }, 50 do
         LookupMetadata.perform_now artist
@@ -15,6 +16,7 @@ class LookupMetadataTest < ActiveJob::TestCase
 
       assert_instance_of Hash, artist.metadata
       assert_equal "111247", artist.metadata["idArtist"]
+      assert artist.verified?
     end
   end
 

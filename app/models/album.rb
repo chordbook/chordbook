@@ -32,7 +32,8 @@ class Album < ApplicationRecord
     strAlbumThumb: :thumbnail,
     intYearReleased: :released,
     strStyle: :style,
-    strDescriptionEN: :description
+    strDescriptionEN: :description,
+    intScore: :score
   )
 
   def associate_genre

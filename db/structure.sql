@@ -125,7 +125,8 @@ CREATE TABLE public.artists (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     style character varying,
-    genre_id bigint
+    genre_id bigint,
+    verified boolean DEFAULT false
 );
 
 
@@ -775,6 +776,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220115051449'),
 ('20220204151609'),
 ('20220205051917'),
-('20220207123911');
+('20220207123911'),
+('20220210133540');
 
 
