@@ -25,9 +25,9 @@
           @click.prevent=""
         />
       </div>
-      <h2 class="text-sm">
+      <h3 class="text-sm">
         {{ album.title }}
-      </h2>
+      </h3>
       <p>
         <span v-if="showArtist">{{ album.artist.name }} •</span>
         {{ album.released }}
@@ -54,7 +54,6 @@
 </template>
 
 <script setup>
-import { defineProps } from 'vue'
 import { IonItem, IonLabel, IonImg, IonIcon, IonPopover, IonList } from '@ionic/vue'
 import * as icons from '@/icons'
 

@@ -42,11 +42,13 @@
           <ion-button>See All</ion-button>
         </ion-list-header>
 
-        <artist-item
-          v-for="artist in genre.artists"
-          :key="artist.id"
-          :artist="artist"
-        />
+        <div class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6">
+          <artist-card
+            v-for="artist in genre.artists"
+            :key="artist.id"
+            :artist="artist"
+          />
+        </div>
       </ion-list>
 
       <ion-list v-if="genre.albums?.length > 0">
@@ -71,12 +73,12 @@
 import client from '@/client'
 import { gradient } from '@/lib/gradient'
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton } from '@ionic/vue'
-import ArtistItem from '@/components/ArtistItem.vue'
+import ArtistCard from '@/components/ArtistCard.vue'
 import AlbumItem from '@/components/AlbumItem.vue'
 import TrackItem from '@/components/TrackItem.vue'
 
 export default {
-  components: { ArtistItem, AlbumItem, TrackItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton },
+  components: { ArtistCard, AlbumItem, TrackItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton },
 
   props: {
     id: {
