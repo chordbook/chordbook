@@ -8,7 +8,7 @@
             default-href="/songsheets"
           />
           <ion-button
-            id="versions-button"
+            :id="`versions-button-${id}`"
             :disabled="versions.length <= 1"
           >
             <ion-icon :icon="icons.list" />
@@ -34,7 +34,7 @@
               :icon="icons.tuningFork"
             />
           </ion-button>
-          <ion-button :router-link="{ name: 'songsheet.edit', params: { id } }">
+          <ion-button :router-link="{ name: 'songsheet.edit', params: { id: songsheet.id } }">
             <ion-label>Edit</ion-label>
           </ion-button>
         </ion-buttons>
@@ -46,7 +46,7 @@
       :source="songsheet.source"
       :show-chords="showChords"
       :transpose="transpose"
-      @update:key="key = $event.value"
+      @update:key="(v) => key = v"
     >
       <template #footer>
         <div class="ion-padding text-sm opacity-50 mb-8 flex gap-4">
@@ -75,7 +75,7 @@
     </ion-popover>
 
     <ion-popover
-      trigger="versions-button"
+      :trigger="`versions-button-${id}`"
       dismiss-on-select
     >
       <ion-list>
