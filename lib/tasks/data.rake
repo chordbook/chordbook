@@ -11,11 +11,10 @@ namespace :data do
     before = Songsheet.where(track_id: nil).count
     Songsheet.find_each do |s|
       track_was = s.track
-      s.send(:associate_metadata)
+      s.save!
       if track_was != s.track
         puts [track_info(track_was), track_info(s.track)].join(" ====> ")
       end
-      s.save!
     end
     after = Songsheet.where(track_id: nil).count
 
