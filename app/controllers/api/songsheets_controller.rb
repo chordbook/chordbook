@@ -43,7 +43,7 @@ class Api::SongsheetsController < ApiController
     if params[:letter]
       super.starts_with(:title, params[:letter])
     else
-      super.order_by_popular.recent
+      super.order_by_popular
     end
   end
 
