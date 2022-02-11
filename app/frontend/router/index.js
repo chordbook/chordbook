@@ -36,6 +36,11 @@ const routes = [
         component: () => import('@/views/TrackListView.vue')
       },
       {
+        path: '/artists/:id/albums',
+        name: 'artist.albums',
+        component: () => import('@/views/AlbumListView.vue')
+      },
+      {
         path: '/albums/:id',
         name: 'album',
         props: true,
