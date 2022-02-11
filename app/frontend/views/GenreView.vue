@@ -24,7 +24,9 @@
       <ion-list v-if="genre.tracks?.length > 0">
         <ion-list-header>
           <ion-label>Top Songs</ion-label>
-          <ion-button>See All</ion-button>
+          <ion-button :router-link="{ name: 'genre.tracks', params: { id } }">
+            See All
+          </ion-button>
         </ion-list-header>
 
         <div class="grid-scroll-x grid-rows-3 auto-cols-1/1 sm:auto-cols-1/2 lg:auto-cols-1/3 2xl:auto-cols-1/4">
@@ -39,7 +41,9 @@
       <ion-list v-if="genre.artists?.length > 0">
         <ion-list-header>
           <ion-label>Top Artists</ion-label>
-          <ion-button>See All</ion-button>
+          <ion-button :router-link="{ name: 'genre.artists', params: { id } }">
+            See All
+          </ion-button>
         </ion-list-header>
 
         <div class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8">
@@ -54,7 +58,9 @@
       <ion-list v-if="genre.albums?.length > 0">
         <ion-list-header>
           <ion-label>Top Albums</ion-label>
-          <ion-button>See All</ion-button>
+          <ion-button :router-link="{ name: 'genre.albums', params: { id } }">
+            See All
+          </ion-button>
         </ion-list-header>
 
         <div class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8">

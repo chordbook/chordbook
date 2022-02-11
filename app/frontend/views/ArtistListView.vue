@@ -5,13 +5,17 @@
         <ion-title>Artists</ion-title>
 
         <ion-buttons slot="start">
-          <ion-menu-toggle>
+          <ion-menu-toggle v-if="!backLink">
             <ion-back-button
               text=""
-              type="reset"
               default-href=""
             />
           </ion-menu-toggle>
+          <ion-back-button
+            v-else
+            text=""
+            :default-href="backLink"
+          />
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -56,12 +60,18 @@ export default {
   components: { ArtistItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
 
   data () {
-    const dataSource = new DataSource('/api/artists.json', { params: this.$route.query })
+    const dataSource = new DataSource(`/api${this.$route.path}`, { params: this.$route.query })
 
     return { dataSource }
   },
 
-  ionViewWillEnter () {
+  computed: {
+    backLink () {
+      return this.$route.path.replace('/artists', '')
+    }
+  },
+
+  created () {
     this.dataSource.load()
   }
 }

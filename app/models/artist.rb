@@ -23,6 +23,7 @@ class Artist < ApplicationRecord
     ranked_by: ":trigram * CASE WHEN verified THEN 1.0 ELSE 0.75 END"
 
   scope :verified, -> { where(verified: true) }
+  scope :order_by_alphabetical, -> { order("UPPER(name)") }
 
   def self.lookup(name)
     name_like(name).first

@@ -3,7 +3,7 @@ PgSearch.multisearch_options = {
     tsearch: {
       dictionary: "english",
       tsvector_column: "content_tsv",
-      prefix: true,
+      prefix: true
     },
     trigram: {}
   },

@@ -7,8 +7,11 @@ class Songsheet < ApplicationRecord
   has_many :artist_works, as: :work
   has_many :artists, through: :artist_works
 
-  scope :order_by_popular, -> { includes(:track).order("tracks.listeners DESC NULLS LAST") }
-  scope :recent, -> { order(created_at: :desc) }
+  scope :order_by_popular, -> {
+    includes(:track).order("tracks.listeners DESC NULLS LAST").order_by_recent
+  }
+  scope :order_by_recent, -> { order(created_at: :desc) }
+  scope :order_by_todo, -> { order(Arel.sql("track_id NULLS FIRST, updated_at ASC")) }
 
   validates :title, presence: true
 

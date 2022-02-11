@@ -7,5 +7,5 @@ json.albums do
   json.array! @genre.albums.limit(12), partial: "api/albums/album", as: :album
 end
 json.tracks do
-  json.array! @genre.tracks.with_songsheet.order_by_popular.limit(24), partial: "api/tracks/track", as: :track
+  json.array! @genre.tracks.with_songsheet.order_by_popular.page(1), partial: "api/tracks/track", as: :track
 end
