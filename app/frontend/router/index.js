@@ -30,6 +30,12 @@ const routes = [
         component: () => import('@/views/ArtistView.vue')
       },
       {
+        path: '/artists/:id/tracks',
+        name: 'artist.tracks',
+        props: true,
+        component: () => import('@/views/TrackListView.vue')
+      },
+      {
         path: '/albums/:id',
         name: 'album',
         props: true,
@@ -46,6 +52,26 @@ const routes = [
         name: 'genre',
         props: true,
         component: () => import('@/views/GenreView.vue'),
+        meta: { selected: 'discover' }
+      },
+      {
+        path: '/genres/:id/tracks',
+        name: 'genre.tracks',
+        props: true,
+        component: () => import('@/views/TrackListView.vue'),
+        meta: { selected: 'discover' }
+      },
+      {
+        path: '/genres/:id/albums',
+        name: 'genre.albums',
+        component: () => import('@/views/AlbumListView.vue'),
+        meta: { selected: 'discover' }
+      },
+      {
+        path: '/genres/:id/artists',
+        name: 'genre.artists',
+        props: true,
+        component: () => import('@/views/ArtistListView.vue'),
         meta: { selected: 'discover' }
       },
       {

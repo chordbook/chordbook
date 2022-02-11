@@ -21,7 +21,11 @@ Rails.application.routes.draw do
       resources :songsheets, only: [:index]
     end
     resources :songsheets
-    resources :genres
+    resources :genres do
+      resources :artists, only: [:index]
+      resources :tracks, only: [:index]
+      resources :albums, only: [:index]
+    end
     resources :tracks, only: [:show]
   end
 

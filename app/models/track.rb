@@ -9,7 +9,12 @@ class Track < ApplicationRecord
 
   has_many :songsheets, dependent: :nullify
 
-  scope :order_by_popular, -> { order("tracks.has_songsheet, tracks.listeners DESC NULLS LAST") }
+  scope :order_by_has_songsheet, -> {
+    order(Arel.sql("CASE WHEN has_songsheet THEN 1 ELSE 2 END"))
+  }
+  scope :order_by_popular, -> {
+    order_by_has_songsheet.order("tracks.listeners DESC NULLS LAST")
+  }
   scope :order_by_number, -> { order(:number) }
   scope :with_songsheet, -> { where(has_songsheet: true) }
 
