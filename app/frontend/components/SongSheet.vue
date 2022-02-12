@@ -183,6 +183,7 @@ export default {
         this.$emit('parse', song)
         return song
       } catch (error) {
+        console.error(error)
         this.$emit('error', error)
         return null
       }
