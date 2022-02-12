@@ -15,7 +15,8 @@ export default defineConfig({
   root,
   build: {
     sourcemap: true,
-    outDir: path.resolve(__dirname, 'public')
+    outDir: path.resolve(__dirname, 'public'),
+    emptyOutDir: true
   },
   plugins: [
     vue(),
