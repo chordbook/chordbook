@@ -8,10 +8,10 @@
   >
     <ion-label>
       <div class="rounded overflow-hidden relative aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2 flex place-content-center items-center">
-        <ion-img
+        <img
           v-if="album.thumbnail"
           :src="album.thumbnail"
-        />
+        >
         <ion-icon
           v-else
           :icon="icons.album"
@@ -55,7 +55,7 @@
 
 <script setup>
 import { defineProps } from 'vue'
-import { IonItem, IonLabel, IonImg, IonIcon, IonPopover, IonList } from '@ionic/vue'
+import { IonItem, IonLabel, IonIcon, IonPopover, IonList } from '@ionic/vue'
 import * as icons from '@/icons'
 
 defineProps({

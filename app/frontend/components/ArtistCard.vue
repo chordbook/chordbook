@@ -11,10 +11,10 @@
         <ion-avatar
           class="w-full h-full flex place-content-center items-center overflow-hidden relative aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-3"
         >
-          <ion-img
+          <img
             v-if="artist.thumbnail"
             :src="artist.thumbnail"
-          />
+          >
           <ion-icon
             v-else
             :icon="people"
@@ -30,11 +30,11 @@
 </template>
 
 <script>
-import { IonItem, IonAvatar, IonLabel, IonIcon, IonImg } from '@ionic/vue'
+import { IonItem, IonAvatar, IonLabel, IonIcon } from '@ionic/vue'
 import { people } from 'ionicons/icons'
 
 export default {
-  components: { IonItem, IonAvatar, IonLabel, IonIcon, IonImg },
+  components: { IonItem, IonAvatar, IonLabel, IonIcon },
 
   props: {
     artist: {

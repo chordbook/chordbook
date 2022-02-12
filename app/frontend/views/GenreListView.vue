@@ -9,11 +9,11 @@
         :router-link="{ name: 'genre', params: { id: genre.id, genre } }"
         class="relative"
       >
-        <ion-img
+        <img
           v-if="genre.thumbnail"
           :src="genre.thumbnail"
           class="object-cover object-center absolute inset-0 w-full h-full opacity-50 saturate-0 mix-blend-luminosity"
-        />
+        >
         <div
           translucent
           class="aspect-4/3 flex items-end p-3"
@@ -40,10 +40,10 @@
 <script>
 import DataSource from '@/DataSource'
 import { gradient } from '@/lib/gradient'
-import { IonCard, IonCardTitle, IonImg, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
+import { IonCard, IonCardTitle, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 
 export default {
-  components: { IonCard, IonCardTitle, IonImg, IonInfiniteScroll, IonInfiniteScrollContent },
+  components: { IonCard, IonCardTitle, IonInfiniteScroll, IonInfiniteScrollContent },
 
   data () {
     const dataSource = new DataSource('/api/genres.json')

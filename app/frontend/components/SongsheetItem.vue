@@ -8,11 +8,11 @@
       slot="start"
       class="bg-slate-100 flex place-content-center items-center rounded"
     >
-      <ion-img
+      <img
         v-if="songsheet.track?.album"
         :src="songsheet.track?.album?.thumbnail"
         class="rounded"
-      />
+      >
       <ion-icon
         v-else
         :icon="icons.song"
@@ -67,11 +67,11 @@
 </template>
 
 <script>
-import { IonItem, IonAvatar, IonLabel, IonImg, IonIcon, IonButton, IonPopover, IonList } from '@ionic/vue'
+import { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList } from '@ionic/vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { IonItem, IonAvatar, IonLabel, IonImg, IonIcon, IonButton, IonPopover, IonList },
+  components: { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList },
 
   props: {
     songsheet: {

@@ -6,10 +6,10 @@
     :class="{ 'opacity-40 hover:opacity-100 transition-opacity': !track.has_songsheet }"
   >
     <ion-avatar slot="start">
-      <ion-img
+      <img
         :src="track.album?.thumbnail"
         class="rounded"
-      />
+      >
     </ion-avatar>
     <ion-label>
       <h2>{{ track.title }}</h2>
@@ -68,7 +68,7 @@
 
 <script setup>
 import { defineProps } from 'vue'
-import { IonItem, IonAvatar, IonLabel, IonImg, IonIcon, IonButton, IonPopover, IonList } from '@ionic/vue'
+import { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList } from '@ionic/vue'
 import * as icons from '@/icons'
 
 defineProps({

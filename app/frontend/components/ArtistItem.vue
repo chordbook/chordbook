@@ -7,10 +7,10 @@
       slot="start"
       class="bg-slate-100 flex place-content-center items-center"
     >
-      <ion-img
+      <img
         v-if="artist.thumbnail"
         :src="artist.thumbnail"
-      />
+      >
       <ion-icon
         v-else
         :icon="people"
@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import { IonItem, IonAvatar, IonLabel, IonIcon, IonImg } from '@ionic/vue'
+import { IonItem, IonAvatar, IonLabel, IonIcon } from '@ionic/vue'
 import { people } from 'ionicons/icons'
 
 export default {
-  components: { IonItem, IonAvatar, IonLabel, IonIcon, IonImg },
+  components: { IonItem, IonAvatar, IonLabel, IonIcon },
 
   props: {
     artist: {
