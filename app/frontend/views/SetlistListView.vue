@@ -26,7 +26,7 @@
 
       <ion-list>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-          <setlist-item
+          <setlist-card
             v-for="setlist in dataSource.items"
             :key="setlist.id"
             :setlist="setlist"
@@ -50,11 +50,11 @@
 
 <script>
 import DataSource from '@/DataSource'
-import SetlistItem from '@/components/SetlistItem.vue'
+import SetlistCard from '@/components/SetlistCard.vue'
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 
 export default {
-  components: { SetlistItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
+  components: { SetlistCard, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
 
   data () {
     const dataSource = new DataSource(`/api${this.$route.path}`, { params: this.$route.query })

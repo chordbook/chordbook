@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     resources :tracks, only: [:show]
     resources :setlists do
       resources :songsheets, only: [:index]
+      member do
+        put "songsheets", action: :add, as: :add
+      end
     end
   end
 

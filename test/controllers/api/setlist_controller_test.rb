@@ -18,4 +18,13 @@ class Api::SetlistsControllerTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
     assert_equal @setlist.title, body["title"]
   end
+
+  test "add" do
+    songsheet = create :songsheet
+
+    put add_api_setlist_url(@setlist), params: {songsheet: {id: songsheet.id}}
+    assert_response :success
+
+    assert_includes @setlist.reload.songsheets, songsheet
+  end
 end

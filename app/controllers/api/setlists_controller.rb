@@ -7,4 +7,10 @@ class Api::SetlistsController < ApiController
   def show
     @setlist = Setlist.find(params[:id])
   end
+
+  def add
+    @setlist = Setlist.find(params[:id])
+    @setlist.songsheets << Songsheet.find(params.dig(:songsheet, :id))
+    head :created
+  end
 end
