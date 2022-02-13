@@ -4,5 +4,6 @@ export {
   peopleCircleOutline as artist,
   ellipsisHorizontal as iosEllipsis,
   ellipsisVertical as mdEllipsis,
-  albumsOutline as album
+  albumsOutline as album,
+  listCircleOutline as setlist
 } from 'ionicons/icons'

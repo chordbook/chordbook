@@ -84,6 +84,19 @@ const routes = [
         name: 'songsheets',
         component: () => import('@/views/SongsheetListView.vue'),
         meta: { selected: 'songs' }
+      },
+      {
+        path: '/setlists',
+        name: 'setlists',
+        component: () => import('@/views/SetlistListView.vue'),
+        meta: { selected: 'setlists' }
+      },
+      {
+        path: '/setlists/:id',
+        name: 'setlist',
+        props: true,
+        component: () => import('@/views/SetlistDetailView.vue'),
+        meta: { selected: 'setlists' }
       }
     ]
   },

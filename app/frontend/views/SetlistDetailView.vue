@@ -5,25 +5,15 @@
       collapse="fade"
     >
       <ion-toolbar>
-        <ion-title>Songs</ion-title>
+        <ion-title>{{ setlist.title }}</ion-title>
 
         <ion-buttons slot="start">
-          <ion-menu-toggle>
+          <ion-menu-toggle auto-hide="false">
             <ion-back-button
               text=""
-              type="reset"
-              default-href=""
+              :default-href="{ name: 'setlists' }"
             />
           </ion-menu-toggle>
-        </ion-buttons>
-
-        <ion-buttons slot="end">
-          <ion-button :router-link="{ name: 'songsheet.new' }">
-            <ion-icon
-              slot="icon-only"
-              :icon="icons.add"
-            />
-          </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -32,14 +22,18 @@
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">
-            Songs
+            {{ setlist.title }}
           </ion-title>
         </ion-toolbar>
       </ion-header>
 
+      <p class="ion-padding">
+        {{ setlist.description }}
+      </p>
+
       <ion-list>
         <songsheet-item
-          v-for="songsheet in songsheets"
+          v-for="songsheet in dataSource.items"
           :key="songsheet.id"
           :songsheet="songsheet"
         />
@@ -61,23 +55,33 @@
 
 <script>
 import DataSource from '@/DataSource'
+import client from '@/client'
 import SongsheetItem from '@/components/SongsheetItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonButton, IonIcon, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
-import { add } from 'ionicons/icons'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 
 export default {
-  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonButton, IonIcon, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
+  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
+
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
 
   data () {
-    const dataSource = new DataSource(`/api${this.$route.path}.json`, { params: this.$route.query })
+    const dataSource = new DataSource(`/api/setlists/${this.id}/songsheets.json`, { params: this.$route.query })
     return {
       dataSource,
-      songsheets: dataSource.items,
-      icons: { add }
+      setlist: {}
     }
   },
 
   created () {
+    client.get(`/api/setlists/${this.id}.json`).then(response => {
+      this.setlist = response.data
+    })
+
     this.dataSource.load()
   }
 }

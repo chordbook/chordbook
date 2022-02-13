@@ -19,10 +19,14 @@ export default class DataSource {
 
     this.loading = false
 
-    const links = LinkHeader.parse(response.headers.link)
+    if (response.headers.link) {
+      const links = LinkHeader.parse(response.headers.link)
 
-    if (links.has('rel', 'next')) {
-      this.url = links.get('rel', 'next')[0].uri
+      if (links.has('rel', 'next')) {
+        this.url = links.get('rel', 'next')[0].uri
+      } else {
+        this.disabled = true
+      }
     } else {
       this.disabled = true
     }
