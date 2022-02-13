@@ -263,6 +263,71 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: setlist_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.setlist_items (
+    id bigint NOT NULL,
+    setlist_id bigint,
+    songsheet_id bigint,
+    "position" bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: setlist_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.setlist_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: setlist_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.setlist_items_id_seq OWNED BY public.setlist_items.id;
+
+
+--
+-- Name: setlists; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.setlists (
+    id bigint NOT NULL,
+    title character varying,
+    description text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: setlists_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.setlists_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: setlists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.setlists_id_seq OWNED BY public.setlists.id;
+
+
+--
 -- Name: songsheets; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -411,6 +476,20 @@ ALTER TABLE ONLY public.pg_search_documents ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: setlist_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.setlist_items ALTER COLUMN id SET DEFAULT nextval('public.setlist_items_id_seq'::regclass);
+
+
+--
+-- Name: setlists id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.setlists ALTER COLUMN id SET DEFAULT nextval('public.setlists_id_seq'::regclass);
+
+
+--
 -- Name: songsheets id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -501,6 +580,22 @@ ALTER TABLE ONLY public.pg_search_documents
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: setlist_items setlist_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.setlist_items
+    ADD CONSTRAINT setlist_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: setlists setlists_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.setlists
+    ADD CONSTRAINT setlists_pkey PRIMARY KEY (id);
 
 
 --
@@ -640,6 +735,20 @@ CREATE INDEX index_pg_search_documents_on_searchable ON public.pg_search_documen
 
 
 --
+-- Name: index_setlist_items_on_setlist_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_setlist_items_on_setlist_id ON public.setlist_items USING btree (setlist_id);
+
+
+--
+-- Name: index_setlist_items_on_songsheet_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_setlist_items_on_songsheet_id ON public.setlist_items USING btree (songsheet_id);
+
+
+--
 -- Name: index_songsheets_on_track_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -734,6 +843,22 @@ ALTER TABLE ONLY public.albums
 
 
 --
+-- Name: setlist_items fk_rails_ae61c4f448; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.setlist_items
+    ADD CONSTRAINT fk_rails_ae61c4f448 FOREIGN KEY (setlist_id) REFERENCES public.setlists(id);
+
+
+--
+-- Name: setlist_items fk_rails_cbc7d4d039; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.setlist_items
+    ADD CONSTRAINT fk_rails_cbc7d4d039 FOREIGN KEY (songsheet_id) REFERENCES public.songsheets(id);
+
+
+--
 -- Name: tracks fk_rails_e21e3bd01e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -777,6 +902,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220204151609'),
 ('20220205051917'),
 ('20220207123911'),
-('20220210133540');
+('20220210133540'),
+('20220211173533');
 
 

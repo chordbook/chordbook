@@ -27,6 +27,9 @@ Rails.application.routes.draw do
       resources :albums, only: [:index]
     end
     resources :tracks, only: [:show]
+    resources :setlists do
+      resources :songsheets, only: [:index]
+    end
   end
 
   mount GoodJob::Engine => "admin/jobs"

@@ -8,7 +8,7 @@ class ApiController < ActionController::API
   # `Artist.find(params[:artist_id]).songsheets`.
   #
   def current_scope
-    @current_scope ||= %w[track album artist genre].detect do |name|
+    @current_scope ||= %w[track album artist genre setlist].detect do |name|
       id = params["#{name}_id"]
       break name.classify.constantize.find(id).send(default_scope_name) if id
     end || default_scope
