@@ -1,3 +1,48 @@
+<script>
+import DataSource from '@/DataSource'
+import client from '@/client'
+import SongsheetItem from '@/components/SongsheetItem.vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent, IonItemSliding, IonItemOptions, IonItemOption, toastController } from '@ionic/vue'
+
+export default {
+  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent, IonItemSliding, IonItemOptions, IonItemOption },
+
+  props: {
+    id: {
+      type: String,
+      required: true
+    }
+  },
+
+  data () {
+    const dataSource = new DataSource(`/api/setlists/${this.id}/songsheets.json`, { params: this.$route.query })
+    return {
+      dataSource,
+      setlist: {}
+    }
+  },
+
+  created () {
+    client.get(`/api/setlists/${this.id}.json`).then(response => {
+      this.setlist = response.data
+    })
+
+    this.dataSource.load()
+  },
+
+  methods: {
+    async remove (songsheet) {
+      await client.delete(`/api/setlists/${this.id}/songsheets/${songsheet.id}.json`)
+      this.dataSource.items.splice(this.dataSource.items.indexOf(songsheet), 1)
+      return (await toastController.create({
+        message: `${songsheet.title} was removed from ${this.setlist.title}`,
+        duration: 3000
+      })).present()
+    }
+  }
+}
+</script>
+
 <template>
   <ion-page>
     <ion-header
@@ -28,11 +73,18 @@
       </p>
 
       <ion-list>
-        <songsheet-item
+        <ion-item-sliding
           v-for="songsheet in dataSource.items"
           :key="songsheet.id"
-          :songsheet="songsheet"
-        />
+        >
+          <ion-item-options side="end">
+            <ion-item-option color="danger" @click="remove(songsheet)">Remove</ion-item-option>
+          </ion-item-options>
+
+          <songsheet-item
+            :songsheet="songsheet"
+          />
+        </ion-item-sliding>
       </ion-list>
 
       <ion-infinite-scroll
@@ -48,37 +100,3 @@
     </ion-content>
   </ion-page>
 </template>
-
-<script>
-import DataSource from '@/DataSource'
-import client from '@/client'
-import SongsheetItem from '@/components/SongsheetItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
-
-export default {
-  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
-
-  props: {
-    id: {
-      type: String,
-      required: true
-    }
-  },
-
-  data () {
-    const dataSource = new DataSource(`/api/setlists/${this.id}/songsheets.json`, { params: this.$route.query })
-    return {
-      dataSource,
-      setlist: {}
-    }
-  },
-
-  created () {
-    client.get(`/api/setlists/${this.id}.json`).then(response => {
-      this.setlist = response.data
-    })
-
-    this.dataSource.load()
-  }
-}
-</script>

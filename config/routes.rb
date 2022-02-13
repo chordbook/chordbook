@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       resources :songsheets, only: [:index]
       member do
         put "songsheets", action: :add, as: :add
+        delete "songsheets/:songsheet_id", action: :remove, as: :remove
       end
     end
   end

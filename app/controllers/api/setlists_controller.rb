@@ -19,4 +19,11 @@ class Api::SetlistsController < ApiController
     @setlist.songsheets << Songsheet.find(params.dig(:songsheet, :id))
     head :created
   end
+
+  def remove
+    @setlist = Setlist.find(params[:id])
+    @songsheet = Songsheet.find(params[:songsheet_id])
+    @setlist.songsheets.delete(@songsheet)
+    head :ok
+  end
 end
