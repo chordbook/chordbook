@@ -1,5 +1,5 @@
 class Api::SetlistsController < ApiController
-  before_action :find_setlist, only: [:show, :destroy, :add, :remove]
+  before_action :find_setlist, only: [:show, :destroy]
 
   def index
     @setlists = current_scope.order_by_recent.page(params[:page])
@@ -10,7 +10,7 @@ class Api::SetlistsController < ApiController
   end
 
   def create
-    @setlist = Setlist.new(params.require(:setlist).permit(:title, :description))
+    @setlist = Setlist.new(setlist_params)
     @setlist.save!
     render :show
   end
@@ -20,18 +20,11 @@ class Api::SetlistsController < ApiController
     head :ok
   end
 
-  def add
-    @setlist.songsheets << Songsheet.find(params.dig(:songsheet, :id))
-    head :created
-  end
-
-  def remove
-    @songsheet = Songsheet.find(params[:songsheet_id])
-    @setlist.songsheets.delete(@songsheet)
-    head :ok
-  end
-
   private
+
+  def setlist_params
+    params.require(:setlist).permit(:title, :description)
+  end
 
   def find_setlist
     @setlist = Setlist.find(params[:id])

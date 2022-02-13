@@ -1,6 +1,6 @@
 class Setlist < ApplicationRecord
-  has_many :setlist_items, -> { order(position: :asc) }, dependent: :destroy
-  has_many :songsheets, through: :setlist_items
+  has_many :items, -> { order(position: :asc) }, class_name: "SetlistItem", dependent: :destroy
+  has_many :songsheets, through: :items
   has_many :tracks, through: :songsheets
   has_many :albums, through: :tracks
 

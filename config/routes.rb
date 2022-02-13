@@ -28,11 +28,7 @@ Rails.application.routes.draw do
     end
     resources :tracks, only: [:show]
     resources :setlists do
-      resources :songsheets, only: [:index]
-      member do
-        put "songsheets", action: :add, as: :add
-        delete "songsheets/:songsheet_id", action: :remove, as: :remove
-      end
+      resources :items, controller: :setlist_items
     end
   end
 

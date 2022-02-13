@@ -32,21 +32,4 @@ class Api::SetlistsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :success
   end
-
-  test "add" do
-    songsheet = create :songsheet
-
-    put add_api_setlist_url(@setlist), params: {songsheet: {id: songsheet.id}}
-    assert_response :success
-    assert_includes @setlist.reload.songsheets, songsheet
-  end
-
-  test "remove" do
-    songsheet = create :songsheet
-    @setlist.songsheets << songsheet
-
-    delete remove_api_setlist_url(@setlist, songsheet)
-    assert_response :success
-    refute_includes @setlist.reload.songsheets, songsheet
-  end
 end
