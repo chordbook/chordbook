@@ -45,6 +45,7 @@
       dismiss-on-select
     >
       <ion-list lines="full">
+        <add-to-setlist-item :songsheet="songsheet" />
         <ion-item
           v-if="songsheet.track"
           button
@@ -68,10 +69,11 @@
 
 <script>
 import { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList } from '@ionic/vue'
+import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList },
+  components: { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList, AddToSetlistItem },
 
   props: {
     songsheet: {

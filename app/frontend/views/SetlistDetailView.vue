@@ -8,12 +8,10 @@
         <ion-title>{{ setlist.title }}</ion-title>
 
         <ion-buttons slot="start">
-          <ion-menu-toggle auto-hide="false">
-            <ion-back-button
-              text=""
-              :default-href="{ name: 'setlists' }"
-            />
-          </ion-menu-toggle>
+          <ion-back-button
+            text="Setlists"
+            :default-href="{ name: 'setlists' }"
+          />
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -21,9 +19,7 @@
     <ion-content fullscreen>
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">
-            {{ setlist.title }}
-          </ion-title>
+          <ion-title>{{ setlist.title }}</ion-title>
         </ion-toolbar>
       </ion-header>
 
@@ -57,10 +53,10 @@
 import DataSource from '@/DataSource'
 import client from '@/client'
 import SongsheetItem from '@/components/SongsheetItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 
 export default {
-  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
+  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
 
   props: {
     id: {

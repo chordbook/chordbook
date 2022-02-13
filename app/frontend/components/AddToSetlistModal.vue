@@ -1,14 +1,65 @@
+<script setup>
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonButtons, IonButton, IonModal, toastController, modalController } from '@ionic/vue'
+import SetlistItem from '@/components/SetlistItem.vue'
+import NewSetlistModal from '@/components/NewSetlistModal.vue'
+import DataSource from '@/DataSource'
+import client from '@/client'
+import { defineProps, onMounted } from 'vue'
+
+const props = defineProps({
+  songsheet: {
+    type: Object,
+    required: true
+  }
+})
+
+const dataSource = new DataSource('/api/setlists.json')
+
+onMounted(() => dataSource.load())
+
+async function add (setlist) {
+  await client.put(`/api/setlists/${setlist.id}/songsheets.json`, {
+    songsheet: { id: props.songsheet.id }
+  })
+
+  modalController.dismiss()
+
+  return (await toastController.create({
+    message: `Added to ${setlist.title}`,
+    duration: 3000
+  })).present()
+}
+
+async function newModal () {
+  const modal = await modalController.create({ component: NewSetlistModal })
+  modal.onDidDismiss().then(({ data }) => {
+    if (data) add(data)
+  })
+  return modal.present()
+}
+</script>
+
 <template>
-  <ion-modal ref="root">
+  <ion-modal
+    ref="modal"
+  >
     <ion-header>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button
+            role="cancel"
+            @click="modalController.dismiss()"
+          >
+            Cancel
+          </ion-button>
+        </ion-buttons>
         <ion-title>Add to Setlist</ion-title>
         <ion-buttons slot="end">
           <ion-button
             role="cancel"
-            @click="dismiss()"
+            @click="newModal()"
           >
-            Cancel
+            New setlist
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -25,51 +76,3 @@
     </ion-content>
   </ion-modal>
 </template>
-
-<script>
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonButtons, IonButton, IonModal, toastController } from '@ionic/vue'
-import SetlistItem from '@/components/SetlistItem.vue'
-import DataSource from '@/DataSource'
-import client from '@/client'
-
-export default {
-  components: { SetlistItem, IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonButtons, IonButton, IonModal },
-
-  props: {
-    songsheet: {
-      type: Object,
-      required: true
-    }
-  },
-
-  data () {
-    const dataSource = new DataSource('/api/setlists.json')
-
-    return {
-      dataSource
-    }
-  },
-
-  mounted () {
-    this.dataSource.load()
-  },
-
-  methods: {
-    add (setlist) {
-      client.put(`/api/setlists/${setlist.id}/songsheets.json`, {
-        songsheet: { id: this.songsheet.id }
-      }).then(async response => {
-        this.dismiss()
-        return (await toastController.create({
-          message: `Added to ${setlist.title}`,
-          duration: 3000
-        })).present()
-      })
-    },
-
-    dismiss () {
-      this.$el.dismiss()
-    }
-  }
-}
-</script>
