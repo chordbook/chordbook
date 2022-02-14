@@ -28,6 +28,7 @@
     <ion-button
       :id="`songsheet-${songsheet.id}`"
       slot="end"
+      class="hide-reorder"
       fill="clear"
       color="dark"
       @click.prevent=""
@@ -39,6 +40,8 @@
         :md="icons.mdEllipsis"
       />
     </ion-button>
+    <ion-reorder slot="end" />
+
     <ion-popover
       :trigger="`songsheet-${songsheet.id}`"
       translucent
@@ -68,12 +71,12 @@
 </template>
 
 <script>
-import { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList } from '@ionic/vue'
+import { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList, IonReorder } from '@ionic/vue'
 import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList, AddToSetlistItem },
+  components: { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList, AddToSetlistItem, IonReorder },
 
   props: {
     songsheet: {

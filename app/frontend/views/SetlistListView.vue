@@ -57,7 +57,7 @@ export default {
   components: { SetlistCard, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
 
   data () {
-    const dataSource = new DataSource(`/api${this.$route.path}`, { params: this.$route.query })
+    const dataSource = new DataSource('/api/setlists', { params: this.$route.query })
 
     return { dataSource }
   },

@@ -2,12 +2,12 @@
 import DataSource from '@/DataSource'
 import client from '@/client'
 import SongsheetItem from '@/components/SongsheetItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent, IonItemSliding, IonItemOptions, IonItemOption, toastController, IonPopover, IonButton, IonIcon, IonLabel, IonItem, actionSheetController } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent, IonItemSliding, IonItemOptions, IonItemOption, toastController, IonPopover, IonButton, IonIcon, IonLabel, IonItem, actionSheetController, IonReorderGroup } from '@ionic/vue'
 import * as icons from '@/icons'
 import { trash } from 'ionicons/icons'
 
 export default {
-  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent, IonItemSliding, IonItemOptions, IonItemOption, IonPopover, IonButton, IonIcon, IonLabel, IonItem },
+  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent, IonItemSliding, IonItemOptions, IonItemOption, IonPopover, IonButton, IonIcon, IonLabel, IonItem, IonReorderGroup },
 
   props: {
     id: {
@@ -17,11 +17,12 @@ export default {
   },
 
   data () {
-    const dataSource = new DataSource(`/api/setlists/${this.id}/songsheets.json`, { params: this.$route.query })
+    const dataSource = new DataSource(`/api/setlists/${this.id}/items.json`, { params: this.$route.query })
     return {
       dataSource,
       setlist: {},
-      icons
+      icons,
+      editing: false
     }
   },
 
@@ -34,8 +35,18 @@ export default {
   },
 
   methods: {
+    async reorder (e) {
+      const songsheet = this.dataSource.items[e.detail.from]
+
+      await client.patch(`/api/setlists/${this.id}/items/${songsheet.id}.json`, {
+        item: { position: e.detail.to + 1 }
+      })
+
+      e.detail.complete(true)
+    },
+
     async remove (songsheet) {
-      await client.delete(`/api/setlists/${this.id}/songsheets/${songsheet.id}.json`)
+      await client.delete(`/api/setlists/${this.id}/items/${songsheet.id}.json`)
       this.dataSource.items.splice(this.dataSource.items.indexOf(songsheet), 1)
       return (await toastController.create({
         message: `${songsheet.title} was removed from ${this.setlist.title}`,
@@ -83,7 +94,16 @@ export default {
         </ion-buttons>
 
         <ion-buttons slot="end">
-          <ion-button :id="`setlist-context-${setlist.id}`">
+          <ion-button
+            v-show="editing"
+            @click="editing = false"
+          >
+            Done
+          </ion-button>
+          <ion-button
+            v-show="!editing"
+            :id="`setlist-context-${setlist.id}`"
+          >
             <ion-icon
               slot="icon-only"
               size="small"
@@ -107,23 +127,30 @@ export default {
       </p>
 
       <ion-list>
-        <ion-item-sliding
-          v-for="songsheet in dataSource.items"
-          :key="songsheet.id"
+        <ion-reorder-group
+          :disabled="!editing"
+          @ion-item-reorder="reorder"
         >
-          <ion-item-options side="end">
-            <ion-item-option
-              color="danger"
-              @click="remove(songsheet)"
-            >
-              Remove
-            </ion-item-option>
-          </ion-item-options>
+          <ion-item-sliding
+            v-for="songsheet in dataSource.items"
+            :key="songsheet.id"
+          >
+            <ion-item-options side="end">
+              <ion-item-option
+                color="danger"
+                @click="remove(songsheet)"
+              >
+                Remove
+              </ion-item-option>
+            </ion-item-options>
 
-          <songsheet-item
-            :songsheet="songsheet"
-          />
-        </ion-item-sliding>
+            <songsheet-item
+              :songsheet="songsheet"
+            >
+              <!-- <ion-reorder slot="end"></ion-reorder> -->
+            </songsheet-item>
+          </ion-item-sliding>
+        </ion-reorder-group>
       </ion-list>
 
       <ion-infinite-scroll
@@ -145,10 +172,16 @@ export default {
       <ion-list>
         <ion-item
           button
+          @click="editing = true"
+        >
+          <ion-label>Edit</ion-label>
+        </ion-item>
+        <ion-item
+          button
           :detail-icon="icons.createOutline"
           @click="destroy"
         >
-          <ion-label>Delete setlist</ion-label>
+          <ion-label>Delete</ion-label>
         </ion-item>
       </ion-list>
     </ion-popover>

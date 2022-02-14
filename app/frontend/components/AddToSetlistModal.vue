@@ -18,8 +18,8 @@ const dataSource = new DataSource('/api/setlists.json')
 onMounted(() => dataSource.load())
 
 async function add (setlist) {
-  await client.put(`/api/setlists/${setlist.id}/songsheets.json`, {
-    songsheet: { id: props.songsheet.id }
+  await client.post(`/api/setlists/${setlist.id}/items.json`, {
+    item: { songsheet_id: props.songsheet.id }
   })
 
   modalController.dismiss()
