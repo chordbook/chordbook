@@ -8,15 +8,16 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
   <ion-page>
     <ion-content>
       <div
-        class="ion-padding bg-black text-shadow min-h-screen-2/3 shadow-inner bg-center bg-cover flex flex-col place-content-center text-center"
+        class="ion-padding bg-black text-shadow min-h-screen-1/2 shadow-inner bg-center bg-cover flex flex-col place-content-center text-center"
         style="background-image: url(https://images.pexels.com/photos/144428/pexels-photo-144428.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)"
       >
-        <h1 class="text-6xl sm:text-8xl text-white/90 font-semibold">
-          Just music,<br>no bullshit.
+        <h1 class="text-6xl sm:text-8xl text-white font-semibold">
+          Just music,<br>no
+          <span class="censored"><span>b</span><span>u</span><span>l</span><span>l</span><span>s</span><span>λ</span><span>!</span><span>τ</span></span>.
         </h1>
-        <h2 class="text-xl sm:text-2xl text-white font-normal">
+        <h2 class="text-base sm:text-xl md:text-2xl text-white font-normal">
           Chord sheets and tab for guitar and ukulele.<br>
-          Made for amateur musicians by amateur musicians.
+          Made for and by amateur musicians.
         </h2>
       </div>
 
@@ -28,12 +29,12 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
           <h2 class="ion-margin text-4xl sm:text-5xl">
             Let's play music better, together.
           </h2>
-          <p class="text-2xl max-w-4xl mx-auto opacity-80">
-            Chord Book is made by amateur musicians and volunteers. Here's how you can lend your talent, time, or money to help us continue making it better…
+          <p class="text-xl sm:text-2xl max-w-4xl mx-auto opacity-80">
+            Chord Book is made by amateur musicians and volunteers. Here's how you can lend your talent, time, or money to help make it even better…
           </p>
         </div>
 
-        <div class="grid md:grid-cols-3 mb-6">
+        <div class="grid md:grid-cols-3 md:mb-6">
           <ion-card class="flex flex-col">
             <colorized-img
               class="aspect-16/9 w-full"
@@ -42,7 +43,7 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
 
             <ion-card-header>
               <ion-card-subtitle>Musicians</ion-card-subtitle>
-              <ion-card-title>Create & Improve Charts</ion-card-title>
+              <ion-card-title>Improve Charts</ion-card-title>
             </ion-card-header>
             <ion-card-content class="grow">
               <p>
@@ -79,7 +80,7 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
             <p class="text-center">
               <ion-button
                 class="w-40"
-                href="https://github.com/bkeepers/chordbook"
+                href="https://www.patreon.com/chordbook"
               >
                 <ion-icon
                   slot="start"
@@ -101,7 +102,7 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
             </ion-card-header>
             <ion-card-content class="grow">
               <p>
-                This app is open source! Fix bugs, improve features, and help us make progress on our <a href="https://github.com/bkeepers/chordbook/projects/1">roadmap</a>.
+                This app is open source! Help us fix bugs, improve features, and make progress on our <a href="https://github.com/bkeepers/chordbook/projects/1">roadmap</a>.
               </p>
             </ion-card-content>
             <p class="text-center">
@@ -124,3 +125,18 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
     </ion-content>
   </ion-page>
 </template>
+
+<style>
+.censored {
+  @apply text-transparent
+}
+
+.censored span:nth-of-type(1)  { text-shadow: 0 0 2px rgba(255,255,255,1); }
+.censored span:nth-of-type(2)  { text-shadow: 0 0 4px rgba(255,255,255,1); }
+.censored span:nth-of-type(3)  { text-shadow: 0 0 6px rgba(255,255,255,1); }
+.censored span:nth-of-type(4)  { text-shadow: 0 0 8px rgba(255,255,255,1); }
+.censored span:nth-of-type(5)  { text-shadow: 0 0 10px rgba(255,255,255,1); }
+.censored span:nth-of-type(6)  { text-shadow: 0 0 12px rgba(255,255,255,1); }
+.censored span:nth-of-type(7)  { text-shadow: 0 0 10px rgba(255,255,255,1); }
+.censored span:nth-of-type(8)  { text-shadow: 0 0 8px rgba(255,255,255,1); }
+</style>

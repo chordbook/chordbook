@@ -4,14 +4,18 @@ import TabsView from '@/views/TabsView.vue'
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: () => import('@/views/HomeView.vue'),
-    meta: { selected: 'home' }
+    redirect: '/home'
   },
   {
     path: '/tabs',
     component: TabsView,
     children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('@/views/HomeView.vue'),
+        meta: { selected: 'home' }
+      },
       {
         path: '/discover',
         name: 'discover',
