@@ -4,7 +4,6 @@ import client from '@/client'
 import SongsheetItem from '@/components/SongsheetItem.vue'
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent, IonItemSliding, IonItemOptions, IonItemOption, toastController, IonPopover, IonButton, IonIcon, IonLabel, IonItem, actionSheetController, IonReorderGroup } from '@ionic/vue'
 import * as icons from '@/icons'
-import { trash } from 'ionicons/icons'
 
 export default {
   components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent, IonItemSliding, IonItemOptions, IonItemOption, IonPopover, IonButton, IonIcon, IonLabel, IonItem, IonReorderGroup },
@@ -62,7 +61,7 @@ export default {
             {
               text: 'Delete setlist',
               role: 'destructive',
-              icon: trash,
+              icon: icons.trash,
               handler: async () => {
                 await client.delete(`/api/setlists/${this.id}.json`)
                 this.$router.back({ name: 'setlists' })
@@ -173,12 +172,13 @@ export default {
         <ion-item
           button
           @click="editing = true"
+          :detail-icon="icons.edit"
         >
           <ion-label>Edit</ion-label>
         </ion-item>
         <ion-item
           button
-          :detail-icon="icons.createOutline"
+          :detail-icon="icons.trash"
           @click="destroy"
         >
           <ion-label>Delete</ion-label>
