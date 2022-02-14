@@ -34,8 +34,17 @@
               :icon="icons.tuningFork"
             />
           </ion-button>
-          <ion-button :router-link="{ name: 'songsheet.edit', params: { id: songsheet.id } }">
-            <ion-label>Edit</ion-label>
+          <ion-button
+            :id="`songsheet-context-${songsheet.id}`"
+            fill="clear"
+            @click.prevent=""
+          >
+            <ion-icon
+              slot="icon-only"
+              size="small"
+              :ios="icons.iosEllipsis"
+              :md="icons.mdEllipsis"
+            />
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -89,14 +98,29 @@
         </template>
       </ion-list>
     </ion-popover>
+    <ion-popover
+      :trigger="`songsheet-context-${songsheet.id}`"
+      dismiss-on-select
+    >
+      <ion-list>
+        <ion-item
+          button
+          :router-link="{ name: 'songsheet.edit', params: { id: songsheet.id } }"
+          :detail-icon="icons.createOutline"
+        >
+          <ion-label>Edit</ion-label>
+        </ion-item>
+        <add-to-setlist-item :songsheet="songsheet" />
+      </ion-list>
+    </ion-popover>
   </ion-page>
 </template>
 
 <script>
 import client from '@/client'
-import { IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonListHeader } from '@ionic/vue'
+import { IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonListHeader, IonItem } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
-import { apps, arrowUp, arrowDown, list } from 'ionicons/icons'
+import { apps, arrowUp, arrowDown, list, createOutline } from 'ionicons/icons'
 import transpose from '@/icons/transpose.svg?url'
 import tuningFork from '@/icons/tuning-fork.svg?url'
 import chordDiagram from '@/icons/chord-diagram.svg?url'
@@ -104,9 +128,11 @@ import TransposeControl from '@/components/TransposeControl.vue'
 import TunerView from '@/views/TunerView.vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import SongsheetItem from '@/components/SongsheetItem.vue'
+import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
+import * as icons from '@/icons'
 
 export default {
-  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, SongsheetItem, IonList, IonListHeader },
+  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, SongsheetItem, IonList, IonListHeader, IonItem, AddToSetlistItem },
 
   props: {
     id: {
@@ -128,7 +154,7 @@ export default {
       source: '',
       key: 'C',
       transpose: 0,
-      icons: { apps, arrowUp, arrowDown, transpose, tuningFork, chordDiagram, list }
+      icons: { ...icons, apps, arrowUp, arrowDown, transpose, tuningFork, chordDiagram, list, createOutline }
     }
   },
 

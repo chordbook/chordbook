@@ -82,6 +82,23 @@
             Artists
           </ion-item>
         </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item
+            button
+            shape="round"
+            router-link="/setlists"
+            router-direction="root"
+            :detail="false"
+            :color="colorFor('setlists')"
+          >
+            <ion-icon
+              slot="start"
+              size="small"
+              :icon="icons.setlist"
+            />
+            Setlists
+          </ion-item>
+        </ion-menu-toggle>
       </ion-list>
     </ion-content>
   </ion-menu>

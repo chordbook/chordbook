@@ -27,4 +27,8 @@ FactoryBot.define do
   factory :genre do
     name { Faker::Music.genre }
   end
+
+  factory :setlist do
+    title { Faker::Music.genre }
+  end
 end

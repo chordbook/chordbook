@@ -30,3 +30,7 @@
     @apply snap-start
   }
 }
+
+.reorder-enabled .hide-reorder {
+  display: none;
+}

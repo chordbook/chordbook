@@ -16,6 +16,7 @@ gem "nokogiri"
 gem "chordpro", git: "https://github.com/bkeepers/chordpro.git", branch: "carriage-returns"
 gem "kaminari"
 gem "addressable"
+gem "acts_as_list"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

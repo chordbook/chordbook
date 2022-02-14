@@ -69,7 +69,7 @@ export default {
   components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonButton, IonIcon, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
 
   data () {
-    const dataSource = new DataSource('/api/songsheets.json', { params: this.$route.query })
+    const dataSource = new DataSource(`/api${this.$route.path}.json`, { params: this.$route.query })
     return {
       dataSource,
       songsheets: dataSource.items,
