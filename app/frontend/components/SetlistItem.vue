@@ -1,3 +1,16 @@
+<script setup>
+import { defineProps } from 'vue'
+import { IonItem, IonLabel, IonIcon, IonAvatar } from '@ionic/vue'
+import * as icons from '@/icons'
+
+defineProps({
+  setlist: {
+    type: Object,
+    required: true
+  }
+})
+</script>
+
 <template>
   <ion-item
     button
@@ -36,16 +49,3 @@
     </ion-label>
   </ion-item>
 </template>
-
-<script setup>
-import { defineProps } from 'vue'
-import { IonItem, IonLabel, IonIcon, IonAvatar } from '@ionic/vue'
-import * as icons from '@/icons'
-
-defineProps({
-  setlist: {
-    type: Object,
-    required: true
-  }
-})
-</script>

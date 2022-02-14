@@ -1,78 +1,70 @@
-<script>
+<script setup>
 import DataSource from '@/DataSource'
 import client from '@/client'
 import SongsheetItem from '@/components/SongsheetItem.vue'
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent, IonItemSliding, IonItemOptions, IonItemOption, toastController, IonPopover, IonButton, IonIcon, IonLabel, IonItem, actionSheetController, IonReorderGroup } from '@ionic/vue'
 import * as icons from '@/icons'
+import { ref, defineProps, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-export default {
-  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent, IonItemSliding, IonItemOptions, IonItemOption, IonPopover, IonButton, IonIcon, IonLabel, IonItem, IonReorderGroup },
-
-  props: {
-    id: {
-      type: String,
-      required: true
-    }
-  },
-
-  data () {
-    const dataSource = new DataSource(`/api/setlists/${this.id}/items.json`, { params: this.$route.query })
-    return {
-      dataSource,
-      setlist: {},
-      icons,
-      editing: false
-    }
-  },
-
-  created () {
-    client.get(`/api/setlists/${this.id}.json`).then(response => {
-      this.setlist = response.data
-    })
-
-    this.dataSource.load()
-  },
-
-  methods: {
-    async reorder (e) {
-      const songsheet = this.dataSource.items[e.detail.from]
-
-      await client.patch(`/api/setlists/${this.id}/items/${songsheet.id}.json`, {
-        item: { position: e.detail.to + 1 }
-      })
-
-      e.detail.complete(true)
-    },
-
-    async remove (songsheet) {
-      await client.delete(`/api/setlists/${this.id}/items/${songsheet.id}.json`)
-      this.dataSource.items.splice(this.dataSource.items.indexOf(songsheet), 1)
-      return (await toastController.create({
-        message: `${songsheet.title} was removed from ${this.setlist.title}`,
-        duration: 3000
-      })).present()
-    },
-
-    async destroy () {
-      const actionSheet = await actionSheetController
-        .create({
-          header: 'Are you sure you want to delete this setlist?',
-          buttons: [
-            {
-              text: 'Delete setlist',
-              role: 'destructive',
-              icon: icons.trash,
-              handler: async () => {
-                await client.delete(`/api/setlists/${this.id}.json`)
-                this.$router.back({ name: 'setlists' })
-              }
-            },
-            { text: 'Cancel', icon: close, role: 'cancel' }
-          ]
-        })
-      await actionSheet.present()
-    }
+const props = defineProps({
+  id: {
+    type: String,
+    required: true
   }
+})
+
+const route = useRoute()
+const router = useRouter()
+const dataSource = ref(new DataSource(`/api/setlists/${props.id}/items.json`, { params: route.query }))
+const editing = ref(false)
+const setlist = ref({})
+
+onMounted(() => {
+  client.get(`/api/setlists/${props.id}.json`).then(response => {
+    setlist.value = response.data
+  })
+
+  dataSource.value.load()
+})
+
+async function reorder (e) {
+  const songsheet = dataSource.value.items[e.detail.from]
+
+  await client.patch(`/api/setlists/${props.id}/items/${songsheet.id}.json`, {
+    item: { position: e.detail.to + 1 }
+  })
+
+  e.detail.complete(true)
+}
+
+async function remove (songsheet) {
+  await client.delete(`/api/setlists/${props.id}/items/${songsheet.id}.json`)
+  dataSource.value.items.splice(dataSource.value.items.indexOf(songsheet), 1)
+  return (await toastController.create({
+    message: `${songsheet.title} was removed from ${setlist.value.title}`,
+    duration: 3000
+  })).present()
+}
+
+async function destroy () {
+  const actionSheet = await actionSheetController
+    .create({
+      header: 'Are you sure you want to delete this setlist?',
+      buttons: [
+        {
+          text: 'Delete setlist',
+          role: 'destructive',
+          icon: icons.trash,
+          handler: async () => {
+            await client.delete(`/api/setlists/${props.id}.json`)
+            router.back({ name: 'setlists' })
+          }
+        },
+        { text: 'Cancel', icon: close, role: 'cancel' }
+      ]
+    })
+  await actionSheet.present()
 }
 </script>
 
@@ -171,8 +163,8 @@ export default {
       <ion-list>
         <ion-item
           button
-          @click="editing = true"
           :detail-icon="icons.edit"
+          @click="editing = true"
         >
           <ion-label>Edit</ion-label>
         </ion-item>

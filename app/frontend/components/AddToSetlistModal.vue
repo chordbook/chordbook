@@ -1,5 +1,16 @@
 <script setup>
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonButtons, IonButton, IonModal, toastController, modalController } from '@ionic/vue'
+import {
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonList,
+  IonModal,
+  IonTitle,
+  IonToolbar,
+  modalController,
+  toastController
+} from '@ionic/vue'
 import SetlistItem from '@/components/SetlistItem.vue'
 import NewSetlistModal from '@/components/NewSetlistModal.vue'
 import DataSource from '@/DataSource'

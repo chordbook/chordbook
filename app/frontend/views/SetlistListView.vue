@@ -1,3 +1,27 @@
+<script setup>
+import DataSource from '@/DataSource'
+import SetlistCard from '@/components/SetlistCard.vue'
+import {
+  IonBackButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
+  IonList,
+  IonMenuToggle,
+  IonPage,
+  IonTitle,
+  IonToolbar
+} from '@ionic/vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const dataSource = ref(new DataSource('/api/setlists', { params: route.query }))
+onMounted(() => dataSource.value.load())
+</script>
+
 <template>
   <ion-page>
     <ion-header translucent>
@@ -47,23 +71,3 @@
     </ion-content>
   </ion-page>
 </template>
-
-<script>
-import DataSource from '@/DataSource'
-import SetlistCard from '@/components/SetlistCard.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
-
-export default {
-  components: { SetlistCard, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
-
-  data () {
-    const dataSource = new DataSource('/api/setlists', { params: this.$route.query })
-
-    return { dataSource }
-  },
-
-  created () {
-    this.dataSource.load()
-  }
-}
-</script>
