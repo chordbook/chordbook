@@ -22,6 +22,7 @@ export default defineConfig({
     vue(),
     svgLoader(),
     VitePWA({
+      registerType: 'autoUpdate',
       srcDir: 'service_workers',
       filename: 'offline.js',
       workbox: {
