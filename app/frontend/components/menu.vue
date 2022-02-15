@@ -25,6 +25,22 @@
           <ion-item
             button
             shape="round"
+            :router-link="{ name: 'home' }"
+            router-direction="root"
+            :detail="false"
+            :color="colorFor('home')"
+          >
+            <ion-icon
+              slot="start"
+              size="small"
+              :icon="icons.home"
+            />
+            <ion-label>Home</ion-label>
+          </ion-item>
+        </ion-menu-toggle>        <ion-menu-toggle auto-hide="false">
+          <ion-item
+            button
+            shape="round"
             :router-link="{ name: 'discover' }"
             router-direction="root"
             :detail="false"

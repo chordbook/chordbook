@@ -7,5 +7,6 @@ export {
   musicalNote as song,
   peopleCircleOutline as artist,
   search,
-  trash
+  trash,
+  home
 } from 'ionicons/icons'
