@@ -19,6 +19,7 @@ class Songsheet < ApplicationRecord
 
   class_attribute :perform_metadata_lookup, default: true
 
+  after_initialize :set_defaults
   after_commit(if: :perform_metadata_lookup) { AssociateSongsheetMetadata.perform_later self }
   after_commit { track&.reindex(mode: :async) if Searchkick.callbacks? }
 
@@ -41,5 +42,11 @@ class Songsheet < ApplicationRecord
 
   def all_media
     [metadata["media"], track&.media].flatten.compact
+  end
+
+  private
+
+  def set_defaults
+    self.format ||= "ChordPro"
   end
 end
