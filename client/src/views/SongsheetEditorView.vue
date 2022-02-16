@@ -197,12 +197,14 @@ export default {
     },
 
     paste (e) {
+      // Only attempt to convert if target is ChordPro
+      if (this.songsheet.format !== 'ChordPro') return
+
       const format = guessFormat(e.text)
 
       // No need to convert if it's already in chordpro
       if (!format || format.name === 'ChordPro') return
 
-      // Convert to ChordPro
       // Modifying text property will change text pasted into Ace editor
       e.text = new ChordSheetJS.ChordProFormatter().format(format.parser.parse(e.text))
     },
