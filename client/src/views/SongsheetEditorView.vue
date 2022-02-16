@@ -28,18 +28,13 @@
         </ul>
       </div>
 
-      <v-ace-editor
+      <songsheet-editor
         v-model:value="songsheet.source"
-        :theme="theme"
-        lang="chordpro"
-        style="height: 100%"
-        :print-margin="false"
-        :options="{fontSize: '0.9rem'}"
-        @init="setupEditor"
+        :format="songsheet.format"
         @paste="paste"
       />
     </ion-content>
-    <ion-footer v-if="id">
+    <ion-footer>
       <ion-toolbar>
         <ion-buttons slot="end">
           <ion-select
@@ -57,6 +52,7 @@
 
         <ion-buttons slot="start">
           <ion-button
+            v-if="id"
             fill="clear"
             color="danger"
             @click="destroy"
@@ -93,7 +89,7 @@
           v-if="songsheet.source"
           :source="songsheet.source"
           :show-chords="true"
-          @parse="onParse"
+          @parse="(value) => parsed = value"
         />
       </ion-content>
     </ion-modal>
@@ -101,24 +97,15 @@
 </template>
 
 <script>
-/* global ace */
 import ChordSheetJS from 'chordsheetjs'
 import formats, { guess as guessFormat } from '@/formats'
 import client from '@/client'
-import { VAceEditor } from 'vue3-ace-editor'
-import ChordCompleter from '@/ace/chord-completer'
-import MetadataCompleter from '@/ace/metadata-completer'
-import 'ace-builds/src-noconflict/theme-clouds'
-import 'ace-builds/src-noconflict/theme-chaos'
-import 'ace-builds/src-noconflict/ext-language_tools'
-import '@/ace/mode-chordpro'
-import '@/ace/snippets/chordpro'
-import { useMediaQuery } from '@vueuse/core'
 import { alertController, loadingController } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
+import SongsheetEditor from '@/components/SongsheetEditor.vue'
 
 export default {
-  components: { SongSheet, VAceEditor },
+  components: { SongSheet, SongsheetEditor },
 
   props: {
     id: {
@@ -132,18 +119,12 @@ export default {
     return {
       songsheet: { format: 'ChordPro', source: '' },
       errors: {},
-      themes: { dark: 'chaos', light: 'clouds' },
-      isDarkMode: useMediaQuery('(prefers-color-scheme: dark)'),
-      song: null,
+      parsed: null,
       formats: Object.keys(formats)
     }
   },
 
   computed: {
-    theme () {
-      return this.isDarkMode ? this.themes.dark : this.themes.light
-    },
-
     url () {
       return this.songsheet.id ? `songsheets/${this.songsheet.id}.json` : 'songsheets.json'
     }
@@ -164,39 +145,9 @@ export default {
       }
     },
 
-    setupEditor (editor) {
-      editor.setOptions({
-        enableBasicAutocompletion: true,
-        enableSnippets: true,
-        enableLiveAutocompletion: true
-      })
-      editor.renderer.setScrollMargin(20, 20)
-
-      const { snippetCompleter } = ace.require('ace/ext/language_tools')
-
-      editor.completers = [
-        new ChordCompleter(),
-        new MetadataCompleter(),
-        snippetCompleter
-      ]
-
-      // Start autocomplete on [ or { characters
-      editor.commands.addCommand({
-        name: 'chordproStartAutocomplete',
-        bindKey: '[|{',
-        exec () {
-          editor.commands.byName.startAutocomplete.exec(editor)
-          return false
-        }
-      })
-
-      // Expose ace editor for tests
-      window.editor = editor
-    },
-
     async save () {
       const { source, format } = this.songsheet
-      const metadata = this.song.metadata
+      const metadata = this.parsed.metadata
 
       client({
         url: this.url,
@@ -256,26 +207,9 @@ export default {
       e.text = new ChordSheetJS.ChordProFormatter().format(format.parser.parse(e.text))
     },
 
-    onParse (e) {
-      this.song = e
-    },
-
     dismissPreview () {
       this.$refs.preview.$el.dismiss()
     }
   }
 }
 </script>
-
-<style>
-.ace_scroller { padding-left: 0.5em }
-
-/* FIXME: Move to a proper ace theme */
-.ace_editor { background: transparent; }
-.ace_editor .ace_gutter { @apply bg-gray-50 dark:bg-gray-900 }
-.ace_editor .ace_string { @apply text-black dark:text-white font-bold }
-.ace_editor .ace_meta { @apply text-red-400 }
-.ace_editor .ace_meta.ace_tag,
-.ace_editor .ace_constant { @apply text-gray-400 dark:text-gray-500 }
-.ace_editor .ace_keyword { @apply text-blue-700 dark:text-blue-400 }
-</style>
