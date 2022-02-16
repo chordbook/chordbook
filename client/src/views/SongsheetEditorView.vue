@@ -29,7 +29,7 @@
       </div>
 
       <v-ace-editor
-        v-model:value="source"
+        v-model:value="songsheet.source"
         :theme="theme"
         lang="chordpro"
         style="height: 100%"
@@ -41,7 +41,21 @@
     </ion-content>
     <ion-footer v-if="id">
       <ion-toolbar>
-        <ion-buttons slot="secondary">
+        <ion-buttons slot="end">
+          <ion-select
+            v-model="songsheet.format"
+            placeholder="Format"
+          >
+            <ion-select-option
+              v-for="formatName in formats"
+              :key="formatName"
+            >
+              {{ formatName }}
+            </ion-select-option>
+          </ion-select>
+        </ion-buttons>
+
+        <ion-buttons slot="start">
           <ion-button
             fill="clear"
             color="danger"
@@ -76,8 +90,8 @@
       </ion-header>
       <ion-content fullscreen>
         <song-sheet
-          v-if="source"
-          :source="source"
+          v-if="songsheet.source"
+          :source="songsheet.source"
           :show-chords="true"
           @parse="onParse"
         />
@@ -88,10 +102,8 @@
 
 <script>
 /* global ace */
-/* eslint-disable vue/no-mutating-props */
-
 import ChordSheetJS from 'chordsheetjs'
-import detectFormat from '@/lib/detect_format'
+import formats, { guess as guessFormat } from '@/formats'
 import client from '@/client'
 import { VAceEditor } from 'vue3-ace-editor'
 import ChordCompleter from '@/ace/chord-completer'
@@ -118,11 +130,12 @@ export default {
 
   data () {
     return {
-      source: '',
+      songsheet: { format: 'ChordPro', source: '' },
       errors: {},
       themes: { dark: 'chaos', light: 'clouds' },
       isDarkMode: useMediaQuery('(prefers-color-scheme: dark)'),
-      song: null
+      song: null,
+      formats: Object.keys(formats)
     }
   },
 
@@ -132,7 +145,7 @@ export default {
     },
 
     url () {
-      return this.id ? `songsheets/${this.id}.json` : 'songsheets.json'
+      return this.songsheet.id ? `songsheets/${this.songsheet.id}.json` : 'songsheets.json'
     }
   },
 
@@ -147,7 +160,7 @@ export default {
   methods: {
     async fetchData () {
       if (this.id) {
-        this.source = (await client.get(`songsheets/${this.id}.json`)).data.source
+        this.songsheet = (await client.get(`songsheets/${this.id}.json`)).data
       }
     },
 
@@ -182,15 +195,13 @@ export default {
     },
 
     async save () {
+      const { source, format } = this.songsheet
+      const metadata = this.song.metadata
+
       client({
         url: this.url,
-        method: this.id ? 'PATCH' : 'POST',
-        data: {
-          songsheet: {
-            source: this.source,
-            metadata: this.song.metadata
-          }
-        }
+        method: this.songsheet.id ? 'PATCH' : 'POST',
+        data: { songsheet: { source, format, metadata } }
       }).then(response => {
         this.$router.push({ name: 'songsheet', params: { id: response.data.id } })
         this.dismissPreview()
@@ -225,7 +236,7 @@ export default {
                 })
                 await loading.present()
                 await client({ url: this.url, method: 'DELETE', headers: this.headers })
-                this.$router.push('/')
+                this.$router.push({ name: 'songsheets' })
                 loading.dismiss()
               }
             }
@@ -235,14 +246,14 @@ export default {
     },
 
     paste (e) {
-      const format = detectFormat(e.text)
+      const format = guessFormat(e.text)
 
       // No need to convert if it's already in chordpro
-      if (!format || format instanceof ChordSheetJS.ChordProParser) return
+      if (!format || format.name === 'ChordPro') return
 
       // Convert to ChordPro
       // Modifying text property will change text pasted into Ace editor
-      e.text = new ChordSheetJS.ChordProFormatter().format(format.parse(e.text))
+      e.text = new ChordSheetJS.ChordProFormatter().format(format.parser.parse(e.text))
     },
 
     onParse (e) {

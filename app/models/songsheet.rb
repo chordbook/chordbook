@@ -15,6 +15,7 @@ class Songsheet < ApplicationRecord
   scope :order_by_todo, -> { order(Arel.sql("track_id NULLS FIRST, updated_at ASC")) }
 
   validates :title, presence: true
+  validates :format, presence: true
 
   class_attribute :perform_metadata_lookup, default: true
 

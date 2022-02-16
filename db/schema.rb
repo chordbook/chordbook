@@ -336,6 +336,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_29_192034) do
     t.string "imported_from"
     t.bigint "rank"
     t.uuid "track_id"
+    t.string "format"
     t.index ["track_id"], name: "index_songsheets_on_track_id"
   end
 
