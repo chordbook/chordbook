@@ -34,7 +34,7 @@
     "vite-plugin-pwa": "^0.11.13",
     "vue": "^3.2.29",
     "vue-axios": "^3.4.0",
-    "vue-router": "^4.0.12",
+    "vue-router": "^4.0.13",
     "vue3-ace-editor": "^2.2.1",
     "vuex": "^4.0.2"
   },
