@@ -1,7 +1,10 @@
 <template>
   <ion-app>
     <reload-pwa />
-    <ion-split-pane content-id="main">
+    <ion-split-pane
+      content-id="main"
+      when="md"
+    >
       <app-menu content-id="main" />
       <ion-router-outlet id="main" />
     </ion-split-pane>

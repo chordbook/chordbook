@@ -25,7 +25,7 @@
 
         <ion-tab-button
           tab="library"
-          href="/songsheets"
+          href="/library"
         >
           <ion-icon :icon="library" />
           <ion-label>Library</ion-label>

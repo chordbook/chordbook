@@ -9,7 +9,6 @@ import {
   IonInfiniteScroll,
   IonInfiniteScrollContent,
   IonList,
-  IonMenuToggle,
   IonPage,
   IonTitle,
   IonToolbar
@@ -29,12 +28,11 @@ onMounted(() => dataSource.value.load())
         <ion-title>Setlists</ion-title>
 
         <ion-buttons slot="start">
-          <ion-menu-toggle>
-            <ion-back-button
-              text=""
-              default-href=""
-            />
-          </ion-menu-toggle>
+          <ion-back-button
+            class="md:hidden"
+            text="Library"
+            default-href="/library"
+          />
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
