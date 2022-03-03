@@ -4749,10 +4749,10 @@ vite@^2.7.13:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vue-axios@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.npmjs.org/vue-axios/-/vue-axios-3.4.0.tgz"
-  integrity sha512-S3YTCJeEndzmtaYzyz919Z54wY1D2OftWEhioGbHED3VUSta8ti0OHjDipTPkb1StxOzQLAAO2hSUq830i14KA==
+vue-axios@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/vue-axios/-/vue-axios-3.4.1.tgz#e092ec4060b42e941ea5059df9b8f09058c3eea9"
+  integrity sha512-8YZYUOQrBEJktxoQtrM4rr2LfVcDaWfJqv8MqtLlgLlkuBvCYKFSZSo6AXQ4YcCzdgccDqstmuaEh68lcH9xWA==
 
 vue-demi@*:
   version "0.12.1"
