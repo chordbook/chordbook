@@ -1745,10 +1745,10 @@ chalk@^4.0.0, chalk@^4.1.2:
   optionalDependencies:
     fsevents "~2.3.2"
 
-chordsheetjs@^5.1.3:
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/chordsheetjs/-/chordsheetjs-5.1.3.tgz#1507bd1a93605a64932c428025f4257d32a9ee62"
-  integrity sha512-YyoH+YxTa0dvSpIdT+gCqDCy9CpkrPURfyCVLVvguqlMoYYOf92DJs0GHVv7r2so8WU1J31Ab7zATJ8Of6ZD8g==
+chordsheetjs@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/chordsheetjs/-/chordsheetjs-6.1.0.tgz#c9b54e9ec0c03c4df779ea065612fd7f99931d6f"
+  integrity sha512-Awcmh79Oqn6ZgAf5jcEM26IdLH+NEr+jaYQ6XnHqd3G1vGiTMB5B96w8qM/P02o6eWXe8gTBuWE02ACmplCbLA==
   dependencies:
     handlebars "^4.7.6"
 
