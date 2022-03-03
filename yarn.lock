@@ -11,10 +11,10 @@
     jsonpointer "^5.0.0"
     leven "^3.1.0"
 
-"@awesome-cordova-plugins/core@^5.38.0":
-  version "5.38.0"
-  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/core/-/core-5.38.0.tgz#7be61ab4520dfcadc21f78c6d52071712ddea7af"
-  integrity sha512-mXMsQLTkJ/BBA0a44KutxpZK9jvC7vY7b8XuuiemPhC/1KxKQ9NKUQrQpDKanpHMoiiGRpLqoCFxLS2ShOzC3w==
+"@awesome-cordova-plugins/core@^5.39.1":
+  version "5.39.1"
+  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/core/-/core-5.39.1.tgz#4c5035129b41eba70eb7d65a2a91ea61c70911fe"
+  integrity sha512-IHBemJf7/kNXCyOghNHckdSY+pu+59W5cTE8w2UMFKQCtJugXVkdDqBPQjmmefzKLmDNCJ+lYhbv0V3VIr6N2g==
   dependencies:
     "@types/cordova" latest
 
