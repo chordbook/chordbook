@@ -5,15 +5,9 @@
         <ion-title>Artists</ion-title>
 
         <ion-buttons slot="start">
-          <ion-menu-toggle v-if="!backLink">
-            <ion-back-button
-              text=""
-              default-href=""
-            />
-          </ion-menu-toggle>
           <ion-back-button
-            v-else
-            text=""
+            class="md:hidden"
+            text="Library"
             :default-href="backLink"
           />
         </ion-buttons>
@@ -54,10 +48,10 @@
 <script>
 import DataSource from '@/DataSource'
 import ArtistItem from '@/components/ArtistItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 
 export default {
-  components: { ArtistItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonMenuToggle, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
+  components: { ArtistItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
 
   data () {
     const dataSource = new DataSource(`/api${this.$route.path}`, { params: this.$route.query })
@@ -67,7 +61,7 @@ export default {
 
   computed: {
     backLink () {
-      return this.$route.path.replace('/artists', '')
+      return this.$route.path.replace('/artists', '') || '/library'
     }
   },
 

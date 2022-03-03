@@ -24,6 +24,13 @@ const routes = [
         meta: { selected: 'discover' }
       },
       {
+        path: '/library',
+        name: 'library',
+        props: route => ({ searchParams: route.query }),
+        component: () => import('@/views/LibraryView.vue'),
+        meta: { selected: 'library' }
+      },
+      {
         path: '/artists',
         name: 'artists',
         component: () => import('@/views/ArtistListView.vue'),
