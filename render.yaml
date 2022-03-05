@@ -20,7 +20,7 @@ services:
         value: admin
       - key: ADMIN_PASS
         generateValue: true
-      - key: API_URL
+      - key: APP_API_URL
         value: /
       - key: GOOD_JOB_EXECUTION_MODE
         value: async
