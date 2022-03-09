@@ -22,6 +22,14 @@
               :icon="icons.transpose"
             />
           </ion-button>
+
+          <ion-button @click="columns = 1">
+            1
+          </ion-button>
+          <ion-button @click="columns = 2">
+            2
+          </ion-button>
+
           <ion-button @click="showChords = !showChords">
             <ion-icon
               slot="icon-only"
@@ -54,6 +62,7 @@
       v-if="songsheet.source"
       :source="songsheet.source"
       :show-chords="showChords"
+      :columns="columns"
       :transpose="transpose"
       @update:key="(v) => key = v"
     >
@@ -130,6 +139,7 @@ import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import SongsheetItem from '@/components/SongsheetItem.vue'
 import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
 import * as icons from '@/icons'
+import { useStore } from '@/store'
 
 export default {
   components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, SongsheetItem, IonList, IonListHeader, IonItem, AddToSetlistItem },
@@ -148,6 +158,7 @@ export default {
 
   data () {
     return {
+      store: useStore(),
       songsheet: {},
       versions: [],
       showTuner: false,
@@ -160,14 +171,14 @@ export default {
 
   computed: {
     showChords: {
-      get () { return this.$store.state.showChords },
-      set (value) { this.$store.commit('update', { showChords: !!value }) }
-    }
+      get () { return this.store.showChords },
+      set (value) { this.store.update({ showChords: !!value }) }
+    },
 
-    //   columns: {
-    //     get () { return this.$store.state.columns || 1 },
-    //     set (value) { this.$store.commit('update', { columns: value }) }
-    //   },
+    columns: {
+      get () { return this.store.columns || 1 },
+      set (value) { this.store.update({ columns: value }) }
+    }
   },
 
   ionViewWillEnter () {

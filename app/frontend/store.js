@@ -1,30 +1,14 @@
-import { createStore } from 'vuex'
+import { defineStore } from 'pinia'
+import { useStorage } from '@vueuse/core'
 
-const localStoragePlugin = (store) => {
-  // Persist state
-  store.subscribe((_, state) => {
-    localStorage.setItem('store', JSON.stringify(state))
-  })
+export const useStore = defineStore({
+  id: 'store',
 
-  // Restore state
-  if (localStorage.getItem('store')) {
-    const newState = JSON.parse(localStorage.getItem('store'))
-    store.replaceState(Object.assign(store.state, newState))
-  }
-}
+  state: () => useStorage('store', {}),
 
-export const store = createStore({
-  state () {
-    return {}
-  },
-
-  mutations: {
-    update (state, newState) {
-      Object.assign(state, newState)
+  actions: {
+    update (newState) {
+      Object.assign(this.$state, newState)
     }
-  },
-
-  plugins: [localStoragePlugin]
+  }
 })
-
-export default store

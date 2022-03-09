@@ -1,8 +1,11 @@
 <template>
   <ion-content
+    v-if="song"
+    :scroll-y="columns == 1"
+    :scroll-x="columns == 2"
     fullscreen
   >
-    <div class="ion-padding">
+    <div :class="'ion-padding ' + (columns == 1 ? 'single-column' : 'horizontal-columns')">
       <!-- Hidden sprite of chord diagrams -->
       <svg
         hidden
@@ -16,61 +19,56 @@
         />
       </svg>
 
-      <div
-        v-if="song"
-        class="single-column"
-      >
-        <div class="column-span-all">
-          <h1 class="text-4xl m-0">
-            {{ song?.title }}
-          </h1>
-          <h2
-            v-if="song.subtitle"
-            class="mt-0"
-          >
-            {{ song.subtitle }}
-          </h2>
-          <h2
-            v-if="song.artist"
-            class="mt-0"
-          >
-            by {{ formatArray(song.artist) }}
-          </h2>
-          <div v-if="song.capo">
-            Capo {{ song.capo }}
-          </div>
-        </div>
-
-        <div
-          ref="output"
-          class="chord-sheet"
+      <div class="column-span-all">
+        <h1 class="text-4xl m-0">
+          {{ song?.title }}
+        </h1>
+        <h2
+          v-if="song.subtitle"
+          class="mt-0"
         >
-          <div
-            v-for="{ type, lines } in song.paragraphs"
-            :key="type + JSON.stringify(lines)"
-            :class="type + ' paragraph'"
+          {{ song.subtitle }}
+        </h2>
+        <h2
+          v-if="song.artist"
+          class="mt-0"
+        >
+          by {{ formatArray(song.artist) }}
+        </h2>
+        <div v-if="song.capo">
+          Capo {{ song.capo }}
+        </div>
+      </div>
+
+      <div
+        ref="output"
+        class="chord-sheet"
+      >
+        <div
+          v-for="{ type, lines } in song.paragraphs"
+          :key="type + JSON.stringify(lines)"
+          :class="type + ' paragraph'"
+        >
+          <template
+            v-for="line in lines"
+            :key="JSON.stringify(line)"
           >
-            <template
-              v-for="line in lines"
-              :key="JSON.stringify(line)"
+            <div
+              v-if="line.hasRenderableItems()"
+              class="row"
             >
-              <div
-                v-if="line.hasRenderableItems()"
-                class="row"
+              <template
+                v-for="item in line.items"
+                :key="JSON.stringify(item)"
               >
-                <template
-                  v-for="item in line.items"
-                  :key="JSON.stringify(item)"
-                >
-                  <component
-                    :is="componentFor(item)"
-                    v-if="item.isRenderable()"
-                    :item="item"
-                  />
-                </template>
-              </div>
-            </template>
-          </div>
+                <component
+                  :is="componentFor(item)"
+                  v-if="item.isRenderable()"
+                  :item="item"
+                />
+              </template>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -236,13 +234,13 @@ export default {
 
     updateColumnWidth () {
       const output = this.$refs.output
+      if (!output) return
 
-      if (output) {
-        output.classList.add('content-width')
+      output.classList.add('content-width')
+      requestAnimationFrame(() => {
         this.columnWidth = output.offsetWidth + 'px'
-        // document.documentElement.style.setProperty('--column-width', )
         output.classList.remove('content-width')
-      }
+      })
     },
 
     toggleTuner () {
@@ -258,10 +256,9 @@ export default {
 
 <style lang="scss">
 .horizontal-columns {
-  @apply max-w-none w-auto mx-0 overflow-x-auto h-full gap-x-2 px-4 md:px-8 lg:px-12;
+  @apply h-full;
   column-count: auto;
   column-width: var(--column-width);
-  column-fill: auto;
 }
 .horizontal-columns .column-span-all { column-span: all; }
 
@@ -274,6 +271,7 @@ export default {
   width: max-content !important;
   display: inline-block !important;
   flex-wrap: nowrap !important;
+  padding: none !important;
 }
 
 .chord-sheet {
