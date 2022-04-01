@@ -7,7 +7,7 @@
     "@capacitor/core": "^3.4.1",
     "@headlessui/vue": "^1.5.0",
     "@ionic/vue": "^6.0.4",
-    "@ionic/vue-router": "^6.0.10",
+    "@ionic/vue-router": "^6.0.14",
     "@tailwindcss/line-clamp": "^0.3.0",
     "@tombatossals/chords-db": "^0.5.1",
     "@vitejs/plugin-vue": "^2.2.4",
