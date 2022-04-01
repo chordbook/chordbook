@@ -95,7 +95,7 @@ GEM
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
     childprocess (4.1.0)
-    concurrent-ruby (1.1.9)
+    concurrent-ruby (1.1.10)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -109,8 +109,8 @@ GEM
       tzinfo
     factory_bot (6.2.0)
       activesupport (>= 5.0.0)
-    faker (2.19.0)
-      i18n (>= 1.6, < 2)
+    faker (2.20.0)
+      i18n (>= 1.8.11, < 2)
     ffi (1.15.5)
     fugit (1.5.2)
       et-orbi (~> 1.1, >= 1.1.8)
