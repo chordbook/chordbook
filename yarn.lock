@@ -911,10 +911,10 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
 
-"@capacitor/cli@^3.4.1":
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-3.4.1.tgz#0664ee82215071553174a7a0cb3378d77f9a5d2b"
-  integrity sha512-48MA50ExfMJgndunsoh9kI3ItNJDwJrl6+DNocdEZfnIw45IUtmmeu+V3JsoDM2LfwxG9tamJV4zXWM0o4MSOw==
+"@capacitor/cli@^3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-3.5.0.tgz#69e0334b45822feff7888c64ad493a01ee87f5a9"
+  integrity sha512-URRAfCbrXufaxRCsDR68m0H3PPndyd4UyfhF4Y+DM5GI1i+0a1SlDYx2s/Ik0ttUFuKc+StwtlmR9Bt5sYNPtQ==
   dependencies:
     "@ionic/cli-framework-output" "^2.2.1"
     "@ionic/utils-fs" "^3.1.5"
