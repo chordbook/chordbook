@@ -49,7 +49,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.2.0",
     "eslint-plugin-vue": "^8.7.1",
-    "standard": "^16.0.4",
+    "standard": "^17.0.0",
     "vite": "^2.9.6",
     "vite-svg-loader": "^3.3.0"
   },
