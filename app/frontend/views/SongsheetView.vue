@@ -86,8 +86,9 @@
     <ion-popover
       :trigger="`versions-button-${id}`"
       dismiss-on-select
+      style="--min-width: fit-content;"
     >
-      <ion-list>
+      <ion-list >
         <ion-list-header>Alternate Versions</ion-list-header>
         <template v-for="version in versions">
           <songsheet-item
