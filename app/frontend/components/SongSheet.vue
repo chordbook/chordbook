@@ -217,12 +217,18 @@ export default {
   watch: {
     columns () {
       this.updateColumnWidth()
+    },
+
+    key: {
+      immediate: true,
+      handler ({ value }) {
+        if (value) this.$emit('update:key', value)
+      }
     }
   },
 
   mounted () {
     this.updateColumnWidth()
-    if (this.key) this.$emit('update:key', this.key)
   },
 
   updated () {
