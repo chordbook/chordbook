@@ -48,6 +48,7 @@
         </ion-item>
         <ion-item
           button
+          detail
           :detail-icon="icons.artist"
           :router-link="{ name: 'artist', params: { id: track.artist?.id } }"
         >
@@ -56,6 +57,7 @@
         <ion-item
           v-if="track.album"
           button
+          detail
           :detail-icon="icons.album"
           :router-link="{ name: 'album', params: { id: track.album.id } }"
         >

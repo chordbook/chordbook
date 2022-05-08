@@ -163,6 +163,7 @@ async function destroy () {
       <ion-list>
         <ion-item
           button
+          detail
           :detail-icon="icons.edit"
           @click="editing = true"
         >
@@ -170,6 +171,7 @@ async function destroy () {
         </ion-item>
         <ion-item
           button
+          detail
           :detail-icon="icons.trash"
           @click="destroy"
         >

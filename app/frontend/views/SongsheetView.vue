@@ -106,6 +106,7 @@
       <ion-list>
         <ion-item
           button
+          detail
           :router-link="{ name: 'songsheet.edit', params: { id: songsheet.id } }"
           :detail-icon="icons.createOutline"
         >

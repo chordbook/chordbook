@@ -80,7 +80,7 @@
     v-if="showChords"
     translucent
   >
-    <ion-toolbar>
+    <ion-toolbar translucent>
       <div class="flex gap-2 overflow-x-auto place-content-center pt-2 px-4">
         <div
           v-for="name in chords"
