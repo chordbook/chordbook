@@ -1,19 +1,7 @@
 <template>
-  <ion-toolbar>
-    <ion-buttons slot="start">
+  <div class="flex items-center">
+    <div class="flex flex-auto">
       <ion-button
-        fill="clear"
-        @click="value = 0"
-      >
-        <ion-icon
-          slot="icon-only"
-          :icon="icons.refresh"
-          size="small"
-        />
-      </ion-button>
-
-      <ion-button
-        slot="start"
         fill="clear"
         @click="transposeDown"
       >
@@ -22,41 +10,49 @@
           :icon="icons.arrowDown"
         />
       </ion-button>
-    </ion-buttons>
 
-    <ion-select
-      v-model="value"
-      interface="action-sheet"
-    >
-      <ion-select-option
-        v-for="n in transpositions"
-        :key="n.step"
-        :value="n.step"
+      <ion-select
+        v-model="value"
+        class="text-center w-20"
       >
-        {{ n.name }}
-      </ion-select-option>
-    </ion-select>
+        <ion-select-option
+          v-for="n in transpositions"
+          :key="n.step"
+          :value="n.step"
+        >
+          {{ n.name }}
+        </ion-select-option>
+      </ion-select>
+
+      <ion-button
+        fill="clear"
+        @click="transposeUp"
+      >
+        <ion-icon
+          slot="icon-only"
+          :icon="icons.arrowUp"
+        />
+      </ion-button>
+    </div>
 
     <ion-button
-      slot="end"
       fill="clear"
-      @click="transposeUp"
+      size="small"
+      :disabled="value === 0"
+      @click="value = 0"
     >
-      <ion-icon
-        slot="icon-only"
-        :icon="icons.arrowUp"
-      />
+      Reset
     </ion-button>
-  </ion-toolbar>
+  </div>
 </template>
 
 <script>
 import { Chord } from 'chordsheetjs'
-import { IonToolbar, IonButtons, IonButton, IonIcon, IonSelect, IonSelectOption } from '@ionic/vue'
+import { IonButton, IonIcon, IonSelect, IonSelectOption } from '@ionic/vue'
 import { arrowDown, arrowUp, refresh } from 'ionicons/icons'
 
 export default {
-  components: { IonToolbar, IonButtons, IonButton, IonIcon, IonSelect, IonSelectOption },
+  components: { IonButton, IonIcon, IonSelect, IonSelectOption },
 
   props: {
     note: {

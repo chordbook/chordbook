@@ -9,29 +9,17 @@
           />
           <ion-button
             :id="`versions-button-${id}`"
-            :disabled="versions.length <= 1"
+            :disabled="otherVersions.length == 0"
           >
             <ion-icon :icon="icons.list" />
           </ion-button>
         </ion-buttons>
 
         <ion-buttons slot="end">
-          <ion-button id="transpose-button">
+          <ion-button id="songsheet-settings-button">
             <ion-icon
               slot="icon-only"
               :icon="icons.transpose"
-            />
-          </ion-button>
-          <ion-button @click="showChords = !showChords">
-            <ion-icon
-              slot="icon-only"
-              :icon="icons.chordDiagram"
-            />
-          </ion-button>
-          <ion-button @click="openTuner">
-            <ion-icon
-              slot="icon-only"
-              :icon="icons.tuningFork"
             />
           </ion-button>
           <ion-button
@@ -53,8 +41,6 @@
     <song-sheet
       v-if="songsheet.source"
       :source="songsheet.source"
-      :show-chords="showChords"
-      :transpose="transpose"
       @update:key="(v) => key = v"
     >
       <template #footer>
@@ -74,31 +60,14 @@
       </template>
     </song-sheet>
 
-    <ion-popover trigger="transpose-button">
-      <ion-content>
-        <transpose-control
-          :note="key"
-          @update="updateTranspose"
-        />
-      </ion-content>
-    </ion-popover>
-
-    <ion-popover
+    <songsheet-versions-modal
       :trigger="`versions-button-${id}`"
-      dismiss-on-select
-      style="--min-width: fit-content;"
-    >
-      <ion-list >
-        <ion-list-header>Alternate Versions</ion-list-header>
-        <template v-for="version in versions">
-          <songsheet-item
-            v-if="songsheet.id !== version.id"
-            :key="version.id"
-            :songsheet="version"
-          />
-        </template>
-      </ion-list>
-    </ion-popover>
+      :versions="otherVersions"
+    />
+    <songsheet-settings-modal
+      trigger="songsheet-settings-button"
+      :note="key"
+    />
     <ion-popover
       :trigger="`songsheet-context-${songsheet.id}`"
       dismiss-on-select
@@ -113,6 +82,14 @@
           <ion-label>Edit</ion-label>
         </ion-item>
         <add-to-setlist-item :songsheet="songsheet" />
+        <ion-item
+          button
+          detail
+          :detail-icon="icons.tuningFork"
+          @click="openTuner"
+        >
+          Tuner
+        </ion-item>
       </ion-list>
     </ion-popover>
   </ion-page>
@@ -120,21 +97,21 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonListHeader, IonItem } from '@ionic/vue'
+import { IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonItem } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
 import { apps, arrowUp, arrowDown, list, createOutline } from 'ionicons/icons'
 import transpose from '@/icons/transpose.svg?url'
 import tuningFork from '@/icons/tuning-fork.svg?url'
 import chordDiagram from '@/icons/chord-diagram.svg?url'
-import TransposeControl from '@/components/TransposeControl.vue'
+import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
+import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
 import TunerView from '@/views/TunerView.vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
-import SongsheetItem from '@/components/SongsheetItem.vue'
 import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, SongsheetItem, IonList, IonListHeader, IonItem, AddToSetlistItem },
+  components: { SongSheet, IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, IonList, IonItem, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal },
 
   props: {
     id: {
@@ -152,24 +129,17 @@ export default {
     return {
       songsheet: {},
       versions: [],
-      showTuner: false,
       source: '',
       key: 'C',
-      transpose: 0,
+      showTuner: false,
       icons: { ...icons, apps, arrowUp, arrowDown, transpose, tuningFork, chordDiagram, list, createOutline }
     }
   },
 
   computed: {
-    showChords: {
-      get () { return this.$store.state.showChords },
-      set (value) { this.$store.commit('update', { showChords: !!value }) }
+    otherVersions () {
+      return this.versions.filter(v => v.id !== this.songsheet.id)
     }
-
-    //   columns: {
-    //     get () { return this.$store.state.columns || 1 },
-    //     set (value) { this.$store.commit('update', { columns: value }) }
-    //   },
   },
 
   ionViewWillEnter () {
@@ -185,6 +155,10 @@ export default {
   },
 
   methods: {
+    toggleChords () {
+      console.log('WAT?', arguments)
+    },
+
     async fetchData () {
       if (this.type === 'songsheet') {
         await this.fetchSongsheet(this.id)
@@ -217,10 +191,6 @@ export default {
           breakpoints: [0, 0.5]
         })
       return modal.present()
-    },
-
-    updateTranspose (value) {
-      this.transpose = value
     },
 
     formatDate (input) {
