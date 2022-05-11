@@ -155,10 +155,6 @@ export default {
   },
 
   methods: {
-    toggleChords () {
-      console.log('WAT?', arguments)
-    },
-
     async fetchData () {
       if (this.type === 'songsheet') {
         await this.fetchSongsheet(this.id)
