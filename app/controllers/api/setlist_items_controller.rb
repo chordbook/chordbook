@@ -4,6 +4,7 @@ class Api::SetlistItemsController < ApiController
   def index
     @items = current_scope.page(params[:page])
     set_pagination_header @items
+    fresh_when @items
   end
 
   def create
