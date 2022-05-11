@@ -6,7 +6,7 @@ import { ExpirationPlugin } from 'workbox-expiration'
 import { CacheableResponsePlugin } from 'workbox-cacheable-response'
 
 registerRoute(
-  ({ request }) => request.destination === 'script' || request.destination === 'style',
+  ({ request }) => ['script', 'style', 'image'].includes(request.destination),
   new CacheFirst()
 )
 
