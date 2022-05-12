@@ -243,6 +243,7 @@ export default {
   @apply h-full;
   column-count: auto;
   column-width: var(--column-width);
+  min-width: var(--column-width);
 }
 .horizontal-columns .column-span-all { column-span: all; }
 
