@@ -52,6 +52,7 @@
         <ion-item
           v-if="songsheet.track"
           button
+          detail
           :detail-icon="icons.artist"
           :router-link="{ name: 'artist', params: { id: songsheet.track?.artist?.id } }"
         >
@@ -60,6 +61,7 @@
         <ion-item
           v-if="songsheet.track"
           button
+          detail
           :detail-icon="icons.album"
           :router-link="{ name: 'album', params: { id: songsheet.track?.album?.id } }"
         >

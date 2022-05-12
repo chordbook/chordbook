@@ -78,7 +78,7 @@
     v-if="showChords"
     translucent
   >
-    <ion-toolbar>
+    <ion-toolbar translucent>
       <div class="flex gap-2 overflow-x-auto place-content-center pt-2 px-4">
         <div
           v-for="name in chords"
@@ -115,6 +115,8 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonFooter } from '@ionic/v
 
 import { useCssVar } from '@vueuse/core'
 import arrify from 'arrify'
+import useSongsheetSettingsStore from '@/stores/songsheet-settings'
+import { mapState } from 'pinia'
 
 export default {
   components: { ChordLyricsPair, SongSheetComment, ChordDiagram, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter },
@@ -123,26 +125,6 @@ export default {
     source: {
       type: String,
       default: null
-    },
-
-    showChords: {
-      type: [Boolean, String],
-      default: true
-    },
-
-    columns: {
-      type: Number,
-      default: 1
-    },
-
-    transpose: {
-      type: Number,
-      default: 0
-    },
-
-    instrument: {
-      type: String,
-      default: 'guitar'
     }
   },
 
@@ -150,12 +132,13 @@ export default {
 
   data () {
     return {
-      columnWidth: useCssVar('--column-width', this.$el),
-      instruments: ['guitar', 'ukulele']
+      columnWidth: useCssVar('--column-width', this.$el)
     }
   },
 
   computed: {
+    ...mapState(useSongsheetSettingsStore, ['transpose', 'showChords', 'instrument', 'columns']),
+
     format () {
       return detectFormat(this.source)
     },
@@ -205,22 +188,23 @@ export default {
       // FIXME: use declared key or intelligent key detection
       return this.chords.values().next()
     }
-
-    // instrument: {
-    //   get () { return this.$store.state.instrument || 'guitar' },
-    //   set (value) { this.$store.commit('update', { instrument: value }) }
-    // }
   },
 
   watch: {
     columns () {
       this.updateColumnWidth()
+    },
+
+    key: {
+      immediate: true,
+      handler ({ value }) {
+        if (value) this.$emit('update:key', value)
+      }
     }
   },
 
   mounted () {
     this.updateColumnWidth()
-    if (this.key) this.$emit('update:key', this.key)
   },
 
   updated () {

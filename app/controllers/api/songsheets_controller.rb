@@ -5,10 +5,12 @@ class Api::SongsheetsController < ApiController
   def index
     @songsheets = current_scope.includes(:track, :artists).page(params[:page])
     set_pagination_header @songsheets
+    fresh_when @songsheets
   end
 
   # GET /songsheets/1.json
   def show
+    fresh_when @songsheet
   end
 
   # POST /songsheets.json
