@@ -43,14 +43,22 @@
       :source="songsheet.source"
       @update:key="(v) => key = v"
     >
-      <template #header v-if="songsheet.track">
+      <template
+        v-if="songsheet.track"
+        #header
+      >
         <div class="flex gap-3 md:gap-4 items-center">
-          <div v-if="songsheet.track?.album" class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800">
+          <div
+            v-if="songsheet.track?.album"
+            class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
+          >
             <img :src="songsheet.track?.album.thumbnail">
           </div>
 
           <div>
-            <h1 class="text-xl md:text-2xl my-1">{{ songsheet.title }}</h1>
+            <h1 class="text-xl md:text-2xl my-1">
+              {{ songsheet.title }}
+            </h1>
 
             <ion-label
               v-if="songsheet.track.artist"

@@ -77,18 +77,28 @@ defineProps({
         </ion-item>
       </ion-list>
 
-      <h5 class="ion-padding-horizontal">Scroll</h5>
+      <h5 class="ion-padding-horizontal">
+        Scroll
+      </h5>
 
       <div class="ion-margin-horizontal">
         <ion-segment
           :value="settings.columns"
           @ion-change="settings.columns = $event.detail.value"
         >
-          <ion-segment-button :value="1" layout="icon-start" class="py-1">
+          <ion-segment-button
+            :value="1"
+            layout="icon-start"
+            class="py-1"
+          >
             <ion-label>Vertical</ion-label>
             <ion-icon :icon="tabletPortraitOutline" />
           </ion-segment-button>
-          <ion-segment-button :value="2" layout="icon-start" class="py-1">
+          <ion-segment-button
+            :value="2"
+            layout="icon-start"
+            class="py-1"
+          >
             <ion-label>Horizontal</ion-label>
             <ion-icon :icon="tabletLandscapeOutline" />
           </ion-segment-button>
