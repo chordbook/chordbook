@@ -31,12 +31,6 @@
           <span class="opacity-40">by</span> {{ formatArray(song.artist) }}
         </div>
         <div>
-          <div
-            v-if="song.capo"
-            class="capo my-4"
-          >
-            Capo {{ song.capo }}
-          </div>
         </div>
       </slot>
 
@@ -44,6 +38,12 @@
         ref="output"
         class="chord-sheet mt-2"
       >
+        <div
+          v-if="song.capo"
+          class="capo my-4"
+        >
+          Capo {{ song.capo }}
+        </div>
         <div
           v-if="song.subtitle"
           class="my-1"
