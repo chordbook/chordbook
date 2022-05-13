@@ -16,7 +16,7 @@
         </ion-buttons>
 
         <ion-buttons slot="end">
-          <ion-button id="songsheet-settings-button">
+          <ion-button :id="`settings-button-${id}`">
             <ion-icon
               slot="icon-only"
               :icon="icons.transpose"
@@ -43,6 +43,37 @@
       :source="songsheet.source"
       @update:key="(v) => key = v"
     >
+      <template #header v-if="songsheet.track">
+        <div class="flex gap-3 md:gap-4 items-center">
+          <div v-if="songsheet.track?.album" class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800">
+            <img :src="songsheet.track?.album.thumbnail">
+          </div>
+
+          <div>
+            <h1 class="text-xl md:text-2xl my-1">{{ songsheet.title }}</h1>
+
+            <ion-label
+              v-if="songsheet.track.artist"
+              button
+              :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
+              class="block ion-activatable ion-focusable my-0"
+            >
+              <span class="opacity-40">by </span>
+              <span class="text-blue-500">{{ songsheet.track.artist.name }}</span>
+            </ion-label>
+            <ion-label
+              v-if="songsheet.track.album"
+              button
+              :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
+              class="block ion-activatable ion-focusable truncate overflow-hidden my-1"
+            >
+              <span class="opacity-40">from </span>
+              <span class="text-blue-500">{{ songsheet.track.album.title }}</span>
+            </ion-label>
+          </div>
+        </div>
+      </template>
+
       <template #footer>
         <div class="ion-padding text-sm opacity-50 mb-8 flex gap-4">
           <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
@@ -65,7 +96,7 @@
       :versions="otherVersions"
     />
     <songsheet-settings-modal
-      trigger="songsheet-settings-button"
+      :trigger="`settings-button-${id}` "
       :note="key"
     />
     <ion-popover
@@ -83,9 +114,29 @@
         </ion-item>
         <add-to-setlist-item :songsheet="songsheet" />
         <ion-item
+          v-if="songsheet.track?.artist"
+          button
+          detail
+          :detail-icon="icons.artist"
+          :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
+        >
+          View Artist
+        </ion-item>
+        <ion-item
+          v-if="songsheet.track?.album"
+          button
+          detail
+          :detail-icon="icons.album"
+          :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
+        >
+          View Album
+        </ion-item>
+
+        <ion-item
           button
           detail
           :detail-icon="icons.tuningFork"
+          lines="none"
           @click="openTuner"
         >
           Tuner

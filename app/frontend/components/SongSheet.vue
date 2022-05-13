@@ -19,24 +19,29 @@
         />
       </svg>
 
-      <div class="column-span-all">
-        <h1 class="text-4xl m-0">
-          {{ song?.title }}
-        </h1>
-        <h2
+      <div class="mb-2">
+        <slot name="header">
+          <h1 class="text-xl md:text-2xl my-1">
+            {{ song?.title }}
+          </h1>
+          <div
+            v-if="song.artist"
+            class="my-1"
+          >
+            <span class="opacity-40">by</span> {{ formatArray(song.artist) }}
+          </div>
+          <div>
+            <div v-if="song.capo" class="capo my-4">
+              Capo {{ song.capo }}
+            </div>
+          </div>
+        </slot>
+
+        <div
           v-if="song.subtitle"
-          class="mt-0"
+          class="my-1"
         >
           {{ song.subtitle }}
-        </h2>
-        <h2
-          v-if="song.artist"
-          class="mt-0"
-        >
-          by {{ formatArray(song.artist) }}
-        </h2>
-        <div v-if="song.capo">
-          Capo {{ song.capo }}
         </div>
       </div>
 
@@ -238,7 +243,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 .horizontal-columns {
   @apply h-full;
   column-count: auto;
@@ -264,7 +269,7 @@ export default {
 }
 
 .paragraph {
-  break-inside: avoid;
+  @apply leading-tight break-inside-avoid;
 }
 
 .paragraph + .paragraph {
@@ -272,44 +277,32 @@ export default {
 }
 
 .row {
-  display: flex;
-  flex-wrap: nowrap;
-  position: relative;
-  break-inside: avoid;
+  @apply flex flex-nowrap relative break-inside-avoid;
 }
 
 .column {
-  display: flex;
-  flex-direction: column;
+  @apply flex flex-col
 }
 
-.comment, .chorus:before, .verse::before {
-  font-weight: bold;
-  font-style: italic;
-  break-after: avoid;
+.comment, .chorus:before, .verse::before, .capo {
+  @apply font-semibold text-sm text-zinc-600 break-after-avoid;
 }
 
 .chord, .lyrics {
-  white-space: pre;
+  @apply whitespace-pre
 }
 
 .tab {
   @apply font-mono text-xs;
 }
 
-.lyrics {}
-
-.capo {
-  @apply text-sm;
-}
-
 .chord-sheet *:not(.tab) .chord {
-  @apply text-blue-900 dark:text-blue-200 pr-1;
+  @apply text-blue-800 dark:text-blue-200 pr-1 font-medium text-sm;
 }
 
 .chorus {
-  border-left: 4px solid #999;
-  padding-left: 1em;
+  border-left: 3px solid;
+  @apply border-neutral-200 pl-4;
 }
 
 .chorus::before {
