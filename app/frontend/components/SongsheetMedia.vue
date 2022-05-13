@@ -1,6 +1,9 @@
 <script setup>
 import { defineProps } from 'vue'
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import YoutubeEmbed from '@/components/YoutubeEmbed.vue'
+import { logoYoutube } from 'ionicons/icons'
+import { IonIcon } from '@ionic/vue'
 
 defineProps({
   songsheet: {
@@ -11,11 +14,36 @@ defineProps({
 </script>
 
 <template>
-  <div class="fixed z-10 top-20 right-5 rounded shadow-md overflow-hidden w-96">
-    <youtube-embed
-      v-for="media in songsheet.media"
-      :key="media.uri"
-      v-bind="media"
-    />
+  <div
+    v-if="songsheet.media?.length > 0"
+    class="z-10 sticky md:fixed top-0 md:top-20 md:right-5 md:rounded md:border md:w-96 overflow-hidden"
+  >
+    <TabGroup>
+      <TabPanels class="bg-black">
+        <TabPanel
+          v-for="media in songsheet.media"
+          :key="media.uri"
+        >
+          <youtube-embed v-bind="media" />
+        </TabPanel>
+      </TabPanels>
+      <TabList
+        v-show="songsheet.media.length > 1"
+        class="p-2 flex gap-2 bg-slate-100 border-b md:border-none"
+      >
+        <Tab
+          v-for="media in songsheet.media"
+          v-slot="{ selected }"
+          :key="media.uri"
+          as="template"
+        >
+          <button
+            :class="['px-4 py-2 rounded inline-flex align-center outline-none active:ring border', selected ? 'bg-blue-500 hover:bg-blue-400 text-white' : 'bg-slate-50 text-black hover:bg-zinc-200']"
+          >
+            <ion-icon :icon="logoYoutube" />
+          </button>
+        </Tab>
+      </TabList>
+    </TabGroup>
   </div>
 </template>

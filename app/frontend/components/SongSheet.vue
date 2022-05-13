@@ -5,6 +5,7 @@
     :scroll-x="columns == 2"
     fullscreen
   >
+    <slot name="top" />
     <div :class="'ion-padding ' + (columns == 1 ? 'single-column' : 'horizontal-columns')">
       <!-- Hidden sprite of chord diagrams -->
       <svg
@@ -19,39 +20,37 @@
         />
       </svg>
 
-      <div class="mb-2">
-        <slot name="header">
-          <h1 class="text-xl md:text-2xl my-1">
-            {{ song?.title }}
-          </h1>
+      <slot name="header">
+        <h1 class="text-xl md:text-2xl my-1">
+          {{ song?.title }}
+        </h1>
+        <div
+          v-if="song.artist"
+          class="my-1"
+        >
+          <span class="opacity-40">by</span> {{ formatArray(song.artist) }}
+        </div>
+        <div>
           <div
-            v-if="song.artist"
-            class="my-1"
+            v-if="song.capo"
+            class="capo my-4"
           >
-            <span class="opacity-40">by</span> {{ formatArray(song.artist) }}
+            Capo {{ song.capo }}
           </div>
-          <div>
-            <div
-              v-if="song.capo"
-              class="capo my-4"
-            >
-              Capo {{ song.capo }}
-            </div>
-          </div>
-        </slot>
+        </div>
+      </slot>
 
+      <div
+        ref="output"
+        class="chord-sheet mt-2"
+      >
         <div
           v-if="song.subtitle"
           class="my-1"
         >
           {{ song.subtitle }}
         </div>
-      </div>
 
-      <div
-        ref="output"
-        class="chord-sheet"
-      >
         <div
           v-for="{ type, lines } in song.paragraphs"
           :key="type + JSON.stringify(lines)"

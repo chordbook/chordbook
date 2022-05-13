@@ -16,6 +16,16 @@
         </ion-buttons>
 
         <ion-buttons slot="end">
+          <ion-button
+            :color="showPlayer ? 'secondary' : ''"
+            :disabled="songsheet.media?.length == 0"
+            @click="showPlayer = !showPlayer"
+          >
+            <ion-icon
+              slot="icon-only"
+              :icon="icons.play"
+            />
+          </ion-button>
           <ion-button :id="`settings-button-${id}`">
             <ion-icon
               slot="icon-only"
@@ -43,6 +53,14 @@
       :source="songsheet.source"
       @update:key="(v) => key = v"
     >
+      <template #top>
+        <Transition name="slide-down">
+          <songsheet-media
+            v-show="showPlayer"
+            :songsheet="songsheet"
+          />
+        </Transition>
+      </template>
       <template
         v-if="songsheet.track"
         #header
@@ -80,8 +98,6 @@
             </ion-label>
           </div>
         </div>
-
-        <songsheet-media :songsheet="songsheet" />
       </template>
 
       <template #footer>
@@ -118,7 +134,7 @@
           button
           detail
           :router-link="{ name: 'songsheet.edit', params: { id: songsheet.id } }"
-          :detail-icon="icons.createOutline"
+          :detail-icon="icons.edit"
         >
           <ion-label>Edit</ion-label>
         </ion-item>
@@ -160,10 +176,6 @@
 import client from '@/client'
 import { IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonItem } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
-import { apps, arrowUp, arrowDown, list, createOutline } from 'ionicons/icons'
-import transpose from '@/icons/transpose.svg?url'
-import tuningFork from '@/icons/tuning-fork.svg?url'
-import chordDiagram from '@/icons/chord-diagram.svg?url'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
 import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
 import SongsheetMedia from '@/components/SongsheetMedia.vue'
@@ -194,7 +206,8 @@ export default {
       source: '',
       key: 'C',
       showTuner: false,
-      icons: { ...icons, apps, arrowUp, arrowDown, transpose, tuningFork, chordDiagram, list, createOutline }
+      icons,
+      showPlayer: false
     }
   },
 
