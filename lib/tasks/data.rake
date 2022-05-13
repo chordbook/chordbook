@@ -42,6 +42,20 @@ namespace :data do
     after = Artist.count
     puts "Removed #{before - after}"
   end
+
+  YOUTUBE_URL = /(https?:\/\/(?:www\.)?youtu(?:\.be|be\.com)[^\s}]*)/
+
+  task extract_media: :environment do
+    Songsheet.where("source ILIKE ?", "%youtu%").find_each do |songsheet|
+      songsheet.source.lines.select { |line| line =~ /youtu(be\.com|\.be)/ }.each do |line|
+        if line =~ YOUTUBE_URL
+          songsheet.media.find_or_create_by(uri: $1)
+        else
+          puts "NOPE!: #{line}"
+        end
+      end
+    end
+  end
 end
 
 task data: "data:default"
