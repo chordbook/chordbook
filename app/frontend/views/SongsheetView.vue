@@ -80,6 +80,8 @@
             </ion-label>
           </div>
         </div>
+
+        <songsheet-media :songsheet="songsheet" />
       </template>
 
       <template #footer>
@@ -164,13 +166,14 @@ import tuningFork from '@/icons/tuning-fork.svg?url'
 import chordDiagram from '@/icons/chord-diagram.svg?url'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
 import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
+import SongsheetMedia from '@/components/SongsheetMedia.vue'
 import TunerView from '@/views/TunerView.vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { SongSheet, IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, IonList, IonItem, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal },
+  components: { SongSheet, IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, IonList, IonItem, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia },
 
   props: {
     id: {
