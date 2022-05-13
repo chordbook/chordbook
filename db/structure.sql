@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+
+--
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -215,6 +222,39 @@ CREATE TABLE public.good_jobs (
     retried_good_job_id uuid,
     cron_at timestamp without time zone
 );
+
+
+--
+-- Name: media; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.media (
+    id bigint NOT NULL,
+    record_type character varying,
+    record_id bigint,
+    uri character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: media_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.media_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: media_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.media_id_seq OWNED BY public.media.id;
 
 
 --
@@ -469,6 +509,13 @@ ALTER TABLE ONLY public.genres ALTER COLUMN id SET DEFAULT nextval('public.genre
 
 
 --
+-- Name: media id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.media ALTER COLUMN id SET DEFAULT nextval('public.media_id_seq'::regclass);
+
+
+--
 -- Name: pg_search_documents id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -564,6 +611,14 @@ ALTER TABLE ONLY public.good_job_processes
 
 ALTER TABLE ONLY public.good_jobs
     ADD CONSTRAINT good_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: media media_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.media
+    ADD CONSTRAINT media_pkey PRIMARY KEY (id);
 
 
 --
@@ -711,6 +766,13 @@ CREATE INDEX index_good_jobs_on_queue_name_and_scheduled_at ON public.good_jobs 
 --
 
 CREATE INDEX index_good_jobs_on_scheduled_at ON public.good_jobs USING btree (scheduled_at) WHERE (finished_at IS NULL);
+
+
+--
+-- Name: index_media_on_record; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_media_on_record ON public.media USING btree (record_type, record_id);
 
 
 --
@@ -885,7 +947,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211004150027'),
 ('20211008063715'),
 ('20211029193047'),
-('20211208211430'),
 ('20211209202539'),
 ('20211212214419'),
 ('20211213142622'),
@@ -903,6 +964,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220205051917'),
 ('20220207123911'),
 ('20220210133540'),
-('20220211173533');
+('20220211173533'),
+('20220513151136');
 
 
