@@ -3,9 +3,9 @@ export {
   createOutline as edit,
   ellipsisHorizontal as iosEllipsis,
   ellipsisVertical as mdEllipsis,
-  listCircleOutline as setlist,
+  listOutline as setlist,
   musicalNote as song,
-  peopleCircleOutline as artist,
+  people as artist,
   search,
   trash,
   home
