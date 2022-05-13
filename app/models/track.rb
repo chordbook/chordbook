@@ -8,6 +8,7 @@ class Track < ApplicationRecord
   belongs_to :genre, optional: true
 
   has_many :songsheets, dependent: :nullify
+  has_many :media, as: :record
 
   scope :order_by_has_songsheet, -> {
     order(Arel.sql("CASE WHEN has_songsheet THEN 1 ELSE 2 END"))
@@ -27,6 +28,7 @@ class Track < ApplicationRecord
 
   before_validation :associate_genre
   after_create :associate_songsheets
+  after_save :associate_media
 
   multisearchable additional_attributes: ->(record) { record.searchable_data },
     unless: :has_songsheet? # No need to index tracks with songsheets
@@ -70,5 +72,10 @@ class Track < ApplicationRecord
   def associate_genre
     return if metadata["strGenre"].blank?
     self.genre = Genre.find_or_create_by!(name: metadata["strGenre"])
+  end
+
+  def associate_media
+    return if metadata["strMusicVid"].blank?
+    media.find_or_create_by(uri: metadata["strMusicVid"])
   end
 end

@@ -3,6 +3,7 @@ require "test_helper"
 class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @songsheet = create :songsheet, title: "Why Georgia", metadata: {artist: "John Mayer"}
+    create :medium, record: @songsheet
   end
 
   test "GET /songsheets" do
