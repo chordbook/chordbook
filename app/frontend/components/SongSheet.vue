@@ -30,8 +30,6 @@
         >
           <span class="opacity-40">by</span> {{ formatArray(song.artist) }}
         </div>
-        <div>
-        </div>
       </slot>
 
       <div
