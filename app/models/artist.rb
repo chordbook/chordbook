@@ -3,6 +3,8 @@ class Artist < ApplicationRecord
   include Metadata
   include PgSearch::Model
 
+  has_paper_trail
+
   has_many :albums, dependent: :destroy
   has_many :tracks, dependent: :destroy
   has_many :artist_works, dependent: :destroy

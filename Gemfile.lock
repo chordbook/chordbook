@@ -184,6 +184,9 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.4-x86_64-linux)
       racc (~> 1.4)
+    paper_trail (12.3.0)
+      activerecord (>= 5.2)
+      request_store (~> 1.1)
     parallel (1.22.1)
     parser (3.1.2.0)
       ast (~> 2.4.1)
@@ -234,6 +237,8 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (2.3.1)
+    request_store (1.5.1)
+      rack (>= 1.4)
     rexml (3.2.5)
     rubocop (1.28.2)
       parallel (~> 1.10)
@@ -306,6 +311,7 @@ DEPENDENCIES
   kaminari
   listen
   nokogiri
+  paper_trail
   pg
   pg_search
   puma

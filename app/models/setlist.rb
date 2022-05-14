@@ -1,4 +1,6 @@
 class Setlist < ApplicationRecord
+  has_paper_trail
+
   has_many :items, -> { order(position: :asc) }, class_name: "SetlistItem", dependent: :destroy
   has_many :songsheets, through: :items
   has_many :tracks, through: :songsheets

@@ -3,6 +3,8 @@ class Track < ApplicationRecord
   include Metadata
   include PgSearch::Model
 
+  has_paper_trail
+
   belongs_to :artist
   belongs_to :album, optional: true
   belongs_to :genre, optional: true
