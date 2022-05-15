@@ -43,12 +43,12 @@ namespace :data do
     puts "Removed #{before - after}"
   end
 
-  YOUTUBE_URL = /(https?:\/\/(?:www\.)?youtu(?:\.be|be\.com)[^\s}]*)/
-
   task extract_media: :environment do
+    youtube_url = /(https?:\/\/(?:www\.)?youtu(?:\.be|be\.com)[^\s}]*)/
+
     Songsheet.where("source ILIKE ?", "%youtu%").find_each do |songsheet|
       songsheet.source.lines.select { |line| line =~ /youtu(be\.com|\.be)/ }.each do |line|
-        if line =~ YOUTUBE_URL
+        if line =~ youtube_url
           songsheet.media.find_or_create_by(uri: $1)
         else
           puts "NOPE!: #{line}"
