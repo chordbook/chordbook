@@ -32,8 +32,7 @@ class Track < ApplicationRecord
   after_create :associate_songsheets
   after_save :associate_media
 
-  multisearchable additional_attributes: ->(record) { record.searchable_data },
-    unless: :has_songsheet? # No need to index tracks with songsheets
+  searchkick word_start: [:title]
 
   map_metadata(
     intTrackNumber: :number,
@@ -45,19 +44,20 @@ class Track < ApplicationRecord
     joins(:album).title_like(title).order_by_popular.first
   end
 
-  def searchable_text
-    [title, artist&.name, album&.title].compact.join(" ")
+  scope :search_import, -> { includes(:artist, :album) }
+
+  def search_data
+    {
+      title: title,
+      artist: artist.name,
+      album: album.title,
+      boost: 0.9
+    }
   end
 
-  def searchable_data
-    {
-      weight: 0.25,
-      data: {
-        title: title,
-        subtitle: artist.name,
-        thumbnail: album&.thumbnail
-      }
-    }
+  # No need to index tracks with songsheets
+  def should_index?
+    !has_songsheet?
   end
 
   def has_songsheet?

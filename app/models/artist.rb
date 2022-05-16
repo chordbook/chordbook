@@ -14,8 +14,7 @@ class Artist < ApplicationRecord
   before_validation :associate_genre
   after_commit(on: :create) { LookupMetadata.perform_later(self) }
 
-  multisearchable against: [:name],
-    additional_attributes: ->(record) { record.searchable_data }
+  searchkick word_start: [:artist]
 
   pg_search_scope :name_like,
     against: :name,
@@ -31,14 +30,10 @@ class Artist < ApplicationRecord
     name_like(name).first
   end
 
-  def searchable_data
+  def search_data
     {
-      weight: verified ? 0.8 : 0.5,
-      data: {
-        title: name,
-        subtitle: nil,
-        thumbnail: thumbnail
-      }
+      title: name,
+      boost: verified ? 1.5 : 1
     }
   end
 

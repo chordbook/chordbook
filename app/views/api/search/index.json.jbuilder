@@ -1,4 +1,28 @@
 json.array! @results do |result|
-  json.merge! id: result.searchable_id, type: result.searchable_type
-  json.merge! result.data
+  json.merge! id: result.id, type: result.class
+  case result
+  when Songsheet
+    json.merge!(
+      title: result.title,
+      subtitle: result.metadata["artist"] && "by #{Array(result.metadata["artist"]).to_sentence}",
+      thumbnail: result.track&.album&.thumbnail
+    )
+  when Artist
+    json.merge!(
+      title: result.name,
+      thumbnail: result.thumbnail
+    )
+  when Album
+    json.merge!(
+      title: result.title,
+      subtitle: result.artist.name,
+      thumbnail: result.thumbnail
+    )
+  when Track
+    json.merge!(
+      title: result.title,
+      subtitle: result.artist.name,
+      thumbnail: result.album&.thumbnail
+    )
+  end
 end

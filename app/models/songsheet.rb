@@ -21,24 +21,16 @@ class Songsheet < ApplicationRecord
   before_save :associate_metadata
   after_commit { track&.reload&.update_pg_search_document }
 
-  multisearchable additional_attributes: ->(record) { record.searchable_data }
+  searchkick word_start: [:title]
 
-  def searchable_text
-    [
-      title,
-      artists.map(&:name),
-      track&.album&.title
-    ].flatten.compact.join(" ")
-  end
+  scope :search_import, -> { includes(track: :album) }
 
-  def searchable_data
+  def search_data
     {
-      weight: 1.0,
-      data: {
-        title: title,
-        subtitle: metadata["artist"] && "by #{Array(metadata["artist"]).to_sentence}",
-        thumbnail: track&.album&.thumbnail
-      }
+      title: title,
+      artist: metadata["artist"],
+      album: track&.album&.title,
+      boost: 2
     }
   end
 

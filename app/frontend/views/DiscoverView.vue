@@ -124,9 +124,9 @@ const useFetch = createFetch({
 
 const types = {
   All: '',
-  Artists: 'artist',
-  Albums: 'album',
-  Songs: 'track,songsheet'
+  Artists: 'Artist',
+  Albums: 'Album',
+  Songs: 'Track,Songsheet'
 }
 
 const params = reactive({

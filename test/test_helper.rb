@@ -11,6 +11,16 @@ class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 
+  parallelize_setup do |worker|
+    Searchkick.index_suffix = worker
+
+    # reindex models
+    Search.reindex
+
+    # and disable callbacks
+    Searchkick.disable_callbacks
+  end
+
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
