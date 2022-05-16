@@ -3,6 +3,8 @@ class Songsheet < ApplicationRecord
   include Metadata
   include PgSearch::Model
 
+  has_paper_trail
+
   belongs_to :track, optional: true
   has_many :artist_works, as: :work
   has_many :artists, through: :artist_works
