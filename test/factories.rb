@@ -31,4 +31,8 @@ FactoryBot.define do
   factory :setlist do
     title { Faker::Music.genre }
   end
+
+  factory :medium do
+    uri { " https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
+  end
 end

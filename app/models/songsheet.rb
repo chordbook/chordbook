@@ -6,6 +6,7 @@ class Songsheet < ApplicationRecord
   belongs_to :track, optional: true
   has_many :artist_works, as: :work
   has_many :artists, through: :artist_works
+  has_many :media, as: :record
 
   scope :order_by_popular, -> {
     includes(:track).order("tracks.listeners DESC NULLS LAST").order_by_recent
@@ -39,12 +40,20 @@ class Songsheet < ApplicationRecord
     }
   end
 
+  def all_media
+    Medium.where(record: [self, track].compact)
+  end
+
   private
 
   def associate_metadata
     artist_names = Array(metadata["artist"]).map { |a| a.split(/\s*,\s*/) }.flatten
-    self.artists = artist_names.map { |name| Artist.lookup(name) || Artist.new(name: name.strip) }
-    self.track = Track.where(artist_id: artist_ids.compact).lookup(title)
+    if artist_names.any?
+      self.artists = artist_names.map { |name| Artist.lookup(name) || Artist.new(name: name.strip) }
+    end
+
+    track = Track.where(artist_id: artist_ids.compact).lookup(title)
+    self.track = track if track
   end
 
   def mark_track

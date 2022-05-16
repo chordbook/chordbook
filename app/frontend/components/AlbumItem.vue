@@ -21,7 +21,7 @@
           :id="`album-${album.id}-popover`"
           :ios="icons.iosEllipsis"
           :md="icons.mdEllipsis"
-          class="absolute bottom-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity block ratio-square rounded-full bg-black/50 text-white p-1.5 text-xs"
+          class="absolute bottom-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity block aspect-square rounded-full bg-black/50 text-white p-1.5 text-xs"
           @click.prevent=""
         />
       </div>

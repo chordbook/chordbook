@@ -16,6 +16,16 @@
         </ion-buttons>
 
         <ion-buttons slot="end">
+          <ion-button
+            :color="showPlayer ? 'secondary' : ''"
+            :disabled="songsheet.media?.length == 0"
+            @click="showPlayer = !showPlayer"
+          >
+            <ion-icon
+              slot="icon-only"
+              :icon="icons.play"
+            />
+          </ion-button>
           <ion-button :id="`settings-button-${id}`">
             <ion-icon
               slot="icon-only"
@@ -43,14 +53,30 @@
       :source="songsheet.source"
       @update:key="(v) => key = v"
     >
-      <template #header v-if="songsheet.track">
+      <template #top>
+        <Transition name="slide-down">
+          <songsheet-media
+            v-show="showPlayer"
+            :songsheet="songsheet"
+          />
+        </Transition>
+      </template>
+      <template
+        v-if="songsheet.track"
+        #header
+      >
         <div class="flex gap-3 md:gap-4 items-center">
-          <div v-if="songsheet.track?.album" class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800">
+          <div
+            v-if="songsheet.track?.album"
+            class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
+          >
             <img :src="songsheet.track?.album.thumbnail">
           </div>
 
           <div>
-            <h1 class="text-xl md:text-2xl my-1">{{ songsheet.title }}</h1>
+            <h1 class="text-xl md:text-2xl my-1">
+              {{ songsheet.title }}
+            </h1>
 
             <ion-label
               v-if="songsheet.track.artist"
@@ -108,7 +134,7 @@
           button
           detail
           :router-link="{ name: 'songsheet.edit', params: { id: songsheet.id } }"
-          :detail-icon="icons.createOutline"
+          :detail-icon="icons.edit"
         >
           <ion-label>Edit</ion-label>
         </ion-item>
@@ -150,19 +176,16 @@
 import client from '@/client'
 import { IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonItem } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
-import { apps, arrowUp, arrowDown, list, createOutline } from 'ionicons/icons'
-import transpose from '@/icons/transpose.svg?url'
-import tuningFork from '@/icons/tuning-fork.svg?url'
-import chordDiagram from '@/icons/chord-diagram.svg?url'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
 import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
+import SongsheetMedia from '@/components/SongsheetMedia.vue'
 import TunerView from '@/views/TunerView.vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { SongSheet, IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, IonList, IonItem, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal },
+  components: { SongSheet, IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, IonList, IonItem, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia },
 
   props: {
     id: {
@@ -183,7 +206,8 @@ export default {
       source: '',
       key: 'C',
       showTuner: false,
-      icons: { ...icons, apps, arrowUp, arrowDown, transpose, tuningFork, chordDiagram, list, createOutline }
+      icons,
+      showPlayer: false
     }
   },
 
