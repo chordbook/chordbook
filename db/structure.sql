@@ -414,11 +414,11 @@ CREATE TABLE public.tracks (
     album_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    has_songsheet boolean,
     number integer,
     duration integer,
     listeners bigint,
-    genre_id bigint
+    genre_id bigint,
+    songsheets_count integer DEFAULT 0
 );
 
 
@@ -1024,6 +1024,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220211173533'),
 ('20220513151136'),
 ('20220514222125'),
-('20220514222126');
+('20220514222126'),
+('20220516172030');
 
 

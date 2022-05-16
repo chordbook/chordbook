@@ -5,7 +5,7 @@ class Songsheet < ApplicationRecord
 
   has_paper_trail
 
-  belongs_to :track, optional: true
+  belongs_to :track, optional: true, counter_cache: true
   has_many :artist_works, as: :work
   has_many :artists, through: :artist_works
   has_many :media, as: :record
@@ -19,7 +19,7 @@ class Songsheet < ApplicationRecord
   validates :title, presence: true
 
   before_save :associate_metadata
-  after_save :mark_track
+  after_commit { track&.reload&.update_pg_search_document }
 
   multisearchable additional_attributes: ->(record) { record.searchable_data }
 
@@ -56,9 +56,5 @@ class Songsheet < ApplicationRecord
 
     track = Track.where(artist_id: artist_ids.compact).lookup(title)
     self.track = track if track
-  end
-
-  def mark_track
-    track&.has_songsheet!
   end
 end

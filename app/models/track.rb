@@ -13,13 +13,13 @@ class Track < ApplicationRecord
   has_many :media, as: :record
 
   scope :order_by_has_songsheet, -> {
-    order(Arel.sql("CASE WHEN has_songsheet THEN 1 ELSE 2 END"))
+    order(Arel.sql("CASE WHEN songsheets_count > 0 THEN 1 ELSE 2 END"))
   }
   scope :order_by_popular, -> {
     order_by_has_songsheet.order("tracks.listeners DESC NULLS LAST")
   }
   scope :order_by_number, -> { order(:number) }
-  scope :with_songsheet, -> { where(has_songsheet: true) }
+  scope :with_songsheet, -> { where(songsheets_count: 1..) }
 
   pg_search_scope :title_like,
     against: :title,
@@ -60,8 +60,8 @@ class Track < ApplicationRecord
     }
   end
 
-  def has_songsheet!
-    update_attribute :has_songsheet, true
+  def has_songsheet?
+    songsheets_count > 0
   end
 
   def associate_songsheets

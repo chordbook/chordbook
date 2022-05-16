@@ -22,8 +22,8 @@ namespace :data do
   end
 
   task has_songsheet: :environment do
-    Track.where(has_songsheet: true).includes(:songsheets).find_each do |t|
-      t.update has_songsheet: t.songsheets.length > 0
+    Track.find_each do |t|
+      Track.reset_counters(t.id, :songsheets)
     end
   end
 
