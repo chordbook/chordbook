@@ -37,3 +37,4 @@ yarn-debug.log*
 .env
 app/frontend/components.d.ts
 /public
+Brewfile.lock.json
