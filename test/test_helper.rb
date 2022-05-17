@@ -18,7 +18,9 @@ class ActiveSupport::TestCase
 
   teardown do
     Search::MODELS.each do |m|
-      m.search_index.delete rescue nil
+      m.search_index.delete
+    rescue
+      nil
     end
   end
 
