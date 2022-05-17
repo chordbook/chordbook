@@ -1,11 +1,11 @@
 databases:
-  - name: chordbook
+  - name: db
     databaseName: chordbook
     user: chordbook
 
 services:
   - type: web
-    name: chordbook
+    name: app
     env: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
