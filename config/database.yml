@@ -83,6 +83,4 @@ test:
 #
 production:
   <<: *default
-  database: chords_production
-  username: chords
-  password: <%= ENV['CHORDS_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
