@@ -6,4 +6,11 @@ class ContentController < ActionController::Base
   def offline
     render format: :json
   end
+
+  def ping
+    # Execute empty query to ensure database access
+    ActiveRecord::Base.connection.execute('')
+
+    head :ok
+  end
 end

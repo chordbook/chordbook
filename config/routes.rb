@@ -33,6 +33,6 @@ Rails.application.routes.draw do
   end
 
   mount GoodJob::Engine => "admin/jobs"
-
+  get "ping", to: "content#ping"
   get "*anything", to: "content#index"
 end
