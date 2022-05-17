@@ -14,10 +14,16 @@ class ActiveSupport::TestCase
   parallelize_setup do |worker|
     Searchkick.index_suffix = worker
 
-    # reindex models
-    Search.reindex
-
     # and disable callbacks
+    Searchkick.disable_callbacks
+  end
+
+  def with_search(*models, &block)
+    models = Search::MODELS if models.empty?
+    models.each(&:reindex)
+    Searchkick.enable_callbacks
+    block.call
+  ensure
     Searchkick.disable_callbacks
   end
 

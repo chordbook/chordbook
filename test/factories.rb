@@ -1,6 +1,12 @@
+def refresh_index(model)
+  model.class.search_index.refresh if Searchkick.callbacks?
+end
+
 FactoryBot.define do
   factory :artist do
     name { Faker::Music.band }
+
+    after(:create) { |model| refresh_index(model) }
   end
 
   factory :album do

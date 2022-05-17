@@ -3,6 +3,8 @@ require "test_helper"
 class SearchTest < ActiveSupport::TestCase
   setup do
     Searchkick.enable_callbacks
+    Search.reindex
+
     @artist = create(:artist, name: "Ed Sheeran")
     @album = create(:album, title: "=", artist: @artist)
     @track = create(:track, title: "Shivers", album: @album)
