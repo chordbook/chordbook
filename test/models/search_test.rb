@@ -28,6 +28,7 @@ class SearchTest < ActiveSupport::TestCase
   end
 
   test "excludes tracks with songsheets" do
+    Track.reindex
     results = search("Bad Habits")
 
     assert_includes results, @songsheet

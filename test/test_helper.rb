@@ -9,23 +9,21 @@ class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
   # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
-
-  parallelize_setup do |worker|
-    Searchkick.index_suffix = worker
-    Search.reindex
-  end
-
-  parallelize_teardown do
-    Search::MODELS.each { |m| m.search_index.delete }
-  end
+  # parallelize(workers: :number_of_processors, with: :threads)
 
   setup do
     PaperTrail.enabled = false
     Searchkick.disable_callbacks
   end
 
+  teardown do
+    Search::MODELS.each do |m|
+      m.search_index.delete rescue nil
+    end
+  end
+
   def with_search(*models, &block)
+    Search.reindex(*models)
     Searchkick.callbacks(true, &block)
   end
 end
