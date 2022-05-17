@@ -33,3 +33,19 @@ services:
         value: production
       - key: THEAUDIODB_API_KEY
         sync: false
+  - type: pserv
+    name: elasticsearch
+    env: docker
+    repo: https://github.com/render-examples/elasticsearch
+    disk:
+      name: esdata
+      mountPath: /usr/share/elasticsearch/data
+      sizeGB: 10
+    autoDeploy: false
+    envVars:
+    - key: ES_JAVA_OPTS
+      value: "-Xms512m -Xmx512m"
+    - key: discovery.type
+      value: single-node
+    - key: cluster.name
+      value: elastic
