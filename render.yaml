@@ -36,7 +36,8 @@ services:
   - type: pserv
     name: elasticsearch
     env: docker
-    repo: https://github.com/render-examples/elasticsearch
+    dockerfilePath: ./elasticsearch/Dockerfile
+    dockerContext: ./elasticsearch
     disk:
       name: esdata
       mountPath: /usr/share/elasticsearch/data
