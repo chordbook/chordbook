@@ -16,6 +16,7 @@ defineProps({
   <ion-item
     id="add-songsheet-to-setlist"
     button
+    detail
     :detail-icon="icons.setlist"
   >
     <ion-label>Add to Setlist…</ion-label>

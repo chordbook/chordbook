@@ -3,10 +3,16 @@ export {
   createOutline as edit,
   ellipsisHorizontal as iosEllipsis,
   ellipsisVertical as mdEllipsis,
-  listCircleOutline as setlist,
+  home,
+  list,
+  listOutline as setlist,
   musicalNote as song,
-  peopleCircleOutline as artist,
+  people as artist,
+  playCircleOutline as play,
   search,
-  trash,
-  home
+  trash
 } from 'ionicons/icons'
+
+export { default as transpose } from '@/icons/transpose.svg?url'
+export { default as tuningFork } from '@/icons/tuning-fork.svg?url'
+export { default as chordDiagram } from '@/icons/chord-diagram.svg?url'

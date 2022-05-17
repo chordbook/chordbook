@@ -4,9 +4,11 @@ class Api::SetlistsController < ApiController
   def index
     @setlists = current_scope.order_by_recent.page(params[:page])
     set_pagination_header @setlists
+    fresh_when @setlists
   end
 
   def show
+    fresh_when @setlist
   end
 
   def create

@@ -5,5 +5,6 @@ class Api::SearchController < ApiController
       @results = @results.where(searchable_type: params[:type].split(",").map { |type| type.singularize.titleize })
     end
     set_pagination_header @results
+    fresh_when @results
   end
 end

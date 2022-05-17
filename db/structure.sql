@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+
+--
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -218,6 +225,39 @@ CREATE TABLE public.good_jobs (
 
 
 --
+-- Name: media; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.media (
+    id bigint NOT NULL,
+    record_type character varying,
+    record_id bigint,
+    uri character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: media_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.media_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: media_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.media_id_seq OWNED BY public.media.id;
+
+
+--
 -- Name: pg_search_documents; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -374,11 +414,11 @@ CREATE TABLE public.tracks (
     album_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    has_songsheet boolean,
     number integer,
     duration integer,
     listeners bigint,
-    genre_id bigint
+    genre_id bigint,
+    songsheets_count integer DEFAULT 0
 );
 
 
@@ -441,6 +481,41 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: versions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.versions (
+    id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id bigint NOT NULL,
+    event character varying NOT NULL,
+    whodunnit character varying,
+    object json,
+    created_at timestamp(6) without time zone,
+    object_changes json
+);
+
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.versions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
+
+
+--
 -- Name: albums id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -466,6 +541,13 @@ ALTER TABLE ONLY public.artists ALTER COLUMN id SET DEFAULT nextval('public.arti
 --
 
 ALTER TABLE ONLY public.genres ALTER COLUMN id SET DEFAULT nextval('public.genres_id_seq'::regclass);
+
+
+--
+-- Name: media id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.media ALTER COLUMN id SET DEFAULT nextval('public.media_id_seq'::regclass);
 
 
 --
@@ -508,6 +590,13 @@ ALTER TABLE ONLY public.tracks ALTER COLUMN id SET DEFAULT nextval('public.track
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: versions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
 
 
 --
@@ -567,6 +656,14 @@ ALTER TABLE ONLY public.good_jobs
 
 
 --
+-- Name: media media_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.media
+    ADD CONSTRAINT media_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: pg_search_documents pg_search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -620,6 +717,14 @@ ALTER TABLE ONLY public.tracks
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: versions versions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.versions
+    ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
 
 
 --
@@ -714,6 +819,13 @@ CREATE INDEX index_good_jobs_on_scheduled_at ON public.good_jobs USING btree (sc
 
 
 --
+-- Name: index_media_on_record; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_media_on_record ON public.media USING btree (record_type, record_id);
+
+
+--
 -- Name: index_pg_search_documents_on_content; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -805,6 +917,13 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING bt
 
 
 --
+-- Name: index_versions_on_item_type_and_item_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING btree (item_type, item_id);
+
+
+--
 -- Name: uniq_by_artist_and_work; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -885,7 +1004,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20211004150027'),
 ('20211008063715'),
 ('20211029193047'),
-('20211208211430'),
 ('20211209202539'),
 ('20211212214419'),
 ('20211213142622'),
@@ -903,6 +1021,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220205051917'),
 ('20220207123911'),
 ('20220210133540'),
-('20220211173533');
+('20220211173533'),
+('20220513151136'),
+('20220514222125'),
+('20220514222126'),
+('20220516172030');
 
 

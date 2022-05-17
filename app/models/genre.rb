@@ -3,6 +3,8 @@ class Genre < ApplicationRecord
   has_many :tracks
   has_many :albums
 
+  has_paper_trail
+
   has_one :example_track, -> { Track.order_by_popular }, class_name: "Track"
   has_one :example_artist, through: :example_track, class_name: "Artist", source: :artist
 

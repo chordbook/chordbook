@@ -4,9 +4,11 @@ class Api::ArtistsController < ApiController
   def index
     @artists = current_scope.order_by_alphabetical.page(params[:page])
     set_pagination_header @artists
+    fresh_when @artists
   end
 
   def show
+    fresh_when @artist
   end
 
   private

@@ -68,7 +68,7 @@
           v-for="track in album.tracks"
           :key="track.id"
           :href="`/tracks/${track.id}`"
-          :class="{'opacity-40 hover:opacity-100 transition-opacity': !track.has_songsheet}"
+          :class="{'text-neutral-500/50 hover:text-current transition-opacity': !track.has_songsheet}"
         >
           <ion-text slot="start">
             <span class="text-sm opacity-50 w-4 text-right inline-block">{{ track.number }}</span>

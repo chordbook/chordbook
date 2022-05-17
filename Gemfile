@@ -17,9 +17,10 @@ gem "chordpro", git: "https://github.com/bkeepers/chordpro.git", branch: "carria
 gem "kaminari"
 gem "addressable"
 gem "acts_as_list"
+gem "paper_trail"
 
 group :development, :test do
-  gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
+  gem "debug"
   gem "standard"
   gem "dotenv-rails"
 end

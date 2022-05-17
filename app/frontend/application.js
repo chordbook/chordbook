@@ -1,18 +1,18 @@
-import './application.scss'
+import './application.css'
 
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import { IonicVue } from '@ionic/vue'
 import App from './views/App.vue'
 import VueAxios from 'vue-axios'
 import client from './client'
-import store from './store'
 import router from './router'
 import telemetry from './telemetry'
 
 const app = createApp(App)
+  .use(createPinia())
   .use(IonicVue)
   .use(VueAxios, client)
-  .use(store)
   .use(router)
 
 router.isReady().then(() => {

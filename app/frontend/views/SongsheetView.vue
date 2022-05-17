@@ -9,29 +9,27 @@
           />
           <ion-button
             :id="`versions-button-${id}`"
-            :disabled="versions.length <= 1"
+            :disabled="otherVersions.length == 0"
           >
             <ion-icon :icon="icons.list" />
           </ion-button>
         </ion-buttons>
 
         <ion-buttons slot="end">
-          <ion-button id="transpose-button">
+          <ion-button
+            :color="showPlayer ? 'secondary' : ''"
+            :disabled="songsheet.media?.length == 0"
+            @click="showPlayer = !showPlayer"
+          >
+            <ion-icon
+              slot="icon-only"
+              :icon="icons.play"
+            />
+          </ion-button>
+          <ion-button :id="`settings-button-${id}`">
             <ion-icon
               slot="icon-only"
               :icon="icons.transpose"
-            />
-          </ion-button>
-          <ion-button @click="showChords = !showChords">
-            <ion-icon
-              slot="icon-only"
-              :icon="icons.chordDiagram"
-            />
-          </ion-button>
-          <ion-button @click="openTuner">
-            <ion-icon
-              slot="icon-only"
-              :icon="icons.tuningFork"
             />
           </ion-button>
           <ion-button
@@ -53,10 +51,55 @@
     <song-sheet
       v-if="songsheet.source"
       :source="songsheet.source"
-      :show-chords="showChords"
-      :transpose="transpose"
       @update:key="(v) => key = v"
     >
+      <template #top>
+        <Transition name="slide-down">
+          <songsheet-media
+            v-show="showPlayer"
+            :songsheet="songsheet"
+          />
+        </Transition>
+      </template>
+      <template
+        v-if="songsheet.track"
+        #header
+      >
+        <div class="flex gap-3 md:gap-4 items-center">
+          <div
+            v-if="songsheet.track?.album"
+            class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
+          >
+            <img :src="songsheet.track?.album.thumbnail">
+          </div>
+
+          <div>
+            <h1 class="text-xl md:text-2xl my-1">
+              {{ songsheet.title }}
+            </h1>
+
+            <ion-label
+              v-if="songsheet.track.artist"
+              button
+              :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
+              class="block ion-activatable ion-focusable my-0"
+            >
+              <span class="opacity-40">by </span>
+              <span class="text-blue-500">{{ songsheet.track.artist.name }}</span>
+            </ion-label>
+            <ion-label
+              v-if="songsheet.track.album"
+              button
+              :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
+              class="block ion-activatable ion-focusable truncate overflow-hidden my-1"
+            >
+              <span class="opacity-40">from </span>
+              <span class="text-blue-500">{{ songsheet.track.album.title }}</span>
+            </ion-label>
+          </div>
+        </div>
+      </template>
+
       <template #footer>
         <div class="ion-padding text-sm opacity-50 mb-8 flex gap-4">
           <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
@@ -74,30 +117,14 @@
       </template>
     </song-sheet>
 
-    <ion-popover trigger="transpose-button">
-      <ion-content>
-        <transpose-control
-          :note="key"
-          @update="updateTranspose"
-        />
-      </ion-content>
-    </ion-popover>
-
-    <ion-popover
+    <songsheet-versions-modal
       :trigger="`versions-button-${id}`"
-      dismiss-on-select
-    >
-      <ion-list>
-        <ion-list-header>Alternate Versions</ion-list-header>
-        <template v-for="version in versions">
-          <songsheet-item
-            v-if="songsheet.id !== version.id"
-            :key="version.id"
-            :songsheet="version"
-          />
-        </template>
-      </ion-list>
-    </ion-popover>
+      :versions="otherVersions"
+    />
+    <songsheet-settings-modal
+      :trigger="`settings-button-${id}` "
+      :note="key"
+    />
     <ion-popover
       :trigger="`songsheet-context-${songsheet.id}`"
       dismiss-on-select
@@ -105,12 +132,41 @@
       <ion-list>
         <ion-item
           button
+          detail
           :router-link="{ name: 'songsheet.edit', params: { id: songsheet.id } }"
-          :detail-icon="icons.createOutline"
+          :detail-icon="icons.edit"
         >
           <ion-label>Edit</ion-label>
         </ion-item>
         <add-to-setlist-item :songsheet="songsheet" />
+        <ion-item
+          v-if="songsheet.track?.artist"
+          button
+          detail
+          :detail-icon="icons.artist"
+          :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
+        >
+          View Artist
+        </ion-item>
+        <ion-item
+          v-if="songsheet.track?.album"
+          button
+          detail
+          :detail-icon="icons.album"
+          :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
+        >
+          View Album
+        </ion-item>
+
+        <ion-item
+          button
+          detail
+          :detail-icon="icons.tuningFork"
+          lines="none"
+          @click="openTuner"
+        >
+          Tuner
+        </ion-item>
       </ion-list>
     </ion-popover>
   </ion-page>
@@ -118,21 +174,18 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonListHeader, IonItem } from '@ionic/vue'
+import { IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonItem } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
-import { apps, arrowUp, arrowDown, list, createOutline } from 'ionicons/icons'
-import transpose from '@/icons/transpose.svg?url'
-import tuningFork from '@/icons/tuning-fork.svg?url'
-import chordDiagram from '@/icons/chord-diagram.svg?url'
-import TransposeControl from '@/components/TransposeControl.vue'
+import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
+import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
+import SongsheetMedia from '@/components/SongsheetMedia.vue'
 import TunerView from '@/views/TunerView.vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
-import SongsheetItem from '@/components/SongsheetItem.vue'
 import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { SongSheet, TransposeControl, IonPage, IonContent, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, SongsheetItem, IonList, IonListHeader, IonItem, AddToSetlistItem },
+  components: { SongSheet, IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, IonList, IonItem, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia },
 
   props: {
     id: {
@@ -150,24 +203,18 @@ export default {
     return {
       songsheet: {},
       versions: [],
-      showTuner: false,
       source: '',
       key: 'C',
-      transpose: 0,
-      icons: { ...icons, apps, arrowUp, arrowDown, transpose, tuningFork, chordDiagram, list, createOutline }
+      showTuner: false,
+      icons,
+      showPlayer: false
     }
   },
 
   computed: {
-    showChords: {
-      get () { return this.$store.state.showChords },
-      set (value) { this.$store.commit('update', { showChords: !!value }) }
+    otherVersions () {
+      return this.versions.filter(v => v.id !== this.songsheet.id)
     }
-
-    //   columns: {
-    //     get () { return this.$store.state.columns || 1 },
-    //     set (value) { this.$store.commit('update', { columns: value }) }
-    //   },
   },
 
   ionViewWillEnter () {
@@ -215,10 +262,6 @@ export default {
           breakpoints: [0, 0.5]
         })
       return modal.present()
-    },
-
-    updateTranspose (value) {
-      this.transpose = value
     },
 
     formatDate (input) {
