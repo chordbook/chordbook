@@ -19,9 +19,9 @@ class Songsheet < ApplicationRecord
   validates :title, presence: true
 
   before_save :associate_metadata
-  after_commit { track&.reload&.reindex }
+  after_commit { track&.reload&.reindex if Searchkick.callbacks? }
 
-  searchkick word_start: [:title]
+  searchkick word_start: [:title, :everything]
 
   scope :search_import, -> { includes(track: :album) }
 
@@ -30,7 +30,10 @@ class Songsheet < ApplicationRecord
       title: title,
       artist: metadata["artist"],
       album: track&.album&.title,
-      boost: 2
+      # Because searchkick doesn't support `cross_fields`
+      # https://github.com/ankane/searchkick/pull/871
+      everything: [title, metadata["artist"], track&.album&.title].compact.flatten,
+      boost: 3
     }
   end
 

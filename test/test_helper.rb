@@ -13,24 +13,21 @@ class ActiveSupport::TestCase
 
   parallelize_setup do |worker|
     Searchkick.index_suffix = worker
+    Search.reindex
+  end
 
-    # and disable callbacks
+  parallelize_teardown do
+    Search::MODELS.each { |m| m.search_index.delete }
+  end
+
+  setup do
+    PaperTrail.enabled = false
     Searchkick.disable_callbacks
   end
 
   def with_search(*models, &block)
-    models = Search::MODELS if models.empty?
-    models.each(&:reindex)
-    Searchkick.enable_callbacks
-    block.call
-  ensure
-    Searchkick.disable_callbacks
+    Searchkick.callbacks(true, &block)
   end
-
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
-
-  # Add more helper methods to be used by all tests here...
 end
 
 VCR.configure do |config|

@@ -2,22 +2,16 @@ require "test_helper"
 
 class SearchTest < ActiveSupport::TestCase
   setup do
-    Searchkick.enable_callbacks
-    Search.reindex
-
-    @artist = create(:artist, name: "Ed Sheeran")
-    @album = create(:album, title: "=", artist: @artist)
-    @track = create(:track, title: "Shivers", album: @album)
-    @songsheet = create(:songsheet, title: "Bad Habits", metadata: {artist: @artist.name},
-      track: create(:track, title: "Bad Habits", album: @album, artist: @artist))
-  end
-
-  teardown do
-    Searchkick.disable_callbacks
+    with_search do
+      @artist = create(:artist, name: "Ed Sheeran")
+      @album = create(:album, title: "=", artist: @artist)
+      @track = create(:track, title: "Shivers", album: @album)
+      @songsheet = create(:songsheet, title: "Bad Habits", metadata: {artist: @artist.name},
+        track: create(:track, title: "Bad Habits", album: @album, artist: @artist))
+    end
   end
 
   def search(query, **options)
-    Search.reindex
     Search.new(query: query, **options).results
   end
 
@@ -34,7 +28,6 @@ class SearchTest < ActiveSupport::TestCase
   end
 
   test "excludes tracks with songsheets" do
-    Search.reindex
     results = search("Bad Habits")
 
     assert_includes results, @songsheet

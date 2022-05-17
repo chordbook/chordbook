@@ -32,7 +32,7 @@ class Track < ApplicationRecord
   after_create :associate_songsheets
   after_save :associate_media
 
-  searchkick word_start: [:title]
+  searchkick word_start: [:title, :everything]
 
   map_metadata(
     intTrackNumber: :number,
@@ -51,7 +51,8 @@ class Track < ApplicationRecord
       title: title,
       artist: artist.name,
       album: album.title,
-      boost: 0.9
+      everything: [title, artist.name, album.title],
+      boost: 0.75
     }
   end
 

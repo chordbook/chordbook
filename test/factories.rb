@@ -12,12 +12,16 @@ FactoryBot.define do
   factory :album do
     title { Faker::Music.album }
     artist
+
+    after(:create) { |model| refresh_index(model) }
   end
 
   factory :track do
     title { Faker::Name.name }
     album
     artist { album.artist }
+
+    after(:create) { |model| refresh_index(model) }
   end
 
   factory :songsheet do
@@ -28,6 +32,8 @@ FactoryBot.define do
     end
 
     artists { [track&.artist].compact }
+
+    after(:create) { |model| refresh_index(model) }
   end
 
   factory :genre do

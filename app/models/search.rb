@@ -8,7 +8,7 @@ class Search
 
   DEFAULTS = {
     models: MODELS,
-    fields: ["title^3", "artist^2", "album"],
+    fields: ["everything^4", "title^3", "artist^2", "album"],
     model_includes: MODEL_INCLUDES,
     boost_by: [:boost]
   }
@@ -20,9 +20,24 @@ class Search
 
   def results
     Searchkick.search(@query, **@options.with_defaults(DEFAULTS))
+    # Searchkick.search({
+    #   body: {
+    #   query: {
+    #     multi_match: {
+    #       query: @query,
+    #       type: "cross_fields",
+    #       fields: [
+    #         "title^3",
+    #         "artist^2",
+    #         "album"
+    #       ]
+    #     }
+    #   }
+    # }}, models: MODELS)
   end
 
-  def self.reindex
-    MODELS.each(&:reindex)
+  def self.reindex(*models, **args)
+    models = MODELS if models.empty?
+    models.each { |m| m.reindex(**args) }
   end
 end

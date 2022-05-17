@@ -4,7 +4,7 @@ json.array! @results do |result|
   when Songsheet
     json.merge!(
       title: result.title,
-      subtitle: result.metadata["artist"] && "by #{Array(result.metadata["artist"]).to_sentence}",
+      subtitle: Array(result.metadata["artist"]).to_sentence,
       thumbnail: result.track&.album&.thumbnail
     )
   when Artist

@@ -11,7 +11,7 @@ class Album < ApplicationRecord
   scope :order_by_popular, -> { order("albums.score DESC NULLS LAST") }
   scope :order_by_released, ->(dir = :desc) { order(released: "#{dir} NULLS LAST") }
 
-  searchkick word_start: [:title]
+  searchkick word_start: [:title, :everything]
 
   scope :search_import, -> { includes(:artist) }
 
@@ -19,6 +19,7 @@ class Album < ApplicationRecord
     {
       title: title,
       artist: artist.name,
+      everything: [title, artist.name],
       boost: 1
     }
   end
