@@ -33,6 +33,11 @@ services:
         value: production
       - key: THEAUDIODB_API_KEY
         sync: false
+      - key: ELASTICSEARCH_URL
+        fromService:
+          type: pserv
+          name: elasticsearch
+          property: hostport
   - type: pserv
     name: elasticsearch
     env: docker
