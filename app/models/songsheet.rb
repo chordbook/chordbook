@@ -19,7 +19,7 @@ class Songsheet < ApplicationRecord
   validates :title, presence: true
 
   before_save :associate_metadata
-  after_commit { track&.reload&.update_pg_search_document }
+  after_commit { track&.reload&.reindex }
 
   searchkick word_start: [:title]
 
