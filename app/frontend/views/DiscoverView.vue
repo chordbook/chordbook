@@ -110,7 +110,7 @@ import {
 import GenreListView from '@/views/GenreListView.vue'
 import { useRouteQuery } from '@vueuse/router'
 import { createFetch } from '@vueuse/core'
-import { computed, ref, reactive, watch } from 'vue'
+import { computed, ref, unref, reactive, watch } from 'vue'
 
 const useFetch = createFetch({
   baseUrl: new URL(import.meta.env.APP_API_URL || 'https://chordbook.app', window.location).toString(),
@@ -135,7 +135,7 @@ const params = reactive({
 })
 
 const hasFocus = ref(false)
-const isSearching = computed(() => params.q || hasFocus)
+const isSearching = computed(() => !!unref(params.q || hasFocus))
 const url = computed(() => 'api/search.json?' + new URLSearchParams(params))
 const { execute, data, isFetching, isFinished } = useFetch(url, { immediate: params.q }).get().json()
 
