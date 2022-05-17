@@ -45,7 +45,7 @@ services:
     autoDeploy: false
     envVars:
     - key: ES_JAVA_OPTS
-      value: "-Xms512m -Xmx512m"
+      value: "-Xms256m -Xmx256m"
     - key: discovery.type
       value: single-node
     - key: cluster.name
