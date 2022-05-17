@@ -5,7 +5,7 @@ def track_info(track)
 end
 
 namespace :data do
-  task default: [:reassociate, :has_songsheet, :genres, :cleanup_artists]
+  task default: [:reassociate, :genres, :cleanup_artists]
 
   task reassociate: :environment do
     before = Songsheet.where(track_id: nil).count
@@ -19,12 +19,6 @@ namespace :data do
     after = Songsheet.where(track_id: nil).count
 
     puts "Associated #{before - after} songsheets to tracks"
-  end
-
-  task has_songsheet: :environment do
-    Track.find_each do |t|
-      Track.reset_counters(t.id, :songsheets)
-    end
   end
 
   task genres: :environment do
