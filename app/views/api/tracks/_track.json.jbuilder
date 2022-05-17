@@ -1,4 +1,5 @@
-json.extract! track, :id, :title, :number, :duration, :has_songsheet, :created_at, :updated_at
+json.extract! track, :id, :title, :number, :duration, :created_at, :updated_at
+json.has_songsheet track.has_songsheet?
 json.album do
   json.partial! track.album, as: :album
 end
