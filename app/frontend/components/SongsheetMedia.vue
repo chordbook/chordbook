@@ -16,10 +16,10 @@ defineProps({
 <template>
   <div
     v-if="songsheet.media?.length > 0"
-    class="z-10 sticky md:fixed top-0 md:top-20 md:right-5 md:rounded md:border md:w-96 overflow-hidden"
+    class="z-10 sticky md:fixed top-0 md:top-20 md:right-5 md:shadow-md md:border dark:border-zinc-800 md:w-96"
   >
     <TabGroup>
-      <TabPanels class="bg-black">
+      <TabPanels class="bg-black md:rounded overflow-hidden">
         <TabPanel
           v-for="media in songsheet.media"
           :key="media.uri"
@@ -29,7 +29,7 @@ defineProps({
       </TabPanels>
       <TabList
         v-show="songsheet.media.length > 1"
-        class="p-2 flex gap-2 bg-slate-100 border-b md:border-none"
+        class="p-2 flex gap-2 bg-slate-100 dark:bg-zinc-800 md:border-none"
       >
         <Tab
           v-for="media in songsheet.media"
