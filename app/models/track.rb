@@ -29,11 +29,9 @@ class Track < ApplicationRecord
     order_within_rank: "tracks.listeners DESC NULLS LAST, albums.released, albums.score DESC NULLS LAST, tracks.id"
 
   before_validation :associate_genre
-  after_create :associate_songsheets
   after_save :associate_media
 
-  multisearchable additional_attributes: ->(record) { record.searchable_data },
-    unless: :has_songsheet? # No need to index tracks with songsheets
+  searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
   map_metadata(
     intTrackNumber: :number,
@@ -45,30 +43,26 @@ class Track < ApplicationRecord
     joins(:album).title_like(title).order_by_popular.first
   end
 
-  def searchable_text
-    [title, artist&.name, album&.title].compact.join(" ")
+  scope :search_import, -> { includes(:artist, :album) }
+
+  def search_data
+    {
+      type: self.class,
+      title: title,
+      subtitle: artist.name,
+      thumbnail: album.thumbnail,
+      everything: [title, artist.name, album.title],
+      boost: 0.75
+    }
   end
 
-  def searchable_data
-    {
-      weight: 0.25,
-      data: {
-        title: title,
-        subtitle: artist.name,
-        thumbnail: album&.thumbnail
-      }
-    }
+  # No need to index tracks with songsheets
+  def should_index?
+    !has_songsheet?
   end
 
   def has_songsheet?
     songsheets_count > 0
-  end
-
-  def associate_songsheets
-    Songsheet.joins(:artists)
-      .where(artists: artist)
-      .where(songsheets: {title: title})
-      .each(&:save) # Just saving should cause songsheet to re-associate
   end
 
   def associate_genre

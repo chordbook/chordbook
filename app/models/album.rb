@@ -11,20 +11,18 @@ class Album < ApplicationRecord
   scope :order_by_popular, -> { order("albums.score DESC NULLS LAST") }
   scope :order_by_released, ->(dir = :desc) { order(released: "#{dir} NULLS LAST") }
 
-  multisearchable additional_attributes: ->(record) { record.searchable_data }
+  searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
-  def searchable_text
-    [title, artist&.name].compact.join(" ")
-  end
+  scope :search_import, -> { includes(:artist) }
 
-  def searchable_data
+  def search_data
     {
-      weight: 0.5,
-      data: {
-        title: title,
-        subtitle: artist.name,
-        thumbnail: thumbnail
-      }
+      type: self.class,
+      title: title,
+      thumbnail: thumbnail,
+      subtitle: artist.name,
+      everything: [title, artist.name],
+      boost: 1.0
     }
   end
 

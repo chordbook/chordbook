@@ -14,35 +14,26 @@ class Artist < ApplicationRecord
   before_validation :associate_genre
   after_commit(on: :create) { LookupMetadata.perform_later(self) }
 
-  multisearchable against: [:name],
-    additional_attributes: ->(record) { record.searchable_data }
-
-  pg_search_scope :name_like,
-    against: :name,
-    using: {
-      trigram: {}
-    },
-    ranked_by: ":trigram * CASE WHEN verified THEN 1.0 ELSE 0.75 END"
-
+  searchkick word_start: [:title], stem: false, callbacks: :async
   scope :verified, -> { where(verified: true) }
   scope :order_by_alphabetical, -> { order("UPPER(name)") }
 
   def self.lookup(name)
-    name_like(name).first
+    search(name, boost_by: [:boost], fields: ["everything"]).first
   end
 
-  def searchable_data
+  def search_data
     {
-      weight: verified ? 0.8 : 0.5,
-      data: {
-        title: name,
-        subtitle: nil,
-        thumbnail: thumbnail
-      }
+      type: self.class,
+      title: name,
+      thumbnail: thumbnail,
+      everything: [name, metadata["strArtistAlternate"].presence].compact,
+      boost: verified ? 2.0 : 1.0
     }
   end
 
   map_metadata(
+    strArtist: :name,
     strArtistThumb: :thumbnail,
     strStyle: :style,
     strBiographyEN: :biography

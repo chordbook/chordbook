@@ -18,6 +18,8 @@ gem "kaminari"
 gem "addressable"
 gem "acts_as_list"
 gem "paper_trail"
+gem "searchkick"
+gem "elasticsearch", "~> 7.0"
 
 group :development, :test do
   gem "debug"

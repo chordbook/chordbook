@@ -258,42 +258,6 @@ ALTER SEQUENCE public.media_id_seq OWNED BY public.media.id;
 
 
 --
--- Name: pg_search_documents; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.pg_search_documents (
-    id bigint NOT NULL,
-    content text,
-    data json,
-    searchable_type character varying,
-    searchable_id bigint,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    weight double precision DEFAULT 1.0,
-    content_tsv tsvector
-);
-
-
---
--- Name: pg_search_documents_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.pg_search_documents_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: pg_search_documents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.pg_search_documents_id_seq OWNED BY public.pg_search_documents.id;
-
-
---
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -551,13 +515,6 @@ ALTER TABLE ONLY public.media ALTER COLUMN id SET DEFAULT nextval('public.media_
 
 
 --
--- Name: pg_search_documents id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.pg_search_documents ALTER COLUMN id SET DEFAULT nextval('public.pg_search_documents_id_seq'::regclass);
-
-
---
 -- Name: setlist_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -661,14 +618,6 @@ ALTER TABLE ONLY public.good_jobs
 
 ALTER TABLE ONLY public.media
     ADD CONSTRAINT media_pkey PRIMARY KEY (id);
-
-
---
--- Name: pg_search_documents pg_search_documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.pg_search_documents
-    ADD CONSTRAINT pg_search_documents_pkey PRIMARY KEY (id);
 
 
 --
@@ -826,27 +775,6 @@ CREATE INDEX index_media_on_record ON public.media USING btree (record_type, rec
 
 
 --
--- Name: index_pg_search_documents_on_content; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pg_search_documents_on_content ON public.pg_search_documents USING gin (content public.gin_trgm_ops);
-
-
---
--- Name: index_pg_search_documents_on_content_tsv; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pg_search_documents_on_content_tsv ON public.pg_search_documents USING gin (content_tsv);
-
-
---
--- Name: index_pg_search_documents_on_searchable; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_pg_search_documents_on_searchable ON public.pg_search_documents USING btree (searchable_type, searchable_id);
-
-
---
 -- Name: index_setlist_items_on_setlist_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -928,13 +856,6 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING bt
 --
 
 CREATE UNIQUE INDEX uniq_by_artist_and_work ON public.artist_works USING btree (artist_id, work_id, work_type, "order");
-
-
---
--- Name: pg_search_documents tsvectorupdate; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER tsvectorupdate BEFORE INSERT OR UPDATE ON public.pg_search_documents FOR EACH ROW EXECUTE FUNCTION tsvector_update_trigger('content_tsv', 'pg_catalog.english', 'content');
 
 
 --
@@ -1025,6 +946,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220513151136'),
 ('20220514222125'),
 ('20220514222126'),
-('20220516172030');
+('20220516172030'),
+('20220518123328');
 
 

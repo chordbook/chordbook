@@ -9,12 +9,25 @@ class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
   # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+  # parallelize(workers: :number_of_processors, with: :threads)
 
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+  setup do
+    PaperTrail.enabled = false
+    Searchkick.disable_callbacks
+  end
 
-  # Add more helper methods to be used by all tests here...
+  teardown do
+    Search::MODELS.each do |m|
+      m.search_index.delete
+    rescue
+      nil
+    end
+  end
+
+  def with_search(*models, &block)
+    Search.reindex(*models)
+    Searchkick.callbacks(true, &block)
+  end
 end
 
 VCR.configure do |config|

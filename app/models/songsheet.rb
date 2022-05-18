@@ -18,43 +18,29 @@ class Songsheet < ApplicationRecord
 
   validates :title, presence: true
 
-  before_save :associate_metadata
-  after_commit { track&.reload&.update_pg_search_document }
+  attr_accessor :skip_metadata_lookup
 
-  multisearchable additional_attributes: ->(record) { record.searchable_data }
+  after_commit(unless: :skip_metadata_lookup) { AssociateSongsheetMetadata.perform_later self }
+  after_commit { track&.reindex(mode: :async) if Searchkick.callbacks? }
 
-  def searchable_text
-    [
-      title,
-      artists.map(&:name),
-      track&.album&.title
-    ].flatten.compact.join(" ")
-  end
+  searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
-  def searchable_data
+  scope :search_import, -> { includes(track: :album) }
+
+  def search_data
     {
-      weight: 1.0,
-      data: {
-        title: title,
-        subtitle: metadata["artist"] && "by #{Array(metadata["artist"]).to_sentence}",
-        thumbnail: track&.album&.thumbnail
-      }
+      type: self.class,
+      title: title,
+      subtitle: Array(metadata["artist"]).to_sentence,
+      thumbnail: track&.album&.thumbnail,
+      # Because searchkick doesn't support `cross_fields`
+      # https://github.com/ankane/searchkick/pull/871
+      everything: [title, metadata["artist"], track&.album&.title].compact.flatten,
+      boost: 3.0
     }
   end
 
   def all_media
     Medium.where(record: [self, track].compact)
-  end
-
-  private
-
-  def associate_metadata
-    artist_names = Array(metadata["artist"]).map { |a| a.split(/\s*,\s*/) }.flatten
-    if artist_names.any?
-      self.artists = artist_names.map { |name| Artist.lookup(name) || Artist.new(name: name.strip) }
-    end
-
-    track = Track.where(artist_id: artist_ids.compact).lookup(title)
-    self.track = track if track
   end
 end

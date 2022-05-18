@@ -27,18 +27,18 @@
         <ion-toolbar>
           <ion-searchbar
             ref="input"
-            v-model="searchParams.q"
+            v-model="params.q"
             :show-cancel-button="isSearching ? 'always' : 'focus'"
-            debounce="500"
+            debounce="150"
             animated
-            @ion-focus="setFocus(true)"
-            @ion-blur="setFocus(false)"
+            @ion-focus="hasFocus = true"
+            @ion-blur="hasFocus = false"
           />
         </ion-toolbar>
         <ion-toolbar v-show="isSearching">
           <ion-segment
-            :value="searchParams.type || ''"
-            @ion-change="searchParams.type = $event.detail.value"
+            :value="params.type"
+            @ion-change="params.type = $event.detail.value"
           >
             <ion-segment-button
               v-for="id, name in types"
@@ -51,70 +51,95 @@
         </ion-toolbar>
       </ion-header>
 
-      <search-results
-        v-show="isSearching"
-        :params="searchParams"
-      />
+      <ion-list v-show="isSearching">
+        <Transition>
+          <ion-item
+            v-if="isFinished && data.length == 0"
+            lines="none"
+          >
+            No results
+          </ion-item>
+        </Transition>
+        <ion-item
+          v-for="result in data"
+          :key="result.type + result.id"
+          button
+          :router-link="{ name: result.type.toLowerCase(), params: { id: result.id } }"
+        >
+          <ion-avatar slot="start">
+            <img :src="result.thumbnail"> <!-- class="rounded" -->
+          </ion-avatar>
+          <ion-label>
+            <p class="uppercase">
+              {{ result.type }}
+            </p>
+            <h2>{{ result.title }}</h2>
+            <p>{{ result.subtitle }}</p>
+          </ion-label>
+        </ion-item>
+        <Transition name="slide-down">
+          <ion-item
+            v-if="isFetching"
+            lines="none"
+          >
+            <ion-spinner name="dots" />
+          </ion-item>
+        </Transition>
+      </ion-list>
       <GenreListView v-show="!isSearching" />
     </ion-content>
   </ion-page>
 </template>
 
-<script lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonSegment, IonSegmentButton, IonLabel } from '@ionic/vue'
-import SearchResults from '@/components/SearchResults.vue'
+<script setup>
+import {
+  IonAvatar,
+  IonContent,
+  IonHeader,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonPage,
+  IonSearchbar,
+  IonSegment,
+  IonSegmentButton,
+  IonSpinner,
+  IonTitle,
+  IonToolbar
+} from '@ionic/vue'
 import GenreListView from '@/views/GenreListView.vue'
+import { useRouteQuery } from '@vueuse/router'
+import { createFetch } from '@vueuse/core'
+import { computed, ref, unref, reactive, watch } from 'vue'
 
-export default {
-  components: { SearchResults, GenreListView, IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonSearchbar, IonSegment, IonSegmentButton, IonLabel },
-
-  data () {
-    return {
-      searchParams: {},
-      types: {
-        All: '',
-        Artists: 'artist',
-        Albums: 'album',
-        Songs: 'track,songsheet'
-      },
-      hasFocus: false
-    }
-  },
-
-  computed: {
-    hasSearchQuery () {
-      return !!this.searchParams.q
-    },
-
-    isSearching () {
-      return this.hasSearchQuery || this.hasFocus
-    }
-  },
-
-  watch: {
-    $route: { immediate: true, handler: 'updateFromRoute' },
-    searchParams: { deep: true, handler: 'updateRoute' }
-  },
-
-  methods: {
-    setFocus (bool) {
-      this.hasFocus = bool
-    },
-
-    updateFromRoute () {
-      this.searchParams = this.$route.query
-    },
-
-    clear () {
-      this.searchParams = {}
-    },
-
-    updateRoute () {
-      this.$router.push({
-        query: Object.assign({}, this.$route.query, this.searchParams),
-        replace: true
-      })
+const useFetch = createFetch({
+  baseUrl: new URL(import.meta.env.APP_API_URL || 'https://chordbook.app', window.location).toString(),
+  fetchOptions: {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest'
     }
   }
+})
+
+const types = {
+  All: '',
+  Artists: 'Artist',
+  Albums: 'Album',
+  Songs: 'Track,Songsheet'
 }
+
+const params = reactive({
+  q: useRouteQuery('q'),
+  type: useRouteQuery('type', '')
+})
+
+const hasFocus = ref(false)
+const isSearching = computed(() => !!unref(params.q || hasFocus))
+const url = computed(() => 'api/search.json?' + new URLSearchParams(params))
+const { execute, data, isFetching, isFinished } = useFetch(url, { immediate: params.q }).get().json()
+
+watch(params, () => {
+  if (params.q) execute()
+})
 </script>

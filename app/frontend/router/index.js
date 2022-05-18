@@ -19,7 +19,6 @@ const routes = [
       {
         path: '/discover',
         name: 'discover',
-        props: route => ({ searchParams: route.query }),
         component: () => import('@/views/DiscoverView.vue'),
         meta: { selected: 'discover' }
       },

@@ -2,8 +2,10 @@ require "test_helper"
 
 class Api::SearchControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @artist = create :artist
-    @album = create :album, artist: @artist
+    with_search do
+      @artist = create :artist, name: "Jeff Buckly"
+      @album = create :album, artist: @artist, title: "Hallelujah"
+    end
   end
 
   test "index" do
@@ -12,17 +14,20 @@ class Api::SearchControllerTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
     assert_equal 2, body.length
     assert_equal @artist.name, body[0]["title"]
+    assert_equal @album.title, body[1]["title"]
   end
 
   test "index with type" do
-    track = create :track
-    create :songsheet, title: track.title
+    with_search do
+      track = create :track
+      create :songsheet, title: track.title
 
-    # Create artist with same name, which should be excluded from results
-    create :artist, name: track.title
+      # Create artist with same name, which should be excluded from results
+      create :artist, name: track.title
 
-    get api_search_url(q: track.title, type: "track,songsheet", format: :json)
-    assert_response :success
-    assert_equal 2, JSON.parse(response.body).length
+      get api_search_url(q: track.title, type: "track,songsheet", format: :json)
+      assert_response :success
+      assert_equal 2, JSON.parse(response.body).length
+    end
   end
 end
