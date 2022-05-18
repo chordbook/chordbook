@@ -29,7 +29,6 @@ class Track < ApplicationRecord
     order_within_rank: "tracks.listeners DESC NULLS LAST, albums.released, albums.score DESC NULLS LAST, tracks.id"
 
   before_validation :associate_genre
-  after_create :associate_songsheets
   after_save :associate_media
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
