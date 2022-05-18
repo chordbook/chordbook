@@ -15,19 +15,11 @@ class Artist < ApplicationRecord
   after_commit(on: :create) { LookupMetadata.perform_later(self) }
 
   searchkick word_start: [:title], stem: false, callbacks: :async
-
-  pg_search_scope :name_like,
-    against: :name,
-    using: {
-      trigram: {}
-    },
-    ranked_by: ":trigram * CASE WHEN verified THEN 1.0 ELSE 0.75 END"
-
   scope :verified, -> { where(verified: true) }
   scope :order_by_alphabetical, -> { order("UPPER(name)") }
 
   def self.lookup(name)
-    name_like(name).first
+    search(name, boost_by: [:boost], fields: ["title"]).first
   end
 
   def search_data

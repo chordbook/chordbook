@@ -1,7 +1,7 @@
 def track_info(track)
   return unless track
 
-  "#{track.title} (#{track.listeners}) - #{track.album.title} #{track.album.released}"
+  "#{track.title} (#{track.listeners}) - by #{track.artist.name} #{track.album.title} #{track.album.released}"
 end
 
 namespace :data do
@@ -11,7 +11,7 @@ namespace :data do
     before = Songsheet.where(track_id: nil).count
     Songsheet.find_each do |s|
       track_was = s.track
-      s.save!
+      AssociateSongsheetMetadata.perform_now(s)
       if track_was != s.track
         puts [track_info(track_was), track_info(s.track)].join(" ====> ")
       end

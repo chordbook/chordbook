@@ -18,7 +18,9 @@ class Songsheet < ApplicationRecord
 
   validates :title, presence: true
 
-  before_save :associate_metadata
+  attr_accessor :skip_metadata_lookup
+
+  after_commit(unless: :skip_metadata_lookup) { AssociateSongsheetMetadata.perform_later self }
   after_commit { track&.reindex(mode: :async) if Searchkick.callbacks? }
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
@@ -40,17 +42,5 @@ class Songsheet < ApplicationRecord
 
   def all_media
     Medium.where(record: [self, track].compact)
-  end
-
-  private
-
-  def associate_metadata
-    artist_names = Array(metadata["artist"]).map { |a| a.split(/\s*,\s*/) }.flatten
-    if artist_names.any?
-      self.artists = artist_names.map { |name| Artist.lookup(name) || Artist.new(name: name.strip) }
-    end
-
-    track = Track.where(artist_id: artist_ids.compact).lookup(title)
-    self.track = track if track
   end
 end

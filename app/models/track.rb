@@ -66,13 +66,6 @@ class Track < ApplicationRecord
     songsheets_count > 0
   end
 
-  def associate_songsheets
-    Songsheet.joins(:artists)
-      .where(artists: artist)
-      .where(songsheets: {title: title})
-      .each(&:save) # Just saving should cause songsheet to re-associate
-  end
-
   def associate_genre
     return if metadata["strGenre"].blank?
     self.genre = Genre.find_or_create_by!(name: metadata["strGenre"])

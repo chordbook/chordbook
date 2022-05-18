@@ -11,18 +11,23 @@ class ArtistTest < ActiveSupport::TestCase
     assert_equal Artist.starts_with(:name, "#").to_a, [three]
   end
 
-  test "name_like orders verified artists before unverified" do
-    expected = [
-      create(:artist, name: "The Everly Brothers", verified: true),
+  test "lookup returns verified artists over unverified" do
+    with_search Artist do
       create(:artist, name: "Everly Brothers", verified: false)
-    ]
+      expected = create(:artist, name: "The Everly Brothers", verified: true)
 
-    results = Artist.name_like("Everly Brothers").with_pg_search_rank
+      assert_equal expected, Artist.lookup("Everly Brothers")
+      assert_equal expected, Artist.lookup("The Everly Brothers")
+    end
+  end
 
-    assert_equal expected[0], results[0]
-    assert_in_delta results[0].pg_search_rank, 0.85, 0.1
+  test "lookup does not return ridiculous results" do
+    with_search Artist do
+      create(:artist, name: "Michael Jackson", verified: true)
+      assert_nil Artist.lookup("Ingrid Michaelson")
 
-    assert_equal expected[1], results[1]
-    assert_in_delta results[0].pg_search_rank, 0.75, 0.1
+      expected = create(:artist, name: "Ingrid Michaelson", verified: false)
+      assert_equal expected, Artist.lookup("Ingrid Michaelson")
+    end
   end
 end
