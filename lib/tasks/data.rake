@@ -9,20 +9,22 @@ namespace :data do
 
   task reassociate: :environment do
     before = Songsheet.where(track_id: nil).count
-    Songsheet.find_each do |s|
-      track_was = s.track
-      AssociateSongsheetMetadata.perform_now(s)
-      if track_was != s.track
-        puts [track_info(track_was), track_info(s.track)].join(" ====> ")
+    updated = []
+
+    Searchkick.callbacks(false) do
+      Songsheet.find_each do |s|
+        track_was = s.track
+        AssociateSongsheetMetadata.perform_now(s)
+        if track_was != s.track
+          updated << s
+          puts [track_info(track_was), track_info(s.track)].join(" ====> ")
+        end
       end
     end
+
     after = Songsheet.where(track_id: nil).count
-
     puts "Associated #{before - after} songsheets to tracks"
-  end
-
-  task genres: :environment do
-    PopularGenres.perform_now
+    updated.each(&:reindex)
   end
 
   task cleanup_artists: :environment do
@@ -49,6 +51,19 @@ namespace :data do
         end
       end
     end
+  end
+
+  task duplicate_artists: :environment do
+    PaperTrail.enabled = false
+
+    # Re-normalize name
+    Artist.verified.find_each(&:save!)
+
+    Artist.
+      select("dups.*").
+      from("(SELECT *, ROW_NUMBER() OVER(PARTITION BY metadata->>'idArtist' ORDER BY id ASC) AS row FROM artists WHERE verified = true) dups").
+      where("dups.row > ?", 1).
+      destroy_all
   end
 end
 

@@ -35,6 +35,14 @@ class LookupMetadataTest < ActiveJob::TestCase
     end
   end
 
+  test "normalizes artist name" do
+    VCR.use_cassette("tadb/simon_and_garfunkel") do
+      artist = create :artist, name: "Simon and Garfunkel"
+      LookupMetadata.perform_now artist, recursive: false
+      assert_equal "Simon & Garfunkel", artist.name
+    end
+  end
+
   test "album" do
     VCR.use_cassette("tadb/the_beatles") do
       artist = create :artist, name: "The Beatles", metadata: {idArtist: 111247}

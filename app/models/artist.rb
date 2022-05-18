@@ -19,7 +19,7 @@ class Artist < ApplicationRecord
   scope :order_by_alphabetical, -> { order("UPPER(name)") }
 
   def self.lookup(name)
-    search(name, boost_by: [:boost], fields: ["title"]).first
+    search(name, boost_by: [:boost], fields: ["everything"]).first
   end
 
   def search_data
@@ -27,12 +27,13 @@ class Artist < ApplicationRecord
       type: self.class,
       title: name,
       thumbnail: thumbnail,
-      everything: [name], # For consistency with other searchable models
+      everything: [name, metadata["strArtistAlternate"].presence].compact,
       boost: verified ? 2.0 : 1.0
     }
   end
 
   map_metadata(
+    strArtist: :name,
     strArtistThumb: :thumbnail,
     strStyle: :style,
     strBiographyEN: :biography

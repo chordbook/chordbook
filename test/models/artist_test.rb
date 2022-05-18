@@ -30,4 +30,13 @@ class ArtistTest < ActiveSupport::TestCase
       assert_equal expected, Artist.lookup("Ingrid Michaelson")
     end
   end
+
+  test "lookup finds artist by alternate name" do
+    with_search Artist do
+      expected = create :artist, name: "Huey Lewis",
+        metadata: { "strArtistAlternate" => "Huey Lewis & The News" }
+
+      assert_equal expected, Artist.lookup("Huey Lewis & The News")
+    end
+  end
 end
