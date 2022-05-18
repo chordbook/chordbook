@@ -59,11 +59,11 @@ namespace :data do
     # Re-normalize name
     Artist.verified.find_each(&:save!)
 
-    Artist.
-      select("dups.*").
-      from("(SELECT *, ROW_NUMBER() OVER(PARTITION BY metadata->>'idArtist' ORDER BY id ASC) AS row FROM artists WHERE verified = true) dups").
-      where("dups.row > ?", 1).
-      destroy_all
+    Artist
+      .select("dups.*")
+      .from("(SELECT *, ROW_NUMBER() OVER(PARTITION BY metadata->>'idArtist' ORDER BY id ASC) AS row FROM artists WHERE verified = true) dups")
+      .where("dups.row > ?", 1)
+      .destroy_all
   end
 end
 
