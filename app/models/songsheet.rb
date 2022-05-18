@@ -19,9 +19,9 @@ class Songsheet < ApplicationRecord
   validates :title, presence: true
 
   before_save :associate_metadata
-  after_commit { track&.reload&.reindex if Searchkick.callbacks? }
+  after_commit { track&.reindex(mode: :async) if Searchkick.callbacks? }
 
-  searchkick word_start: [:title, :everything], stem: false
+  searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
   scope :search_import, -> { includes(track: :album) }
 

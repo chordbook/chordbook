@@ -14,7 +14,7 @@ class Artist < ApplicationRecord
   before_validation :associate_genre
   after_commit(on: :create) { LookupMetadata.perform_later(self) }
 
-  searchkick word_start: [:title], stem: false
+  searchkick word_start: [:title], stem: false, callbacks: :async
 
   pg_search_scope :name_like,
     against: :name,
