@@ -49,7 +49,7 @@ export default {
   components: { IonPage, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonList, AlbumItem, IonInfiniteScroll, IonInfiniteScrollContent },
 
   data () {
-    const dataSource = new DataSource(`${this.$route.path}`, { params: this.$route.query })
+    const dataSource = new DataSource(this.$route.path, { params: this.$route.query })
 
     return {
       dataSource
