@@ -48,9 +48,10 @@ class Track < ApplicationRecord
 
   def search_data
     {
+      type: self.class,
       title: title,
-      artist: artist.name,
-      album: album.title,
+      subtitle: artist.name,
+      thumbnail: album.thumbnail,
       everything: [title, artist.name, album.title],
       boost: 0.75
     }

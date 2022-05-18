@@ -29,7 +29,7 @@
             ref="input"
             v-model="params.q"
             :show-cancel-button="isSearching ? 'always' : 'focus'"
-            debounce="500"
+            debounce="150"
             animated
             @ion-focus="hasFocus = true"
             @ion-blur="hasFocus = false"
@@ -52,14 +52,6 @@
       </ion-header>
 
       <ion-list v-show="isSearching">
-        <Transition name="slide-down">
-          <ion-item
-            v-if="isFetching"
-            lines="none"
-          >
-            <ion-spinner name="dots" />
-          </ion-item>
-        </Transition>
         <Transition>
           <ion-item
             v-if="isFinished && data.length == 0"
@@ -85,6 +77,14 @@
             <p>{{ result.subtitle }}</p>
           </ion-label>
         </ion-item>
+        <Transition name="slide-down">
+          <ion-item
+            v-if="isFetching"
+            lines="none"
+          >
+            <ion-spinner name="dots" />
+          </ion-item>
+        </Transition>
       </ion-list>
       <GenreListView v-show="!isSearching" />
     </ion-content>

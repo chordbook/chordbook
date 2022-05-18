@@ -1,6 +1,6 @@
 class Api::SearchController < ApiController
   def index
-    @results = Search.new(query: params[:q], models: models, page: params[:page], per_page: 25).results
+    @results = Search.new(query: params[:q], load: false, models: models, page: params[:page], per_page: 25).results
     set_pagination_header @results
     fresh_when @results
   end

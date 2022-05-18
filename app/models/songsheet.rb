@@ -27,13 +27,14 @@ class Songsheet < ApplicationRecord
 
   def search_data
     {
+      type: self.class,
       title: title,
-      artist: metadata["artist"],
-      album: track&.album&.title,
+      subtitle: Array(metadata["artist"]).to_sentence,
+      thumbnail: track&.album&.thumbnail,
       # Because searchkick doesn't support `cross_fields`
       # https://github.com/ankane/searchkick/pull/871
       everything: [title, metadata["artist"], track&.album&.title].compact.flatten,
-      boost: 3
+      boost: 3.0
     }
   end
 

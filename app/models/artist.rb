@@ -32,7 +32,9 @@ class Artist < ApplicationRecord
 
   def search_data
     {
+      type: self.class,
       title: name,
+      thumbnail: thumbnail,
       everything: [name], # For consistency with other searchable models
       boost: verified ? 2 : 1
     }

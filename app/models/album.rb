@@ -17,10 +17,12 @@ class Album < ApplicationRecord
 
   def search_data
     {
+      type: self.class,
       title: title,
-      artist: artist.name,
+      thumbnail: thumbnail,
+      subtitle: artist.name,
       everything: [title, artist.name],
-      boost: 1
+      boost: 1.0
     }
   end
 
