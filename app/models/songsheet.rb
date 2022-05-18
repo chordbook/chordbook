@@ -21,7 +21,7 @@ class Songsheet < ApplicationRecord
   before_save :associate_metadata
   after_commit { track&.reload&.reindex if Searchkick.callbacks? }
 
-  searchkick word_start: [:title, :everything]
+  searchkick word_start: [:title, :everything], stem: false
 
   scope :search_import, -> { includes(track: :album) }
 

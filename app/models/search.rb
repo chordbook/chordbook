@@ -8,9 +8,10 @@ class Search
 
   DEFAULTS = {
     models: MODELS,
-    fields: ["everything^3", "title^2", "subtitle"],
+    fields: ["title^2", "everything"],
     model_includes: MODEL_INCLUDES,
-    boost_by: [:boost]
+    boost_by: [:boost],
+    match: :word_start
   }
 
   def initialize(query:, **options)

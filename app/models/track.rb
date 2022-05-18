@@ -32,7 +32,7 @@ class Track < ApplicationRecord
   after_create :associate_songsheets
   after_save :associate_media
 
-  searchkick word_start: [:title, :everything]
+  searchkick word_start: [:title, :everything], stem: false
 
   map_metadata(
     intTrackNumber: :number,
