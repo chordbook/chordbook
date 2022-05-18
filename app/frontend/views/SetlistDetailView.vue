@@ -16,12 +16,12 @@ const props = defineProps({
 
 const route = useRoute()
 const router = useRouter()
-const dataSource = ref(new DataSource(`/api/setlists/${props.id}/items.json`, { params: route.query }))
+const dataSource = ref(new DataSource(`setlists/${props.id}/items.json`, { params: route.query }))
 const editing = ref(false)
 const setlist = ref({})
 
 onMounted(() => {
-  client.get(`/api/setlists/${props.id}.json`).then(response => {
+  client.get(`setlists/${props.id}.json`).then(response => {
     setlist.value = response.data
   })
 
@@ -31,7 +31,7 @@ onMounted(() => {
 async function reorder (e) {
   const songsheet = dataSource.value.items[e.detail.from]
 
-  await client.patch(`/api/setlists/${props.id}/items/${songsheet.id}.json`, {
+  await client.patch(`setlists/${props.id}/items/${songsheet.id}.json`, {
     item: { position: e.detail.to + 1 }
   })
 
@@ -39,7 +39,7 @@ async function reorder (e) {
 }
 
 async function remove (songsheet) {
-  await client.delete(`/api/setlists/${props.id}/items/${songsheet.id}.json`)
+  await client.delete(`setlists/${props.id}/items/${songsheet.id}.json`)
   dataSource.value.items.splice(dataSource.value.items.indexOf(songsheet), 1)
   return (await toastController.create({
     message: `${songsheet.title} was removed from ${setlist.value.title}`,
@@ -57,7 +57,7 @@ async function destroy () {
           role: 'destructive',
           icon: icons.trash,
           handler: async () => {
-            await client.delete(`/api/setlists/${props.id}.json`)
+            await client.delete(`setlists/${props.id}.json`)
             router.back({ name: 'setlists' })
           }
         },

@@ -17,7 +17,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const dataSource = ref(new DataSource('/api/setlists', { params: route.query }))
+const dataSource = ref(new DataSource('setlists.json', { params: route.query }))
 onMounted(() => dataSource.value.load())
 </script>
 

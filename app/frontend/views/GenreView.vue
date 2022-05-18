@@ -112,7 +112,7 @@ export default {
 
   methods: {
     async fetchData () {
-      this.genre = (await client.get(`/api/genres/${this.id}.json`)).data
+      this.genre = (await client.get(`genres/${this.id}.json`)).data
     }
   }
 }

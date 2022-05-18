@@ -4,7 +4,7 @@ const RE = /\{\s*([\w_-]*)\s*:\s*([^}]*)/i
 
 export default class MetadataCompleter {
   find (params) {
-    return api.get('/api/autocomplete.json', { params }).then(response => response.data)
+    return api.get('/autocomplete.json', { params }).then(response => response.data)
   }
 
   getCompletions (editor, session, pos, prefix, callback) {

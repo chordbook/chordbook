@@ -54,7 +54,7 @@ export default {
   components: { ArtistItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
 
   data () {
-    const dataSource = new DataSource(`/api${this.$route.path}`, { params: this.$route.query })
+    const dataSource = new DataSource(this.$route.path, { params: this.$route.query })
 
     return { dataSource }
   },

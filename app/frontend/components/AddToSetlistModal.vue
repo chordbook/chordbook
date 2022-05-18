@@ -24,12 +24,12 @@ const props = defineProps({
   }
 })
 
-const dataSource = new DataSource('/api/setlists.json')
+const dataSource = new DataSource('setlists.json')
 
 onMounted(() => dataSource.load())
 
 async function add (setlist) {
-  await client.post(`/api/setlists/${setlist.id}/items.json`, {
+  await client.post(`setlists/${setlist.id}/items.json`, {
     item: { songsheet_id: props.songsheet.id }
   })
 

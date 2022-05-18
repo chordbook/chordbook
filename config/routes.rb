@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "404", to: "content#not_found"
   get "offline.json", to: "content#offline"
 
-  namespace :api do
+  namespace :api, path: '' do
     get "search(.:format)", to: "search#index", as: :search
 
     get "autocomplete", to: "autocomplete#index"

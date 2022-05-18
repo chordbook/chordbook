@@ -46,7 +46,7 @@ export default {
   components: { IonCard, IonCardTitle, IonInfiniteScroll, IonInfiniteScrollContent },
 
   data () {
-    const dataSource = new DataSource('/api/genres.json')
+    const dataSource = new DataSource('genres.json')
     return { dataSource }
   },
 
