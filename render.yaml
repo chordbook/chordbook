@@ -2,7 +2,6 @@ databases:
   - name: db
     databaseName: chordbook
     user: chordbook
-
 services:
   - type: web
     name: web
@@ -22,12 +21,12 @@ services:
       - key: APP_API_URL
         fromService:
           type: web
-          name: app
+          name: api
           envVarKey: RENDER_EXTERNAL_URL
       - key: APP_HOSTNAME
         value: chordbook.app
   - type: web
-    name: app
+    name: api
     env: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
