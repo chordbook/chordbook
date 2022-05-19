@@ -19,10 +19,7 @@ services:
         destination: /index.html
     envVars:
       - key: APP_API_URL
-        fromService:
-          type: web
-          name: api
-          envVarKey: RENDER_EXTERNAL_URL
+        sync: false
       - key: APP_HOSTNAME
         value: chordbook.app
   - type: web
