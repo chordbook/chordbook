@@ -411,15 +411,9 @@ ALTER SEQUENCE public.tracks_id_seq OWNED BY public.tracks.id;
 
 CREATE TABLE public.users (
     id bigint NOT NULL,
-    email character varying DEFAULT ''::character varying NOT NULL,
-    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying,
-    reset_password_sent_at timestamp without time zone,
-    remember_created_at timestamp without time zone,
-    confirmation_token character varying,
-    confirmed_at timestamp without time zone,
-    confirmation_sent_at timestamp without time zone,
-    unconfirmed_email character varying,
+    name character varying,
+    email character varying,
+    password_digest character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -824,24 +818,10 @@ CREATE INDEX index_tracks_on_genre_id_and_listeners ON public.tracks USING btree
 
 
 --
--- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_confirmation_token ON public.users USING btree (confirmation_token);
-
-
---
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
-
-
---
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
 
 
 --
@@ -947,6 +927,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220514222125'),
 ('20220514222126'),
 ('20220516172030'),
-('20220518123328');
+('20220518123328'),
+('20220519164332');
 
 

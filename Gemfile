@@ -20,6 +20,7 @@ gem "acts_as_list"
 gem "paper_trail"
 gem "searchkick"
 gem "elasticsearch", "~> 7.0"
+gem "bcrypt"
 
 group :development, :test do
   gem "debug"
