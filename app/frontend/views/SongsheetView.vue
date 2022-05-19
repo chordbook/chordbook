@@ -247,11 +247,11 @@ export default {
     },
 
     async fetchSongsheet (id) {
-      this.songsheet = (await client.get(`/api/songsheets/${id}.json`)).data
+      this.songsheet = (await client.get(`songsheets/${id}.json`)).data
     },
 
     async fetchVersions (id) {
-      this.versions = (await client.get(`/api/tracks/${id}/songsheets.json`)).data
+      this.versions = (await client.get(`tracks/${id}/songsheets.json`)).data
     },
 
     async openTuner () {

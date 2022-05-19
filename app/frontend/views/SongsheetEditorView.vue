@@ -132,7 +132,7 @@ export default {
     },
 
     url () {
-      return this.id ? `/api/songsheets/${this.id}.json` : '/api/songsheets.json'
+      return this.id ? `songsheets/${this.id}.json` : 'songsheets.json'
     }
   },
 
@@ -147,7 +147,7 @@ export default {
   methods: {
     async fetchData () {
       if (this.id) {
-        this.source = (await client.get(`/api/songsheets/${this.id}.json`)).data.source
+        this.source = (await client.get(`songsheets/${this.id}.json`)).data.source
       }
     },
 

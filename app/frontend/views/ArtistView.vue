@@ -123,13 +123,13 @@ export default {
   methods: {
     async fetchData () {
       return Promise.all([
-        client.get(`/api/artists/${this.id}.json`).then(response => {
+        client.get(`artists/${this.id}.json`).then(response => {
           this.artist = response.data
         }),
-        client.get(`/api/artists/${this.id}/albums.json`).then(response => {
+        client.get(`artists/${this.id}/albums.json`).then(response => {
           this.albums = response.data
         }),
-        client.get(`/api/artists/${this.id}/tracks.json`).then(response => {
+        client.get(`artists/${this.id}/tracks.json`).then(response => {
           this.tracks = response.data
         })
       ])

@@ -4,7 +4,7 @@ class ApiController < ActionController::API
   # Return the current scope based on current controller and route
   #
   # For example, in the `Api::SongsheetsController`, a request to
-  # `GET /api/artists/:artist_id/songsheets` will return
+  # `GET /artists/:artist_id/songsheets` will return
   # `Artist.find(params[:artist_id]).songsheets`.
   #
   def current_scope

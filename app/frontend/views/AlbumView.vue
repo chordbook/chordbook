@@ -110,7 +110,7 @@ export default {
 
   methods: {
     async fetchData () {
-      this.album = (await client.get(`/api/albums/${this.id}.json`)).data
+      this.album = (await client.get(`albums/${this.id}.json`)).data
     }
   }
 }

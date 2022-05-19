@@ -18,7 +18,7 @@ import { ref } from 'vue'
 const params = ref({})
 
 async function save () {
-  const response = await client.post('/api/setlists', { setlist: params.value })
+  const response = await client.post('setlists.json', { setlist: params.value })
   modalController.dismiss(response.data)
 }
 </script>

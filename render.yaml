@@ -2,10 +2,31 @@ databases:
   - name: db
     databaseName: chordbook
     user: chordbook
-
 services:
   - type: web
-    name: app
+    name: web
+    env: static
+    buildCommand: yarn build
+    staticPublishPath: ./public
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: sameorigin
+    routes:
+      # Serve index for all unknown paths
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: APP_API_URL
+        fromService:
+          type: web
+          name: api
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: APP_HOSTNAME
+        value: chordbook.app
+  - type: web
+    name: api
     env: ruby
     buildCommand: "./bin/render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"

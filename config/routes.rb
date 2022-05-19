@@ -1,11 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
-  root "content#index"
-  get "404", to: "content#not_found"
-  get "offline.json", to: "content#offline"
-
-  namespace :api do
+  namespace :api, path: "" do
     get "search(.:format)", to: "search#index", as: :search
 
     get "autocomplete", to: "autocomplete#index"
@@ -34,5 +29,4 @@ Rails.application.routes.draw do
 
   mount GoodJob::Engine => "admin/jobs"
   get "ping", to: "content#ping"
-  get "*anything", to: "content#index"
 end
