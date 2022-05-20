@@ -3,7 +3,7 @@ import { createFetch } from '@vueuse/core'
 
 // DEPRECATED
 export default axios.create({
-  baseURL: import.meta.env.APP_API_URL || 'https://chordbook.app',
+  baseURL: import.meta.env.APP_API_URL || 'https://api.chordbook.app',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -12,7 +12,7 @@ export default axios.create({
 })
 
 export const useFetch = createFetch({
-  baseUrl: new URL(import.meta.env.APP_API_URL || 'https://chordbook.app/', window.location).toString(),
+  baseUrl: new URL(import.meta.env.APP_API_URL || 'https://api.chordbook.app/', window.location).toString(),
   fetchOptions: {
     headers: {
       'Content-Type': 'application/json',
