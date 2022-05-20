@@ -109,18 +109,8 @@ import {
 } from '@ionic/vue'
 import GenreListView from '@/views/GenreListView.vue'
 import { useRouteQuery } from '@vueuse/router'
-import { createFetch } from '@vueuse/core'
+import { useFetch } from '@/client'
 import { computed, ref, unref, reactive, watch } from 'vue'
-
-const useFetch = createFetch({
-  baseUrl: new URL(import.meta.env.APP_API_URL || 'https://chordbook.app/', window.location).toString(),
-  fetchOptions: {
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest'
-    }
-  }
-})
 
 const types = {
   All: '',
