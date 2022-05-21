@@ -21,6 +21,7 @@ gem "paper_trail"
 gem "searchkick"
 gem "elasticsearch", "~> 7.0"
 gem "bcrypt"
+gem "jwt"
 
 group :development, :test do
   gem "debug"

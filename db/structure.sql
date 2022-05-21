@@ -367,6 +367,40 @@ ALTER SEQUENCE public.songsheets_id_seq OWNED BY public.songsheets.id;
 
 
 --
+-- Name: tokens; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.tokens (
+    id bigint NOT NULL,
+    jti character varying,
+    user_id bigint NOT NULL,
+    expires_at timestamp(6) without time zone,
+    blocked_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.tokens_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.tokens_id_seq OWNED BY public.tokens.id;
+
+
+--
 -- Name: tracks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -530,6 +564,13 @@ ALTER TABLE ONLY public.songsheets ALTER COLUMN id SET DEFAULT nextval('public.s
 
 
 --
+-- Name: tokens id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tokens ALTER COLUMN id SET DEFAULT nextval('public.tokens_id_seq'::regclass);
+
+
+--
 -- Name: tracks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -644,6 +685,14 @@ ALTER TABLE ONLY public.setlists
 
 ALTER TABLE ONLY public.songsheets
     ADD CONSTRAINT songsheets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tokens tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tokens
+    ADD CONSTRAINT tokens_pkey PRIMARY KEY (id);
 
 
 --
@@ -790,6 +839,20 @@ CREATE INDEX index_songsheets_on_track_id ON public.songsheets USING btree (trac
 
 
 --
+-- Name: index_tokens_on_jti; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_tokens_on_jti ON public.tokens USING btree (jti);
+
+
+--
+-- Name: index_tokens_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_tokens_on_user_id ON public.tokens USING btree (user_id);
+
+
+--
 -- Name: index_tracks_on_album_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -863,6 +926,14 @@ ALTER TABLE ONLY public.albums
 
 
 --
+-- Name: tokens fk_rails_ac8a5d0441; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tokens
+    ADD CONSTRAINT fk_rails_ac8a5d0441 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: setlist_items fk_rails_ae61c4f448; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -928,6 +999,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220514222126'),
 ('20220516172030'),
 ('20220518123328'),
-('20220519164332');
+('20220519164332'),
+('20220521034543');
 
 

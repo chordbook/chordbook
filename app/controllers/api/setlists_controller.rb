@@ -1,5 +1,6 @@
 class Api::SetlistsController < ApiController
   before_action :find_setlist, only: [:show, :destroy]
+  before_action :authenticate!, only: [:create, :destroy]
 
   def index
     @setlists = current_scope.order_by_recent.page(params[:page])
