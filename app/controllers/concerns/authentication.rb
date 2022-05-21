@@ -5,19 +5,26 @@ module Authentication
     rescue_from JWT::DecodeError, with: :access_denied
   end
 
+  private
+
   # Delegeate #current_user
   delegate :user, to: :current_token, prefix: :current
 
   def encoded_token
-    request.headers["Authorization"]&.split('Bearer ')&.last
+    request.headers["Authorization"]&.split("Bearer ")&.last
   end
 
   def current_token
     @token ||= Token.decode(encoded_token)
   end
 
+  # Set token details in response headers
+  def set_token_headers(token)
+    response.headers.update token.response_headers
+  end
+
   def access_denied(exception)
-    render json: { error: exception.message }, status: :unauthorized
+    render json: {error: exception.message}, status: :unauthorized
   end
 
   def authenticate!

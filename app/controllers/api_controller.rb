@@ -1,4 +1,6 @@
 class ApiController < ActionController::API
+  include Authentication
+
   private
 
   # Return the current scope based on current controller and route
@@ -32,5 +34,10 @@ class ApiController < ActionController::API
       "<#{url}>; rel=\"#{rel}\""
     end
     headers["Link"] = links.join(", ")
+  end
+
+  def render_error(message: nil, record: nil, status: :unprocessable_entity)
+    message ||= record.errors.full_messages
+    render json: {error: message}, status: status
   end
 end

@@ -1,4 +1,7 @@
 class User < ApplicationRecord
-  has_secure_password
   has_many :tokens, dependent: :delete_all
+
+  has_secure_password
+
+  validates :email, uniqueness: {case_sensitive: false}
 end

@@ -1,13 +1,13 @@
 class Token < ApplicationRecord
   # Signing secret derived from secret_key_base
-  class_attribute :secret, default: Rails.application.key_generator.generate_key('token')
+  class_attribute :secret, default: Rails.application.key_generator.generate_key("token")
 
   # Default expiry for access tokens
   class_attribute :expiry, default: 1.day
 
   # The algorithm to use to sign the token
   # https://github.com/jwt/ruby-jwt#algorithms-and-usage
-  class_attribute :algorithm, default: 'HS256'
+  class_attribute :algorithm, default: "HS256"
 
   belongs_to :user
 
@@ -17,20 +17,12 @@ class Token < ApplicationRecord
 
   after_initialize :set_defaults
 
-  module Error; end
-  # Tag JWT errors
-  JWT::DecodeError.extend(Error)
-
   def self.decode(string, verify: true)
-    new JWT.decode(string, secret, verify, verify_iat: true)[0]
+    new JWT.decode(string, secret, verify, verify_iat: true, algorithm: algorithm)[0]
   end
 
   def encode
     JWT.encode(payload, secret, algorithm)
-  end
-
-  def header
-    "Bearer #{encode}"
   end
 
   def payload
@@ -41,6 +33,21 @@ class Token < ApplicationRecord
       exp: expires_at.to_i
     }
   end
+
+  def request_headers
+    {
+      "Authorization" => "Bearer #{encode}"
+    }
+  end
+
+  def response_headers
+    {
+      "Access-Token" => encode,
+      "Expire-At" => expires_at.to_i
+    }
+  end
+
+  private
 
   def set_defaults
     self.jti ||= SecureRandom.hex
