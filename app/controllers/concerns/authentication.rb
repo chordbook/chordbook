@@ -18,6 +18,12 @@ module Authentication
     @token ||= Token.decode(encoded_token)
   end
 
+  def issue_token(user)
+    token = user.tokens.create!
+    set_token_headers(token)
+    token
+  end
+
   # Set token details in response headers
   def set_token_headers(token)
     response.headers.update token.response_headers

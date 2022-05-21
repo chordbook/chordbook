@@ -4,4 +4,9 @@ class User < ApplicationRecord
   has_secure_password
 
   validates :email, uniqueness: {case_sensitive: false}
+  scope :with_email, ->(email) { where("LOWER(email) = ?", email.to_s.downcase) }
+
+  def self.authenticate!(email, password)
+    with_email(email).first!.authenticate(password) || raise(ActiveRecord::RecordNotFound)
+  end
 end

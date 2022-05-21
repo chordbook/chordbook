@@ -2,7 +2,7 @@ class Api::UsersController < ApiController
   def create
     @user = User.new(user_params)
     if @user.save
-      set_token_headers @user.tokens.create
+      issue_token @user
       render :show, status: :created
     else
       render_error record: @user

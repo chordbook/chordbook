@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     get "search(.:format)", to: "search#index", as: :search
 
     resources :users
+    resource :authenticate, controller: "authenticate"
 
     get "autocomplete", to: "autocomplete#index"
     resources :artists do
