@@ -1,24 +1,38 @@
 class AccessToken < ApplicationRecord
   # Signing secret derived from secret_key_base
-  class_attribute :secret, default: Rails.application.key_generator.generate_key("token")
+  class_attribute :secret, default: Rails.application.key_generator.generate_key("access_token")
 
   # Default expiry for access tokens
-  class_attribute :expiry, default: 1.day
+  class_attribute :expiry, default: 1.hour
 
   # The algorithm to use to sign the token
   # https://github.com/jwt/ruby-jwt#algorithms-and-usage
   class_attribute :algorithm, default: "HS256"
 
+  # Digest to use for stored refresh tokens
+  class_attribute :digest, default: Digest::SHA256
+
   belongs_to :user
+
+  scope :active, -> { where(invalidated_at: nil) }
 
   # Alias JWT names to more explicit model names
   alias_attribute :iat, :created_at
   alias_attribute :exp, :expire_at
 
-  after_initialize :set_defaults
+  # Transient attribute for generated refresh token
+  attr_accessor :refresh_token
 
-  def self.decode(string, verify: true)
-    new JWT.decode(string, secret, verify, verify_iat: true, algorithm: algorithm)[0]
+  after_initialize :set_defaults
+  before_save :digest_refresh_token
+
+  def self.validate(token, verify: true)
+    payload = JWT.decode(token, secret, verify, verify_iat: true, algorithm: algorithm)[0]
+    active.find_by! payload.slice(:jti)
+  end
+
+  def self.refresh(refresh_token)
+    active.find_by!(refresh_token_digest: digest.hexdigest(refresh_token)).refresh!
   end
 
   def encode
@@ -34,6 +48,13 @@ class AccessToken < ApplicationRecord
     }
   end
 
+  def refresh!
+    transaction do
+      invalidate!
+      AccessToken.create! user_id: user_id
+    end
+  end
+
   def request_headers
     {
       "Authorization" => "Bearer #{encode}"
@@ -43,8 +64,13 @@ class AccessToken < ApplicationRecord
   def response_headers
     {
       "Access-Token" => encode,
-      "Expire-At" => expire_at.to_i
+      "Expire-At" => expire_at.to_i,
+      "Refresh-Token" => refresh_token
     }
+  end
+
+  def invalidate!
+    update! invalidated_at: Time.now
   end
 
   private
@@ -53,5 +79,10 @@ class AccessToken < ApplicationRecord
     self.jti ||= SecureRandom.hex
     self.created_at ||= Time.now.floor # JWT doesn't store milliseconds
     self.expire_at ||= created_at + expiry
+    self.refresh_token = SecureRandom.hex
+  end
+
+  def digest_refresh_token
+    self.refresh_token_digest = digest.hexdigest(refresh_token)
   end
 end

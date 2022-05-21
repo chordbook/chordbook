@@ -15,7 +15,7 @@ module Authentication
   end
 
   def current_token
-    @token ||= AccessToken.decode(encoded_token)
+    @token ||= AccessToken.validate(encoded_token)
   end
 
   def issue_token(user)

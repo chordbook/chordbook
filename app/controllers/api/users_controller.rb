@@ -3,7 +3,7 @@ class Api::UsersController < ApiController
     @user = User.new(user_params)
     if @user.save
       issue_token @user
-      render :show, status: :created
+      render @user, status: :created
     else
       render_error record: @user
     end

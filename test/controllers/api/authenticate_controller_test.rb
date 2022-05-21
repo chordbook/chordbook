@@ -8,6 +8,7 @@ class Api::AuthenticateControllerTest < ActionDispatch::IntegrationTest
 
     assert_not_nil response.headers["Access-Token"]
     assert_not_nil response.headers["Expire-At"]
+    assert_not_nil response.headers["Refresh-Token"]
   end
 
   test "create with invalid email" do
@@ -15,6 +16,7 @@ class Api::AuthenticateControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
     assert_nil response.headers["Access-Token"]
     assert_nil response.headers["Expire-At"]
+    assert_nil response.headers["Refresh-Token"]
   end
 
   test "create with invalid password" do
@@ -23,5 +25,18 @@ class Api::AuthenticateControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
     assert_nil response.headers["Access-Token"]
     assert_nil response.headers["Expire-At"]
+    assert_nil response.headers["Refresh-Token"]
+  end
+
+  test "update with valid refresh token" do
+    access_token = create(:access_token)
+    put api_authenticate_path(format: :json), params: {refresh_token: access_token.refresh_token}
+    assert_response 200
+  end
+
+  test "update with blocked refresh token" do
+    access_token = create(:access_token, invalidated_at: Time.now)
+    put api_authenticate_path(format: :json), params: {refresh_token: access_token.refresh_token}
+    assert_response 401
   end
 end

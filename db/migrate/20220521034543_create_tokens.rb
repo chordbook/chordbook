@@ -4,7 +4,8 @@ class CreateTokens < ActiveRecord::Migration[7.0]
       t.string :jti
       t.belongs_to :user, null: false, foreign_key: true
       t.datetime :expire_at
-      t.datetime :blocked_at
+      t.datetime :invalidated_at
+      t.string :refresh_token_digest, index: {unique: true}
 
       t.timestamps
     end

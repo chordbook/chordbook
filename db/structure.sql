@@ -42,6 +42,41 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: access_tokens; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.access_tokens (
+    id bigint NOT NULL,
+    jti character varying,
+    user_id bigint NOT NULL,
+    expire_at timestamp(6) without time zone,
+    invalidated_at timestamp(6) without time zone,
+    refresh_token_digest character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: access_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.access_tokens_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.access_tokens_id_seq OWNED BY public.access_tokens.id;
+
+
+--
 -- Name: albums; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -367,40 +402,6 @@ ALTER SEQUENCE public.songsheets_id_seq OWNED BY public.songsheets.id;
 
 
 --
--- Name: tokens; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.tokens (
-    id bigint NOT NULL,
-    jti character varying,
-    user_id bigint NOT NULL,
-    expires_at timestamp(6) without time zone,
-    blocked_at timestamp(6) without time zone,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.tokens_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.tokens_id_seq OWNED BY public.tokens.id;
-
-
---
 -- Name: tracks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -508,6 +509,13 @@ ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
 
 
 --
+-- Name: access_tokens id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.access_tokens ALTER COLUMN id SET DEFAULT nextval('public.access_tokens_id_seq'::regclass);
+
+
+--
 -- Name: albums id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -564,13 +572,6 @@ ALTER TABLE ONLY public.songsheets ALTER COLUMN id SET DEFAULT nextval('public.s
 
 
 --
--- Name: tokens id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.tokens ALTER COLUMN id SET DEFAULT nextval('public.tokens_id_seq'::regclass);
-
-
---
 -- Name: tracks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -589,6 +590,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
+
+
+--
+-- Name: access_tokens access_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.access_tokens
+    ADD CONSTRAINT access_tokens_pkey PRIMARY KEY (id);
 
 
 --
@@ -688,14 +697,6 @@ ALTER TABLE ONLY public.songsheets
 
 
 --
--- Name: tokens tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.tokens
-    ADD CONSTRAINT tokens_pkey PRIMARY KEY (id);
-
-
---
 -- Name: tracks tracks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -717,6 +718,27 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_access_tokens_on_jti; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_access_tokens_on_jti ON public.access_tokens USING btree (jti);
+
+
+--
+-- Name: index_access_tokens_on_refresh_token_digest; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_access_tokens_on_refresh_token_digest ON public.access_tokens USING btree (refresh_token_digest);
+
+
+--
+-- Name: index_access_tokens_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_tokens_on_user_id ON public.access_tokens USING btree (user_id);
 
 
 --
@@ -839,20 +861,6 @@ CREATE INDEX index_songsheets_on_track_id ON public.songsheets USING btree (trac
 
 
 --
--- Name: index_tokens_on_jti; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_tokens_on_jti ON public.tokens USING btree (jti);
-
-
---
--- Name: index_tokens_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_tokens_on_user_id ON public.tokens USING btree (user_id);
-
-
---
 -- Name: index_tracks_on_album_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -926,11 +934,11 @@ ALTER TABLE ONLY public.albums
 
 
 --
--- Name: tokens fk_rails_ac8a5d0441; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: access_tokens fk_rails_96fc070778; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.tokens
-    ADD CONSTRAINT fk_rails_ac8a5d0441 FOREIGN KEY (user_id) REFERENCES public.users(id);
+ALTER TABLE ONLY public.access_tokens
+    ADD CONSTRAINT fk_rails_96fc070778 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
