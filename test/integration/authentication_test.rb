@@ -8,7 +8,7 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
 
   test "with valid token" do
     post "/setlists.json", params: {setlist: attributes_for(:setlist)},
-      headers: create(:token).request_headers
+      headers: create(:access_token).request_headers
 
     assert_response :success
   end

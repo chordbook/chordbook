@@ -1,4 +1,4 @@
-class Token < ApplicationRecord
+class AccessToken < ApplicationRecord
   # Signing secret derived from secret_key_base
   class_attribute :secret, default: Rails.application.key_generator.generate_key("token")
 
@@ -13,7 +13,7 @@ class Token < ApplicationRecord
 
   # Alias JWT names to more explicit model names
   alias_attribute :iat, :created_at
-  alias_attribute :exp, :expires_at
+  alias_attribute :exp, :expire_at
 
   after_initialize :set_defaults
 
@@ -30,7 +30,7 @@ class Token < ApplicationRecord
       user_id: user_id,
       jti: jti,
       iat: created_at.to_i,
-      exp: expires_at.to_i
+      exp: expire_at.to_i
     }
   end
 
@@ -43,7 +43,7 @@ class Token < ApplicationRecord
   def response_headers
     {
       "Access-Token" => encode,
-      "Expire-At" => expires_at.to_i
+      "Expire-At" => expire_at.to_i
     }
   end
 
@@ -52,6 +52,6 @@ class Token < ApplicationRecord
   def set_defaults
     self.jti ||= SecureRandom.hex
     self.created_at ||= Time.now.floor # JWT doesn't store milliseconds
-    self.expires_at ||= created_at + expiry
+    self.expire_at ||= created_at + expiry
   end
 end

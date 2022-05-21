@@ -53,7 +53,7 @@ FactoryBot.define do
     password { "testing" }
   end
 
-  factory :token do
+  factory :access_token do
     user
   end
 end

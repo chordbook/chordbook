@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :tokens, dependent: :delete_all
+  has_many :access_tokens, dependent: :delete_all
 
   has_secure_password
 

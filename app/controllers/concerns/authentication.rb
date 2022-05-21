@@ -15,11 +15,11 @@ module Authentication
   end
 
   def current_token
-    @token ||= Token.decode(encoded_token)
+    @token ||= AccessToken.decode(encoded_token)
   end
 
   def issue_token(user)
-    token = user.tokens.create!
+    token = user.access_tokens.create!
     set_token_headers(token)
     token
   end

@@ -21,7 +21,7 @@ class Api::UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "destroy" do
-    token = create(:token)
+    token = create(:access_token)
     assert_difference -> { User.count } => -1 do
       delete api_user_path(token.user, format: :json), headers: token.request_headers
     end
