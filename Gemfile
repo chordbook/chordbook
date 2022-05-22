@@ -22,6 +22,7 @@ gem "searchkick"
 gem "elasticsearch", "~> 7.0"
 gem "bcrypt"
 gem "jwt"
+gem "strong_password"
 
 group :development, :test do
   gem "debug"

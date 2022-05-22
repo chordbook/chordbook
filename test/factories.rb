@@ -50,7 +50,7 @@ FactoryBot.define do
 
   factory :user do
     email { Faker::Internet.email }
-    password { "testing" }
+    password { SecureRandom.alphanumeric }
   end
 
   factory :access_token do

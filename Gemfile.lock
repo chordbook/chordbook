@@ -341,6 +341,7 @@ GEM
     standard (1.11.0)
       rubocop (= 1.28.2)
       rubocop-performance (= 1.13.3)
+    strong_password (0.0.10)
     strscan (3.0.1)
     thor (1.2.1)
     timeout (0.2.0)
@@ -405,6 +406,7 @@ DEPENDENCIES
   searchkick
   selenium-webdriver
   standard
+  strong_password
   vcr
   web-console
   webdrivers

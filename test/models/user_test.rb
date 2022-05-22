@@ -10,4 +10,8 @@ class UserTest < ActiveSupport::TestCase
     assert build(:user, email: "a@b").valid?
     assert build(:user, email: "test@example.com").valid?
   end
+
+  test "validates strong password" do
+    assert !build(:user, password: "password").valid?
+  end
 end

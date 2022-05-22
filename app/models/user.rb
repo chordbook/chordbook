@@ -7,6 +7,7 @@ class User < ApplicationRecord
     uniqueness: {case_sensitive: false},
     presence: true,
     format: {with: URI::MailTo::EMAIL_REGEXP}
+  validates :password, password_strength: true, on: :create
 
   scope :with_email, ->(email) { where("LOWER(email) = ?", email.to_s.downcase) }
 
