@@ -8,6 +8,7 @@
       <app-menu content-id="main" />
       <ion-router-outlet id="main" />
     </ion-split-pane>
+    <router-view name="modal" />
   </ion-app>
 </template>
 
@@ -16,6 +17,7 @@ import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/vue'
 import ReloadPwa from '@/components/reload-pwa.vue'
 import AppMenu from '@/components/menu.vue'
 import { defineComponent } from 'vue'
+import useAuthStore from '@/stores/auth'
 
 export default defineComponent({
   name: 'App',
@@ -26,6 +28,13 @@ export default defineComponent({
     IonSplitPane,
     AppMenu,
     IonRouterOutlet
+  },
+
+  setup () {
+    const auth = useAuthStore()
+    auth.refresh()
+
+    return { auth }
   },
 
   errorCaptured (error, instance, info) {

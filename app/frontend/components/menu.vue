@@ -116,6 +116,19 @@
           </ion-item>
         </ion-menu-toggle>
       </ion-list>
+
+      <div v-if="auth.isAuthenticated">
+        Signed in as {{ auth.user.email }}
+
+        <button @click="auth.signOut">
+          Sign Out
+        </button>
+      </div>
+      <div v-else>
+        <router-link :to="{name: 'signin' }">
+          Sign In
+        </router-link>
+      </div>
     </ion-content>
   </ion-menu>
 </template>
@@ -134,7 +147,7 @@ import {
   IonListHeader,
   IonMenuToggle
 } from '@ionic/vue'
-
+import useAuthStore from '@/stores/auth'
 import * as icons from '@/icons'
 
 export default {
@@ -155,7 +168,8 @@ export default {
   data () {
     return {
       icons,
-      selected: this.$route.meta?.selected || 'discover'
+      selected: this.$route.meta?.selected || 'discover',
+      auth: useAuthStore()
     }
   },
 

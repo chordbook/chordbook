@@ -11,6 +11,11 @@ const routes = [
     component: TabsView,
     children: [
       {
+        path: '',
+        redirect: '/home'
+      },
+
+      {
         path: '/home',
         name: 'home',
         component: () => import('@/views/HomeView.vue'),
@@ -156,6 +161,20 @@ const routes = [
           hash: to.redirectedFrom.hash
         })
       }
+    }
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    components: {
+      modal: () => import('@/views/UserSignupModal.vue')
+    }
+  },
+  {
+    path: '/signin',
+    name: 'signin',
+    components: {
+      modal: () => import('@/views/UserSigninModal.vue')
     }
   }
 ]

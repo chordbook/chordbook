@@ -3,7 +3,11 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  validates :email, uniqueness: {case_sensitive: false}
+  validates :email,
+    uniqueness: {case_sensitive: false},
+    presence: true,
+    format: {with: URI::MailTo::EMAIL_REGEXP}
+
   scope :with_email, ->(email) { where("LOWER(email) = ?", email.to_s.downcase) }
 
   def self.authenticate!(email, password)
