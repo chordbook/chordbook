@@ -25,6 +25,9 @@ group :development, :test do
   gem "debug"
   gem "standard"
   gem "dotenv-rails"
+  gem "guard", require: false
+  gem "guard-minitest", require: false
+  gem "guard-shell", require: false
 end
 
 group :development do
