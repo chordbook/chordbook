@@ -14,7 +14,8 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   end
 
   test "with expired token" do
-    post "/setlists.json", params: {setlist: attributes_for(:setlist)}
+    post "/setlists.json", params: {setlist: attributes_for(:setlist)},
+      headers: create(:access_token, expire_at: 1.second.ago).request_headers
     assert_response 401
   end
 end

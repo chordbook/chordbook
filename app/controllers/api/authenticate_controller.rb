@@ -12,4 +12,9 @@ class Api::AuthenticateController < ApiController
     set_token_headers(@access_token)
     render @access_token.user
   end
+
+  def destroy
+    current_token.invalidate!
+    head :ok
+  end
 end

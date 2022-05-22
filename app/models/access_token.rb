@@ -14,7 +14,10 @@ class AccessToken < ApplicationRecord
 
   belongs_to :user
 
-  scope :active, -> { where(invalidated_at: nil) }
+  scope :valid, -> { where(invalidated_at: nil).joins(:user) }
+  scope :with_refresh_token, ->(token) {
+    where refresh_token_digest: digest.hexdigest(token)
+  }
 
   # Alias JWT names to more explicit model names
   alias_attribute :iat, :created_at
@@ -26,13 +29,16 @@ class AccessToken < ApplicationRecord
   after_initialize :set_defaults
   before_save :digest_refresh_token
 
-  def self.validate(token, verify: true)
-    payload = JWT.decode(token, secret, verify, verify_iat: true, algorithm: algorithm)[0]
-    active.find_by! payload.slice(:jti)
+  def self.validate(token)
+    valid.find_by! decode(token).slice(:jti)
+  end
+
+  def self.decode(token, verify = true)
+    JWT.decode(token, secret, verify, verify_iat: true, algorithm: algorithm)[0]
   end
 
   def self.refresh(refresh_token)
-    active.find_by!(refresh_token_digest: digest.hexdigest(refresh_token)).refresh!
+    valid.with_refresh_token(refresh_token).take!.refresh!
   end
 
   def encode
@@ -51,7 +57,7 @@ class AccessToken < ApplicationRecord
   def refresh!
     transaction do
       invalidate!
-      AccessToken.create! user_id: user_id
+      AccessToken.create! user: user
     end
   end
 
