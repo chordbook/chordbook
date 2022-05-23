@@ -37,8 +37,8 @@ class AccessToken < ApplicationRecord
     JWT.decode(token, secret, verify, verify_iat: true, algorithm: algorithm)[0]
   end
 
-  def self.refresh(refresh_token)
-    valid.with_refresh_token(refresh_token).take!.refresh!
+  def self.refresh(refresh_token, attrs = {})
+    valid.with_refresh_token(refresh_token).take!.refresh!(attrs)
   end
 
   def encode
@@ -54,10 +54,10 @@ class AccessToken < ApplicationRecord
     }
   end
 
-  def refresh!
+  def refresh!(attrs)
     transaction do
       invalidate!
-      AccessToken.create! user: user
+      AccessToken.create! attrs.merge(user: user)
     end
   end
 

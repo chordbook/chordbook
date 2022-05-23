@@ -6,6 +6,8 @@ class CreateTokens < ActiveRecord::Migration[7.0]
       t.datetime :expire_at
       t.datetime :invalidated_at
       t.string :refresh_token_digest, index: {unique: true}
+      t.string :remote_ip
+      t.string :user_agent
 
       t.timestamps
     end

@@ -19,9 +19,20 @@ module Authentication
   end
 
   def issue_token(user)
-    token = user.access_tokens.create!
+    token = user.access_tokens.create!(auth_audit_attrs)
     set_token_headers(token)
     token
+  end
+
+  def refresh_token!(refresh_token = params[:refresh_token])
+    AccessToken.refresh(refresh_token, auth_audit_attrs)
+  end
+
+  def auth_audit_attrs
+    {
+      remote_ip: request.remote_ip,
+      user_agent: request.user_agent
+    }
   end
 
   # Set token details in response headers

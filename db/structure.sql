@@ -52,6 +52,8 @@ CREATE TABLE public.access_tokens (
     expire_at timestamp(6) without time zone,
     invalidated_at timestamp(6) without time zone,
     refresh_token_digest character varying,
+    remote_ip character varying,
+    user_agent character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
