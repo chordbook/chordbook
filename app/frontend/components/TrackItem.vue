@@ -58,6 +58,7 @@
           v-if="track.album"
           button
           detail
+          lines="none"
           :detail-icon="icons.album"
           :router-link="{ name: 'album', params: { id: track.album.id } }"
         >

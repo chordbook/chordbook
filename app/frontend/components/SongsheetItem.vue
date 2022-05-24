@@ -62,6 +62,7 @@
           v-if="songsheet.track"
           button
           detail
+          lines="none"
           :detail-icon="icons.album"
           :router-link="{ name: 'album', params: { id: songsheet.track?.album?.id } }"
         >
