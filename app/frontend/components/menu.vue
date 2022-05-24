@@ -102,6 +102,23 @@
           <ion-item
             button
             shape="round"
+            router-link="/albums"
+            router-direction="root"
+            :detail="false"
+            :color="colorFor('albums')"
+          >
+            <ion-icon
+              slot="start"
+              size="small"
+              :icon="icons.album"
+            />
+            Albums
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle auto-hide="false">
+          <ion-item
+            button
+            shape="round"
             router-link="/setlists"
             router-direction="root"
             :detail="false"

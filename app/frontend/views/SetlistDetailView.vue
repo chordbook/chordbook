@@ -2,6 +2,7 @@
 import DataSource from '@/DataSource'
 import client from '@/client'
 import SongsheetItem from '@/components/SongsheetItem.vue'
+import SaveToLibraryButton from '../components/SaveToLibraryButton.vue'
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent, IonItemSliding, IonItemOptions, IonItemOption, toastController, IonPopover, IonButton, IonIcon, IonLabel, IonItem, actionSheetController, IonReorderGroup } from '@ionic/vue'
 import * as icons from '@/icons'
 import { ref, defineProps, onMounted } from 'vue'
@@ -91,8 +92,12 @@ async function destroy () {
           >
             Done
           </ion-button>
+          <save-to-library-button
+            v-if="setlist.uid && !editing"
+            :uid="setlist.uid"
+          />
           <ion-button
-            v-show="!editing"
+            v-if="!editing"
             :id="`setlist-context-${setlist.id}`"
           >
             <ion-icon

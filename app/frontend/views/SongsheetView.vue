@@ -32,6 +32,10 @@
               :icon="icons.transpose"
             />
           </ion-button>
+          <save-to-library-button
+            v-if="songsheet.uid"
+            :uid="songsheet.uid"
+          />
           <ion-button
             :id="`songsheet-context-${songsheet.id}`"
             fill="clear"
@@ -157,7 +161,6 @@
         >
           View Album
         </ion-item>
-
         <ion-item
           button
           detail
@@ -179,13 +182,14 @@ import SongSheet from '@/components/SongSheet.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
 import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
 import SongsheetMedia from '@/components/SongsheetMedia.vue'
+import SaveToLibraryButton from '../components/SaveToLibraryButton.vue'
 import TunerView from '@/views/TunerView.vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { SongSheet, IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, IonList, IonItem, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia },
+  components: { SongSheet, IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, IonList, IonItem, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia, SaveToLibraryButton },
 
   props: {
     id: {

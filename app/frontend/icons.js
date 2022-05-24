@@ -1,4 +1,6 @@
 export {
+  addOutline as save,
+  checkmarkOutline as saved,
   albumsOutline as album,
   createOutline as edit,
   ellipsisHorizontal as iosEllipsis,

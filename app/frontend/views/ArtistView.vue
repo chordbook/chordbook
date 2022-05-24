@@ -12,6 +12,12 @@
           />
         </ion-buttons>
         <ion-title>{{ artist.name }}</ion-title>
+        <ion-buttons slot="end">
+          <save-to-library-button
+            v-if="artist.uid"
+            :uid="artist.uid"
+          />
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -97,9 +103,10 @@ import client from '@/client'
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton, IonNote } from '@ionic/vue'
 import TrackItem from '@/components/TrackItem.vue'
 import AlbumItem from '@/components/AlbumItem.vue'
+import SaveToLibraryButton from '../components/SaveToLibraryButton.vue'
 
 export default {
-  components: { TrackItem, AlbumItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton, IonNote },
+  components: { TrackItem, AlbumItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton, IonNote, SaveToLibraryButton },
 
   props: {
     id: {

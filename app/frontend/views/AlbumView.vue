@@ -12,7 +12,13 @@
             :default-href="`/artists/${album.artist.id}`"
           />
         </ion-buttons>
-        <ion-title />
+        <ion-title>{{ album.title }}</ion-title>
+        <ion-buttons slot="end">
+          <save-to-library-button
+            v-if="album.uid"
+            :uid="album.uid"
+          />
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -85,10 +91,11 @@
 <script>
 import client from '@/client'
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonIcon } from '@ionic/vue'
-import { albums } from 'ionicons/icons'
+import SaveToLibraryButton from '../components/SaveToLibraryButton.vue'
+import { album as placeholderIcon } from '@/icons'
 
 export default {
-  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonIcon },
+  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonIcon, SaveToLibraryButton },
 
   props: {
     id: {
@@ -100,7 +107,7 @@ export default {
   data () {
     return {
       album: {},
-      placeholderIcon: albums
+      placeholderIcon
     }
   },
 

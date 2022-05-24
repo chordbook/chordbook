@@ -53,6 +53,12 @@ const routes = [
         component: () => import('@/views/TrackListView.vue')
       },
       {
+        path: '/albums',
+        name: 'albums',
+        component: () => import('@/views/AlbumListView.vue'),
+        meta: { selected: 'albums' }
+      },
+      {
         path: '/artists/:id/albums',
         name: 'artist.albums',
         component: () => import('@/views/AlbumListView.vue')
