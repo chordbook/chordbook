@@ -14,7 +14,7 @@ class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
 
   test "GET /songsheets returns library songsheets" do
     @user = create :user
-    @user.save_to_library @songsheet
+    @user.library.add @songsheet
 
     # not in library
     create(:songsheet)

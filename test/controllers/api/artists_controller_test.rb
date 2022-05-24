@@ -12,7 +12,7 @@ class Api::ArtistsControllerTest < ActionDispatch::IntegrationTest
 
   test "index" do
     @user = create(:user)
-    @user.save_to_library(@artist)
+    @user.library.add(@artist)
 
     # Not in library
     create(:artist)

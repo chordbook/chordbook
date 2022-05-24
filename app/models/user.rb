@@ -1,11 +1,15 @@
 class User < ApplicationRecord
   has_many :access_tokens, dependent: :delete_all
   has_many :owned_setlists, class_name: "Setlist", dependent: :destroy
-  has_many :library_items, dependent: :destroy
-  has_many :artists, through: :library_items, source: :item, source_type: "Artist"
-  has_many :albums, through: :library_items, source: :item, source_type: "Album"
-  has_many :songsheets, through: :library_items, source: :item, source_type: "Songsheet"
-  has_many :setlists, through: :library_items, source: :item, source_type: "Setlist"
+  has_many :library, class_name: 'LibraryItem', dependent: :destroy do
+    def add(item)
+      find_or_create_by(item: item)
+    end
+  end
+  has_many :artists, through: :library, source: :item, source_type: "Artist"
+  has_many :albums, through: :library, source: :item, source_type: "Album"
+  has_many :songsheets, through: :library, source: :item, source_type: "Songsheet"
+  has_many :setlists, through: :library, source: :item, source_type: "Setlist"
 
   has_secure_password
 
@@ -21,10 +25,6 @@ class User < ApplicationRecord
 
   def self.authenticate!(email, password)
     with_email(email).first!.authenticate(password) || raise(ActiveRecord::RecordNotFound)
-  end
-
-  def save_to_library(model)
-    library_items.create! item: model
   end
 
   private

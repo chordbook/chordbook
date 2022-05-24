@@ -21,8 +21,20 @@ class Api::LibraryControllerTest < ActionDispatch::IntegrationTest
     assert_response 201
   end
 
-  test "create with invalid type" do
+  test "create duplicate" do
+    songsheet = create(:songsheet)
+    @user.library.add(songsheet)
+
     assert_no_difference -> { @user.songsheets.count } do
+      post api_library_path, params: {uid: songsheet.uid},
+        headers: token_headers(@user)
+    end
+
+    assert_response :success
+  end
+
+  test "create with invalid type" do
+    assert_no_difference -> { @user.library.count } do
       post api_library_path, params: {uid: @user.uid},
         headers: token_headers(@user)
     end
