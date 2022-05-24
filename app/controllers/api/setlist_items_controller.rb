@@ -31,7 +31,7 @@ class Api::SetlistItemsController < ApiController
   end
 
   def find_setlist
-    @setlist = Setlist.find(params[:setlist_id])
+    @setlist = current_user!.owned_setlists.find(params[:setlist_id])
   end
 
   def current_scope

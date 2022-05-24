@@ -1,4 +1,6 @@
 class Api::AutocompleteController < ApiController
+  skip_before_action :authenticate!
+
   def index
     case params[:type]
     when "title", "t"

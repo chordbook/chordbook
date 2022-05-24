@@ -30,7 +30,7 @@ class ActiveSupport::TestCase
   end
 
   def token_headers(user)
-    create(:access_token, user).request_headers
+    create(:access_token, user: user).request_headers
   end
 end
 

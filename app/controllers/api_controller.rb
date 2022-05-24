@@ -1,6 +1,9 @@
 class ApiController < ActionController::API
   include Authentication
 
+  # Authenticate by default. Call `skip_before_action :authenticate!` on actions that don't need it
+  before_action :authenticate!
+
   private
 
   # Return the current scope based on current controller and route
