@@ -6,7 +6,7 @@
     "@awesome-cordova-plugins/insomnia": "^5.41.0",
     "@capacitor/core": "^3.5.0",
     "@headlessui/vue": "^1.6.0",
-    "@ionic/vue": "^6.1.3",
+    "@ionic/vue": "^6.1.6",
     "@ionic/vue-router": "^6.1.3",
     "@tailwindcss/line-clamp": "^0.4.0",
     "@tombatossals/chords-db": "^0.5.1",
