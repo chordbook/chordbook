@@ -17,6 +17,7 @@ class Artist < ApplicationRecord
   searchkick word_start: [:title], stem: false, callbacks: :async
   scope :verified, -> { where(verified: true) }
   scope :order_by_alphabetical, -> { order("UPPER(name)") }
+  scope :order_by_popular, -> { order("listeners DESC NULLS LAST") }
 
   def self.lookup(name)
     search(name, boost_by: [:boost], fields: ["everything"]).first

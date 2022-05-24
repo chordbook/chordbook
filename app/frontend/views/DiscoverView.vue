@@ -127,9 +127,12 @@ const params = reactive({
 const hasFocus = ref(false)
 const isSearching = computed(() => !!unref(params.q || hasFocus))
 const url = computed(() => 'search.json?' + new URLSearchParams(params))
-const { execute, data, isFetching, isFinished } = useFetch(url, { immediate: params.q }).get().json()
+const { execute, data, isFetching, isFinished, abort } = useFetch(url, { immediate: params.q }).get().json()
 
 watch(params, () => {
-  if (params.q) execute()
+  if (params.q) {
+    abort()
+    execute()
+  }
 })
 </script>

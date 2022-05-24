@@ -9,6 +9,6 @@ Rails.application.configure do
   config.good_job.queues = "default,low,*"
   config.good_job.enable_cron = true
   config.good_job.cron = {
-    genre: {cron: "every hour", class: "PopularGenres"}
+    popular: {cron: "every day", class: "UpdatePopularCounts"}
   }
 end
