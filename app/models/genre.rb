@@ -1,7 +1,7 @@
 class Genre < ApplicationRecord
-  has_many :artists
-  has_many :tracks
-  has_many :albums
+  has_many :artists, -> { Artist.order_by_popular }
+  has_many :tracks, -> { Track.with_songsheet.order_by_popular }
+  has_many :albums, -> { Album.order_by_popular }
 
   has_paper_trail
 

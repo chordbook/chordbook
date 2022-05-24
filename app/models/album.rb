@@ -8,7 +8,7 @@ class Album < ApplicationRecord
 
   before_validation :associate_genre
 
-  scope :order_by_popular, -> { order("albums.score DESC NULLS LAST") }
+  scope :order_by_popular, -> { order("albums.listeners DESC NULLS LAST") }
   scope :order_by_released, ->(dir = :desc) { order(released: "#{dir} NULLS LAST") }
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async

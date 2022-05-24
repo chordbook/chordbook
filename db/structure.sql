@@ -54,7 +54,8 @@ CREATE TABLE public.albums (
     updated_at timestamp(6) without time zone NOT NULL,
     released integer,
     score numeric(3,1),
-    genre_id bigint
+    genre_id bigint,
+    listeners bigint
 );
 
 
@@ -133,7 +134,8 @@ CREATE TABLE public.artists (
     updated_at timestamp(6) without time zone NOT NULL,
     style character varying,
     genre_id bigint,
-    verified boolean DEFAULT false
+    verified boolean DEFAULT false,
+    listeners bigint
 );
 
 
@@ -947,6 +949,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220514222125'),
 ('20220514222126'),
 ('20220516172030'),
-('20220518123328');
-
-
+('20220518123328'),
+('20220524012457');
