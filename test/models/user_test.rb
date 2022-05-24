@@ -14,4 +14,13 @@ class UserTest < ActiveSupport::TestCase
   test "validates strong password" do
     assert !build(:user, password: "password").valid?
   end
+
+  test "creates default setlists" do
+    assert_difference -> { Setlist.count }, User::DEFAULT_SETLISTS.size do
+      user = create(:user)
+
+      assert_equal User::DEFAULT_SETLISTS.size, user.setlists.count
+      assert_equal user.setlists.count, user.owned_setlists.count
+    end
+  end
 end

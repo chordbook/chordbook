@@ -22,7 +22,7 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 const auth = useAuthStore()
-const form = ref({ user: {} })
+const form = ref({ })
 const { execute, error, data } = auth.signIn(form, { immediate: false })
 
 watch(
@@ -69,7 +69,7 @@ watch(
               Email
             </ion-label>
             <ion-input
-              v-model="form.user.email"
+              v-model="form.email"
               type="text"
               name="email"
               autocomplete="email"
@@ -80,7 +80,7 @@ watch(
               Password
             </ion-label>
             <ion-input
-              v-model="form.user.password"
+              v-model="form.password"
               type="text"
               name="password"
               autocomplete="password"

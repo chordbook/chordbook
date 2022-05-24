@@ -31,7 +31,7 @@ class Api::AuthenticateControllerTest < ActionDispatch::IntegrationTest
   test "update with valid refresh token" do
     access_token = create(:access_token)
     put api_authenticate_path(format: :json), params: {refresh_token: access_token.refresh_token},
-      headers: { "User-Agent": "testing" }
+      headers: {"User-Agent": "testing"}
     assert_response 200
     assert_not_nil response.headers["Access-Token"]
     assert_not_nil response.headers["Expire-At"]

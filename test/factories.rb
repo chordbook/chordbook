@@ -42,6 +42,7 @@ FactoryBot.define do
 
   factory :setlist do
     title { Faker::Music.genre }
+    user
   end
 
   factory :medium do

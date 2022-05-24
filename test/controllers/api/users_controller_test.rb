@@ -4,7 +4,7 @@ class Api::UsersControllerTest < ActionDispatch::IntegrationTest
   test "create with valid params" do
     assert_difference -> { AccessToken.count } => 1 do
       post api_users_path(format: :json), params: {user: attributes_for(:user)},
-        headers: { "User-Agent": "testing" }
+        headers: {"User-Agent": "testing"}
     end
     assert_response 201
 

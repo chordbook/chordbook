@@ -7,27 +7,57 @@ module Authentication
 
   private
 
-  # Delegeate #current_user
-  delegate :user, to: :current_token, prefix: :current
-
-  def encoded_token
-    request.headers["Authorization"]&.split("Bearer ")&.last
+  # Render a 401 response for the given exception
+  def access_denied(exception)
+    render_error exception: exception, status: :unauthorized
   end
 
+  # Retuns `AccessToken` for the JWT povided in the Authorization header.
+  #
+  # Raises JWT::DecodeError if Authorization header does not contain valid JWT
+  # Raises ActiveRecord::RecordNotFound if token is invalidated
+  def current_token!
+    @current_token ||= AccessToken.validate(encoded_token)
+  end
+  alias_method :authenticate!, :current_token!
+
+  # Same as `#current_token!`, but returns nil if user is not authenticated
   def current_token
-    @token ||= AccessToken.validate(encoded_token)
+    current_token!
+  rescue JWT::DecodeError, ActiveRecord::RecordNotFound
+    nil
   end
 
+  # Return `User` identified by current token. Raises same errors as `#current_token!`
+  def current_user!
+    current_token!.user
+  end
+
+  # Return `User` or nil if user is not authenticated
+  def current_user
+    current_token&.user
+  end
+
+  # Issue a new `AccessToken` for the given user
   def issue_token(user)
-    token = user.access_tokens.create!(auth_audit_attrs)
-    set_token_headers(token)
-    token
+    user.access_tokens.create!(auth_audit_attrs).tap do |token|
+      set_token_headers token
+    end
   end
 
+  # Returns a new `AccessToken`, refreshing the token identified by the `refresh_token` parameter
   def refresh_token!(refresh_token = params[:refresh_token])
-    AccessToken.refresh(refresh_token, auth_audit_attrs)
+    AccessToken.refresh(refresh_token, auth_audit_attrs).tap do |token|
+      set_token_headers token
+    end
   end
 
+  # Internal: Set token in response headers
+  def set_token_headers(token)
+    response.headers.update token.response_headers
+  end
+
+  # Internal: Attributes to include when issuing and refreshing tokens
   def auth_audit_attrs
     {
       remote_ip: request.remote_ip,
@@ -35,16 +65,8 @@ module Authentication
     }
   end
 
-  # Set token details in response headers
-  def set_token_headers(token)
-    response.headers.update token.response_headers
-  end
-
-  def access_denied(exception)
-    render json: {error: exception.message}, status: :unauthorized
-  end
-
-  def authenticate!
-    current_user
+  # Internal: the token provided in the Authorization header
+  def encoded_token
+    request.headers["Authorization"]&.split("Bearer ")&.last
   end
 end

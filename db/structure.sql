@@ -262,6 +262,39 @@ CREATE TABLE public.good_jobs (
 
 
 --
+-- Name: library_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.library_items (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: library_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.library_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: library_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.library_items_id_seq OWNED BY public.library_items.id;
+
+
+--
 -- Name: media; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -345,7 +378,8 @@ CREATE TABLE public.setlists (
     title character varying,
     description text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    user_id bigint
 );
 
 
@@ -546,6 +580,13 @@ ALTER TABLE ONLY public.genres ALTER COLUMN id SET DEFAULT nextval('public.genre
 
 
 --
+-- Name: library_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.library_items ALTER COLUMN id SET DEFAULT nextval('public.library_items_id_seq'::regclass);
+
+
+--
 -- Name: media id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -656,6 +697,14 @@ ALTER TABLE ONLY public.good_job_processes
 
 ALTER TABLE ONLY public.good_jobs
     ADD CONSTRAINT good_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: library_items library_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.library_items
+    ADD CONSTRAINT library_items_pkey PRIMARY KEY (id);
 
 
 --
@@ -835,6 +884,20 @@ CREATE INDEX index_good_jobs_on_scheduled_at ON public.good_jobs USING btree (sc
 
 
 --
+-- Name: index_library_items_on_item; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_library_items_on_item ON public.library_items USING btree (item_type, item_id);
+
+
+--
+-- Name: index_library_items_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_library_items_on_user_id ON public.library_items USING btree (user_id);
+
+
+--
 -- Name: index_media_on_record; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -853,6 +916,13 @@ CREATE INDEX index_setlist_items_on_setlist_id ON public.setlist_items USING btr
 --
 
 CREATE INDEX index_setlist_items_on_songsheet_id ON public.setlist_items USING btree (songsheet_id);
+
+
+--
+-- Name: index_setlists_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_setlists_on_user_id ON public.setlists USING btree (user_id);
 
 
 --
@@ -920,6 +990,14 @@ ALTER TABLE ONLY public.artists
 
 
 --
+-- Name: library_items fk_rails_218f14633a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.library_items
+    ADD CONSTRAINT fk_rails_218f14633a FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: songsheets fk_rails_432ed80836; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -976,6 +1054,14 @@ ALTER TABLE ONLY public.artist_works
 
 
 --
+-- Name: setlists fk_rails_f50d16f6d9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.setlists
+    ADD CONSTRAINT fk_rails_f50d16f6d9 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -1010,6 +1096,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220516172030'),
 ('20220518123328'),
 ('20220519164332'),
-('20220521034543');
+('20220521034543'),
+('20220523034318');
 
 

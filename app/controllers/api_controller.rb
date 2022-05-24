@@ -20,8 +20,9 @@ class ApiController < ActionController::API
     controller_name
   end
 
+  # Default to authenticated user's library
   def default_scope
-    controller_name.singularize.classify.constantize
+    current_user!.send(default_scope_name)
   end
 
   def set_pagination_header(scope, options = {})
@@ -36,8 +37,10 @@ class ApiController < ActionController::API
     headers["Link"] = links.join(", ")
   end
 
-  def render_error(message: nil, record: nil, status: :unprocessable_entity)
-    message ||= record.errors.full_messages
+  def render_error(message: nil, record: nil, exception: nil, status: :unprocessable_entity)
+    message ||= record.errors.full_messages if record
+    message ||= exception.message if exception
+
     render json: {error: message}, status: status
   end
 end
