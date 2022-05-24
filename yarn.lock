@@ -1690,12 +1690,13 @@ chokidar@^3.5.3:
   optionalDependencies:
     fsevents "~2.3.2"
 
-chordsheetjs@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/chordsheetjs/-/chordsheetjs-6.1.0.tgz#c9b54e9ec0c03c4df779ea065612fd7f99931d6f"
-  integrity sha512-Awcmh79Oqn6ZgAf5jcEM26IdLH+NEr+jaYQ6XnHqd3G1vGiTMB5B96w8qM/P02o6eWXe8gTBuWE02ACmplCbLA==
+chordsheetjs@^6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/chordsheetjs/-/chordsheetjs-6.3.0.tgz#276a5be036ce7f3109fe751fd700954dc4cd9779"
+  integrity sha512-9KbG58BWU3RQOo7qPQVLiWAZ118K9XdsBfP8unKWAXtKDOaXoJSK93XtaAPQB87tCgEdcjkcruZG6q4D5pBqzw==
   dependencies:
     handlebars "^4.7.6"
+    lodash.get "^4.4.2"
 
 chownr@^2.0.0:
   version "2.0.0"
@@ -3126,6 +3127,11 @@ lodash.debounce@^4.0.8:
   version "4.0.8"
   resolved "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
   integrity sha1-gteb/zCmfEAF/9XiUVMArZyk168=
+
+lodash.get@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
 
 lodash.merge@^4.6.2:
   version "4.6.2"
