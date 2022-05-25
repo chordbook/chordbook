@@ -14,7 +14,7 @@
         </ion-buttons>
         <ion-title>{{ album.title }}</ion-title>
         <ion-buttons slot="end">
-          <save-to-library-button
+          <add-to-library-button
             v-if="album.uid"
             :uid="album.uid"
           />
@@ -91,11 +91,11 @@
 <script>
 import client from '@/client'
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonIcon } from '@ionic/vue'
-import SaveToLibraryButton from '../components/SaveToLibraryButton.vue'
+import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import { album as placeholderIcon } from '@/icons'
 
 export default {
-  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonIcon, SaveToLibraryButton },
+  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonIcon, AddToLibraryButton },
 
   props: {
     id: {

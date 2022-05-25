@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :access_tokens, dependent: :delete_all
   has_many :owned_setlists, class_name: "Setlist", dependent: :destroy
-  has_many :library, class_name: 'LibraryItem', dependent: :destroy do
+  has_many :library, class_name: "LibraryItem", dependent: :destroy do
     def add(item)
       find_or_create_by(item: item)
     end
