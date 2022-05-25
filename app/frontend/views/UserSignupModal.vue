@@ -11,33 +11,23 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  modalController
+  IonBackButton
 } from '@ionic/vue'
 import useAuthStore from '@/stores/auth'
-import {
-  ref,
-  watch
-} from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-const router = useRouter()
+const route = useRoute()
 const auth = useAuthStore()
 const form = ref({ user: {} })
 const { execute, error, data } = auth.signUp(form, { immediate: false })
 
-watch(
-  () => auth.isAuthenticated,
-  () => {
-    if (auth.isAuthenticated) {
-      router.push({ name: 'home' })
-    }
-  },
-  { immediate: true }
-)</script>
+const isOpen = computed(() => !auth.isAuthenticated && route.hash === '#signup')
+</script>
 
 <template>
   <ion-modal
-    :is-open="true"
+    :is-open="isOpen"
     can-dismiss
     :presenting-element="$parent.$refs.ionRouterOutlet"
   >
@@ -46,12 +36,12 @@ watch(
         <ion-toolbar>
           <ion-title>Sign Up</ion-title>
           <ion-buttons slot="end">
-            <ion-button
+            <ion-back-button
               role="cancel"
-              @click="modalController.dismiss()"
-            >
-              Cancel
-            </ion-button>
+              icon=""
+              text="Cancel"
+              :default-href="route.path"
+            />
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -82,13 +72,13 @@ watch(
             </ion-label>
             <ion-input
               v-model="form.user.password"
-              type="text"
+              type="password"
               name="password"
               autocomplete="password"
             />
           </ion-item>
 
-          <div class="ion-margin ">
+          <div class="ion-margin">
             <ion-button
               type="submit"
               expand="block"
@@ -96,8 +86,9 @@ watch(
               Sign Up
             </ion-button>
           </div>
-          <div class="ion-margin text-center">
-            <router-link :to="{name: 'signin' }">
+          <div class="ion-margin text-center text-sm">
+            Already have an account?
+            <router-link to="#signin">
               Sign In
             </router-link>
           </div>

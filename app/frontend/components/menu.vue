@@ -142,7 +142,7 @@
         </button>
       </div>
       <div v-else>
-        <router-link :to="{name: 'signin' }">
+        <router-link to="#signin">
           Sign In
         </router-link>
       </div>

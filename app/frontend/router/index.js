@@ -168,20 +168,6 @@ const routes = [
         })
       }
     }
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    components: {
-      modal: () => import('@/views/UserSignupModal.vue')
-    }
-  },
-  {
-    path: '/signin',
-    name: 'signin',
-    components: {
-      modal: () => import('@/views/UserSigninModal.vue')
-    }
   }
 ]
 

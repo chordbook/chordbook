@@ -11,34 +11,23 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  modalController
+  IonBackButton
 } from '@ionic/vue'
 import useAuthStore from '@/stores/auth'
-import {
-  ref,
-  watch
-} from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-const router = useRouter()
+const route = useRoute()
 const auth = useAuthStore()
-const form = ref({ })
+const form = ref({})
 const { execute, error, data } = auth.signIn(form, { immediate: false })
 
-watch(
-  () => auth.isAuthenticated,
-  () => {
-    if (auth.isAuthenticated) {
-      router.push({ name: 'home' })
-    }
-  },
-  { immediate: true }
-)
+const isOpen = computed(() => !auth.isAuthenticated && route.hash === '#signin')
 </script>
 
 <template>
   <ion-modal
-    :is-open="true"
+    :is-open="isOpen"
     can-dismiss
     :presenting-element="$parent.$refs.ionRouterOutlet"
   >
@@ -47,12 +36,12 @@ watch(
         <ion-toolbar>
           <ion-title>Sign In</ion-title>
           <ion-buttons slot="end">
-            <ion-button
+            <ion-back-button
               role="cancel"
-              @click="modalController.dismiss()"
-            >
-              Cancel
-            </ion-button>
+              icon=""
+              text="Cancel"
+              :default-href="route.path"
+            />
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -81,7 +70,7 @@ watch(
             </ion-label>
             <ion-input
               v-model="form.password"
-              type="text"
+              type="password"
               name="password"
               autocomplete="password"
             />
@@ -95,12 +84,12 @@ watch(
               Sign In
             </ion-button>
           </div>
-          <div class="ion-margin text-center">
-            <router-link :to="{name: 'signup' }">
+          <div class="ion-margin text-center text-sm opacity-60">
+            <router-link to="#signup">
               Sign Up
             </router-link>
             •
-            <router-link :to="{name: 'signup' }">
+            <router-link to="#password">
               Forgot Password
             </router-link>
           </div>

@@ -8,7 +8,8 @@
       <app-menu content-id="main" />
       <ion-router-outlet id="main" />
     </ion-split-pane>
-    <router-view name="modal" />
+    <user-signin-modal v-if="!auth.isAuthenticated" />
+    <user-signup-modal v-if="!auth.isAuthenticated" />
   </ion-app>
 </template>
 
@@ -18,6 +19,8 @@ import ReloadPwa from '@/components/reload-pwa.vue'
 import AppMenu from '@/components/menu.vue'
 import { defineComponent } from 'vue'
 import useAuthStore from '@/stores/auth'
+import UserSigninModal from './UserSigninModal.vue'
+import UserSignupModal from './UserSignupModal.vue'
 
 export default defineComponent({
   name: 'App',
@@ -27,7 +30,9 @@ export default defineComponent({
     ReloadPwa,
     IonSplitPane,
     AppMenu,
-    IonRouterOutlet
+    IonRouterOutlet,
+    UserSigninModal,
+    UserSignupModal
   },
 
   setup () {
