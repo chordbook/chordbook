@@ -43,4 +43,16 @@ class AccessTokenTest < ActiveSupport::TestCase
       AccessToken.refresh(token.refresh_token)
     end
   end
+
+  test "refresh with expired token" do
+    valid = create :access_token, expire_at: AccessToken.refresh_token_expiry.ago + 5
+    expired = create :access_token, expire_at: AccessToken.refresh_token_expiry.ago - 5
+
+    # Nothing raised
+    AccessToken.refresh(valid.refresh_token)
+
+    assert_raises ActiveRecord::RecordNotFound do
+      AccessToken.refresh(expired.refresh_token)
+    end
+  end
 end

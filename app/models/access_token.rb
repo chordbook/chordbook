@@ -12,9 +12,16 @@ class AccessToken < ApplicationRecord
   # Digest to use for stored refresh tokens
   class_attribute :digest, default: Digest::SHA256
 
+  # Expiry for refresh tokens
+  class_attribute :refresh_token_expiry, default: 3.months
+
   belongs_to :user
 
   scope :valid, -> { where(invalidated_at: nil).joins(:user) }
+  scope :refreshable, -> { valid.where(expire_at: refresh_token_expiry.ago..) }
+  scope :invalid, -> { where.not(invalidated_at: nil) }
+  scope :refresh_expired, -> { where(expire_at: ..refresh_token_expiry.ago) }
+  scope :disposable, -> { invalid.or(refresh_expired) }
   scope :with_refresh_token, ->(token) {
     where refresh_token_digest: digest.hexdigest(token)
   }
@@ -38,7 +45,12 @@ class AccessToken < ApplicationRecord
   end
 
   def self.refresh(refresh_token, attrs = {})
-    valid.with_refresh_token(refresh_token).take!.refresh!(attrs)
+    refreshable.with_refresh_token(refresh_token).take!.refresh!(attrs)
+  end
+
+  # Delete all invalidated or un-refreshable tokens
+  def self.cleanup
+    disposable.delete_all
   end
 
   def encode
