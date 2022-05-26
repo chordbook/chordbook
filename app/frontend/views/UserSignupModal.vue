@@ -15,14 +15,18 @@ import {
 } from '@ionic/vue'
 import useAuthStore from '@/stores/auth'
 import { ref, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
 const auth = useAuthStore()
 const form = ref({ user: {} })
 const { execute, error, data } = auth.signUp(form, { immediate: false })
 
 const isOpen = computed(() => !auth.isAuthenticated && route.hash === '#signup')
+function dismissed () {
+  if (isOpen.value) router.back()
+}
 </script>
 
 <template>
@@ -30,6 +34,7 @@ const isOpen = computed(() => !auth.isAuthenticated && route.hash === '#signup')
     :is-open="isOpen"
     can-dismiss
     :presenting-element="$parent.$refs.ionRouterOutlet"
+    @did-dismiss="dismissed"
   >
     <ion-page>
       <ion-header>
@@ -86,7 +91,7 @@ const isOpen = computed(() => !auth.isAuthenticated && route.hash === '#signup')
               Sign Up
             </ion-button>
           </div>
-          <div class="ion-margin text-center text-sm">
+          <div class="ion-margin text-center text-sm opacity-60">
             Already have an account?
             <router-link to="#signin">
               Sign In
