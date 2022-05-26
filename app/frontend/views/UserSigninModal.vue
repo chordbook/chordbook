@@ -89,7 +89,7 @@ function dismissed () {
               Sign In
             </ion-button>
           </div>
-          <div class="ion-margin text-center text-sm opacity-60">
+          <div class="ion-margin text-center text-sm text-muted">
             <router-link to="#signup">
               Sign Up
             </router-link>

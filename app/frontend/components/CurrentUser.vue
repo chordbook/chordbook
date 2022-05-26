@@ -45,14 +45,14 @@ const auth = useAuthStore()
     </ion-popover>
   </div>
   <div v-else>
+    <ion-button fill="outline" router-link="#signin">
+      Sign In
+    </ion-button>
     <ion-button
       fill="clear"
       router-link="#signup"
     >
       Sign Up
-    </ion-button>
-    <ion-button router-link="#signin">
-      Sign In
     </ion-button>
   </div>
 </template>

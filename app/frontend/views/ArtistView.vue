@@ -32,7 +32,7 @@
               v-if="artist.genre"
               button
               :router-link="{ name: 'genre', params: { id: artist.genre.id } }"
-              class="block text-lg text-white opacity-60 ion-activatable ion-focusable"
+              class="block text-lg text-white opacity-70 ion-activatable ion-focusable"
             >
               {{ artist.genre.name }}
             </ion-note>

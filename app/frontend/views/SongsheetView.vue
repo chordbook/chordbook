@@ -88,7 +88,7 @@
               :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
               class="block ion-activatable ion-focusable my-0"
             >
-              <span class="opacity-40">by </span>
+              <span class="text-muted">by </span>
               <span class="text-blue-500">{{ songsheet.track.artist.name }}</span>
             </ion-label>
             <ion-label
@@ -97,7 +97,7 @@
               :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
               class="block ion-activatable ion-focusable truncate overflow-hidden my-1"
             >
-              <span class="opacity-40">from </span>
+              <span class="text-muted">from </span>
               <span class="text-blue-500">{{ songsheet.track.album.title }}</span>
             </ion-label>
           </div>

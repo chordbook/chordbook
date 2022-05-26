@@ -14,7 +14,7 @@ import {
             Sign in to your account to
           </div>
           <div class="font-semibold text-3xl">
-            Build Your Repetoire.
+            Build Your Repertoire.
           </div>
         </h2>
         <p class="text-muted">
@@ -27,7 +27,6 @@ import {
               Have an account?
             </p>
             <ion-button
-              size="large"
               fill="outline"
               router-link="#signin"
             >
@@ -38,10 +37,7 @@ import {
             <p class="text-muted">
               Join now for free.
             </p>
-            <ion-button
-              size="large"
-              router-link="#signup"
-            >
+            <ion-button router-link="#signup">
               Sign Up
             </ion-button>
           </div>

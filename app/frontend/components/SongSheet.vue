@@ -28,7 +28,7 @@
           v-if="song.artist"
           class="my-1"
         >
-          <span class="opacity-40">by</span> {{ formatArray(song.artist) }}
+          <span class="text-muted">by</span> {{ formatArray(song.artist) }}
         </div>
       </slot>
 

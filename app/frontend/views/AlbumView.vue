@@ -77,7 +77,7 @@
           :class="{'text-neutral-500/50 hover:text-current transition-opacity': !track.has_songsheet}"
         >
           <ion-text slot="start">
-            <span class="text-sm opacity-50 w-4 text-right inline-block">{{ track.number }}</span>
+            <span class="text-sm text-muted w-4 text-right inline-block">{{ track.number }}</span>
           </ion-text>
           <ion-label>
             <h2>{{ track.title }}</h2>
