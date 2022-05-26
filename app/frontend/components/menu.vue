@@ -133,24 +133,16 @@
           </ion-item>
         </ion-menu-toggle>
       </ion-list>
-
-      <div v-if="auth.isAuthenticated">
-        Signed in as {{ auth.user.email }}
-
-        <button @click="auth.signOut">
-          Sign Out
-        </button>
-      </div>
-      <div v-else>
-        <router-link to="#signin">
-          Sign In
-        </router-link>
-      </div>
     </ion-content>
+    <ion-footer>
+      <ion-toolbar class="text-center">
+        <current-user />
+      </ion-toolbar>
+    </ion-footer>
   </ion-menu>
 </template>
 
-<script>
+<script setup>
 import {
   IonMenu,
   IonHeader,
@@ -162,45 +154,21 @@ import {
   IonIcon,
   IonLabel,
   IonListHeader,
-  IonMenuToggle
+  IonMenuToggle,
+  IonFooter
 } from '@ionic/vue'
-import useAuthStore from '@/stores/auth'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import * as icons from '@/icons'
+import CurrentUser from './CurrentUser.vue'
 
-export default {
-  components: {
-    IonMenu,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonList,
-    IonItem,
-    IonContent,
-    IonIcon,
-    IonLabel,
-    IonListHeader,
-    IonMenuToggle
-  },
+const route = useRoute()
+const selected = ref('discover')
 
-  data () {
-    return {
-      icons,
-      selected: this.$route.meta?.selected || 'discover',
-      auth: useAuthStore()
-    }
-  },
+watch(route, () => (selected.value = route.meta?.selected || selected.value), { immediate: true })
 
-  watch: {
-    $route () {
-      this.selected = this.$route.meta?.selected || this.selected
-    }
-  },
-
-  methods: {
-    colorFor (item) {
-      return item === this.selected ? 'primary' : ''
-    }
-  }
+function colorFor (item) {
+  return item === selected.value ? 'primary' : ''
 }
 </script>
 

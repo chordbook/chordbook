@@ -12,7 +12,9 @@ export {
   people as artist,
   playCircleOutline as play,
   search,
-  trash
+  trash,
+  personCircleOutline as avatar,
+  logOutOutline as signout
 } from 'ionicons/icons'
 
 export { default as transpose } from '@/icons/transpose.svg?url'
