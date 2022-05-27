@@ -23,7 +23,7 @@ class AccessToken < ApplicationRecord
   scope :refresh_expired, -> { where(expire_at: ..refresh_token_expiry.ago) }
   scope :disposable, -> { invalid.or(refresh_expired) }
   scope :with_refresh_token, ->(token) {
-    where refresh_token_digest: digest.hexdigest(token)
+    where refresh_token_digest: digest.base64digest(token)
   }
 
   # Alias JWT names to more explicit model names
@@ -66,7 +66,7 @@ class AccessToken < ApplicationRecord
     }
   end
 
-  def refresh!(attrs)
+  def refresh!(attrs = {})
     transaction do
       invalidate!
       AccessToken.create! attrs.merge(user: user)
@@ -94,13 +94,13 @@ class AccessToken < ApplicationRecord
   private
 
   def set_defaults
-    self.jti ||= SecureRandom.hex
+    self.jti ||= SecureRandom.alphanumeric
     self.created_at ||= Time.now.floor # JWT doesn't store milliseconds
     self.expire_at ||= created_at + expiry
-    self.refresh_token = SecureRandom.hex
+    self.refresh_token = SecureRandom.alphanumeric
   end
 
   def digest_refresh_token
-    self.refresh_token_digest = digest.hexdigest(refresh_token)
+    self.refresh_token_digest = digest.base64digest(refresh_token)
   end
 end

@@ -26,5 +26,10 @@ module Chords
     config.railties_order = [:all, :main_app]
 
     config.active_record.schema_format = :sql
+
+    config.action_mailer.default_url_options = {
+      host: ENV.fetch("APP_HOSTNAME", "localhost:3000")
+    }
+    config.action_mailer.deliver_later_queue_name = :high
   end
 end

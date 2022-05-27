@@ -17,14 +17,26 @@ class User < ApplicationRecord
     uniqueness: {case_sensitive: false},
     presence: true,
     format: {with: URI::MailTo::EMAIL_REGEXP}
-  validates :password, password_strength: true, on: :create
+  validates :password, password_strength: true, if: :password_digest_changed?
 
   scope :with_email, ->(email) { where("LOWER(email) = ?", email.to_s.downcase) }
 
+  before_save :clear_password_reset_token, if: :password_digest_changed?
   after_create :create_default_setlists
 
   def self.authenticate!(email, password)
-    with_email(email).first!.authenticate(password) || raise(ActiveRecord::RecordNotFound)
+    with_email(email).take!.authenticate(password) || raise(ActiveRecord::RecordNotFound)
+  end
+
+  def self.find_for_password_reset!(token)
+    find_by!(password_reset_token: token, password_reset_sent_at: 2.hours.ago..)
+  end
+
+  def generate_password_reset!
+    update!(
+      password_reset_token: SecureRandom.alphanumeric,
+      password_reset_sent_at: Time.now
+    )
   end
 
   private
@@ -37,5 +49,10 @@ class User < ApplicationRecord
 
   def create_default_setlists
     DEFAULT_SETLISTS.each { |attrs| owned_setlists.create(attrs) }
+  end
+
+  def clear_password_reset_token
+    self.password_reset_token = nil
+    self.password_reset_sent_at = nil
   end
 end

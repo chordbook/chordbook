@@ -23,6 +23,7 @@ gem "elasticsearch", "~> 7.0"
 gem "bcrypt"
 gem "jwt"
 gem "strong_password"
+gem "mailgun"
 
 group :development, :test do
   gem "debug"
@@ -36,6 +37,7 @@ end
 group :development do
   gem "web-console"
   gem "listen"
+  gem "letter_opener"
 end
 
 group :test do
