@@ -1,13 +1,5 @@
 <script setup>
 import {
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonList,
-  IonModal,
-  IonTitle,
-  IonToolbar,
   modalController,
   toastController
 } from '@ionic/vue'

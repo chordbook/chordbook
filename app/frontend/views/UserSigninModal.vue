@@ -1,18 +1,4 @@
 <script setup>
-import {
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonModal,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  IonBackButton
-} from '@ionic/vue'
 import useAuthStore from '@/stores/auth'
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'

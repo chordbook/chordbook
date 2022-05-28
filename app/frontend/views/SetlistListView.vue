@@ -1,18 +1,6 @@
 <script setup>
 import DataSource from '@/DataSource'
 import SetlistCard from '@/components/SetlistCard.vue'
-import {
-  IonBackButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonInfiniteScroll,
-  IonInfiniteScrollContent,
-  IonList,
-  IonPage,
-  IonTitle,
-  IonToolbar
-} from '@ionic/vue'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 

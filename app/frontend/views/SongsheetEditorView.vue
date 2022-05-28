@@ -102,11 +102,11 @@ import 'ace-builds/src-noconflict/ext-language_tools'
 import '@/ace/mode-chordpro'
 import '@/ace/snippets/chordpro'
 import { useMediaQuery } from '@vueuse/core'
-import { IonPage, IonHeader, IonToolbar, IonBackButton, IonButtons, IonContent, IonFooter, IonLabel, IonButton, IonModal, IonTitle, alertController, loadingController } from '@ionic/vue'
+import { alertController, loadingController } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
 
 export default {
-  components: { SongSheet, VAceEditor, IonPage, IonHeader, IonToolbar, IonBackButton, IonButtons, IonContent, IonFooter, IonLabel, IonButton, IonModal, IonTitle },
+  components: { SongSheet, VAceEditor },
 
   props: {
     id: {

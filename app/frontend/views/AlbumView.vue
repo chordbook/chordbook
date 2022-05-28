@@ -90,12 +90,11 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonIcon } from '@ionic/vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import { album as placeholderIcon } from '@/icons'
 
 export default {
-  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonIcon, AddToLibraryButton },
+  components: { AddToLibraryButton },
 
   props: {
     id: {

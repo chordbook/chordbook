@@ -100,13 +100,12 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton, IonNote } from '@ionic/vue'
 import TrackItem from '@/components/TrackItem.vue'
 import AlbumItem from '@/components/AlbumItem.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 
 export default {
-  components: { TrackItem, AlbumItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton, IonNote, AddToLibraryButton },
+  components: { TrackItem, AlbumItem, AddToLibraryButton },
 
   props: {
     id: {

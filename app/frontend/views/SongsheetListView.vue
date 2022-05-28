@@ -60,11 +60,10 @@
 <script>
 import DataSource from '@/DataSource'
 import SongsheetItem from '@/components/SongsheetItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonButton, IonIcon, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 import { add } from 'ionicons/icons'
 
 export default {
-  components: { SongsheetItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonList, IonButton, IonIcon, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
+  components: { SongsheetItem },
 
   data () {
     const dataSource = new DataSource(this.$route.path, { params: this.$route.query })

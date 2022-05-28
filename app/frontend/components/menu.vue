@@ -143,20 +143,6 @@
 </template>
 
 <script setup>
-import {
-  IonMenu,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonList,
-  IonItem,
-  IonContent,
-  IonIcon,
-  IonLabel,
-  IonListHeader,
-  IonMenuToggle,
-  IonFooter
-} from '@ionic/vue'
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import * as icons from '@/icons'

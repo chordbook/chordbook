@@ -116,15 +116,13 @@ import detectFormat from '@/lib/detect_format'
 import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
 import SongSheetComment from '@/components/SongSheetComment.vue'
 import ChordDiagram from '@/components/ChordDiagram.vue'
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonFooter } from '@ionic/vue'
-
 import { useCssVar } from '@vueuse/core'
 import arrify from 'arrify'
 import useSongsheetSettingsStore from '@/stores/songsheet-settings'
 import { mapState } from 'pinia'
 
 export default {
-  components: { ChordLyricsPair, SongSheetComment, ChordDiagram, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter },
+  components: { ChordLyricsPair, SongSheetComment, ChordDiagram },
 
   props: {
     source: {

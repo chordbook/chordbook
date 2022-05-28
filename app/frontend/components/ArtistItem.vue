@@ -24,12 +24,9 @@
 </template>
 
 <script>
-import { IonItem, IonAvatar, IonLabel, IonIcon } from '@ionic/vue'
 import { people } from 'ionicons/icons'
 
 export default {
-  components: { IonItem, IonAvatar, IonLabel, IonIcon },
-
   props: {
     artist: {
       type: Object,

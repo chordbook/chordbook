@@ -56,10 +56,9 @@ import { Tuner } from '../lib/tuner'
 import TunerMeter from '@/components/tuner-meter.vue'
 import TunerNote from '@/components/tuner-note.vue'
 import { mic, micOff } from 'ionicons/icons'
-import { IonIcon, IonButton } from '@ionic/vue'
 
 export default {
-  components: { TunerMeter, TunerNote, IonIcon, IonButton },
+  components: { TunerMeter, TunerNote },
 
   data () {
     return {

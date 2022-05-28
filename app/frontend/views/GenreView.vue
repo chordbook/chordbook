@@ -78,13 +78,12 @@
 <script>
 import client from '@/client'
 import { gradient } from '@/lib/gradient'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton } from '@ionic/vue'
 import ArtistCard from '@/components/ArtistCard.vue'
 import AlbumItem from '@/components/AlbumItem.vue'
 import TrackItem from '@/components/TrackItem.vue'
 
 export default {
-  components: { ArtistCard, AlbumItem, TrackItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton },
+  components: { ArtistCard, AlbumItem, TrackItem },
 
   props: {
     id: {

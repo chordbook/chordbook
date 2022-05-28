@@ -1,17 +1,5 @@
 <script setup>
-import {
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonTextarea,
-  IonTitle,
-  IonToolbar,
-  modalController
-} from '@ionic/vue'
+import { modalController } from '@ionic/vue'
 import client from '@/client'
 import { ref } from 'vue'
 

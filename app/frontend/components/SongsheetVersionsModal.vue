@@ -1,16 +1,6 @@
 <script setup>
 import { defineProps } from 'vue'
-import {
-  IonModal,
-  IonList,
-  IonHeader,
-  IonToolbar,
-  IonButtons,
-  IonButton,
-  IonTitle,
-  IonContent,
-  modalController
-} from '@ionic/vue'
+import { modalController } from '@ionic/vue'
 import SongsheetItem from '@/components/SongsheetItem.vue'
 
 defineProps({

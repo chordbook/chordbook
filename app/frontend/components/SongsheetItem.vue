@@ -74,12 +74,11 @@
 </template>
 
 <script>
-import { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList, IonReorder } from '@ionic/vue'
 import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList, AddToSetlistItem, IonReorder },
+  components: { AddToSetlistItem },
 
   props: {
     songsheet: {

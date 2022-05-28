@@ -1,13 +1,4 @@
 <script setup>
-import {
-  IonButton,
-  IonChip,
-  IonAvatar,
-  IonPopover,
-  IonLabel,
-  IonList,
-  IonItem
-} from '@ionic/vue'
 import useAuthStore from '@/stores/auth'
 import * as icons from '@/icons'
 

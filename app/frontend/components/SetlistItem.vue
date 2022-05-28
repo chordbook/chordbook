@@ -1,6 +1,5 @@
 <script setup>
 import { defineProps } from 'vue'
-import { IonItem, IonLabel, IonIcon, IonAvatar } from '@ionic/vue'
 import * as icons from '@/icons'
 
 defineProps({

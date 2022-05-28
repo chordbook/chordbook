@@ -92,21 +92,6 @@
 </template>
 
 <script setup>
-import {
-  IonAvatar,
-  IonContent,
-  IonHeader,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonPage,
-  IonSearchbar,
-  IonSegment,
-  IonSegmentButton,
-  IonSpinner,
-  IonTitle,
-  IonToolbar
-} from '@ionic/vue'
 import GenreListView from '@/views/GenreListView.vue'
 import { useRouteQuery } from '@vueuse/router'
 import { useFetch } from '@/client'

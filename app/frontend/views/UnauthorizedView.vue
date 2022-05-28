@@ -1,9 +1,4 @@
 <script setup>
-import {
-  IonPage,
-  IonContent,
-  IonButton
-} from '@ionic/vue'
 </script>
 
 <template>

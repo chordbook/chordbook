@@ -48,10 +48,9 @@
 <script>
 import DataSource from '@/DataSource'
 import ArtistItem from '@/components/ArtistItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 
 export default {
-  components: { ArtistItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
+  components: { ArtistItem },
 
   data () {
     const dataSource = new DataSource(this.$route.path, { params: this.$route.query })

@@ -1,5 +1,4 @@
 <script setup>
-import { IonPage, IonContent, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonIcon, IonButton } from '@ionic/vue'
 import { logoGithub, handLeft, cashOutline } from 'ionicons/icons'
 import ColorizedImg from '@/components/ColorizedImg.vue'
 </script>

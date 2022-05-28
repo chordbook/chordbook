@@ -2,7 +2,7 @@
 import { defineProps, ref, unref, watch } from 'vue'
 import { useFetch } from '@/client'
 import useAuthStore from '@/stores/auth'
-import { IonButton, IonIcon, toastController } from '@ionic/vue'
+import { toastController } from '@ionic/vue'
 import AuthRequired from '@/components/AuthRequired.vue'
 import * as icons from '@/icons'
 

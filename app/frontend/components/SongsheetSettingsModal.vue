@@ -1,17 +1,5 @@
 <script setup>
 import { defineProps } from 'vue'
-import {
-  IonItem,
-  IonIcon,
-  IonLabel,
-  IonList,
-  IonModal,
-  IonSelect,
-  IonSelectOption,
-  IonToggle,
-  IonSegment,
-  IonSegmentButton
-} from '@ionic/vue'
 import TransposeControl from '@/components/TransposeControl.vue'
 import useSongsheetSettings from '@/stores/songsheet-settings'
 import { tabletPortraitOutline, tabletLandscapeOutline } from 'ionicons/icons'

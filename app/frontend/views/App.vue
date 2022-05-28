@@ -14,7 +14,6 @@
 </template>
 
 <script setup>
-import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/vue'
 import ReloadPwa from '@/components/reload-pwa.vue'
 import AppMenu from '@/components/menu.vue'
 import UserSigninModal from './UserSigninModal.vue'

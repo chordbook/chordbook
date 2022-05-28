@@ -40,11 +40,8 @@
 <script>
 import DataSource from '@/DataSource'
 import { gradient } from '@/lib/gradient'
-import { IonCard, IonCardTitle, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
 
 export default {
-  components: { IonCard, IonCardTitle, IonInfiniteScroll, IonInfiniteScrollContent },
-
   data () {
     const dataSource = new DataSource('genres.json')
     return { dataSource }

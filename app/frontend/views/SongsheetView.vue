@@ -177,7 +177,7 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonItem } from '@ionic/vue'
+import { modalController } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
 import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
@@ -189,7 +189,7 @@ import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { SongSheet, IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, IonList, IonItem, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia, AddToLibraryButton },
+  components: { SongSheet, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia, AddToLibraryButton },
 
   props: {
     id: {
