@@ -1,3 +1,5 @@
+ignore %r{^vendor/gems/}
+
 guard :minitest, all_on_start: false, all_after_pass: false do
   watch(%r{^test/(.*)/?test_(.*)\.rb$})
   watch(%r{^lib/(.*/)?([^/]+)\.rb$}) { |m| "test/#{m[1]}test_#{m[2]}.rb" }
