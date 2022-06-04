@@ -1,11 +1,12 @@
 <h1 align="center">
-  <img src="./app/frontend/assets/icon-light.svg"><br>
-  <img src="./app/frontend/assets/wordmark-light.svg" alt="Chord Book">
+  <a href="https://chordbook.app">
+    <img width="150" src="./app/frontend/assets/logo-light.svg"><br>
+    <img src="./app/frontend/assets/wordmark-light.svg" alt="Chord Book">
+  </a>
 </h1>
 
 <p align="center">
   Chord sheets and tab for guitar and ukulele.<br>
-  Made for and by amateur musicians.<br>
   <a href="https://chordbook.app">chordbook.app</a>
 </p>
 
