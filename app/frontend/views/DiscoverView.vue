@@ -54,7 +54,7 @@
       <ion-list v-show="isSearching">
         <Transition>
           <ion-item
-            v-if="isFinished && data.length == 0"
+            v-if="isFinished && (!data || data.length == 0)"
             lines="none"
           >
             No results

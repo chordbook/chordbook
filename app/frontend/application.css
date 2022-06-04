@@ -47,3 +47,8 @@
 .slide-down-leave-to {
   @apply max-h-0 opacity-0;
 }
+
+
+*[routerlink] {
+  @apply cursor-pointer;
+}

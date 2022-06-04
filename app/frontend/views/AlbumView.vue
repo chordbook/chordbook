@@ -39,7 +39,7 @@
             v-if="album.artist"
             button
             :router-link="{ name: 'artist', params: { id: album.artist.id } }"
-            class="block text-xl md:text-2xl text-blue-500 ion-activatable ion-focusable"
+            class="block text-xl md:text-2xl text-teal-500 ion-activatable ion-focusable"
           >
             {{ album.artist.name }}
           </ion-label>

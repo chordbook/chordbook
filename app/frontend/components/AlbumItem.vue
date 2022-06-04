@@ -44,6 +44,7 @@
         <ion-item
           button
           detail
+          lines="none"
           :detail-icon="icons.artist"
           :router-link="{ name: 'artist', params: { id: album.artist?.id } }"
         >

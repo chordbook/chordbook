@@ -85,7 +85,7 @@
               class="block ion-activatable ion-focusable my-0"
             >
               <span class="opacity-40">by </span>
-              <span class="text-blue-500">{{ songsheet.track.artist.name }}</span>
+              <span class="text-teal-500">{{ songsheet.track.artist.name }}</span>
             </ion-label>
             <ion-label
               v-if="songsheet.track.album"
@@ -94,7 +94,7 @@
               class="block ion-activatable ion-focusable truncate overflow-hidden my-1"
             >
               <span class="opacity-40">from </span>
-              <span class="text-blue-500">{{ songsheet.track.album.title }}</span>
+              <span class="text-teal-500">{{ songsheet.track.album.title }}</span>
             </ion-label>
           </div>
         </div>
