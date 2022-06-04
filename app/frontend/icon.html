@@ -2,25 +2,32 @@
   <style>
     body {
       background-image:
-        linear-gradient(red, transparent),
-        linear-gradient(to top left, lime, transparent),
-        linear-gradient(to top right, blue, transparent);
-      background-blend-mode: screen;
+        linear-gradient(to bottom right, #DB2777, transparent),
+        linear-gradient(to bottom left, #22D3EE, transparent),
+        linear-gradient(to top, #312E81, transparent);
+      background-blend-mode: multiply;
     }
 
-    img {
+    #icon {
+      aspect-ratio: 1/1;
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
       width: 75%;
       max-width: 300px;
-      max-height: 75%;
-      filter: drop-shadow(0.5vh 0.5vh 1vh rgb(0 0 0 / 0.4));
-      background-blend-mode: multiply;
+      max-height: 300px;
+      filter: drop-shadow(0.5vh 0.5vh 1vh rgb(0 0 0 / 0.2))  drop-shadow(2px 3px 5px rgb(0 0 0 / 0.2));
+      text-align: center;
+    }
+
+    img {
+      height: 100%;
     }
   </style>
   <body>
-    <img src="./assets/logo.svg">
+    <div id="icon">
+      <img src="./assets/logo.svg">
+    </div>
   </body>
 </html>
