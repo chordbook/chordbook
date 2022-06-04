@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Generate favicon
-pwa-asset-generator app/frontend/assets/favicon.svg ./public \
+pwa-asset-generator app/frontend/assets/logo-light.svg ./public \
   --icon-only --favicon --opaque false --maskable false --type png \
   --index ./public/index.html --manifest ./public/manifest.webmanifest
 

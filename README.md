@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="./app/frontend/assets/favicon.svg"><br>
+  <img src="./app/frontend/assets/icon-light.svg"><br>
   <img src="./app/frontend/assets/wordmark-light.svg" alt="Chord Book">
 </h1>
 
