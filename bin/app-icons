@@ -7,5 +7,5 @@ pwa-asset-generator app/frontend/assets/favicon.svg ./public \
 
 # Generate pwa assets
 pwa-asset-generator ./app/frontend/icon.html ./public \
-  --padding "15%" --mstile \
+  --mstile \
   --index ./public/index.html --manifest ./public/manifest.webmanifest
