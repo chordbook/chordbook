@@ -1,6 +1,13 @@
-# Chord Book
+<h1 align="center">
+  <img src="./app/frontend/assets/favicon.svg"><br>
+  <img src="./app/frontend/assets/wordmark-light.svg" alt="Chord Book">
+</h1>
 
-> A web app for chord sheets - https://chordbook.app
+<p align="center">
+  Chord sheets and tab for guitar and ukulele.<br>
+  Made for and by amateur musicians.<br>
+  <a href="https://chordbook.app">chordbook.app</a>
+</p>
 
 ## Development
 

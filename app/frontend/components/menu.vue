@@ -143,7 +143,6 @@ export default {
     IonMenu,
     IonHeader,
     IonToolbar,
-    IonTitle,
     IonList,
     IonItem,
     IonContent,
