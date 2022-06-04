@@ -1,0 +1,26 @@
+<html>
+  <style>
+    body {
+      background-image:
+        linear-gradient(red, transparent),
+        linear-gradient(to top left, lime, transparent),
+        linear-gradient(to top right, blue, transparent);
+      background-blend-mode: screen;
+    }
+
+    img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 75%;
+      max-width: 300px;
+      max-height: 75%;
+      filter: drop-shadow(0.5vh 0.5vh 1vh rgb(0 0 0 / 0.4));
+      background-blend-mode: multiply;
+    }
+  </style>
+  <body>
+    <img src="./assets/logo.svg">
+  </body>
+</html>

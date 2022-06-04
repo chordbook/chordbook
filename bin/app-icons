@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Generate favicon
+pwa-asset-generator app/frontend/assets/favicon.svg ./public \
+  --icon-only --favicon --opaque false --maskable false --type png \
+  -i ./public/index.html -m ./public/manifest.webmanifest
+
+# Generate pwa assets
+pwa-asset-generator ./app/frontend/icon.html ./public \
+  -i ./public/index.html -m ./public/manifest.webmanifest --mstile
