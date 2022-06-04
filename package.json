@@ -58,7 +58,7 @@
     "dev:ios": "ionic capacitor run ios -l --external",
     "build": "yarn run build:frontend && yarn run build:app-icons",
     "build:frontend": "vite build",
-    "build:app-icons": "bin/app-cions",
+    "build:app-icons": "bin/app-icons",
     "serve": "vite preview",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern vendor/ --ext .js,.vue .",
     "ionic:serve": "vite",
