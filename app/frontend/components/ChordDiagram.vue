@@ -1,5 +1,5 @@
 <template>
-  <!-- eslint-disable vue/no-v-html -->
+  <!-- eslint-disable vue/no-v-html vue/no-v-text-v-html-on-component -->
   <component
     :is="as"
     :id="`chord-${name}`"
