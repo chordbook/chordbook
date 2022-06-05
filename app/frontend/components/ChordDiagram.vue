@@ -53,7 +53,7 @@ export default {
     },
 
     diagram () {
-      if (!this.chordData) return ''
+      if (!this.chord || !this.chordData) return ''
 
       const el = document.createElement('div')
 
