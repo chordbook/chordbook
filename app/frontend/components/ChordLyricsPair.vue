@@ -1,6 +1,6 @@
 <template>
   <div class="column">
-    <song-sheet-chord :name="item.transposed" />
+    <song-sheet-chord :name="item.chords" />
     <div class="lyrics">
       {{ item.lyrics }}
     </div>
