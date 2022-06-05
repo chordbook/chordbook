@@ -116,8 +116,6 @@ import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
 import SongSheetComment from '@/components/SongSheetComment.vue'
 import ChordDiagram from '@/components/ChordDiagram.vue'
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonFooter } from '@ionic/vue'
-
-import { useCssVar } from '@vueuse/core'
 import arrify from 'arrify'
 import useSongsheetSettingsStore from '@/stores/songsheet-settings'
 import { mapState } from 'pinia'
@@ -136,7 +134,7 @@ export default {
 
   data () {
     return {
-      columnWidth: useCssVar('--column-width', this.$el)
+      columnWidth: 0
     }
   },
 
@@ -248,8 +246,8 @@ function guessKey (song) {
 .horizontal-columns {
   @apply h-full;
   column-count: auto;
-  column-width: var(--column-width);
-  min-width: var(--column-width);
+  column-width: v-bind(columnWidth);
+  min-width: v-bind(columnWidth);
 }
 .horizontal-columns .column-span-all { column-span: all; }
 
