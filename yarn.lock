@@ -1077,7 +1077,7 @@
   dependencies:
     "@ionic/vue" "^6.1.8"
 
-"@ionic/vue@^6.1.7", "@ionic/vue@^6.1.8":
+"@ionic/vue@^6.1.8":
   version "6.1.8"
   resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.8.tgz#dbae9d1da388342af0c509fd81042140f4338209"
   integrity sha512-bziDDBMr6w9XLxkiXeASD/g16g0qvU2cGeaTD9n7+5ucsebVCbHiIblHgT+g1AiYYIoKee01yGAOpe1lC0EahA==
