@@ -1361,10 +1361,10 @@ abbrev@1:
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
   integrity sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
 
-ace-builds@^1.4.13, ace-builds@^1.5.1:
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/ace-builds/-/ace-builds-1.5.1.tgz#7ed9fe277acdc14e6522aa866b0980ac196d797e"
-  integrity sha512-2G313uyM7lfqZgCs6xCW4QPeuX2GZKaCyRqKhTC2mBeZqC7TjkTXguKRyLzsAIMLJfj3koq98RXCBoemoZVAnQ==
+ace-builds@^1.4.13, ace-builds@^1.5.3:
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/ace-builds/-/ace-builds-1.5.3.tgz#05f81d3464a9ea19696e5e6fd0f924d37dab442f"
+  integrity sha512-WN5BKR2aTSuBmisO8jo3Fytk6sOmJGki82v/Boeic81IgYN8pFHNkXq2anDF0XkmfDWMqLbRoW9sjc/GtKzQbQ==
 
 acorn-jsx@^5.3.2:
   version "5.3.2"
