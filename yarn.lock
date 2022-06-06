@@ -988,13 +988,13 @@
     debug "^4.0.0"
     tslib "^2.0.1"
 
-"@ionic/core@^6.1.7":
-  version "6.1.7"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.1.7.tgz#125ec0761dfc4fd8ed5e76792044b21f0256491b"
-  integrity sha512-CUbH7xtKcPejHTyMvvUJZq4GIyLbL2YflzFH+mad1PoLN4TLwFTTKTDB1oeFNqwnTzaByeBvhEWSayxCbLgvjQ==
+"@ionic/core@^6.1.8":
+  version "6.1.8"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.1.8.tgz#e25f4a06063670f34c24a8daeaefefe8b94e90f8"
+  integrity sha512-EMYebwmS4UogpNrTyuCgIETKwE7XA93V7X3YacK2UArm1Xf98w3FsnfAYeMaUqY93bDxih/CSKm3NpUhVWP44A==
   dependencies:
-    "@stencil/core" "^2.14.2"
-    ionicons "^6.0.0"
+    "@stencil/core" "^2.16.0"
+    ionicons "^6.0.2"
     tslib "^2.1.0"
 
 "@ionic/utils-array@2.1.5":
@@ -1077,13 +1077,13 @@
   dependencies:
     "@ionic/vue" "^6.1.7"
 
-"@ionic/vue@^6.1.7":
-  version "6.1.7"
-  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.7.tgz#a88625b792949038b93e4b1b6997264d67d86270"
-  integrity sha512-TXVFkajBsmNBhMdlQ1P6JV/8aPIOvnR4d3lj8Mo9UVidp9Z7Qc992f2wti/bsdiBUm3iXoDK5YjQridPSPS7pQ==
+"@ionic/vue@^6.1.7", "@ionic/vue@^6.1.8":
+  version "6.1.8"
+  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.8.tgz#dbae9d1da388342af0c509fd81042140f4338209"
+  integrity sha512-bziDDBMr6w9XLxkiXeASD/g16g0qvU2cGeaTD9n7+5ucsebVCbHiIblHgT+g1AiYYIoKee01yGAOpe1lC0EahA==
   dependencies:
-    "@ionic/core" "^6.1.7"
-    ionicons "^6.0.0"
+    "@ionic/core" "^6.1.8"
+    ionicons "^6.0.2"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -1143,15 +1143,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@stencil/core@^2.14.2":
-  version "2.15.1"
-  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.15.1.tgz#ed308d2f48c086aec63c63c33b915702036b9aee"
-  integrity sha512-NYjRwQnjzscyFfqK+iIwRdr/dgYn33u6KE7kyQWdi7xsCkqMHalXYgJlN/QBQ9PN3qXmXKeBrJNG8EkNdCbK5g==
-
-"@stencil/core@~2.12.0":
-  version "2.12.1"
-  resolved "https://registry.npmjs.org/@stencil/core/-/core-2.12.1.tgz"
-  integrity sha512-u24TZ+FEvjnZt5ZgIkLjLpUNsO6Ml3mUZqwmqk81w6RWWz75hgB5p4RFI5rvuErFeh2xvMIGo+pNdG24XUBz1A==
+"@stencil/core@^2.16.0", "@stencil/core@~2.16.0":
+  version "2.16.1"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.16.1.tgz#f6752026af72a10356d5b1f27e2db6b1ee0c730f"
+  integrity sha512-s/UJp9qxExL3DyQPT70kiuWeb3AdjbUZM+5lEIXn30I2DLcLYPOPXfsoWJODieQywq+3vPiLZeIdkoqjf6jcSw==
 
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
@@ -3115,12 +3110,12 @@ internal-slot@^1.0.3:
     has "^1.0.3"
     side-channel "^1.0.4"
 
-ionicons@^6.0.0:
-  version "6.0.1"
-  resolved "https://registry.npmjs.org/ionicons/-/ionicons-6.0.1.tgz"
-  integrity sha512-xQekOJsxH82O7oB+3F60zeRggCdND9pJ/k0E6IJDVUGGlCj5mlyFqNgxUimytKgstPGv3S+3EmCxjefvtGgWUg==
+ionicons@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-6.0.2.tgz#82c01bb7021cb84b28fa46591fde142d078b6d05"
+  integrity sha512-AyKfFaUKVoBz4eB8XkU7H1R5HFnVsgq5ijqSdbXC0lES9PDK/J6LUQz6XUJq0mVVQF5k9kczSPOLMW3mszG0mQ==
   dependencies:
-    "@stencil/core" "~2.12.0"
+    "@stencil/core" "~2.16.0"
 
 is-arrayish@^0.2.1:
   version "0.2.1"
