@@ -295,7 +295,7 @@ function guessKey (song) {
 }
 
 .chord-sheet *:not(.tab) .chord {
-  @apply text-indigo-800 dark:text-blue-200 pr-1 font-medium text-sm;
+  @apply text-indigo-800 dark:text-indigo-300 pr-1 font-medium text-sm;
 }
 
 .chorus {

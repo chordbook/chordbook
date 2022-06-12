@@ -37,12 +37,14 @@ const auth = useAuthStore()
   </div>
   <div v-else>
     <ion-button
+      color="dark"
       fill="outline"
       router-link="#signin"
     >
       Sign In
     </ion-button>
     <ion-button
+      color="dark"
       fill="clear"
       router-link="#signup"
     >
