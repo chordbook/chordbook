@@ -111,12 +111,10 @@
 </template>
 
 <script>
-import { Chord } from 'chordsheetjs'
 import detectFormat from '@/lib/detect_format'
 import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
 import SongSheetComment from '@/components/SongSheetComment.vue'
 import ChordDiagram from '@/components/ChordDiagram.vue'
-import { useCssVar } from '@vueuse/core'
 import arrify from 'arrify'
 import useSongsheetSettingsStore from '@/stores/songsheet-settings'
 import { mapState } from 'pinia'
@@ -135,7 +133,7 @@ export default {
 
   data () {
     return {
-      columnWidth: useCssVar('--column-width', this.$el)
+      columnWidth: 0
     }
   },
 
@@ -146,26 +144,11 @@ export default {
       return detectFormat(this.source)
     },
 
-    song () {
+    parsedSong () {
       try {
         // FIXME: somehow \r is getting added by Ace
         const song = this.format?.parse(this.source.replace(/\r\n/gm, '\n'))
-
-        // Transpose chords
-        const chords = {}
-        song.lines.forEach(line => {
-          line.items.forEach(pair => {
-            if (pair.chords) {
-              if (!chords[pair.chords]) {
-                chords[pair.chords] = Chord.parse(pair.chords)?.transpose(this.transpose).toString()
-              }
-              pair.transposed = chords[pair.chords]
-            }
-          })
-        })
-
-        this.$emit('parse', song)
-        return song
+        return song.key ? song : song.setKey(guessKey(song))
       } catch (error) {
         console.error(error)
         this.$emit('error', error)
@@ -173,23 +156,16 @@ export default {
       }
     },
 
+    song () {
+      return this.parsedSong.transpose(this.transpose)
+    },
+
     chords () {
-      const chords = new Set()
-
-      if (this.song) {
-        this.song.lines.forEach(line => {
-          line.items.forEach(pair => {
-            if (pair.transposed) chords.add(pair.transposed)
-          })
-        })
-      }
-
-      return chords
+      return chordSet(this.song)
     },
 
     key () {
-      // FIXME: use declared key or intelligent key detection
-      return this.chords.values().next()
+      return this.parsedSong.key
     }
   },
 
@@ -200,8 +176,15 @@ export default {
 
     key: {
       immediate: true,
-      handler ({ value }) {
-        if (value) this.$emit('update:key', value)
+      handler (key) {
+        this.$emit('update:key', key)
+      }
+    },
+
+    song: {
+      immediate: true,
+      handler (song) {
+        this.$emit('parse', song)
       }
     }
   },
@@ -239,14 +222,31 @@ export default {
     }
   }
 }
+
+function chordSet (song) {
+  const chords = new Set()
+
+  song.lines.forEach(line => {
+    line.items.forEach(pair => {
+      if (pair.chords) chords.add(pair.chords)
+    })
+  })
+
+  return chords
+}
+
+function guessKey (song) {
+  // FIXME: use intelligent key detection
+  return chordSet(song).values().next()
+}
 </script>
 
 <style>
 .horizontal-columns {
   @apply h-full;
   column-count: auto;
-  column-width: var(--column-width);
-  min-width: var(--column-width);
+  column-width: v-bind(columnWidth);
+  min-width: v-bind(columnWidth);
 }
 .horizontal-columns .column-span-all { column-span: all; }
 
@@ -295,7 +295,7 @@ export default {
 }
 
 .chord-sheet *:not(.tab) .chord {
-  @apply text-blue-800 dark:text-blue-200 pr-1 font-medium text-sm;
+  @apply text-indigo-800 dark:text-blue-200 pr-1 font-medium text-sm;
 }
 
 .chorus {

@@ -1,5 +1,5 @@
 <template>
-  <!-- eslint-disable vue/no-v-html -->
+  <!-- eslint-disable vue/no-v-html vue/no-v-text-v-html-on-component -->
   <component
     :is="as"
     :id="`chord-${name}`"
@@ -53,7 +53,7 @@ export default {
     },
 
     diagram () {
-      if (!this.chordData) return ''
+      if (!this.chord || !this.chordData) return ''
 
       const el = document.createElement('div')
 

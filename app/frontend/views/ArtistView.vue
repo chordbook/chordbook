@@ -24,8 +24,8 @@
     <ion-content fullscreen>
       <ion-header>
         <div
-          :style="`background-image: linear-gradient(rgba(0,0,0,0) 33%, rgba(0,0,0,0.8)), url(${artist.banner});`"
-          class="bg-slate-700 bg-cover bg-center aspect-16/9-max-h-screen-1/2"
+          :style="`background-image: linear-gradient(rgba(0,0,0,0) 33%, rgba(0,0,0,0.8)), url(${artist.banner}); background-position: 50% 25%`"
+          class="bg-slate-700 bg-cover aspect-16/9-max-h-screen-1/2"
         >
           <ion-toolbar class="absolute bottom-0 w-full ion-padding text-white text-shadow">
             <ion-note
