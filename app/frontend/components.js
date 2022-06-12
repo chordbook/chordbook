@@ -1,4 +1,5 @@
 export {
+  IonAlert,
   IonApp,
   IonAvatar,
   IonBackButton,

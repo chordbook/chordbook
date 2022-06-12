@@ -146,6 +146,17 @@ export default [
     component: () => import('@/views/TunerView.vue')
   },
   {
+    path: '/password/forgot',
+    name: 'password/forgot',
+    component: () => import('@/views/ForgotPasswordView.vue')
+  },
+  {
+    path: '/password/reset',
+    name: 'password',
+    props: route => route.query,
+    component: () => import('@/views/PasswordResetView.vue')
+  },
+  {
     path: '/401',
     name: 'unauthorized',
     component: () => import('@/views/UnauthorizedView.vue')

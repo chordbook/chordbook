@@ -28,10 +28,18 @@ export default defineStore('auth', () => {
     return fetch
   }
 
-  function signIn (data, useFetchOptions) {
+  function signIn (data, useFetchOptions = {}) {
     const fetch = useFetch('authenticate', useFetchOptions).post(data).json()
     fetch.onFetchResponse(() => authenticated(fetch))
     return fetch
+  }
+
+  function forgotPassword (data, useFetchOptions = {}) {
+    return useFetch('password', useFetchOptions).post(data).json()
+  }
+
+  function resetPassword (data, useFetchOptions = {}) {
+    return useFetch('password', useFetchOptions).put(data).json()
   }
 
   function signOut () {
@@ -67,5 +75,5 @@ export default defineStore('auth', () => {
     timeout = setTimeout(refresh, ttl.value)
   }
 
-  return { user, isAuthenticated, headers, signUp, signIn, signOut, refresh }
+  return { user, isAuthenticated, headers, signUp, signIn, signOut, forgotPassword, resetPassword, refresh }
 })

@@ -57,6 +57,16 @@ class Api::PasswordControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
   end
 
+  test "update without password" do
+    @user.generate_password_reset!
+
+    put api_password_path(format: :json), params: {
+      token: @user.password_reset_token
+    }
+
+    assert_response 422
+  end
+
   test "update with invalid password" do
     @user.generate_password_reset!
     new_password = "toosimple"

@@ -63,7 +63,7 @@ function dismissed () {
               v-model="form.password"
               type="password"
               name="password"
-              autocomplete="password"
+              autocomplete="current-password"
             />
           </ion-item>
 
@@ -80,7 +80,7 @@ function dismissed () {
               Sign Up
             </router-link>
             •
-            <router-link to="#password">
+            <router-link :to="{ name: 'password/forgot' }">
               Forgot Password
             </router-link>
           </div>

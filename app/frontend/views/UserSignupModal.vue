@@ -65,7 +65,7 @@ function dismissed () {
               v-model="form.user.password"
               type="password"
               name="password"
-              autocomplete="password"
+              autocomplete="new-password"
             />
           </ion-item>
 

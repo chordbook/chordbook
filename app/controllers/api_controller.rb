@@ -40,10 +40,13 @@ class ApiController < ActionController::API
     headers["Link"] = links.join(", ")
   end
 
-  def render_error(message: nil, record: nil, exception: nil, status: :unprocessable_entity)
-    message ||= record.errors.full_messages if record
-    message ||= exception.message if exception
+  def render_error(message = nil, record: nil, exception: nil, status: :unprocessable_entity)
+    response = if record
+      {error: record.errors}
+    elsif message
+      {error: {message: message}}
+    end
 
-    render json: {error: message}, status: status
+    render json: response, status: status
   end
 end

@@ -22,6 +22,11 @@ class UserTest < ActiveSupport::TestCase
     assert build(:user, password: "r@nd0m4ccEsSM3mºr!e$").valid?
   end
 
+  test "validates presence of password" do
+    user = create(:user)
+    refute user.update(password: nil)
+  end
+
   test "creates default setlists" do
     assert_difference -> { Setlist.count }, User::DEFAULT_SETLISTS.size do
       user = create(:user)
