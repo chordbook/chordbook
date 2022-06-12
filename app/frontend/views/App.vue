@@ -15,7 +15,7 @@
 
 <script setup>
 import ReloadPwa from '@/components/reload-pwa.vue'
-import AppMenu from '@/components/menu.vue'
+import AppMenu from '@/components/AppMenu.vue'
 import UserSigninModal from './UserSigninModal.vue'
 import UserSignupModal from './UserSignupModal.vue'
 import useAuthStore from '@/stores/auth'
