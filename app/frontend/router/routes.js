@@ -1,3 +1,5 @@
+import AuthenticatedView from '@/views/AuthenticatedView.vue'
+
 export default [
   {
     path: '/',
@@ -27,33 +29,37 @@ export default [
       {
         path: '/library',
         name: 'library',
-        props: route => ({ searchParams: route.query }),
-        component: () => import('@/views/LibraryView.vue'),
-        meta: { auth: true, selected: 'library' }
+        component: AuthenticatedView,
+        props: { component: () => import('@/views/LibraryView.vue') },
+        meta: { selected: 'library' }
       },
       {
         path: '/songsheets',
         name: 'songsheets',
-        component: () => import('@/views/SongsheetListView.vue'),
-        meta: { auth: true, selected: 'songs' }
+        component: AuthenticatedView,
+        props: { component: () => import('@/views/SongsheetListView.vue') },
+        meta: { selected: 'songs' }
       },
       {
         path: '/albums',
         name: 'albums',
-        component: () => import('@/views/AlbumListView.vue'),
-        meta: { auth: true, selected: 'albums' }
+        component: AuthenticatedView,
+        props: { component: () => import('@/views/AlbumListView.vue') },
+        meta: { selected: 'albums' }
       },
       {
         path: '/artists',
         name: 'artists',
-        component: () => import('@/views/ArtistListView.vue'),
-        meta: { auth: true, selected: 'artists' }
+        component: AuthenticatedView,
+        props: { component: () => import('@/views/ArtistListView.vue') },
+        meta: { selected: 'artists' }
       },
       {
         path: '/setlists',
         name: 'setlists',
-        component: () => import('@/views/SetlistListView.vue'),
-        meta: { auth: true, selected: 'setlists' }
+        component: AuthenticatedView,
+        props: { component: () => import('@/views/SetlistListView.vue') },
+        meta: { selected: 'setlists' }
       },
       {
         path: '/artists/:id',
@@ -123,15 +129,19 @@ export default [
   {
     path: '/songsheets/new',
     name: 'songsheet.new',
-    component: () => import('@/views/SongsheetEditorView.vue'),
-    meta: { auth: true, selected: 'songs' }
+    component: AuthenticatedView,
+    props: { component: () => import('@/views/SongsheetEditorView.vue') },
+    meta: { selected: 'songs' }
   },
   {
     path: '/songsheets/:id/edit',
     name: 'songsheet.edit',
-    props: true,
-    component: () => import('@/views/SongsheetEditorView.vue'),
-    meta: { auth: true, selected: 'songs' }
+    component: AuthenticatedView,
+    props: route => ({
+      ...route.params,
+      component: () => import('@/views/SongsheetEditorView.vue')
+    }),
+    meta: { selected: 'songs' }
   },
   {
     path: '/songsheets/:id',
@@ -155,11 +165,6 @@ export default [
     name: 'password',
     props: route => route.query,
     component: () => import('@/views/PasswordResetView.vue')
-  },
-  {
-    path: '/401',
-    name: 'unauthorized',
-    component: () => import('@/views/UnauthorizedView.vue')
   },
   {
     path: '/:path(.*)*',
