@@ -35,6 +35,11 @@
         </ion-toolbar>
       </ion-header>
 
+      <library-placeholder
+        v-if="!dataSource.loading && dataSource.items.length === 0"
+        type="song"
+      />
+
       <ion-list>
         <songsheet-item
           v-for="songsheet in songsheets"
@@ -60,10 +65,11 @@
 <script>
 import DataSource from '@/DataSource'
 import SongsheetItem from '@/components/SongsheetItem.vue'
+import LibraryPlaceholder from '../components/LibraryPlaceholder.vue'
 import { add } from 'ionicons/icons'
 
 export default {
-  components: { SongsheetItem },
+  components: { SongsheetItem, LibraryPlaceholder },
 
   data () {
     const dataSource = new DataSource(this.$route.path, { params: this.$route.query })
