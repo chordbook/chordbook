@@ -1,8 +1,8 @@
 class Api::SetlistItemsController < ApiController
-  before_action :find_setlist
+  before_action :find_setlist, except: :index
 
   def index
-    @items = current_scope.page(params[:page])
+    @items = Setlist.find(params[:setlist_id]).items.includes(:songsheet).page(params[:page])
     set_pagination_header @items
     fresh_when @items
   end
@@ -31,7 +31,7 @@ class Api::SetlistItemsController < ApiController
   end
 
   def find_setlist
-    @setlist = Setlist.find(params[:setlist_id])
+    @setlist = current_user!.owned_setlists.find(params[:setlist_id])
   end
 
   def current_scope

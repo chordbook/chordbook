@@ -12,6 +12,12 @@
           />
         </ion-buttons>
         <ion-title>{{ artist.name }}</ion-title>
+        <ion-buttons slot="end">
+          <add-to-library-button
+            v-if="artist.uid"
+            :uid="artist.uid"
+          />
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -26,7 +32,7 @@
               v-if="artist.genre"
               button
               :router-link="{ name: 'genre', params: { id: artist.genre.id } }"
-              class="block text-lg text-white opacity-60 ion-activatable ion-focusable"
+              class="block text-lg text-white opacity-70 ion-activatable ion-focusable"
             >
               {{ artist.genre.name }}
             </ion-note>
@@ -94,12 +100,12 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton, IonNote } from '@ionic/vue'
 import TrackItem from '@/components/TrackItem.vue'
 import AlbumItem from '@/components/AlbumItem.vue'
+import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 
 export default {
-  components: { TrackItem, AlbumItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonListHeader, IonLabel, IonButton, IonNote },
+  components: { TrackItem, AlbumItem, AddToLibraryButton },
 
   props: {
     id: {

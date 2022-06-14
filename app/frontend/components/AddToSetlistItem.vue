@@ -1,6 +1,5 @@
 <script setup>
 import * as icons from '@/icons'
-import { IonItem, IonLabel } from '@ionic/vue'
 import Modal from '@/components/AddToSetlistModal.vue'
 import { defineProps } from 'vue'
 

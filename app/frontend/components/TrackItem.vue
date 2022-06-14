@@ -58,6 +58,7 @@
           v-if="track.album"
           button
           detail
+          lines="none"
           :detail-icon="icons.album"
           :router-link="{ name: 'album', params: { id: track.album.id } }"
         >
@@ -70,7 +71,6 @@
 
 <script setup>
 import { defineProps } from 'vue'
-import { IonItem, IonAvatar, IonLabel, IonIcon, IonButton, IonPopover, IonList } from '@ionic/vue'
 import * as icons from '@/icons'
 
 defineProps({

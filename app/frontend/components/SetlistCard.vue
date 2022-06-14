@@ -36,7 +36,6 @@
 
 <script setup>
 import { defineProps } from 'vue'
-import { IonItem, IonLabel, IonIcon } from '@ionic/vue'
 import * as icons from '@/icons'
 
 defineProps({

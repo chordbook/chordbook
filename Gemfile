@@ -20,6 +20,10 @@ gem "acts_as_list"
 gem "paper_trail"
 gem "searchkick"
 gem "elasticsearch", "~> 7.0"
+gem "bcrypt"
+gem "jwt"
+gem "strong_password"
+gem "mailgun_rails"
 
 group :development, :test do
   gem "debug"
@@ -33,6 +37,7 @@ end
 group :development do
   gem "web-console"
   gem "listen"
+  gem "letter_opener"
 end
 
 group :test do

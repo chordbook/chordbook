@@ -1,13 +1,5 @@
 <script setup>
 import {
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonList,
-  IonModal,
-  IonTitle,
-  IonToolbar,
   modalController,
   toastController
 } from '@ionic/vue'
@@ -51,39 +43,39 @@ async function newModal () {
 </script>
 
 <template>
-  <ion-modal
-    ref="modal"
-  >
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-button
-            role="cancel"
-            @click="modalController.dismiss()"
-          >
-            Cancel
-          </ion-button>
-        </ion-buttons>
-        <ion-title>Add to Setlist</ion-title>
-        <ion-buttons slot="end">
-          <ion-button
-            role="cancel"
-            @click="newModal()"
-          >
-            New setlist
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="ion-padding">
-      <ion-list>
-        <setlist-item
-          v-for="setlist in dataSource.items"
-          :key="setlist.id"
-          :setlist="setlist"
-          @click.prevent="add(setlist)"
-        />
-      </ion-list>
-    </ion-content>
+  <ion-modal ref="modal">
+    <authenticated>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button
+              role="cancel"
+              @click="modalController.dismiss()"
+            >
+              Cancel
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Add to Setlist</ion-title>
+          <ion-buttons slot="end">
+            <ion-button
+              role="cancel"
+              @click="newModal()"
+            >
+              New setlist
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-list>
+          <setlist-item
+            v-for="setlist in dataSource.items"
+            :key="setlist.id"
+            :setlist="setlist"
+            @click.prevent="add(setlist)"
+          />
+        </ion-list>
+      </ion-content>
+    </authenticated>
   </ion-modal>
 </template>

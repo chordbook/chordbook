@@ -1,4 +1,9 @@
 class ApiController < ActionController::API
+  include Authentication
+
+  # Authenticate by default. Call `skip_before_action :authenticate!` on actions that don't need it
+  before_action :authenticate!
+
   private
 
   # Return the current scope based on current controller and route
@@ -18,8 +23,9 @@ class ApiController < ActionController::API
     controller_name
   end
 
+  # Default to authenticated user's library
   def default_scope
-    controller_name.singularize.classify.constantize
+    current_user!.send(default_scope_name)
   end
 
   def set_pagination_header(scope, options = {})
@@ -32,5 +38,15 @@ class ApiController < ActionController::API
       "<#{url}>; rel=\"#{rel}\""
     end
     headers["Link"] = links.join(", ")
+  end
+
+  def render_error(message = nil, record: nil, exception: nil, status: :unprocessable_entity)
+    response = if record
+      {error: record.errors}
+    elsif message
+      {error: {message: message}}
+    end
+
+    render json: response, status: status
   end
 end

@@ -33,6 +33,10 @@
   }
 }
 
+.text-muted {
+  @apply text-zinc-500;
+}
+
 .reorder-enabled .hide-reorder {
   display: none;
 }

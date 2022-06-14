@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   namespace :api, path: "" do
     get "search(.:format)", to: "search#index", as: :search
 
+    resources :users
+    resource :library, controller: "library"
+    resource :authenticate, controller: "authenticate"
+    resource :password, controller: "password"
+
     get "autocomplete", to: "autocomplete#index"
     resources :artists do
       resources :albums do
@@ -29,4 +34,6 @@ Rails.application.routes.draw do
 
   mount GoodJob::Engine => "admin/jobs"
   get "ping", to: "content#ping"
+
+  get "*path" => redirect(host: ENV["APP_HOSTNAME"]), :as => :frontend
 end

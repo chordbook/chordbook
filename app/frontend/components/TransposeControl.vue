@@ -48,12 +48,9 @@
 
 <script>
 import { Chord } from 'chordsheetjs'
-import { IonButton, IonIcon, IonSelect, IonSelectOption } from '@ionic/vue'
 import { arrowDown, arrowUp, refresh } from 'ionicons/icons'
 
 export default {
-  components: { IonButton, IonIcon, IonSelect, IonSelectOption },
-
   props: {
     note: {
       type: String,

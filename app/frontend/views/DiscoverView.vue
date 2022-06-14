@@ -92,35 +92,10 @@
 </template>
 
 <script setup>
-import {
-  IonAvatar,
-  IonContent,
-  IonHeader,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonPage,
-  IonSearchbar,
-  IonSegment,
-  IonSegmentButton,
-  IonSpinner,
-  IonTitle,
-  IonToolbar
-} from '@ionic/vue'
 import GenreListView from '@/views/GenreListView.vue'
 import { useRouteQuery } from '@vueuse/router'
-import { createFetch } from '@vueuse/core'
+import { useFetch } from '@/client'
 import { computed, ref, unref, reactive, watch } from 'vue'
-
-const useFetch = createFetch({
-  baseUrl: new URL(import.meta.env.APP_API_URL || 'https://chordbook.app/', window.location).toString(),
-  fetchOptions: {
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest'
-    }
-  }
-})
 
 const types = {
   All: '',
@@ -136,8 +111,7 @@ const params = reactive({
 
 const hasFocus = ref(false)
 const isSearching = computed(() => !!unref(params.q || hasFocus))
-const url = computed(() => 'search.json?' + new URLSearchParams(params))
-const { execute, data, isFetching, isFinished, abort } = useFetch(url, { immediate: params.q }).get().json()
+const { execute, data, isFetching, isFinished, abort } = useFetch('search', { params, immediate: params.q }).get().json()
 
 watch(params, () => {
   if (params.q) {

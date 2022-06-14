@@ -28,6 +28,10 @@ class ActiveSupport::TestCase
     Search.reindex(*models)
     Searchkick.callbacks(true, &block)
   end
+
+  def token_headers(user)
+    create(:access_token, user: user).request_headers
+  end
 end
 
 VCR.configure do |config|

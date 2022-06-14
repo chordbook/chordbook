@@ -56,6 +56,10 @@ services:
           type: pserv
           name: elasticsearch
           property: hostport
+      - key: MAILGUN_API_KEY
+        sync: false
+      - key: MAILGUN_DOMAIN
+        sync: false
   - type: pserv
     name: elasticsearch
     env: docker

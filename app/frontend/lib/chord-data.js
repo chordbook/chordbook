@@ -5,9 +5,9 @@ const instruments = { guitar, ukulele }
 
 const keyAliases = {
   Asharp: 'Bb',
-  Db: 'Csharp',
+  Csharp: 'Db',
   Dsharp: 'Eb',
-  Gb: 'Fsharp',
+  Fsharp: 'Gb',
   Gsharp: 'Ab'
 }
 

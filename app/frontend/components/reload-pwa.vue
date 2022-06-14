@@ -8,7 +8,6 @@
 </template>
 
 <script setup>
-import { IonToast } from '@ionic/vue'
 import { registerSW } from 'virtual:pwa-register'
 import { ref } from 'vue'
 

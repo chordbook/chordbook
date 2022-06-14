@@ -12,7 +12,13 @@
             :default-href="`/artists/${album.artist.id}`"
           />
         </ion-buttons>
-        <ion-title />
+        <ion-title>{{ album.title }}</ion-title>
+        <ion-buttons slot="end">
+          <add-to-library-button
+            v-if="album.uid"
+            :uid="album.uid"
+          />
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -71,7 +77,7 @@
           :class="{'text-neutral-500/50 hover:text-current transition-opacity': !track.has_songsheet}"
         >
           <ion-text slot="start">
-            <span class="text-sm opacity-50 w-4 text-right inline-block">{{ track.number }}</span>
+            <span class="text-sm text-muted w-4 text-right inline-block">{{ track.number }}</span>
           </ion-text>
           <ion-label>
             <h2>{{ track.title }}</h2>
@@ -84,11 +90,11 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonIcon } from '@ionic/vue'
-import { albums } from 'ionicons/icons'
+import AddToLibraryButton from '../components/AddToLibraryButton.vue'
+import { album as placeholderIcon } from '@/icons'
 
 export default {
-  components: { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonList, IonLabel, IonItem, IonText, IonNote, IonIcon },
+  components: { AddToLibraryButton },
 
   props: {
     id: {
@@ -100,7 +106,7 @@ export default {
   data () {
     return {
       album: {},
-      placeholderIcon: albums
+      placeholderIcon
     }
   },
 

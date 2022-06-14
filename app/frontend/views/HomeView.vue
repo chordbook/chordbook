@@ -1,5 +1,4 @@
 <script setup>
-import { IonPage, IonContent, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, IonIcon, IonButton } from '@ionic/vue'
 import { logoGithub, handLeft, cashOutline } from 'ionicons/icons'
 import ColorizedImg from '@/components/ColorizedImg.vue'
 </script>
@@ -29,7 +28,7 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
           <h2 class="ion-margin text-4xl sm:text-5xl">
             Let's play music better, together.
           </h2>
-          <p class="text-xl sm:text-2xl max-w-4xl mx-auto opacity-80">
+          <p class="text-xl sm:text-2xl max-w-4xl mx-auto text-muted">
             Chord Book is made by amateur musicians and volunteers. Here's how you can lend your talent, time, or money to help make it even better…
           </p>
         </div>

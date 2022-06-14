@@ -7,8 +7,19 @@ class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
     create :medium, record: @songsheet
   end
 
-  test "GET /songsheets" do
+  test "GET /songsheets unauthorized" do
     get api_songsheets_url(format: :json)
+    assert_response :unauthorized
+  end
+
+  test "GET /songsheets returns library songsheets" do
+    @user = create :user
+    @user.library.add @songsheet
+
+    # not in library
+    create(:songsheet)
+
+    get api_songsheets_url(format: :json), headers: token_headers(@user)
     assert_response :success
     body = JSON.parse(response.body)
     assert_equal 1, body.length

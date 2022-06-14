@@ -1,16 +1,4 @@
 <script setup>
-import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonList,
-  IonItem,
-  IonContent,
-  IonIcon,
-  IonLabel
-} from '@ionic/vue'
-
 import * as icons from '@/icons'
 </script>
 

@@ -17,10 +17,24 @@ CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
 
 
 --
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_stat_statements IS 'track planning and execution statistics of all SQL statements executed';
+
+
+--
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
 
 
 --
@@ -31,15 +45,66 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 
 
 --
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
+
+
+--
 -- Name: unaccent; Type: EXTENSION; Schema: -; Owner: -
 --
 
 CREATE EXTENSION IF NOT EXISTS unaccent WITH SCHEMA public;
 
 
+--
+-- Name: EXTENSION unaccent; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION unaccent IS 'text search dictionary that removes accents';
+
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- Name: access_tokens; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.access_tokens (
+    id bigint NOT NULL,
+    jti character varying,
+    user_id bigint NOT NULL,
+    expire_at timestamp(6) without time zone,
+    invalidated_at timestamp(6) without time zone,
+    refresh_token_digest character varying,
+    remote_ip character varying,
+    user_agent character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: access_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.access_tokens_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: access_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.access_tokens_id_seq OWNED BY public.access_tokens.id;
+
 
 --
 -- Name: albums; Type: TABLE; Schema: public; Owner: -
@@ -227,6 +292,39 @@ CREATE TABLE public.good_jobs (
 
 
 --
+-- Name: library_items; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.library_items (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    item_type character varying NOT NULL,
+    item_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: library_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.library_items_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: library_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.library_items_id_seq OWNED BY public.library_items.id;
+
+
+--
 -- Name: media; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -310,7 +408,8 @@ CREATE TABLE public.setlists (
     title character varying,
     description text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    user_id bigint
 );
 
 
@@ -413,17 +512,13 @@ ALTER SEQUENCE public.tracks_id_seq OWNED BY public.tracks.id;
 
 CREATE TABLE public.users (
     id bigint NOT NULL,
-    email character varying DEFAULT ''::character varying NOT NULL,
-    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
-    reset_password_token character varying,
-    reset_password_sent_at timestamp without time zone,
-    remember_created_at timestamp without time zone,
-    confirmation_token character varying,
-    confirmed_at timestamp without time zone,
-    confirmation_sent_at timestamp without time zone,
-    unconfirmed_email character varying,
+    name character varying,
+    email character varying,
+    password_digest character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    password_reset_token character varying,
+    password_reset_sent_at timestamp(6) without time zone
 );
 
 
@@ -482,6 +577,13 @@ ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
 
 
 --
+-- Name: access_tokens id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.access_tokens ALTER COLUMN id SET DEFAULT nextval('public.access_tokens_id_seq'::regclass);
+
+
+--
 -- Name: albums id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -507,6 +609,13 @@ ALTER TABLE ONLY public.artists ALTER COLUMN id SET DEFAULT nextval('public.arti
 --
 
 ALTER TABLE ONLY public.genres ALTER COLUMN id SET DEFAULT nextval('public.genres_id_seq'::regclass);
+
+
+--
+-- Name: library_items id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.library_items ALTER COLUMN id SET DEFAULT nextval('public.library_items_id_seq'::regclass);
 
 
 --
@@ -556,6 +665,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
+
+
+--
+-- Name: access_tokens access_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.access_tokens
+    ADD CONSTRAINT access_tokens_pkey PRIMARY KEY (id);
 
 
 --
@@ -612,6 +729,14 @@ ALTER TABLE ONLY public.good_job_processes
 
 ALTER TABLE ONLY public.good_jobs
     ADD CONSTRAINT good_jobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: library_items library_items_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.library_items
+    ADD CONSTRAINT library_items_pkey PRIMARY KEY (id);
 
 
 --
@@ -676,6 +801,27 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_access_tokens_on_jti; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_access_tokens_on_jti ON public.access_tokens USING btree (jti);
+
+
+--
+-- Name: index_access_tokens_on_refresh_token_digest; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_access_tokens_on_refresh_token_digest ON public.access_tokens USING btree (refresh_token_digest);
+
+
+--
+-- Name: index_access_tokens_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_access_tokens_on_user_id ON public.access_tokens USING btree (user_id);
 
 
 --
@@ -770,6 +916,20 @@ CREATE INDEX index_good_jobs_on_scheduled_at ON public.good_jobs USING btree (sc
 
 
 --
+-- Name: index_library_items_on_item; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_library_items_on_item ON public.library_items USING btree (item_type, item_id);
+
+
+--
+-- Name: index_library_items_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_library_items_on_user_id ON public.library_items USING btree (user_id);
+
+
+--
 -- Name: index_media_on_record; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -788,6 +948,13 @@ CREATE INDEX index_setlist_items_on_setlist_id ON public.setlist_items USING btr
 --
 
 CREATE INDEX index_setlist_items_on_songsheet_id ON public.setlist_items USING btree (songsheet_id);
+
+
+--
+-- Name: index_setlists_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_setlists_on_user_id ON public.setlists USING btree (user_id);
 
 
 --
@@ -826,24 +993,10 @@ CREATE INDEX index_tracks_on_genre_id_and_listeners ON public.tracks USING btree
 
 
 --
--- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_confirmation_token ON public.users USING btree (confirmation_token);
-
-
---
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
-
-
---
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
 
 
 --
@@ -869,6 +1022,14 @@ ALTER TABLE ONLY public.artists
 
 
 --
+-- Name: library_items fk_rails_218f14633a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.library_items
+    ADD CONSTRAINT fk_rails_218f14633a FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: songsheets fk_rails_432ed80836; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -882,6 +1043,14 @@ ALTER TABLE ONLY public.songsheets
 
 ALTER TABLE ONLY public.albums
     ADD CONSTRAINT fk_rails_78dbff46af FOREIGN KEY (genre_id) REFERENCES public.genres(id);
+
+
+--
+-- Name: access_tokens fk_rails_96fc070778; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.access_tokens
+    ADD CONSTRAINT fk_rails_96fc070778 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -914,6 +1083,14 @@ ALTER TABLE ONLY public.tracks
 
 ALTER TABLE ONLY public.artist_works
     ADD CONSTRAINT fk_rails_ed895a06e9 FOREIGN KEY (artist_id) REFERENCES public.artists(id);
+
+
+--
+-- Name: setlists fk_rails_f50d16f6d9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.setlists
+    ADD CONSTRAINT fk_rails_f50d16f6d9 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -950,4 +1127,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220514222126'),
 ('20220516172030'),
 ('20220518123328'),
-('20220524012457');
+('20220519164332'),
+('20220521034543'),
+('20220523034318'),
+('20220524012457'),
+('20220527124410');
+
+

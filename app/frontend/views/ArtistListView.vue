@@ -23,6 +23,11 @@
         </ion-toolbar>
       </ion-header>
 
+      <library-placeholder
+        v-if="!dataSource.loading && dataSource.items.length === 0"
+        type="artist"
+      />
+
       <ion-list>
         <artist-item
           v-for="artist in dataSource.items"
@@ -48,10 +53,10 @@
 <script>
 import DataSource from '@/DataSource'
 import ArtistItem from '@/components/ArtistItem.vue'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/vue'
+import LibraryPlaceholder from '@/components/LibraryPlaceholder.vue'
 
 export default {
-  components: { ArtistItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonButtons, IonBackButton, IonInfiniteScroll, IonInfiniteScrollContent },
+  components: { ArtistItem, LibraryPlaceholder },
 
   data () {
     const dataSource = new DataSource(this.$route.path, { params: this.$route.query })

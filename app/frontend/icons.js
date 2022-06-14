@@ -1,4 +1,6 @@
 export {
+  addOutline as save,
+  checkmarkOutline as saved,
   albumsOutline as album,
   createOutline as edit,
   ellipsisHorizontal as iosEllipsis,
@@ -10,7 +12,9 @@ export {
   people as artist,
   playCircleOutline as play,
   search,
-  trash
+  trash,
+  personCircleOutline as avatar,
+  logOutOutline as signout
 } from 'ionicons/icons'
 
 export { default as transpose } from '@/icons/transpose.svg?url'
@@ -18,3 +22,5 @@ export { default as tuningFork } from '@/icons/tuning-fork.svg?url'
 export { default as chordDiagram } from '@/icons/chord-diagram.svg?url'
 export { default as logo } from '@/assets/logo-dark.svg?url'
 export { default as wordmark } from '@/assets/wordmark-dark.svg?url'
+export { default as logoLight } from '@/assets/logo-light.svg?url'
+export { default as wordmarkLight } from '@/assets/wordmark-light.svg?url'

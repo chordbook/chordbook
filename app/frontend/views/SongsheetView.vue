@@ -32,6 +32,10 @@
               :icon="icons.transpose"
             />
           </ion-button>
+          <add-to-library-button
+            v-if="songsheet.uid"
+            :uid="songsheet.uid"
+          />
           <ion-button
             :id="`songsheet-context-${songsheet.id}`"
             fill="clear"
@@ -84,7 +88,7 @@
               :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
               class="block ion-activatable ion-focusable my-0"
             >
-              <span class="opacity-40">by </span>
+              <span class="text-muted">by </span>
               <span class="text-teal-500">{{ songsheet.track.artist.name }}</span>
             </ion-label>
             <ion-label
@@ -93,7 +97,7 @@
               :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
               class="block ion-activatable ion-focusable truncate overflow-hidden my-1"
             >
-              <span class="opacity-40">from </span>
+              <span class="text-muted">from </span>
               <span class="text-teal-500">{{ songsheet.track.album.title }}</span>
             </ion-label>
           </div>
@@ -157,7 +161,6 @@
         >
           View Album
         </ion-item>
-
         <ion-item
           button
           detail
@@ -174,18 +177,19 @@
 
 <script>
 import client from '@/client'
-import { IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, modalController, IonLabel, IonList, IonItem } from '@ionic/vue'
+import { modalController } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
 import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
 import SongsheetMedia from '@/components/SongsheetMedia.vue'
+import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import TunerView from '@/views/TunerView.vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { SongSheet, IonPage, IonPopover, IonHeader, IonButton, IonIcon, IonToolbar, IonButtons, IonBackButton, IonLabel, IonList, IonItem, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia },
+  components: { SongSheet, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia, AddToLibraryButton },
 
   props: {
     id: {

@@ -1,5 +1,5 @@
 class Api::ArtistsController < ApiController
-  before_action :set_artist, only: %i[show]
+  skip_before_action :authenticate!
 
   def index
     @artists = current_scope.order_by_alphabetical.page(params[:page])
@@ -8,6 +8,7 @@ class Api::ArtistsController < ApiController
   end
 
   def show
+    @artist = Artist.find(params[:id])
     fresh_when @artist
   end
 
@@ -15,9 +16,5 @@ class Api::ArtistsController < ApiController
 
   def current_scope
     params[:letter] ? super.starts_with(:name, params[:letter]) : super
-  end
-
-  def set_artist
-    @artist = Artist.find(params[:id])
   end
 end

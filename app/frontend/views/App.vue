@@ -8,30 +8,20 @@
       <app-menu content-id="main" />
       <ion-router-outlet id="main" />
     </ion-split-pane>
+    <user-signin-modal />
+    <user-signup-modal />
   </ion-app>
 </template>
 
-<script>
-import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/vue'
+<script setup>
 import ReloadPwa from '@/components/reload-pwa.vue'
-import AppMenu from '@/components/menu.vue'
-import { defineComponent } from 'vue'
+import AppMenu from '@/components/AppMenu.vue'
+import UserSigninModal from './UserSigninModal.vue'
+import UserSignupModal from './UserSignupModal.vue'
+import useAuthStore from '@/stores/auth'
 
-export default defineComponent({
-  name: 'App',
-
-  components: {
-    IonApp,
-    ReloadPwa,
-    IonSplitPane,
-    AppMenu,
-    IonRouterOutlet
-  },
-
-  errorCaptured (error, instance, info) {
-    window.captureError && window.captureError(error)
-  }
-})
+const auth = useAuthStore()
+auth.refresh()
 </script>
 
 <style scoped>

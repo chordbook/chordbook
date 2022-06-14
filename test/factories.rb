@@ -42,9 +42,19 @@ FactoryBot.define do
 
   factory :setlist do
     title { Faker::Music.genre }
+    user
   end
 
   factory :medium do
     uri { " https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
+  end
+
+  factory :user do
+    email { Faker::Internet.email }
+    password { SecureRandom.alphanumeric }
+  end
+
+  factory :access_token do
+    user
   end
 end

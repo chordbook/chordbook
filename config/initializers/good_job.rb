@@ -6,9 +6,10 @@ if Rails.env.production?
 end
 
 Rails.application.configure do
-  config.good_job.queues = "default,low,*"
+  config.good_job.queues = "high,default,low,*"
   config.good_job.enable_cron = true
   config.good_job.cron = {
-    popular: {cron: "every day", class: "UpdatePopularCounts"}
+    popular: {cron: "every day", class: "UpdatePopularCounts"},
+    tokens: {cron: "every day", class: "CleanupTokens"}
   }
 end

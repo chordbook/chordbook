@@ -1,4 +1,6 @@
 class Api::GenresController < ApiController
+  skip_before_action :authenticate!
+
   def index
     @genres = Genre.order_by_popular.page(params[:page])
     set_pagination_header @genres

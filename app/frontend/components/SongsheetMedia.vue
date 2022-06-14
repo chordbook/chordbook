@@ -3,7 +3,6 @@ import { defineProps } from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import YoutubeEmbed from '@/components/YoutubeEmbed.vue'
 import { logoYoutube } from 'ionicons/icons'
-import { IonIcon } from '@ionic/vue'
 
 defineProps({
   songsheet: {

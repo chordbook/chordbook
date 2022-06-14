@@ -28,7 +28,7 @@
           v-if="song.artist"
           class="my-1"
         >
-          <span class="opacity-40">by</span> {{ formatArray(song.artist) }}
+          <span class="text-muted">by</span> {{ formatArray(song.artist) }}
         </div>
       </slot>
 
@@ -115,13 +115,12 @@ import detectFormat from '@/lib/detect_format'
 import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
 import SongSheetComment from '@/components/SongSheetComment.vue'
 import ChordDiagram from '@/components/ChordDiagram.vue'
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonFooter } from '@ionic/vue'
 import arrify from 'arrify'
 import useSongsheetSettingsStore from '@/stores/songsheet-settings'
 import { mapState } from 'pinia'
 
 export default {
-  components: { ChordLyricsPair, SongSheetComment, ChordDiagram, IonHeader, IonToolbar, IonTitle, IonContent, IonFooter },
+  components: { ChordLyricsPair, SongSheetComment, ChordDiagram },
 
   props: {
     source: {
@@ -296,7 +295,7 @@ function guessKey (song) {
 }
 
 .chord-sheet *:not(.tab) .chord {
-  @apply text-indigo-800 dark:text-blue-200 pr-1 font-medium text-sm;
+  @apply text-indigo-800 dark:text-indigo-300 pr-1 font-medium text-sm;
 }
 
 .chorus {

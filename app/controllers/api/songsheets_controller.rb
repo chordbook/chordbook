@@ -1,5 +1,6 @@
 class Api::SongsheetsController < ApiController
   before_action :set_songsheet, only: %i[show update destroy]
+  skip_before_action :authenticate!, only: %i[index show]
 
   # GET /songsheets.json
   def index
