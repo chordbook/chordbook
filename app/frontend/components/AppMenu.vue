@@ -1,5 +1,5 @@
 <template>
-  <ion-menu>
+  <ion-menu class="dark">
     <ion-header>
       <ion-toolbar>
         <ion-item
@@ -10,12 +10,26 @@
         >
           <img
             slot="start"
+            class="inline dark:hidden"
+            :src="icons.logoLight"
+            style="height: 20px"
+          >
+          <img
+            slot="start"
+            class="hidden dark:inline"
             :src="icons.logo"
             style="height: 20px"
           >
           <ion-label>
             <img
               alt="Chord Book"
+              class="inline dark:hidden"
+              :src="icons.wordmarkLight"
+              style="height: 14px"
+            >
+            <img
+              alt="Chord Book"
+              class="hidden dark:inline"
               :src="icons.wordmark"
               style="height: 14px"
             >
@@ -162,32 +176,10 @@ function colorFor (item) {
 
 <style scoped>
 ion-menu {
-  --primary-color: rgb(33 31 86);
-  --ion-text-color: rgb(255 255 255 / 0.9);
+  @apply border-r;
 }
 
-ion-menu {
-  --background:
-    linear-gradient(45deg, rgb(34 211 238 / 0.6), transparent 60%),
-    linear-gradient(-45deg, rgb(219 39 119 / 0.6), transparent 60%),
-    linear-gradient(to bottom, var(--primary-color) 100%, transparent)
-    ;
-    /*  */
-}
-
-ion-list-header {
-  --color: #fff;
-}
-
-ion-header, ion-content, ion-toolbar, ion-list, ion-item {
-  --background: transparent;
-  --ion-background-color: transparent;
-  --ion-item-background: transparent;
-}
 .ios ion-item {
   @apply rounded-lg;
 }
-
-ion-icon { color: inherit; }
-/* .ion-color-primary ion-icon { color: inherit; } */
 </style>
