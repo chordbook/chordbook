@@ -34,8 +34,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': root,
-      handlebars: 'handlebars/dist/handlebars.js'
+      '@': root
     }
   }
 })
