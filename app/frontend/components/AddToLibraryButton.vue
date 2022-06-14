@@ -1,10 +1,8 @@
 <script setup>
-import { defineProps, ref, unref, watch } from 'vue'
-import { useFetch } from '@/client'
-import useAuthStore from '@/stores/auth'
+import { defineProps } from 'vue'
 import { toastController } from '@ionic/vue'
-import AuthRequired from '@/components/AuthRequired.vue'
 import * as icons from '@/icons'
+import useLibraryStore from '@/stores/library'
 
 const props = defineProps({
   uid: {
@@ -13,61 +11,33 @@ const props = defineProps({
   }
 })
 
-const auth = useAuthStore()
-const exists = ref(false)
-
-watch(
-  () => auth.isAuthenticated,
-  () => {
-    if (!auth.isAuthenticated) return
-    useFetch('library', { params: props }).then(({ statusCode }) => {
-      exists.value = unref(statusCode) === 200
-    })
-  },
-  { immediate: true }
-)
+const library = useLibraryStore(props.uid)
 
 async function toast (message) {
   const toast = await toastController.create({ message, duration: 3000 })
-  toast.present()
-}
-
-function add () {
-  useFetch('library').post(props).then(async () => {
-    exists.value = true
-    toast('Added to your library')
-  })
-}
-
-function remove () {
-  useFetch('library').delete(props).then(() => {
-    exists.value = false
-    toast('Removed from your library')
-  })
+  return toast.present()
 }
 </script>
 
 <template>
-  <auth-required>
-    <ion-button
-      v-if="exists"
-      color="success"
-      @click="remove"
-    >
-      <ion-icon
-        slot="icon-only"
-        :icon="icons.saved"
-      />
-    </ion-button>
+  <ion-button
+    v-if="library.exists"
+    color="success"
+    @click="library.remove().then(() => toast('Removed from your library'))"
+  >
+    <ion-icon
+      slot="icon-only"
+      :icon="icons.saved"
+    />
+  </ion-button>
 
-    <ion-button
-      v-else
-      @click="add"
-    >
-      <ion-icon
-        slot="icon-only"
-        :icon="icons.save"
-      />
-    </ion-button>
-  </auth-required>
+  <ion-button
+    v-else
+    @click="library.add().then(() => toast('Added to your library'))"
+  >
+    <ion-icon
+      slot="icon-only"
+      :icon="icons.save"
+    />
+  </ion-button>
 </template>

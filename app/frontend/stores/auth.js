@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { useFetch } from '@/client'
 import { useStorage } from '@vueuse/core'
 import { unref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 let timeout = null
 
@@ -75,5 +76,18 @@ export default defineStore('auth', () => {
     timeout = setTimeout(refresh, ttl.value)
   }
 
-  return { user, isAuthenticated, headers, signUp, signIn, signOut, forgotPassword, resetPassword, refresh }
+  const router = useRouter()
+
+  function assert () {
+    if (isAuthenticated.value) return true
+
+    router.push('#signup')
+    return false
+  }
+
+  function guard (callback) {
+    return () => assert() && callback()
+  }
+
+  return { user, isAuthenticated, headers, signUp, signIn, signOut, forgotPassword, resetPassword, refresh, assert, guard }
 })
