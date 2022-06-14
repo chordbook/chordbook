@@ -45,7 +45,6 @@ const { isFinished, error, execute, data } = auth.forgotPassword(params, { immed
             <ion-input
               v-model="params.email"
               type="email"
-              name="email"
               autocomplete="email"
               required
             />

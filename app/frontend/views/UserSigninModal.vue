@@ -50,8 +50,7 @@ function dismissed () {
             </ion-label>
             <ion-input
               v-model="form.email"
-              type="text"
-              name="email"
+              type="email"
               autocomplete="email"
             />
           </ion-item>
@@ -62,7 +61,6 @@ function dismissed () {
             <ion-input
               v-model="form.password"
               type="password"
-              name="password"
               autocomplete="current-password"
             />
           </ion-item>

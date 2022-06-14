@@ -47,7 +47,6 @@ onFetchResponse((response) => {
             <ion-input
               v-model="params.password"
               type="password"
-              name="password"
               autocomplete="new-password"
             />
             <ion-note slot="error">
