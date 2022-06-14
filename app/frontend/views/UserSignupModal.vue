@@ -7,7 +7,7 @@ const route = useRoute()
 const router = useRouter()
 const auth = useAuthStore()
 const form = ref({ user: {} })
-const { execute, error, data } = auth.signUp(form, { immediate: false })
+const { execute, data } = auth.signUp(form, { immediate: false })
 
 const isOpen = computed(() => !auth.isAuthenticated && route.hash === '#signup')
 function dismissed () {
@@ -40,33 +40,51 @@ function dismissed () {
         <form @submit.prevent="execute">
           <Transition name="slide-down">
             <div
-              v-if="error"
+              v-if="data?.error?.message"
               class="ion-padding text-red-500"
             >
-              {{ data?.error }}
+              {{ data?.error?.message }}
             </div>
           </Transition>
-          <ion-item>
+          <ion-item :class="{ 'ion-invalid': data?.error?.name }">
+            <ion-label position="floating">
+              Name
+            </ion-label>
+            <ion-input
+              v-model="form.user.name"
+              type="text"
+              autocomplete="name"
+              required
+            />
+            <ion-note slot="error">
+              {{ data?.error?.name?.join(', ') }}
+            </ion-note>
+          </ion-item>
+          <ion-item :class="{ 'ion-invalid': data?.error?.email }">
             <ion-label position="floating">
               Email
             </ion-label>
             <ion-input
               v-model="form.user.email"
-              type="text"
-              name="email"
+              type="email"
               autocomplete="email"
             />
+            <ion-note slot="error">
+              {{ data?.error?.email?.join(', ') }}
+            </ion-note>
           </ion-item>
-          <ion-item>
+          <ion-item :class="{ 'ion-invalid': data?.error?.password }">
             <ion-label position="floating">
               Password
             </ion-label>
             <ion-input
               v-model="form.user.password"
               type="password"
-              name="password"
               autocomplete="new-password"
             />
+            <ion-note slot="error">
+              {{ data?.error?.password?.join(', ') }}
+            </ion-note>
           </ion-item>
 
           <div class="ion-margin">
