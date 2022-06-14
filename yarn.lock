@@ -1070,12 +1070,12 @@
     untildify "^4.0.0"
     wrap-ansi "^7.0.0"
 
-"@ionic/vue-router@^6.1.8":
-  version "6.1.8"
-  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.1.8.tgz#dc64f1a75ce7f149e1559315d964041d42d4554c"
-  integrity sha512-6hlq/FUAMfJjUQFVcR1lIssMdUPkHf9VL7QteIHNb75qciXaNCghX4WFGaar4F8rVS+JnMxp3L4rGW7R+0LvWg==
+"@ionic/vue-router@^6.1.9":
+  version "6.1.9"
+  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.1.9.tgz#85a916434d467fa9b1857e11959c7bf15ea93a39"
+  integrity sha512-lOSwJ95EWrJ8vdSUWWBaW7gN3Sy5EynRcjhizBrcZwyDlz7J/0usosWFyPXwaD8PS1BVKuBjOaisSy9p2RG7Eg==
   dependencies:
-    "@ionic/vue" "^6.1.8"
+    "@ionic/vue" "^6.1.9"
 
 "@ionic/vue@^6.1.8", "@ionic/vue@^6.1.9":
   version "6.1.9"
