@@ -161,6 +161,10 @@
         >
           View Album
         </ion-item>
+        <share-item
+          :title="songsheet.title"
+          :router-link="{ name: 'songsheet', params: { id: songsheet.id }}"
+        />
         <ion-item
           button
           detail
@@ -186,10 +190,11 @@ import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import TunerView from '@/views/TunerView.vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
+import ShareItem from '@/components/ShareItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { SongSheet, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia, AddToLibraryButton },
+  components: { SongSheet, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia, AddToLibraryButton, ShareItem },
 
   props: {
     id: {

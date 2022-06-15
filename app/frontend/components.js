@@ -51,3 +51,5 @@ export {
   IonToolbar,
   IonToast
 } from '@ionic/vue'
+
+export { default as Authenticated } from '@/components/Authenticated.vue'

@@ -1,7 +1,7 @@
 <template>
   <ion-item
     button
-    :router-link="{ name: 'album', params: { id: album.id } }"
+    :router-link="link"
     class="rounded group"
     :detail="false"
     lines="none"
@@ -36,6 +36,7 @@
     <ion-popover
       :trigger="`album-${album.id}-popover`"
       alignment="center"
+      side="top"
       translucent
       dismiss-on-select
       animated
@@ -50,6 +51,11 @@
         >
           View Artist
         </ion-item>
+        <share-item
+          lines="none"
+          :router-link="link"
+          :title="`${album.title} by ${album.artist.name}`"
+        />
       </ion-list>
     </ion-popover>
   </ion-item>
@@ -58,8 +64,9 @@
 <script setup>
 import { defineProps } from 'vue'
 import * as icons from '@/icons'
+import ShareItem from '@/components/ShareItem.vue'
 
-defineProps({
+const props = defineProps({
   album: {
     type: Object,
     required: true
@@ -69,4 +76,6 @@ defineProps({
     default: true
   }
 })
+
+const link = { name: 'album', params: { id: props.album.id } }
 </script>

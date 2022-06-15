@@ -1,7 +1,7 @@
 <template>
   <ion-item
     button
-    :router-link="{ name: 'track', params: { id: track.id } }"
+    :router-link="link"
     detail="false"
     :class="{ 'opacity-40 hover:opacity-100 transition-opacity': !track.has_songsheet }"
   >
@@ -58,12 +58,16 @@
           v-if="track.album"
           button
           detail
-          lines="none"
           :detail-icon="icons.album"
           :router-link="{ name: 'album', params: { id: track.album.id } }"
         >
           View Album
         </ion-item>
+        <share-item
+          lines="none"
+          :router-link="link"
+          :title="track.title"
+        />
       </ion-list>
     </ion-popover>
   </ion-item>
@@ -72,11 +76,14 @@
 <script setup>
 import { defineProps } from 'vue'
 import * as icons from '@/icons'
+import ShareItem from '@/components/ShareItem.vue'
 
-defineProps({
+const props = defineProps({
   track: {
     type: Object,
     required: true
   }
 })
+
+const link = { name: 'track', params: { id: props.track.id } }
 </script>
