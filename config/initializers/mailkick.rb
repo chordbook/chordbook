@@ -12,3 +12,6 @@ Mailkick.process_opt_outs_method = lambda do |opt_outs|
     end
   end
 end
+
+# Explicitly set secret from key generator instead of using secret_key_base directly
+Mailkick.secret_token = Rails.application.key_generator.generate_key("mailkick")
