@@ -325,6 +325,39 @@ ALTER SEQUENCE public.library_items_id_seq OWNED BY public.library_items.id;
 
 
 --
+-- Name: mailkick_subscriptions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mailkick_subscriptions (
+    id bigint NOT NULL,
+    subscriber_type character varying,
+    subscriber_id bigint,
+    list character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: mailkick_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mailkick_subscriptions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mailkick_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mailkick_subscriptions_id_seq OWNED BY public.mailkick_subscriptions.id;
+
+
+--
 -- Name: media; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -619,6 +652,13 @@ ALTER TABLE ONLY public.library_items ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: mailkick_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mailkick_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.mailkick_subscriptions_id_seq'::regclass);
+
+
+--
 -- Name: media id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -737,6 +777,14 @@ ALTER TABLE ONLY public.good_jobs
 
 ALTER TABLE ONLY public.library_items
     ADD CONSTRAINT library_items_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: mailkick_subscriptions mailkick_subscriptions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mailkick_subscriptions
+    ADD CONSTRAINT mailkick_subscriptions_pkey PRIMARY KEY (id);
 
 
 --
@@ -927,6 +975,13 @@ CREATE INDEX index_library_items_on_item ON public.library_items USING btree (it
 --
 
 CREATE INDEX index_library_items_on_user_id ON public.library_items USING btree (user_id);
+
+
+--
+-- Name: index_mailkick_subscriptions_on_subscriber_and_list; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_mailkick_subscriptions_on_subscriber_and_list ON public.mailkick_subscriptions USING btree (subscriber_type, subscriber_id, list);
 
 
 --
@@ -1131,6 +1186,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220521034543'),
 ('20220523034318'),
 ('20220524012457'),
-('20220527124410');
+('20220527124410'),
+('20220614211748');
 
 

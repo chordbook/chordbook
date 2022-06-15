@@ -223,10 +223,14 @@ GEM
     lumberjack (1.2.8)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
+    mailgun-ruby (1.2.5)
+      rest-client (>= 2.0.2)
     mailgun_rails (0.9.0)
       actionmailer (>= 3.2.13)
       json (>= 1.7.7)
       rest-client (>= 1.6.7)
+    mailkick (1.0.1)
+      activesupport (>= 5.2)
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
@@ -422,7 +426,9 @@ DEPENDENCIES
   kaminari
   letter_opener
   listen
+  mailgun-ruby
   mailgun_rails
+  mailkick
   nokogiri
   paper_trail
   pg

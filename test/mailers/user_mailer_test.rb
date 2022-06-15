@@ -1,6 +1,17 @@
 require "test_helper"
 
 class UserMailerTest < ActionMailer::TestCase
+  test "welcome" do
+    user = create(:user)
+    email = UserMailer.with(user: user).welcome
+
+    assert_emails 1 do
+      email.deliver_now
+    end
+
+    assert_equal [user.email], email.to
+  end
+
   test "forgot_password" do
     user = create(:user)
     user.generate_password_reset!
