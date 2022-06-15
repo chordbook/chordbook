@@ -1,4 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: ENV.fetch("MAIL_FROM", "Chord Book <help@chordbook.app>")
+  SUPPORT_FROM = ENV.fetch("MAIL_FROM", "Chord Book <help@chordbook.app>")
+  NEWS_FROM = ENV.fetch("MAIL_FROM", "Chord Book <news@chordbook.app>")
+
   layout "mailer"
 end

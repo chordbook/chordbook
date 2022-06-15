@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :setlists, through: :library, source: :item, source_type: "Setlist"
 
   has_secure_password
+  has_subscriptions
 
   validates :email,
     uniqueness: {case_sensitive: false},
@@ -23,6 +24,7 @@ class User < ApplicationRecord
 
   before_save :clear_password_reset_token, if: :password_digest_changed?
   after_create :create_default_setlists
+  after_create { subscribe("news") }
 
   def self.authenticate!(email, password)
     with_email(email).take!.authenticate(password) || raise(ActiveRecord::RecordNotFound)

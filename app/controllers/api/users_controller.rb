@@ -5,6 +5,7 @@ class Api::UsersController < ApiController
     @user = User.new(user_params)
     if @user.save
       issue_token @user
+      UserMailer.with(user: @user).welcome.deliver_later(wait: 1.hour)
       render @user, status: :created
     else
       render_error record: @user
