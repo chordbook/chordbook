@@ -3,6 +3,7 @@ import DataSource from '@/DataSource'
 import client from '@/client'
 import SongsheetItem from '@/components/SongsheetItem.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
+import ShareItem from '@/components/ShareItem.vue'
 import { toastController, actionSheetController } from '@ionic/vue'
 import * as icons from '@/icons'
 import { ref, defineProps, onMounted } from 'vue'
@@ -182,6 +183,11 @@ async function destroy () {
         >
           <ion-label>Delete</ion-label>
         </ion-item>
+        <share-item
+          lines="none"
+          :title="setlist.title"
+          :router-link="{ name: 'setlist', params: { id } }"
+        />
       </ion-list>
     </ion-popover>
   </ion-page>

@@ -1,20 +1,21 @@
 export {
   addOutline as save,
-  checkmarkOutline as saved,
   albumsOutline as album,
+  checkmarkOutline as saved,
   createOutline as edit,
   ellipsisHorizontal as iosEllipsis,
   ellipsisVertical as mdEllipsis,
   home,
   list,
   listOutline as setlist,
+  logOutOutline as signout,
   musicalNote as song,
   people as artist,
+  personCircleOutline as avatar,
   playCircleOutline as play,
   search,
-  trash,
-  personCircleOutline as avatar,
-  logOutOutline as signout
+  shareOutline as share,
+  trash
 } from 'ionicons/icons'
 
 export { default as transpose } from '@/icons/transpose.svg?url'

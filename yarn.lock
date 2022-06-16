@@ -1077,7 +1077,7 @@
   dependencies:
     "@ionic/vue" "^6.1.9"
 
-"@ionic/vue@^6.1.8", "@ionic/vue@^6.1.9":
+"@ionic/vue@^6.1.9":
   version "6.1.9"
   resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.9.tgz#d1af8fa3b5732d116ba7a3b2bf00fb3488944ed4"
   integrity sha512-c8HshEn8w98EnqpCBnjrl/UO4G+/fGbx3XQWujSk5LD4SGetnVUbVhpFqDVv3OKKjxsREHqbJOgf+dCdW9d2Ig==
@@ -4477,6 +4477,11 @@ serialize-javascript@^4.0.0:
   integrity sha512-GaNA54380uFefWghODBWEGisLZFj00nS5ACs6yHa9nLqlLpVLO8ChDGeKRjZnV4Nh4n0Qi7nhYZD/9fCPzEqkw==
   dependencies:
     randombytes "^2.1.0"
+
+share-api-polyfill@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/share-api-polyfill/-/share-api-polyfill-1.1.0.tgz#595192119d0d6b69e766ecf9009bb4a0121289aa"
+  integrity sha512-KTMJrR/jpcZJiJsCRbUFZf5Fhbq035LQLGkqHm2CyFVLUj+1fgi9ZwxpNQoDXkYtwoVeEUSgMq+ps+mNOllx5w==
 
 shebang-command@^2.0.0:
   version "2.0.0"

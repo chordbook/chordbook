@@ -1,7 +1,7 @@
 <template>
   <ion-item
     button
-    :router-link="{ name: 'songsheet', params: { id: songsheet.id } }"
+    :router-link="link"
     detail="false"
   >
     <ion-avatar
@@ -62,12 +62,16 @@
           v-if="songsheet.track"
           button
           detail
-          lines="none"
           :detail-icon="icons.album"
           :router-link="{ name: 'album', params: { id: songsheet.track?.album?.id } }"
         >
           View Album
         </ion-item>
+        <share-item
+          lines="none"
+          :router-link="link"
+          :title="songsheet.title"
+        />
       </ion-list>
     </ion-popover>
   </ion-item>
@@ -75,10 +79,11 @@
 
 <script>
 import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
+import ShareItem from '@/components/ShareItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { AddToSetlistItem },
+  components: { AddToSetlistItem, ShareItem },
 
   props: {
     songsheet: {
@@ -94,6 +99,10 @@ export default {
   },
 
   computed: {
+    link () {
+      return { name: 'songsheet', params: { id: this.songsheet.id } }
+    },
+
     artist () {
       return this.songsheet?.artists
         ? new Intl.ListFormat().format(this.songsheet.artists.map(a => a.name))
