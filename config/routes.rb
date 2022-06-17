@@ -32,8 +32,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :sitemaps
+
   mount GoodJob::Engine => "admin/jobs"
   get "ping", to: "content#ping"
 
-  get "*path" => redirect(host: ENV["APP_HOSTNAME"]), :as => :frontend
+  get "*path", as: :client,
+    to: redirect(host: ChordBook::CLIENT_URI.host, port: ChordBook::CLIENT_URI.port),
+    defaults: {host: ChordBook::CLIENT_URI.host, port: ChordBook::CLIENT_URI.port}
 end
