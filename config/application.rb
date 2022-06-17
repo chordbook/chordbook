@@ -7,16 +7,17 @@ require "good_job/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Chords
+module ChordBook
+  API_URI = URI(ENV.fetch("APP_API_URL", "http://localhost:3100"))
+  CLIENT_URI = begin
+    host = ENV.fetch("APP_HOSTNAME", "http://localhost:3000")
+    host = "https://#{host}" unless host.starts_with?("http")
+    URI(host)
+  end
+
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
-
-    API_URL = ENV.fetch("APP_API_URL", "http://localhost:3000")
-    API_HOST = begin
-      uri = URI.parse(API_URL)
-      [uri.host, uri.port].join(":")
-    end
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -32,7 +33,9 @@ module Chords
     config.railties_order = [:all, :main_app]
 
     config.active_record.schema_format = :sql
-    config.action_mailer.default_url_options = {host: API_HOST}
+    config.action_mailer.default_url_options = {host: API_URI.host, port: API_URI.port}
     config.action_mailer.deliver_later_queue_name = :high
+
+    config.middleware.use Rack::Deflater
   end
 end
