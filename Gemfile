@@ -26,6 +26,7 @@ gem "strong_password"
 gem "mailgun-ruby"
 gem "mailgun_rails"
 gem "mailkick"
+gem "actionpack-page_caching"
 
 group :development, :test do
   gem "debug"

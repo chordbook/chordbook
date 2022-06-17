@@ -1,4 +1,11 @@
 class SitemapsController < ApplicationController
+  caches_page :index, :show
+
+  # Cache for the day
+  self.page_cache_directory = -> {
+    Rails.root.join("tmp/cache/page", Date.today.to_s)
+  }
+
   SITEMAPS = {
     genres: Genre,
     songsheets: Songsheet,
