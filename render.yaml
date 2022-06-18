@@ -40,7 +40,7 @@ services:
       - key: ADMIN_PASS
         generateValue: true
       - key: APP_API_URL
-        value: /
+        sync: false
       - key: GOOD_JOB_EXECUTION_MODE
         value: async
       - key: GOOD_JOB_MAX_THREADS
