@@ -4,6 +4,7 @@ class Api::AuthenticateController < ApiController
 
   def create
     @user = User.authenticate!(params[:email], params[:password])
+    ahoy.authenticate @user
     issue_token @user
     render @user
   end

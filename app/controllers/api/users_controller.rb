@@ -4,6 +4,7 @@ class Api::UsersController < ApiController
   def create
     @user = User.new(user_params)
     if @user.save
+      ahoy.authenticate @user
       issue_token @user
       UserMailer.with(user: @user).welcome.deliver_later(wait: 1.hour)
       render @user, status: :created
