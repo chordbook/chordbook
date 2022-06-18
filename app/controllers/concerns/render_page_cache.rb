@@ -5,7 +5,7 @@ module RenderPageCache
 
   def render_cache
     file = page_cache.send(:cache_path, request.path, nil)
-    render file: file if File.exists?(file)
+    render file: file if File.exist?(file)
   end
 
   class_methods do
