@@ -1,4 +1,4 @@
-class UpdatePopularCounts < ApplicationJob
+class UpdateListenerCounts < ApplicationJob
   def perform
     ApplicationRecord.connection.execute <<~EOQ
       UPDATE artists
