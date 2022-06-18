@@ -27,6 +27,7 @@ gem "mailgun-ruby"
 gem "mailgun_rails"
 gem "mailkick"
 gem "actionpack-page_caching"
+gem "ahoy_matey"
 
 group :development, :test do
   gem "debug"
