@@ -10,6 +10,7 @@ Rails.application.configure do
   config.good_job.enable_cron = true
   config.good_job.cron = {
     popular: {cron: "every day", class: "UpdatePopularCounts"},
+    rank: {cron: "every day", class: "UpdateRank"},
     tokens: {cron: "every day", class: "CleanupTokens"},
     opt_outs: {cron: "every day", class: "PerformableMethod", args: [Mailkick, :fetch_opt_outs]}
   }

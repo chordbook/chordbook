@@ -15,9 +15,7 @@ class Track < ApplicationRecord
   scope :order_by_has_songsheet, -> {
     order(Arel.sql("CASE WHEN songsheets_count > 0 THEN 1 ELSE 2 END"))
   }
-  scope :order_by_popular, -> {
-    order_by_has_songsheet.order("tracks.listeners DESC NULLS LAST")
-  }
+  scope :order_by_popular, -> { order("tracks.rank") }
   scope :order_by_number, -> { order(:number) }
   scope :with_songsheet, -> { where(songsheets_count: 1..) }
 
