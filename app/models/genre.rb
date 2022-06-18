@@ -8,5 +8,5 @@ class Genre < ApplicationRecord
   has_one :example_track, -> { Track.order_by_popular }, class_name: "Track"
   has_one :example_artist, through: :example_track, class_name: "Artist", source: :artist
 
-  scope :order_by_popular, -> { order("listeners DESC NULLS LAST") }
+  scope :order_by_popular, -> { order("genres.rank") }
 end

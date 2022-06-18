@@ -206,7 +206,8 @@ CREATE TABLE public.albums (
     released integer,
     score numeric(3,1),
     genre_id bigint,
-    listeners bigint
+    listeners bigint,
+    rank bigint
 );
 
 
@@ -286,7 +287,8 @@ CREATE TABLE public.artists (
     style character varying,
     genre_id bigint,
     verified boolean DEFAULT false,
-    listeners bigint
+    listeners bigint,
+    rank bigint
 );
 
 
@@ -319,7 +321,8 @@ CREATE TABLE public.genres (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     thumbnail character varying,
-    listeners bigint
+    listeners bigint,
+    rank bigint
 );
 
 
@@ -528,7 +531,8 @@ CREATE TABLE public.setlists (
     description text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    user_id bigint
+    user_id bigint,
+    rank bigint
 );
 
 
@@ -563,7 +567,8 @@ CREATE TABLE public.songsheets (
     metadata json,
     track_id bigint,
     title character varying,
-    imported_from character varying
+    imported_from character varying,
+    rank bigint
 );
 
 
@@ -602,7 +607,8 @@ CREATE TABLE public.tracks (
     duration integer,
     listeners bigint,
     genre_id bigint,
-    songsheets_count integer DEFAULT 0
+    songsheets_count integer DEFAULT 0,
+    rank bigint
 );
 
 
@@ -1346,6 +1352,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220524012457'),
 ('20220527124410'),
 ('20220614211748'),
-('20220618131530');
+('20220618131530'),
+('20220618132541');
 
 
