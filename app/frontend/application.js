@@ -1,7 +1,7 @@
 import './application.css'
 
 import { createApp } from 'vue'
-import { createMetaManager } from 'vue-meta'
+import { createMetaManager, plugin as metaPlugin } from 'vue-meta'
 import { createPinia } from 'pinia'
 import { IonicVue } from '@ionic/vue'
 import App from './views/App.vue'
@@ -17,6 +17,7 @@ const app = createApp(App)
   .use(VueAxios, client)
   .use(router)
   .use(createMetaManager())
+  .use(metaPlugin)
 
 for (const name in components) {
   app.component(name, components[name])
