@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   resources :sitemaps
 
   mount GoodJob::Engine => "admin/jobs"
+  mount Motor::Admin => "/admin"
   get "ping", to: "content#ping"
 
   get "*path", as: :client,
