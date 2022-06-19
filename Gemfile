@@ -28,6 +28,7 @@ gem "mailgun_rails"
 gem "mailkick"
 gem "actionpack-page_caching"
 gem "ahoy_matey"
+gem "motor-admin"
 
 group :development, :test do
   gem "debug"

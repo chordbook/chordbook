@@ -480,6 +480,393 @@ ALTER SEQUENCE public.media_id_seq OWNED BY public.media.id;
 
 
 --
+-- Name: motor_alert_locks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.motor_alert_locks (
+    id bigint NOT NULL,
+    alert_id bigint NOT NULL,
+    lock_timestamp character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: motor_alert_locks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.motor_alert_locks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: motor_alert_locks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.motor_alert_locks_id_seq OWNED BY public.motor_alert_locks.id;
+
+
+--
+-- Name: motor_alerts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.motor_alerts (
+    id bigint NOT NULL,
+    query_id bigint NOT NULL,
+    name character varying NOT NULL,
+    description text,
+    to_emails text NOT NULL,
+    is_enabled boolean DEFAULT true NOT NULL,
+    preferences text NOT NULL,
+    author_id bigint,
+    author_type character varying,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: motor_alerts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.motor_alerts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: motor_alerts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.motor_alerts_id_seq OWNED BY public.motor_alerts.id;
+
+
+--
+-- Name: motor_api_configs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.motor_api_configs (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    url character varying NOT NULL,
+    preferences text NOT NULL,
+    credentials text NOT NULL,
+    description text,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: motor_api_configs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.motor_api_configs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: motor_api_configs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.motor_api_configs_id_seq OWNED BY public.motor_api_configs.id;
+
+
+--
+-- Name: motor_audits; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.motor_audits (
+    id bigint NOT NULL,
+    auditable_id character varying,
+    auditable_type character varying,
+    associated_id character varying,
+    associated_type character varying,
+    user_id bigint,
+    user_type character varying,
+    username character varying,
+    action character varying,
+    audited_changes text,
+    version bigint DEFAULT 0,
+    comment text,
+    remote_address character varying,
+    request_uuid character varying,
+    created_at timestamp(6) without time zone
+);
+
+
+--
+-- Name: motor_audits_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.motor_audits_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: motor_audits_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.motor_audits_id_seq OWNED BY public.motor_audits.id;
+
+
+--
+-- Name: motor_configs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.motor_configs (
+    id bigint NOT NULL,
+    key character varying NOT NULL,
+    value text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: motor_configs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.motor_configs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: motor_configs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.motor_configs_id_seq OWNED BY public.motor_configs.id;
+
+
+--
+-- Name: motor_dashboards; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.motor_dashboards (
+    id bigint NOT NULL,
+    title character varying NOT NULL,
+    description text,
+    preferences text NOT NULL,
+    author_id bigint,
+    author_type character varying,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: motor_dashboards_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.motor_dashboards_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: motor_dashboards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.motor_dashboards_id_seq OWNED BY public.motor_dashboards.id;
+
+
+--
+-- Name: motor_forms; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.motor_forms (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description text,
+    api_path text NOT NULL,
+    http_method character varying NOT NULL,
+    preferences text NOT NULL,
+    author_id bigint,
+    author_type character varying,
+    deleted_at timestamp(6) without time zone,
+    api_config_name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: motor_forms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.motor_forms_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: motor_forms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.motor_forms_id_seq OWNED BY public.motor_forms.id;
+
+
+--
+-- Name: motor_queries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.motor_queries (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description text,
+    sql_body text NOT NULL,
+    preferences text NOT NULL,
+    author_id bigint,
+    author_type character varying,
+    deleted_at timestamp(6) without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: motor_queries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.motor_queries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: motor_queries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.motor_queries_id_seq OWNED BY public.motor_queries.id;
+
+
+--
+-- Name: motor_resources; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.motor_resources (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    preferences text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: motor_resources_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.motor_resources_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: motor_resources_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.motor_resources_id_seq OWNED BY public.motor_resources.id;
+
+
+--
+-- Name: motor_taggable_tags; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.motor_taggable_tags (
+    id bigint NOT NULL,
+    tag_id bigint NOT NULL,
+    taggable_id bigint NOT NULL,
+    taggable_type character varying NOT NULL
+);
+
+
+--
+-- Name: motor_taggable_tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.motor_taggable_tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: motor_taggable_tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.motor_taggable_tags_id_seq OWNED BY public.motor_taggable_tags.id;
+
+
+--
+-- Name: motor_tags; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.motor_tags (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: motor_tags_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.motor_tags_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: motor_tags_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.motor_tags_id_seq OWNED BY public.motor_tags.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -772,6 +1159,83 @@ ALTER TABLE ONLY public.media ALTER COLUMN id SET DEFAULT nextval('public.media_
 
 
 --
+-- Name: motor_alert_locks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_alert_locks ALTER COLUMN id SET DEFAULT nextval('public.motor_alert_locks_id_seq'::regclass);
+
+
+--
+-- Name: motor_alerts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_alerts ALTER COLUMN id SET DEFAULT nextval('public.motor_alerts_id_seq'::regclass);
+
+
+--
+-- Name: motor_api_configs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_api_configs ALTER COLUMN id SET DEFAULT nextval('public.motor_api_configs_id_seq'::regclass);
+
+
+--
+-- Name: motor_audits id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_audits ALTER COLUMN id SET DEFAULT nextval('public.motor_audits_id_seq'::regclass);
+
+
+--
+-- Name: motor_configs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_configs ALTER COLUMN id SET DEFAULT nextval('public.motor_configs_id_seq'::regclass);
+
+
+--
+-- Name: motor_dashboards id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_dashboards ALTER COLUMN id SET DEFAULT nextval('public.motor_dashboards_id_seq'::regclass);
+
+
+--
+-- Name: motor_forms id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_forms ALTER COLUMN id SET DEFAULT nextval('public.motor_forms_id_seq'::regclass);
+
+
+--
+-- Name: motor_queries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_queries ALTER COLUMN id SET DEFAULT nextval('public.motor_queries_id_seq'::regclass);
+
+
+--
+-- Name: motor_resources id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_resources ALTER COLUMN id SET DEFAULT nextval('public.motor_resources_id_seq'::regclass);
+
+
+--
+-- Name: motor_taggable_tags id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_taggable_tags ALTER COLUMN id SET DEFAULT nextval('public.motor_taggable_tags_id_seq'::regclass);
+
+
+--
+-- Name: motor_tags id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_tags ALTER COLUMN id SET DEFAULT nextval('public.motor_tags_id_seq'::regclass);
+
+
+--
 -- Name: setlist_items id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -915,6 +1379,94 @@ ALTER TABLE ONLY public.mailkick_subscriptions
 
 ALTER TABLE ONLY public.media
     ADD CONSTRAINT media_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: motor_alert_locks motor_alert_locks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_alert_locks
+    ADD CONSTRAINT motor_alert_locks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: motor_alerts motor_alerts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_alerts
+    ADD CONSTRAINT motor_alerts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: motor_api_configs motor_api_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_api_configs
+    ADD CONSTRAINT motor_api_configs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: motor_audits motor_audits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_audits
+    ADD CONSTRAINT motor_audits_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: motor_configs motor_configs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_configs
+    ADD CONSTRAINT motor_configs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: motor_dashboards motor_dashboards_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_dashboards
+    ADD CONSTRAINT motor_dashboards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: motor_forms motor_forms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_forms
+    ADD CONSTRAINT motor_forms_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: motor_queries motor_queries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_queries
+    ADD CONSTRAINT motor_queries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: motor_resources motor_resources_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_resources
+    ADD CONSTRAINT motor_resources_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: motor_taggable_tags motor_taggable_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_taggable_tags
+    ADD CONSTRAINT motor_taggable_tags_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: motor_tags motor_tags_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_tags
+    ADD CONSTRAINT motor_tags_pkey PRIMARY KEY (id);
 
 
 --
@@ -1156,6 +1708,104 @@ CREATE INDEX index_media_on_record ON public.media USING btree (record_type, rec
 
 
 --
+-- Name: index_motor_alert_locks_on_alert_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_motor_alert_locks_on_alert_id ON public.motor_alert_locks USING btree (alert_id);
+
+
+--
+-- Name: index_motor_alert_locks_on_alert_id_and_lock_timestamp; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_motor_alert_locks_on_alert_id_and_lock_timestamp ON public.motor_alert_locks USING btree (alert_id, lock_timestamp);
+
+
+--
+-- Name: index_motor_alerts_on_query_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_motor_alerts_on_query_id ON public.motor_alerts USING btree (query_id);
+
+
+--
+-- Name: index_motor_alerts_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_motor_alerts_on_updated_at ON public.motor_alerts USING btree (updated_at);
+
+
+--
+-- Name: index_motor_audits_on_created_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_motor_audits_on_created_at ON public.motor_audits USING btree (created_at);
+
+
+--
+-- Name: index_motor_audits_on_request_uuid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_motor_audits_on_request_uuid ON public.motor_audits USING btree (request_uuid);
+
+
+--
+-- Name: index_motor_configs_on_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_motor_configs_on_key ON public.motor_configs USING btree (key);
+
+
+--
+-- Name: index_motor_configs_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_motor_configs_on_updated_at ON public.motor_configs USING btree (updated_at);
+
+
+--
+-- Name: index_motor_dashboards_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_motor_dashboards_on_updated_at ON public.motor_dashboards USING btree (updated_at);
+
+
+--
+-- Name: index_motor_forms_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_motor_forms_on_updated_at ON public.motor_forms USING btree (updated_at);
+
+
+--
+-- Name: index_motor_queries_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_motor_queries_on_updated_at ON public.motor_queries USING btree (updated_at);
+
+
+--
+-- Name: index_motor_resources_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_motor_resources_on_name ON public.motor_resources USING btree (name);
+
+
+--
+-- Name: index_motor_resources_on_updated_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_motor_resources_on_updated_at ON public.motor_resources USING btree (updated_at);
+
+
+--
+-- Name: index_motor_taggable_tags_on_tag_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_motor_taggable_tags_on_tag_id ON public.motor_taggable_tags USING btree (tag_id);
+
+
+--
 -- Name: index_setlist_items_on_setlist_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1226,6 +1876,76 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING bt
 
 
 --
+-- Name: motor_alerts_name_unique_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX motor_alerts_name_unique_index ON public.motor_alerts USING btree (name) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: motor_api_configs_name_unique_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX motor_api_configs_name_unique_index ON public.motor_api_configs USING btree (name) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: motor_auditable_associated_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX motor_auditable_associated_index ON public.motor_audits USING btree (associated_type, associated_id);
+
+
+--
+-- Name: motor_auditable_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX motor_auditable_index ON public.motor_audits USING btree (auditable_type, auditable_id, version);
+
+
+--
+-- Name: motor_auditable_user_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX motor_auditable_user_index ON public.motor_audits USING btree (user_id, user_type);
+
+
+--
+-- Name: motor_dashboards_title_unique_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX motor_dashboards_title_unique_index ON public.motor_dashboards USING btree (title) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: motor_forms_name_unique_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX motor_forms_name_unique_index ON public.motor_forms USING btree (name) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: motor_polymorphic_association_tag_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX motor_polymorphic_association_tag_index ON public.motor_taggable_tags USING btree (taggable_id, taggable_type, tag_id);
+
+
+--
+-- Name: motor_queries_name_unique_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX motor_queries_name_unique_index ON public.motor_queries USING btree (name) WHERE (deleted_at IS NULL);
+
+
+--
+-- Name: motor_tags_name_unique_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX motor_tags_name_unique_index ON public.motor_tags USING btree (name);
+
+
+--
 -- Name: uniq_by_artist_and_work; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1249,6 +1969,14 @@ ALTER TABLE ONLY public.library_items
 
 
 --
+-- Name: motor_alert_locks fk_rails_38d1b2960e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_alert_locks
+    ADD CONSTRAINT fk_rails_38d1b2960e FOREIGN KEY (alert_id) REFERENCES public.motor_alerts(id);
+
+
+--
 -- Name: songsheets fk_rails_432ed80836; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1265,6 +1993,14 @@ ALTER TABLE ONLY public.albums
 
 
 --
+-- Name: motor_alerts fk_rails_8828951644; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_alerts
+    ADD CONSTRAINT fk_rails_8828951644 FOREIGN KEY (query_id) REFERENCES public.motor_queries(id);
+
+
+--
 -- Name: access_tokens fk_rails_96fc070778; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1278,6 +2014,14 @@ ALTER TABLE ONLY public.access_tokens
 
 ALTER TABLE ONLY public.setlist_items
     ADD CONSTRAINT fk_rails_ae61c4f448 FOREIGN KEY (setlist_id) REFERENCES public.setlists(id);
+
+
+--
+-- Name: motor_taggable_tags fk_rails_ba9ebe2280; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.motor_taggable_tags
+    ADD CONSTRAINT fk_rails_ba9ebe2280 FOREIGN KEY (tag_id) REFERENCES public.motor_tags(id);
 
 
 --
@@ -1353,6 +2097,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220527124410'),
 ('20220614211748'),
 ('20220618131530'),
-('20220618132541');
+('20220618132541'),
+('20220619124827');
 
 
