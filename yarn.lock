@@ -988,10 +988,10 @@
     debug "^4.0.0"
     tslib "^2.0.1"
 
-"@ionic/core@^6.1.9":
-  version "6.1.9"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.1.9.tgz#320c69fe0871901930b15cf3645e3f124b17a662"
-  integrity sha512-EaClsiGB/E9wPkujnrMZ71BLVcA8t6DBZu+caJMmqPLF/64S37CiyfrrMbL1UnxDWP2TXsPFH3seWl6Ek/W1bw==
+"@ionic/core@^6.1.10":
+  version "6.1.10"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.1.10.tgz#8fe461032c7186f0c3ae08f5314887d8b1122f5f"
+  integrity sha512-QmQvIe+IklQhNhbq438I3eCnL6XjfTxrgO1+paOdGNKk3R3o4mqJmV0YYT5r9iwnieHgDxKbo3ovs9UnTXhI7g==
   dependencies:
     "@stencil/core" "^2.16.0"
     ionicons "^6.0.2"
@@ -1070,19 +1070,19 @@
     untildify "^4.0.0"
     wrap-ansi "^7.0.0"
 
-"@ionic/vue-router@^6.1.9":
-  version "6.1.9"
-  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.1.9.tgz#85a916434d467fa9b1857e11959c7bf15ea93a39"
-  integrity sha512-lOSwJ95EWrJ8vdSUWWBaW7gN3Sy5EynRcjhizBrcZwyDlz7J/0usosWFyPXwaD8PS1BVKuBjOaisSy9p2RG7Eg==
+"@ionic/vue-router@^6.1.10":
+  version "6.1.10"
+  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.1.10.tgz#76da623529722b7f344cd62ebbb531b9d62e0a44"
+  integrity sha512-WoCoFzdgzULgqZsR+4ivRcUGtagxOGBzqHgCXL2P/pwBoqafBMeXul/2JOBiolp2MKJQ39n0/SeCvnMonq3sSQ==
   dependencies:
-    "@ionic/vue" "^6.1.9"
+    "@ionic/vue" "^6.1.10"
 
-"@ionic/vue@^6.1.9":
-  version "6.1.9"
-  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.9.tgz#d1af8fa3b5732d116ba7a3b2bf00fb3488944ed4"
-  integrity sha512-c8HshEn8w98EnqpCBnjrl/UO4G+/fGbx3XQWujSk5LD4SGetnVUbVhpFqDVv3OKKjxsREHqbJOgf+dCdW9d2Ig==
+"@ionic/vue@^6.1.10", "@ionic/vue@^6.1.9":
+  version "6.1.10"
+  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.10.tgz#b0905cbce2ce971390cdb2d604293cdc52b0e55d"
+  integrity sha512-BopTHkF1fbayOCvVqYDuSTu830vPWeFe8TWySzPoOCC+lK1vO8mzmXbShYDnk1+MX0oLHshutXdhoQ+OyTANYQ==
   dependencies:
-    "@ionic/core" "^6.1.9"
+    "@ionic/core" "^6.1.10"
     ionicons "^6.0.2"
 
 "@nodelib/fs.scandir@2.1.5":
