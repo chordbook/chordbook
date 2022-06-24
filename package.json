@@ -45,7 +45,7 @@
   "devDependencies": {
     "@capacitor/cli": "^3.5.1",
     "@capacitor/ios": "^3.5.1",
-    "eslint": "^8.17.0",
+    "eslint": "^8.18.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-gitignore": "^0.1.0",
     "eslint-plugin-import": "^2.26.0",
