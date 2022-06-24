@@ -45,12 +45,6 @@ command -v node > /dev/null || {
 echo '== Installing JavaScript dependencies =='
 bin/yarn
 
-
-# puts "\n== Copying sample files =="
-  # unless File.exist?('config/database.yml')
-  #   FileUtils.cp 'config/database.yml.sample', 'config/database.yml'
-  # end
-
 echo "== Preparing database =="
 bin/rails db:prepare
 
