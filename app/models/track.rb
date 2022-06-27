@@ -10,7 +10,6 @@ class Track < ApplicationRecord
   belongs_to :genre, optional: true
 
   has_many :songsheets, dependent: :nullify
-  has_many :media, as: :record
 
   scope :order_by_has_songsheet, -> {
     order(Arel.sql("CASE WHEN songsheets_count > 0 THEN 1 ELSE 2 END"))
@@ -27,14 +26,14 @@ class Track < ApplicationRecord
     order_within_rank: "tracks.listeners DESC NULLS LAST, albums.released, albums.score DESC NULLS LAST, tracks.id"
 
   before_validation :associate_genre
-  after_save :associate_media
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
   map_metadata(
     intTrackNumber: :number,
     intDuration: :duration,
-    intTotalListeners: :listeners
+    intTotalListeners: :listeners,
+    strMusicVid: :media
   )
 
   def self.lookup(title)
@@ -66,10 +65,5 @@ class Track < ApplicationRecord
   def associate_genre
     return if metadata["strGenre"].blank?
     self.genre = Genre.find_or_create_by!(name: metadata["strGenre"])
-  end
-
-  def associate_media
-    return if metadata["strMusicVid"].blank?
-    media.find_or_create_by(uri: metadata["strMusicVid"])
   end
 end

@@ -45,10 +45,6 @@ FactoryBot.define do
     user
   end
 
-  factory :medium do
-    uri { " https://www.youtube.com/watch?v=dQw4w9WgXcQ" }
-  end
-
   factory :user do
     email { Faker::Internet.email }
     password { SecureRandom.alphanumeric }

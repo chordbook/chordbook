@@ -447,39 +447,6 @@ ALTER SEQUENCE public.mailkick_subscriptions_id_seq OWNED BY public.mailkick_sub
 
 
 --
--- Name: media; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.media (
-    id bigint NOT NULL,
-    record_type character varying,
-    record_id bigint,
-    uri character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: media_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.media_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: media_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.media_id_seq OWNED BY public.media.id;
-
-
---
 -- Name: motor_alert_locks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1152,13 +1119,6 @@ ALTER TABLE ONLY public.mailkick_subscriptions ALTER COLUMN id SET DEFAULT nextv
 
 
 --
--- Name: media id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.media ALTER COLUMN id SET DEFAULT nextval('public.media_id_seq'::regclass);
-
-
---
 -- Name: motor_alert_locks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1371,14 +1331,6 @@ ALTER TABLE ONLY public.library_items
 
 ALTER TABLE ONLY public.mailkick_subscriptions
     ADD CONSTRAINT mailkick_subscriptions_pkey PRIMARY KEY (id);
-
-
---
--- Name: media media_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.media
-    ADD CONSTRAINT media_pkey PRIMARY KEY (id);
 
 
 --
@@ -1698,13 +1650,6 @@ CREATE INDEX index_library_items_on_user_id ON public.library_items USING btree 
 --
 
 CREATE UNIQUE INDEX index_mailkick_subscriptions_on_subscriber_and_list ON public.mailkick_subscriptions USING btree (subscriber_type, subscriber_id, list);
-
-
---
--- Name: index_media_on_record; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_media_on_record ON public.media USING btree (record_type, record_id);
 
 
 --
@@ -2098,6 +2043,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220614211748'),
 ('20220618131530'),
 ('20220618132541'),
-('20220619124827');
+('20220619124827'),
+('20220627025626');
 
 
