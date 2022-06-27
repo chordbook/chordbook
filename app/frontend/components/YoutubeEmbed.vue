@@ -3,7 +3,7 @@ import getYoutubeId from 'get-youtube-id'
 
 export default {
   props: {
-    uri: {
+    src: {
       type: String,
       required: true
     }
@@ -11,10 +11,10 @@ export default {
 
   computed: {
     id () {
-      return getYoutubeId(this.uri)
+      return getYoutubeId(this.src)
     },
 
-    src () {
+    iframeSrc () {
       return `https://www.youtube.com/embed/${this.id}`
     }
   }
@@ -24,7 +24,7 @@ export default {
 <template>
   <iframe
     class="aspect-16/9 w-full"
-    :src="src"
+    :src="iframeSrc"
     title="YouTube video player"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

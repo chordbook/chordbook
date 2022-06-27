@@ -3,8 +3,8 @@ require "test_helper"
 class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @artist = create :artist, name: "John Mayer"
-    @songsheet = create :songsheet, title: "Why Georgia", artists: [@artist]
-    create :medium, record: @songsheet
+    @songsheet = create :songsheet, title: "Why Georgia", artists: [@artist],
+      metadata: {media: "vid1"}
   end
 
   test "GET /songsheets unauthorized" do

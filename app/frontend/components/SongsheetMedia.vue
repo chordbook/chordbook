@@ -20,10 +20,10 @@ defineProps({
     <TabGroup>
       <TabPanels class="bg-black md:rounded overflow-hidden">
         <TabPanel
-          v-for="media in songsheet.media"
-          :key="media.uri"
+          v-for="src in songsheet.media"
+          :key="src"
         >
-          <youtube-embed v-bind="media" />
+          <youtube-embed :src="src" />
         </TabPanel>
       </TabPanels>
       <TabList
@@ -33,7 +33,7 @@ defineProps({
         <Tab
           v-for="media in songsheet.media"
           v-slot="{ selected }"
-          :key="media.uri"
+          :key="media"
           as="template"
         >
           <button

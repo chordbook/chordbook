@@ -133,6 +133,22 @@ export default {
 
     url () {
       return this.id ? `songsheets/${this.id}.json` : 'songsheets.json'
+    },
+
+    metadata () {
+      const metadata = this.song.metadata.clone()
+
+      // Find all `meta` directives and add them to metadata
+      this.song.lines.forEach(line => {
+        line.items.forEach(item => {
+          if (item instanceof ChordSheetJS.Tag && item.name === 'meta') {
+            const [name, ...value] = item.value.split(' ')
+            metadata.add(name, value.join(' '))
+          }
+        })
+      })
+
+      return metadata
     }
   },
 
@@ -188,7 +204,7 @@ export default {
         data: {
           songsheet: {
             source: this.source,
-            metadata: this.song.metadata
+            metadata: this.metadata
           }
         }
       }).then(response => {

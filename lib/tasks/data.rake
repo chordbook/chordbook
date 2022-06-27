@@ -40,16 +40,23 @@ namespace :data do
   end
 
   task extract_media: :environment do
+    Searchkick.disable_callbacks
     youtube_url = /(https?:\/\/(?:www\.)?youtu(?:\.be|be\.com)[^\s}]*)/
 
     Songsheet.where("source ILIKE ?", "%youtu%").find_each do |songsheet|
-      songsheet.source.lines.select { |line| line =~ /youtu(be\.com|\.be)/ }.each do |line|
-        if line =~ youtube_url
-          songsheet.media.find_or_create_by(uri: $1)
-        else
-          puts "NOPE!: #{line}"
+      songsheet.skip_metadata_lookup = true
+
+      songsheet.source = songsheet.source.lines.map do |line|
+        if line =~ /^#{youtube_url.source}$/ || line =~ /{online_version:\s*#{youtube_url.source}}/
+          line = "{meta: media #{$1}}\n"
+          songsheet.metadata["media"] = [songsheet.metadata["media"], $1].flatten.compact
+        elsif line.match?(youtube_url)
+          puts ChordBook::CLIENT_URI + "songsheets/#{songsheet.id}"
         end
-      end
+        line
+      end.join("")
+
+      songsheet.save
     end
   end
 
