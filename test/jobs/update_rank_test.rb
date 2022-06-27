@@ -101,11 +101,13 @@ class UpdateRankTest < ActiveJob::TestCase
   end
 
   def play(songsheet, at: Time.now, times: 1)
+    @users ||= {}
     times.times do |i|
-      visit = Ahoy::Visit.create! user_id: i
+      user = @users[i] ||= create(:user)
+      visit = Ahoy::Visit.create! user: user
       Ahoy::Event.create!(
         visit: visit,
-        user_id: i,
+        user: user,
         name: "play",
         properties: {songsheet_id: songsheet.id},
         time: at
