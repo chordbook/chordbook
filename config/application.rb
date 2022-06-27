@@ -37,5 +37,10 @@ module ChordBook
     config.action_mailer.deliver_later_queue_name = :high
 
     config.middleware.use Rack::Deflater
+
+    # Use UUID for generators
+    config.generators do |g|
+      g.orm :active_record, primary_key_type: :uuid
+    end
   end
 end
