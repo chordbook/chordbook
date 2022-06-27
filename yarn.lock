@@ -1077,7 +1077,7 @@
   dependencies:
     "@ionic/vue" "^6.1.10"
 
-"@ionic/vue@^6.1.10", "@ionic/vue@^6.1.9":
+"@ionic/vue@^6.1.10":
   version "6.1.10"
   resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.10.tgz#b0905cbce2ce971390cdb2d604293cdc52b0e55d"
   integrity sha512-BopTHkF1fbayOCvVqYDuSTu830vPWeFe8TWySzPoOCC+lK1vO8mzmXbShYDnk1+MX0oLHshutXdhoQ+OyTANYQ==
@@ -1187,6 +1187,13 @@
   version "0.0.39"
   resolved "https://registry.npmjs.org/@types/estree/-/estree-0.0.39.tgz"
   integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
+
+"@types/http-link-header@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@types/http-link-header/-/http-link-header-1.0.3.tgz#899adf1d8d2036074514f3dbd148fb901ceff920"
+  integrity sha512-y8HkoD/vyid+5MrJ3aas0FvU3/BVBGcyG9kgxL0Zn4JwstA8CglFPnrR0RuzOjRCXwqzL5uxWC2IO7Ub0rMU2A==
+  dependencies:
+    "@types/node" "*"
 
 "@types/json5@^0.0.29":
   version "0.0.29"
@@ -1347,13 +1354,6 @@
   integrity sha512-Su/Ae49j4NJqxF1yiVA8I7Npj7UGN6s117IIVZPdyzY2hMt1xPenMIWOlG0qj2vPykDvRvj7DNsgP8fPFfsXtA==
   dependencies:
     "@vueuse/shared" "8.7.4"
-    vue-demi "*"
-
-"@vueuse/shared@8.6.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-8.6.0.tgz#63dad9fc4b73a7fccbe5d6b97adeacf73d4fec41"
-  integrity sha512-Y/IVywZo7IfEoSSEtCYpkVEmPV7pU35mEIxV7PbD/D3ly18B3mEsBaPbtDkNM/QP3zAZ5mn4nEkOfddX4uwuIA==
-  dependencies:
     vue-demi "*"
 
 "@vueuse/shared@8.7.4":

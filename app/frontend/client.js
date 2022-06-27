@@ -4,7 +4,6 @@ import { computed, unref } from 'vue'
 import useAuthStore from '@/stores/auth'
 
 export const doFetch = createFetch({
-  baseUrl: new URL(import.meta.env.APP_API_URL || 'https://api.chordbook.app/', window.location).toString(),
   options: {
     beforeFetch ({ options }) {
       const auth = useAuthStore()
@@ -26,15 +25,21 @@ export const doFetch = createFetch({
 })
 
 export const useFetch = (url, options = {}, ...args) => {
-  // Add support for query parameters to default useFetch implementation
-  if (options?.params) {
-    const params = options.params
-    delete options.params
-    const newUrl = computed(() => unref(url) + '?' + new URLSearchParams(unref(params)))
-    return doFetch(newUrl, options, ...args)
-  }
+  const fullUrl = computed(() => {
+    // Join url with base url
+    const newUrl = new URL(unref(url), import.meta.env.APP_API_URL || 'https://api.chordbook.app/')
 
-  return doFetch(url, options, ...args)
+    // Add support for query parameters to default useFetch implementation
+    if (options?.params) {
+      for (const [key, val] of new URLSearchParams(options.params)) {
+        newUrl.searchParams.append(key, val)
+      }
+    }
+
+    return newUrl.toString()
+  })
+
+  return doFetch(fullUrl, options, ...args)
 }
 
 // DEPRECATED

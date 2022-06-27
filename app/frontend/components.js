@@ -53,3 +53,4 @@ export {
 } from '@ionic/vue'
 
 export { default as Authenticated } from '@/components/Authenticated.vue'
+export { default as DataSource } from '@/components/DataSource.vue'
