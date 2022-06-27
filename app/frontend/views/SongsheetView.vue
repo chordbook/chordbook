@@ -33,8 +33,8 @@
             />
           </ion-button>
           <add-to-library-button
-            v-if="songsheet.uid"
-            :uid="songsheet.uid"
+            v-if="songsheet.id"
+            :id="songsheet.id"
           />
           <ion-button
             :id="`songsheet-context-${songsheet.id}`"

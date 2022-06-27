@@ -94,8 +94,8 @@ async function destroy () {
             Done
           </ion-button>
           <add-to-library-button
-            v-if="setlist.uid && !editing"
-            :uid="setlist.uid"
+            v-if="setlist.id && !editing"
+            :id="setlist.id"
           />
           <ion-button
             v-if="!editing"

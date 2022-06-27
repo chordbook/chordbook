@@ -8,7 +8,7 @@ class Api::GenresController < ApiController
   end
 
   def show
-    @genre = Genre.find(params[:id])
+    @genre = Genre.find_by_uid(params[:id])
     fresh_when @genre
   end
 end

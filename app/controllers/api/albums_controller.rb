@@ -8,7 +8,7 @@ class Api::AlbumsController < ApiController
   end
 
   def show
-    @album = Album.find(params[:id])
+    @album = Album.find_by_uid(params[:id])
     fresh_when @album
   end
 end

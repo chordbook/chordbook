@@ -13,7 +13,7 @@ class SitemapsControllerTest < ActionDispatch::IntegrationTest
       get sitemap_url(type, format: "xml")
       assert_response :success
 
-      assert_select "urlset>url>loc", client_url("#{type}/#{record.id}")
+      assert_select "urlset>url>loc", client_url("#{type}/#{record.to_param}")
     end
   end
 end

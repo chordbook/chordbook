@@ -8,7 +8,7 @@ class Api::TracksController < ApiController
   end
 
   def show
-    @track = Track.find(params[:id])
+    @track = Track.find_by_uid(params[:id])
     fresh_when @track
   end
 end

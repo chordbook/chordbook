@@ -1,6 +1,7 @@
 shallow ||= false
 
-json.extract! songsheet, :id, :uid, :title, :metadata, :created_at, :updated_at
+json.id songsheet.to_param
+json.extract! songsheet, :uid, :title, :metadata, :created_at, :updated_at
 
 if !shallow && songsheet.track
   json.track do

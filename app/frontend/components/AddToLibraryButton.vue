@@ -5,13 +5,13 @@ import * as icons from '@/icons'
 import useLibraryStore from '@/stores/library'
 
 const props = defineProps({
-  uid: {
+  id: {
     type: String,
     required: true
   }
 })
 
-const library = useLibraryStore(props.uid)
+const library = useLibraryStore(props.id)
 
 async function toast (message) {
   const toast = await toastController.create({ message, duration: 3000 })

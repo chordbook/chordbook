@@ -15,8 +15,8 @@
         <ion-title>{{ album.title }}</ion-title>
         <ion-buttons slot="end">
           <add-to-library-button
-            v-if="album.uid"
-            :uid="album.uid"
+            v-if="album.id"
+            :id="album.id"
           />
         </ion-buttons>
       </ion-toolbar>

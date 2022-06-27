@@ -29,6 +29,7 @@ gem "mailkick"
 gem "actionpack-page_caching"
 gem "ahoy_matey"
 gem "motor-admin"
+gem "shortuuid"
 
 group :development, :test do
   gem "debug"
