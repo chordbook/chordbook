@@ -6,8 +6,9 @@ class Songsheet < ApplicationRecord
   has_paper_trail
 
   belongs_to :track, optional: true, counter_cache: true
-  has_many :artist_works, as: :work
+  has_many :artist_works, as: :work, dependent: :destroy
   has_many :artists, through: :artist_works
+  has_many :library_items, as: :item, dependent: :destroy
 
   scope :order_by_popular, -> { order("songsheets.rank") }
   scope :order_by_recent, -> { order(created_at: :desc) }
