@@ -26,7 +26,7 @@ class ConvertToUuid < ActiveRecord::Migration[7.0]
     execute "DELETE FROM versions WHERE item_type = 'Medium'"
 
     # Ensure UUIDs are enabled
-    execute "CREATE EXTENSION IF NOT EXISTS pgcrypto"
+    enable_extension :pgcrypto
 
     # Add UUID primary keys
     TABLES.each do |table, _|
