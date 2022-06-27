@@ -14,7 +14,7 @@ class Api::LibraryControllerTest < ActionDispatch::IntegrationTest
     songsheet = create(:songsheet)
 
     assert_difference -> { @user.songsheets.count } do
-      post api_library_path, params: {uid: songsheet.uid},
+      post api_library_path, params: {id: songsheet.to_param},
         headers: token_headers(@user)
     end
 
@@ -26,7 +26,7 @@ class Api::LibraryControllerTest < ActionDispatch::IntegrationTest
     @user.library.add(songsheet)
 
     assert_no_difference -> { @user.songsheets.count } do
-      post api_library_path, params: {uid: songsheet.uid},
+      post api_library_path, params: {id: songsheet.to_param},
         headers: token_headers(@user)
     end
 
@@ -35,7 +35,7 @@ class Api::LibraryControllerTest < ActionDispatch::IntegrationTest
 
   test "create with invalid type" do
     assert_no_difference -> { @user.library.count } do
-      post api_library_path, params: {uid: @user.uid},
+      post api_library_path, params: {id: @user.to_param},
         headers: token_headers(@user)
     end
 
@@ -44,7 +44,7 @@ class Api::LibraryControllerTest < ActionDispatch::IntegrationTest
 
   test "create with non-existent record" do
     assert_no_difference -> { @user.songsheets.count } do
-      post api_library_path, params: {uid: Songsheet.new(id: -1).uid},
+      post api_library_path, params: {id: Songsheet.new(id: SecureRandom.uuid).to_param},
         headers: token_headers(@user)
     end
 
@@ -55,12 +55,12 @@ class Api::LibraryControllerTest < ActionDispatch::IntegrationTest
     songsheet = create(:songsheet)
     @user.songsheets << songsheet
 
-    get api_library_path, params: {uid: songsheet.uid},
+    get api_library_path, params: {id: songsheet.to_param},
       headers: token_headers(@user)
     assert_response :success
 
     assert_raises ActiveRecord::RecordNotFound do
-      get api_library_path, params: {uid: create(:songsheet).uid},
+      get api_library_path, params: {id: create(:songsheet).to_param},
         headers: token_headers(@user)
     end
   end
@@ -69,7 +69,7 @@ class Api::LibraryControllerTest < ActionDispatch::IntegrationTest
     songsheet = create(:songsheet)
     @user.songsheets << songsheet
 
-    delete api_library_path, params: {uid: songsheet.uid},
+    delete api_library_path, params: {id: songsheet.to_param},
       headers: token_headers(@user)
     assert_response :success
   end
