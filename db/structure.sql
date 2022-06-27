@@ -74,36 +74,17 @@ SET default_table_access_method = heap;
 --
 
 CREATE TABLE public.access_tokens (
-    id bigint NOT NULL,
     jti character varying,
-    user_id bigint NOT NULL,
     expire_at timestamp(6) without time zone,
     invalidated_at timestamp(6) without time zone,
     refresh_token_digest character varying,
     remote_ip character varying,
     user_agent character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    user_id uuid NOT NULL
 );
-
-
---
--- Name: access_tokens_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.access_tokens_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: access_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.access_tokens_id_seq OWNED BY public.access_tokens.id;
 
 
 --
@@ -111,32 +92,13 @@ ALTER SEQUENCE public.access_tokens_id_seq OWNED BY public.access_tokens.id;
 --
 
 CREATE TABLE public.ahoy_events (
-    id bigint NOT NULL,
-    visit_id bigint,
-    user_id bigint,
     name character varying,
     properties jsonb,
-    "time" timestamp(6) without time zone
+    "time" timestamp(6) without time zone,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    visit_id uuid,
+    user_id uuid
 );
-
-
---
--- Name: ahoy_events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.ahoy_events_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: ahoy_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.ahoy_events_id_seq OWNED BY public.ahoy_events.id;
 
 
 --
@@ -144,10 +106,8 @@ ALTER SEQUENCE public.ahoy_events_id_seq OWNED BY public.ahoy_events.id;
 --
 
 CREATE TABLE public.ahoy_visits (
-    id bigint NOT NULL,
     visit_token character varying,
     visitor_token character varying,
-    user_id bigint,
     ip character varying,
     user_agent text,
     referrer text,
@@ -169,27 +129,10 @@ CREATE TABLE public.ahoy_visits (
     app_version character varying,
     os_version character varying,
     platform character varying,
-    started_at timestamp(6) without time zone
+    started_at timestamp(6) without time zone,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    user_id uuid
 );
-
-
---
--- Name: ahoy_visits_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.ahoy_visits_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: ahoy_visits_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.ahoy_visits_id_seq OWNED BY public.ahoy_visits.id;
 
 
 --
@@ -197,37 +140,18 @@ ALTER SEQUENCE public.ahoy_visits_id_seq OWNED BY public.ahoy_visits.id;
 --
 
 CREATE TABLE public.albums (
-    id bigint NOT NULL,
     title character varying,
     metadata json,
-    artist_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     released integer,
     score numeric(3,1),
-    genre_id bigint,
     listeners bigint,
-    rank bigint
+    rank bigint,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    artist_id uuid,
+    genre_id uuid
 );
-
-
---
--- Name: albums_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.albums_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: albums_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.albums_id_seq OWNED BY public.albums.id;
 
 
 --
@@ -247,31 +171,12 @@ CREATE TABLE public.ar_internal_metadata (
 --
 
 CREATE TABLE public.artist_works (
-    id bigint NOT NULL,
-    artist_id bigint NOT NULL,
     work_type character varying NOT NULL,
-    work_id bigint NOT NULL,
-    "order" integer
+    "order" integer,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    artist_id uuid NOT NULL,
+    work_id uuid NOT NULL
 );
-
-
---
--- Name: artist_works_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.artist_works_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: artist_works_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.artist_works_id_seq OWNED BY public.artist_works.id;
 
 
 --
@@ -279,36 +184,17 @@ ALTER SEQUENCE public.artist_works_id_seq OWNED BY public.artist_works.id;
 --
 
 CREATE TABLE public.artists (
-    id bigint NOT NULL,
     name character varying,
     metadata json,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     style character varying,
-    genre_id bigint,
     verified boolean DEFAULT false,
     listeners bigint,
-    rank bigint
+    rank bigint,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    genre_id uuid
 );
-
-
---
--- Name: artists_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.artists_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: artists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.artists_id_seq OWNED BY public.artists.id;
 
 
 --
@@ -316,33 +202,14 @@ ALTER SEQUENCE public.artists_id_seq OWNED BY public.artists.id;
 --
 
 CREATE TABLE public.genres (
-    id bigint NOT NULL,
     name character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     thumbnail character varying,
     listeners bigint,
-    rank bigint
+    rank bigint,
+    id uuid DEFAULT gen_random_uuid() NOT NULL
 );
-
-
---
--- Name: genres_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.genres_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: genres_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.genres_id_seq OWNED BY public.genres.id;
 
 
 --
@@ -385,32 +252,13 @@ CREATE TABLE public.good_jobs (
 --
 
 CREATE TABLE public.library_items (
-    id bigint NOT NULL,
-    user_id bigint NOT NULL,
     item_type character varying NOT NULL,
-    item_id bigint NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    user_id uuid NOT NULL,
+    item_id uuid NOT NULL
 );
-
-
---
--- Name: library_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.library_items_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: library_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.library_items_id_seq OWNED BY public.library_items.id;
 
 
 --
@@ -418,32 +266,13 @@ ALTER SEQUENCE public.library_items_id_seq OWNED BY public.library_items.id;
 --
 
 CREATE TABLE public.mailkick_subscriptions (
-    id bigint NOT NULL,
     subscriber_type character varying,
-    subscriber_id bigint,
     list character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    subscriber_id uuid
 );
-
-
---
--- Name: mailkick_subscriptions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.mailkick_subscriptions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: mailkick_subscriptions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.mailkick_subscriptions_id_seq OWNED BY public.mailkick_subscriptions.id;
 
 
 --
@@ -847,32 +676,13 @@ CREATE TABLE public.schema_migrations (
 --
 
 CREATE TABLE public.setlist_items (
-    id bigint NOT NULL,
-    setlist_id bigint,
-    songsheet_id bigint,
     "position" bigint,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    setlist_id uuid,
+    songsheet_id uuid
 );
-
-
---
--- Name: setlist_items_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.setlist_items_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: setlist_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.setlist_items_id_seq OWNED BY public.setlist_items.id;
 
 
 --
@@ -880,33 +690,14 @@ ALTER SEQUENCE public.setlist_items_id_seq OWNED BY public.setlist_items.id;
 --
 
 CREATE TABLE public.setlists (
-    id bigint NOT NULL,
     title character varying,
     description text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    user_id bigint,
-    rank bigint
+    rank bigint,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    user_id uuid
 );
-
-
---
--- Name: setlists_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.setlists_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: setlists_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.setlists_id_seq OWNED BY public.setlists.id;
 
 
 --
@@ -914,35 +705,16 @@ ALTER SEQUENCE public.setlists_id_seq OWNED BY public.setlists.id;
 --
 
 CREATE TABLE public.songsheets (
-    id bigint NOT NULL,
     source text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     metadata json,
-    track_id bigint,
     title character varying,
     imported_from character varying,
-    rank bigint
+    rank bigint,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    track_id uuid
 );
-
-
---
--- Name: songsheets_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.songsheets_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: songsheets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.songsheets_id_seq OWNED BY public.songsheets.id;
 
 
 --
@@ -950,39 +722,20 @@ ALTER SEQUENCE public.songsheets_id_seq OWNED BY public.songsheets.id;
 --
 
 CREATE TABLE public.tracks (
-    id bigint NOT NULL,
     title character varying,
     metadata json,
-    artist_id bigint,
-    album_id bigint,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     number integer,
     duration integer,
     listeners bigint,
-    genre_id bigint,
     songsheets_count integer DEFAULT 0,
-    rank bigint
+    rank bigint,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    artist_id uuid,
+    album_id uuid,
+    genre_id uuid
 );
-
-
---
--- Name: tracks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.tracks_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: tracks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.tracks_id_seq OWNED BY public.tracks.id;
 
 
 --
@@ -990,34 +743,15 @@ ALTER SEQUENCE public.tracks_id_seq OWNED BY public.tracks.id;
 --
 
 CREATE TABLE public.users (
-    id bigint NOT NULL,
     name character varying,
     email character varying,
     password_digest character varying,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     password_reset_token character varying,
-    password_reset_sent_at timestamp(6) without time zone
+    password_reset_sent_at timestamp(6) without time zone,
+    id uuid DEFAULT gen_random_uuid() NOT NULL
 );
-
-
---
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.users_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
@@ -1025,97 +759,15 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 --
 
 CREATE TABLE public.versions (
-    id bigint NOT NULL,
     item_type character varying NOT NULL,
-    item_id bigint NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
     object json,
     created_at timestamp(6) without time zone,
-    object_changes json
+    object_changes json,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    item_id uuid NOT NULL
 );
-
-
---
--- Name: versions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.versions_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: versions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
-
-
---
--- Name: access_tokens id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.access_tokens ALTER COLUMN id SET DEFAULT nextval('public.access_tokens_id_seq'::regclass);
-
-
---
--- Name: ahoy_events id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.ahoy_events ALTER COLUMN id SET DEFAULT nextval('public.ahoy_events_id_seq'::regclass);
-
-
---
--- Name: ahoy_visits id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.ahoy_visits ALTER COLUMN id SET DEFAULT nextval('public.ahoy_visits_id_seq'::regclass);
-
-
---
--- Name: albums id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.albums ALTER COLUMN id SET DEFAULT nextval('public.albums_id_seq'::regclass);
-
-
---
--- Name: artist_works id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.artist_works ALTER COLUMN id SET DEFAULT nextval('public.artist_works_id_seq'::regclass);
-
-
---
--- Name: artists id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.artists ALTER COLUMN id SET DEFAULT nextval('public.artists_id_seq'::regclass);
-
-
---
--- Name: genres id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.genres ALTER COLUMN id SET DEFAULT nextval('public.genres_id_seq'::regclass);
-
-
---
--- Name: library_items id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.library_items ALTER COLUMN id SET DEFAULT nextval('public.library_items_id_seq'::regclass);
-
-
---
--- Name: mailkick_subscriptions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.mailkick_subscriptions ALTER COLUMN id SET DEFAULT nextval('public.mailkick_subscriptions_id_seq'::regclass);
 
 
 --
@@ -1193,48 +845,6 @@ ALTER TABLE ONLY public.motor_taggable_tags ALTER COLUMN id SET DEFAULT nextval(
 --
 
 ALTER TABLE ONLY public.motor_tags ALTER COLUMN id SET DEFAULT nextval('public.motor_tags_id_seq'::regclass);
-
-
---
--- Name: setlist_items id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.setlist_items ALTER COLUMN id SET DEFAULT nextval('public.setlist_items_id_seq'::regclass);
-
-
---
--- Name: setlists id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.setlists ALTER COLUMN id SET DEFAULT nextval('public.setlists_id_seq'::regclass);
-
-
---
--- Name: songsheets id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.songsheets ALTER COLUMN id SET DEFAULT nextval('public.songsheets_id_seq'::regclass);
-
-
---
--- Name: tracks id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.tracks ALTER COLUMN id SET DEFAULT nextval('public.tracks_id_seq'::regclass);
-
-
---
--- Name: users id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
-
-
---
--- Name: versions id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
 
 
 --
@@ -1906,6 +1516,14 @@ ALTER TABLE ONLY public.artists
 
 
 --
+-- Name: albums fk_rails_124a79559a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.albums
+    ADD CONSTRAINT fk_rails_124a79559a FOREIGN KEY (artist_id) REFERENCES public.artists(id);
+
+
+--
 -- Name: library_items fk_rails_218f14633a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1938,6 +1556,14 @@ ALTER TABLE ONLY public.albums
 
 
 --
+-- Name: tracks fk_rails_7c47d80164; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tracks
+    ADD CONSTRAINT fk_rails_7c47d80164 FOREIGN KEY (album_id) REFERENCES public.albums(id);
+
+
+--
 -- Name: motor_alerts fk_rails_8828951644; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1951,6 +1577,14 @@ ALTER TABLE ONLY public.motor_alerts
 
 ALTER TABLE ONLY public.access_tokens
     ADD CONSTRAINT fk_rails_96fc070778 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: ahoy_events fk_rails_a0df956a8d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ahoy_events
+    ADD CONSTRAINT fk_rails_a0df956a8d FOREIGN KEY (visit_id) REFERENCES public.ahoy_visits(id);
 
 
 --
@@ -1978,6 +1612,22 @@ ALTER TABLE ONLY public.setlist_items
 
 
 --
+-- Name: tracks fk_rails_d99a0cbd74; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.tracks
+    ADD CONSTRAINT fk_rails_d99a0cbd74 FOREIGN KEY (artist_id) REFERENCES public.artists(id);
+
+
+--
+-- Name: ahoy_visits fk_rails_db648022ad; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ahoy_visits
+    ADD CONSTRAINT fk_rails_db648022ad FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: tracks fk_rails_e21e3bd01e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1991,6 +1641,14 @@ ALTER TABLE ONLY public.tracks
 
 ALTER TABLE ONLY public.artist_works
     ADD CONSTRAINT fk_rails_ed895a06e9 FOREIGN KEY (artist_id) REFERENCES public.artists(id);
+
+
+--
+-- Name: ahoy_events fk_rails_f1ed9fc4a0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.ahoy_events
+    ADD CONSTRAINT fk_rails_f1ed9fc4a0 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -2044,6 +1702,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20220618131530'),
 ('20220618132541'),
 ('20220619124827'),
-('20220627025626');
+('20220627025626'),
+('20220627133951');
 
 
