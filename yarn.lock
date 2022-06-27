@@ -960,10 +960,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@headlessui/vue@^1.6.4":
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/@headlessui/vue/-/vue-1.6.4.tgz#8492bbb044a9b19ee92bef9cd4d0c3d8feed8588"
-  integrity sha512-axZMcfRLNuwHESPMgDb0Vj7xxlNPmsPl77pvoRZGzJh7lRdRic9kC/qbVM8G36OpIJRZzqrlADLQ2JIObhQjBg==
+"@headlessui/vue@^1.6.5":
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/@headlessui/vue/-/vue-1.6.5.tgz#d34005e7a19cac5cc95df82420a20bee529b65a1"
+  integrity sha512-C/BeTVuowTDLkGgUd6UfiPZVDLdR7OTnd8o4wF37Ub9Js1uhQ3XSTfitdZvlJALUqeQ30j+5Hk3KyjVDLQ3GYQ==
 
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.2"
@@ -1077,7 +1077,7 @@
   dependencies:
     "@ionic/vue" "^6.1.10"
 
-"@ionic/vue@^6.1.10", "@ionic/vue@^6.1.9":
+"@ionic/vue@^6.1.10":
   version "6.1.10"
   resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.10.tgz#b0905cbce2ce971390cdb2d604293cdc52b0e55d"
   integrity sha512-BopTHkF1fbayOCvVqYDuSTu830vPWeFe8TWySzPoOCC+lK1vO8mzmXbShYDnk1+MX0oLHshutXdhoQ+OyTANYQ==
@@ -1347,13 +1347,6 @@
   integrity sha512-Su/Ae49j4NJqxF1yiVA8I7Npj7UGN6s117IIVZPdyzY2hMt1xPenMIWOlG0qj2vPykDvRvj7DNsgP8fPFfsXtA==
   dependencies:
     "@vueuse/shared" "8.7.4"
-    vue-demi "*"
-
-"@vueuse/shared@8.6.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-8.6.0.tgz#63dad9fc4b73a7fccbe5d6b97adeacf73d4fec41"
-  integrity sha512-Y/IVywZo7IfEoSSEtCYpkVEmPV7pU35mEIxV7PbD/D3ly18B3mEsBaPbtDkNM/QP3zAZ5mn4nEkOfddX4uwuIA==
-  dependencies:
     vue-demi "*"
 
 "@vueuse/shared@8.7.4":
