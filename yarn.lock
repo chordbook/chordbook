@@ -1077,7 +1077,7 @@
   dependencies:
     "@ionic/vue" "^6.1.10"
 
-"@ionic/vue@^6.1.10", "@ionic/vue@^6.1.9":
+"@ionic/vue@^6.1.10":
   version "6.1.10"
   resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.10.tgz#b0905cbce2ce971390cdb2d604293cdc52b0e55d"
   integrity sha512-BopTHkF1fbayOCvVqYDuSTu830vPWeFe8TWySzPoOCC+lK1vO8mzmXbShYDnk1+MX0oLHshutXdhoQ+OyTANYQ==
@@ -1349,13 +1349,6 @@
     "@vueuse/shared" "8.7.4"
     vue-demi "*"
 
-"@vueuse/shared@8.6.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-8.6.0.tgz#63dad9fc4b73a7fccbe5d6b97adeacf73d4fec41"
-  integrity sha512-Y/IVywZo7IfEoSSEtCYpkVEmPV7pU35mEIxV7PbD/D3ly18B3mEsBaPbtDkNM/QP3zAZ5mn4nEkOfddX4uwuIA==
-  dependencies:
-    vue-demi "*"
-
 "@vueuse/shared@8.7.4":
   version "8.7.4"
   resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-8.7.4.tgz#c9ddff6515c0898bb28d00a38dccc62d9be35887"
@@ -1368,10 +1361,10 @@ abbrev@1:
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
   integrity sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
 
-ace-builds@^1.4.13, ace-builds@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/ace-builds/-/ace-builds-1.6.0.tgz#4e1652a0e33c4ae262dc841b1254dd2ad0beb5da"
-  integrity sha512-qdkx965G/TA12IK7Zk+iCVDtA9wvhxIGivGc2rsID4UYbY2Bpatwep3ZrBZwj1IB2miU6FodDMqM9Kc1lqDlLg==
+ace-builds@^1.4.13, ace-builds@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/ace-builds/-/ace-builds-1.6.1.tgz#606086725cb3190da7ee5a77be4ebce7042e330b"
+  integrity sha512-N5mf09eRnDB7h6z+En0WFv8ogaf0AHiW+ohSMSvAQnXunaBuxfuqz2iUYpNa82qF2BZ6u+b11FGBq/tgSdFxMQ==
 
 acorn-jsx@^5.3.2:
   version "5.3.2"
