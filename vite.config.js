@@ -3,10 +3,10 @@ import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
 import svgLoader from 'vite-svg-loader'
 import { string } from 'rollup-plugin-string'
-import manifest from './app/frontend/manifest.json'
+import manifest from './client/manifest.json'
 import path from 'path'
 
-const root = path.resolve(__dirname, 'app', 'frontend')
+const root = path.resolve(__dirname, 'client')
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -34,7 +34,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': root
+      '@': path.resolve(root, 'src')
     }
   }
 })

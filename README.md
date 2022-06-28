@@ -1,7 +1,7 @@
 <h1 align="center">
   <a href="https://chordbook.app">
-    <img width="150" src="./app/frontend/assets/logo-light.svg"><br>
-    <img src="./app/frontend/assets/wordmark-light.svg" alt="Chord Book">
+    <img width="150" src="./client/src/assets/logo-light.svg"><br>
+    <img src="./client/src/assets/wordmark-light.svg" alt="Chord Book">
   </a>
 </h1>
 
@@ -22,7 +22,7 @@ If you are looking for ways to contribute, here are a few places to start:
 
 ### Development
 
-This app is built using [Ruby on Rails](https://rubyonrails.org/) for the backend API and [Vue.js](https://vuejs.org/), [Ionic](https://ionicframework.com/), and [Tailwindcss](https://tailwindcss.com/) for the client.
+This app is built using [Ruby on Rails](https://rubyonrails.org/) for the backend API and [Vue.js](https://vuejs.org/), [Ionic](https://ionicframework.com/), and [Tailwindcss](https://tailwindcss.com/) for the [client](./client).
 
 If you would like to contribute code:
 

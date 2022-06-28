@@ -1,8 +1,8 @@
 module.exports = {
   content: [
-    './app/frontend/**/*.html',
-    './app/frontend/**/*.js',
-    './app/frontend/**/*.vue'
+    './client/**/*.html',
+    './client/**/*.js',
+    './client/**/*.vue'
   ],
   theme: {
     screens: {
