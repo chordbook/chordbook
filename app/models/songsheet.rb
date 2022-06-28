@@ -33,7 +33,7 @@ class Songsheet < ApplicationRecord
       thumbnail: track&.album&.thumbnail,
       # Because searchkick doesn't support `cross_fields`
       # https://github.com/ankane/searchkick/pull/871
-      everything: [title, metadata["artist"], track&.album&.title].compact.flatten,
+      everything: [title, metadata["artist"] || metadata["subtitle"], track&.album&.title].compact.flatten,
       boost: 3.0
     }
   end

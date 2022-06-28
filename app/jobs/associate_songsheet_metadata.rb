@@ -1,11 +1,12 @@
 class AssociateSongsheetMetadata < ApplicationJob
   def perform(songsheet)
-    return if songsheet.metadata["artist"].blank?
+    artist = songsheet.metadata["artist"] || songsheet.metadata["subtitle"]
+    return if artist.blank?
 
     # Prevent jobs from being enqueued recursively
     songsheet.skip_metadata_lookup = true
 
-    songsheet.artists = lookup_artists(songsheet.metadata["artist"])
+    songsheet.artists = lookup_artists(artist)
 
     track = Track.where(artist_id: songsheet.artist_ids).lookup(songsheet.title)
     songsheet.track = track if track
