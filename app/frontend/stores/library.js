@@ -3,8 +3,8 @@ import { ref, watch, unref } from 'vue'
 import { useFetch } from '@/client'
 import useAuthStore from '@/stores/auth'
 
-export default (uid) => {
-  return defineStore(`Library:${uid}`, () => {
+export default (id) => {
+  return defineStore(`Library:${id}`, () => {
     const auth = useAuthStore()
     const exists = ref(false)
 
@@ -12,7 +12,7 @@ export default (uid) => {
       () => auth.isAuthenticated,
       () => {
         if (!auth.isAuthenticated) return
-        useFetch('library', { params: { uid } }).then(({ statusCode }) => {
+        useFetch('library', { params: { id } }).then(({ statusCode }) => {
           exists.value = unref(statusCode) === 200
         })
       },
@@ -20,13 +20,13 @@ export default (uid) => {
     )
 
     const add = auth.guard(() => {
-      return useFetch('library').post({ uid }).then(async () => {
+      return useFetch('library').post({ id }).then(async () => {
         exists.value = true
       })
     })
 
     const remove = auth.guard(() => {
-      return useFetch('library').delete({ uid }).then(() => {
+      return useFetch('library').delete({ id }).then(() => {
         exists.value = false
       })
     })

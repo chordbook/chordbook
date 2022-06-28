@@ -8,7 +8,7 @@ class Api::ArtistsController < ApiController
   end
 
   def show
-    @artist = Artist.find(params[:id])
+    @artist = Artist.find_by_uid(params[:id])
     fresh_when @artist
   end
 

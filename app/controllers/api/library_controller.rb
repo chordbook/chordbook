@@ -21,7 +21,7 @@ class Api::LibraryController < ApiController
   private
 
   def record
-    ApplicationRecord.locate(params[:uid])
+    ShortIdentifier.locate(params[:id])
   rescue
     nil # Rely on LibraryItem validations
   end

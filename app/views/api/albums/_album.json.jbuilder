@@ -1,4 +1,5 @@
-json.extract! album, :id, :uid, :title, :thumbnail, :released, :genre, :style, :created_at, :updated_at
+json.id album.to_param
+json.extract! album, :uid, :title, :thumbnail, :released, :genre, :style, :created_at, :updated_at
 json.artist do
   json.partial! "api/artists/artist", artist: album.artist
 end

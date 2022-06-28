@@ -20,7 +20,7 @@ class UpdateRank < ApplicationJob
     exec <<-EOQ, since: WINDOW.ago
       WITH
         players AS (
-          SELECT (properties->>'songsheet_id')::bigint AS id, COUNT(DISTINCT user_id) AS count
+          SELECT (properties->>'songsheet_id')::uuid AS id, COUNT(DISTINCT user_id) AS count
           FROM ahoy_events
           WHERE name = 'play' AND time > :since
           GROUP BY properties->>'songsheet_id'
@@ -55,7 +55,7 @@ class UpdateRank < ApplicationJob
         players AS (
           SELECT songsheets.track_id, COUNT(DISTINCT ahoy_events.user_id) AS count
           FROM ahoy_events
-          JOIN songsheets ON songsheets.id = (properties->>'songsheet_id')::bigint
+          JOIN songsheets ON songsheets.id = (properties->>'songsheet_id')::uuid
           WHERE name = 'play' AND time > :since
           GROUP BY 1
         ),
@@ -107,7 +107,7 @@ class UpdateRank < ApplicationJob
         players AS (
           SELECT artist_works.artist_id, COUNT(DISTINCT ahoy_events.user_id) AS count
           FROM ahoy_events
-          JOIN artist_works ON artist_works.work_id = (properties->>'songsheet_id')::bigint
+          JOIN artist_works ON artist_works.work_id = (properties->>'songsheet_id')::uuid
             AND artist_works.work_type = 'Songsheet'
           WHERE name = 'play' AND time > :since
           GROUP BY 1
@@ -138,7 +138,7 @@ class UpdateRank < ApplicationJob
         players AS (
           SELECT tracks.genre_id, COUNT(DISTINCT user_id) AS count
           FROM ahoy_events
-          JOIN songsheets ON songsheets.id = (properties->>'songsheet_id')::bigint
+          JOIN songsheets ON songsheets.id = (properties->>'songsheet_id')::uuid
           JOIN tracks ON tracks.id = songsheets.track_id
           WHERE name = 'play' AND time > :since
           GROUP BY 1

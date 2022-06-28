@@ -14,8 +14,8 @@
         <ion-title>{{ artist.name }}</ion-title>
         <ion-buttons slot="end">
           <add-to-library-button
-            v-if="artist.uid"
-            :uid="artist.uid"
+            v-if="artist.id"
+            :id="artist.id"
           />
         </ion-buttons>
       </ion-toolbar>

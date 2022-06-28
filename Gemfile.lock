@@ -390,6 +390,7 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     shellany (0.0.1)
+    shortuuid (0.6.0)
     standard (1.12.1)
       rubocop (= 1.29.1)
       rubocop-performance (= 1.13.3)
@@ -468,6 +469,7 @@ DEPENDENCIES
   rails
   searchkick
   selenium-webdriver
+  shortuuid
   standard
   strong_password
   vcr

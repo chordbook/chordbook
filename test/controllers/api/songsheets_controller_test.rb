@@ -43,7 +43,7 @@ class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     body = JSON.parse(response.body)
     assert_equal 1, body.length
-    assert_equal @songsheet.id, body[0]["id"]
+    assert_equal @songsheet.to_param, body[0]["id"]
   end
 
   test "show" do

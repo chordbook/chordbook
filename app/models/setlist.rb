@@ -6,6 +6,7 @@ class Setlist < ApplicationRecord
   has_many :songsheets, through: :items
   has_many :tracks, through: :songsheets
   has_many :albums, through: :tracks
+  has_many :library_items, as: :item, dependent: :destroy
 
   after_create { user.library.add self }
 

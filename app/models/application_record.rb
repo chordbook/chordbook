@@ -1,14 +1,8 @@
 class ApplicationRecord < ActiveRecord::Base
+  include ShortIdentifier
+
   self.abstract_class = true
   before_save :strip_attrs
-
-  def uid
-    to_global_id.to_s
-  end
-
-  def self.locate(uid)
-    GlobalID::Locator.locate uid
-  end
 
   private
 

@@ -8,7 +8,7 @@ class Api::SetlistsController < ApiController
   end
 
   def show
-    @setlist = Setlist.find(params[:id])
+    @setlist = Setlist.find_by_uid(params[:id])
     fresh_when @setlist
   end
 
@@ -19,7 +19,7 @@ class Api::SetlistsController < ApiController
   end
 
   def destroy
-    current_user.owned_setlists.find(params[:id]).destroy
+    current_user.owned_setlists.find_by_uid(params[:id]).destroy
     head :ok
   end
 

@@ -1,3 +1,4 @@
 json.array! @results do |result|
-  json.merge! result.slice(:id, :type, :title, :subtitle, :thumbnail)
+  json.id ShortIdentifier.generate(result.type, result.id)
+  json.merge! result.slice(:type, :title, :subtitle, :thumbnail)
 end

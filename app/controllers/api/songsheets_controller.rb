@@ -53,7 +53,7 @@ class Api::SongsheetsController < ApiController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_songsheet
-    @songsheet = Songsheet.find(params[:id])
+    @songsheet = Songsheet.find_by_uid(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

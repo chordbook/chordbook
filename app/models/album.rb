@@ -4,7 +4,8 @@ class Album < ApplicationRecord
 
   belongs_to :artist
   belongs_to :genre, optional: true
-  has_many :tracks, -> { Track.order_by_number }
+  has_many :tracks, -> { Track.order_by_number }, dependent: :destroy
+  has_many :library_items, as: :item, dependent: :destroy
 
   before_validation :associate_genre
 
