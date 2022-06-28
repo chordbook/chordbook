@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+# Attempt to import the given chordpro files
+#
+#   Usage: bin/import path/*.chordpro
+#
+
+require_relative "../config/environment"
+require 'charlock_holmes/string'
+
+puts "Importing #{ARGV.length} files"
+
+ARGV.each do |filename|
+  puts "Importing #{filename}"
+  source = File.read(filename, encoding: "bom|utf-8")
+  detection = CharlockHolmes::EncodingDetector.detect(source)
+  source = CharlockHolmes::Converter.convert source, detection[:encoding], 'UTF-8'
+
+  songsheet = Songsheet.find_by(imported_from: filename)
+  Import::Chordpro.perform_later source, songsheet: songsheet, imported_from: filename
+end

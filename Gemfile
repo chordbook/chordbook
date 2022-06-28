@@ -44,6 +44,7 @@ group :development do
   gem "web-console"
   gem "listen"
   gem "letter_opener"
+  gem "charlock_holmes", require: false
 end
 
 group :test do
