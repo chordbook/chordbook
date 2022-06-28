@@ -9,7 +9,7 @@ class Api::SetlistItemsController < ApiController
   end
 
   def create
-    current_scope.create!(item_params)
+    current_scope.create!(songsheet: Songsheet.find_by_uid(params[:id]))
     head :created
   end
 
@@ -26,7 +26,7 @@ class Api::SetlistItemsController < ApiController
   private
 
   def item_params
-    params.require(:item).permit(:songsheet_id, :position)
+    params.require(:item).permit(:position)
   end
 
   def find_setlist

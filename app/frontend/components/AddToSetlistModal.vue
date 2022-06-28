@@ -21,9 +21,7 @@ const dataSource = new DataSource('setlists.json')
 onMounted(() => dataSource.load())
 
 async function add (setlist) {
-  await client.post(`setlists/${setlist.id}/items.json`, {
-    item: { songsheet_id: props.songsheet.id }
-  })
+  await client.post(`setlists/${setlist.id}/items.json`, { id: props.songsheet.id })
 
   modalController.dismiss()
 

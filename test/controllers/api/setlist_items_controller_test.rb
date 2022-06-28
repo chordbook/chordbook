@@ -16,7 +16,7 @@ class Api::SetlistItemsControllerTest < ActionDispatch::IntegrationTest
     songsheet = create :songsheet
     assert_no_difference -> { @setlist.items.count } do
       assert_raises ActiveRecord::RecordNotFound do
-        post api_setlist_items_url(@setlist), params: {item: {songsheet_id: songsheet.id}},
+        post api_setlist_items_url(@setlist), params: {id: songsheet.to_param},
           headers: token_headers(new_user)
       end
     end
@@ -24,7 +24,7 @@ class Api::SetlistItemsControllerTest < ActionDispatch::IntegrationTest
 
   test "create" do
     songsheet = create :songsheet
-    post api_setlist_items_url(@setlist), params: {item: {songsheet_id: songsheet.id}},
+    post api_setlist_items_url(@setlist), params: {id: songsheet.to_param},
       headers: token_headers(@user)
     assert_response :success
     assert_includes @setlist.reload.songsheets, songsheet
