@@ -280,7 +280,11 @@ export default {
     },
 
     hostname (url) {
-      return new URL(url).hostname
+      try {
+        return new URL(url).hostname
+      } catch (e) {
+        return url
+      }
     }
   }
 }
