@@ -940,10 +940,10 @@
   dependencies:
     tslib "^2.1.0"
 
-"@capacitor/ios@^3.5.1":
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-3.5.1.tgz#976de8909487c0ca35b8f1616ce8837bb19ff8c6"
-  integrity sha512-295L9dHe/QaejUpGI8Pxwb1i2yVgick1ExIDK26xk+tk1km3B1HVjsIS8qkf2SOp7tuwP9+W5T5p7rLMNN4v5g==
+"@capacitor/ios@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-3.6.0.tgz#0b4a89cf22212519425048b40a4cb6c68aa2c060"
+  integrity sha512-clauOkPj24COpAi1eIHSgi4OENIwuI8P6WKkfn3HVRX2lUPWyxczHTtg64inwECABy3zJdxnnwBHeok3bpoSCg==
 
 "@eslint/eslintrc@^1.3.0":
   version "1.3.0"
@@ -960,10 +960,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@headlessui/vue@^1.6.4":
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/@headlessui/vue/-/vue-1.6.4.tgz#8492bbb044a9b19ee92bef9cd4d0c3d8feed8588"
-  integrity sha512-axZMcfRLNuwHESPMgDb0Vj7xxlNPmsPl77pvoRZGzJh7lRdRic9kC/qbVM8G36OpIJRZzqrlADLQ2JIObhQjBg==
+"@headlessui/vue@^1.6.5":
+  version "1.6.5"
+  resolved "https://registry.yarnpkg.com/@headlessui/vue/-/vue-1.6.5.tgz#d34005e7a19cac5cc95df82420a20bee529b65a1"
+  integrity sha512-C/BeTVuowTDLkGgUd6UfiPZVDLdR7OTnd8o4wF37Ub9Js1uhQ3XSTfitdZvlJALUqeQ30j+5Hk3KyjVDLQ3GYQ==
 
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.2"
@@ -988,10 +988,10 @@
     debug "^4.0.0"
     tslib "^2.0.1"
 
-"@ionic/core@^6.1.10":
-  version "6.1.10"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.1.10.tgz#8fe461032c7186f0c3ae08f5314887d8b1122f5f"
-  integrity sha512-QmQvIe+IklQhNhbq438I3eCnL6XjfTxrgO1+paOdGNKk3R3o4mqJmV0YYT5r9iwnieHgDxKbo3ovs9UnTXhI7g==
+"@ionic/core@^6.1.11":
+  version "6.1.11"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.1.11.tgz#ffb545a3b6c36a8fca0c46ea22de2e7dce7705da"
+  integrity sha512-hMYZ+Iqvv2a8Qj3HCbtnI4DDIplMvr7x1Jk3aljNsvYQeyVLXxXvyNfpBzVuJxF7lJeGMlq9cY5XWUXh2gQnIA==
   dependencies:
     "@stencil/core" "^2.16.0"
     ionicons "^6.0.2"
@@ -1070,19 +1070,19 @@
     untildify "^4.0.0"
     wrap-ansi "^7.0.0"
 
-"@ionic/vue-router@^6.1.10":
-  version "6.1.10"
-  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.1.10.tgz#76da623529722b7f344cd62ebbb531b9d62e0a44"
-  integrity sha512-WoCoFzdgzULgqZsR+4ivRcUGtagxOGBzqHgCXL2P/pwBoqafBMeXul/2JOBiolp2MKJQ39n0/SeCvnMonq3sSQ==
+"@ionic/vue-router@^6.1.11":
+  version "6.1.11"
+  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.1.11.tgz#84ae82883cee30902363ae2c0046874daea9b72a"
+  integrity sha512-licGAZkEGi2aOUbJj/AeMDMDZxlFchjc1JhIDUf5LOwPFHfX2BwRb8BA0zncDGYMynXYol00HAF4pCDKmDggTg==
   dependencies:
-    "@ionic/vue" "^6.1.10"
+    "@ionic/vue" "^6.1.11"
 
-"@ionic/vue@^6.1.10", "@ionic/vue@^6.1.9":
-  version "6.1.10"
-  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.10.tgz#b0905cbce2ce971390cdb2d604293cdc52b0e55d"
-  integrity sha512-BopTHkF1fbayOCvVqYDuSTu830vPWeFe8TWySzPoOCC+lK1vO8mzmXbShYDnk1+MX0oLHshutXdhoQ+OyTANYQ==
+"@ionic/vue@^6.1.11":
+  version "6.1.11"
+  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.11.tgz#63b96ddc674b75685e519a5ab671002b129b26e9"
+  integrity sha512-TOCcXzK9X5EwfT/KyfVgeXJtFM7hZGvSOX+b1OoiHXIDpYk6wYAr6ujW2LUgt1iIv5Q2QMh3+wZJ/VAnCZT6tQ==
   dependencies:
-    "@ionic/core" "^6.1.10"
+    "@ionic/core" "^6.1.11"
     ionicons "^6.0.2"
 
 "@nodelib/fs.scandir@2.1.5":
@@ -1220,6 +1220,11 @@
   resolved "https://registry.npmjs.org/@types/trusted-types/-/trusted-types-2.0.2.tgz"
   integrity sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==
 
+"@types/web-bluetooth@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@types/web-bluetooth/-/web-bluetooth-0.0.14.tgz#94e175b53623384bff1f354cdb3197a8d63cdbe5"
+  integrity sha512-5d2RhCard1nQUC3aHcq/gHzWYO6K0WJmAbjO7mQJgCQKtZpgXxv1rOM6O/dBDhDYYVutk1sciOgNSe+5YyfM8A==
+
 "@types/yauzl@^2.9.1":
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/@types/yauzl/-/yauzl-2.10.0.tgz#b3248295276cf8c6f153ebe6a9aba0c988cb2599"
@@ -1327,39 +1332,33 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.37.tgz#8e6adc3f2759af52f0e85863dfb0b711ecc5c702"
   integrity sha512-4rSJemR2NQIo9Klm1vabqWjD8rs/ZaJSzMxkMNeJS6lHiUjjUeYFbooN19NgFjztubEKh3WlZUeOLVdbbUWHsw==
 
-"@vueuse/core@^8.7.4":
-  version "8.7.4"
-  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-8.7.4.tgz#39cec3e63faa8943be67121a176fbd84939c2b80"
-  integrity sha512-dQgxjb79PDcizlaclgCkCzNoqNv12PnbXxUOFL9VacakmD/ACoSMWwTpcG3HKoDoYyl2V3kSW/8AkvXGEYEGFA==
+"@vueuse/core@^8.7.5":
+  version "8.7.5"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-8.7.5.tgz#e74a888251ea11a9d432068ce18cbdfc4f810251"
+  integrity sha512-tqgzeZGoZcXzoit4kOGLWJibDMLp0vdm6ZO41SSUQhkhtrPhAg6dbIEPiahhUu6sZAmSYvVrZgEr5aKD51nrLA==
   dependencies:
-    "@vueuse/metadata" "8.7.4"
-    "@vueuse/shared" "8.7.4"
+    "@types/web-bluetooth" "^0.0.14"
+    "@vueuse/metadata" "8.7.5"
+    "@vueuse/shared" "8.7.5"
     vue-demi "*"
 
-"@vueuse/metadata@8.7.4":
-  version "8.7.4"
-  resolved "https://registry.yarnpkg.com/@vueuse/metadata/-/metadata-8.7.4.tgz#211a2a095504dd34c3d8881f4b1989e67662e9f5"
-  integrity sha512-CwEYS6/M6JDxk9D1mUsZq3F0VnYnf39rAxOytP58vb4BrhmPKEVfiSpvxuYcJimU9ccT/xjWhwBnsdGC2H9mIQ==
+"@vueuse/metadata@8.7.5":
+  version "8.7.5"
+  resolved "https://registry.yarnpkg.com/@vueuse/metadata/-/metadata-8.7.5.tgz#c7f2b21d873d1604a8860ed9c5728d8f3295f00a"
+  integrity sha512-emJZKRQSaEnVqmlu39NpNp8iaW+bPC2kWykWoWOZMSlO/0QVEmO/rt8A5VhOEJTKLX3vwTevqbiRy9WJRwVOQg==
 
-"@vueuse/router@^8.7.4":
-  version "8.7.4"
-  resolved "https://registry.yarnpkg.com/@vueuse/router/-/router-8.7.4.tgz#d5da91d020f24f9e0fdbf29fdf1bc57717eb5371"
-  integrity sha512-Su/Ae49j4NJqxF1yiVA8I7Npj7UGN6s117IIVZPdyzY2hMt1xPenMIWOlG0qj2vPykDvRvj7DNsgP8fPFfsXtA==
+"@vueuse/router@^8.7.5":
+  version "8.7.5"
+  resolved "https://registry.yarnpkg.com/@vueuse/router/-/router-8.7.5.tgz#1cfa54160c64382ba45be128e5a5ba5e9b013b7d"
+  integrity sha512-/25vLjwxtWXlBQ4ymkegDFVLkmysA9iqL2KAiSmc/YHLKB/AmLY1qkN3OSDKngi8gv2rEuQ8j4Txf4optcsDmw==
   dependencies:
-    "@vueuse/shared" "8.7.4"
+    "@vueuse/shared" "8.7.5"
     vue-demi "*"
 
-"@vueuse/shared@8.6.0":
-  version "8.6.0"
-  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-8.6.0.tgz#63dad9fc4b73a7fccbe5d6b97adeacf73d4fec41"
-  integrity sha512-Y/IVywZo7IfEoSSEtCYpkVEmPV7pU35mEIxV7PbD/D3ly18B3mEsBaPbtDkNM/QP3zAZ5mn4nEkOfddX4uwuIA==
-  dependencies:
-    vue-demi "*"
-
-"@vueuse/shared@8.7.4":
-  version "8.7.4"
-  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-8.7.4.tgz#c9ddff6515c0898bb28d00a38dccc62d9be35887"
-  integrity sha512-QhwTEd2Gr/8ZliWVEM8sbMUkXtVVV1Mt1mOkCnIbIN33D/V28FwGKUKqEPGZZCXuJchARnun/J1TAiT/UmZd1w==
+"@vueuse/shared@8.7.5":
+  version "8.7.5"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-8.7.5.tgz#06fb08f6f8fc9e90be9d1e033fa443de927172b0"
+  integrity sha512-THXPvMBFmg6Gf6AwRn/EdTh2mhqwjGsB2Yfp374LNQSQVKRHtnJ0I42bsZTn7nuEliBxqUrGQm/lN6qUHmhJLw==
   dependencies:
     vue-demi "*"
 
@@ -1368,10 +1367,10 @@ abbrev@1:
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
   integrity sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==
 
-ace-builds@^1.4.13, ace-builds@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/ace-builds/-/ace-builds-1.6.0.tgz#4e1652a0e33c4ae262dc841b1254dd2ad0beb5da"
-  integrity sha512-qdkx965G/TA12IK7Zk+iCVDtA9wvhxIGivGc2rsID4UYbY2Bpatwep3ZrBZwj1IB2miU6FodDMqM9Kc1lqDlLg==
+ace-builds@^1.4.13, ace-builds@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/ace-builds/-/ace-builds-1.6.1.tgz#606086725cb3190da7ee5a77be4ebce7042e330b"
+  integrity sha512-N5mf09eRnDB7h6z+En0WFv8ogaf0AHiW+ohSMSvAQnXunaBuxfuqz2iUYpNa82qF2BZ6u+b11FGBq/tgSdFxMQ==
 
 acorn-jsx@^5.3.2:
   version "5.3.2"
@@ -4763,10 +4762,10 @@ svgo@^2.7.0:
     picocolors "^1.0.0"
     stable "^0.1.8"
 
-tailwindcss@^3.1.3:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.1.3.tgz#b9ef2c1ae537c339679e8e89635af8e143d1c7eb"
-  integrity sha512-PRJNYdSIthrb8hjmAyymEyEN8Yo61TMXpzyFUpxULeeyRn3Y3gpvuw6FlRTKrJvK7thSGKRnhT36VovVx4WeMA==
+tailwindcss@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.1.4.tgz#64b09059805505902139fa805d97046080bd90b9"
+  integrity sha512-NrxbFV4tYsga/hpWbRyUfIaBrNMXDxx5BsHgBS4v5tlyjf+sDsgBg5m9OxjrXIqAS/uR9kicxLKP+bEHI7BSeQ==
   dependencies:
     arg "^5.0.2"
     chokidar "^3.5.3"
