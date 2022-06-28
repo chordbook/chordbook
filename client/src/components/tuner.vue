@@ -53,8 +53,8 @@
 
 <script>
 import { Tuner } from '../lib/tuner'
-import TunerMeter from '@/components/tuner-meter.vue'
-import TunerNote from '@/components/tuner-note.vue'
+import TunerMeter from '@/components/TunerMeter.vue'
+import TunerNote from '@/components/TunerNote.vue'
 import { mic, micOff } from 'ionicons/icons'
 
 export default {

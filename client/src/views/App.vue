@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import ReloadPwa from '@/components/reload-pwa.vue'
+import ReloadPwa from '@/components/ReloadPwa.vue'
 import AppMenu from '@/components/AppMenu.vue'
 import UserSigninModal from './UserSigninModal.vue'
 import UserSignupModal from './UserSignupModal.vue'
