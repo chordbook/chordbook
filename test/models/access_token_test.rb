@@ -11,6 +11,24 @@ class AccessTokenTest < ActiveSupport::TestCase
     assert expected.expire_at
   end
 
+  test "validate returns correct token" do
+    token1 = create :access_token
+    token2 = create :access_token
+
+    assert_equal token1, AccessToken.validate(token1.encode)
+    assert_equal token2, AccessToken.validate(token2.encode)
+  end
+
+  test "validate raises error for valid token with missing data" do
+    # Existing valid access token
+    create :access_token
+
+    # Valid JWT with no data to back it
+    jwt = build(:access_token).encode
+
+    assert_raises(ActiveRecord::RecordNotFound) { AccessToken.validate(jwt) }
+  end
+
   test "decode blocked token" do
     token = create :access_token, invalidated_at: Time.now
 
