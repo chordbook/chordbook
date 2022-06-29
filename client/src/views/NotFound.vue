@@ -1,6 +1,6 @@
 <template>
   <div class="h-full flex flex-col place-content-center">
-    <div class="prose max-w-xl mx-auto p-8 m-4 bg-white border rounded shadow-xl">
+    <div class="prose max-w-xl mx-auto p-8 m-4 bg-white dark:bg-black rounded shadow-xl">
       <h1 class="text-3xl mb-2">
         Not Found
       </h1>
