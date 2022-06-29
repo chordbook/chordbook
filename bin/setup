@@ -32,7 +32,7 @@ fi
 
 echo '== Installing Ruby dependencies =='
 gem install bundler --conservative
-gem install foreman
+gem install foreman --concervative
 bundle check || bundle install
 
 ## JavaScript
