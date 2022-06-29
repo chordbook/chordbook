@@ -11,22 +11,12 @@ class ArtistTest < ActiveSupport::TestCase
     assert_equal Artist.starts_with(:name, "#").to_a, [three]
   end
 
-  test "lookup returns verified artists over unverified" do
-    with_search Artist do
-      create(:artist, name: "Everly Brothers", verified: false)
-      expected = create(:artist, name: "The Everly Brothers", verified: true)
-
-      assert_equal expected, Artist.lookup("Everly Brothers")
-      assert_equal expected, Artist.lookup("The Everly Brothers")
-    end
-  end
-
   test "lookup does not return ridiculous results" do
     with_search Artist do
-      create(:artist, name: "Michael Jackson", verified: true)
+      create(:artist, name: "Michael Jackson")
       assert_nil Artist.lookup("Ingrid Michaelson")
 
-      expected = create(:artist, name: "Ingrid Michaelson", verified: false)
+      expected = create(:artist, name: "Ingrid Michaelson")
       assert_equal expected, Artist.lookup("Ingrid Michaelson")
     end
   end

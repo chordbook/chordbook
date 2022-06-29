@@ -18,7 +18,7 @@ class LookupMetadata < ApplicationJob
       artist = Artist.where("metadata->>'idArtist' = ?", metadata["idArtist"]).first_or_initialize
 
       # Save new metadata
-      artist.update metadata: metadata, verified: true
+      artist.update metadata: metadata
 
       sync_artist_albums artist if recursive
 

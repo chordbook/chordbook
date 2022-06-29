@@ -14,7 +14,6 @@ class LookupMetadataTest < ActiveJob::TestCase
       artist = Artist.first
       assert_instance_of Hash, artist.metadata
       assert_equal "111247", artist.metadata["idArtist"]
-      assert artist.verified?
     end
   end
 

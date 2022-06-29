@@ -27,18 +27,6 @@ namespace :data do
     updated.each(&:reindex)
   end
 
-  task cleanup_artists: :environment do
-    before = Artist.count
-    Artist.where(verified: false).find_each do |a|
-      if a.songsheets.blank?
-        puts "Deleting: #{a.name}"
-        a.destroy
-      end
-    end
-    after = Artist.count
-    puts "Removed #{before - after}"
-  end
-
   task extract_media: :environment do
     Searchkick.disable_callbacks
     youtube_url = /(https?:\/\/(?:www\.)?youtu(?:\.be|be\.com)[^\s}]*)/
@@ -65,7 +53,7 @@ namespace :data do
 
     Artist
       .select("dups.*")
-      .from("(SELECT *, ROW_NUMBER() OVER(PARTITION BY metadata->>'idArtist' ORDER BY created_at ASC) AS row FROM artists WHERE verified = true) dups")
+      .from("(SELECT *, ROW_NUMBER() OVER(PARTITION BY metadata->>'idArtist' ORDER BY created_at ASC) AS row FROM artists) dups")
       .where("dups.row > ?", 1).each do |artist|
       puts "Removing #{artist.name}"
       artist.destroy

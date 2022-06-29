@@ -15,7 +15,6 @@ class Artist < ApplicationRecord
   before_validation :associate_genre
 
   searchkick word_start: [:title], stem: false, callbacks: :async
-  scope :verified, -> { where(verified: true) }
   scope :order_by_alphabetical, -> { order("UPPER(name)") }
   scope :order_by_popular, -> { order("artists.rank") }
 
@@ -63,7 +62,7 @@ class Artist < ApplicationRecord
       title: name,
       thumbnail: thumbnail,
       everything: [name, metadata["strArtistAlternate"].presence].compact,
-      boost: verified ? 2.0 : 1.0
+      boost: 2.0
     }
   end
 

@@ -39,9 +39,9 @@ class AssociateSongsheetMetadataTest < ActiveJob::TestCase
     end
   end
 
-  test "finds verified artist with similar name" do
+  test "finds artist with similar name" do
     with_search Artist do
-      artist = create :artist, name: "The Everly Brothers", verified: true
+      artist = create :artist, name: "The Everly Brothers"
 
       perform_enqueued_jobs only: AssociateSongsheetMetadata do
         songsheet = create :songsheet, metadata: {artist: "Everly Brothers"}
