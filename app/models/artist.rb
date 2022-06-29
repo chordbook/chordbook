@@ -13,7 +13,6 @@ class Artist < ApplicationRecord
   has_many :library_items, as: :item, dependent: :destroy
 
   before_validation :associate_genre
-  after_commit(on: :create) { LookupMetadata.perform_later(self) }
 
   searchkick word_start: [:title], stem: false, callbacks: :async
   scope :verified, -> { where(verified: true) }

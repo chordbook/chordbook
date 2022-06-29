@@ -16,9 +16,9 @@ class Songsheet < ApplicationRecord
 
   validates :title, presence: true
 
-  attr_accessor :skip_metadata_lookup
+  class_attribute :perform_metadata_lookup, default: true
 
-  after_commit(unless: :skip_metadata_lookup) { AssociateSongsheetMetadata.perform_later self }
+  after_commit(if: :perform_metadata_lookup) { AssociateSongsheetMetadata.perform_later self }
   after_commit { track&.reindex(mode: :async) if Searchkick.callbacks? }
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async

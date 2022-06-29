@@ -44,7 +44,7 @@ namespace :data do
     youtube_url = /(https?:\/\/(?:www\.)?youtu(?:\.be|be\.com)[^\s}]*)/
 
     Songsheet.where("source ILIKE ?", "%youtu%").find_each do |songsheet|
-      songsheet.skip_metadata_lookup = true
+      songsheet.perform_metadata_lookup = false
 
       songsheet.source = songsheet.source.lines.map do |line|
         if line =~ /^#{youtube_url.source}$/ || line =~ /{online_version:\s*#{youtube_url.source}}/
