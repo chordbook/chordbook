@@ -31,7 +31,7 @@ class Artist < ApplicationRecord
     artists = []
 
     Array(names).each do |name|
-      artist = Artist.lookup(name.gsub(/^by /, ''))
+      artist = Artist.lookup(name.gsub(/^by /, ""))
 
       # Artist found, nothing else to do
       artists << artist && next if artist

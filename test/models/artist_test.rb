@@ -69,7 +69,7 @@ class ArtistTest < ActiveSupport::TestCase
     with_search Artist do
       artists = [
         create(:artist, name: "Johnny Cash"),
-        create(:artist, name: "June Carter"),
+        create(:artist, name: "June Carter")
       ]
 
       found, unknown = Artist.lookup_all("Johnny Cash and June Carter")
@@ -86,7 +86,7 @@ class ArtistTest < ActiveSupport::TestCase
     with_search Artist do
       artist = create(:artist, name: "Bob Marley")
 
-      found, unknown = Artist.lookup_all('by Bob Marley')
+      found, unknown = Artist.lookup_all("by Bob Marley")
       assert_equal found, [artist]
       assert_equal [], unknown
     end
@@ -96,7 +96,7 @@ class ArtistTest < ActiveSupport::TestCase
     with_search Artist do
       create :artist, name: "Irrelevant" # needed to initialize search index
 
-      artists, unknown = Artist.lookup_all('Noah and the Whale')
+      artists, unknown = Artist.lookup_all("Noah and the Whale")
       assert_equal [], artists
       assert_equal ["Noah and the Whale", "Noah", "the Whale"], unknown
     end
@@ -106,9 +106,9 @@ class ArtistTest < ActiveSupport::TestCase
     with_search Artist do
       artist = create :artist, name: "Tom Petty"
 
-      artists, unknown = Artist.lookup_all('Tom Petty and the Heartbreakers')
+      artists, unknown = Artist.lookup_all("Tom Petty and the Heartbreakers")
       assert_equal [artist], artists
-      assert_equal ['Tom Petty and the Heartbreakers', "the Heartbreakers"], unknown
+      assert_equal ["Tom Petty and the Heartbreakers", "the Heartbreakers"], unknown
     end
   end
 end
