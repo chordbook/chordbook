@@ -6,7 +6,7 @@ class LookupMetadata < ApplicationJob
   API_KEY = ENV["THEAUDIODB_API_KEY"] || "2" # default public key
   base_uri "https://www.theaudiodb.com"
   raise_on 400..600
-  queue_as :low
+  queue_as :metadata
 
   delegate :get, :path, to: :class
 
