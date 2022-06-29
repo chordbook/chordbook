@@ -6,47 +6,44 @@ class LookupMetadata < ApplicationJob
   API_KEY = ENV["THEAUDIODB_API_KEY"] || "2" # default public key
   base_uri "https://www.theaudiodb.com"
   raise_on 400..600
-  queue_as :low
+  queue_as :metadata
 
   delegate :get, :path, to: :class
 
   class_attribute :throttle, default: Throttle.new(2.5.seconds)
 
-  # Only allow one of this jobs to run at a time
-  good_job_control_concurrency_with(perform_limit: 1, key: name)
+  def perform(artist_name, recursive: true, reassociate: nil)
+    artists = Array(get("search.php", query: {s: artist_name})["artists"]).map do |metadata|
+      # Find artist with given external id
+      artist = Artist.where("metadata->>'idArtist' = ?", metadata["idArtist"]).first_or_initialize
 
-  def perform(model, recursive: true, **args)
-    send "sync_#{model.class.name.underscore}", model, recursive: recursive, **args
-  end
+      # Save new metadata
+      artist.update metadata: metadata
 
-  def sync_artist(artist, recursive: true, metadata: nil)
-    # No new metadata provided, look it up
-    unless metadata
-      response = if (id = artist.metadata["idArtist"])
-        # Artist was previously synced, but lookup by known id to refresh
-        get "artist.php", query: {i: id}
-      else
-        # New artist, search and use first result
-        get "search.php", query: {s: artist.name}
-      end
+      sync_artist_albums artist if recursive
 
-      metadata = Array(response["artists"]).first
+      artist
     end
 
-    # Save new metadata
-    artist.update metadata: metadata, verified: true if metadata
+    # Run job to associate songsheet
+    if reassociate && artists.length > 0
+      AssociateSongsheetMetadata.perform_later(reassociate, lookup_unknown_artist: false)
+    end
 
-    if recursive && metadata
-      # Look up albums
-      response = get "album.php", query: {i: metadata["idArtist"]}
-      Array(response["album"]).each_with_index do |album_data, i|
-        album = artist.albums.find_or_create_by!(title: album_data["strAlbum"]) do |a|
-          a.metadata = album_data
-        end
+    artists
+  end
 
-        # Album exists, update it with new metadata
-        sync_album album, recursive: recursive, metadata: album_data
+  def sync_artist_albums(artist, recursive: true)
+    # Look up albums by artist id
+    response = get "album.php", query: {i: artist.metadata["idArtist"]}
+
+    Array(response["album"]).each do |album_data|
+      album = artist.albums.find_or_create_by!(title: album_data["strAlbum"]) do |a|
+        a.metadata = album_data
       end
+
+      # Album exists, update it with new metadata
+      sync_album album, recursive: recursive, metadata: album_data
     end
   end
 

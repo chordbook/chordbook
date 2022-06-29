@@ -6,7 +6,7 @@ if Rails.env.production?
 end
 
 Rails.application.configure do
-  config.good_job.queues = "high,default,low,*"
+  config.good_job.queues = "metadata:1;high,searchkick,default,low,-metadata"
   config.good_job.enable_cron = true
   config.good_job.cron = {
     listeners: {cron: "every day", class: "UpdateListenerCounts"},

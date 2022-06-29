@@ -27,24 +27,12 @@ namespace :data do
     updated.each(&:reindex)
   end
 
-  task cleanup_artists: :environment do
-    before = Artist.count
-    Artist.where(verified: false).find_each do |a|
-      if a.songsheets.blank?
-        puts "Deleting: #{a.name}"
-        a.destroy
-      end
-    end
-    after = Artist.count
-    puts "Removed #{before - after}"
-  end
-
   task extract_media: :environment do
     Searchkick.disable_callbacks
     youtube_url = /(https?:\/\/(?:www\.)?youtu(?:\.be|be\.com)[^\s}]*)/
 
     Songsheet.where("source ILIKE ?", "%youtu%").find_each do |songsheet|
-      songsheet.skip_metadata_lookup = true
+      songsheet.perform_metadata_lookup = false
 
       songsheet.source = songsheet.source.lines.map do |line|
         if line =~ /^#{youtube_url.source}$/ || line =~ /{online_version:\s*#{youtube_url.source}}/
@@ -63,14 +51,13 @@ namespace :data do
   task duplicate_artists: :environment do
     PaperTrail.enabled = false
 
-    # Re-normalize name
-    Artist.verified.find_each(&:save!)
-
     Artist
       .select("dups.*")
-      .from("(SELECT *, ROW_NUMBER() OVER(PARTITION BY metadata->>'idArtist' ORDER BY id ASC) AS row FROM artists WHERE verified = true) dups")
-      .where("dups.row > ?", 1)
-      .destroy_all
+      .from("(SELECT *, ROW_NUMBER() OVER(PARTITION BY metadata->>'idArtist' ORDER BY created_at ASC) AS row FROM artists) dups")
+      .where("dups.row > ?", 1).each do |artist|
+      puts "Removing #{artist.name}"
+      artist.destroy
+    end
   end
 end
 

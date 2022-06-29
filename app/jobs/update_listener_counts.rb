@@ -1,4 +1,6 @@
 class UpdateListenerCounts < ApplicationJob
+  queue_as :low
+
   def perform
     ApplicationRecord.connection.execute <<~EOQ
       UPDATE artists

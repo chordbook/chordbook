@@ -16,9 +16,9 @@ class Songsheet < ApplicationRecord
 
   validates :title, presence: true
 
-  attr_accessor :skip_metadata_lookup
+  class_attribute :perform_metadata_lookup, default: true
 
-  after_commit(unless: :skip_metadata_lookup) { AssociateSongsheetMetadata.perform_later self }
+  after_commit(if: :perform_metadata_lookup) { AssociateSongsheetMetadata.perform_later self }
   after_commit { track&.reindex(mode: :async) if Searchkick.callbacks? }
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
@@ -33,7 +33,7 @@ class Songsheet < ApplicationRecord
       thumbnail: track&.album&.thumbnail,
       # Because searchkick doesn't support `cross_fields`
       # https://github.com/ankane/searchkick/pull/871
-      everything: [title, metadata["artist"], track&.album&.title].compact.flatten,
+      everything: [title, metadata["artist"] || metadata["subtitle"], track&.album&.title].compact.flatten,
       boost: 3.0
     }
   end

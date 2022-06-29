@@ -23,7 +23,7 @@ class Track < ApplicationRecord
     using: {
       trigram: {}
     },
-    order_within_rank: "tracks.listeners DESC NULLS LAST, albums.released, albums.score DESC NULLS LAST, tracks.id"
+    order_within_rank: "tracks.listeners DESC NULLS LAST, albums.released, albums.rank, tracks.rank"
 
   before_validation :associate_genre
 
@@ -37,7 +37,7 @@ class Track < ApplicationRecord
   )
 
   def self.lookup(title)
-    joins(:album).title_like(title).order_by_popular.first
+    joins(:album).title_like(title).first
   end
 
   scope :search_import, -> { includes(:artist, :album) }
