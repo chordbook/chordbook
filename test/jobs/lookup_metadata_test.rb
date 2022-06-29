@@ -45,7 +45,7 @@ class LookupMetadataTest < ActiveJob::TestCase
 
   test "sanity check for duplicates" do
     VCR.use_cassette("tadb/simon_and_garfunkel") do
-      artist = create :artist, name: "Simon and Garfunkel", metadata: { idArtist: "112256" }
+      artist = create :artist, name: "Simon and Garfunkel", metadata: {idArtist: "112256"}
       duplicate = create :artist, name: artist.name
 
       assert_difference -> { Artist.count } => -1 do
