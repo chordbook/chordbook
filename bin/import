@@ -1,20 +1,54 @@
 #!/usr/bin/env ruby
-# Attempt to import the given chordpro files
+# Import chordpro files.
 #
-#   Usage: bin/import path/*.chordpro
+#   Usage: EMAIL=x PASSWORD=y bin/import path/*.chordpro
+#
+# By default, this script will attempt to import the files to api.chordbook.app.
+# Set APP_API_URL=http://locahost:3100 to use your local instance
 #
 
-require_relative "../config/environment"
+require 'bundler/setup'
+require 'httparty'
 require 'charlock_holmes/string'
+require 'chordpro'
 
 puts "Importing #{ARGV.length} files"
 
+class API
+  include HTTParty
+  base_uri ENV.fetch("APP_API_URL", "https://api.chordbook.app/")
+  raise_on 400..600
+  format :json
+end
+
+response = API.post "/authenticate", body: { email: ENV.fetch("EMAIL"), password: ENV.fetch("PASSWORD" ) }
+token = response.headers["access-token"]
+
+failed = {}
+
 ARGV.each do |filename|
   puts "Importing #{filename}"
-  source = File.read(filename, encoding: "bom|utf-8")
-  detection = CharlockHolmes::EncodingDetector.detect(source)
-  source = CharlockHolmes::Converter.convert source, detection[:encoding], 'UTF-8'
+  begin
+    source = File.read(filename, encoding: "bom|utf-8")
+    detection = CharlockHolmes::EncodingDetector.detect(source)
+    source = CharlockHolmes::Converter.convert source, detection[:encoding], 'UTF-8'
+    chordpro = Chordpro.parse(source.strip)
 
-  songsheet = Songsheet.find_by(imported_from: filename)
-  Import::Chordpro.perform_later source, songsheet: songsheet, imported_from: filename
+    response = API.post('/songsheets.json', headers: { Authorization: "Bearer #{token}"}, body: {
+      songsheet: {
+        source: source,
+        metadata: chordpro.metadata.to_h
+      }
+    })
+  rescue => e
+    puts e
+    failed[filename] = e
+  end
+end
+
+unless failed.empty?
+  puts "Failed to import these songs:"
+  failed.each do |filename, error|
+    puts "#{filename}: #{error.message}"
+  end
 end
