@@ -39,4 +39,76 @@ class ArtistTest < ActiveSupport::TestCase
       assert_equal expected, Artist.lookup("Huey Lewis & The News")
     end
   end
+
+  test "lookup_all with array" do
+    with_search Artist do
+      artists = [
+        create(:artist, name: "Norah Jones"),
+        create(:artist, name: "Billie Joe Armstrong")
+      ]
+
+      found, unknown = Artist.lookup_all(artists.map(&:name))
+
+      assert_equal found, artists
+      assert_equal [], unknown
+    end
+  end
+
+  test "lookup_all single artist with 'and' in name" do
+    with_search Artist do
+      artist = create(:artist, name: "Tom Petty and the Heart Breakers")
+
+      found, unknown = Artist.lookup_all(artist.name)
+
+      assert_equal found, [artist]
+      assert_equal [], unknown
+    end
+  end
+
+  test "lookup_all multiple artists with and/&" do
+    with_search Artist do
+      artists = [
+        create(:artist, name: "Johnny Cash"),
+        create(:artist, name: "June Carter"),
+      ]
+
+      found, unknown = Artist.lookup_all("Johnny Cash and June Carter")
+      assert_equal found, artists
+      assert_equal [], unknown
+
+      found, unknown = Artist.lookup_all("Johnny Cash & June Carter")
+      assert_equal found, artists
+      assert_equal [], unknown
+    end
+  end
+
+  test "lookup_all prefixed with 'by '" do
+    with_search Artist do
+      artist = create(:artist, name: "Bob Marley")
+
+      found, unknown = Artist.lookup_all('by Bob Marley')
+      assert_equal found, [artist]
+      assert_equal [], unknown
+    end
+  end
+
+  test "lookup_all returns all unknown permutations" do
+    with_search Artist do
+      create :artist, name: "Irrelevant" # needed to initialize search index
+
+      artists, unknown = Artist.lookup_all('Noah and the Whale')
+      assert_equal [], artists
+      assert_equal ["Noah and the Whale", "Noah", "the Whale"], unknown
+    end
+  end
+
+  test "lookup_all returns full name if only one part of name is found" do
+    with_search Artist do
+      artist = create :artist, name: "Tom Petty"
+
+      artists, unknown = Artist.lookup_all('Tom Petty and the Heartbreakers')
+      assert_equal [artist], artists
+      assert_equal ['Tom Petty and the Heartbreakers', "the Heartbreakers"], unknown
+    end
+  end
 end

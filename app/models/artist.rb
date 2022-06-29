@@ -19,8 +19,42 @@ class Artist < ApplicationRecord
   scope :order_by_alphabetical, -> { order("UPPER(name)") }
   scope :order_by_popular, -> { order("artists.rank") }
 
+  # Look up a single artist by name
   def self.lookup(name)
     search(name, boost_by: [:boost], fields: ["everything"]).first
+  end
+
+  # Look up one or more artists, splitting by common conjunctions if necessary
+  # Returns [ known, unknown ]
+  def self.lookup_all(names)
+    unknown = []
+    artists = []
+
+    Array(names).each do |name|
+      artist = Artist.lookup(name.gsub(/^by /, ''))
+
+      # Artist found, nothing else to do
+      artists << artist && next if artist
+
+      # No artist by that name. Is it multiple artists?
+      split_names = name.split(/,?\s+and\s+|,|&/i).map(&:strip)
+
+      if split_names.length > 1
+        # Recursive lookup on each name
+        now_found, still_unknown = lookup_all(split_names)
+
+        # Add original name if any are still unknown
+        unknown << name if still_unknown.length > 0
+
+        # Save the results
+        unknown += still_unknown
+        artists += now_found
+      else
+        unknown << name
+      end
+    end.flatten.compact
+
+    [artists, unknown]
   end
 
   def search_data
