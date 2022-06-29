@@ -43,20 +43,3 @@ end
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
-
-before_fork do
-  GoodJob.shutdown
-end
-
-on_worker_boot do
-  GoodJob.restart
-end
-
-on_worker_shutdown do
-  GoodJob.shutdownif
-end
-
-MAIN_PID = Process.pid
-at_exit do
-  GoodJob.shutdown if Process.pid == MAIN_PID
-end
