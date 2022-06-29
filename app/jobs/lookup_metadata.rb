@@ -13,7 +13,7 @@ class LookupMetadata < ApplicationJob
   class_attribute :throttle, default: Throttle.new(2.5.seconds)
 
   def perform(artist_name, recursive: true, reassociate: nil)
-    artists = get("search.php", query: {s: artist_name})["artists"].map do |metadata|
+    artists = Array(get("search.php", query: {s: artist_name})["artists"]).map do |metadata|
       # Find artist with given external id
       artist = Artist.where("metadata->>'idArtist' = ?", metadata["idArtist"]).first_or_initialize
 
@@ -26,7 +26,9 @@ class LookupMetadata < ApplicationJob
     end
 
     # Run job to associate songsheet
-    AssociateSongsheetMetadata.perform_later(reassociate, lookup_unknown_artist: false) if reassociate
+    if reassociate && artists.length > 0
+      AssociateSongsheetMetadata.perform_later(reassociate, lookup_unknown_artist: false)
+    end
 
     artists
   end
