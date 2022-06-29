@@ -31,8 +31,8 @@ if [[ $ACTUAL_RUBY_VERSION != *$EXPECTED_RUBY_VERSION* ]]; then
 fi
 
 echo '== Installing Ruby dependencies =='
-gem install bundler --conservative
-gem install foreman --concervative
+which -s bundler || gem install bundler --conservative
+which -s foreman || gem install foreman --conservative
 bundle check || bundle install
 
 ## JavaScript
