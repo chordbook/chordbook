@@ -19,5 +19,5 @@
 </template>
 
 <script setup>
-import Tuner from '@/components/tuner.vue'
+import Tuner from '@/components/Tuner.vue'
 </script>
