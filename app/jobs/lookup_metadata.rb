@@ -12,8 +12,10 @@ class LookupMetadata < ApplicationJob
 
   class_attribute :throttle, default: Throttle.new(2.5.seconds)
 
-  # Only allow one of this jobs to run at a time
-  good_job_control_concurrency_with(perform_limit: 1, key: name)
+  class Duplicate < StandardError
+  end
+
+  discard_on Duplicate
 
   def perform(model, recursive: true, **args)
     send "sync_#{model.class.name.underscore}", model, recursive: recursive, **args
@@ -33,10 +35,19 @@ class LookupMetadata < ApplicationJob
       metadata = Array(response["artists"]).first
     end
 
-    # Save new metadata
-    artist.update metadata: metadata, verified: true if metadata
+    # No need to continue if artist is unknown
+    return unless metadata
 
-    if recursive && metadata
+    # Sanity check to ensure that this artist was not looked up while this job was waiting in the queue
+    if Artist.where("metadata->>'idArtist' = ?", metadata["idArtist"]).where.not(id: artist.id).first
+      artist.destroy
+      raise Duplicate.new("#{artist.name} (#{metadata["idArtist"]}) is a duplicate")
+    end
+
+    # Save new metadata
+    artist.update metadata: metadata, verified: true
+
+    if recursive
       # Look up albums
       response = get "album.php", query: {i: metadata["idArtist"]}
       Array(response["album"]).each_with_index do |album_data, i|

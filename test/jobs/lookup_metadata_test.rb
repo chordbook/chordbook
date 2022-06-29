@@ -43,6 +43,19 @@ class LookupMetadataTest < ActiveJob::TestCase
     end
   end
 
+  test "sanity check for duplicates" do
+    VCR.use_cassette("tadb/simon_and_garfunkel") do
+      artist = create :artist, name: "Simon and Garfunkel", metadata: { idArtist: "112256" }
+      duplicate = create :artist, name: artist.name
+
+      assert_difference -> { Artist.count } => -1 do
+        assert_raises LookupMetadata::Duplicate do
+          LookupMetadata.new.perform duplicate, recursive: false
+        end
+      end
+    end
+  end
+
   test "album" do
     VCR.use_cassette("tadb/the_beatles") do
       artist = create :artist, name: "The Beatles", metadata: {idArtist: 111247}

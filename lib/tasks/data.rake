@@ -63,14 +63,13 @@ namespace :data do
   task duplicate_artists: :environment do
     PaperTrail.enabled = false
 
-    # Re-normalize name
-    Artist.verified.find_each(&:save!)
-
     Artist
       .select("dups.*")
-      .from("(SELECT *, ROW_NUMBER() OVER(PARTITION BY metadata->>'idArtist' ORDER BY id ASC) AS row FROM artists WHERE verified = true) dups")
-      .where("dups.row > ?", 1)
-      .destroy_all
+      .from("(SELECT *, ROW_NUMBER() OVER(PARTITION BY metadata->>'idArtist' ORDER BY created_at ASC) AS row FROM artists WHERE verified = true) dups")
+      .where("dups.row > ?", 1).each do |artist|
+      puts "Removing #{artist.name}"
+      artist.destroy
+    end
   end
 end
 
