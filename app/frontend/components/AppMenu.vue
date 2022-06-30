@@ -10,7 +10,9 @@
           router-direction="root"
           class="ion-padding-horizontal ion-item-custom"
         >
+          <!-- Logo, light & dark, open & collapsed -->
           <img
+            v-if="isNotCollapsed"
             slot="start"
             class="inline dark:hidden logo"
             :src="icons.logoLight"
@@ -18,13 +20,29 @@
             image="logo"
           >
           <img
+            v-else
+            slot="start"
+            class="item-hidden"
+            :src="icons.logoLight"
+            image="logo"
+          >
+          <img
+            v-if="isNotCollapsed"
             slot="start"
             class="hidden dark:inline logo"
             :src="icons.logo"
-            style="height: 20px"
             image="logo"
           >
+          <img
+            v-else
+            slot="start"
+            class="item-hidden"
+            :src="icons.logo"
+            image="logo"
+          >
+          <!-- Wordmark, light & dark. Menu:open -->
           <ion-label
+            v-if="isNotCollapsed"
             class="wordmark-label"
           >
             <img
@@ -36,27 +54,67 @@
             <img
               alt="Chord Book"
               class="hidden dark:inline"
-              :src="icons.wordmark"
+              :src="icons.wordmarkDark"
               style="height: 14px"
             >
           </ion-label>
-          <ion-button
-            class="hamburger-button"
-            size="small"
-            shape="round"
-            fill="clear"
-            @click="truncate"
+          <!-- Wordmark, light & dark. Menu:collapsed -->
+          <ion-label
+            v-else
+            class="wordmark-label--collapsed"
           >
             <img
-              alt=""
-              class="inline dark:hidden hamburger-icon"
-              src="../assets/hamburger-light.svg"
+              alt="Chord Book"
+              class="item-hidden"
+              :src="icons.wordmarkLight"
             >
             <img
-              alt=""
-              class="hidden dark:inline hamburger-icon"
-              :src="icons.hamburger"
+              alt="Chord Book"
+              class="item-hidden"
+              :src="icons.wordmarkDark"
             >
+          </ion-label>
+          <ion-button
+            v-if="isNotCollapsed"
+            class="collapse-button"
+            shape="round"
+            fill="clear"
+            style="display: flex; align-items: center; justify-content: center;"
+            @click="collapse"
+          >
+            <ion-icon
+              slot="start"
+              size="small"
+              class="hidden dark:inline hamburger-icon"
+              :src="icons.chevronBack"
+            />
+            <ion-icon
+              slot="start"
+              size="small"
+              class="inline dark:hidden hamburger-icon"
+              :src="icons.chevronBackLight"
+            />
+          </ion-button>
+          <ion-button
+            v-else
+            class="collapse-button--collapsed"
+            shape="round"
+            fill="clear"
+            style="display: flex; align-items: center; justify-content: center;"
+            @click="collapse"
+          >
+            <ion-icon
+              slot="start"
+              size="small"
+              class="hidden dark:inline hamburger-icon"
+              :src="icons.chevronForward"
+            />
+            <ion-icon
+              slot="start"
+              size="small"
+              class="inline dark:hidden hamburger-icon"
+              :src="icons.chevronForwardLight"
+            />
           </ion-button>
         </ion-item>
       </ion-toolbar>
@@ -74,7 +132,7 @@
             :color="colorFor('home')"
           >
             <ion-icon
-              v-if="untruncated"
+              v-if="isNotCollapsed"
               slot="start"
               size="small"
               :icon="icons.home"
@@ -83,9 +141,9 @@
               v-else
               :icon="icons.home"
               size="small"
-              class="truncated-icon"
+              class="collapsed-icon"
             />
-            <ion-label v-if="untruncated">
+            <ion-label v-if="isNotCollapsed">
               Home
             </ion-label>
             <ion-label v-else />
@@ -101,7 +159,7 @@
             :color="colorFor('discover')"
           >
             <ion-icon
-              v-if="untruncated"
+              v-if="isNotCollapsed"
               slot="start"
               size="small"
               :icon="icons.search"
@@ -110,9 +168,9 @@
               v-else
               :icon="icons.search"
               size="small"
-              class="truncated-icon"
+              class="collapsed-icon"
             />
-            <ion-label v-if="untruncated">
+            <ion-label v-if="isNotCollapsed">
               Discover
             </ion-label>
             <ion-label v-else />
@@ -122,7 +180,7 @@
 
       <ion-list lines="none">
         <ion-list-header
-          v-if="untruncated"
+          v-if="isNotCollapsed"
           style="fontSize: 14px"
           lines="none"
         >
@@ -130,15 +188,13 @@
         </ion-list-header>
         <ion-list-header
           v-else
-          style="fontSize: 10px"
           lines="none"
-          class="truncated-text"
+          class="collapsed-text"
         >
-          Library
+          ·
         </ion-list-header>
         <ion-menu-toggle auto-hide="false">
           <ion-item
-            v-if="untruncated"
             button
             shape="round"
             router-link="/songsheets"
@@ -147,132 +203,109 @@
             :color="colorFor('songs')"
           >
             <ion-icon
+              v-if="isNotCollapsed"
               slot="start"
               size="small"
               :icon="icons.song"
             />
-            Songs
-          </ion-item>
-          <ion-item
-            v-else
-            button
-            shape="round"
-            router-link="/songsheets"
-            router-direction="root"
-            :detail="false"
-            :color="colorFor('songs')"
-          >
             <ion-icon
+              v-else
               :icon="icons.song"
               size="small"
-              class="truncated-icon"
+              class="collapsed-icon"
             />
+            <ion-label v-if="isNotCollapsed">
+              Songs
+            </ion-label>
+            <ion-label v-else />
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="false">
           <ion-item
-            v-if="untruncated"
             button
             shape="round"
-            router-link="/artists"
+            :router-link="{ name: 'artists' }"
             router-direction="root"
             :detail="false"
             :color="colorFor('artists')"
           >
             <ion-icon
+              v-if="isNotCollapsed"
               slot="start"
               size="small"
               :icon="icons.artist"
             />
-            Artists
-          </ion-item>
-          <ion-item
-            v-else
-            button
-            shape="round"
-            router-link="/artists"
-            router-direction="root"
-            :detail="false"
-            :color="colorFor('artists')"
-          >
             <ion-icon
+              v-else
               :icon="icons.artist"
               size="small"
-              class="truncated-icon"
+              class="collapsed-icon"
             />
+            <ion-label v-if="isNotCollapsed">
+              Artists
+            </ion-label>
+            <ion-label v-else />
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="false">
           <ion-item
-            v-if="untruncated"
             button
             shape="round"
-            router-link="/albums"
+            :router-link="{ name: 'albums' }"
             router-direction="root"
             :detail="false"
             :color="colorFor('albums')"
           >
             <ion-icon
+              v-if="isNotCollapsed"
               slot="start"
               size="small"
               :icon="icons.album"
             />
-            Albums
-          </ion-item>
-          <ion-item
-            v-else
-            button
-            shape="round"
-            router-link="/albums"
-            router-direction="root"
-            :detail="false"
-            :color="colorFor('albums')"
-          >
             <ion-icon
+              v-else
               :icon="icons.album"
               size="small"
-              class="truncated-icon"
+              class="collapsed-icon"
             />
+            <ion-label v-if="isNotCollapsed">
+              Albums
+            </ion-label>
+            <ion-label v-else />
           </ion-item>
         </ion-menu-toggle>
         <ion-menu-toggle auto-hide="false">
           <ion-item
-            v-if="untruncated"
             button
             shape="round"
-            router-link="/setlists"
+            :router-link="{ name: 'setlists' }"
             router-direction="root"
             :detail="false"
             :color="colorFor('setlists')"
           >
             <ion-icon
+              v-if="isNotCollapsed"
               slot="start"
               size="small"
               :icon="icons.setlist"
             />
-            Setlists
-          </ion-item>
-          <ion-item
-            v-else
-            button
-            shape="round"
-            router-link="/setlists"
-            router-direction="root"
-            :detail="false"
-            :color="colorFor('setlists')"
-          >
             <ion-icon
+              v-else
               :icon="icons.setlist"
               size="small"
-              class="truncated-icon"
+              class="collapsed-icon"
             />
+            <ion-label v-if="isNotCollapsed">
+              Setlists
+            </ion-label>
+            <ion-label v-else />
           </ion-item>
         </ion-menu-toggle>
       </ion-list>
     </ion-content>
     <ion-footer>
       <ion-toolbar class="text-center">
-        <current-user />
+        <current-user :is-not-collapsed="isNotCollapsed" />
       </ion-toolbar>
     </ion-footer>
   </ion-menu>
@@ -299,7 +332,7 @@ function colorFor (item) {
 export default {
   data () {
     return {
-      untruncated: true,
+      isNotCollapsed: true,
       menuWidth: '330px',
       hamburgerIconHeight: '14px',
       rMargin: '32px',
@@ -307,15 +340,15 @@ export default {
     }
   },
   methods: {
-    truncate (e) {
+    collapse (e) {
       e.preventDefault()
-      if (this.untruncated) {
-        this.untruncated = false
-        this.menuWidth = '100px'
+      if (this.isNotCollapsed) {
+        this.isNotCollapsed = false
+        this.menuWidth = '50px'
         this.rMargin = '10px'
         this.wordmarkOpacity = '0'
       } else {
-        this.untruncated = true
+        this.isNotCollapsed = true
         this.menuWidth = '330px'
         this.hamburgerIconHeight = '16px'
         this.rMargin = '32px'
@@ -352,7 +385,7 @@ ion-menu {
 
 .maxw-minw {
   max-width: 500px;
-  min-width: 130px;
+  min-width: 100px;
 }
 .item-inner {
   padding-right: 0px;
@@ -365,20 +398,45 @@ ion-menu {
   opacity: v-bind(wordmarkOpacity);
 }
 
-.hamburger-button {
+.wordmark-label--collapsed {
+  opacity: v-bind(wordmarkOpacity);
+  display: none;
+}
+
+.collapse-button {
   --background: none;
   --padding-end: 5px;
   --padding-start: 5px;
+  --ripple-color: transparent;
   width: fit-content;
   margin-right: 0px;
-  margin-left: auto;
+  margin-left: 0px;
+  transition: 0.6s ease;
+}
+
+.collapse-button--collapsed {
+  --ripple-color: transparent;
+  margin-left: 0px;
+  margin-right: 2px;
 }
 
 .hamburger-icon {
   height: v-bind('hamburgerIconHeight');
+  margin-inline: 0px;
 }
 
-.truncated-icon, .truncated-text {
-  margin-left: 20px;
+.collapsed-icon{
+  margin-left: 7px;
+}
+
+.collapsed-text {
+  font-family: 'Times New Roman';
+  color: #686868;
+  font-size: 30px;
+  margin-left: 10px;
+}
+
+.item-hidden {
+  display: none;
 }
 </style>
