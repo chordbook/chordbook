@@ -44,7 +44,7 @@ services:
       - key: GOOD_JOB_EXECUTION_MODE
         value: async
       - key: GOOD_JOB_MAX_THREADS
-        value: 1
+        value: 5
       - key: NODE_ENV
         value: production
       - key: RAILS_ENV
