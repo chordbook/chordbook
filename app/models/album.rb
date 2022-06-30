@@ -36,7 +36,11 @@ class Album < ApplicationRecord
   )
 
   def associate_genre
-    return if metadata["strGenre"].blank?
-    self.genre = Genre.find_or_create_by!(name: metadata["strGenre"])
+    self.genre ||= if metadata["strGenre"].present?
+       Genre.find_or_create_by!(name: metadata["strGenre"])
+    else
+      # Fall back to artist genre
+      artist.genre
+    end
   end
 end

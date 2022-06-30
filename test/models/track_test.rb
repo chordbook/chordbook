@@ -13,4 +13,15 @@ class TrackTest < ActiveSupport::TestCase
 
     assert_equal track, Track.lookup(track.title)
   end
+
+  test "gets genre from metadata" do
+    assert_equal "R&B", create(:track, metadata: { strGenre: "R&B" }).genre.name
+  end
+
+  test "falls back to album genre" do
+    album = create(:album, genre: create(:genre))
+    track = create(:track, album: album)
+
+    assert_equal album.genre, track.genre
+  end
 end

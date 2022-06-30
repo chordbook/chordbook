@@ -79,6 +79,6 @@ class Artist < ApplicationRecord
 
   def associate_genre
     return if metadata["strGenre"].blank?
-    self.genre = Genre.find_or_create_by!(name: metadata["strGenre"])
+    self.genre ||= Genre.find_or_create_by!(name: metadata["strGenre"])
   end
 end
