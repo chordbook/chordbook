@@ -136,7 +136,7 @@ export default {
     },
 
     metadata () {
-      const metadata = this.song.metadata.clone()
+      const { metadata } = this.song.metadata.clone()
 
       // Find all `meta` directives and add them to metadata
       this.song.lines.forEach(line => {
