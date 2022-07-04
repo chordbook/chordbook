@@ -299,12 +299,15 @@ function guessKey (song) {
 }
 
 .chorus {
-  border-left: 3px solid;
-  @apply border-neutral-200 pl-4;
+  @apply border-neutral-200 dark:border-neutral-700 pl-4 border-l-4;
 }
 
-.chorus::before {
+*:not(.chorus) + .chorus::before {
   content: "Chorus:";
+}
+
+.chorus + .chorus {
+  @apply mt-0 pt-6;
 }
 
 .verse::before {
