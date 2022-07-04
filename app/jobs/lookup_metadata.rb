@@ -1,7 +1,6 @@
 require "throttle"
 
 class LookupMetadata < ApplicationJob
-  include GoodJob::ActiveJobExtensions::Concurrency
   include HTTParty
   API_KEY = ENV["THEAUDIODB_API_KEY"] || "2" # default public key
   base_uri "https://www.theaudiodb.com"
