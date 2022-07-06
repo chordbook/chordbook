@@ -61,7 +61,7 @@ class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
       post api_songsheets_url(format: :json), headers: token_headers(create(:user)), params: {
         songsheet: {
           source: "test",
-          metadata: { title: "Hello World", subtitle: "Nice to meet you" }
+          metadata: {title: "Hello World", subtitle: "Nice to meet you"}
         }
       }
       assert_response :created

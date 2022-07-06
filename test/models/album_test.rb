@@ -2,7 +2,7 @@ require "test_helper"
 
 class AlbumTest < ActiveSupport::TestCase
   test "gets genre from metadata" do
-    assert_equal "R&B", create(:album, metadata: { strGenre: "R&B" }).genre.name
+    assert_equal "R&B", create(:album, metadata: {strGenre: "R&B"}).genre.name
   end
 
   test "falls back to artist genre" do
