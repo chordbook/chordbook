@@ -147,7 +147,7 @@ export default {
 
     async save () {
       const { source, format } = this.songsheet
-      const metadata = this.parsed.metadata
+      const { metadata } = this.parsed.metadata
 
       client({
         url: this.url,
