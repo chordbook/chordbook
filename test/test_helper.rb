@@ -44,4 +44,5 @@ VCR.configure do |config|
   config.default_cassette_options = {record: ENV["VCR"] ? ENV["VCR"].to_sym : :once}
 
   config.filter_sensitive_data("<APIKEY>") { LookupMetadata::API_KEY }
+  config.filter_sensitive_data("<YOUTUBE-API-KEY>") { YoutubeLookup::API_KEY }
 end

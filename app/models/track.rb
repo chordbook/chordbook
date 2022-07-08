@@ -32,8 +32,7 @@ class Track < ApplicationRecord
   map_metadata(
     intTrackNumber: :number,
     intDuration: :duration,
-    intTotalListeners: :listeners,
-    strMusicVid: :media
+    intTotalListeners: :listeners
   )
 
   def self.lookup(title)
@@ -60,6 +59,15 @@ class Track < ApplicationRecord
 
   def has_songsheet?
     songsheets_count > 0
+  end
+
+  def songsheet_was_added
+    reindex(mode: :async) if Searchkick.callbacks?
+    YoutubeLookup.perform_later self
+  end
+
+  def media
+    (Array(super) + [metadata["strMusicVid"]]).compact.uniq
   end
 
   def associate_genre

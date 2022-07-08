@@ -19,7 +19,7 @@ class Songsheet < ApplicationRecord
   class_attribute :perform_metadata_lookup, default: true
 
   after_commit(if: :perform_metadata_lookup) { AssociateSongsheetMetadata.perform_later self }
-  after_commit { track&.reindex(mode: :async) if Searchkick.callbacks? }
+  after_commit { track&.songsheet_was_added if track_id_previously_changed? }
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
@@ -39,6 +39,6 @@ class Songsheet < ApplicationRecord
   end
 
   def all_media
-    [metadata["media"], track&.media].flatten.compact
+    (Array(metadata["media"]) + Array(track&.media)).flatten.compact.uniq
   end
 end
