@@ -3859,6 +3859,11 @@ once@^1.3.0, once@^1.3.1, once@^1.4.0:
   dependencies:
     wrappy "1"
 
+onsong@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/onsong/-/onsong-0.0.1.tgz#193d7e8682f7ad76858115395a65ace823abb890"
+  integrity sha512-kHx9uBJm88dk81mNdzqeOJmZRZsJsjLVE+fwX7KO+8dTbadmEaj0nmeR/zh9JdJdQXkiCnVJvxdanspgJAriTQ==
+
 open@^7.4.2:
   version "7.4.2"
   resolved "https://registry.yarnpkg.com/open/-/open-7.4.2.tgz#b8147e26dcf3e426316c730089fd71edd29c2321"

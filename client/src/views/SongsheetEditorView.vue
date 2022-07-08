@@ -88,7 +88,7 @@
         <song-sheet
           v-if="songsheet.source"
           :source="songsheet.source"
-          :show-chords="true"
+          :format="songsheet.format"
           @parse="(value) => parsed = value"
         />
       </ion-content>
@@ -119,7 +119,6 @@ export default {
     return {
       songsheet: { format: 'ChordPro', source: '' },
       errors: {},
-      parsed: null,
       formats: Object.keys(formats)
     }
   },
@@ -147,7 +146,7 @@ export default {
 
     async save () {
       const { source, format } = this.songsheet
-      const { metadata } = this.parsed.metadata
+      const { metadata } = this.parsed
 
       client({
         url: this.url,
@@ -206,7 +205,8 @@ export default {
       if (!format || format.name === 'ChordPro') return
 
       // Modifying text property will change text pasted into Ace editor
-      e.text = new ChordSheetJS.ChordProFormatter().format(format.parser.parse(e.text))
+      const { song } = format.parse(e.text)
+      e.text = new ChordSheetJS.ChordProFormatter().format(song)
     },
 
     dismissPreview () {

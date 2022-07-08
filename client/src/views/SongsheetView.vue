@@ -56,7 +56,7 @@
       v-if="songsheet.source"
       :source="songsheet.source"
       :format="songsheet.format"
-      @update:key="(v) => key = v"
+      @parse="(v) => key = v.key"
     >
       <template #top>
         <Transition name="slide-down">
@@ -228,7 +228,7 @@ export default {
   },
 
   ionViewWillEnter () {
-    this.fetchData()
+    return this.fetchData()
   },
 
   ionViewDidEnter () {
