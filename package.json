@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@awesome-cordova-plugins/core": "^5.44.0",
-    "@awesome-cordova-plugins/insomnia": "^5.43.0",
+    "@awesome-cordova-plugins/insomnia": "^5.44.0",
     "@capacitor/core": "^3.6.0",
     "@headlessui/vue": "^1.6.5",
     "@ionic/vue": "^6.1.12",
