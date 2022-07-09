@@ -13,7 +13,7 @@
     "@vitejs/plugin-vue": "^2.3.3",
     "@vueuse/core": "^8.7.5",
     "@vueuse/router": "^8.7.5",
-    "ace-builds": "^1.6.1",
+    "ace-builds": "^1.7.1",
     "arrify": "^3.0.0",
     "aubiojs": "^0.1.0",
     "autoprefixer": "^10.4.7",
