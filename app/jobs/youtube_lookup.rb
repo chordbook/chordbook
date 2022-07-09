@@ -16,6 +16,9 @@ class YoutubeLookup < ApplicationJob
   ]
 
   def perform(track)
+    # YouTube search quota is too low, avoid looking up again for now
+    return if track.media.size > 0
+
     ids = SEARCHES.map do |query|
       result = SERVICE.list_searches(:snippet, q: query % {title: track.title, artist: track.artist.name}, type: "video")
       result.items[0].id.video_id
