@@ -30,6 +30,7 @@ gem "actionpack-page_caching"
 gem "ahoy_matey"
 gem "motor-admin"
 gem "shortuuid"
+gem "google-apis-youtube_v3"
 
 group :development, :test do
   gem "debug"

@@ -60,6 +60,8 @@ services:
         sync: false
       - key: MAILGUN_DOMAIN
         sync: false
+      - key: YOUTUBE_API_KEY
+        sync: false
   - type: pserv
     name: elasticsearch
     env: docker
