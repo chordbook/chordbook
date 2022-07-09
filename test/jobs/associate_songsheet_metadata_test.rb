@@ -18,7 +18,7 @@ class AssociateSongsheetMetadataTest < ActiveJob::TestCase
   end
 
   test "ignores case when matching track title" do
-    with_search Artist do
+    with_search Artist, Track do
       track = create :track
       perform_enqueued_jobs only: AssociateSongsheetMetadata do
         songsheet = create :songsheet, title: track.title.upcase, metadata: {artist: track.artist.name}

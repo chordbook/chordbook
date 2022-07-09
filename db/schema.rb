@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_29_192034) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_08_162906) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -352,6 +352,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_29_192034) do
     t.uuid "artist_id"
     t.uuid "album_id"
     t.uuid "genre_id"
+    t.json "media"
     t.index ["album_id"], name: "index_tracks_on_album_id"
     t.index ["artist_id"], name: "index_tracks_on_artist_id"
     t.index ["genre_id", "listeners"], name: "index_tracks_on_genre_id_and_listeners"
