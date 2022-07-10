@@ -35,7 +35,7 @@ class User < ApplicationRecord
   end
 
   def self.app
-    @app ||= find_or_create_by!(email: "help@chordbook.app") do |user|
+    find_or_create_by!(email: "help@chordbook.app") do |user|
       user.name = "Chord Book"
       user.password = SecureRandom.alphanumeric
     end
