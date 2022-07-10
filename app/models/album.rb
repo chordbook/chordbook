@@ -7,7 +7,7 @@ class Album < ApplicationRecord
   has_many :tracks, -> { Track.order_by_number }, dependent: :destroy
   has_many :library_items, as: :item, dependent: :destroy
 
-  before_validation :associate_genre
+  before_validation :associate_genre, :validate_released_year
 
   scope :order_by_popular, -> { order("albums.rank") }
   scope :order_by_released, ->(dir = :desc) { order(released: "#{dir} NULLS LAST") }
@@ -42,5 +42,10 @@ class Album < ApplicationRecord
       # Fall back to artist genre
       artist.genre
     end
+  end
+
+  def validate_released_year
+    # Source data is bad for a handful of albums
+    self.released = nil unless (1900..Date.today.year).include?(released)
   end
 end
