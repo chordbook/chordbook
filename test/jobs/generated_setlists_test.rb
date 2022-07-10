@@ -44,4 +44,12 @@ class GeneratedSetlistsTest < ActiveJob::TestCase
     assert_includes setlist.songsheets, newer
     refute_includes setlist.songsheets, older
   end
+
+  test "creates decades setlists" do
+    GeneratedSetlists.new.perform
+
+    %w[1940s 1950s 1960s 1970s 1980s 1990s 2000s 2010s].each do |title|
+      assert Setlist.find_by!(title: title)
+    end
+  end
 end
