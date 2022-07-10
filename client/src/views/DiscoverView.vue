@@ -51,17 +51,31 @@
         </ion-toolbar>
       </ion-header>
 
+      <div>
+        <ion-list>
+          <div
+            class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8"
+          >
+            <setlist-card
+              v-for="setlist in discover?.data?.setlists"
+              :key="setlist.id"
+              :setlist="setlist"
+            />
+          </div>
+        </ion-list>
+      </div>
+
       <ion-list v-show="isSearching">
         <Transition>
           <ion-item
-            v-if="isFinished && (!data || data.length == 0)"
+            v-if="search.isFinished && (!search.data || search.data.length == 0)"
             lines="none"
           >
             No results
           </ion-item>
         </Transition>
         <ion-item
-          v-for="result in data"
+          v-for="result in search.data"
           :key="result.type + result.id"
           button
           :router-link="{ name: result.type.toLowerCase(), params: { id: result.id } }"
@@ -79,7 +93,7 @@
         </ion-item>
         <Transition name="slide-down">
           <ion-item
-            v-if="isFetching"
+            v-if="search.isFetching"
             lines="none"
           >
             <ion-spinner name="dots" />
@@ -93,6 +107,7 @@
 
 <script setup>
 import GenreListView from '@/views/GenreListView.vue'
+import SetlistCard from '../components/SetlistCard.vue'
 import { useRouteQuery } from '@vueuse/router'
 import { useFetch } from '@/client'
 import { computed, ref, unref, reactive, watch } from 'vue'
@@ -111,12 +126,13 @@ const params = reactive({
 
 const hasFocus = ref(false)
 const isSearching = computed(() => !!unref(params.q || hasFocus))
-const { execute, data, isFetching, isFinished, abort } = useFetch('search', { params, immediate: params.q }).get().json()
+const search = reactive(useFetch('search', { params, immediate: params.q }).get().json())
+const discover = reactive(useFetch('discover').get().json())
 
 watch(params, () => {
   if (params.q) {
-    abort()
-    execute()
+    search.abort()
+    search.execute()
   }
 })
 </script>
