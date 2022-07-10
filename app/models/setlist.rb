@@ -11,6 +11,7 @@ class Setlist < ApplicationRecord
   after_create { user.library.add self }
 
   scope :order_by_recent, -> { order(updated_at: :desc) }
+  scope :order_by_popular, -> { order("setlists.rank") }
 
   def thumbnails
     albums.limit(4).map(&:thumbnail)

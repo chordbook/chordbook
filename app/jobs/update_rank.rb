@@ -160,6 +160,28 @@ class UpdateRank < ApplicationJob
     EOQ
   end
 
+  # Rank setlists by avg songsheet rank
+  def rank_setlists
+    exec <<-EOQ
+      WITH
+        avg_setlist_rank AS (
+          SELECT setlist_items.setlist_id AS setlist_id, AVG(songsheets.rank) AS rank
+          FROM songsheets
+          JOIN setlist_items ON setlist_items.songsheet_id = songsheets.id
+          GROUP BY 1
+        ),
+        ranked AS (
+          SELECT setlist_id, ROW_NUMBER() over (ORDER BY rank) AS row
+          FROM avg_setlist_rank
+        )
+
+      UPDATE setlists
+      SET rank = ranked.row
+      FROM ranked
+      WHERE ranked.setlist_id = setlists.id
+    EOQ
+  end
+
   def exec(query, params = {})
     ApplicationRecord.connection.execute sanitize_sql(query, params)
   end
