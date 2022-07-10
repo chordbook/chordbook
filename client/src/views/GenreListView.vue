@@ -1,6 +1,8 @@
 <template>
-  <div class="ion-padding">
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+  <div>
+    <ion-list-header>Browse By Genre</ion-list-header>
+
+    <div class="ion-margin grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
       <ion-card
         v-for="genre in dataSource.items"
         :key="genre.id"

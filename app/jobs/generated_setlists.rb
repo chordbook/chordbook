@@ -7,7 +7,7 @@ class GeneratedSetlists < ApplicationJob
 
     (1940..2010).step(10).to_a.reverse do |year|
       decade = (year...year + 10)
-      update_setlist "#{decade}s", Songsheet.joins(track: :album).where('albums.released' => decade).order_by_popular
+      update_setlist "#{decade}s", Songsheet.joins(track: :album).where("albums.released" => decade).order_by_popular
     end
   end
 
