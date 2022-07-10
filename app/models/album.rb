@@ -46,6 +46,6 @@ class Album < ApplicationRecord
 
   def validate_released_year
     # Source data is bad for a handful of albums
-    self.released = nil unless (1900..Date.today.year).include?(released)
+    self.released = nil unless (1900..Date.today.year).cover?(released)
   end
 end

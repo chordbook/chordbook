@@ -9,10 +9,11 @@ import client from './client'
 import router from './router'
 import telemetry from './telemetry'
 import * as components from './components'
+import ionicConfig from './config'
 
 const app = createApp(App)
   .use(createPinia())
-  .use(IonicVue)
+  .use(IonicVue, ionicConfig)
   .use(VueAxios, client)
   .use(router)
 

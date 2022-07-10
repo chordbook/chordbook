@@ -7,39 +7,41 @@
           lines="none"
           router-direction="root"
           class="ion-padding-horizontal"
+          style="--min-height: 0; --background: transparent;"
         >
-          <img
+          <ion-icon
             slot="start"
-            class="inline dark:hidden"
-            :src="icons.logoLight"
-            style="height: 20px"
-          >
-          <img
+            size="small"
+            class="dark:hidden"
+            :icon="icons.logoLight"
+          />
+          <ion-icon
             slot="start"
+            size="small"
             class="hidden dark:inline"
-            :src="icons.logo"
-            style="height: 20px"
+            :icon="icons.logo"
+          />
+          <img
+            alt="Chord Book"
+            class="inline dark:hidden"
+            :src="icons.wordmarkLight"
+            style="height: 12px"
           >
-          <ion-label>
-            <img
-              alt="Chord Book"
-              class="inline dark:hidden"
-              :src="icons.wordmarkLight"
-              style="height: 14px"
-            >
-            <img
-              alt="Chord Book"
-              class="hidden dark:inline"
-              :src="icons.wordmark"
-              style="height: 14px"
-            >
-          </ion-label>
+          <img
+            alt="Chord Book"
+            class="hidden dark:inline"
+            :src="icons.wordmark"
+            style="height: 12px"
+          >
         </ion-item>
       </ion-toolbar>
     </ion-header>
 
     <ion-content class="ion-padding-horizontal">
-      <ion-list lines="none">
+      <ion-list
+        lines="none"
+        class="py-4"
+      >
         <ion-menu-toggle auto-hide="false">
           <ion-item
             button
@@ -177,6 +179,10 @@ function colorFor (item) {
 <style scoped>
 ion-menu {
   @apply border-r dark:border-zinc-900;
+}
+
+.ios ion-toolbar {
+  /* --background: transparent; */
 }
 
 .ios ion-item {
