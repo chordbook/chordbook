@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import detectFormat from '@/lib/detect_format'
+import formats from '@/formats'
 import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
 import SongSheetComment from '@/components/SongSheetComment.vue'
 import ChordDiagram from '@/components/ChordDiagram.vue'
@@ -126,6 +126,10 @@ export default {
     source: {
       type: String,
       default: null
+    },
+    format: {
+      type: String,
+      default: 'ChordPro'
     }
   },
 
@@ -140,14 +144,10 @@ export default {
   computed: {
     ...mapState(useSongsheetSettingsStore, ['transpose', 'showChords', 'instrument', 'columns']),
 
-    format () {
-      return detectFormat(this.source)
-    },
-
     parsedSong () {
       try {
         // FIXME: somehow \r is getting added by Ace
-        const song = this.format?.parse(this.source.replace(/\r\n/gm, '\n'))
+        const song = formats[this.format].parser.parse(this.source)
         return song.key ? song : song.setKey(guessKey(song))
       } catch (error) {
         console.error(error)

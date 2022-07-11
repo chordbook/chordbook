@@ -58,6 +58,6 @@ class Api::SongsheetsController < ApiController
 
   # Only allow a list of trusted parameters through.
   def songsheet_params
-    params.require(:songsheet).permit(:source, metadata: {})
+    params.require(:songsheet).permit(:source, :format, metadata: {})
   end
 end

@@ -55,6 +55,7 @@
     <song-sheet
       v-if="songsheet.source"
       :source="songsheet.source"
+      :format="songsheet.format"
       @update:key="(v) => key = v"
     >
       <template #top>

@@ -15,9 +15,11 @@ class Songsheet < ApplicationRecord
   scope :order_by_todo, -> { order(Arel.sql("track_id NULLS FIRST, updated_at ASC")) }
 
   validates :title, presence: true
+  validates :format, presence: true
 
   class_attribute :perform_metadata_lookup, default: true
 
+  after_initialize :set_defaults
   after_commit(if: :perform_metadata_lookup) { AssociateSongsheetMetadata.perform_later self }
   after_commit { track&.songsheet_was_added if track_id_previously_changed? }
 
@@ -40,5 +42,11 @@ class Songsheet < ApplicationRecord
 
   def all_media
     (Array(metadata["media"]) + Array(track&.media)).flatten.compact.uniq
+  end
+
+  private
+
+  def set_defaults
+    self.format ||= "ChordPro"
   end
 end
