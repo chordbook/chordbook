@@ -14,7 +14,7 @@ class Album < ApplicationRecord
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
-  scope :search_import, -> { includes(:artist) }
+  scope :search_import, -> { includes(:artist, :image_attachment) }
 
   image_from_metadata :strAlbumThumbHQ, :strAlbumThumb
 
@@ -31,6 +31,7 @@ class Album < ApplicationRecord
       type: self.class,
       title: title,
       thumbnail: thumbnail,
+      attachment_id: image_attachment&.id,
       subtitle: artist.name,
       everything: [title, artist.name],
       boost: 1.0

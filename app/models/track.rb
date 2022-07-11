@@ -17,6 +17,7 @@ class Track < ApplicationRecord
   scope :order_by_popular, -> { order("tracks.rank") }
   scope :order_by_number, -> { order(:number) }
   scope :with_songsheet, -> { where(songsheets_count: 1..) }
+  scope :search_import, -> { includes(:artist, {album: :image_attachment}) }
 
   pg_search_scope :title_like,
     against: :title,
@@ -39,14 +40,13 @@ class Track < ApplicationRecord
     joins(:album).title_like(title).first
   end
 
-  scope :search_import, -> { includes(:artist, :album) }
-
   def search_data
     {
       type: self.class,
       title: title,
       subtitle: artist.name,
       thumbnail: album.thumbnail,
+      attachment_id: album.image_attachment&.id,
       everything: [title, artist.name, album.title],
       boost: 0.75
     }

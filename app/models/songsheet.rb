@@ -13,6 +13,7 @@ class Songsheet < ApplicationRecord
   scope :order_by_popular, -> { order("songsheets.rank") }
   scope :order_by_recent, -> { order(created_at: :desc) }
   scope :order_by_todo, -> { order(Arel.sql("track_id NULLS FIRST, updated_at ASC")) }
+  scope :search_import, -> { includes(track: {album: :image_attachment}) }
 
   validates :title, presence: true
 
@@ -23,14 +24,13 @@ class Songsheet < ApplicationRecord
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
-  scope :search_import, -> { includes(track: :album) }
-
   def search_data
     {
       type: self.class,
       title: title,
       subtitle: Array(metadata["artist"]).to_sentence,
       thumbnail: track&.album&.thumbnail,
+      attachment_id: track&.album&.image_attachment&.id,
       # Because searchkick doesn't support `cross_fields`
       # https://github.com/ankane/searchkick/pull/871
       everything: [title, metadata["artist"] || metadata["subtitle"], track&.album&.title].compact.flatten,

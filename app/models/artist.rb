@@ -17,6 +17,7 @@ class Artist < ApplicationRecord
   searchkick word_start: [:title], stem: false, callbacks: :async
   scope :order_by_alphabetical, -> { order("UPPER(name)") }
   scope :order_by_popular, -> { order("artists.rank") }
+  scope :search_import, -> { includes(:image_attachment) }
 
   image_from_metadata :strArtistThumbHQ, :strArtistThumb
 
@@ -70,6 +71,7 @@ class Artist < ApplicationRecord
       type: self.class,
       title: name,
       thumbnail: thumbnail,
+      attachment_id: image_attachment&.id,
       everything: [name, metadata["strArtistAlternate"].presence].compact,
       boost: 2.0
     }
