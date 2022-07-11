@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_08_162906) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_11_140000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -96,7 +96,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_08_162906) do
     t.uuid "artist_id", null: false
     t.uuid "work_id", null: false
     t.index ["artist_id", "work_id", "work_type", "order"], name: "uniq_by_artist_and_work", unique: true
-    t.index ["artist_id"], name: "index_artist_works_on_artist_id"
     t.index ["work_type", "work_id"], name: "index_artist_works_on_work"
   end
 
@@ -307,6 +306,26 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_08_162906) do
     t.index ["name"], name: "motor_tags_name_unique_index", unique: true
   end
 
+  create_table "pghero_query_stats", force: :cascade do |t|
+    t.text "database"
+    t.text "user"
+    t.text "query"
+    t.bigint "query_hash"
+    t.float "total_time"
+    t.bigint "calls"
+    t.datetime "captured_at", precision: nil
+    t.index ["database", "captured_at"], name: "index_pghero_query_stats_on_database_and_captured_at"
+  end
+
+  create_table "pghero_space_stats", force: :cascade do |t|
+    t.text "database"
+    t.text "schema"
+    t.text "relation"
+    t.bigint "size"
+    t.datetime "captured_at", precision: nil
+    t.index ["database", "captured_at"], name: "index_pghero_space_stats_on_database_and_captured_at"
+  end
+
   create_table "setlist_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "position"
     t.datetime "created_at", null: false
@@ -336,6 +355,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_08_162906) do
     t.string "imported_from"
     t.bigint "rank"
     t.uuid "track_id"
+    t.string "format"
     t.index ["track_id"], name: "index_songsheets_on_track_id"
   end
 
@@ -356,6 +376,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_08_162906) do
     t.index ["album_id"], name: "index_tracks_on_album_id"
     t.index ["artist_id"], name: "index_tracks_on_artist_id"
     t.index ["genre_id", "listeners"], name: "index_tracks_on_genre_id_and_listeners"
+    t.index ["genre_id", "rank"], name: "index_tracks_on_genre_id_and_rank"
     t.index ["genre_id"], name: "index_tracks_on_genre_id"
   end
 
