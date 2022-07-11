@@ -16,7 +16,7 @@ class Album < ApplicationRecord
 
   scope :search_import, -> { includes(:artist, :image_attachment) }
 
-  image_from_metadata :strAlbumThumbHQ, :strAlbumThumb
+  attach_from_metadata image: [:strAlbumThumbHQ, :strAlbumThumb]
 
   map_metadata(
     strAlbumThumb: :thumbnail,

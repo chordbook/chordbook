@@ -19,7 +19,10 @@ class Artist < ApplicationRecord
   scope :order_by_popular, -> { order("artists.rank") }
   scope :search_import, -> { includes(:image_attachment) }
 
-  image_from_metadata :strArtistThumbHQ, :strArtistThumb
+  attach_from_metadata(
+    image: %w[strArtistThumbHQ strArtistThumb],
+    banner: %w[strArtistFanart strArtistWideThumb]
+  )
 
   map_metadata(
     strArtist: :name,
@@ -75,10 +78,6 @@ class Artist < ApplicationRecord
       everything: [name, metadata["strArtistAlternate"].presence].compact,
       boost: 2.0
     }
-  end
-
-  def banner
-    %w[strArtistFanart strArtistWideThumb].map { |x| metadata[x] if metadata }.compact.first
   end
 
   def associate_genre

@@ -11,6 +11,10 @@ module ApplicationHelper
     genre: {
       resize_to_fill: [500, 375], format: :jpeg,
       saver: {subsample_mode: "on", strip: true, interlace: true, quality: 90}
+    },
+    banner: {
+      resize_to_fit: [1280, 720], format: :jpeg,
+      saver: {subsample_mode: "on", strip: true, interlace: true, quality: 90}
     }
   }
 

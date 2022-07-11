@@ -23,17 +23,19 @@ module Metadata
       metadata_mapping.update(mapping)
     end
 
-    def image_from_metadata(*keys)
-      has_one_attached :image, &Metadata.method(:define_variants)
+    def attach_from_metadata(mapping)
+      mapping.each do |name, keys|
+        has_one_attached name, &Metadata.method(:define_variants)
 
-      define_method(:download_image_from_metadata) do
-        url = metadata.slice(*keys.map(&:to_s)).values.map(&:presence).compact.first
-        if url && (!image.attached? || image.metadata[:src] != url)
-          DownloadAttachment.perform_later(self, :image, url)
+        define_method("download_#{name}_from_metadata") do
+          url = metadata.slice(*keys.map(&:to_s)).values.map(&:presence).compact.first
+          if url && (!send(name).attached? || send(name).metadata[:src] != url)
+            DownloadAttachment.perform_later(self, name, url)
+          end
         end
-      end
 
-      after_save :download_image_from_metadata
+        after_save "download_#{name}_from_metadata".to_sym
+      end
     end
   end
 
