@@ -31,6 +31,7 @@ gem "ahoy_matey"
 gem "motor-admin"
 gem "shortuuid"
 gem "google-apis-youtube_v3"
+gem "image_processing"
 
 group :development, :test do
   gem "debug"
