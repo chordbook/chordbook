@@ -35,7 +35,7 @@ class UpdateListenerCounts < ApplicationJob
       # There aren't as many genres as artists/albums, so just iterate over them to udpate
       Genre.find_each do |genre|
         artist = genre.artists.first
-        genre.image.attach artist.image.blob if artist && artist.image.attached?
+        genre.image.attach artist.image.blob if artist&.image&.attached?
         genre.update(listeners: genre.tracks.sum(:listeners) || 0)
       end
     end

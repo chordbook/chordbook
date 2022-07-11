@@ -28,10 +28,10 @@ class AlbumTest < ActiveSupport::TestCase
   test "prefers HQ image" do
     VCR.use_cassette("tadb/sting_the_bridge") do
       perform_enqueued_jobs only: DownloadAttachment do
-        lq = "https://www.theaudiodb.com/images/media/album/thumb/z9ld831637333639.jpg",
-          hq = "https://www.theaudiodb.com/images/media/album/thumbhq/hw4pbm1637333653.jpg",
+        lq = "https://www.theaudiodb.com/images/media/album/thumb/z9ld831637333639.jpg"
+        hq = "https://www.theaudiodb.com/images/media/album/thumbhq/hw4pbm1637333653.jpg"
 
-          album = create(:album, metadata: {strAlbumThumb: lq, strAlbumThumbHQ: hq})
+        album = create(:album, metadata: {strAlbumThumb: lq, strAlbumThumbHQ: hq})
         assert album.reload.image.attached?
         assert_equal hq, album.image.metadata[:src]
       end
