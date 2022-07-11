@@ -22,6 +22,19 @@ module Metadata
       end
       metadata_mapping.update(mapping)
     end
+
+    def image_from_metadata(*keys)
+      has_one_attached :image, &Metadata.method(:define_variants)
+
+      define_method(:download_image_from_metadata) do
+        url = metadata.slice(*keys.map(&:to_s)).values.map(&:presence).compact.first
+        if url && (!image.attached? || image.metadata[:src] != url)
+          DownloadAttachment.perform_later(self, :image, url)
+        end
+      end
+
+      after_save :download_image_from_metadata
+    end
   end
 
   def move_metadata_to_attributes
@@ -32,6 +45,12 @@ module Metadata
         write_attribute attr_name, read_store_attribute(:metadata, key)
         self.metadata = metadata.without(key)
       end
+    end
+  end
+
+  def self.define_variants(attachable)
+    ApplicationHelper::VARIANTS.each do |name, options|
+      attachable.variant name, options
     end
   end
 end

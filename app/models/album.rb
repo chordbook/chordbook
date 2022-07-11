@@ -16,6 +16,16 @@ class Album < ApplicationRecord
 
   scope :search_import, -> { includes(:artist) }
 
+  image_from_metadata :strAlbumThumbHQ, :strAlbumThumb
+
+  map_metadata(
+    strAlbumThumb: :thumbnail,
+    intYearReleased: :released,
+    strStyle: :style,
+    strDescriptionEN: :description,
+    intScore: :score
+  )
+
   def search_data
     {
       type: self.class,
@@ -26,14 +36,6 @@ class Album < ApplicationRecord
       boost: 1.0
     }
   end
-
-  map_metadata(
-    strAlbumThumb: :thumbnail,
-    intYearReleased: :released,
-    strStyle: :style,
-    strDescriptionEN: :description,
-    intScore: :score
-  )
 
   def associate_genre
     self.genre ||= if metadata["strGenre"].present?

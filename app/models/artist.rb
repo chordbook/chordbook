@@ -18,6 +18,15 @@ class Artist < ApplicationRecord
   scope :order_by_alphabetical, -> { order("UPPER(name)") }
   scope :order_by_popular, -> { order("artists.rank") }
 
+  image_from_metadata :strArtistThumbHQ, :strArtistThumb
+
+  map_metadata(
+    strArtist: :name,
+    strArtistThumb: :thumbnail,
+    strStyle: :style,
+    strBiographyEN: :biography
+  )
+
   # Look up a single artist by name
   def self.lookup(name)
     search(name, boost_by: [:boost], fields: ["everything"]).first
@@ -65,13 +74,6 @@ class Artist < ApplicationRecord
       boost: 2.0
     }
   end
-
-  map_metadata(
-    strArtist: :name,
-    strArtistThumb: :thumbnail,
-    strStyle: :style,
-    strBiographyEN: :biography
-  )
 
   def banner
     %w[strArtistFanart strArtistWideThumb].map { |x| metadata[x] if metadata }.compact.first
