@@ -40,7 +40,7 @@
     "vite-svg-loader": "^3.4.0",
     "vue": "^3.2.37",
     "vue-axios": "^3.4.1",
-    "vue-router": "^4.0.16",
+    "vue-router": "^4.1.2",
     "vue3-ace-editor": "^2.2.1"
   },
   "version": "0.1.0",
