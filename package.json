@@ -7,7 +7,7 @@
     "@capacitor/core": "^3.6.0",
     "@headlessui/vue": "^1.6.5",
     "@ionic/vue": "^6.1.12",
-    "@ionic/vue-router": "^6.1.12",
+    "@ionic/vue-router": "^6.1.13",
     "@sentry/tracing": "^7.6.0",
     "@sentry/vue": "^7.6.0",
     "@tailwindcss/line-clamp": "^0.4.0",
