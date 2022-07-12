@@ -10,6 +10,7 @@ import router from './router'
 import telemetry from './telemetry'
 import * as components from './components'
 import ionicConfig from './config'
+import useSentry from './sentry'
 
 const app = createApp(App)
   .use(createPinia())
@@ -20,6 +21,8 @@ const app = createApp(App)
 for (const name in components) {
   app.component(name, components[name])
 }
+
+useSentry(app, router)
 
 router.isReady().then(() => {
   telemetry()
