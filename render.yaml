@@ -18,10 +18,7 @@ services:
         source: /*
         destination: /index.html
     envVars:
-      - key: APP_API_URL
-        sync: false
-      - key: APP_HOSTNAME
-        value: chordbook.app
+      - fromGroup: public
   - type: web
     name: api
     env: ruby
@@ -29,6 +26,7 @@ services:
     startCommand: "bundle exec puma -C config/puma.rb"
     healthCheckPath: /ping
     envVars:
+      - fromGroup: public
       - fromGroup: app
       - key: DATABASE_URL
         fromDatabase:
@@ -45,6 +43,7 @@ services:
     buildCommand: bundle install
     startCommand: bundle exec good_job
     envVars:
+      - fromGroup: public
       - fromGroup: app
       - key: DATABASE_URL
         fromDatabase:
@@ -74,6 +73,14 @@ services:
       value: elastic
 
 envVarGroups:
+  - name: public
+    envVars:
+      - key: APP_API_URL
+        sync: false
+      - key: APP_HOSTNAME
+        sync: false
+      - key: APP_SENTRY_DSN
+        sync: false
   - name: app
     envVars:
       - key: RAILS_MASTER_KEY
@@ -82,8 +89,6 @@ envVarGroups:
         value: admin
       - key: ADMIN_PASS
         generateValue: true
-      - key: APP_API_URL
-        sync: false
       - key: GOOD_JOB_EXECUTION_MODE
         value: external
       - key: GOOD_JOB_MAX_THREADS
