@@ -62,6 +62,14 @@ services:
         sync: false
       - key: YOUTUBE_API_KEY
         sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_REGION
+        sync: false
+      - key: AWS_BUCKET
+        sync: false
   - type: pserv
     name: elasticsearch
     env: docker
