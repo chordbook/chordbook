@@ -29,6 +29,35 @@ services:
     startCommand: "bundle exec puma -C config/puma.rb"
     healthCheckPath: /ping
     envVars:
+      - fromGroup: app
+  - type: worker
+    name: worker
+    env: ruby
+    buildCommand: bundle install
+    startCommand: bundle exec good_job
+    envVars:
+      - fromGroup: app
+  - type: pserv
+    name: elasticsearch
+    env: docker
+    dockerfilePath: ./elasticsearch/Dockerfile
+    dockerContext: ./elasticsearch
+    disk:
+      name: esdata
+      mountPath: /usr/share/elasticsearch/data
+      sizeGB: 10
+    autoDeploy: false
+    envVars:
+    - key: ES_JAVA_OPTS
+      value: "-Xms512m -Xmx512m"
+    - key: discovery.type
+      value: single-node
+    - key: cluster.name
+      value: elastic
+
+envVarGroups:
+  - name: app
+    envVars:
       - key: DATABASE_URL
         fromDatabase:
           name: db
@@ -42,7 +71,7 @@ services:
       - key: APP_API_URL
         sync: false
       - key: GOOD_JOB_EXECUTION_MODE
-        value: async
+        value: external
       - key: GOOD_JOB_MAX_THREADS
         value: 5
       - key: NODE_ENV
@@ -70,20 +99,3 @@ services:
         sync: false
       - key: AWS_BUCKET
         sync: false
-  - type: pserv
-    name: elasticsearch
-    env: docker
-    dockerfilePath: ./elasticsearch/Dockerfile
-    dockerContext: ./elasticsearch
-    disk:
-      name: esdata
-      mountPath: /usr/share/elasticsearch/data
-      sizeGB: 10
-    autoDeploy: false
-    envVars:
-    - key: ES_JAVA_OPTS
-      value: "-Xms512m -Xmx512m"
-    - key: discovery.type
-      value: single-node
-    - key: cluster.name
-      value: elastic
