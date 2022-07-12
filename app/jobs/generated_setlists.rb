@@ -19,6 +19,10 @@ class GeneratedSetlists < ApplicationJob
         Songsheet.joins(track: :album).where("albums.released" => decade).order_by_popular
       end
     end
+
+    update_setlist "TODO" do
+      Songsheet.where(track_id: nil).order_by_recent
+    end
   end
 
   def update_setlist(title, attrs: nil, &scope)

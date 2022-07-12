@@ -51,20 +51,6 @@
         </ion-toolbar>
       </ion-header>
 
-      <div>
-        <ion-list>
-          <div
-            class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8"
-          >
-            <setlist-card
-              v-for="setlist in discover?.data?.setlists"
-              :key="setlist.id"
-              :setlist="setlist"
-            />
-          </div>
-        </ion-list>
-      </div>
-
       <ion-list v-show="isSearching">
         <Transition>
           <ion-item
@@ -100,7 +86,21 @@
           </ion-item>
         </Transition>
       </ion-list>
-      <GenreListView v-show="!isSearching" />
+
+      <div v-show="!isSearching">
+        <ion-list>
+          <div
+            class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8"
+          >
+            <setlist-card
+              v-for="setlist in discover?.data?.setlists"
+              :key="setlist.id"
+              :setlist="setlist"
+            />
+          </div>
+        </ion-list>
+        <GenreListView />
+      </div>
     </ion-content>
   </ion-page>
 </template>

@@ -1,5 +1,7 @@
 json.array! @results do |result|
   json.id ShortIdentifier.generate(result.type, result.id)
   json.merge! result.slice(:type, :title, :subtitle)
-  json.thumbnail result[:attachment_id] ? variant_url(@attachments[result[:attachment_id]], :track) : result[:thumbnail]
+
+  attachment = @attachments[result[:attachment_id]]
+  json.thumbnail attachment ? variant_url(attachment, :track) : result[:thumbnail]
 end
