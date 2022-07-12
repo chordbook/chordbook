@@ -33,6 +33,8 @@ gem "shortuuid"
 gem "google-apis-youtube_v3"
 gem "image_processing"
 gem "aws-sdk-s3"
+gem "sentry-ruby"
+gem "sentry-rails"
 
 group :development, :test do
   gem "debug"
