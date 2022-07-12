@@ -14,18 +14,9 @@ class Album < ApplicationRecord
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
-  scope :search_import, -> { includes(:artist) }
+  scope :search_import, -> { includes(:artist, :image_attachment) }
 
-  def search_data
-    {
-      type: self.class,
-      title: title,
-      thumbnail: thumbnail,
-      subtitle: artist.name,
-      everything: [title, artist.name],
-      boost: 1.0
-    }
-  end
+  attach_from_metadata image: [:strAlbumThumbHQ, :strAlbumThumb]
 
   map_metadata(
     strAlbumThumb: :thumbnail,
@@ -34,6 +25,18 @@ class Album < ApplicationRecord
     strDescriptionEN: :description,
     intScore: :score
   )
+
+  def search_data
+    {
+      type: self.class,
+      title: title,
+      thumbnail: thumbnail,
+      attachment_id: image_attachment&.id,
+      subtitle: artist.name,
+      everything: [title, artist.name],
+      boost: 1.0
+    }
+  end
 
   def associate_genre
     self.genre ||= if metadata["strGenre"].present?

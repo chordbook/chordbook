@@ -17,6 +17,19 @@ class Artist < ApplicationRecord
   searchkick word_start: [:title], stem: false, callbacks: :async
   scope :order_by_alphabetical, -> { order("UPPER(name)") }
   scope :order_by_popular, -> { order("artists.rank") }
+  scope :search_import, -> { includes(:image_attachment) }
+
+  attach_from_metadata(
+    image: %w[strArtistThumbHQ strArtistThumb],
+    banner: %w[strArtistFanart strArtistWideThumb]
+  )
+
+  map_metadata(
+    strArtist: :name,
+    strArtistThumb: :thumbnail,
+    strStyle: :style,
+    strBiographyEN: :biography
+  )
 
   # Look up a single artist by name
   def self.lookup(name)
@@ -61,20 +74,10 @@ class Artist < ApplicationRecord
       type: self.class,
       title: name,
       thumbnail: thumbnail,
+      attachment_id: image_attachment&.id,
       everything: [name, metadata["strArtistAlternate"].presence].compact,
       boost: 2.0
     }
-  end
-
-  map_metadata(
-    strArtist: :name,
-    strArtistThumb: :thumbnail,
-    strStyle: :style,
-    strBiographyEN: :biography
-  )
-
-  def banner
-    %w[strArtistFanart strArtistWideThumb].map { |x| metadata[x] if metadata }.compact.first
   end
 
   def associate_genre
