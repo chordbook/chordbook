@@ -182,13 +182,15 @@ export default {
     },
 
     async save () {
+      const { metadata } = this.song.metadata
+
       client({
         url: this.url,
         method: this.id ? 'PATCH' : 'POST',
         data: {
           songsheet: {
             source: this.source,
-            metadata: this.song.metadata
+            metadata
           }
         }
       }).then(response => {
