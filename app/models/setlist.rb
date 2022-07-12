@@ -15,6 +15,6 @@ class Setlist < ApplicationRecord
   scope :order_by_popular, -> { order("setlists.rank") }
 
   def thumbnails
-    album_images.select('active_storage_attachments.*, albums.rank').includes(:blob).reorder('albums.rank').distinct.limit(4)
+    album_images.select("active_storage_attachments.*, albums.rank").includes(:blob).reorder("albums.rank").distinct.limit(4)
   end
 end
