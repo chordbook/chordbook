@@ -4,11 +4,18 @@ class GeneratedSetlists < ApplicationJob
       Songsheet.order_by_popular
     end
     update_setlist "What's New" do
-      Songsheet.where(created_at: 3.months.ago..).order_by_popular
+      # Get 300 most recently created, but limit to 100 sorted by rank to drop any
+      # unranked or spammy stuff off the list.
+      ids = Songsheet.order(created_at: :desc).limit(300).pluck(:id)
+      Songsheet.where(id: ids).order_by_popular
     end
     update_setlist "Recently Updated" do
-      Songsheet.where(updated_at: 2.months.ago..).order_by_popular
+      # Get 300 most recently updated, but limit to 100 sorted by rank to drop any
+      # unranked or spammy stuff off the list.
+      ids = Songsheet.order(updated_at: :desc).limit(300).pluck(:id)
+      Songsheet.where(id: ids).order_by_popular
     end
+
     update_setlist "All-time Favorites" do
       Songsheet.joins(:library_items).group(:id).order(Arel.sql("COUNT(*) DESC")).order_by_popular
     end
@@ -20,7 +27,7 @@ class GeneratedSetlists < ApplicationJob
       end
     end
 
-    update_setlist "TODO" do
+    update_setlist "Unmatched" do
       Songsheet.where(track_id: nil).order_by_recent
     end
   end
