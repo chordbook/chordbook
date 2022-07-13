@@ -32,7 +32,7 @@
     "rxjs": "^7.5.5",
     "share-api-polyfill": "^1.1.0",
     "string-hash": "^1.1.3",
-    "tailwindcss": "^3.1.4",
+    "tailwindcss": "^3.1.6",
     "tinycolor2": "^1.4.2",
     "vexchords": "^1.2.0",
     "vite": "^2.9.13",
