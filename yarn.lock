@@ -1083,13 +1083,13 @@
     wrap-ansi "^7.0.0"
 
 "@ionic/vue-router@^6.1":
-  version "6.1.13"
-  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.1.13.tgz#d3c22da033abc407c4dc670ee1eb3747531d9389"
-  integrity sha512-3E7OGVS+uJzdyLHbztMzJmKLI96wnbxQgL9ecq/l2ZrvAtvCpsNZ9WRct1Imd3UypkD6VKHSYeqxMceXw3CD6g==
+  version "6.1.14"
+  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.1.14.tgz#8b7891754eed8636c4a556ef59b9f681d3795f0d"
+  integrity sha512-RSUSZrl7hCP8grR6NxbV++aY8GndHRuc9ASZbYU2hUJcolOxfuKeRfeSZ7W61MGu0Z3M/8GIxz3KumFvPNujsA==
   dependencies:
-    "@ionic/vue" "^6.1.13"
+    "@ionic/vue" "^6.1.14"
 
-"@ionic/vue@^6.1", "@ionic/vue@^6.1.13":
+"@ionic/vue@^6.1", "@ionic/vue@^6.1.14":
   version "6.1.14"
   resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.1.14.tgz#8da70eee340ac0b9a7b6d6db9deb2086f9ecea46"
   integrity sha512-DuLqKeLlYgCl8GVNtTxhT5NWYF5yqYVti/yAnwi//rwNNQjFLvUmqsS5K//FsrRX1nEUGqlnwLcbEvLNm/ZzUA==
@@ -1515,13 +1515,6 @@
   integrity sha512-+tYxFAa6U+nd61tteJykizMWNuPY+lcxXj79FWlvd2sui0BgXUiacusX9ZNDL/mAnUktazuLXgLKJSdrJeHhkA==
   dependencies:
     "@vueuse/shared" "8.9.4"
-    vue-demi "*"
-
-"@vueuse/shared@8.9.2":
-  version "8.9.2"
-  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-8.9.2.tgz#d8a46f73ae2a971754ea9572505239bfbc311e2a"
-  integrity sha512-s4Nk82oheL5z1GywyGnqjob0MzbAt88olMZa0vgt/p3gcMsT8Ff7+SqmNgEFC6AAs6xiuhOAZpnew9Zs3d90yQ==
-  dependencies:
     vue-demi "*"
 
 "@vueuse/shared@8.9.4":
