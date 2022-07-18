@@ -18,7 +18,7 @@ onMounted(() => dataSource.value.load())
         <ion-buttons slot="start">
           <ion-back-button
             class="md:hidden"
-            text="Library"
+            text=""
             default-href="/library"
           />
         </ion-buttons>

@@ -81,7 +81,7 @@ async function destroy () {
 
         <ion-buttons slot="start">
           <ion-back-button
-            text="Setlists"
+            text=""
             :default-href="{ name: 'setlists' }"
           />
         </ion-buttons>

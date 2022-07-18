@@ -8,7 +8,7 @@
         <ion-buttons slot="start">
           <ion-back-button
             class="md:hidden"
-            text="Library"
+            text=""
             :default-href="backLink"
           />
         </ion-buttons>
