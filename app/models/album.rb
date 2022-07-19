@@ -16,10 +16,18 @@ class Album < ApplicationRecord
 
   scope :search_import, -> { includes(:artist, :image_attachment) }
 
-  attach_from_metadata image: [:strAlbumThumbHQ, :strAlbumThumb]
+  attach_from_metadata image: [:strAlbumThumbHQ, :strAlbumThumb] do |attachable|
+    options = {
+      format: :jpeg,
+      saver: {subsample_mode: "on", strip: true, interlace: true, quality: 90}
+    }
+
+    attachable.variant :small, resize_to_fill: [100, 100], **options
+    attachable.variant :medium, resize_to_fill: [200, 200], **options
+    attachable.variant :large, resize_to_fill: [500, 500], **options
+  end
 
   map_metadata(
-    strAlbumThumb: :thumbnail,
     intYearReleased: :released,
     strStyle: :style,
     strDescriptionEN: :description,
@@ -30,7 +38,6 @@ class Album < ApplicationRecord
     {
       type: self.class,
       title: title,
-      thumbnail: thumbnail,
       attachment_id: image_attachment&.id,
       subtitle: artist.name,
       everything: [title, artist.name],

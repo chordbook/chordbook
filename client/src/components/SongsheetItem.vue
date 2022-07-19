@@ -10,7 +10,7 @@
     >
       <img
         v-if="songsheet.track?.album"
-        :src="songsheet.track?.album?.thumbnail"
+        :src="songsheet.track?.album?.cover?.medium"
         class="rounded"
       >
       <ion-icon

@@ -3,5 +3,5 @@ json.array! @results do |result|
   json.merge! result.slice(:type, :title, :subtitle)
 
   attachment = @attachments[result[:attachment_id]]
-  json.thumbnail attachment ? variant_url(attachment, :track) : result[:thumbnail]
+  json.thumbnail variant_url(attachment, :small) if attachment
 end

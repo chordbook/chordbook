@@ -30,7 +30,6 @@ class Songsheet < ApplicationRecord
       type: self.class,
       title: title,
       subtitle: Array(metadata["artist"]).to_sentence,
-      thumbnail: track&.album&.thumbnail,
       attachment_id: track&.album&.image_attachment&.id,
       # Because searchkick doesn't support `cross_fields`
       # https://github.com/ankane/searchkick/pull/871

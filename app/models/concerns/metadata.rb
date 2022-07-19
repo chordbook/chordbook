@@ -23,9 +23,9 @@ module Metadata
       metadata_mapping.update(mapping)
     end
 
-    def attach_from_metadata(mapping)
+    def attach_from_metadata(mapping, &block)
       mapping.each do |name, keys|
-        has_one_attached name, &Metadata.method(:define_variants)
+        has_one_attached name, &block
 
         define_method("download_#{name}_from_metadata") do
           url = metadata.slice(*keys.map(&:to_s)).values.map(&:presence).compact.first
@@ -47,12 +47,6 @@ module Metadata
         write_attribute attr_name, read_store_attribute(:metadata, key)
         self.metadata = metadata.without(key)
       end
-    end
-  end
-
-  def self.define_variants(attachable)
-    ApplicationHelper::VARIANTS.each do |name, options|
-      attachable.variant name, options
     end
   end
 end

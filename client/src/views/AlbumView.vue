@@ -27,8 +27,8 @@
         <div class="text-center flex-shrink-0 flex place-content-center">
           <div class="aspect-square w-3/4 md:w-60 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800">
             <img
-              v-if="album.thumbnail"
-              :src="album.thumbnail"
+              v-if="album.cover"
+              :src="album.cover.large"
             >
             <ion-icon
               v-else
