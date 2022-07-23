@@ -30,6 +30,11 @@ gem "actionpack-page_caching"
 gem "ahoy_matey"
 gem "motor-admin"
 gem "shortuuid"
+gem "google-apis-youtube_v3"
+gem "image_processing"
+gem "aws-sdk-s3"
+gem "sentry-ruby"
+gem "sentry-rails"
 
 group :development, :test do
   gem "debug"
@@ -44,6 +49,7 @@ group :development do
   gem "web-console"
   gem "listen"
   gem "letter_opener"
+  gem "charlock_holmes", require: false
 end
 
 group :test do

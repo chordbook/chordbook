@@ -1,0 +1,37 @@
+<html>
+  <style>
+    body {
+      background-image:
+        linear-gradient(to bottom right, #DB2777, transparent),
+        linear-gradient(to bottom left, #22D3EE, transparent),
+        linear-gradient(to top, #312E81, transparent);
+      background-blend-mode: multiply;
+    }
+
+    #icon {
+      aspect-ratio: 1/1;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      height: 70%;
+      max-width: 200px;
+      max-height: 200px;
+      text-align: center;
+      padding: 30%;
+    }
+
+    img {
+      height: 100%;
+      width: auto;
+      filter: drop-shadow(0.5vh 0.5vh 1vh rgb(0 0 0 / 0.2))
+        drop-shadow(2px 3px 5px rgb(0 0 0 / 0.2));
+    }
+  </style>
+  <body>
+    <div id="icon">
+      <img src="./src/assets/logo-dark.svg">
+    </div>
+  </body>
+</html>

@@ -1,5 +1,7 @@
 class ApiController < ActionController::API
   include Authentication
+  include ActionController::Helpers
+  helper ApplicationHelper
 
   # Authenticate by default. Call `skip_before_action :authenticate!` on actions that don't need it
   before_action :authenticate!

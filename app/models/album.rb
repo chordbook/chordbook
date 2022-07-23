@@ -7,25 +7,16 @@ class Album < ApplicationRecord
   has_many :tracks, -> { Track.order_by_number }, dependent: :destroy
   has_many :library_items, as: :item, dependent: :destroy
 
-  before_validation :associate_genre
+  before_validation :associate_genre, :validate_released_year
 
   scope :order_by_popular, -> { order("albums.rank") }
   scope :order_by_released, ->(dir = :desc) { order(released: "#{dir} NULLS LAST") }
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
-  scope :search_import, -> { includes(:artist) }
+  scope :search_import, -> { includes(:artist, :image_attachment) }
 
-  def search_data
-    {
-      type: self.class,
-      title: title,
-      thumbnail: thumbnail,
-      subtitle: artist.name,
-      everything: [title, artist.name],
-      boost: 1.0
-    }
-  end
+  attach_from_metadata image: [:strAlbumThumbHQ, :strAlbumThumb]
 
   map_metadata(
     strAlbumThumb: :thumbnail,
@@ -35,8 +26,29 @@ class Album < ApplicationRecord
     intScore: :score
   )
 
+  def search_data
+    {
+      type: self.class,
+      title: title,
+      thumbnail: thumbnail,
+      attachment_id: image_attachment&.id,
+      subtitle: artist.name,
+      everything: [title, artist.name],
+      boost: 1.0
+    }
+  end
+
   def associate_genre
-    return if metadata["strGenre"].blank?
-    self.genre = Genre.find_or_create_by!(name: metadata["strGenre"])
+    self.genre ||= if metadata["strGenre"].present?
+      Genre.find_or_create_by!(name: metadata["strGenre"])
+    else
+      # Fall back to artist genre
+      artist.genre
+    end
+  end
+
+  def validate_released_year
+    # Source data is bad for a handful of albums
+    self.released = nil unless (1900..Date.today.year).cover?(released)
   end
 end

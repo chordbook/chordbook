@@ -35,6 +35,5 @@ yarn-debug.log*
 .DS_Store
 
 .env
-app/frontend/components.d.ts
 /public
 Brewfile.lock.json

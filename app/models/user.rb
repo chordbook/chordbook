@@ -34,6 +34,13 @@ class User < ApplicationRecord
     find_by!(password_reset_token: token, password_reset_sent_at: 2.hours.ago..)
   end
 
+  def self.app
+    find_or_create_by!(email: "help@chordbook.app") do |user|
+      user.name = "Chord Book"
+      user.password = SecureRandom.alphanumeric
+    end
+  end
+
   def generate_password_reset!
     update!(
       password_reset_token: SecureRandom.alphanumeric,

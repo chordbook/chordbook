@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_27_133951) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_11_144650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -31,6 +31,34 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_133951) do
     t.index ["jti"], name: "index_access_tokens_on_jti", unique: true
     t.index ["refresh_token_digest"], name: "index_access_tokens_on_refresh_token_digest", unique: true
     t.index ["user_id"], name: "index_access_tokens_on_user_id"
+  end
+
+  create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.uuid "record_id", null: false
+    t.uuid "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum"
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
   create_table "ahoy_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -96,7 +124,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_133951) do
     t.uuid "artist_id", null: false
     t.uuid "work_id", null: false
     t.index ["artist_id", "work_id", "work_type", "order"], name: "uniq_by_artist_and_work", unique: true
-    t.index ["artist_id"], name: "index_artist_works_on_artist_id"
     t.index ["work_type", "work_id"], name: "index_artist_works_on_work"
   end
 
@@ -106,7 +133,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_133951) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "style"
-    t.boolean "verified", default: false
     t.bigint "listeners"
     t.bigint "rank"
     t.uuid "genre_id"
@@ -308,6 +334,26 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_133951) do
     t.index ["name"], name: "motor_tags_name_unique_index", unique: true
   end
 
+  create_table "pghero_query_stats", force: :cascade do |t|
+    t.text "database"
+    t.text "user"
+    t.text "query"
+    t.bigint "query_hash"
+    t.float "total_time"
+    t.bigint "calls"
+    t.datetime "captured_at", precision: nil
+    t.index ["database", "captured_at"], name: "index_pghero_query_stats_on_database_and_captured_at"
+  end
+
+  create_table "pghero_space_stats", force: :cascade do |t|
+    t.text "database"
+    t.text "schema"
+    t.text "relation"
+    t.bigint "size"
+    t.datetime "captured_at", precision: nil
+    t.index ["database", "captured_at"], name: "index_pghero_space_stats_on_database_and_captured_at"
+  end
+
   create_table "setlist_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "position"
     t.datetime "created_at", null: false
@@ -337,6 +383,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_133951) do
     t.string "imported_from"
     t.bigint "rank"
     t.uuid "track_id"
+    t.string "format"
     t.index ["track_id"], name: "index_songsheets_on_track_id"
   end
 
@@ -353,9 +400,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_133951) do
     t.uuid "artist_id"
     t.uuid "album_id"
     t.uuid "genre_id"
+    t.json "media"
     t.index ["album_id"], name: "index_tracks_on_album_id"
     t.index ["artist_id"], name: "index_tracks_on_artist_id"
     t.index ["genre_id", "listeners"], name: "index_tracks_on_genre_id_and_listeners"
+    t.index ["genre_id", "rank"], name: "index_tracks_on_genre_id_and_rank"
     t.index ["genre_id"], name: "index_tracks_on_genre_id"
   end
 
@@ -382,6 +431,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_133951) do
   end
 
   add_foreign_key "access_tokens", "users"
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "ahoy_events", "ahoy_visits", column: "visit_id"
   add_foreign_key "ahoy_events", "users"
   add_foreign_key "ahoy_visits", "users"

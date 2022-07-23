@@ -5,5 +5,7 @@ class Genre < ApplicationRecord
 
   has_paper_trail
 
+  has_one_attached :image, &Metadata.method(:define_variants)
+
   scope :order_by_popular, -> { order("genres.rank") }
 end

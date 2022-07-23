@@ -100,6 +100,18 @@ class UpdateRankTest < ActiveJob::TestCase
     assert_equal 4, no_listeners.reload.rank
   end
 
+  test "ranks setlists by avg songsheet rank" do
+    first = create :setlist, songsheets: [create(:songsheet, rank: 1)]
+    third = create :setlist, songsheets: [create(:songsheet, rank: 3)]
+    second = create :setlist, songsheets: [create(:songsheet, rank: 2)]
+
+    UpdateRank.new.rank_setlists
+
+    assert_equal 1, first.reload.rank
+    assert_equal 2, second.reload.rank
+    assert_equal 3, third.reload.rank
+  end
+
   def play(songsheet, at: Time.now, times: 1)
     @users ||= {}
     times.times do |i|

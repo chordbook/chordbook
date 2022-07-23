@@ -50,4 +50,21 @@ class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
     get api_songsheet_url(@songsheet, format: :json)
     assert_response :success
   end
+
+  test "create unauthenticated" do
+    post api_songsheets_url
+    assert_response :unauthorized
+  end
+
+  test "create" do
+    assert_difference -> { Songsheet.count }, 1 do
+      post api_songsheets_url(format: :json), headers: token_headers(create(:user)), params: {
+        songsheet: {
+          source: "test",
+          metadata: {title: "Hello World", subtitle: "Nice to meet you"}
+        }
+      }
+      assert_response :created
+    end
+  end
 end
