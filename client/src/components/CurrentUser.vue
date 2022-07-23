@@ -9,15 +9,6 @@ const auth = useAuthStore()
 export default {
   props: {
     isNotCollapsed: Boolean
-  },
-  // for dev purposes
-  data () {
-    return {
-      fakeUserData: {
-        email: 'leonardo@davinci.com',
-        avatar: './assets/fakeAvatar.svg'
-      }
-    }
   }
 }
 </script>

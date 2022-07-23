@@ -85,14 +85,8 @@
             <ion-icon
               slot="start"
               size="small"
-              class="hidden dark:inline hamburger-icon"
+              class="hamburger-icon"
               :src="icons.chevronBack"
-            />
-            <ion-icon
-              slot="start"
-              size="small"
-              class="inline dark:hidden hamburger-icon"
-              :src="icons.chevronBackLight"
             />
           </ion-button>
           <ion-button
@@ -106,14 +100,8 @@
             <ion-icon
               slot="start"
               size="small"
-              class="hidden dark:inline hamburger-icon"
+              class="hamburger-icon"
               :src="icons.chevronForward"
-            />
-            <ion-icon
-              slot="start"
-              size="small"
-              class="inline dark:hidden hamburger-icon"
-              :src="icons.chevronForwardLight"
             />
           </ion-button>
         </ion-item>
