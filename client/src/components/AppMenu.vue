@@ -2,7 +2,7 @@
   <ion-menu
     class="dark mod maxw-minw width-state"
   >
-    <ion-header class="flex-basic">
+    <ion-header class="flex">
       <ion-toolbar>
         <ion-item
           :router-link="{ name: 'home' }"
@@ -22,7 +22,7 @@
           <img
             v-else
             slot="start"
-            class="item-hidden"
+            class="hidden"
             :src="icons.logoLight"
             image="logo"
           >
@@ -36,7 +36,7 @@
           <img
             v-else
             slot="start"
-            class="item-hidden"
+            class="hidden"
             :src="icons.logo"
             image="logo"
           >
@@ -65,12 +65,12 @@
           >
             <img
               alt="Chord Book"
-              class="item-hidden"
+              class="hidden"
               :src="icons.wordmarkLight"
             >
             <img
               alt="Chord Book"
-              class="item-hidden"
+              class="hidden"
               :src="icons.wordmarkDark"
             >
           </ion-label>
@@ -371,10 +371,6 @@ ion-menu {
   --padding-end: 5px;
 }
 
-.flex-basic {
-  display: flex;
-}
-
 .maxw-minw {
   max-width: 500px;
   min-width: 100px;
@@ -426,9 +422,5 @@ ion-menu {
   color: #686868;
   font-size: 30px;
   margin-left: 10px;
-}
-
-.item-hidden {
-  display: none;
 }
 </style>
