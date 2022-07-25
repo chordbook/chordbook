@@ -13,7 +13,9 @@
 
       <ion-select
         v-model="value"
-        class="text-center w-20"
+        class="text-center w-20 relative"
+        cancel-text="Reset"
+        @ion-cancel="value = 0"
       >
         <ion-select-option
           v-for="n in transpositions"
@@ -34,15 +36,6 @@
         />
       </ion-button>
     </div>
-
-    <ion-button
-      fill="clear"
-      size="small"
-      :disabled="value === 0"
-      @click="value = 0"
-    >
-      Reset
-    </ion-button>
   </div>
 </template>
 

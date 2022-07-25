@@ -23,22 +23,18 @@ defineProps({
     style="--height:max-content"
   >
     <div class="ion-padding-vertical">
-      <h5 class="ion-padding-horizontal">
-        Transpose
-      </h5>
+      <ion-list-header>Chords</ion-list-header>
 
       <ion-list>
-        <transpose-control
-          :note="note"
-          @update="(v) => settings.transpose = v"
-        />
-      </ion-list>
+        <ion-item>
+          <ion-label>Transpose</ion-label>
+          <transpose-control
+            slot="end"
+            :note="note"
+            @update="(v) => settings.transpose = v"
+          />
+        </ion-item>
 
-      <h5 class="ion-padding-horizontal">
-        Chords
-      </h5>
-
-      <ion-list>
         <ion-item>
           <ion-label>Instrument</ion-label>
           <ion-select
@@ -65,33 +61,43 @@ defineProps({
         </ion-item>
       </ion-list>
 
-      <h5 class="ion-padding-horizontal">
-        Scroll
-      </h5>
+      <ion-list-header>Layout</ion-list-header>
 
-      <div class="ion-margin-horizontal">
-        <ion-segment
-          :value="settings.columns"
-          @ion-change="settings.columns = $event.detail.value"
-        >
-          <ion-segment-button
-            :value="1"
-            layout="icon-start"
-            class="py-1"
+      <ion-list lines="none">
+        <ion-item>
+          <ion-segment
+            :value="settings.columns"
+            @ion-change="settings.columns = $event.detail.value"
           >
-            <ion-label>Vertical</ion-label>
-            <ion-icon :icon="tabletPortraitOutline" />
-          </ion-segment-button>
-          <ion-segment-button
-            :value="2"
-            layout="icon-start"
-            class="py-1"
-          >
-            <ion-label>Horizontal</ion-label>
-            <ion-icon :icon="tabletLandscapeOutline" />
-          </ion-segment-button>
-        </ion-segment>
-      </div>
+            <ion-segment-button
+              :value="1"
+              layout="icon-start"
+              class="py-1"
+            >
+              <ion-label>Vertical</ion-label>
+              <ion-icon :icon="tabletPortraitOutline" />
+            </ion-segment-button>
+            <ion-segment-button
+              :value="2"
+              layout="icon-start"
+              class="py-1"
+            >
+              <ion-label>Horizontal</ion-label>
+              <ion-icon :icon="tabletLandscapeOutline" />
+            </ion-segment-button>
+          </ion-segment>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Show Media Player
+          </ion-label>
+          <ion-toggle
+            slot="end"
+            :checked="settings.showPlayer"
+            @ion-change="settings.showPlayer = $event.detail.checked"
+          />
+        </ion-item>
+      </ion-list>
     </div>
   </ion-modal>
 </template>

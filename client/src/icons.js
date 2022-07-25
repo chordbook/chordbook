@@ -12,7 +12,6 @@ export {
   musicalNote as song,
   people as artist,
   personCircleOutline as avatar,
-  playCircleOutline as play,
   search,
   shareOutline as share,
   trash

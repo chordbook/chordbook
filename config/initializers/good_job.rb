@@ -13,6 +13,7 @@ Rails.application.configure do
     rank: {cron: "every day", class: "UpdateRank"},
     tokens: {cron: "every day", class: "CleanupTokens"},
     opt_outs: {cron: "every day", class: "PerformableMethod", args: [Mailkick, :fetch_opt_outs]},
-    generated_setlists: {cron: "every day", class: "GeneratedSetlists"}
+    generated_setlists: {cron: "every day", class: "GeneratedSetlists"},
+    youtube_lookup: {cron: "every day", class: "PerformableMethod", args: -> { [YoutubeLookup, :top_tracks] }}
   }
 end

@@ -6,6 +6,7 @@ export default defineStore('SongsheetSettings', {
     instrument: useStorage('instrument', 'guitar'),
     showChords: useStorage('showChords', false),
     columns: useStorage('columns', 1),
+    showPlayer: useStorage('showPlayer', true),
 
     // Avoid persisting for now
     transpose: 0
