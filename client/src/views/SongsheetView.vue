@@ -16,16 +16,6 @@
         </ion-buttons>
 
         <ion-buttons slot="end">
-          <ion-button
-            :color="showPlayer ? 'secondary' : ''"
-            :disabled="songsheet.media?.length == 0"
-            @click="showPlayer = !showPlayer"
-          >
-            <ion-icon
-              slot="icon-only"
-              :icon="icons.play"
-            />
-          </ion-button>
           <ion-button :id="`settings-button-${id}`">
             <ion-icon
               slot="icon-only"
@@ -60,7 +50,7 @@
       <template #top>
         <Transition name="slide-down">
           <songsheet-media
-            v-show="showPlayer"
+            v-if="showPlayer"
             :songsheet="songsheet"
           />
         </Transition>
@@ -192,6 +182,8 @@ import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
 import ShareItem from '@/components/ShareItem.vue'
 import * as icons from '@/icons'
+import useSongsheetSettings from '@/stores/songsheet-settings'
+import { mapState } from 'pinia'
 
 export default {
   components: { SongSheet, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia, AddToLibraryButton, ShareItem },
@@ -215,15 +207,16 @@ export default {
       source: '',
       key: 'C',
       showTuner: false,
-      icons,
-      showPlayer: false
+      icons
     }
   },
 
   computed: {
     otherVersions () {
       return this.versions.filter(v => v.id !== this.songsheet.id)
-    }
+    },
+
+    ...mapState(useSongsheetSettings, ['showPlayer'])
   },
 
   ionViewWillEnter () {
