@@ -63,7 +63,6 @@ class Track < ApplicationRecord
 
   def songsheet_was_added
     reindex(mode: :async) if Searchkick.callbacks?
-    YoutubeLookup.perform_later self
   end
 
   def media

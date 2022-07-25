@@ -26,4 +26,10 @@ class YoutubeLookup < ApplicationJob
 
     track.update media: ids.map { |id| "https://www.youtube.com/watch?v=%s" % id }
   end
+
+  def self.top_tracks
+    Track.where(media: nil).order_by_popular.limit(1).each do |track|
+      perform_later track
+    end
+  end
 end
