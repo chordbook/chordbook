@@ -15,7 +15,7 @@
     "@vitejs/plugin-vue": "^2.3",
     "@vueuse/core": "^8.9",
     "@vueuse/router": "^8.9",
-    "ace-builds": "^1.7",
+    "ace-builds": "^1.8",
     "arrify": "^3.0",
     "aubiojs": "^0.1",
     "autoprefixer": "^10.4",
