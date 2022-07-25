@@ -1,3 +1,3 @@
-web: puma -C config/puma.rb
-release: rails db:migrate
-worker: bundle exec good_job start
+web: bin/yarn run dev
+api: bin/rails server
+worker: bin/bundle exec good_job start
