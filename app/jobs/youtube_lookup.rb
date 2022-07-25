@@ -28,7 +28,7 @@ class YoutubeLookup < ApplicationJob
   end
 
   def self.top_tracks
-    Track.where(media: nil).order_by_popular.limit(1).each do |track|
+    Track.where(media: nil).order_by_popular.limit(50).each do |track|
       perform_later track
     end
   end
