@@ -1,5 +1,5 @@
 class Api::SetlistsController < ApiController
-  before_action :authenticate!, except: %i[show]
+  skip_before_action :authenticate!, only: %i[show]
 
   def index
     @setlists = current_user.setlists.order_by_recent.page(params[:page])

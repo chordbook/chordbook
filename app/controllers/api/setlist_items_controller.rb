@@ -1,6 +1,7 @@
 class Api::SetlistItemsController < ApiController
   before_action :find_setlist, except: :index
   before_action :find_item, only: [:update, :destroy]
+  skip_before_action :authenticate!, only: %i[index]
 
   def index
     @items = Setlist.find_by_uid(params[:setlist_id]).items.includes(:songsheet).page(params[:page])
