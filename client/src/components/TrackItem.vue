@@ -7,7 +7,7 @@
   >
     <ion-avatar slot="start">
       <img
-        :src="track.album?.thumbnail"
+        :src="track.album?.cover.small"
         class="rounded"
       >
     </ion-avatar>

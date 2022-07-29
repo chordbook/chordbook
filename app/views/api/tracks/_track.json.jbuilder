@@ -2,7 +2,7 @@ json.id track.to_param
 json.extract! track, :title, :number, :duration, :created_at, :updated_at
 json.has_songsheet track.has_songsheet?
 json.album do
-  json.partial! track.album, as: :album, variant: :track
+  json.partial! track.album, as: :album
 end
 json.artist do
   json.partial! track.artist, as: :artist

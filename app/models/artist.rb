@@ -19,14 +19,24 @@ class Artist < ApplicationRecord
   scope :order_by_popular, -> { order("artists.rank") }
   scope :search_import, -> { includes(:image_attachment) }
 
-  attach_from_metadata(
-    image: %w[strArtistThumbHQ strArtistThumb],
-    banner: %w[strArtistFanart strArtistWideThumb]
-  )
+  attach_from_metadata image: %w[strArtistThumbHQ strArtistThumb] do |attachable|
+    options = {
+      format: :jpeg,
+      saver: {subsample_mode: "on", strip: true, interlace: true, quality: 90}
+    }
+
+    attachable.variant :small, resize_to_fill: [100, 100], **options
+    attachable.variant :medium, resize_to_fill: [400, 400], **options
+    attachable.variant :large, resize_to_fill: [800, 800], **options
+  end
+
+  attach_from_metadata banner: %w[strArtistFanart strArtistWideThumb] do |attachable|
+    attachable.variant :medium, resize_to_fit: [1280, 720], format: :jpeg,
+      saver: {subsample_mode: "on", strip: true, interlace: true, quality: 90}
+  end
 
   map_metadata(
     strArtist: :name,
-    strArtistThumb: :thumbnail,
     strStyle: :style,
     strBiographyEN: :biography
   )
@@ -73,7 +83,6 @@ class Artist < ApplicationRecord
     {
       type: self.class,
       title: name,
-      thumbnail: thumbnail,
       attachment_id: image_attachment&.id,
       everything: [name, metadata["strArtistAlternate"].presence].compact,
       boost: 2.0

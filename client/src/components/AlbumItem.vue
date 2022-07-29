@@ -9,8 +9,8 @@
     <ion-label>
       <div class="rounded overflow-hidden relative aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2 flex place-content-center items-center">
         <img
-          v-if="album.thumbnail"
-          :src="album.thumbnail"
+          v-if="album.cover"
+          :src="album.cover.medium"
         >
         <ion-icon
           v-else

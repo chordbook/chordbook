@@ -23,7 +23,7 @@ defineProps({
     >
       <div class="overflow-hidden relative aspect-square flex place-content-center items-center">
         <div
-          v-if="false && setlist.thumbnails.length > 0"
+          v-if="setlist.thumbnails.length > 0"
           class="grid grid-cols-2 grid-rows-2"
         >
           <img

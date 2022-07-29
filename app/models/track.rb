@@ -45,7 +45,6 @@ class Track < ApplicationRecord
       type: self.class,
       title: title,
       subtitle: artist.name,
-      thumbnail: album.thumbnail,
       attachment_id: album.image_attachment&.id,
       everything: [title, artist.name, album.title],
       boost: 0.75

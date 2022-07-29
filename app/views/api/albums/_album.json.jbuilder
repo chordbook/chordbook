@@ -1,8 +1,10 @@
-variant ||= :thumb
-
 json.id album.to_param
 json.extract! album, :uid, :title, :released, :genre, :style, :created_at, :updated_at
-json.thumbnail album.image.attached? ? variant_url(album.image, variant) : album.thumbnail
+json.cover do
+  json.small variant_url(album.image, :small)
+  json.medium variant_url(album.image, :medium)
+  json.large variant_url(album.image, :large)
+end
 json.artist do
   json.partial! "api/artists/artist", artist: album.artist
 end

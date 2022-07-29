@@ -64,7 +64,7 @@
             v-if="songsheet.track?.album"
             class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
           >
-            <img :src="songsheet.track?.album.thumbnail">
+            <img :src="songsheet.track?.album.cover?.medium">
           </div>
 
           <div>
