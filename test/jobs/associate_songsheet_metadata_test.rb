@@ -30,7 +30,18 @@ class AssociateSongsheetMetadataTest < ActiveJob::TestCase
 
   test "associates with multiple artists" do
     with_search Artist do
-      artists = [create(:artist), create(:artist)]
+      artists = [create(:artist, name: "Johnny Cash"), create(:artist, name: "June Carter")]
+      perform_enqueued_jobs only: AssociateSongsheetMetadata do
+        songsheet = create :songsheet, metadata: {artist: artists.map(&:name).join(", ")}
+        songsheet.reload
+        assert_equal artists, songsheet.artists
+      end
+    end
+  end
+
+  test "associates with multiple artists and bands with `and` in the title" do
+    with_search Artist do
+      artists = [create(:artist, name: "The Undertones"), create(:artist, name: "Siouxsie and The Banshees")]
       perform_enqueued_jobs only: AssociateSongsheetMetadata do
         songsheet = create :songsheet, metadata: {artist: artists.map(&:name).join(", ")}
         songsheet.reload

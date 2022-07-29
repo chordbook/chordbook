@@ -66,7 +66,7 @@ class Artist < ApplicationRecord
       end
     end.flatten.compact
 
-    [artists, unknown]
+    [artists.uniq, unknown]
   end
 
   def search_data
