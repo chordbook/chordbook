@@ -6,6 +6,11 @@ class Api::SetlistItemsControllerTest < ActionDispatch::IntegrationTest
     @setlist = create :setlist, user: @user
   end
 
+  test "index unauthenticated" do
+    get api_setlist_items_url(@setlist, format: :json)
+    assert_response :success
+  end
+
   test "create unauthenticated" do
     post api_setlist_items_url(@setlist)
     assert_response :unauthorized
