@@ -1,7 +1,7 @@
 const domain = import.meta.env.APP_HOSTNAME
 
 export default function () {
-  if (domain) {
+  if (domain && import.meta.env.MODE === 'production') {
     const script = document.createElement('script')
     script.type = 'text/javascript'
     script.src = 'https://plausible.io/js/plausible.js'
