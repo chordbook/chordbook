@@ -30,6 +30,10 @@ class GeneratedSetlists < ApplicationJob
     update_setlist "Unmatched" do
       Songsheet.where(track_id: nil).order_by_recent
     end
+
+    update_setlist "Too Many Versions" do
+      Songsheet.joins(:track).order('tracks.songsheets_count DESC, songsheets.rank')
+    end
   end
 
   def update_setlist(title, attrs: nil, &scope)
