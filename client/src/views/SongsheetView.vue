@@ -143,7 +143,7 @@ fetchData()
         <Transition name="slide-down">
           <songsheet-media
             v-if="settings.showPlayer"
-            :songsheet="songsheet"
+            :media="songsheet.media"
           />
         </Transition>
       </template>
@@ -212,8 +212,9 @@ fetchData()
       :note="key"
     />
     <add-to-setlist-modal
+      v-if="songsheet.id"
       ref="addToSetlistModal"
-      :songsheet="songsheet"
+      v-bind="songsheet"
     />
     <ion-popover
       :trigger="`songsheet-context-${songsheet.id}`"

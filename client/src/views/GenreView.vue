@@ -1,7 +1,7 @@
 <script setup>
 import ArtistCard from '@/components/ArtistCard.vue'
 import AlbumItem from '@/components/AlbumItem.vue'
-import TrackItem from '@/components/TrackItem.vue'
+import ModelList from '@/components/ModelList.vue'
 
 defineProps({
   id: {
@@ -46,16 +46,11 @@ defineProps({
             </ion-button>
           </ion-list-header>
 
-          <div class="grid-scroll-x grid-rows-3 auto-cols-1/1 sm:auto-cols-1/2 lg:auto-cols-1/3 2xl:auto-cols-1/4">
             <data-source
               v-slot="{ data }"
               :src="`genres/${id}/tracks`"
             >
-              <track-item
-                v-for="track in data"
-                :key="track.id"
-                :track="track"
-              />
+              <model-list :items="data" />
             </data-source>
           </div>
         </ion-list>
@@ -76,7 +71,7 @@ defineProps({
               <artist-card
                 v-for="artist in data"
                 :key="artist.id"
-                :artist="artist"
+                v-bind="artist"
               />
             </data-source>
           </div>
@@ -98,7 +93,7 @@ defineProps({
               <album-item
                 v-for="album in data"
                 :key="album.id"
-                :album="album"
+                v-bind="album"
               />
             </data-source>
           </div>

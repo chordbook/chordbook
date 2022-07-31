@@ -1,3 +1,38 @@
+<script setup>
+import { defineProps } from 'vue'
+import * as icons from '@/icons'
+import ShareItem from '@/components/ShareItem.vue'
+
+const props = defineProps({
+  id: {
+    type: String,
+    required: true
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  cover: {
+    type: Object,
+    required: true
+  },
+  artist: {
+    type: Object,
+    required: true
+  },
+  showArtist: {
+    type: Boolean,
+    default: true
+  },
+  released: {
+    type: Number,
+    required: true
+  }
+})
+
+const link = { name: 'album', params: { id: props.id } }
+</script>
+
 <template>
   <ion-item
     button
@@ -9,8 +44,8 @@
     <ion-label>
       <div class="rounded overflow-hidden relative aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2 flex place-content-center items-center">
         <img
-          v-if="album.cover"
-          :src="album.cover.medium"
+          v-if="cover"
+          :src="cover.medium"
         >
         <ion-icon
           v-else
@@ -18,7 +53,7 @@
           class="text-slate-300 text-5xl"
         />
         <ion-icon
-          :id="`album-${album.id}-popover`"
+          :id="`album-${id}-popover`"
           :ios="icons.iosEllipsis"
           :md="icons.mdEllipsis"
           class="absolute bottom-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity block aspect-square rounded-full bg-black/50 text-white p-1.5 text-xs"
@@ -26,15 +61,15 @@
         />
       </div>
       <h3 class="text-sm">
-        {{ album.title }}
+        {{ title }}
       </h3>
       <p>
-        <span v-if="showArtist">{{ album.artist.name }} •</span>
-        {{ album.released }}
+        <span v-if="showArtist">{{ artist.name }} •</span>
+        {{ released }}
       </p>
     </ion-label>
     <ion-popover
-      :trigger="`album-${album.id}-popover`"
+      :trigger="`album-${id}-popover`"
       alignment="center"
       side="top"
       translucent
@@ -47,35 +82,16 @@
           detail
           lines="none"
           :detail-icon="icons.artist"
-          :router-link="{ name: 'artist', params: { id: album.artist?.id } }"
+          :router-link="{ name: 'artist', params: { id: artist?.id } }"
         >
           View Artist
         </ion-item>
         <share-item
           lines="none"
           :router-link="link"
-          :title="`${album.title} by ${album.artist.name}`"
+          :title="`${title} by ${artist.name}`"
         />
       </ion-list>
     </ion-popover>
   </ion-item>
 </template>
-
-<script setup>
-import { defineProps } from 'vue'
-import * as icons from '@/icons'
-import ShareItem from '@/components/ShareItem.vue'
-
-const props = defineProps({
-  album: {
-    type: Object,
-    required: true
-  },
-  showArtist: {
-    type: Boolean,
-    default: true
-  }
-})
-
-const link = { name: 'album', params: { id: props.album.id } }
-</script>

@@ -3,8 +3,12 @@ import { defineProps } from 'vue'
 import * as icons from '@/icons'
 
 defineProps({
-  setlist: {
-    type: Object,
+  title: {
+    type: String,
+    required: true
+  },
+  thumbnails: {
+    type: Array,
     required: true
   }
 })
@@ -23,11 +27,11 @@ defineProps({
     >
       <div class="overflow-hidden relative aspect-square flex place-content-center items-center">
         <div
-          v-if="setlist.thumbnails.length > 0"
+          v-if="thumbnails.length > 0"
           class="grid grid-cols-2 grid-rows-2"
         >
           <img
-            v-for="thumbnail in setlist.thumbnails"
+            v-for="thumbnail in thumbnails"
             :key="thumbnail"
             :src="thumbnail"
           >
@@ -43,7 +47,7 @@ defineProps({
 
     <ion-label>
       <h3 class="text-sm">
-        {{ setlist.title }}
+        {{ title }}
       </h3>
     </ion-label>
   </ion-item>

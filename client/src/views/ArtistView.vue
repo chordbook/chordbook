@@ -1,7 +1,7 @@
 <script setup>
-import TrackItem from '@/components/TrackItem.vue'
 import AlbumItem from '@/components/AlbumItem.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
+import ModelList from '@/components/ModelList.vue'
 
 defineProps({
   id: {
@@ -69,13 +69,7 @@ defineProps({
               </ion-button>
             </ion-list-header>
 
-            <div class="grid-scroll-x grid-rows-3 auto-cols-1/1 sm:auto-cols-1/2 lg:auto-cols-1/3 2xl:auto-cols-1/4">
-              <track-item
-                v-for="track in tracks"
-                :key="track.id"
-                :track="track"
-              />
-            </div>
+            <model-list :items="tracks" />
           </ion-list>
         </data-source>
 
@@ -100,7 +94,7 @@ defineProps({
               <album-item
                 v-for="album in albums"
                 :key="album.id"
-                :album="album"
+                v-bind="album"
                 :show-artist="false"
               />
             </div>

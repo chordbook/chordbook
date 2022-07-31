@@ -35,7 +35,7 @@ defineProps({
         <songsheet-item
           v-for="version in versions"
           :key="version.id"
-          :songsheet="version"
+          v-bind="version"
           router-direction="replace"
           @click="modalController.dismiss()"
         />

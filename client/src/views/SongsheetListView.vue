@@ -56,7 +56,7 @@ import { add } from 'ionicons/icons'
             <songsheet-item
               v-for="songsheet in items"
               :key="songsheet.id"
-              :songsheet="songsheet"
+              v-bind="songsheet"
             />
           </ion-list>
         </template>

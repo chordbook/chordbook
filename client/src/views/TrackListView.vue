@@ -26,7 +26,7 @@
           <track-item
             v-for="track in items"
             :key="track.id"
-            :track="track"
+            v-bind="track"
           />
         </ion-list>
       </data-source>

@@ -8,14 +8,14 @@ import NewSetlistModal from '@/components/NewSetlistModal.vue'
 import { useFetch } from '@/client'
 
 const props = defineProps({
-  songsheet: {
-    type: Object,
+  id: {
+    type: String,
     required: true
   }
 })
 
 async function add (setlist) {
-  await useFetch(`setlists/${setlist.id}/items`).post({ id: props.songsheet.id })
+  await useFetch(`setlists/${setlist.id}/items`).post({ id: props.id })
 
   modalController.dismiss()
 
@@ -69,7 +69,7 @@ async function newModal () {
               <setlist-item
                 v-for="setlist in items"
                 :key="setlist.id"
-                :setlist="setlist"
+                v-bind="setlist"
                 @click.prevent="add(setlist)"
               />
             </ion-list>

@@ -99,7 +99,7 @@
               <setlist-card
                 v-for="setlist in data?.setlists"
                 :key="setlist.id"
-                :setlist="setlist"
+                v-bind="setlist"
               />
             </div>
           </ion-list>

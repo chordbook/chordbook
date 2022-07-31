@@ -1,23 +1,36 @@
 <script setup>
 import { logoGithub, handLeft, cashOutline } from 'ionicons/icons'
 import ColorizedImg from '@/components/ColorizedImg.vue'
+import { useFetch } from '@/client'
+import ModelList from '../components/ModelList.vue'
+
+const { data } = useFetch('home').json()
 </script>
 
 <template>
   <app-view>
     <ion-content>
       <div
-        class="ion-padding bg-black text-shadow min-h-screen-1/2 shadow-inner bg-center bg-cover flex flex-col place-content-center text-center"
-        style="background-image: url(https://images.pexels.com/photos/144428/pexels-photo-144428.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)"
+        v-for="section in data"
+        :key="section.name"
+        class="ion-padding"
       >
-        <h1 class="text-6xl sm:text-8xl text-white font-semibold">
-          Just music,<br>no
-          <span class="censored"><span>b</span><span>u</span><span>l</span><span>l</span><span>s</span><span>λ</span><span>!</span><span>τ</span></span>.
-        </h1>
-        <h2 class="text-base sm:text-xl md:text-2xl text-white font-normal">
-          Chord sheets and tab for guitar and ukulele.<br>
-          Made for and by amateur musicians.
-        </h2>
+        <ion-list-header>
+          <ion-label class="text-2xl">
+            {{ section.name }}
+          </ion-label>
+          <ion-button
+            v-if="section.href"
+            :router-link="section.href"
+          >
+            See All
+          </ion-button>
+        </ion-list-header>
+
+        <model-list
+          :items="section.items"
+          :format="section.format"
+        />
       </div>
 
       <div

@@ -1,41 +1,43 @@
+<script setup>
+import { artist } from '@/icons'
+
+defineProps({
+  id: {
+    type: String,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  thumbnail: {
+    type: String,
+    required: true
+  }
+})
+</script>
+
 <template>
   <ion-item
     button
-    :router-link="{ name: 'artist', params: { id: artist.id } }"
+    :router-link="{ name: 'artist', params: { id } }"
   >
     <ion-avatar
       slot="start"
       class="bg-slate-100 flex place-content-center items-center"
     >
       <img
-        v-if="artist.thumbnail"
-        :src="artist.thumbnail"
+        v-if="thumbnail"
+        :src="thumbnail"
       >
       <ion-icon
         v-else
-        :icon="people"
+        :icon="artist"
         class="text-slate-300"
       />
     </ion-avatar>
     <ion-label>
-      <h2>{{ artist.name }}</h2>
+      <h2>{{ name }}</h2>
     </ion-label>
   </ion-item>
 </template>
-
-<script>
-import { people } from 'ionicons/icons'
-
-export default {
-  props: {
-    artist: {
-      type: Object,
-      required: true
-    }
-  },
-
-  data () {
-    return { people }
-  }
-}
-</script>
