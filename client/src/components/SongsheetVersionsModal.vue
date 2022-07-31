@@ -14,8 +14,8 @@ defineProps({
 <template>
   <ion-modal
     can-dismiss
-    :breakpoints="[0.25, 0.5, 1]"
-    :initial-breakpoint="0.25"
+    :breakpoints="[0.5, 1]"
+    :initial-breakpoint="0.5"
   >
     <ion-header>
       <ion-toolbar>
