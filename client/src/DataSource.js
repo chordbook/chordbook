@@ -1,4 +1,4 @@
-import client from '@/client'
+import { useFetch } from '@/client'
 import LinkHeader from 'http-link-header'
 
 export default class DataSource {
@@ -14,13 +14,15 @@ export default class DataSource {
     if (this.disabled || this.loading) return
     this.loading = true
 
-    const response = await client.get(this.url, this.options)
-    this.items.push(...response.data)
+    const { data, response } = await useFetch(this.url, { params: this.options }).get().json()
+    this.items.push(...data.value)
 
     this.loading = false
 
-    if (response.headers.link) {
-      const links = LinkHeader.parse(response.headers.link)
+    const linkHeader = response.value.headers.get('Link')
+
+    if (linkHeader) {
+      const links = LinkHeader.parse(linkHeader)
 
       if (links.has('rel', 'next')) {
         this.url = links.get('rel', 'next')[0].uri

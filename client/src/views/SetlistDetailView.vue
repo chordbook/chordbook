@@ -1,6 +1,6 @@
 <script setup>
-import { default as DeprecatedDataSource } from '@/DataSource'
-import client from '@/client'
+import DeprecatedDataSource from '@/DataSource'
+import { useFetch } from '@/client'
 import SongsheetItem from '@/components/SongsheetItem.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import ShareItem from '@/components/ShareItem.vue'
@@ -18,7 +18,7 @@ const props = defineProps({
 
 const route = useRoute()
 const router = useRouter()
-const oldDataSource = ref(new DeprecatedDataSource(`setlists/${props.id}/songsheets.json`, { params: route.query }))
+const oldDataSource = ref(new DeprecatedDataSource(`setlists/${props.id}/songsheets`, { params: route.query }))
 const editing = ref(false)
 
 onMounted(() => oldDataSource.value.load())
@@ -26,7 +26,7 @@ onMounted(() => oldDataSource.value.load())
 async function reorder (e) {
   const songsheet = oldDataSource.value.items[e.detail.from]
 
-  await client.patch(`setlists/${props.id}/items/${songsheet.id}.json`, {
+  await useFetch(`setlists/${props.id}/items/${songsheet.id}`).patch({
     item: { position: e.detail.to + 1 }
   })
 
@@ -34,7 +34,7 @@ async function reorder (e) {
 }
 
 async function remove (songsheet) {
-  await client.delete(`setlists/${props.id}/items/${songsheet.id}.json`)
+  await useFetch(`setlists/${props.id}/items/${songsheet.id}`).delete()
   oldDataSource.value.items.splice(oldDataSource.value.items.indexOf(songsheet), 1)
   return (await toastController.create({
     message: `${songsheet.title} was removed from this setlist`,
@@ -52,7 +52,7 @@ async function destroy () {
           role: 'destructive',
           icon: icons.trash,
           handler: async () => {
-            await client.delete(`setlists/${props.id}.json`)
+            await useFetch(`setlists/${props.id}`).delete()
             router.back({ name: 'setlists' })
           }
         },
