@@ -10,6 +10,6 @@ end
 json.url api_artist_album_url(album.artist, album, format: :json)
 
 unless shallow
-  json.genre { json.partial! album.genre, shallow: true }
+  json.genre { json.partial! album.genre, shallow: true if album.genre }
   json.artist { json.partial! album.artist, shallow: true }
 end
