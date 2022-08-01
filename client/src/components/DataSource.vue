@@ -35,13 +35,31 @@ const nextSrc = computed(() => {
 })
 const lastPage = computed(() => pages.value.slice(-1)[0])
 const isDisabled = computed(() => !lastPage.value || lastPage.value.isFetching)
-
+const isEmpty = computed(() => {
+  const page = pages.value[0]
+  return page && page.isFinished && !page.error && page.data && page.data.length === 0
+})
 load()
 </script>
 
 <template>
-  <template v-for="page in pages">
-    <slot v-bind="page" />
+  <slot
+    v-if="$slots.empty && isEmpty"
+    name="empty"
+  />
+  <template
+    v-for="page in pages"
+    v-else
+  >
+    <slot
+      v-if="$slots.page"
+      name="page"
+      v-bind="page"
+    />
+    <slot
+      v-else
+      v-bind="page"
+    />
   </template>
 
   <ion-infinite-scroll

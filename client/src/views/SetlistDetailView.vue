@@ -1,5 +1,5 @@
 <script setup>
-import DataSource from '@/DataSource'
+import { default as DeprecatedDataSource } from '@/DataSource'
 import client from '@/client'
 import SongsheetItem from '@/components/SongsheetItem.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
@@ -18,20 +18,13 @@ const props = defineProps({
 
 const route = useRoute()
 const router = useRouter()
-const dataSource = ref(new DataSource(`setlists/${props.id}/songsheets.json`, { params: route.query }))
+const oldDataSource = ref(new DeprecatedDataSource(`setlists/${props.id}/songsheets.json`, { params: route.query }))
 const editing = ref(false)
-const setlist = ref({})
 
-onMounted(() => {
-  client.get(`setlists/${props.id}.json`).then(response => {
-    setlist.value = response.data
-  })
-
-  dataSource.value.load()
-})
+onMounted(() => oldDataSource.value.load())
 
 async function reorder (e) {
-  const songsheet = dataSource.value.items[e.detail.from]
+  const songsheet = oldDataSource.value.items[e.detail.from]
 
   await client.patch(`setlists/${props.id}/items/${songsheet.id}.json`, {
     item: { position: e.detail.to + 1 }
@@ -42,9 +35,9 @@ async function reorder (e) {
 
 async function remove (songsheet) {
   await client.delete(`setlists/${props.id}/items/${songsheet.id}.json`)
-  dataSource.value.items.splice(dataSource.value.items.indexOf(songsheet), 1)
+  oldDataSource.value.items.splice(oldDataSource.value.items.indexOf(songsheet), 1)
   return (await toastController.create({
-    message: `${songsheet.title} was removed from ${setlist.value.title}`,
+    message: `${songsheet.title} was removed from this setlist`,
     duration: 3000
   })).present()
 }
@@ -72,123 +65,126 @@ async function destroy () {
 
 <template>
   <ion-page>
-    <ion-header
-      translucent
-      collapse="fade"
+    <data-source
+      v-slot="{ data }"
+      :src="`setlists/${id}`"
     >
-      <ion-toolbar>
-        <ion-title>{{ setlist.title }}</ion-title>
-
-        <ion-buttons slot="start">
-          <ion-back-button
-            text=""
-            :default-href="{ name: 'setlists' }"
-          />
-        </ion-buttons>
-
-        <ion-buttons slot="end">
-          <ion-button
-            v-show="editing"
-            @click="editing = false"
-          >
-            Done
-          </ion-button>
-          <add-to-library-button
-            v-if="setlist.id && !editing"
-            :id="setlist.id"
-          />
-          <ion-button
-            v-if="!editing"
-            :id="`setlist-context-${setlist.id}`"
-          >
-            <ion-icon
-              slot="icon-only"
-              size="small"
-              :ios="icons.iosEllipsis"
-              :md="icons.mdEllipsis"
-            />
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content fullscreen>
-      <ion-header collapse="condense">
+      <ion-header
+        translucent
+        collapse="fade"
+      >
         <ion-toolbar>
-          <ion-title>{{ setlist.title }}</ion-title>
+          <ion-title>{{ data?.title }}</ion-title>
+
+          <ion-buttons slot="start">
+            <ion-back-button
+              text=""
+              :default-href="{ name: 'setlists' }"
+            />
+          </ion-buttons>
+
+          <ion-buttons slot="end">
+            <ion-button
+              v-show="editing"
+              @click="editing = false"
+            >
+              Done
+            </ion-button>
+            <add-to-library-button
+              v-if="!editing"
+              :id="id"
+            />
+            <ion-button
+              v-if="!editing"
+              :id="`setlist-context-${id}`"
+            >
+              <ion-icon
+                slot="icon-only"
+                size="small"
+                :ios="icons.iosEllipsis"
+                :md="icons.mdEllipsis"
+              />
+            </ion-button>
+          </ion-buttons>
         </ion-toolbar>
       </ion-header>
 
-      <p class="ion-padding">
-        {{ setlist.description }}
-      </p>
+      <ion-content fullscreen>
+        <ion-header collapse="condense">
+          <ion-toolbar>
+            <ion-title>{{ data?.title }}</ion-title>
+          </ion-toolbar>
+        </ion-header>
 
-      <ion-list>
-        <ion-reorder-group
-          :disabled="!editing"
-          @ion-item-reorder="reorder"
-        >
-          <ion-item-sliding
-            v-for="songsheet in dataSource.items"
-            :key="songsheet.id"
+        <p class="ion-padding">
+          {{ data?.description }}
+        </p>
+
+        <ion-list>
+          <ion-reorder-group
+            :disabled="!editing"
+            @ion-item-reorder="reorder"
           >
-            <ion-item-options side="end">
-              <ion-item-option
-                color="danger"
-                @click="remove(songsheet)"
-              >
-                Remove
-              </ion-item-option>
-            </ion-item-options>
-
-            <songsheet-item
-              :songsheet="songsheet"
+            <ion-item-sliding
+              v-for="songsheet in oldDataSource.items"
+              :key="songsheet.id"
             >
-              <!-- <ion-reorder slot="end"></ion-reorder> -->
-            </songsheet-item>
-          </ion-item-sliding>
-        </ion-reorder-group>
-      </ion-list>
+              <ion-item-options side="end">
+                <ion-item-option
+                  color="danger"
+                  @click="remove(songsheet)"
+                >
+                  Remove
+                </ion-item-option>
+              </ion-item-options>
 
-      <ion-infinite-scroll
-        threshold="500px"
-        :disabled="dataSource.loading || dataSource.disabled"
-        @ion-infinite="dataSource.load().then(() => $event.target.complete())"
+              <songsheet-item :songsheet="songsheet">
+                <!-- <ion-reorder slot="end"></ion-reorder> -->
+              </songsheet-item>
+            </ion-item-sliding>
+          </ion-reorder-group>
+        </ion-list>
+
+        <ion-infinite-scroll
+          threshold="500px"
+          :disabled="oldDataSource.loading || oldDataSource.disabled"
+          @ion-infinite="oldDataSource.load().then(() => $event.target.complete())"
+        >
+          <ion-infinite-scroll-content
+            loading-spinner="bubbles"
+            loading-text="Loading…"
+          />
+        </ion-infinite-scroll>
+      </ion-content>
+
+      <ion-popover
+        :trigger="`setlist-context-${id}`"
+        dismiss-on-select
       >
-        <ion-infinite-scroll-content
-          loading-spinner="bubbles"
-          loading-text="Loading…"
-        />
-      </ion-infinite-scroll>
-    </ion-content>
-
-    <ion-popover
-      :trigger="`setlist-context-${setlist.id}`"
-      dismiss-on-select
-    >
-      <ion-list>
-        <ion-item
-          button
-          detail
-          :detail-icon="icons.edit"
-          @click="editing = true"
-        >
-          <ion-label>Edit</ion-label>
-        </ion-item>
-        <ion-item
-          button
-          detail
-          :detail-icon="icons.trash"
-          @click="destroy"
-        >
-          <ion-label>Delete</ion-label>
-        </ion-item>
-        <share-item
-          lines="none"
-          :title="setlist.title"
-          :router-link="{ name: 'setlist', params: { id } }"
-        />
-      </ion-list>
-    </ion-popover>
+        <ion-list>
+          <ion-item
+            button
+            detail
+            :detail-icon="icons.edit"
+            @click="editing = true"
+          >
+            <ion-label>Edit</ion-label>
+          </ion-item>
+          <ion-item
+            button
+            detail
+            :detail-icon="icons.trash"
+            @click="destroy"
+          >
+            <ion-label>Delete</ion-label>
+          </ion-item>
+          <share-item
+            lines="none"
+            :title="data?.title"
+            :router-link="{ name: 'setlist', params: { id } }"
+          />
+        </ion-list>
+      </ion-popover>
+    </data-source>
   </ion-page>
 </template>

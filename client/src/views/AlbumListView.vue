@@ -17,24 +17,23 @@
     </ion-header>
 
     <ion-content>
-      <!-- <library-placeholder
-        v-if="!dataSource.loading && dataSource.items.length === 0"
-        type="album"
-      />
- -->
       <ion-list>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
           <data-source
-            v-slot="{ data }"
             :src="$route.path"
             :params="$route.params"
             paginate
           >
-            <album-item
-              v-for="album in data"
-              :key="album.id"
-              :album="album"
-            />
+            <template #empty>
+              <library-placeholder type="album" />
+            </template>
+            <template #page="{ data }">
+              <album-item
+                v-for="album in data"
+                :key="album.id"
+                :album="album"
+              />
+            </template>
           </data-source>
         </div>
       </ion-list>
