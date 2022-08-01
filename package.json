@@ -14,7 +14,7 @@
     "@tombatossals/chords-db": "^0.5",
     "@vitejs/plugin-vue": "^2.3",
     "@vueuse/core": "^8.9",
-    "@vueuse/router": "^8.9",
+    "@vueuse/router": "^9.0",
     "ace-builds": "^1.8",
     "arrify": "^3.0",
     "aubiojs": "^0.1",
