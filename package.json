@@ -9,7 +9,7 @@
     "@ionic/vue": "^6.1",
     "@ionic/vue-router": "^6.1",
     "@sentry/tracing": "^7.7",
-    "@sentry/vue": "^7.7",
+    "@sentry/vue": "^7.8",
     "@tailwindcss/line-clamp": "^0.4",
     "@tombatossals/chords-db": "^0.5",
     "@vitejs/plugin-vue": "^2.3",
