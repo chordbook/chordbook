@@ -1,3 +1,95 @@
+<script setup>
+import SongSheet from '@/components/SongSheet.vue'
+import SongsheetEditor from '@/components/SongsheetEditor.vue'
+import ChordSheetJS from 'chordsheetjs'
+import detectFormat from '@/lib/detect_format'
+import { useFetch } from '@/client'
+import { alertController, loadingController, modalController } from '@ionic/vue'
+import { useRouter } from 'vue-router'
+import { ref, computed } from 'vue'
+
+const props = defineProps({
+  id: {
+    type: String,
+    default: null
+  }
+})
+
+const router = useRouter()
+const songsheet = ref({ source: '' })
+const errors = ref({})
+const parsed = ref(null)
+const url = computed(() => props.id ? `songsheets/${props.id}.json` : 'songsheets.json')
+
+if (props.id) {
+  useFetch(`songsheets/${props.id}`).get().json().then(({ data }) => {
+    songsheet.value = data.value
+  })
+}
+
+async function save () {
+  const { metadata } = parsed.value.metadata
+  const method = props.id ? 'patch' : 'post'
+  const payload = {
+    songsheet: {
+      source: songsheet.value.source,
+      metadata
+    }
+  }
+
+  const { error, data } = await useFetch(url).json()[method](payload)
+
+  if (error.value) {
+    console.error(error.value)
+    errors.value = data.value
+  } else {
+    router.replace({ name: 'songsheet', params: { id: data.value.id } })
+  }
+  modalController.dismiss()
+}
+
+async function destroy (e) {
+  const alert = await alertController
+    .create({
+      header: 'Are you sure?',
+      message: 'Do you want to delete this song?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: async () => {
+            const loading = await loadingController.create({
+              message: 'Deleting…',
+              duration: 5000,
+              translucent: true
+            })
+            await loading.present()
+            await useFetch(url).delete()
+            router.go(-2)
+            loading.dismiss()
+          }
+        }
+      ]
+    })
+  return alert.present()
+}
+
+function paste (e) {
+  const format = detectFormat(e.text)
+
+  // No need to convert if it's already in chordpro
+  if (!format || format instanceof ChordSheetJS.ChordProParser) return
+
+  // Convert to ChordPro
+  // Modifying text property will change text pasted into Ace editor
+  e.text = new ChordSheetJS.ChordProFormatter().format(format.parse(e.text))
+}
+</script>
+
 <template>
   <ion-page>
     <ion-header translucent>
@@ -29,7 +121,7 @@
       </div>
 
       <songsheet-editor
-        v-model:value="source"
+        v-model:value="songsheet.source"
         @paste="paste"
       />
     </ion-content>
@@ -57,7 +149,7 @@
           <ion-title>Preview</ion-title>
 
           <ion-buttons slot="secondary">
-            <ion-button @click="dismissPreview">
+            <ion-button @click="modalController.dismiss()">
               <ion-label>Edit</ion-label>
             </ion-button>
           </ion-buttons>
@@ -71,137 +163,11 @@
       </ion-header>
       <ion-content fullscreen>
         <song-sheet
-          v-if="source"
-          :source="source"
-          :show-chords="true"
-          @parse="onParse"
+          v-if="songsheet.source"
+          :source="songsheet.source"
+          @parse="song => parsed = song"
         />
       </ion-content>
     </ion-modal>
   </ion-page>
 </template>
-
-<script>
-import ChordSheetJS from 'chordsheetjs'
-import detectFormat from '@/lib/detect_format'
-import client from '@/client'
-import { alertController, loadingController } from '@ionic/vue'
-import SongSheet from '@/components/SongSheet.vue'
-import SongsheetEditor from '@/components/SongsheetEditor.vue'
-
-export default {
-  components: { SongSheet, SongsheetEditor },
-
-  props: {
-    id: {
-      type: String,
-      required: false,
-      default: null
-    }
-  },
-
-  data () {
-    return {
-      source: '',
-      errors: {},
-      parsed: null
-    }
-  },
-
-  computed: {
-    url () {
-      return this.id ? `songsheets/${this.id}.json` : 'songsheets.json'
-    }
-  },
-
-  watch: {
-    $route: 'fetchData'
-  },
-
-  created () {
-    this.fetchData()
-  },
-
-  methods: {
-    async fetchData () {
-      if (this.id) {
-        this.source = (await client.get(`songsheets/${this.id}.json`)).data.source
-      }
-    },
-
-    async save () {
-      const { metadata } = this.song.metadata
-
-      client({
-        url: this.url,
-        method: this.id ? 'PATCH' : 'POST',
-        data: {
-          songsheet: {
-            source: this.source,
-            metadata
-          }
-        }
-      }).then(response => {
-        this.$router.push({ name: 'songsheet', params: { id: response.data.id } })
-        this.dismissPreview()
-      }).catch(error => {
-        if (error.response) {
-          this.errors = error.response.data
-        } else {
-          console.error(error, error.response)
-        }
-        this.dismissPreview()
-      })
-    },
-
-    async destroy (e) {
-      const alert = await alertController
-        .create({
-          header: 'Are you sure?',
-          message: 'Do you want to delete this song?',
-          buttons: [
-            {
-              text: 'Cancel',
-              role: 'cancel'
-            },
-            {
-              text: 'Delete',
-              role: 'destructive',
-              handler: async () => {
-                const loading = await loadingController.create({
-                  message: 'Deleting…',
-                  duration: 5000,
-                  translucent: true
-                })
-                await loading.present()
-                await client({ url: this.url, method: 'DELETE', headers: this.headers })
-                this.$router.push('/')
-                loading.dismiss()
-              }
-            }
-          ]
-        })
-      return alert.present()
-    },
-
-    paste (e) {
-      const format = detectFormat(e.text)
-
-      // No need to convert if it's already in chordpro
-      if (!format || format instanceof ChordSheetJS.ChordProParser) return
-
-      // Convert to ChordPro
-      // Modifying text property will change text pasted into Ace editor
-      e.text = new ChordSheetJS.ChordProFormatter().format(format.parse(e.text))
-    },
-
-    onParse (e) {
-      this.song = e
-    },
-
-    dismissPreview () {
-      this.$refs.preview.$el.dismiss()
-    }
-  }
-}
-</script>

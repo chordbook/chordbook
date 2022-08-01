@@ -128,6 +128,7 @@
           button
           detail
           :router-link="{ name: 'songsheet.edit', params: { id: songsheet.id } }"
+          router-direction="replace"
           :detail-icon="icons.edit"
         >
           <ion-label>Edit</ion-label>
