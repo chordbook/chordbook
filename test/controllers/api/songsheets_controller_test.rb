@@ -3,8 +3,8 @@ require "test_helper"
 class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @artist = create :artist, name: "John Mayer"
-    @songsheet = create :songsheet, title: "Why Georgia", artists: [@artist]
-    create :medium, record: @songsheet
+    @songsheet = create :songsheet, title: "Why Georgia", artists: [@artist],
+      metadata: {media: "vid1"}
   end
 
   test "GET /songsheets unauthorized" do
@@ -43,11 +43,28 @@ class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     body = JSON.parse(response.body)
     assert_equal 1, body.length
-    assert_equal @songsheet.id, body[0]["id"]
+    assert_equal @songsheet.to_param, body[0]["id"]
   end
 
   test "show" do
     get api_songsheet_url(@songsheet, format: :json)
     assert_response :success
+  end
+
+  test "create unauthenticated" do
+    post api_songsheets_url
+    assert_response :unauthorized
+  end
+
+  test "create" do
+    assert_difference -> { Songsheet.count }, 1 do
+      post api_songsheets_url(format: :json), headers: token_headers(create(:user)), params: {
+        songsheet: {
+          source: "test",
+          metadata: {title: "Hello World", subtitle: "Nice to meet you"}
+        }
+      }
+      assert_response :created
+    end
   end
 end

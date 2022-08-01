@@ -1,5 +1,7 @@
 class ApiController < ActionController::API
   include Authentication
+  include ActionController::Helpers
+  helper ApplicationHelper
 
   # Authenticate by default. Call `skip_before_action :authenticate!` on actions that don't need it
   before_action :authenticate!
@@ -10,12 +12,12 @@ class ApiController < ActionController::API
   #
   # For example, in the `Api::SongsheetsController`, a request to
   # `GET /artists/:artist_id/songsheets` will return
-  # `Artist.find(params[:artist_id]).songsheets`.
+  # `Artist.find_by_uid(params[:artist_id]).songsheets`.
   #
   def current_scope
     @current_scope ||= %w[track album artist genre setlist].detect do |name|
       id = params["#{name}_id"]
-      break name.classify.constantize.find(id).send(default_scope_name) if id
+      break name.classify.constantize.find_by_uid(id).send(default_scope_name) if id
     end || default_scope
   end
 

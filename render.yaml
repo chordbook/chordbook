@@ -18,10 +18,7 @@ services:
         source: /*
         destination: /index.html
     envVars:
-      - key: APP_API_URL
-        sync: false
-      - key: APP_HOSTNAME
-        value: chordbook.app
+      - fromGroup: public
   - type: web
     name: api
     env: ruby
@@ -29,37 +26,24 @@ services:
     startCommand: "bundle exec puma -C config/puma.rb"
     healthCheckPath: /ping
     envVars:
+      - fromGroup: public
+      - fromGroup: app
       - key: DATABASE_URL
         fromDatabase:
           name: db
           property: connectionString
-      - key: RAILS_MASTER_KEY
-        sync: false
-      - key: ADMIN_USER
-        value: admin
-      - key: ADMIN_PASS
-        generateValue: true
-      - key: APP_API_URL
-        sync: false
-      - key: GOOD_JOB_EXECUTION_MODE
-        value: async
-      - key: GOOD_JOB_MAX_THREADS
-        value: 1
-      - key: NODE_ENV
-        value: production
-      - key: RAILS_ENV
-        value: production
-      - key: THEAUDIODB_API_KEY
-        sync: false
-      - key: ELASTICSEARCH_URL
-        fromService:
-          type: pserv
-          name: elasticsearch
-          property: hostport
-      - key: MAILGUN_API_KEY
-        sync: false
-      - key: MAILGUN_DOMAIN
-        sync: false
+  - type: worker
+    name: worker
+    env: ruby
+    buildCommand: bundle install
+    startCommand: bundle exec good_job
+    envVars:
+      - fromGroup: public
+      - fromGroup: app
+      - key: DATABASE_URL
+        fromDatabase:
+          name: db
+          property: connectionString
   - type: pserv
     name: elasticsearch
     env: docker
@@ -77,3 +61,47 @@ services:
       value: single-node
     - key: cluster.name
       value: elastic
+
+envVarGroups:
+  - name: public
+    envVars:
+      - key: APP_API_URL
+        sync: false
+      - key: APP_HOSTNAME
+        sync: false
+      - key: APP_SENTRY_DSN
+        sync: false
+  - name: app
+    envVars:
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: ADMIN_USER
+        value: admin
+      - key: ADMIN_PASS
+        generateValue: true
+      - key: GOOD_JOB_EXECUTION_MODE
+        value: external
+      - key: GOOD_JOB_MAX_THREADS
+        value: 5
+      - key: NODE_ENV
+        value: production
+      - key: RAILS_ENV
+        value: production
+      - key: THEAUDIODB_API_KEY
+        sync: false
+      - key: MAILGUN_API_KEY
+        sync: false
+      - key: MAILGUN_DOMAIN
+        sync: false
+      - key: YOUTUBE_API_KEY
+        sync: false
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_REGION
+        sync: false
+      - key: AWS_BUCKET
+        sync: false
+      - key: ELASTICSEARCH_URL
+        sync: false

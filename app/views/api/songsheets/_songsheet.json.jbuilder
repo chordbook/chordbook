@@ -1,17 +1,15 @@
 shallow ||= false
 
-json.extract! songsheet, :id, :uid, :title, :metadata, :created_at, :updated_at
+json.id songsheet.to_param
+json.extract! songsheet, :uid, :title, :metadata, :created_at, :updated_at
+json.url api_songsheet_url(songsheet, format: :json)
 
-if !shallow && songsheet.track
+unless shallow
   json.track do
-    json.partial! "api/tracks/track", track: songsheet.track
+    json.partial! songsheet.track if songsheet.track
   end
-end
 
-if !shallow && songsheet.artists.any?
   json.artists do
     json.array! songsheet.artists, partial: "api/artists/artist", as: :artist
   end
 end
-
-json.url api_songsheet_url(songsheet, format: :json)

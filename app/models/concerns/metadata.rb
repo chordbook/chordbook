@@ -22,6 +22,21 @@ module Metadata
       end
       metadata_mapping.update(mapping)
     end
+
+    def attach_from_metadata(mapping, &block)
+      mapping.each do |name, keys|
+        has_one_attached name, &block
+
+        define_method("download_#{name}_from_metadata") do
+          url = metadata.slice(*keys.map(&:to_s)).values.map(&:presence).compact.first
+          if url && (!send(name).attached? || send(name).metadata[:src] != url)
+            DownloadAttachment.perform_later(self, name, url)
+          end
+        end
+
+        after_save "download_#{name}_from_metadata".to_sym
+      end
+    end
   end
 
   def move_metadata_to_attributes

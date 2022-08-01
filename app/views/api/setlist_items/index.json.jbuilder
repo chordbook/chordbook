@@ -1,3 +1,1 @@
-json.array! @items do |item|
-  json.partial! "api/songsheets/songsheet", songsheet: item.songsheet
-end
+json.array! @items.map(&:songsheet), partial: "api/songsheets/songsheet", as: :songsheet

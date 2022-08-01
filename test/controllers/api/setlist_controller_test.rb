@@ -5,6 +5,11 @@ class Api::SetlistsControllerTest < ActionDispatch::IntegrationTest
     @user = create :user
   end
 
+  test "show unauthenticated" do
+    get api_setlist_url(create(:setlist), format: :json)
+    assert_response :success
+  end
+
   test "index requires authentication" do
     get api_setlists_url(format: :json)
     assert_response :unauthorized

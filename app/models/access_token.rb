@@ -37,7 +37,7 @@ class AccessToken < ApplicationRecord
   before_save :digest_refresh_token
 
   def self.validate(token)
-    valid.find_by! decode(token).slice(:jti)
+    valid.find_by! jti: decode(token).fetch("jti")
   end
 
   def self.decode(token, verify = true)

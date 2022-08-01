@@ -1,0 +1,373 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://youtube.googleapis.com/youtube/v3/search?key=<YOUTUBE-API-KEY>&part=snippet&q=Banana%20Pancakes%20by%20Jack%20Johnson&type=video
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - unknown/0.0.0 google-apis-youtube_v3/0.21.0 Mac OS X/12.4 (gzip)
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip,deflate
+      Date:
+      - Fri, 08 Jul 2022 16:25:06 GMT
+      X-Goog-Api-Client:
+      - gl-ruby/3.1.2 gdcl/1.21.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Content-Encoding:
+      - gzip
+      Date:
+      - Fri, 08 Jul 2022 16:25:07 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "kind": "youtube#searchListResponse",
+          "etag": "q-9GLWKdXM1-lJc4g3Dha0nD1qo",
+          "nextPageToken": "CAUQAA",
+          "regionCode": "US",
+          "pageInfo": {
+            "totalResults": 552113,
+            "resultsPerPage": 5
+          },
+          "items": [
+            {
+              "kind": "youtube#searchResult",
+              "etag": "iPtbxtbZBkzP9r8alCiPW-PV-lg",
+              "id": {
+                "kind": "youtube#video",
+                "videoId": "OkyrIRyrRdY"
+              },
+              "snippet": {
+                "publishedAt": "2008-05-30T13:15:12Z",
+                "channelId": "UCudWtuRPUPHNbx0huwlyJmw",
+                "title": "Jack Johnson - banana pancakes",
+                "description": "jack johnson - banana pancakes.",
+                "thumbnails": {
+                  "default": {
+                    "url": "https://i.ytimg.com/vi/OkyrIRyrRdY/default.jpg",
+                    "width": 120,
+                    "height": 90
+                  },
+                  "medium": {
+                    "url": "https://i.ytimg.com/vi/OkyrIRyrRdY/mqdefault.jpg",
+                    "width": 320,
+                    "height": 180
+                  },
+                  "high": {
+                    "url": "https://i.ytimg.com/vi/OkyrIRyrRdY/hqdefault.jpg",
+                    "width": 480,
+                    "height": 360
+                  }
+                },
+                "channelTitle": "l onderwater",
+                "liveBroadcastContent": "none",
+                "publishTime": "2008-05-30T13:15:12Z"
+              }
+            },
+            {
+              "kind": "youtube#searchResult",
+              "etag": "xc5rdNaXtBuBqL2C34eAHpoZuP8",
+              "id": {
+                "kind": "youtube#video",
+                "videoId": "m-v-LGOfaKo"
+              },
+              "snippet": {
+                "publishedAt": "2018-07-31T15:35:52Z",
+                "channelId": "UCRa17gWCZmdxEymLdXQhj9A",
+                "title": "Banana Pancakes",
+                "description": "Provided to YouTube by Universal Music Group Banana Pancakes · Jack Johnson In Between Dreams ℗ 2005 Jack Johnson ...",
+                "thumbnails": {
+                  "default": {
+                    "url": "https://i.ytimg.com/vi/m-v-LGOfaKo/default.jpg",
+                    "width": 120,
+                    "height": 90
+                  },
+                  "medium": {
+                    "url": "https://i.ytimg.com/vi/m-v-LGOfaKo/mqdefault.jpg",
+                    "width": 320,
+                    "height": 180
+                  },
+                  "high": {
+                    "url": "https://i.ytimg.com/vi/m-v-LGOfaKo/hqdefault.jpg",
+                    "width": 480,
+                    "height": 360
+                  }
+                },
+                "channelTitle": "JACK JOHNSON - Topic",
+                "liveBroadcastContent": "none",
+                "publishTime": "2018-07-31T15:35:52Z"
+              }
+            },
+            {
+              "kind": "youtube#searchResult",
+              "etag": "Vw-ikZr8LQFAxJz9cX9OaM_lK_A",
+              "id": {
+                "kind": "youtube#video",
+                "videoId": "tH5Q9-M6t8c"
+              },
+              "snippet": {
+                "publishedAt": "2010-09-17T18:10:14Z",
+                "channelId": "UCFY1gD9VMrMdPgLuCaZPojg",
+                "title": "Jack Johnson - Banana Pancakes (Kokua Festival 2010)",
+                "description": "Music video by Jack Johnson performing Banana Pancakes. (C) 2010 Jack Johnson.",
+                "thumbnails": {
+                  "default": {
+                    "url": "https://i.ytimg.com/vi/tH5Q9-M6t8c/default.jpg",
+                    "width": 120,
+                    "height": 90
+                  },
+                  "medium": {
+                    "url": "https://i.ytimg.com/vi/tH5Q9-M6t8c/mqdefault.jpg",
+                    "width": 320,
+                    "height": 180
+                  },
+                  "high": {
+                    "url": "https://i.ytimg.com/vi/tH5Q9-M6t8c/hqdefault.jpg",
+                    "width": 480,
+                    "height": 360
+                  }
+                },
+                "channelTitle": "JackJohnsonVEVO",
+                "liveBroadcastContent": "none",
+                "publishTime": "2010-09-17T18:10:14Z"
+              }
+            },
+            {
+              "kind": "youtube#searchResult",
+              "etag": "kQZRsJjGvL5BXmC54ucNskHJtiI",
+              "id": {
+                "kind": "youtube#video",
+                "videoId": "5gB2prIYghM"
+              },
+              "snippet": {
+                "publishedAt": "2011-11-09T08:07:48Z",
+                "channelId": "UCSgM9iobbiUPYdzUDbSy1JQ",
+                "title": "Jack Johnson - Banana Pancakes Lyrics",
+                "description": "",
+                "thumbnails": {
+                  "default": {
+                    "url": "https://i.ytimg.com/vi/5gB2prIYghM/default.jpg",
+                    "width": 120,
+                    "height": 90
+                  },
+                  "medium": {
+                    "url": "https://i.ytimg.com/vi/5gB2prIYghM/mqdefault.jpg",
+                    "width": 320,
+                    "height": 180
+                  },
+                  "high": {
+                    "url": "https://i.ytimg.com/vi/5gB2prIYghM/hqdefault.jpg",
+                    "width": 480,
+                    "height": 360
+                  }
+                },
+                "channelTitle": "SweetSirenX",
+                "liveBroadcastContent": "none",
+                "publishTime": "2011-11-09T08:07:48Z"
+              }
+            },
+            {
+              "kind": "youtube#searchResult",
+              "etag": "Gxfdckiue8EqVPResVUo_HHtCwQ",
+              "id": {
+                "kind": "youtube#video",
+                "videoId": "XvaGCQAW6fo"
+              },
+              "snippet": {
+                "publishedAt": "2017-07-01T08:43:41Z",
+                "channelId": "UC_xR8LUDGBfkRJDeu181g3A",
+                "title": "Jack Johnson - Banana Pancakes Lyrics",
+                "description": "Banana Pancakes -Jack Johnson Can't you see that it's just raining? Ain't no need to go outside... But, baby, you hardly even ...",
+                "thumbnails": {
+                  "default": {
+                    "url": "https://i.ytimg.com/vi/XvaGCQAW6fo/default.jpg",
+                    "width": 120,
+                    "height": 90
+                  },
+                  "medium": {
+                    "url": "https://i.ytimg.com/vi/XvaGCQAW6fo/mqdefault.jpg",
+                    "width": 320,
+                    "height": 180
+                  },
+                  "high": {
+                    "url": "https://i.ytimg.com/vi/XvaGCQAW6fo/hqdefault.jpg",
+                    "width": 480,
+                    "height": 360
+                  }
+                },
+                "channelTitle": "Hurt Cobain",
+                "liveBroadcastContent": "none",
+                "publishTime": "2017-07-01T08:43:41Z"
+              }
+            }
+          ]
+        }
+  recorded_at: Fri, 08 Jul 2022 16:25:07 GMT
+- request:
+    method: get
+    uri: https://youtube.googleapis.com/youtube/v3/search?key=<YOUTUBE-API-KEY>&part=snippet&q=How%20to%20play%20Banana%20Pancakes%20by%20Jack%20Johnson&type=video
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      User-Agent:
+      - unknown/0.0.0 google-apis-youtube_v3/0.21.0 Mac OS X/12.4 (gzip)
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip,deflate
+      Date:
+      - Fri, 08 Jul 2022 16:25:07 GMT
+      X-Goog-Api-Client:
+      - gl-ruby/3.1.2 gdcl/1.21.0
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Content-Encoding:
+      - gzip
+      Date:
+      - Fri, 08 Jul 2022 16:25:07 GMT
+      Server:
+      - scaffolding on HTTPServer2
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - '0'
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000,h3-Q050=":443"; ma=2592000,h3-Q046=":443";
+        ma=2592000,h3-Q043=":443"; ma=2592000,quic=":443"; ma=2592000; v="46,43"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: "{\n  \"kind\": \"youtube#searchListResponse\",\n  \"etag\": \"yUZ6zyOqt8YZVAcNppYGhwV9Wlo\",\n
+        \ \"nextPageToken\": \"CAUQAA\",\n  \"regionCode\": \"US\",\n  \"pageInfo\":
+        {\n    \"totalResults\": 432835,\n    \"resultsPerPage\": 5\n  },\n  \"items\":
+        [\n    {\n      \"kind\": \"youtube#searchResult\",\n      \"etag\": \"kVeYZn1eDCw5DjL4tTqlKrKnN54\",\n
+        \     \"id\": {\n        \"kind\": \"youtube#video\",\n        \"videoId\":
+        \"GO1s1fFEPxg\"\n      },\n      \"snippet\": {\n        \"publishedAt\":
+        \"2020-05-12T14:00:15Z\",\n        \"channelId\": \"UCmnlTWVJysjWPFiZhQ5uudg\",\n
+        \       \"title\": \"Jack Johnson Banana Pancakes Guitar Lesson + Tutorial\",\n
+        \       \"description\": \"Latest Content - https://linktr.ee/martyschwartz
+        Patreon - https://www.patreon.com/MartyMusic Website - http://www.\",\n        \"thumbnails\":
+        {\n          \"default\": {\n            \"url\": \"https://i.ytimg.com/vi/GO1s1fFEPxg/default.jpg\",\n
+        \           \"width\": 120,\n            \"height\": 90\n          },\n          \"medium\":
+        {\n            \"url\": \"https://i.ytimg.com/vi/GO1s1fFEPxg/mqdefault.jpg\",\n
+        \           \"width\": 320,\n            \"height\": 180\n          },\n          \"high\":
+        {\n            \"url\": \"https://i.ytimg.com/vi/GO1s1fFEPxg/hqdefault.jpg\",\n
+        \           \"width\": 480,\n            \"height\": 360\n          }\n        },\n
+        \       \"channelTitle\": \"Marty Music\",\n        \"liveBroadcastContent\":
+        \"none\",\n        \"publishTime\": \"2020-05-12T14:00:15Z\"\n      }\n    },\n
+        \   {\n      \"kind\": \"youtube#searchResult\",\n      \"etag\": \"4vps5oecJvdg6u-qRRwHhEeHSv0\",\n
+        \     \"id\": {\n        \"kind\": \"youtube#video\",\n        \"videoId\":
+        \"rtBqKnnQnkM\"\n      },\n      \"snippet\": {\n        \"publishedAt\":
+        \"2020-03-22T12:00:30Z\",\n        \"channelId\": \"UC9cvVvlvr-qBssphm1EdYGQ\",\n
+        \       \"title\": \"Jack Johnson - Banana Pancakes | Acoustic Guitar Lesson
+        Tutorial | How to play\",\n        \"description\": \"More help with learning
+        this song here https://www.andyguitar.co.uk/online-lessons/lessons/jack-johnson-banana-pancakes
+        ...\",\n        \"thumbnails\": {\n          \"default\": {\n            \"url\":
+        \"https://i.ytimg.com/vi/rtBqKnnQnkM/default.jpg\",\n            \"width\":
+        120,\n            \"height\": 90\n          },\n          \"medium\": {\n
+        \           \"url\": \"https://i.ytimg.com/vi/rtBqKnnQnkM/mqdefault.jpg\",\n
+        \           \"width\": 320,\n            \"height\": 180\n          },\n          \"high\":
+        {\n            \"url\": \"https://i.ytimg.com/vi/rtBqKnnQnkM/hqdefault.jpg\",\n
+        \           \"width\": 480,\n            \"height\": 360\n          }\n        },\n
+        \       \"channelTitle\": \"Andy Guitar\",\n        \"liveBroadcastContent\":
+        \"none\",\n        \"publishTime\": \"2020-03-22T12:00:30Z\"\n      }\n    },\n
+        \   {\n      \"kind\": \"youtube#searchResult\",\n      \"etag\": \"78h25GqafGNu6Kk0QZybH_1MqpU\",\n
+        \     \"id\": {\n        \"kind\": \"youtube#video\",\n        \"videoId\":
+        \"q4D_7WsdgdY\"\n      },\n      \"snippet\": {\n        \"publishedAt\":
+        \"2018-04-29T13:00:04Z\",\n        \"channelId\": \"UCNN4Aacm_jhzjB8IdURvgyg\",\n
+        \       \"title\": \"\U0001F3B8 Banana Pancakes • Jack Johnson guitar lesson
+        w/ chords &amp; intro tab\",\n        \"description\": \"Get my print-friendly
+        sheet music for this song: https://www.musicnotes.com/l/rTwMF BONUS for Patreon
+        supporters: save 50% ...\",\n        \"thumbnails\": {\n          \"default\":
+        {\n            \"url\": \"https://i.ytimg.com/vi/q4D_7WsdgdY/default.jpg\",\n
+        \           \"width\": 120,\n            \"height\": 90\n          },\n          \"medium\":
+        {\n            \"url\": \"https://i.ytimg.com/vi/q4D_7WsdgdY/mqdefault.jpg\",\n
+        \           \"width\": 320,\n            \"height\": 180\n          },\n          \"high\":
+        {\n            \"url\": \"https://i.ytimg.com/vi/q4D_7WsdgdY/hqdefault.jpg\",\n
+        \           \"width\": 480,\n            \"height\": 360\n          }\n        },\n
+        \       \"channelTitle\": \"Song Notes by David Pots\",\n        \"liveBroadcastContent\":
+        \"none\",\n        \"publishTime\": \"2018-04-29T13:00:04Z\"\n      }\n    },\n
+        \   {\n      \"kind\": \"youtube#searchResult\",\n      \"etag\": \"Yo2k2OpQN7KuhY3RgrjviCTAuw0\",\n
+        \     \"id\": {\n        \"kind\": \"youtube#video\",\n        \"videoId\":
+        \"JzBsFJTk8Rw\"\n      },\n      \"snippet\": {\n        \"publishedAt\":
+        \"2020-12-04T22:31:58Z\",\n        \"channelId\": \"UCJuMhkMV_GWy7T7pf13w1Kw\",\n
+        \       \"title\": \"Guitar Lesson: How To Play Banana Pancakes by Jack Johnson\",\n
+        \       \"description\": \"Banana Pancakes. It's two things. The one we are
+        talking about this video is the Jack Johnson song and how to play it on your
+        ...\",\n        \"thumbnails\": {\n          \"default\": {\n            \"url\":
+        \"https://i.ytimg.com/vi/JzBsFJTk8Rw/default.jpg\",\n            \"width\":
+        120,\n            \"height\": 90\n          },\n          \"medium\": {\n
+        \           \"url\": \"https://i.ytimg.com/vi/JzBsFJTk8Rw/mqdefault.jpg\",\n
+        \           \"width\": 320,\n            \"height\": 180\n          },\n          \"high\":
+        {\n            \"url\": \"https://i.ytimg.com/vi/JzBsFJTk8Rw/hqdefault.jpg\",\n
+        \           \"width\": 480,\n            \"height\": 360\n          }\n        },\n
+        \       \"channelTitle\": \"Ryan Lendt\",\n        \"liveBroadcastContent\":
+        \"none\",\n        \"publishTime\": \"2020-12-04T22:31:58Z\"\n      }\n    },\n
+        \   {\n      \"kind\": \"youtube#searchResult\",\n      \"etag\": \"itp4mwYY9oJskJZoBQ99BKWizq4\",\n
+        \     \"id\": {\n        \"kind\": \"youtube#video\",\n        \"videoId\":
+        \"cFI4wnv3qU4\"\n      },\n      \"snippet\": {\n        \"publishedAt\":
+        \"2017-03-03T10:48:48Z\",\n        \"channelId\": \"UCrn6VeXwwna2Ga90BgLPISA\",\n
+        \       \"title\": \"Jack Johnson - Banana Pancakes - Guitar Tutorial - Drue
+        James\",\n        \"description\": \"Full guitar tutorial for Banana Pancakes
+        by Jack Johnson. Great song if you're looking to improve your barre chords.
+        Subscribe for ...\",\n        \"thumbnails\": {\n          \"default\": {\n
+        \           \"url\": \"https://i.ytimg.com/vi/cFI4wnv3qU4/default.jpg\",\n
+        \           \"width\": 120,\n            \"height\": 90\n          },\n          \"medium\":
+        {\n            \"url\": \"https://i.ytimg.com/vi/cFI4wnv3qU4/mqdefault.jpg\",\n
+        \           \"width\": 320,\n            \"height\": 180\n          },\n          \"high\":
+        {\n            \"url\": \"https://i.ytimg.com/vi/cFI4wnv3qU4/hqdefault.jpg\",\n
+        \           \"width\": 480,\n            \"height\": 360\n          }\n        },\n
+        \       \"channelTitle\": \"Drue James\",\n        \"liveBroadcastContent\":
+        \"none\",\n        \"publishTime\": \"2017-03-03T10:48:48Z\"\n      }\n    }\n
+        \ ]\n}\n"
+  recorded_at: Fri, 08 Jul 2022 16:25:07 GMT
+recorded_with: VCR 6.1.0

@@ -1,4 +1,6 @@
 class UpdateListenerCounts < ApplicationJob
+  queue_as :low
+
   def perform
     ApplicationRecord.connection.execute <<~EOQ
       UPDATE artists
@@ -32,10 +34,9 @@ class UpdateListenerCounts < ApplicationJob
     Searchkick.callbacks(false) do
       # There aren't as many genres as artists/albums, so just iterate over them to udpate
       Genre.find_each do |genre|
-        genre.update(
-          thumbnail: genre.artists.first&.thumbnail,
-          listeners: genre.tracks.sum(:listeners) || 0
-        )
+        artist = genre.artists.first
+        genre.image.attach artist.image.blob if artist&.image&.attached?
+        genre.update(listeners: genre.tracks.sum(:listeners) || 0)
       end
     end
   end

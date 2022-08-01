@@ -1,1 +1,1 @@
-json.partial! "api/setlists/setlist", setlist: @setlist
+json.partial! @setlist

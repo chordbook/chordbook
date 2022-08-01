@@ -32,10 +32,14 @@ module ChordBook
     # Load routes from engine before app
     config.railties_order = [:all, :main_app]
 
-    config.active_record.schema_format = :sql
     config.action_mailer.default_url_options = {host: API_URI.host, port: API_URI.port}
     config.action_mailer.deliver_later_queue_name = :high
 
     config.middleware.use Rack::Deflater
+
+    # Use UUID for generators
+    config.generators do |g|
+      g.orm :active_record, primary_key_type: :uuid
+    end
   end
 end

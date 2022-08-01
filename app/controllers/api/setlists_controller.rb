@@ -1,14 +1,14 @@
 class Api::SetlistsController < ApiController
-  before_action :authenticate!, except: %i[show]
+  skip_before_action :authenticate!, only: %i[show]
 
   def index
-    @setlists = current_user.setlists.order_by_recent.page(params[:page])
+    @setlists = current_user.setlists.with_attached_thumbnails.order_by_recent.page(params[:page])
     set_pagination_header @setlists
     fresh_when @setlists
   end
 
   def show
-    @setlist = Setlist.find(params[:id])
+    @setlist = Setlist.find_by_uid(params[:id])
     fresh_when @setlist
   end
 
@@ -19,7 +19,7 @@ class Api::SetlistsController < ApiController
   end
 
   def destroy
-    current_user.owned_setlists.find(params[:id]).destroy
+    current_user.owned_setlists.find_by_uid(params[:id]).destroy
     head :ok
   end
 

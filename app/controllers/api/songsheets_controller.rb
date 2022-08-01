@@ -4,7 +4,8 @@ class Api::SongsheetsController < ApiController
 
   # GET /songsheets.json
   def index
-    @songsheets = current_scope.includes(:track, :artists).page(params[:page])
+    @songsheets = current_scope.includes(:artists, track: [:artist, {album: :artist}])
+      .merge(Album.with_attachments, Artist.with_attachments).page(params[:page])
     set_pagination_header @songsheets
     fresh_when @songsheets
   end
@@ -53,7 +54,7 @@ class Api::SongsheetsController < ApiController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_songsheet
-    @songsheet = Songsheet.find(params[:id])
+    @songsheet = Songsheet.find_by_uid(params[:id])
   end
 
   # Only allow a list of trusted parameters through.

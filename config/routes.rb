@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   namespace :api, path: "" do
     get "search(.:format)", to: "search#index", as: :search
 
-    resources :users
+    resource :discover, controller: "discover"
     resource :library, controller: "library"
+
+    resources :users
     resource :authenticate, controller: "authenticate"
     resource :password, controller: "password"
 
@@ -28,6 +30,7 @@ Rails.application.routes.draw do
     end
     resources :tracks, only: [:show]
     resources :setlists do
+      resources :songsheets, only: [:index]
       resources :items, controller: :setlist_items
     end
   end

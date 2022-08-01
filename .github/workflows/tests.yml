@@ -40,7 +40,6 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          SECRET_KEY_BASE: b6c6f5d231497396e3bcc58b93e1ece005cbe820319ab63b1af74763dac0377e26d4cc6e35c87115e28b06aaa5d45acb7e36ac518c72bb900de5d24375c39c48
         run: |
           bin/setup
           bin/test

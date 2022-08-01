@@ -10,7 +10,6 @@ class Track < ApplicationRecord
   belongs_to :genre, optional: true
 
   has_many :songsheets, dependent: :nullify
-  has_many :media, as: :record
 
   scope :order_by_has_songsheet, -> {
     order(Arel.sql("CASE WHEN songsheets_count > 0 THEN 1 ELSE 2 END"))
@@ -18,16 +17,16 @@ class Track < ApplicationRecord
   scope :order_by_popular, -> { order("tracks.rank") }
   scope :order_by_number, -> { order(:number) }
   scope :with_songsheet, -> { where(songsheets_count: 1..) }
+  scope :search_import, -> { includes(:artist, {album: :image_attachment}) }
 
   pg_search_scope :title_like,
     against: :title,
     using: {
       trigram: {}
     },
-    order_within_rank: "tracks.listeners DESC NULLS LAST, albums.released, albums.score DESC NULLS LAST, tracks.id"
+    order_within_rank: "tracks.listeners DESC NULLS LAST, albums.released, albums.rank, tracks.rank"
 
   before_validation :associate_genre
-  after_save :associate_media
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
@@ -38,17 +37,15 @@ class Track < ApplicationRecord
   )
 
   def self.lookup(title)
-    joins(:album).title_like(title).order_by_popular.first
+    joins(:album).title_like(title).first
   end
-
-  scope :search_import, -> { includes(:artist, :album) }
 
   def search_data
     {
       type: self.class,
       title: title,
       subtitle: artist.name,
-      thumbnail: album.thumbnail,
+      attachment_id: album.image_attachment&.id,
       everything: [title, artist.name, album.title],
       boost: 0.75
     }
@@ -63,13 +60,20 @@ class Track < ApplicationRecord
     songsheets_count > 0
   end
 
-  def associate_genre
-    return if metadata["strGenre"].blank?
-    self.genre = Genre.find_or_create_by!(name: metadata["strGenre"])
+  def songsheet_was_added
+    reindex(mode: :async) if Searchkick.callbacks?
   end
 
-  def associate_media
-    return if metadata["strMusicVid"].blank?
-    media.find_or_create_by(uri: metadata["strMusicVid"])
+  def media
+    (Array(super) + [metadata["strMusicVid"]]).compact.uniq
+  end
+
+  def associate_genre
+    self.genre ||= if metadata["strGenre"].present?
+      Genre.find_or_create_by!(name: metadata["strGenre"])
+    else
+      # Fall back to album genre
+      album.genre
+    end
   end
 end
