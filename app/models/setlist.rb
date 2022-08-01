@@ -20,6 +20,7 @@ class Setlist < ApplicationRecord
 
   scope :order_by_recent, -> { order(updated_at: :desc) }
   scope :order_by_popular, -> { order("setlists.rank") }
+  scope :with_attachments, -> { includes(thumbnails_attachments: {blob: :variant_records}) }
 
   def update_thumbnails(_ = nil)
     update thumbnails: album_images.select("active_storage_attachments.*, albums.rank")

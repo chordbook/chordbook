@@ -11,4 +11,5 @@ class Genre < ApplicationRecord
   end
 
   scope :order_by_popular, -> { order("genres.rank") }
+  scope :with_attachments, -> { includes(image_attachment: {blob: :variant_records}) }
 end
