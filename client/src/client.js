@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { createFetch } from '@vueuse/core'
 import { computed, unref } from 'vue'
 import useAuthStore from '@/stores/auth'
@@ -41,25 +40,3 @@ export const useFetch = (url, options = {}, ...args) => {
 
   return doFetch(fullUrl, options, ...args)
 }
-
-// DEPRECATED
-const client = axios.create({
-  baseURL: import.meta.env.APP_API_URL || 'https://api.chordbook.app',
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
-  }
-})
-
-client.interceptors.request.use(config => {
-  const auth = useAuthStore()
-
-  if (auth.isAuthenticated) {
-    config.withCredentials = true
-    config.headers = { ...config.headers, ...auth.headers }
-  }
-
-  return config
-})
-
-export default client

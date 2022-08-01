@@ -19,7 +19,6 @@
     "arrify": "^3.0",
     "aubiojs": "^0.1",
     "autoprefixer": "^10.4",
-    "axios": "^0.27",
     "chordsheetjs": "^7.6",
     "cordova-plugin-insomnia": "^4.3",
     "get-youtube-id": "^1.0",
