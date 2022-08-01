@@ -39,7 +39,6 @@
     "vite-plugin-pwa": "^0.12",
     "vite-svg-loader": "^3.4",
     "vue": "^3.2",
-    "vue-axios": "^3.4",
     "vue-router": "^4.1",
     "vue3-ace-editor": "^2.2"
   },

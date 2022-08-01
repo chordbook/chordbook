@@ -17,7 +17,12 @@
 
     <ion-content>
       <ion-list>
-        <data-source :src="$route.path" :params="$route.query" paginate v-slot="{ data }">
+        <data-source
+          v-slot="{ data }"
+          :src="$route.path"
+          :params="$route.query"
+          paginate
+        >
           <track-item
             v-for="track in data"
             :key="track.id"

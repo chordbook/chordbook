@@ -21,11 +21,7 @@ const props = defineProps({
 const pages = ref([])
 
 async function load (src = props.src, params = props.params) {
-  const page = reactive(useFetch(src, { params }).get().json())
-  page.then(() => console.log("DONE!", page))
-  return pages.value.push(page)
-
-  // return pages.value.push(reactive(useFetch(src, { params }).get().json()))
+  return pages.value.push(reactive(useFetch(src, { params }).get().json()))
 }
 
 const nextSrc = computed(() => {

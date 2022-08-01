@@ -5,9 +5,7 @@ import {
 } from '@ionic/vue'
 import SetlistItem from '@/components/SetlistItem.vue'
 import NewSetlistModal from '@/components/NewSetlistModal.vue'
-import DataSource from '@/DataSource'
-import client from '@/client'
-import { defineProps, onMounted } from 'vue'
+import { useFetch } from '@/client'
 
 const props = defineProps({
   songsheet: {
@@ -16,12 +14,8 @@ const props = defineProps({
   }
 })
 
-const dataSource = new DataSource('setlists.json')
-
-onMounted(() => dataSource.load())
-
-async function add (setlist) {
-  await client.post(`setlists/${setlist.id}/items.json`, { id: props.songsheet.id })
+async function add(setlist) {
+  await useFetch(`setlists/${setlist.id}/items`).post({ id: props.songsheet.id })
 
   modalController.dismiss()
 
@@ -31,7 +25,7 @@ async function add (setlist) {
   })).present()
 }
 
-async function newModal () {
+async function newModal() {
   const modal = await modalController.create({ component: NewSetlistModal })
   modal.onDidDismiss().then(({ data }) => {
     if (data) add(data)
@@ -46,19 +40,13 @@ async function newModal () {
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button
-              role="cancel"
-              @click="modalController.dismiss()"
-            >
+            <ion-button role="cancel" @click="modalController.dismiss()">
               Cancel
             </ion-button>
           </ion-buttons>
           <ion-title>Add to Setlist</ion-title>
           <ion-buttons slot="end">
-            <ion-button
-              role="cancel"
-              @click="newModal()"
-            >
+            <ion-button role="cancel" @click="newModal()">
               New setlist
             </ion-button>
           </ion-buttons>
@@ -66,12 +54,9 @@ async function newModal () {
       </ion-header>
       <ion-content class="ion-padding">
         <ion-list>
-          <setlist-item
-            v-for="setlist in dataSource.items"
-            :key="setlist.id"
-            :setlist="setlist"
-            @click.prevent="add(setlist)"
-          />
+          <data-source src="setlists" v-slot="{ data }" paginate>
+            <setlist-item v-for="setlist in data" :key="setlist.id" :setlist="setlist" @click.prevent="add(setlist)" />
+          </data-source>
         </ion-list>
       </ion-content>
     </authenticated>
