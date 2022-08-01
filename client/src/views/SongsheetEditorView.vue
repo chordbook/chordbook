@@ -28,21 +28,16 @@
         </ul>
       </div>
 
-      <v-ace-editor
+      <songsheet-editor
         v-model:value="source"
-        :theme="theme"
-        lang="chordpro"
-        style="height: 100%"
-        :print-margin="false"
-        :options="{fontSize: '0.9rem'}"
-        @init="setupEditor"
         @paste="paste"
       />
     </ion-content>
-    <ion-footer v-if="id">
+    <ion-footer>
       <ion-toolbar>
         <ion-buttons slot="secondary">
           <ion-button
+            v-if="id"
             fill="clear"
             color="danger"
             @click="destroy"
@@ -87,26 +82,15 @@
 </template>
 
 <script>
-/* global ace */
-/* eslint-disable vue/no-mutating-props */
-
 import ChordSheetJS from 'chordsheetjs'
 import detectFormat from '@/lib/detect_format'
 import client from '@/client'
-import { VAceEditor } from 'vue3-ace-editor'
-import ChordCompleter from '@/ace/chord-completer'
-import MetadataCompleter from '@/ace/metadata-completer'
-import 'ace-builds/src-noconflict/theme-clouds'
-import 'ace-builds/src-noconflict/theme-chaos'
-import 'ace-builds/src-noconflict/ext-language_tools'
-import '@/ace/mode-chordpro'
-import '@/ace/snippets/chordpro'
-import { useMediaQuery } from '@vueuse/core'
 import { alertController, loadingController } from '@ionic/vue'
 import SongSheet from '@/components/SongSheet.vue'
+import SongsheetEditor from '@/components/SongsheetEditor.vue'
 
 export default {
-  components: { SongSheet, VAceEditor },
+  components: { SongSheet, SongsheetEditor },
 
   props: {
     id: {
@@ -120,17 +104,11 @@ export default {
     return {
       source: '',
       errors: {},
-      themes: { dark: 'chaos', light: 'clouds' },
-      isDarkMode: useMediaQuery('(prefers-color-scheme: dark)'),
-      song: null
+      parsed: null
     }
   },
 
   computed: {
-    theme () {
-      return this.isDarkMode ? this.themes.dark : this.themes.light
-    },
-
     url () {
       return this.id ? `songsheets/${this.id}.json` : 'songsheets.json'
     }
@@ -149,36 +127,6 @@ export default {
       if (this.id) {
         this.source = (await client.get(`songsheets/${this.id}.json`)).data.source
       }
-    },
-
-    setupEditor (editor) {
-      editor.setOptions({
-        enableBasicAutocompletion: true,
-        enableSnippets: true,
-        enableLiveAutocompletion: true
-      })
-      editor.renderer.setScrollMargin(20, 20)
-
-      const { snippetCompleter } = ace.require('ace/ext/language_tools')
-
-      editor.completers = [
-        new ChordCompleter(),
-        new MetadataCompleter(),
-        snippetCompleter
-      ]
-
-      // Start autocomplete on [ or { characters
-      editor.commands.addCommand({
-        name: 'chordproStartAutocomplete',
-        bindKey: '[|{',
-        exec () {
-          editor.commands.byName.startAutocomplete.exec(editor)
-          return false
-        }
-      })
-
-      // Expose ace editor for tests
-      window.editor = editor
     },
 
     async save () {
@@ -257,16 +205,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.ace_scroller { padding-left: 0.5em }
-
-/* FIXME: Move to a proper ace theme */
-.ace_editor { background: transparent; }
-.ace_editor .ace_gutter { @apply bg-gray-50 dark:bg-gray-900 }
-.ace_editor .ace_string { @apply text-black dark:text-white font-bold }
-.ace_editor .ace_meta { @apply text-red-400 }
-.ace_editor .ace_meta.ace_tag,
-.ace_editor .ace_constant { @apply text-gray-400 dark:text-gray-500 }
-.ace_editor .ace_keyword { @apply text-blue-700 dark:text-blue-400 }
-</style>
