@@ -15,9 +15,10 @@ class Artist < ApplicationRecord
   before_validation :associate_genre
 
   searchkick word_start: [:title], stem: false, callbacks: :async
-  scope :order_by_alphabetical, -> { order("UPPER(name)") }
+  scope :order_by_alphabetical, -> { order("UPPER(artists.name)") }
   scope :order_by_popular, -> { order("artists.rank") }
   scope :search_import, -> { includes(:image_attachment) }
+  scope :with_attachments, -> { includes(image_attachment: {blob: :variant_records}) }
 
   attach_from_metadata image: %w[strArtistThumbHQ strArtistThumb] do |attachable|
     options = {

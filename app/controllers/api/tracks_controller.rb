@@ -2,9 +2,10 @@ class Api::TracksController < ApiController
   skip_before_action :authenticate!
 
   def index
-    @tracks = current_scope.order_by_popular.includes(:genre, :artist, album: :artist).page(params[:page])
+    @tracks = current_scope.order_by_popular.includes(:artist, album: :artist)
+      .merge(Album.with_attachments).merge(Artist.with_attachments).page(params[:page])
     set_pagination_header @tracks
-    fresh_when @tracks.to_a
+    fresh_when @tracks
   end
 
   def show

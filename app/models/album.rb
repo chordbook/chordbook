@@ -15,6 +15,7 @@ class Album < ApplicationRecord
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
   scope :search_import, -> { includes(:artist, :image_attachment) }
+  scope :with_attachments, -> { includes(image_attachment: {blob: :variant_records}) }
 
   attach_from_metadata image: [:strAlbumThumbHQ, :strAlbumThumb] do |attachable|
     options = {

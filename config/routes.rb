@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     end
     resources :tracks, only: [:show]
     resources :setlists do
+      resources :songsheets, only: [:index]
       resources :items, controller: :setlist_items
     end
   end

@@ -18,7 +18,7 @@ const props = defineProps({
 
 const route = useRoute()
 const router = useRouter()
-const dataSource = ref(new DataSource(`setlists/${props.id}/items.json`, { params: route.query }))
+const dataSource = ref(new DataSource(`setlists/${props.id}/songsheets.json`, { params: route.query }))
 const editing = ref(false)
 const setlist = ref({})
 
