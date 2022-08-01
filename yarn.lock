@@ -1089,7 +1089,7 @@
   dependencies:
     "@ionic/vue" "^6.2.0"
 
-"@ionic/vue@^6.1", "@ionic/vue@^6.2.0":
+"@ionic/vue@^6.2", "@ionic/vue@^6.2.0":
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.2.0.tgz#b2d92282270f8c198bbd368402656d62645366b8"
   integrity sha512-tF+922bNLBTrN204CRUBDDRc6E+ygkMExxH2RX/QlXyRaVbSbmVlYXFe56nCu8caZgFlX711lHhHL1D+FsnOng==
