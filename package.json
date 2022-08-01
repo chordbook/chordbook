@@ -4,7 +4,7 @@
   "dependencies": {
     "@awesome-cordova-plugins/core": "^5.44",
     "@awesome-cordova-plugins/insomnia": "^5.44",
-    "@capacitor/core": "^3.6",
+    "@capacitor/core": "^4.0",
     "@headlessui/vue": "^1.6",
     "@ionic/vue": "^6.2",
     "@ionic/vue-router": "^6.2",
@@ -46,7 +46,7 @@
   "version": "0.1.0",
   "devDependencies": {
     "@capacitor/cli": "^4.0",
-    "@capacitor/ios": "^3.6",
+    "@capacitor/ios": "^4.0",
     "eslint": "^8.20",
     "eslint-config-standard": "^16.0",
     "eslint-gitignore": "^0.1",
