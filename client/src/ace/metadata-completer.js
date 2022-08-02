@@ -1,10 +1,10 @@
-import api from '@/client'
+import { useFetch } from '@/client'
 
 const RE = /\{\s*([\w_-]*)\s*:\s*([^}]*)/i
 
 export default class MetadataCompleter {
   find (params) {
-    return api.get('/autocomplete.json', { params }).then(response => response.data)
+    return useFetch('/autocomplete', { params }).get().json()
   }
 
   getCompletions (editor, session, pos, prefix, callback) {
@@ -16,8 +16,8 @@ export default class MetadataCompleter {
 
     const startPosition = pos.col - line.indexOf(query)
 
-    this.find({ type, query }).then(results => {
-      callback(null, results.map(({ value, meta, data }) => {
+    this.find({ type, query }).then(({ data }) => {
+      callback(null, data.value.map(({ value, meta }) => {
         return {
           caption: value,
           value: value.slice(startPosition),

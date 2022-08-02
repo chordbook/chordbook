@@ -5,9 +5,7 @@ import {
 } from '@ionic/vue'
 import SetlistItem from '@/components/SetlistItem.vue'
 import NewSetlistModal from '@/components/NewSetlistModal.vue'
-import DataSource from '@/DataSource'
-import client from '@/client'
-import { defineProps, onMounted } from 'vue'
+import { useFetch } from '@/client'
 
 const props = defineProps({
   songsheet: {
@@ -16,12 +14,8 @@ const props = defineProps({
   }
 })
 
-const dataSource = new DataSource('setlists.json')
-
-onMounted(() => dataSource.load())
-
 async function add (setlist) {
-  await client.post(`setlists/${setlist.id}/items.json`, { id: props.songsheet.id })
+  await useFetch(`setlists/${setlist.id}/items`).post({ id: props.songsheet.id })
 
   modalController.dismiss()
 
@@ -66,12 +60,18 @@ async function newModal () {
       </ion-header>
       <ion-content class="ion-padding">
         <ion-list>
-          <setlist-item
-            v-for="setlist in dataSource.items"
-            :key="setlist.id"
-            :setlist="setlist"
-            @click.prevent="add(setlist)"
-          />
+          <data-source
+            v-slot="{ items }"
+            src="setlists"
+            paginate
+          >
+            <setlist-item
+              v-for="setlist in items"
+              :key="setlist.id"
+              :setlist="setlist"
+              @click.prevent="add(setlist)"
+            />
+          </data-source>
         </ion-list>
       </ion-content>
     </authenticated>

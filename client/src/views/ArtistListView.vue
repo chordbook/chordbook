@@ -1,3 +1,8 @@
+<script setup>
+import ArtistItem from '@/components/ArtistItem.vue'
+import LibraryPlaceholder from '@/components/LibraryPlaceholder.vue'
+</script>
+
 <template>
   <ion-page>
     <ion-header translucent>
@@ -8,7 +13,7 @@
           <ion-back-button
             class="md:hidden"
             text=""
-            :default-href="backLink"
+            :default-href="$route.path.replace('/artists', '') || '/library'"
           />
         </ion-buttons>
       </ion-toolbar>
@@ -23,55 +28,24 @@
         </ion-toolbar>
       </ion-header>
 
-      <library-placeholder
-        v-if="!dataSource.loading && dataSource.items.length === 0"
-        type="artist"
-      />
-
       <ion-list>
-        <artist-item
-          v-for="artist in dataSource.items"
-          :key="artist.id"
-          :artist="artist"
-        />
+        <data-source
+          :src="$route.path"
+          :params="$route.query"
+          paginate
+        >
+          <template #empty>
+            <library-placeholder type="artist" />
+          </template>
+          <template #default="{ items }">
+            <artist-item
+              v-for="artist in items"
+              :key="artist.id"
+              :artist="artist"
+            />
+          </template>
+        </data-source>
       </ion-list>
-
-      <ion-infinite-scroll
-        threshold="500px"
-        :disabled="dataSource.loading || dataSource.disabled"
-        @ion-infinite="dataSource.load().then(() => $event.target.complete())"
-      >
-        <ion-infinite-scroll-content
-          loading-spinner="bubbles"
-          loading-text="Loading…"
-        />
-      </ion-infinite-scroll>
     </ion-content>
   </ion-page>
 </template>
-
-<script>
-import DataSource from '@/DataSource'
-import ArtistItem from '@/components/ArtistItem.vue'
-import LibraryPlaceholder from '@/components/LibraryPlaceholder.vue'
-
-export default {
-  components: { ArtistItem, LibraryPlaceholder },
-
-  data () {
-    const dataSource = new DataSource(this.$route.path, { params: this.$route.query })
-
-    return { dataSource }
-  },
-
-  computed: {
-    backLink () {
-      return this.$route.path.replace('/artists', '') || '/library'
-    }
-  },
-
-  created () {
-    this.dataSource.load()
-  }
-}
-</script>

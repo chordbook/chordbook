@@ -1,3 +1,9 @@
+<script setup>
+import SongsheetItem from '@/components/SongsheetItem.vue'
+import LibraryPlaceholder from '../components/LibraryPlaceholder.vue'
+import { add } from 'ionicons/icons'
+</script>
+
 <template>
   <ion-page>
     <ion-header
@@ -19,7 +25,7 @@
           <ion-button :router-link="{ name: 'songsheet.new' }">
             <ion-icon
               slot="icon-only"
-              :icon="icons.add"
+              :icon="add"
             />
           </ion-button>
         </ion-buttons>
@@ -35,53 +41,24 @@
         </ion-toolbar>
       </ion-header>
 
-      <library-placeholder
-        v-if="!dataSource.loading && dataSource.items.length === 0"
-        type="song"
-      />
-
       <ion-list>
-        <songsheet-item
-          v-for="songsheet in songsheets"
-          :key="songsheet.id"
-          :songsheet="songsheet"
-        />
+        <data-source
+          :src="$route.path"
+          :params="$route.query"
+          paginate
+        >
+          <template #empty>
+            <library-placeholder type="song" />
+          </template>
+          <template #default="{ items }">
+            <songsheet-item
+              v-for="songsheet in items"
+              :key="songsheet.id"
+              :songsheet="songsheet"
+            />
+          </template>
+        </data-source>
       </ion-list>
-
-      <ion-infinite-scroll
-        threshold="500px"
-        :disabled="dataSource.loading || dataSource.disabled"
-        @ion-infinite="dataSource.load().then(() => $event.target.complete())"
-      >
-        <ion-infinite-scroll-content
-          loading-spinner="bubbles"
-          loading-text="Loading…"
-        />
-      </ion-infinite-scroll>
     </ion-content>
   </ion-page>
 </template>
-
-<script>
-import DataSource from '@/DataSource'
-import SongsheetItem from '@/components/SongsheetItem.vue'
-import LibraryPlaceholder from '../components/LibraryPlaceholder.vue'
-import { add } from 'ionicons/icons'
-
-export default {
-  components: { SongsheetItem, LibraryPlaceholder },
-
-  data () {
-    const dataSource = new DataSource(this.$route.path, { params: this.$route.query })
-    return {
-      dataSource,
-      songsheets: dataSource.items,
-      icons: { add }
-    }
-  },
-
-  created () {
-    this.dataSource.load()
-  }
-}
-</script>

@@ -1,12 +1,5 @@
 <script setup>
-import DataSource from '@/DataSource'
 import SetlistCard from '@/components/SetlistCard.vue'
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
-const dataSource = ref(new DataSource('setlists.json', { params: route.query }))
-onMounted(() => dataSource.value.load())
 </script>
 
 <template>
@@ -36,24 +29,20 @@ onMounted(() => dataSource.value.load())
 
       <ion-list>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-          <setlist-card
-            v-for="setlist in dataSource.items"
-            :key="setlist.id"
-            :setlist="setlist"
-          />
+          <data-source
+            v-slot="{ items }"
+            src="setlists"
+            :params="$route.query"
+            paginate
+          >
+            <setlist-card
+              v-for="setlist in items"
+              :key="setlist.id"
+              :setlist="setlist"
+            />
+          </data-source>
         </div>
       </ion-list>
-
-      <ion-infinite-scroll
-        threshold="500px"
-        :disabled="dataSource.loading || dataSource.disabled"
-        @ion-infinite="dataSource.load().then(() => $event.target.complete())"
-      >
-        <ion-infinite-scroll-content
-          loading-spinner="bubbles"
-          loading-text="Loading…"
-        />
-      </ion-infinite-scroll>
     </ion-content>
   </ion-page>
 </template>

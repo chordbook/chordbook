@@ -1,3 +1,99 @@
+<script setup>
+import SongSheet from '@/components/SongSheet.vue'
+import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
+import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
+import SongsheetMedia from '@/components/SongsheetMedia.vue'
+import AddToLibraryButton from '../components/AddToLibraryButton.vue'
+import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
+import ShareItem from '@/components/ShareItem.vue'
+import * as icons from '@/icons'
+import { useFetch } from '@/client'
+import { modalController, onIonViewDidEnter, onIonViewWillLeave } from '@ionic/vue'
+import TunerView from '@/views/TunerView.vue'
+import { Insomnia } from '@awesome-cordova-plugins/insomnia'
+import useSongsheetSettings from '@/stores/songsheet-settings'
+import { useRouter } from 'vue-router'
+import { ref, computed } from 'vue'
+
+const props = defineProps({
+  id: {
+    type: String,
+    required: true
+  },
+  type: {
+    type: String,
+    default () { return 'songsheet' }
+  }
+})
+
+const router = useRouter()
+const songsheet = ref({})
+const versions = ref([])
+const key = ref('C')
+const settings = useSongsheetSettings()
+
+const otherVersions = computed(() => {
+  return versions.value.filter(v => v.id !== songsheet.value.id)
+})
+
+onIonViewDidEnter(() => Insomnia.keepAwake())
+onIonViewWillLeave(() => Insomnia.allowSleepAgain())
+
+async function fetchData () {
+  if (props.type === 'songsheet') {
+    await fetchSongsheet(props.id)
+    if (songsheet.value.track) {
+      await fetchVersions(songsheet.value.track.id)
+    }
+  } else {
+    await fetchVersions(props.id)
+    if (versions.value.length > 0) {
+      fetchSongsheet(versions.value[0].id)
+    } else {
+      router.replace({ name: 'songsheet.new', params: { track: props.id } })
+    }
+  }
+}
+
+async function fetchSongsheet (id) {
+  return useFetch(`songsheets/${id}`).get().json().then(({ data }) => {
+    songsheet.value = data.value
+  })
+}
+
+async function fetchVersions (id) {
+  return useFetch(`tracks/${id}/songsheets`).get().json().then(({ data }) => {
+    versions.value = data.value
+  })
+}
+
+async function openTuner () {
+  const modal = await modalController
+    .create({
+      component: TunerView,
+      initialBreakpoint: 0.5,
+      breakpoints: [0, 0.5]
+    })
+  return modal.present()
+}
+
+function formatDate (input) {
+  if (!input) return ''
+  const date = new Date(input)
+  return new Intl.DateTimeFormat(navigator.language).format(date)
+}
+
+function hostname (url) {
+  try {
+    return new URL(url).hostname
+  } catch (e) {
+    return url
+  }
+}
+
+fetchData()
+</script>
+
 <template>
   <ion-page>
     <ion-header translucent>
@@ -50,7 +146,7 @@
       <template #top>
         <Transition name="slide-down">
           <songsheet-media
-            v-if="showPlayer"
+            v-if="settings.showPlayer"
             :songsheet="songsheet"
           />
         </Transition>
@@ -128,6 +224,7 @@
           button
           detail
           :router-link="{ name: 'songsheet.edit', params: { id: songsheet.id } }"
+          router-direction="replace"
           :detail-icon="icons.edit"
         >
           <ion-label>Edit</ion-label>
@@ -168,117 +265,3 @@
     </ion-popover>
   </ion-page>
 </template>
-
-<script>
-import client from '@/client'
-import { modalController } from '@ionic/vue'
-import SongSheet from '@/components/SongSheet.vue'
-import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
-import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
-import SongsheetMedia from '@/components/SongsheetMedia.vue'
-import AddToLibraryButton from '../components/AddToLibraryButton.vue'
-import TunerView from '@/views/TunerView.vue'
-import { Insomnia } from '@awesome-cordova-plugins/insomnia'
-import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
-import ShareItem from '@/components/ShareItem.vue'
-import * as icons from '@/icons'
-import useSongsheetSettings from '@/stores/songsheet-settings'
-import { mapState } from 'pinia'
-
-export default {
-  components: { SongSheet, AddToSetlistItem, SongsheetVersionsModal, SongsheetSettingsModal, SongsheetMedia, AddToLibraryButton, ShareItem },
-
-  props: {
-    id: {
-      type: String,
-      required: true
-    },
-
-    type: {
-      type: String,
-      default () { return 'songsheet' }
-    }
-  },
-
-  data () {
-    return {
-      songsheet: {},
-      versions: [],
-      source: '',
-      key: 'C',
-      showTuner: false,
-      icons
-    }
-  },
-
-  computed: {
-    otherVersions () {
-      return this.versions.filter(v => v.id !== this.songsheet.id)
-    },
-
-    ...mapState(useSongsheetSettings, ['showPlayer'])
-  },
-
-  ionViewWillEnter () {
-    this.fetchData()
-  },
-
-  ionViewDidEnter () {
-    return Insomnia.keepAwake()
-  },
-
-  ionViewWillLeave () {
-    return Insomnia.allowSleepAgain()
-  },
-
-  methods: {
-    async fetchData () {
-      if (this.type === 'songsheet') {
-        await this.fetchSongsheet(this.id)
-        if (this.songsheet.track) {
-          await this.fetchVersions(this.songsheet.track.id)
-        }
-      } else {
-        await this.fetchVersions(this.id)
-        if (this.versions.length > 0) {
-          this.fetchSongsheet(this.versions[0].id)
-        } else {
-          this.$router.push({ name: 'songsheet.new', params: { track: this.id }, replace: true })
-        }
-      }
-    },
-
-    async fetchSongsheet (id) {
-      this.songsheet = (await client.get(`songsheets/${id}.json`)).data
-    },
-
-    async fetchVersions (id) {
-      this.versions = (await client.get(`tracks/${id}/songsheets.json`)).data
-    },
-
-    async openTuner () {
-      const modal = await modalController
-        .create({
-          component: TunerView,
-          initialBreakpoint: 0.5,
-          breakpoints: [0, 0.5]
-        })
-      return modal.present()
-    },
-
-    formatDate (input) {
-      if (!input) return ''
-      const date = new Date(input)
-      return new Intl.DateTimeFormat(navigator.language).format(date)
-    },
-
-    hostname (url) {
-      try {
-        return new URL(url).hostname
-      } catch (e) {
-        return url
-      }
-    }
-  }
-}
-</script>

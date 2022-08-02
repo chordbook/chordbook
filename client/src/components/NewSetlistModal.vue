@@ -1,12 +1,12 @@
 <script setup>
 import { modalController } from '@ionic/vue'
-import client from '@/client'
+import { useFetch } from '@/client'
 import { ref } from 'vue'
 
 const params = ref({})
 
 async function save () {
-  const response = await client.post('setlists.json', { setlist: params.value })
+  const response = await useFetch('setlists.json').post({ setlist: params.value })
   modalController.dismiss(response.data)
 }
 </script>

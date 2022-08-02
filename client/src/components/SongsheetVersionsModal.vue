@@ -36,6 +36,7 @@ defineProps({
           v-for="version in versions"
           :key="version.id"
           :songsheet="version"
+          router-direction="replace"
           @click="modalController.dismiss()"
         />
       </ion-list>
