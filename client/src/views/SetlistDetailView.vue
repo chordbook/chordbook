@@ -1,13 +1,12 @@
 <script setup>
-import DeprecatedDataSource from '@/DataSource'
 import { useFetch } from '@/client'
 import SongsheetItem from '@/components/SongsheetItem.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import ShareItem from '@/components/ShareItem.vue'
 import { toastController, actionSheetController } from '@ionic/vue'
 import * as icons from '@/icons'
-import { ref, defineProps, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   id: {
@@ -16,15 +15,12 @@ const props = defineProps({
   }
 })
 
-const route = useRoute()
 const router = useRouter()
-const oldDataSource = ref(new DeprecatedDataSource(`setlists/${props.id}/songsheets`, { params: route.query }))
 const editing = ref(false)
-
-onMounted(() => oldDataSource.value.load())
+const songsheets = ref(null) // element ref
 
 async function reorder (e) {
-  const songsheet = oldDataSource.value.items[e.detail.from]
+  const songsheet = songsheets.value.dataSource.items[e.detail.from]
 
   await useFetch(`setlists/${props.id}/items/${songsheet.id}`).patch({
     item: { position: e.detail.to + 1 }
@@ -35,7 +31,9 @@ async function reorder (e) {
 
 async function remove (songsheet) {
   await useFetch(`setlists/${props.id}/items/${songsheet.id}`).delete()
-  oldDataSource.value.items.splice(oldDataSource.value.items.indexOf(songsheet), 1)
+  const dataSource = songsheets.value.dataSource
+  dataSource.items.splice(dataSource.items.indexOf(songsheet), 1)
+
   return (await toastController.create({
     message: `${songsheet.title} was removed from this setlist`,
     duration: 3000
@@ -125,36 +123,32 @@ async function destroy () {
             :disabled="!editing"
             @ion-item-reorder="reorder"
           >
-            <ion-item-sliding
-              v-for="songsheet in oldDataSource.items"
-              :key="songsheet.id"
+            <data-source
+              ref="songsheets"
+              v-slot="{ items }"
+              :src="`setlists/${props.id}/songsheets`"
+              paginate
             >
-              <ion-item-options side="end">
-                <ion-item-option
-                  color="danger"
-                  @click="remove(songsheet)"
-                >
-                  Remove
-                </ion-item-option>
-              </ion-item-options>
+              <ion-item-sliding
+                v-for="songsheet in items"
+                :key="songsheet.id"
+              >
+                <ion-item-options side="end">
+                  <ion-item-option
+                    color="danger"
+                    @click="remove(songsheet)"
+                  >
+                    Remove
+                  </ion-item-option>
+                </ion-item-options>
 
-              <songsheet-item :songsheet="songsheet">
-                <!-- <ion-reorder slot="end"></ion-reorder> -->
-              </songsheet-item>
-            </ion-item-sliding>
+                <songsheet-item :songsheet="songsheet">
+                  <!-- <ion-reorder slot="end"></ion-reorder> -->
+                </songsheet-item>
+              </ion-item-sliding>
+            </data-source>
           </ion-reorder-group>
         </ion-list>
-
-        <ion-infinite-scroll
-          threshold="500px"
-          :disabled="oldDataSource.loading || oldDataSource.disabled"
-          @ion-infinite="oldDataSource.load().then(() => $event.target.complete())"
-        >
-          <ion-infinite-scroll-content
-            loading-spinner="bubbles"
-            loading-text="Loading…"
-          />
-        </ion-infinite-scroll>
       </ion-content>
 
       <ion-popover

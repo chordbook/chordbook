@@ -50,9 +50,9 @@ import { add } from 'ionicons/icons'
           <template #empty>
             <library-placeholder type="song" />
           </template>
-          <template #page="{ data }">
+          <template #default="{ items }">
             <songsheet-item
-              v-for="songsheet in data"
+              v-for="songsheet in items"
               :key="songsheet.id"
               :songsheet="songsheet"
             />

@@ -1,7 +1,29 @@
+<!--
+
+A component that loads data from the API
+
+Load one page of data:
+
+  <data-source src="/thing/1" v-slot="{ data }">
+    {{ data?.name }}
+  </data-source>
+
+Load a paginated list:
+
+  <data-source src="/things" v-slot="{ items }" paginate>
+    <div v-for="thing in items"></div>
+  </data-source>
+
+Empty placeholer:
+
+  <data-source src="/things" v-slot="{ items }" paginate>
+    <template #empty>No Items to display</template>
+    <template #default="{ items }">…</template>
+  </data-source>
+-->
 <script setup>
-import { defineProps, reactive, ref, computed } from 'vue'
-import { useFetch } from '@/client'
-import LinkHeader from 'http-link-header'
+import { defineProps, reactive } from 'vue'
+import { useDataSource } from '@/client'
 
 const props = defineProps({
   src: {
@@ -18,59 +40,38 @@ const props = defineProps({
   }
 })
 
-const pages = ref([])
+const dataSource = reactive(useDataSource(props.src, props.params))
 
-async function load (src = props.src, params = props.params) {
-  return pages.value.push(reactive(useFetch(src, { params }).get().json()))
-}
-
-const nextSrc = computed(() => {
-  const links = LinkHeader.parse(lastPage.value.response.headers.get('Link') ?? '')
-
-  if (links.has('rel', 'next')) {
-    return links.get('rel', 'next')[0].uri
-  }
-
-  return false
-})
-const lastPage = computed(() => pages.value.slice(-1)[0])
-const isDisabled = computed(() => !lastPage.value || lastPage.value.isFetching)
-const isEmpty = computed(() => {
-  const page = pages.value[0]
-  return page && page.isFinished && !page.error && page.data && page.data.length === 0
-})
-load()
+defineExpose({ dataSource })
 </script>
 
 <template>
   <slot
-    v-if="$slots.empty && isEmpty"
+    v-if="$slots.empty && dataSource.isEmpty"
     name="empty"
   />
-  <template
-    v-for="page in pages"
-    v-else
-  >
-    <slot
-      v-if="$slots.page"
-      name="page"
-      v-bind="page"
-    />
-    <slot
-      v-else
-      v-bind="page"
-    />
+  <template v-else-if="paginate">
+    <slot v-bind="dataSource" />
+    <template v-for="page in dataSource.pages">
+      <slot
+        name="page"
+        v-bind="page"
+      />
+    </template>
+    <ion-infinite-scroll
+      v-if="paginate"
+      threshold="500px"
+      :disabled="dataSource.isDisabled"
+      @ion-infinite="dataSource.load().then(() => $event.target.complete())"
+    >
+      <ion-infinite-scroll-content
+        loading-spinner="bubbles"
+        loading-text="Loading…"
+      />
+    </ion-infinite-scroll>
   </template>
-
-  <ion-infinite-scroll
-    v-if="paginate"
-    threshold="500px"
-    :disabled="isDisabled"
-    @ion-infinite="load(nextSrc).then(() => $event.target.complete())"
-  >
-    <ion-infinite-scroll-content
-      loading-spinner="bubbles"
-      loading-text="Loading…"
-    />
-  </ion-infinite-scroll>
+  <slot
+    v-else
+    v-bind="dataSource.pages[0]"
+  />
 </template>

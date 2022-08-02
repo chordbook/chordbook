@@ -1,6 +1,7 @@
 import { createFetch } from '@vueuse/core'
-import { computed, unref } from 'vue'
+import { computed, reactive, ref, unref } from 'vue'
 import useAuthStore from '@/stores/auth'
+import LinkHeader from 'http-link-header'
 
 export const doFetch = createFetch({
   options: {
@@ -39,4 +40,39 @@ export const useFetch = (url, options = {}, ...args) => {
   })
 
   return doFetch(fullUrl, options, ...args)
+}
+
+// A paginated data source
+export function useDataSource (initialSrc, initialParams = {}) {
+  const pages = ref([])
+  const items = ref([])
+
+  const lastPage = computed(() => pages.value.slice(-1)[0])
+  const nextSrc = computed(() => {
+    if (isDisabled.value) return
+
+    const links = LinkHeader.parse(lastPage.value.response.headers.get('Link') ?? '')
+
+    if (links.has('rel', 'next')) {
+      return links.get('rel', 'next')[0].uri
+    }
+
+    return false
+  })
+  const isDisabled = computed(() => !lastPage.value || lastPage.value.isFetching)
+  const isEmpty = computed(() => {
+    const page = pages.value[0]
+    return page?.isFinished && !page.error && items.value.length === 0
+  })
+
+  function load (src = nextSrc, params = {}) {
+    const page = reactive(useFetch(unref(src), { params }).get().json())
+    pages.value.push(page)
+    page.then(({ data }) => items.value.push(...Array.from(data.value)))
+    return page
+  }
+
+  load(initialSrc, initialParams)
+
+  return { items, pages, load, isDisabled, isEmpty }
 }

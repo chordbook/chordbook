@@ -61,12 +61,12 @@ async function newModal () {
       <ion-content class="ion-padding">
         <ion-list>
           <data-source
-            v-slot="{ data }"
+            v-slot="{ items }"
             src="setlists"
             paginate
           >
             <setlist-item
-              v-for="setlist in data"
+              v-for="setlist in items"
               :key="setlist.id"
               :setlist="setlist"
               @click.prevent="add(setlist)"

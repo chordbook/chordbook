@@ -37,9 +37,9 @@ import LibraryPlaceholder from '@/components/LibraryPlaceholder.vue'
           <template #empty>
             <library-placeholder type="artist" />
           </template>
-          <template #page="{ data }">
+          <template #default="{ items }">
             <artist-item
-              v-for="artist in data"
+              v-for="artist in items"
               :key="artist.id"
               :artist="artist"
             />

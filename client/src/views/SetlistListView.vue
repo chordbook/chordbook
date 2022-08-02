@@ -30,13 +30,13 @@ import SetlistCard from '@/components/SetlistCard.vue'
       <ion-list>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
           <data-source
-            v-slot="{ data }"
+            v-slot="{ items }"
             src="setlists"
             :params="$route.query"
             paginate
           >
             <setlist-card
-              v-for="setlist in data"
+              v-for="setlist in items"
               :key="setlist.id"
               :setlist="setlist"
             />

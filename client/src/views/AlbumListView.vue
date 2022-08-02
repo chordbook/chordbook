@@ -27,9 +27,9 @@
             <template #empty>
               <library-placeholder type="album" />
             </template>
-            <template #page="{ data }">
+            <template #default="{ items }">
               <album-item
-                v-for="album in data"
+                v-for="album in items"
                 :key="album.id"
                 :album="album"
               />
