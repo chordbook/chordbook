@@ -1,12 +1,12 @@
 <template>
   <div>
     <ion-list-header>Browse by Genre</ion-list-header>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 ion-margin">
-      <data-source
-        v-slot="{ items }"
-        src="genres"
-        paginate
-      >
+    <data-source
+      v-slot="{ items }"
+      src="genres"
+      paginate
+    >
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 ion-margin">
         <ion-card
           v-for="genre in items"
           :key="genre.id"
@@ -29,8 +29,8 @@
             </ion-card-title>
           </div>
         </ion-card>
-      </data-source>
-    </div>
+      </div>
+    </data-source>
   </div>
 </template>
 

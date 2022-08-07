@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <ion-page>
+  <app-view>
     <data-source
       v-slot="genre"
       :src="`genres/${id}`"
@@ -105,5 +105,5 @@ defineProps({
         </ion-list>
       </ion-content>
     </data-source>
-  </ion-page>
+  </app-view>
 </template>

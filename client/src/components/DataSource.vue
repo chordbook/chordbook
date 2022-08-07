@@ -40,9 +40,11 @@ const props = defineProps({
   }
 })
 
-const dataSource = reactive(useDataSource(props.src, props.params))
+const dataSource = reactive(useDataSource())
 
 defineExpose({ dataSource })
+
+await dataSource.load(props.src, props.params)
 </script>
 
 <template>
@@ -59,7 +61,6 @@ defineExpose({ dataSource })
       />
     </template>
     <ion-infinite-scroll
-      v-if="paginate"
       threshold="500px"
       :disabled="dataSource.isDisabled"
       @ion-infinite="dataSource.load().then(() => $event.target.complete())"

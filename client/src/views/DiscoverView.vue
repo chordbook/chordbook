@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <app-view>
     <ion-header
       collapse="fade"
       class="ion-no-border"
@@ -88,21 +88,26 @@
       </ion-list>
 
       <div v-show="!isSearching">
-        <ion-list>
-          <div
-            class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8"
-          >
-            <setlist-card
-              v-for="setlist in discover?.data?.setlists"
-              :key="setlist.id"
-              :setlist="setlist"
-            />
-          </div>
-        </ion-list>
+        <data-source
+          v-slot="{ data }"
+          src="discover"
+        >
+          <ion-list>
+            <div
+              class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8"
+            >
+              <setlist-card
+                v-for="setlist in data?.setlists"
+                :key="setlist.id"
+                :setlist="setlist"
+              />
+            </div>
+          </ion-list>
+        </data-source>
         <GenreListView />
       </div>
     </ion-content>
-  </ion-page>
+  </app-view>
 </template>
 
 <script setup>
@@ -127,7 +132,6 @@ const params = reactive({
 const hasFocus = ref(false)
 const isSearching = computed(() => !!unref(params.q || hasFocus))
 const search = reactive(useFetch('search', { params, immediate: params.q }).get().json())
-const discover = reactive(useFetch('discover').get().json())
 
 watch(params, () => {
   if (params.q) {

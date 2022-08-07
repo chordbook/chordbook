@@ -3,7 +3,7 @@ import SetlistCard from '@/components/SetlistCard.vue'
 </script>
 
 <template>
-  <ion-page>
+  <app-view>
     <ion-header translucent>
       <ion-toolbar>
         <ion-title>Setlists</ion-title>
@@ -26,23 +26,22 @@ import SetlistCard from '@/components/SetlistCard.vue'
           </ion-title>
         </ion-toolbar>
       </ion-header>
-
-      <ion-list>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-          <data-source
-            v-slot="{ items }"
-            src="setlists"
-            :params="$route.query"
-            paginate
-          >
+      <data-source
+        v-slot="{ items }"
+        src="setlists"
+        :params="$route.query"
+        paginate
+      >
+        <ion-list>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
             <setlist-card
               v-for="setlist in items"
               :key="setlist.id"
               :setlist="setlist"
             />
-          </data-source>
-        </div>
-      </ion-list>
+          </div>
+        </ion-list>
+      </data-source>
     </ion-content>
-  </ion-page>
+  </app-view>
 </template>

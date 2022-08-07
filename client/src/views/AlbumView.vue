@@ -11,7 +11,7 @@ defineProps({
 </script>
 
 <template>
-  <ion-page>
+  <app-view>
     <data-source
       v-slot="{ data }"
       :src="`albums/${id}`"
@@ -38,7 +38,9 @@ defineProps({
       <ion-content fullscreen>
         <div class="ion-padding ion-margin flex gap-4 md:gap-6 flex-col md:flex-row">
           <div class="text-center flex-shrink-0 flex place-content-center">
-            <div class="aspect-square w-3/4 md:w-60 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800">
+            <div
+              class="aspect-square w-3/4 md:w-60 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
+            >
               <img
                 v-if="data?.cover"
                 :src="data.cover.large"
@@ -99,5 +101,5 @@ defineProps({
         </ion-list>
       </ion-content>
     </data-source>
-  </ion-page>
+  </app-view>
 </template>

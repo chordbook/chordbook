@@ -4,7 +4,7 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
 </script>
 
 <template>
-  <ion-page>
+  <app-view>
     <ion-content>
       <div
         class="ion-padding bg-black text-shadow min-h-screen-1/2 shadow-inner bg-center bg-cover flex flex-col place-content-center text-center"
@@ -122,7 +122,7 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
         </div>
       </div>
     </ion-content>
-  </ion-page>
+  </app-view>
 </template>
 
 <style>

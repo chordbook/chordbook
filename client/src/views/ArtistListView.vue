@@ -4,7 +4,7 @@ import LibraryPlaceholder from '@/components/LibraryPlaceholder.vue'
 </script>
 
 <template>
-  <ion-page>
+  <app-view>
     <ion-header translucent>
       <ion-toolbar>
         <ion-title>Artists</ion-title>
@@ -46,5 +46,5 @@ import LibraryPlaceholder from '@/components/LibraryPlaceholder.vue'
         </template>
       </data-source>
     </ion-content>
-  </ion-page>
+  </app-view>
 </template>

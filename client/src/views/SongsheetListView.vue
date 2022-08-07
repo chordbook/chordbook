@@ -5,7 +5,7 @@ import { add } from 'ionicons/icons'
 </script>
 
 <template>
-  <ion-page>
+  <app-view>
     <ion-header
       translucent
       collapse="fade"
@@ -32,7 +32,10 @@ import { add } from 'ionicons/icons'
       </ion-toolbar>
     </ion-header>
 
-    <ion-content fullscreen>
+    <ion-content
+      fullscreen
+      class="relative"
+    >
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">
@@ -40,25 +43,24 @@ import { add } from 'ionicons/icons'
           </ion-title>
         </ion-toolbar>
       </ion-header>
-
-      <ion-list>
-        <data-source
-          :src="$route.path"
-          :params="$route.query"
-          paginate
-        >
-          <template #empty>
-            <library-placeholder type="song" />
-          </template>
-          <template #default="{ items }">
+      <data-source
+        :src="$route.path"
+        :params="$route.query"
+        paginate
+      >
+        <template #empty>
+          <library-placeholder type="song" />
+        </template>
+        <template #default="{ items }">
+          <ion-list>
             <songsheet-item
               v-for="songsheet in items"
               :key="songsheet.id"
               :songsheet="songsheet"
             />
-          </template>
-        </data-source>
-      </ion-list>
+          </ion-list>
+        </template>
+      </data-source>
     </ion-content>
-  </ion-page>
+  </app-view>
 </template>

@@ -59,20 +59,22 @@ async function newModal () {
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
-        <ion-list>
+        <loading>
           <data-source
             v-slot="{ items }"
             src="setlists"
             paginate
           >
-            <setlist-item
-              v-for="setlist in items"
-              :key="setlist.id"
-              :setlist="setlist"
-              @click.prevent="add(setlist)"
-            />
+            <ion-list>
+              <setlist-item
+                v-for="setlist in items"
+                :key="setlist.id"
+                :setlist="setlist"
+                @click.prevent="add(setlist)"
+              />
+            </ion-list>
           </data-source>
-        </ion-list>
+        </loading>
       </ion-content>
     </authenticated>
   </ion-modal>

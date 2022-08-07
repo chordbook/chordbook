@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <app-view>
     <ion-header
       translucent
       collapse="fade"
@@ -38,7 +38,7 @@
         </template>
       </data-source>
     </ion-content>
-  </ion-page>
+  </app-view>
 </template>
 
 <script>

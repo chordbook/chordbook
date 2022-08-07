@@ -1,6 +1,9 @@
 const { readGitignoreFiles } = require('eslint-gitignore')
 
 module.exports = {
+  parserOptions: {
+    ecmaVersion: '2022'
+  },
   extends: [
     'standard',
     'plugin:vue/vue3-recommended'

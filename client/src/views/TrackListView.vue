@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <app-view>
     <ion-header
       translucent
       collapse="fade"
@@ -16,22 +16,22 @@
     </ion-header>
 
     <ion-content>
-      <ion-list>
-        <data-source
-          v-slot="{ items }"
-          :src="$route.path"
-          :params="$route.query"
-          paginate
-        >
+      <data-source
+        v-slot="{ items }"
+        :src="$route.path"
+        :params="$route.query"
+        paginate
+      >
+        <ion-list>
           <track-item
             v-for="track in items"
             :key="track.id"
             :track="track"
           />
-        </data-source>
-      </ion-list>
+        </ion-list>
+      </data-source>
     </ion-content>
-  </ion-page>
+  </app-view>
 </template>
 
 <script>

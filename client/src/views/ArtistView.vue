@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <ion-page>
+  <app-view>
     <data-source
       v-slot="{ data }"
       :src="`artists/${id}`"
@@ -122,7 +122,7 @@ defineProps({
         </div>
       </ion-content>
     </data-source>
-  </ion-page>
+  </app-view>
 </template>
 
 <style scoped>

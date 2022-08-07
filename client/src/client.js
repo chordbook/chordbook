@@ -43,7 +43,7 @@ export const useFetch = (url, options = {}, ...args) => {
 }
 
 // A paginated data source
-export function useDataSource (initialSrc, initialParams = {}) {
+export function useDataSource () {
   const pages = ref([])
   const items = ref([])
 
@@ -71,8 +71,6 @@ export function useDataSource (initialSrc, initialParams = {}) {
     page.then(({ data }) => items.value.push(...Array.from(data.value)))
     return page
   }
-
-  load(initialSrc, initialParams)
 
   return { items, pages, load, isDisabled, isEmpty }
 }

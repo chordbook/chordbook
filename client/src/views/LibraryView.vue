@@ -3,7 +3,7 @@ import * as icons from '@/icons'
 </script>
 
 <template>
-  <ion-page>
+  <app-view>
     <ion-header translucent>
       <ion-toolbar>
         <ion-title>Library</ion-title>
@@ -55,5 +55,5 @@ import * as icons from '@/icons'
         </ion-item>
       </ion-list>
     </ion-content>
-  </ion-page>
+  </app-view>
 </template>

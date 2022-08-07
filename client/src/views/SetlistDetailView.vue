@@ -62,7 +62,7 @@ async function destroy () {
 </script>
 
 <template>
-  <ion-page>
+  <app-view>
     <data-source
       v-slot="{ data }"
       :src="`setlists/${id}`"
@@ -180,5 +180,5 @@ async function destroy () {
         </ion-list>
       </ion-popover>
     </data-source>
-  </ion-page>
+  </app-view>
 </template>
