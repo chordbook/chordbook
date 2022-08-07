@@ -44,7 +44,7 @@ export default defineStore('auth', () => {
   }
 
   function signOut () {
-    return useFetch('authenticate', { afterFetch: clear }).delete()
+    return useFetch('authenticate', { beforeFetch: clear }).delete()
   }
 
   function refresh (force = false) {
