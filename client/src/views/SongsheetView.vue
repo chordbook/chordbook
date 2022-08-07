@@ -4,7 +4,7 @@ import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
 import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
 import SongsheetMedia from '@/components/SongsheetMedia.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
-import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
+import AddToSetlistModal from '@/components/AddToSetlistModal.vue'
 import ShareItem from '@/components/ShareItem.vue'
 import * as icons from '@/icons'
 import { useFetch } from '@/client'
@@ -56,15 +56,11 @@ async function fetchData () {
 }
 
 async function fetchSongsheet (id) {
-  return useFetch(`songsheets/${id}`).get().json().then(({ data }) => {
-    songsheet.value = data.value
-  })
+  songsheet.value = (await useFetch(`songsheets/${id}`).get().json()).data.value
 }
 
 async function fetchVersions (id) {
-  return useFetch(`tracks/${id}/songsheets`).get().json().then(({ data }) => {
-    versions.value = data.value
-  })
+  versions.value = (await useFetch(`tracks/${id}/songsheets`).get().json()).data.value
 }
 
 async function openTuner () {
@@ -215,6 +211,10 @@ fetchData()
       :trigger="`settings-button-${id}` "
       :note="key"
     />
+    <add-to-setlist-modal
+      ref="addToSetlistModal"
+      :songsheet="songsheet"
+    />
     <ion-popover
       :trigger="`songsheet-context-${songsheet.id}`"
       dismiss-on-select
@@ -229,7 +229,14 @@ fetchData()
         >
           <ion-label>Edit</ion-label>
         </ion-item>
-        <add-to-setlist-item :songsheet="songsheet" />
+        <ion-item
+          button
+          detail
+          :detail-icon="icons.setlist"
+          @click="$refs.addToSetlistModal.$el.present()"
+        >
+          <ion-label>Add to Setlist…</ion-label>
+        </ion-item>
         <ion-item
           v-if="songsheet.track?.artist"
           button

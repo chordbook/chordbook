@@ -48,7 +48,14 @@
       dismiss-on-select
     >
       <ion-list lines="full">
-        <add-to-setlist-item :songsheet="songsheet" />
+        <ion-item
+          button
+          detail
+          :detail-icon="icons.setlist"
+          @click="$refs.addToSetlistModal.$el.present()"
+        >
+          <ion-label>Add to Setlist…</ion-label>
+        </ion-item>
         <ion-item
           v-if="songsheet.track"
           button
@@ -74,16 +81,20 @@
         />
       </ion-list>
     </ion-popover>
+    <add-to-setlist-modal
+      ref="addToSetlistModal"
+      :songsheet="songsheet"
+    />
   </ion-item>
 </template>
 
 <script>
-import AddToSetlistItem from '@/components/AddToSetlistItem.vue'
+import AddToSetlistModal from '@/components/AddToSetlistModal.vue'
 import ShareItem from '@/components/ShareItem.vue'
 import * as icons from '@/icons'
 
 export default {
-  components: { AddToSetlistItem, ShareItem },
+  components: { AddToSetlistModal, ShareItem },
 
   props: {
     songsheet: {

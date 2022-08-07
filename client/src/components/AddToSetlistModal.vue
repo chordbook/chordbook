@@ -35,7 +35,7 @@ async function newModal () {
 </script>
 
 <template>
-  <ion-modal ref="modal">
+  <ion-modal>
     <authenticated>
       <ion-header>
         <ion-toolbar>
