@@ -17,26 +17,26 @@
     </ion-header>
 
     <ion-content>
-      <ion-list>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
-          <data-source
-            :src="$route.path"
-            :params="$route.params"
-            paginate
-          >
-            <template #empty>
-              <library-placeholder type="album" />
-            </template>
-            <template #default="{ items }">
+      <data-source
+        :src="$route.path"
+        :params="$route.params"
+        paginate
+      >
+        <template #empty>
+          <library-placeholder type="album" />
+        </template>
+        <template #default="{ items }">
+          <ion-list>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
               <album-item
                 v-for="album in items"
                 :key="album.id"
                 :album="album"
               />
-            </template>
-          </data-source>
-        </div>
-      </ion-list>
+            </div>
+          </ion-list>
+        </template>
+      </data-source>
     </ion-content>
   </ion-page>
 </template>

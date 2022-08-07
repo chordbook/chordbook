@@ -27,25 +27,24 @@ import LibraryPlaceholder from '@/components/LibraryPlaceholder.vue'
           </ion-title>
         </ion-toolbar>
       </ion-header>
-
-      <ion-list>
-        <data-source
-          :src="$route.path"
-          :params="$route.query"
-          paginate
-        >
-          <template #empty>
-            <library-placeholder type="artist" />
-          </template>
-          <template #default="{ items }">
+      <data-source
+        :src="$route.path"
+        :params="$route.query"
+        paginate
+      >
+        <template #empty>
+          <library-placeholder type="artist" />
+        </template>
+        <template #default="{ items }">
+          <ion-list>
             <artist-item
               v-for="artist in items"
               :key="artist.id"
               :artist="artist"
             />
-          </template>
-        </data-source>
-      </ion-list>
+          </ion-list>
+        </template>
+      </data-source>
     </ion-content>
   </ion-page>
 </template>
