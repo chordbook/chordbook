@@ -154,7 +154,7 @@ GEM
       faraday (~> 1)
       multi_json
     errbase (0.2.2)
-    erubi (1.10.0)
+    erubi (1.11.0)
     et-orbi (1.2.7)
       tzinfo
     factory_bot (6.2.1)
@@ -440,13 +440,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sentry-rails (5.3.1)
+    sentry-rails (5.4.1)
       railties (>= 5.0)
-      sentry-ruby-core (~> 5.3.1)
+      sentry-ruby (~> 5.4.1)
     sentry-ruby (5.4.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-ruby-core (5.3.1)
-      concurrent-ruby
     shellany (0.0.1)
     shortuuid (0.6.0)
     signet (0.17.0)
