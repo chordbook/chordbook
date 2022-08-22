@@ -1238,24 +1238,6 @@
     "@sentry/utils" "7.11.1"
     tslib "^1.9.3"
 
-"@sentry/hub@7.11.1":
-  version "7.11.1"
-  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-7.11.1.tgz#1749b2b102ea1892ff388d65d66d3b402b393958"
-  integrity sha512-M6ClgdXdptS0lUBKB5KpXXe2qMQhsoiEN2pEGRI6+auqhfHCUQB1ZXsfjiOYexKC9fwx7TyFyZ9Jcaf2DTxEhw==
-  dependencies:
-    "@sentry/types" "7.11.1"
-    "@sentry/utils" "7.11.1"
-    tslib "^1.9.3"
-
-"@sentry/hub@7.8.0":
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-7.8.0.tgz#ba261fff11f389511b2a2f7ccd4466dc781d1a8d"
-  integrity sha512-L+aZ7XQJ5cM9NFBy/4caTyBVOc5DB6LK1wxPSFxCy1zsr/XpEYqTAy6ATRUeC0UKxdd/sN/lnQ8liGwVAc0gGQ==
-  dependencies:
-    "@sentry/types" "7.8.0"
-    "@sentry/utils" "7.8.0"
-    tslib "^1.9.3"
-
 "@sentry/tracing@^7.11":
   version "7.11.1"
   resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-7.11.1.tgz#50cbe82dd5b9a1307b31761cdd4b0d71132cf5c7"
@@ -1271,25 +1253,12 @@
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.11.1.tgz#06e2827f6ba37159c33644208a0453b86d25e232"
   integrity sha512-gIEhOPxC2cjrxQ0+K2SFJ1P6e/an5osSxVc9OOtekN28eHtVsXFCLB8XVWeNQnS7N2VkrVrkqORMBz1kvIcvVQ==
 
-"@sentry/types@7.8.0":
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.8.0.tgz#009ee9c53b474030a6b14025a8904b6260d57484"
-  integrity sha512-X9D2jlcAzbJdCHA+eCMv2t5HI9769Qpx48e+sZiK7Oasy1jwQtqzQRaiI9fy/zZ+p7Fyerj/4WjW/E2c4dJ63w==
-
 "@sentry/utils@7.11.1":
   version "7.11.1"
   resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.11.1.tgz#1635c5b223369d9428bc83c9b8908c9c3287ee10"
   integrity sha512-tRVXNT5O9ilkV31pyHeTqA1PcPQfMV/2OR6yUYM4ah+QVISovC0f0ybhByuH5nYg6x/Gsnx1o7pc8L1GE3+O7A==
   dependencies:
     "@sentry/types" "7.11.1"
-    tslib "^1.9.3"
-
-"@sentry/utils@7.8.0":
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.8.0.tgz#ed9b9a607fa51125a48140b1ea836603202d3cc2"
-  integrity sha512-6WvXawUPs60R9MitHXFL533D/Ic9tqQZbvPnBXmAkfp90Y5rcoq2QfJjkqMk/Z+Gnplwi8/wcJCC8EtYKfWg6w==
-  dependencies:
-    "@sentry/types" "7.8.0"
     tslib "^1.9.3"
 
 "@sentry/vue@^7.11":
@@ -1537,13 +1506,6 @@
   integrity sha512-ub2B8XfHCQXX4Migab9bBnFjJI+NmqeLbQox1UdhWhy9cZIpgKx40aW7eq/LLUMGVIKAdriDI6YsD0LZrZFeaA==
   dependencies:
     "@vueuse/shared" "9.1.0"
-    vue-demi "*"
-
-"@vueuse/shared@9.0.2":
-  version "9.0.2"
-  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-9.0.2.tgz#d3fb03594a9482d264702c67efe71d691ce67084"
-  integrity sha512-KwBDefK2ljLESpt0ffe2w8EGUCb3IaMfTzeytB/uHHjHOGOEIHLHHyn8W2C48uGQEvoe5iwaW4Bfp8cRUM6IFA==
-  dependencies:
     vue-demi "*"
 
 "@vueuse/shared@9.1.0":
