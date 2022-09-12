@@ -36,7 +36,7 @@
     "vexchords": "^1.2",
     "vite": "^2.9",
     "vite-plugin-pwa": "^0.12",
-    "vite-svg-loader": "^3.4",
+    "vite-svg-loader": "^3.6",
     "vue": "^3.2",
     "vue-router": "^4.1",
     "vue3-ace-editor": "^2.2"
