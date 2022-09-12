@@ -4163,9 +4163,9 @@ pify@^4.0.1:
   integrity sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==
 
 pinia@^2.0:
-  version "2.0.20"
-  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.20.tgz#3b7f1a5a660282fab6a0c83bae62c48ee0b1bc1f"
-  integrity sha512-fdHHumXW/0U5HhxmY1emo3I4z85p8NJPdbtFQSlmJXFe3ktuF0pYNVgVtk2q+j2zCtTufY763xzaEMx0t6T59g==
+  version "2.0.22"
+  resolved "https://registry.yarnpkg.com/pinia/-/pinia-2.0.22.tgz#435468e8e6d6aa6f319cb727b23bd51db0844c4a"
+  integrity sha512-u+b8/BC+tmvo3ACbYO2w5NfxHWFOjvvw9DQnyT0dW8aUMCPRQT5QnfZ5R5W2MzZBMTeZRMQI7V/QFbafmM9QHw==
   dependencies:
     "@vue/devtools-api" "^6.2.1"
     vue-demi "*"
