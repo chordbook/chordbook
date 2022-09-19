@@ -5207,9 +5207,9 @@ vexchords@^1.2:
     "@svgdotjs/svg.js" "^3.0.12"
 
 vite-plugin-pwa@^0.12:
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/vite-plugin-pwa/-/vite-plugin-pwa-0.12.3.tgz#acf2913ae85a4d39c13ae4b948307f3dd5506fa8"
-  integrity sha512-gmYdIVXpmBuNjzbJFPZFzxWYrX4lHqwMAlOtjmXBbxApiHjx9QPXKQPJjSpeTeosLKvVbNcKSAAhfxMda0QVNQ==
+  version "0.12.8"
+  resolved "https://registry.yarnpkg.com/vite-plugin-pwa/-/vite-plugin-pwa-0.12.8.tgz#9eee41771fd9b84bdd5fb548cf6e19ed09bfc2ae"
+  integrity sha512-pSiFHmnJGMQJJL8aJzQ8SaraZBSBPMGvGUkCNzheIq9UQCEk/eP3UmANNmS9eupuhIpTK8AdxTOHcaMcAqAbCA==
   dependencies:
     debug "^4.3.4"
     fast-glob "^3.2.11"
