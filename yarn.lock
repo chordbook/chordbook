@@ -1685,12 +1685,12 @@ aubiojs@^0.1:
   integrity sha512-P/NJ+OGqPzx7Wfw9f2Dnbla8EJ98k9p2yp8EOf/QBDy+flxCFeP/i6Zdl+3+9CkKvLX2kpa8REdlK0RRVdaSXw==
 
 autoprefixer@^10.4:
-  version "10.4.8"
-  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.4.8.tgz#92c7a0199e1cfb2ad5d9427bd585a3d75895b9e5"
-  integrity sha512-75Jr6Q/XpTqEf6D2ltS5uMewJIx5irCU1oBYJrWjFenq/m12WRRrz6g15L1EIoYvPLXTbEry7rDOwrcYNj77xw==
+  version "10.4.11"
+  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.4.11.tgz#835136aff1d9cd43640151e0d2dba00f8eac7c1c"
+  integrity sha512-5lHp6DgRodxlBLSkzHOTcufWFflH1ewfy2hvFQyjrblBFlP/0Yh4O/Wrg4ow8WRlN3AAUFFLAQwX8hTptzqVHg==
   dependencies:
     browserslist "^4.21.3"
-    caniuse-lite "^1.0.30001373"
+    caniuse-lite "^1.0.30001399"
     fraction.js "^4.2.0"
     normalize-range "^0.1.2"
     picocolors "^1.0.0"
@@ -1862,10 +1862,10 @@ camelcase@^5.3.1:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
-caniuse-lite@^1.0.30001370, caniuse-lite@^1.0.30001373:
-  version "1.0.30001373"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001373.tgz#2dc3bc3bfcb5d5a929bec11300883040d7b4b4be"
-  integrity sha512-pJYArGHrPp3TUqQzFYRmP/lwJlj8RCbVe3Gd3eJQkAV8SAC6b19XS9BjMvRdvaS8RMkaTN8ZhoHP6S1y8zzwEQ==
+caniuse-lite@^1.0.30001370, caniuse-lite@^1.0.30001399:
+  version "1.0.30001402"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001402.tgz#aa29e1f47f5055b0d0c07696a67b8b08023d14c8"
+  integrity sha512-Mx4MlhXO5NwuvXGgVb+hg65HZ+bhUYsz8QtDGDo2QmaJS2GBX47Xfi2koL86lc8K+l+htXeTEB/Aeqvezoo6Ew==
 
 chalk@^2.0.0:
   version "2.4.2"
