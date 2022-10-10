@@ -26,10 +26,10 @@
   dependencies:
     "@types/cordova" latest
 
-"@awesome-cordova-plugins/insomnia@^5.44":
-  version "5.44.0"
-  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/insomnia/-/insomnia-5.44.0.tgz#5afefae79ec173e4ae5729e09d64f35c1622e1ac"
-  integrity sha512-BmESegph7b1YYhxgnKlwpM2KxgJ34JbiKmD0QBirGL4zZJZCnpCCsaFGCwz6Dd2lR7b+KAn9+qteIHGVHJIk1Q==
+"@awesome-cordova-plugins/insomnia@^5.46":
+  version "5.46.0"
+  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/insomnia/-/insomnia-5.46.0.tgz#8d915f5d06dfd73404616f5dd2cd40c8b151ca3d"
+  integrity sha512-dW4AoA9hcsSFtG5u18h8WwHHd5pWwMB7u8QFOn8ZRpvNZ+v2Vu0aPxkcEiKBa21UrHIQbK4PszvmHEY+Aw++8Q==
   dependencies:
     "@types/cordova" latest
 
