@@ -971,10 +971,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@headlessui/vue@^1.6":
-  version "1.6.7"
-  resolved "https://registry.yarnpkg.com/@headlessui/vue/-/vue-1.6.7.tgz#433b86e5f86203606e7ac4851777173a327dd8c4"
-  integrity sha512-5sTCBpkUoFE7zhANn/6Z+pf3PUA7MD6BBaTsJcQybq9E4fnNiMM9agOJI9meXbtcawE6Dm8EeB5A8HAJEnZCbQ==
+"@headlessui/vue@^1.7":
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/@headlessui/vue/-/vue-1.7.4.tgz#c554e9ac893a2ec2f58eb8b6b9d80b8be03c5d0e"
+  integrity sha512-QHRlKCK/zRpjSjhth7c2CZvx5eMDFflXauqRdRJgp1CwScx6PwCpWiwDsjQcYM4z8Yik2ZvyX8W4PFT2Wsqqyw==
 
 "@humanwhocodes/config-array@^0.10.4":
   version "0.10.4"
