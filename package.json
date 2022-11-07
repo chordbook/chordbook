@@ -31,7 +31,7 @@
     "rxjs": "^7.5",
     "share-api-polyfill": "^1.1",
     "string-hash": "^1.1",
-    "tailwindcss": "^3.1",
+    "tailwindcss": "^3.2",
     "tinycolor2": "^1.4",
     "vexchords": "^1.2",
     "vite": "^2.9",
