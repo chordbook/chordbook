@@ -46,7 +46,7 @@
     "@capacitor/cli": "^4.1",
     "@capacitor/ios": "^4.1",
     "@types/http-link-header": "^1.0.3",
-    "eslint": "^8.22",
+    "eslint": "^8.27",
     "eslint-config-standard": "^16.0",
     "eslint-gitignore": "^0.1",
     "eslint-plugin-import": "^2.26",
