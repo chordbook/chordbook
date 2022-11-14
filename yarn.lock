@@ -1679,10 +1679,10 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-aubiojs@^0.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/aubiojs/-/aubiojs-0.1.1.tgz#c88b0558e11f30d592e923011d74b4141d871c99"
-  integrity sha512-P/NJ+OGqPzx7Wfw9f2Dnbla8EJ98k9p2yp8EOf/QBDy+flxCFeP/i6Zdl+3+9CkKvLX2kpa8REdlK0RRVdaSXw==
+aubiojs@^0.2:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/aubiojs/-/aubiojs-0.2.1.tgz#59439f4122a9ce5b047a6885a3d28efbd7fe7041"
+  integrity sha512-lTMm5j/UMGlCvmZlBfBe9KM+tMdvnxm93fwaMugcPak/zUJfFMtkXf5azC4gG/V1FWXGmh1ejsa5sdm+Nlxs8w==
 
 autoprefixer@^10.4:
   version "10.4.8"
