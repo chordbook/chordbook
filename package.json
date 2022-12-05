@@ -28,7 +28,7 @@
     "postcss-import": "^14.1",
     "pwa-asset-generator": "^6.1",
     "rollup-plugin-string": "^3.0",
-    "rxjs": "^7.5",
+    "rxjs": "^7.6",
     "share-api-polyfill": "^1.1",
     "string-hash": "^1.1",
     "tailwindcss": "^3.1",
