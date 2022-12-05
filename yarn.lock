@@ -1924,10 +1924,10 @@ chokidar@^3.5.3:
   optionalDependencies:
     fsevents "~2.3.2"
 
-chordsheetjs@^7.6:
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/chordsheetjs/-/chordsheetjs-7.6.0.tgz#da5df835e939fd9ae19e83d5bf40ee5efcec4dae"
-  integrity sha512-WCuZbaUyS/YBNMPgHmZuwNmQTlat5zR7ikXWbVgjzmj5fx2gpkBcxYGAN1miZpJvr35J/eu7eI7ThtBTm5hk6A==
+chordsheetjs@^7.12:
+  version "7.12.0"
+  resolved "https://registry.yarnpkg.com/chordsheetjs/-/chordsheetjs-7.12.0.tgz#5fbae81b480933d7e0c9bf24b5a12e21bb9bdb3b"
+  integrity sha512-6n3bVfejpl9vkknyAYaU2EHGWy12xSOYBzKbGKcJcD8XKlYmFhMpcaWvdg1vb02RsZF3usEMb6S23g8RO3Elxw==
   dependencies:
     lodash.get "^4.4.2"
 
