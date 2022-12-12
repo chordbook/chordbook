@@ -426,7 +426,7 @@ GEM
     rubyzip (2.3.2)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
-    searchkick (5.0.4)
+    searchkick (5.1.1)
       activemodel (>= 5.2)
       hashie
     selenium-webdriver (4.4.0)
