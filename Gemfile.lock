@@ -139,12 +139,12 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    elasticsearch (7.17.1)
-      elasticsearch-api (= 7.17.1)
-      elasticsearch-transport (= 7.17.1)
-    elasticsearch-api (7.17.1)
+    elasticsearch (7.17.7)
+      elasticsearch-api (= 7.17.7)
+      elasticsearch-transport (= 7.17.7)
+    elasticsearch-api (7.17.7)
       multi_json
-    elasticsearch-transport (7.17.1)
+    elasticsearch-transport (7.17.7)
       faraday (~> 1)
       multi_json
     errbase (0.2.2)
@@ -502,7 +502,7 @@ DEPENDENCIES
   chordpro!
   debug
   dotenv-rails
-  elasticsearch (~> 7.0)
+  elasticsearch (~> 7.17)
   factory_bot
   faker
   good_job
