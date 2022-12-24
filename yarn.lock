@@ -4630,9 +4630,9 @@ serialize-javascript@^4.0.0:
     randombytes "^2.1.0"
 
 share-api-polyfill@^1.1:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/share-api-polyfill/-/share-api-polyfill-1.1.0.tgz#595192119d0d6b69e766ecf9009bb4a0121289aa"
-  integrity sha512-KTMJrR/jpcZJiJsCRbUFZf5Fhbq035LQLGkqHm2CyFVLUj+1fgi9ZwxpNQoDXkYtwoVeEUSgMq+ps+mNOllx5w==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/share-api-polyfill/-/share-api-polyfill-1.1.1.tgz#373bacac2f02828a3ee1bd7d9a2b72c60580080e"
+  integrity sha512-5GxXomFRth4lBpHWN136cxpv8KOo+uutljXqgO1RsptDQ5X1raRQWqLi+LoWZ/h02/TgV1STJwuMXcP/0b1vpQ==
 
 shebang-command@^2.0.0:
   version "2.0.0"
