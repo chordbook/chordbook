@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_19_130756) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_24_153748) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -295,6 +295,46 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_130756) do
     t.index ["updated_at"], name: "index_motor_forms_on_updated_at"
   end
 
+  create_table "motor_note_tag_tags", force: :cascade do |t|
+    t.bigint "tag_id", null: false
+    t.bigint "note_id", null: false
+    t.index ["note_id", "tag_id"], name: "motor_note_tags_note_id_tag_id_index", unique: true
+    t.index ["tag_id"], name: "index_motor_note_tag_tags_on_tag_id"
+  end
+
+  create_table "motor_note_tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "motor_note_tags_name_unique_index", unique: true
+  end
+
+  create_table "motor_notes", force: :cascade do |t|
+    t.text "body"
+    t.bigint "author_id"
+    t.string "author_type"
+    t.string "record_id", null: false
+    t.string "record_type", null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id", "author_type"], name: "motor_notes_author_id_author_type_index"
+  end
+
+  create_table "motor_notifications", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description"
+    t.bigint "recipient_id", null: false
+    t.string "recipient_type", null: false
+    t.string "record_id"
+    t.string "record_type"
+    t.string "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id", "recipient_type"], name: "motor_notifications_recipient_id_recipient_type_index"
+    t.index ["record_id", "record_type"], name: "motor_notifications_record_id_record_type_index"
+  end
+
   create_table "motor_queries", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -307,6 +347,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_130756) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "motor_queries_name_unique_index", unique: true, where: "(deleted_at IS NULL)"
     t.index ["updated_at"], name: "index_motor_queries_on_updated_at"
+  end
+
+  create_table "motor_reminders", force: :cascade do |t|
+    t.bigint "author_id", null: false
+    t.string "author_type", null: false
+    t.bigint "recipient_id", null: false
+    t.string "recipient_type", null: false
+    t.string "record_id"
+    t.string "record_type"
+    t.datetime "scheduled_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id", "author_type"], name: "motor_reminders_author_id_author_type_index"
+    t.index ["recipient_id", "recipient_type"], name: "motor_reminders_recipient_id_recipient_type_index"
+    t.index ["record_id", "record_type"], name: "motor_reminders_record_id_record_type_index"
+    t.index ["scheduled_at"], name: "index_motor_reminders_on_scheduled_at"
   end
 
   create_table "motor_resources", force: :cascade do |t|
@@ -442,6 +498,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_130756) do
   add_foreign_key "library_items", "users"
   add_foreign_key "motor_alert_locks", "motor_alerts", column: "alert_id"
   add_foreign_key "motor_alerts", "motor_queries", column: "query_id"
+  add_foreign_key "motor_note_tag_tags", "motor_note_tags", column: "tag_id"
+  add_foreign_key "motor_note_tag_tags", "motor_notes", column: "note_id"
   add_foreign_key "motor_taggable_tags", "motor_tags", column: "tag_id"
   add_foreign_key "setlist_items", "setlists"
   add_foreign_key "setlist_items", "songsheets"
