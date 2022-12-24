@@ -1,6 +1,7 @@
 shallow ||= false
 
 json.id album.to_param
+json.type album.model_name
 json.extract! album, :uid, :title, :released, :style, :created_at, :updated_at
 json.cover do
   json.small variant_url(album.image, :small)
