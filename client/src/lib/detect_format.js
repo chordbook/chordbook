@@ -11,7 +11,7 @@ const PARSERS = [
   },
   {
     pattern: /.*/,
-    parser: new ChordSheetJS.ChordSheetParser({ preserveWhitespace: false })
+    parser: new ChordSheetJS.ChordsOverWordsParser({ preserveWhitespace: false })
   }
 ]
 
