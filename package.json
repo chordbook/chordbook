@@ -4,7 +4,7 @@
   "dependencies": {
     "@awesome-cordova-plugins/core": "^5.44",
     "@awesome-cordova-plugins/insomnia": "^5.44",
-    "@capacitor/core": "^4.1",
+    "@capacitor/core": "^4.6",
     "@headlessui/vue": "^1.6",
     "@ionic/vue": "^6.4",
     "@ionic/vue-router": "^6.4",
