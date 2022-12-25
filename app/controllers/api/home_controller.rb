@@ -7,9 +7,16 @@ class Api::HomeController < ApiController
 
     @sections = [
       current_user && {
-        name: "Jump Back In",
+        name: "Keep On Playing",
+        description: "Songs you've played recently",
         items: current_user.recently_played.limit(12),
         format: "item"
+      },
+      current_user && {
+        name: "Your Setlists",
+        items: current_user.setlists.order_by_recent.limit(6),
+        href: api_setlists_path,
+        format: "card"
       },
       {
         name: @featured_setlist.title,
