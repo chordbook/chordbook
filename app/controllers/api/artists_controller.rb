@@ -9,6 +9,7 @@ class Api::ArtistsController < ApiController
 
   def show
     @artist = Artist.with_attachments.find_by_uid(params[:id])
+    track_view @artist
     fresh_when @artist
   end
 

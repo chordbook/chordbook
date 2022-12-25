@@ -10,6 +10,7 @@ class Api::AlbumsController < ApiController
 
   def show
     @album = Album.with_attachments.includes(:artist, :tracks).merge(Artist.with_attachments).find_by_uid(params[:id])
+    track_view @album
     fresh_when @album
   end
 end

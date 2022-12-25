@@ -10,6 +10,7 @@ class Api::TracksController < ApiController
 
   def show
     @track = Track.find_by_uid(params[:id])
+    track_view @track
     fresh_when @track
   end
 end
