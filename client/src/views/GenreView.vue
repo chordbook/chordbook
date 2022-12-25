@@ -46,13 +46,12 @@ defineProps({
             </ion-button>
           </ion-list-header>
 
-            <data-source
-              v-slot="{ data }"
-              :src="`genres/${id}/tracks`"
-            >
-              <model-list :items="data" />
-            </data-source>
-          </div>
+          <data-source
+            v-slot="{ data }"
+            :src="`genres/${id}/tracks`"
+          >
+            <model-list :items="data" />
+          </data-source>
         </ion-list>
 
         <ion-list>
@@ -63,18 +62,12 @@ defineProps({
             </ion-button>
           </ion-list-header>
 
-          <div class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8">
-            <data-source
-              v-slot="{ data }"
-              :src="`genres/${id}/artists`"
-            >
-              <artist-card
-                v-for="artist in data"
-                :key="artist.id"
-                v-bind="artist"
-              />
-            </data-source>
-          </div>
+          <data-source
+            v-slot="{ data }"
+            :src="`genres/${id}/artists`"
+          >
+            <model-list :items="data" format="card" />
+          </data-source>
         </ion-list>
 
         <ion-list>
@@ -85,18 +78,12 @@ defineProps({
             </ion-button>
           </ion-list-header>
 
-          <div class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8">
-            <data-source
-              v-slot="{ data }"
-              :src="`genres/${id}/albums`"
-            >
-              <album-item
-                v-for="album in data"
-                :key="album.id"
-                v-bind="album"
-              />
-            </data-source>
-          </div>
+          <data-source
+            v-slot="{ data }"
+            :src="`genres/${id}/albums`"
+          >
+            <model-list :items="data" format="card" />
+          </data-source>
         </ion-list>
       </ion-content>
     </data-source>

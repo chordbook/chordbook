@@ -88,16 +88,7 @@ defineProps({
               </ion-button>
             </ion-list-header>
 
-            <div
-              class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 2xl:auto-cols-1/6"
-            >
-              <album-item
-                v-for="album in albums"
-                :key="album.id"
-                v-bind="album"
-                :show-artist="false"
-              />
-            </div>
+            <model-list :items="albums" :format="card" :show-artist="false" />
           </ion-list>
         </data-source>
 

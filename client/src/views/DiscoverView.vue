@@ -92,17 +92,7 @@
           v-slot="{ data }"
           src="discover"
         >
-          <ion-list>
-            <div
-              class="grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8"
-            >
-              <setlist-card
-                v-for="setlist in data?.setlists"
-                :key="setlist.id"
-                v-bind="setlist"
-              />
-            </div>
-          </ion-list>
+          <model-list :items="data?.setlists" format="card" />
         </data-source>
         <GenreListView />
       </div>
@@ -112,7 +102,7 @@
 
 <script setup>
 import GenreListView from '@/views/GenreListView.vue'
-import SetlistCard from '../components/SetlistCard.vue'
+import ModelList from '../components/ModelList.vue'
 import { useRouteQuery } from '@vueuse/router'
 import { useFetch } from '@/client'
 import { computed, ref, unref, reactive, watch } from 'vue'
