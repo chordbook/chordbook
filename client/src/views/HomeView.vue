@@ -17,9 +17,9 @@ const { data } = useFetch('home').json()
         class="ion-padding bg-black text-shadow min-h-screen-1/2 shadow-inner bg-center bg-cover flex flex-col place-content-center text-center"
         style="background-image: url(https://images.pexels.com/photos/144428/pexels-photo-144428.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)"
       >
-        <h1 class="text-3xl sm:text-6xl font-bold text-white font-semibold text-shadow-lg">
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold text-white font-semibold text-shadow-lg">
           Play all your<br>
-          favorite songs
+          favorite songs.
         </h1>
       </div>
       <div
@@ -50,8 +50,8 @@ const { data } = useFetch('home').json()
         class="lg:px-8"
       >
         <div class="text-center mt-10 sm:mt-20 ion-padding">
-          <h2 class="ion-margin text-4xl sm:text-5xl">
-            Let's play music better, together.
+          <h2 class="ion-margin text-4xl sm:text-5xl md:text-6xl font-bold">
+            Help us make music better.
           </h2>
           <p class="text-xl sm:text-2xl max-w-4xl mx-auto text-muted">
             Chord Book is made by amateur musicians and volunteers. Here's how you can lend your talent, time, or money to help make it even better…
@@ -74,7 +74,7 @@ const { data } = useFetch('home').json()
                 Volunteer to be an editor and get full access to add new charts or make corrections to existing ones.
               </p>
             </ion-card-content>
-            <p class="text-center">
+            <p class="text-center mb-4">
               <ion-button
                 class="w-40"
                 href="mailto:help@chordbook.app?subject=I'd%20like%20to%20volunteer"
@@ -101,7 +101,7 @@ const { data } = useFetch('home').json()
                 Show your appreciation and support the costs of building and running the app.
               </p>
             </ion-card-content>
-            <p class="text-center">
+            <p class="text-center mb-4">
               <ion-button
                 class="w-40"
                 href="https://www.patreon.com/chordbook"
@@ -129,7 +129,7 @@ const { data } = useFetch('home').json()
                 This app is open source! Help us fix bugs, improve features, and make progress on our <a href="https://github.com/bkeepers/chordbook/projects/1">roadmap</a>.
               </p>
             </ion-card-content>
-            <p class="text-center">
+            <p class="text-center mb-4">
               <ion-button
                 class="w-40"
                 href="https://github.com/bkeepers/chordbook"
