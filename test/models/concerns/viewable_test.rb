@@ -2,8 +2,8 @@ require "test_helper"
 
 class ViewableTest < ActiveSupport::TestCase
   test "viewed scope only includes distinct viewed records" do
-    unviewed = create :songsheet
     viewed = create :songsheet
+    create :songsheet # unviewed
 
     create :event, :view, record: viewed
 

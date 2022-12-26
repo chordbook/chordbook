@@ -21,7 +21,10 @@ const auth = useAuthStore()
         </h1>
       </div>
       <loading>
-        <data-source src="home" v-slot="{ data }">
+        <data-source
+          v-slot="{ data }"
+          src="home"
+        >
           <div
             v-for="section in data"
             :key="section.name"
@@ -53,7 +56,7 @@ const auth = useAuthStore()
       >
         <div class="text-center mt-10 sm:mt-20 ion-padding">
           <h2 class="ion-margin text-4xl sm:text-5xl md:text-6xl font-bold">
-            Help us make music better.
+            Help us make music&nbsp;better.
           </h2>
           <p class="text-xl sm:text-2xl max-w-4xl mx-auto text-muted">
             Chord Book is made by amateur musicians and volunteers. Here's how you can lend your talent, time, or money to help make it even better…

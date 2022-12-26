@@ -12,6 +12,8 @@ module Viewable
         ) views ON views.record_id = #{table_name}.id"
       ).order("views.time DESC")
     }
-    scope :viewed_by, ->(user) { viewed.where("views.user_id = ?", user) }
+    scope :viewed_by, ->(user) {
+      user ? viewed.where("views.user_id = ?", user) : none
+    }
   end
 end

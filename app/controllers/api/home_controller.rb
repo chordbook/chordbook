@@ -2,38 +2,38 @@ class Api::HomeController < ApiController
   skip_before_action :authenticate!
 
   def show
-    @setlists = User.app.setlists.order_by_popular.limit(13).to_a
-    @featured_setlist = @setlists.shift
+    @featured_setlist = User.app.setlists.order_by_popular.first
+    @setlists = User.app.setlists.order_by_popular.offset(1)
 
     @sections = [
-      {
-        name: @featured_setlist.title,
-        items: @featured_setlist.songsheets.limit(12),
-        href: api_setlist_path(@featured_setlist),
+      Section.new(
+        name: "Keep on playing",
+        scope: Songsheet.viewed_by(current_user),
         format: "item"
-      },
-      {
-        name: "Featured Setlists",
-        items: @setlists,
+      ),
+      Section.new(
+        name: current_user ? "Your favorite setlists" : "Popular setlists",
+        scopes: [
+          Setlist.viewed_by(current_user),
+          current_user&.setlists&.order_by_recent,
+          @setlists
+        ].compact,
         format: "card"
-      }
-    ]
-
-    if current_user
-      @sections.unshift(
-        {
-          name: "Keep On Playing",
-          description: "Songs you've played recently",
-          items: Songsheet.viewed_by(current_user).limit(12),
-          format: "item"
-        },
-        {
-          name: "Your Setlists",
-          items: current_user.setlists.order_by_recent.limit(6),
-          href: api_setlists_path,
-          format: "card"
-        }
+      ),
+      Section.new(
+        name: @featured_setlist.title,
+        scope: @featured_setlist.songsheets,
+        format: "item",
+        href: api_setlist_path(@featured_setlist)
+      ),
+      Section.new(
+        name: "Get to know the artists",
+        scopes: [
+          Artist.viewed_by(current_user),
+          Artist.order_by_popular
+        ],
+        format: "card"
       )
-    end
+    ].select { |section| section.items.size > 3 }
   end
 end
