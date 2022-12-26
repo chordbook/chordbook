@@ -59,18 +59,4 @@ class UserTest < ActiveSupport::TestCase
       User.find_for_password_reset!(user.password_reset_token)
     end
   end
-
-  test "recently_played" do
-    user = create :user
-    played = create :songsheet
-    unplayed = create :songsheet
-
-    # Play twice
-    create :event, :play, songsheet: played, user: user
-    create :event, :play, songsheet: played, user: user
-
-    assert_equal 1, user.recently_played.count
-    assert_includes user.recently_played, played
-    refute_includes user.recently_played, unplayed
-  end
 end

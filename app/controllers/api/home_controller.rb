@@ -24,7 +24,7 @@ class Api::HomeController < ApiController
         {
           name: "Keep On Playing",
           description: "Songs you've played recently",
-          items: current_user.recently_played.limit(12),
+          items: Songsheet.viewed_by(current_user).limit(12),
           format: "item"
         },
         {

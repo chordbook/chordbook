@@ -63,13 +63,13 @@ FactoryBot.define do
     user { visit.user }
     time { Time.now }
 
-    trait :play do
+    trait :view do
       transient do
-        songsheet { build(:songsheet) }
+        record { build(:songsheet) }
       end
 
-      name { "play" }
-      properties { {songsheet_id: songsheet.id} }
+      name { "view" }
+      properties { { id: record.id, type: record.model_name.name } }
     end
   end
 end
