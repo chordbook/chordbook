@@ -15,14 +15,10 @@ const props = defineProps({
 
 const classes = computed(() => {
   const styles = {
-    item: `grid-scroll-x grid-rows-${rows.value} auto-cols-1/1 sm:auto-cols-1/2 lg:auto-cols-1/3 2xl:auto-cols-1/4`,
+    item: `grid-scroll-x grid-rows-3 auto-cols-1/1 sm:auto-cols-1/2 lg:auto-cols-1/3 2xl:auto-cols-1/4`,
     card: 'grid-scroll-x auto-cols-1/2 sm:auto-cols-1/3 md:auto-cols-1/4 lg:auto-cols-1/5 xl:auto-cols-1/6 2xl:auto-cols-1/8'
   }
   return styles[props.format]
-})
-
-const rows = computed(() => {
-  return Math.min(3, Math.ceil(props.items.length / 4))
 })
 </script>
 
