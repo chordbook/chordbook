@@ -1,12 +1,10 @@
 <script setup>
 import { logoGithub, handLeft, cashOutline } from 'ionicons/icons'
 import ColorizedImg from '@/components/ColorizedImg.vue'
-import { useFetch } from '@/client'
 import ModelList from '../components/ModelList.vue'
 import useAuthStore from '@/stores/auth'
 
 const auth = useAuthStore()
-const { data } = useFetch('home').json()
 </script>
 
 <template>
@@ -22,28 +20,32 @@ const { data } = useFetch('home').json()
           favorite songs.
         </h1>
       </div>
-      <div
-        v-for="section in data"
-        :key="section.name"
-        class="ion-padding"
-      >
-        <ion-list-header>
-          <ion-label class="text-2xl">
-            {{ section.name }}
-          </ion-label>
-          <ion-button
-            v-if="section.href"
-            :router-link="section.href"
+      <loading>
+        <data-source src="home" v-slot="{ data }">
+          <div
+            v-for="section in data"
+            :key="section.name"
+            class="ion-padding"
           >
-            See All
-          </ion-button>
-        </ion-list-header>
+            <ion-list-header>
+              <ion-label class="text-2xl">
+                {{ section.name }}
+              </ion-label>
+              <ion-button
+                v-if="section.href"
+                :router-link="section.href"
+              >
+                See All
+              </ion-button>
+            </ion-list-header>
 
-        <model-list
-          :items="section.items"
-          :format="section.format"
-        />
-      </div>
+            <model-list
+              :items="section.items"
+              :format="section.format"
+            />
+          </div>
+        </data-source>
+      </loading>
 
       <div
         id="contribute"
