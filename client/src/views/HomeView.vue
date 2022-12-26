@@ -3,13 +3,25 @@ import { logoGithub, handLeft, cashOutline } from 'ionicons/icons'
 import ColorizedImg from '@/components/ColorizedImg.vue'
 import { useFetch } from '@/client'
 import ModelList from '../components/ModelList.vue'
+import useAuthStore from '@/stores/auth'
 
+const auth = useAuthStore()
 const { data } = useFetch('home').json()
 </script>
 
 <template>
   <app-view>
     <ion-content>
+      <div
+        v-if="!auth.isAuthenticated"
+        class="ion-padding bg-black text-shadow min-h-screen-1/2 shadow-inner bg-center bg-cover flex flex-col place-content-center text-center"
+        style="background-image: url(https://images.pexels.com/photos/144428/pexels-photo-144428.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)"
+      >
+        <h1 class="text-3xl sm:text-6xl font-bold text-white font-semibold text-shadow-lg">
+          Play all your<br>
+          favorite songs
+        </h1>
+      </div>
       <div
         v-for="section in data"
         :key="section.name"
