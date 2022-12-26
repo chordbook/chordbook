@@ -151,18 +151,3 @@ const auth = useAuthStore()
     </ion-content>
   </app-view>
 </template>
-
-<style>
-.censored {
-  @apply text-transparent
-}
-
-.censored span:nth-of-type(1)  { text-shadow: 0 0 2px rgba(255,255,255,1); }
-.censored span:nth-of-type(2)  { text-shadow: 0 0 4px rgba(255,255,255,1); }
-.censored span:nth-of-type(3)  { text-shadow: 0 0 6px rgba(255,255,255,1); }
-.censored span:nth-of-type(4)  { text-shadow: 0 0 8px rgba(255,255,255,1); }
-.censored span:nth-of-type(5)  { text-shadow: 0 0 10px rgba(255,255,255,1); }
-.censored span:nth-of-type(6)  { text-shadow: 0 0 12px rgba(255,255,255,1); }
-.censored span:nth-of-type(7)  { text-shadow: 0 0 10px rgba(255,255,255,1); }
-.censored span:nth-of-type(8)  { text-shadow: 0 0 8px rgba(255,255,255,1); }
-</style>
