@@ -37,7 +37,7 @@ import SetlistCard from '@/components/SetlistCard.vue'
             <setlist-card
               v-for="setlist in items"
               :key="setlist.id"
-              :setlist="setlist"
+              v-bind="setlist"
             />
           </div>
         </ion-list>

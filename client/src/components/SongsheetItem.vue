@@ -1,7 +1,32 @@
+<script setup>
+import AddToSetlistModal from '@/components/AddToSetlistModal.vue'
+import ShareItem from '@/components/ShareItem.vue'
+import * as icons from '@/icons'
+
+defineProps({
+  id: {
+    type: String,
+    required: true
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  subtitle: {
+    type: String,
+    required: true
+  },
+  track: {
+    type: Object,
+    default: null
+  }
+})
+</script>
+
 <template>
   <ion-item
     button
-    :router-link="link"
+    :router-link="{ name: 'songsheet', params: { id } }"
     detail="false"
   >
     <ion-avatar
@@ -9,8 +34,8 @@
       class="bg-slate-100 flex place-content-center items-center rounded"
     >
       <img
-        v-if="songsheet.track?.album"
-        :src="songsheet.track?.album?.cover?.medium"
+        v-if="track?.album"
+        :src="track?.album?.cover?.medium"
         class="rounded"
       >
       <ion-icon
@@ -20,13 +45,13 @@
       />
     </ion-avatar>
     <ion-label>
-      <h2>{{ songsheet.title }}</h2>
-      <p v-if="artist">
-        {{ artist }}
+      <h2>{{ title }}</h2>
+      <p v-if="subtitle">
+        {{ subtitle }}
       </p>
     </ion-label>
     <ion-button
-      :id="`songsheet-${songsheet.id}`"
+      :id="`songsheet-${id}`"
       slot="end"
       class="hide-reorder"
       fill="clear"
@@ -43,7 +68,7 @@
     <ion-reorder slot="end" />
 
     <ion-popover
-      :trigger="`songsheet-${songsheet.id}`"
+      :trigger="`songsheet-${id}`"
       translucent
       dismiss-on-select
     >
@@ -57,68 +82,33 @@
           <ion-label>Add to Setlist…</ion-label>
         </ion-item>
         <ion-item
-          v-if="songsheet.track"
+          v-if="track"
           button
           detail
           :detail-icon="icons.artist"
-          :router-link="{ name: 'artist', params: { id: songsheet.track?.artist?.id } }"
+          :router-link="{ name: 'artist', params: { id: track?.artist?.id } }"
         >
           View Artist
         </ion-item>
         <ion-item
-          v-if="songsheet.track"
+          v-if="track"
           button
           detail
           :detail-icon="icons.album"
-          :router-link="{ name: 'album', params: { id: songsheet.track?.album?.id } }"
+          :router-link="{ name: 'album', params: { id: track?.album?.id } }"
         >
           View Album
         </ion-item>
         <share-item
           lines="none"
-          :router-link="link"
-          :title="songsheet.title"
+          :router-link="{ name: 'songsheet', params: { id } }"
+          :title="[title, subtitle].join(' - ')"
         />
       </ion-list>
     </ion-popover>
     <add-to-setlist-modal
+      :id="id"
       ref="addToSetlistModal"
-      :songsheet="songsheet"
     />
   </ion-item>
 </template>
-
-<script>
-import AddToSetlistModal from '@/components/AddToSetlistModal.vue'
-import ShareItem from '@/components/ShareItem.vue'
-import * as icons from '@/icons'
-
-export default {
-  components: { AddToSetlistModal, ShareItem },
-
-  props: {
-    songsheet: {
-      type: Object,
-      required: true
-    }
-  },
-
-  data () {
-    return {
-      icons
-    }
-  },
-
-  computed: {
-    link () {
-      return { name: 'songsheet', params: { id: this.songsheet.id } }
-    },
-
-    artist () {
-      return this.songsheet?.artists
-        ? new Intl.ListFormat().format(this.songsheet.artists.map(a => a.name))
-        : this.songsheet.metadata?.subtitle
-    }
-  }
-}
-</script>

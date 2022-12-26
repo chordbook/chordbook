@@ -31,7 +31,7 @@
               <album-item
                 v-for="album in items"
                 :key="album.id"
-                :album="album"
+                v-bind="album"
               />
             </div>
           </ion-list>

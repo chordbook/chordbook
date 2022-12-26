@@ -40,7 +40,7 @@ import LibraryPlaceholder from '@/components/LibraryPlaceholder.vue'
             <artist-item
               v-for="artist in items"
               :key="artist.id"
-              :artist="artist"
+              v-bind="artist"
             />
           </ion-list>
         </template>

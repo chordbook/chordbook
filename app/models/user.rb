@@ -48,6 +48,10 @@ class User < ApplicationRecord
     )
   end
 
+  def recently_played
+    Songsheet.played_by(self)
+  end
+
   private
 
   DEFAULT_SETLISTS = [

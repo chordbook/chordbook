@@ -1,23 +1,48 @@
 <script setup>
 import { logoGithub, handLeft, cashOutline } from 'ionicons/icons'
 import ColorizedImg from '@/components/ColorizedImg.vue'
+import { useFetch } from '@/client'
+import ModelList from '../components/ModelList.vue'
+import useAuthStore from '@/stores/auth'
+
+const auth = useAuthStore()
+const { data } = useFetch('home').json()
 </script>
 
 <template>
   <app-view>
     <ion-content>
       <div
+        v-if="!auth.isAuthenticated"
         class="ion-padding bg-black text-shadow min-h-screen-1/2 shadow-inner bg-center bg-cover flex flex-col place-content-center text-center"
         style="background-image: url(https://images.pexels.com/photos/144428/pexels-photo-144428.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)"
       >
-        <h1 class="text-6xl sm:text-8xl text-white font-semibold">
-          Just music,<br>no
-          <span class="censored"><span>b</span><span>u</span><span>l</span><span>l</span><span>s</span><span>λ</span><span>!</span><span>τ</span></span>.
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold text-white font-semibold text-shadow-lg">
+          Play all your<br>
+          favorite songs.
         </h1>
-        <h2 class="text-base sm:text-xl md:text-2xl text-white font-normal">
-          Chord sheets and tab for guitar and ukulele.<br>
-          Made for and by amateur musicians.
-        </h2>
+      </div>
+      <div
+        v-for="section in data"
+        :key="section.name"
+        class="ion-padding"
+      >
+        <ion-list-header>
+          <ion-label class="text-2xl">
+            {{ section.name }}
+          </ion-label>
+          <ion-button
+            v-if="section.href"
+            :router-link="section.href"
+          >
+            See All
+          </ion-button>
+        </ion-list-header>
+
+        <model-list
+          :items="section.items"
+          :format="section.format"
+        />
       </div>
 
       <div
@@ -25,8 +50,8 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
         class="lg:px-8"
       >
         <div class="text-center mt-10 sm:mt-20 ion-padding">
-          <h2 class="ion-margin text-4xl sm:text-5xl">
-            Let's play music better, together.
+          <h2 class="ion-margin text-4xl sm:text-5xl md:text-6xl font-bold">
+            Help us make music better.
           </h2>
           <p class="text-xl sm:text-2xl max-w-4xl mx-auto text-muted">
             Chord Book is made by amateur musicians and volunteers. Here's how you can lend your talent, time, or money to help make it even better…
@@ -49,7 +74,7 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
                 Volunteer to be an editor and get full access to add new charts or make corrections to existing ones.
               </p>
             </ion-card-content>
-            <p class="text-center">
+            <p class="text-center mb-4">
               <ion-button
                 class="w-40"
                 href="mailto:help@chordbook.app?subject=I'd%20like%20to%20volunteer"
@@ -76,7 +101,7 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
                 Show your appreciation and support the costs of building and running the app.
               </p>
             </ion-card-content>
-            <p class="text-center">
+            <p class="text-center mb-4">
               <ion-button
                 class="w-40"
                 href="https://www.patreon.com/chordbook"
@@ -104,7 +129,7 @@ import ColorizedImg from '@/components/ColorizedImg.vue'
                 This app is open source! Help us fix bugs, improve features, and make progress on our <a href="https://github.com/bkeepers/chordbook/projects/1">roadmap</a>.
               </p>
             </ion-card-content>
-            <p class="text-center">
+            <p class="text-center mb-4">
               <ion-button
                 class="w-40"
                 href="https://github.com/bkeepers/chordbook"

@@ -142,7 +142,7 @@ async function destroy () {
                   </ion-item-option>
                 </ion-item-options>
 
-                <songsheet-item :songsheet="songsheet">
+                <songsheet-item v-bind="songsheet">
                   <!-- <ion-reorder slot="end"></ion-reorder> -->
                 </songsheet-item>
               </ion-item-sliding>

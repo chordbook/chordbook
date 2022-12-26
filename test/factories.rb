@@ -53,4 +53,23 @@ FactoryBot.define do
   factory :access_token do
     user
   end
+
+  factory :visit, class: "Ahoy::Visit" do
+    user
+  end
+
+  factory :event, class: "Ahoy::Event" do
+    visit
+    user { visit.user }
+    time { Time.now }
+
+    trait :play do
+      transient do
+        songsheet { build(:songsheet) }
+      end
+
+      name { "play" }
+      properties { {songsheet_id: songsheet.id} }
+    end
+  end
 end

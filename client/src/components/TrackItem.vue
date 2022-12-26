@@ -1,23 +1,53 @@
+<script setup>
+import { defineProps } from 'vue'
+import * as icons from '@/icons'
+import ShareItem from '@/components/ShareItem.vue'
+
+defineProps({
+  id: {
+    type: String,
+    required: true
+  },
+  album: {
+    type: Object,
+    required: true
+  },
+  artist: {
+    type: Object,
+    required: true
+  },
+  title: {
+    type: String,
+    required: true
+  },
+  // eslint-disable-next-line vue/prop-name-casing
+  has_songsheet: {
+    type: Boolean,
+    default: false
+  }
+})
+</script>
+
 <template>
   <ion-item
     button
-    :router-link="link"
+    :router-link="{ name: 'track', params: { id: id } }"
     detail="false"
-    :class="{ 'opacity-40 hover:opacity-100 transition-opacity': !track.has_songsheet }"
+    :class="{ 'opacity-40 hover:opacity-100 transition-opacity': !has_songsheet }"
   >
     <ion-avatar slot="start">
       <img
-        :src="track.album?.cover.small"
+        :src="album?.cover.small"
         class="rounded"
       >
     </ion-avatar>
     <ion-label>
-      <h2>{{ track.title }}</h2>
-      <p>{{ track.artist.name }}</p>
+      <h2>{{ title }}</h2>
+      <p>{{ artist.name }}</p>
     </ion-label>
 
     <ion-button
-      :id="`track-${track.id}`"
+      :id="`track-${id}`"
       slot="end"
       fill="clear"
       color="medium"
@@ -31,7 +61,7 @@
       />
     </ion-button>
     <ion-popover
-      :trigger="`track-${track.id}`"
+      :trigger="`track-${id}`"
       side="bottom"
       alignment="end"
       translucent
@@ -40,9 +70,9 @@
     >
       <ion-list lines="full">
         <ion-item
-          v-if="!track.has_songsheet"
+          v-if="!has_songsheet"
           button
-          :router-link="{ name: 'songsheet.new', query: { track: track.id }}"
+          :router-link="{ name: 'songsheet.new', query: { track: id }}"
         >
           Create Songsheet
         </ion-item>
@@ -50,40 +80,25 @@
           button
           detail
           :detail-icon="icons.artist"
-          :router-link="{ name: 'artist', params: { id: track.artist?.id } }"
+          :router-link="{ name: 'artist', params: { id: artist?.id } }"
         >
           View Artist
         </ion-item>
         <ion-item
-          v-if="track.album"
+          v-if="album"
           button
           detail
           :detail-icon="icons.album"
-          :router-link="{ name: 'album', params: { id: track.album.id } }"
+          :router-link="{ name: 'album', params: { id: album.id } }"
         >
           View Album
         </ion-item>
         <share-item
           lines="none"
           :router-link="link"
-          :title="track.title"
+          :title="title"
         />
       </ion-list>
     </ion-popover>
   </ion-item>
 </template>
-
-<script setup>
-import { defineProps } from 'vue'
-import * as icons from '@/icons'
-import ShareItem from '@/components/ShareItem.vue'
-
-const props = defineProps({
-  track: {
-    type: Object,
-    required: true
-  }
-})
-
-const link = { name: 'track', params: { id: props.track.id } }
-</script>
