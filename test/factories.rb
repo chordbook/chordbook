@@ -69,7 +69,7 @@ FactoryBot.define do
       end
 
       name { "view" }
-      properties { { id: record.id, type: record.model_name.name } }
+      properties { {id: record.id, type: record.model_name.name} }
     end
   end
 end
