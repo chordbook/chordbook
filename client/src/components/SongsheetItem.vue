@@ -107,8 +107,8 @@ defineProps({
       </ion-list>
     </ion-popover>
     <add-to-setlist-modal
-      ref="addToSetlistModal"
       :id="id"
+      ref="addToSetlistModal"
     />
   </ion-item>
 </template>

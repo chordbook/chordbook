@@ -88,7 +88,11 @@ defineProps({
               </ion-button>
             </ion-list-header>
 
-            <model-list :items="albums" format="card" :show-artist="false" />
+            <model-list
+              :items="albums"
+              format="card"
+              :show-artist="false"
+            />
           </ion-list>
         </data-source>
 

@@ -92,7 +92,10 @@
           v-slot="{ data }"
           src="discover"
         >
-          <model-list :items="data?.setlists" format="card" />
+          <model-list
+            :items="data?.setlists"
+            format="card"
+          />
         </data-source>
         <GenreListView />
       </div>

@@ -66,7 +66,10 @@ defineProps({
             v-slot="{ data }"
             :src="`genres/${id}/artists`"
           >
-            <model-list :items="data" format="card" />
+            <model-list
+              :items="data"
+              format="card"
+            />
           </data-source>
         </ion-list>
 
@@ -82,7 +85,10 @@ defineProps({
             v-slot="{ data }"
             :src="`genres/${id}/albums`"
           >
-            <model-list :items="data" format="card" />
+            <model-list
+              :items="data"
+              format="card"
+            />
           </data-source>
         </ion-list>
       </ion-content>
