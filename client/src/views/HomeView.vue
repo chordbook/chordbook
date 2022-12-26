@@ -1,12 +1,10 @@
 <script setup>
 import { logoGithub, handLeft, cashOutline } from 'ionicons/icons'
 import ColorizedImg from '@/components/ColorizedImg.vue'
-import { useFetch } from '@/client'
 import ModelList from '../components/ModelList.vue'
 import useAuthStore from '@/stores/auth'
 
 const auth = useAuthStore()
-const { data } = useFetch('home').json()
 </script>
 
 <template>
@@ -22,28 +20,35 @@ const { data } = useFetch('home').json()
           favorite songs.
         </h1>
       </div>
-      <div
-        v-for="section in data"
-        :key="section.name"
-        class="ion-padding"
-      >
-        <ion-list-header>
-          <ion-label class="text-2xl">
-            {{ section.name }}
-          </ion-label>
-          <ion-button
-            v-if="section.href"
-            :router-link="section.href"
+      <loading>
+        <data-source
+          v-slot="{ data }"
+          src="home"
+        >
+          <div
+            v-for="section in data"
+            :key="section.name"
+            class="ion-padding"
           >
-            See All
-          </ion-button>
-        </ion-list-header>
+            <ion-list-header>
+              <ion-label class="text-2xl">
+                {{ section.name }}
+              </ion-label>
+              <ion-button
+                v-if="section.href"
+                :router-link="section.href"
+              >
+                See All
+              </ion-button>
+            </ion-list-header>
 
-        <model-list
-          :items="section.items"
-          :format="section.format"
-        />
-      </div>
+            <model-list
+              :items="section.items"
+              :format="section.format"
+            />
+          </div>
+        </data-source>
+      </loading>
 
       <div
         id="contribute"
@@ -51,7 +56,7 @@ const { data } = useFetch('home').json()
       >
         <div class="text-center mt-10 sm:mt-20 ion-padding">
           <h2 class="ion-margin text-4xl sm:text-5xl md:text-6xl font-bold">
-            Help us make music better.
+            Help us make music&nbsp;better.
           </h2>
           <p class="text-xl sm:text-2xl max-w-4xl mx-auto text-muted">
             Chord Book is made by amateur musicians and volunteers. Here's how you can lend your talent, time, or money to help make it even better…
@@ -149,18 +154,3 @@ const { data } = useFetch('home').json()
     </ion-content>
   </app-view>
 </template>
-
-<style>
-.censored {
-  @apply text-transparent
-}
-
-.censored span:nth-of-type(1)  { text-shadow: 0 0 2px rgba(255,255,255,1); }
-.censored span:nth-of-type(2)  { text-shadow: 0 0 4px rgba(255,255,255,1); }
-.censored span:nth-of-type(3)  { text-shadow: 0 0 6px rgba(255,255,255,1); }
-.censored span:nth-of-type(4)  { text-shadow: 0 0 8px rgba(255,255,255,1); }
-.censored span:nth-of-type(5)  { text-shadow: 0 0 10px rgba(255,255,255,1); }
-.censored span:nth-of-type(6)  { text-shadow: 0 0 12px rgba(255,255,255,1); }
-.censored span:nth-of-type(7)  { text-shadow: 0 0 10px rgba(255,255,255,1); }
-.censored span:nth-of-type(8)  { text-shadow: 0 0 8px rgba(255,255,255,1); }
-</style>

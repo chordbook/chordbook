@@ -2,6 +2,7 @@ class Artist < ApplicationRecord
   include AlphaPaginate
   include Metadata
   include PgSearch::Model
+  include Viewable
 
   has_paper_trail
 

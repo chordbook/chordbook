@@ -9,6 +9,7 @@ class Api::GenresController < ApiController
 
   def show
     @genre = Genre.find_by_uid(params[:id])
+    track_view @genre
     fresh_when @genre
   end
 end

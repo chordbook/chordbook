@@ -12,7 +12,7 @@ class Api::SongsheetsController < ApiController
 
   # GET /songsheets/1.json
   def show
-    ahoy.track "play", songsheet_id: @songsheet.id
+    track_view @songsheet
     fresh_when @songsheet
   end
 

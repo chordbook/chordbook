@@ -2,6 +2,7 @@ class Songsheet < ApplicationRecord
   include AlphaPaginate
   include Metadata
   include PgSearch::Model
+  include Viewable
 
   has_paper_trail
 
@@ -15,17 +16,6 @@ class Songsheet < ApplicationRecord
   scope :order_by_recent, -> { order(created_at: :desc) }
   scope :order_by_todo, -> { order(Arel.sql("track_id NULLS FIRST, updated_at ASC")) }
   scope :search_import, -> { includes(track: {album: :image_attachment}) }
-  scope :played, -> {
-    joins(
-      "JOIN (
-        SELECT uuid(ahoy_events.properties->>'songsheet_id') AS songsheet_id, user_id, MAX(time) AS time
-        FROM ahoy_events
-        GROUP BY songsheet_id, user_id
-      ) plays ON plays.songsheet_id = songsheets.id"
-    )
-      .order("plays.time DESC")
-  }
-  scope :played_by, ->(user) { played.where("plays.user_id = ?", user) }
 
   validates :title, presence: true
 

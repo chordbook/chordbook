@@ -9,12 +9,14 @@ class Api::SetlistsController < ApiController
 
   def show
     @setlist = Setlist.find_by_uid(params[:id])
+    track_view @setlist
     fresh_when @setlist
   end
 
   def create
     @setlist = current_user.owned_setlists.build(setlist_params)
     @setlist.save!
+    track_view @setlist
     render :show
   end
 

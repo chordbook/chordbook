@@ -51,4 +51,8 @@ class ApiController < ActionController::API
 
     render json: response, status: status
   end
+
+  def track_view(model, action: action_name)
+    ahoy.track "view", action: action_name, id: model.id, type: model.model_name.name
+  end
 end

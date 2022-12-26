@@ -1,4 +1,6 @@
 class Setlist < ApplicationRecord
+  include Viewable
+
   has_paper_trail
 
   belongs_to :user

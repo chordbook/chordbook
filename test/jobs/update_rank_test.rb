@@ -117,13 +117,7 @@ class UpdateRankTest < ActiveJob::TestCase
     times.times do |i|
       user = @users[i] ||= create(:user)
       visit = Ahoy::Visit.create! user: user
-      Ahoy::Event.create!(
-        visit: visit,
-        user: user,
-        name: "play",
-        properties: {songsheet_id: songsheet.id},
-        time: at
-      )
+      create(:event, :view, visit: visit, user: user, time: at, record: songsheet)
     end
   end
 end

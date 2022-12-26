@@ -1,6 +1,7 @@
 class Album < ApplicationRecord
   include Metadata
   include PgSearch::Model
+  include Viewable
 
   belongs_to :artist
   belongs_to :genre, optional: true
