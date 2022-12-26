@@ -1,5 +1,4 @@
 <script setup>
-import AlbumItem from '@/components/AlbumItem.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import ModelList from '@/components/ModelList.vue'
 

@@ -1,6 +1,4 @@
 <script setup>
-import ArtistCard from '@/components/ArtistCard.vue'
-import AlbumItem from '@/components/AlbumItem.vue'
 import ModelList from '@/components/ModelList.vue'
 
 defineProps({
