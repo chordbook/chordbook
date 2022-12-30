@@ -16,6 +16,19 @@ class Songsheet < ApplicationRecord
   scope :order_by_recent, -> { order(created_at: :desc) }
   scope :order_by_todo, -> { order(Arel.sql("track_id NULLS FIRST, updated_at ASC")) }
   scope :search_import, -> { includes(track: {album: :image_attachment}) }
+  scope :includes_track, -> {
+    includes(
+      track: [
+        :artist,
+        {
+          album: {
+            artist: {image_attachment: {blob: :variant_records}},
+            image_attachment: {blob: :variant_records}
+          }
+        }
+      ]
+    )
+  }
 
   validates :title, presence: true
 
