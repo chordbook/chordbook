@@ -2,7 +2,7 @@
   "name": "chords",
   "private": true,
   "dependencies": {
-    "@awesome-cordova-plugins/core": "^6.2.0",
+    "@awesome-cordova-plugins/core": "^6.3.0",
     "@awesome-cordova-plugins/insomnia": "^6.3.0",
     "@capacitor/core": "^4.6",
     "@headlessui/vue": "^1.7.7",
