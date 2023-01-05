@@ -60,7 +60,7 @@ export class Tuner {
           value: note,
           cents: this.getCents(frequency, note),
           octave: parseInt(note / 12) - 1,
-          frequency: frequency
+          frequency
         })
       }
     })

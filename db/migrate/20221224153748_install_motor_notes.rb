@@ -11,7 +11,7 @@ class InstallMotorNotes < ActiveRecord::Migration[7.0]
       t.timestamps
 
       t.index %i[author_id author_type],
-              name: 'motor_notes_author_id_author_type_index'
+        name: "motor_notes_author_id_author_type_index"
     end
 
     create_table :motor_note_tags do |t|
@@ -19,18 +19,18 @@ class InstallMotorNotes < ActiveRecord::Migration[7.0]
 
       t.timestamps
 
-      t.index 'name',
-              name: 'motor_note_tags_name_unique_index',
-              unique: true
+      t.index "name",
+        name: "motor_note_tags_name_unique_index",
+        unique: true
     end
 
     create_table :motor_note_tag_tags do |t|
-      t.references :tag, null: false, foreign_key: { to_table: :motor_note_tags }, index: true
-      t.references :note, null: false, foreign_key: { to_table: :motor_notes }, index: false
+      t.references :tag, null: false, foreign_key: {to_table: :motor_note_tags}, index: true
+      t.references :note, null: false, foreign_key: {to_table: :motor_notes}, index: false
 
       t.index %i[note_id tag_id],
-              name: 'motor_note_tags_note_id_tag_id_index',
-              unique: true
+        name: "motor_note_tags_note_id_tag_id_index",
+        unique: true
     end
 
     create_table :motor_reminders do |t|
@@ -45,13 +45,13 @@ class InstallMotorNotes < ActiveRecord::Migration[7.0]
       t.timestamps
 
       t.index %i[author_id author_type],
-              name: 'motor_reminders_author_id_author_type_index'
+        name: "motor_reminders_author_id_author_type_index"
 
       t.index %i[recipient_id recipient_type],
-              name: 'motor_reminders_recipient_id_recipient_type_index'
+        name: "motor_reminders_recipient_id_recipient_type_index"
 
       t.index %i[record_id record_type],
-              name: 'motor_reminders_record_id_record_type_index'
+        name: "motor_reminders_record_id_record_type_index"
     end
 
     create_table :motor_notifications do |t|
@@ -66,10 +66,10 @@ class InstallMotorNotes < ActiveRecord::Migration[7.0]
       t.timestamps
 
       t.index %i[recipient_id recipient_type],
-              name: 'motor_notifications_recipient_id_recipient_type_index'
+        name: "motor_notifications_recipient_id_recipient_type_index"
 
       t.index %i[record_id record_type],
-              name: 'motor_notifications_record_id_record_type_index'
+        name: "motor_notifications_record_id_record_type_index"
     end
   end
 
