@@ -19,17 +19,17 @@
     jsonpointer "^5.0.0"
     leven "^3.1.0"
 
-"@awesome-cordova-plugins/core@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/core/-/core-6.2.0.tgz#51422eb047f5f3e99fb1753eee2c457822e9f1c8"
-  integrity sha512-z5rKlTuQpLLPEIgzOmomQdoiRw5Sal2blh5CJRcjqh8ktspefbNC81Ni0MykPdV78/UlRORTHEzxugpcEcl1RQ==
+"@awesome-cordova-plugins/core@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/core/-/core-6.3.0.tgz#05460eba56c06f9dce38f573f78bc74818fda321"
+  integrity sha512-MkcWO8akZLHa2RSJEPf76Y3P9wPqh5oXE8YCzn2vnYYeNyYWYnka2pHFsgUdbXJNiS+YeveUzvw+Isweg+wynA==
   dependencies:
     "@types/cordova" latest
 
-"@awesome-cordova-plugins/insomnia@^6.2.0":
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/insomnia/-/insomnia-6.2.0.tgz#59dc443f17625c6bdc31b5c2c2270d28a2650f94"
-  integrity sha512-fQKuSIRp6m2MU6eaPbVrthmOpHwPwcPEg/BKJjr7yCp9tjxx/oMU07AMnZ+uhCQiuguNhqiC0gzEFlHt5DEE/g==
+"@awesome-cordova-plugins/insomnia@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/insomnia/-/insomnia-6.3.0.tgz#08ee2c76764ab7f04dca636c928ab91224f8295a"
+  integrity sha512-9NXrpl6SodM8dsD7oivj7FpRvKkx1n1ni/O0O7A+uDDGpasJxw9UkRwS0aahSAFEs9FOBRcuAF6aYYUJRa+WUw==
   dependencies:
     "@types/cordova" latest
 
