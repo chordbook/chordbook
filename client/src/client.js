@@ -22,7 +22,7 @@ function buildUrl ({ url, options }) {
 
 export const doFetch = createFetch({
   options: {
-    async beforeFetch (context) {
+    beforeFetch (context) {
       Object.assign(context, buildUrl(context))
       Object.assign(context, useAuthStore().beforeFetch(context))
       return context
