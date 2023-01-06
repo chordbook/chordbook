@@ -3,17 +3,29 @@ import { computed, reactive, ref, unref } from 'vue'
 import useAuthStore from '@/stores/auth'
 import LinkHeader from 'http-link-header'
 
+const BASE_URL = import.meta.env.APP_API_URL || 'https://api.chordbook.app/'
+
+// Prefix URL with base and add query parameters
+function buildUrl ({ url, options }) {
+  // The existing useFetch implementation for baseUrl does naive string
+  // concatenation instead of proper URL joining.
+  const newUrl = new URL(url, BASE_URL)
+
+  // Add support for query parameters to default useFetch implementation
+  if (options?.params) {
+    for (const [key, val] of new URLSearchParams(options.params)) {
+      newUrl.searchParams.append(key, val)
+    }
+  }
+  return { url: newUrl.toString() }
+}
+
 export const doFetch = createFetch({
   options: {
-    beforeFetch ({ options }) {
-      const auth = useAuthStore()
-
-      if (auth.isAuthenticated) {
-        options.credentials = 'include'
-        options.headers = { ...options.headers, ...auth.headers }
-
-        return { options }
-      }
+    async beforeFetch (context) {
+      Object.assign(context, buildUrl(context))
+      Object.assign(context, useAuthStore().beforeFetch(context))
+      return context
     }
   },
   fetchOptions: {
@@ -24,22 +36,8 @@ export const doFetch = createFetch({
   }
 })
 
-export const useFetch = (url, options = {}, ...args) => {
-  const fullUrl = computed(() => {
-    // Join url with base url
-    const newUrl = new URL(unref(url), import.meta.env.APP_API_URL || 'https://api.chordbook.app/')
-
-    // Add support for query parameters to default useFetch implementation
-    if (options?.params) {
-      for (const [key, val] of new URLSearchParams(options.params)) {
-        newUrl.searchParams.append(key, val)
-      }
-    }
-
-    return newUrl.toString()
-  })
-
-  return doFetch(fullUrl, options, ...args)
+export function useFetch (...args) {
+  return useAuthStore().handleExpiredToken(doFetch(...args))
 }
 
 // A paginated data source
@@ -68,7 +66,7 @@ export function useDataSource () {
   function load (src = nextSrc, params = {}) {
     const page = reactive(useFetch(unref(src), { params }).get().json())
     pages.value.push(page)
-    page.then(({ data }) => items.value.push(...Array.from(data.value)))
+    page.onFetchResponse(({ data }) => items.value.push(...Array.from(data.value)))
     return page
   }
 

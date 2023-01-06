@@ -17,11 +17,6 @@ export default defineStore('auth', () => {
   const refreshToken = useStorage('refreshToken', null)
   const isAuthenticated = computed(() => !!user.value.id)
   const ttl = computed(() => +expireAt.value - new Date())
-  const headers = computed(() => {
-    return {
-      Authorization: `Bearer ${accessToken.value}`
-    }
-  })
 
   function signUp (data, useFetchOptions = {}) {
     const fetch = useFetch('users', useFetchOptions).post(data).json()
@@ -51,11 +46,12 @@ export default defineStore('auth', () => {
     if (!refreshToken.value) return
     if (!force && ttl.value > 0) return
 
-    useFetch('authenticate')
-      .put({ refresh_token: refreshToken.value })
-      .json()
-      .then(authenticated)
-      .catch(clear)
+    const payload = { refresh_token: refreshToken.value }
+
+    // Refresh tokens are single use, so preemptively clear it
+    refreshToken.value = null
+
+    return useFetch('authenticate', { credentials: 'omit' }).put(payload).json().then(authenticated).catch(clear)
   }
 
   function clear () {
@@ -76,6 +72,30 @@ export default defineStore('auth', () => {
     timeout = setTimeout(refresh, ttl.value)
   }
 
+  function beforeFetch ({ options, ...other }) {
+    if (options.credentials !== 'omit' && accessToken.value) {
+      options.credentials = 'include'
+      options.headers = {
+        Authorization: `Bearer ${accessToken.value}`,
+        ...options.headers
+      }
+
+      return { options }
+    }
+  }
+
+  function handleExpiredToken (fetch) {
+    if (refreshToken.value) {
+      fetch.onFetchError(() => {
+        if (fetch.statusCode.value === 401) {
+          refresh(true).then(fetch.execute)
+        }
+      })
+    }
+
+    return fetch
+  }
+
   const router = useRouter()
 
   function assert () {
@@ -89,5 +109,5 @@ export default defineStore('auth', () => {
     return () => assert() && callback()
   }
 
-  return { user, isAuthenticated, headers, signUp, signIn, signOut, forgotPassword, resetPassword, refresh, assert, guard }
+  return { beforeFetch, handleExpiredToken, user, isAuthenticated, signUp, signIn, signOut, forgotPassword, resetPassword, refresh, assert, guard }
 })
