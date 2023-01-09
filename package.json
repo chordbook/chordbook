@@ -35,7 +35,7 @@
     "tinycolor2": "^1.5.1",
     "vexchords": "^1.2",
     "vite": "^4.0.3",
-    "vite-plugin-pwa": "^0.14.0",
+    "vite-plugin-pwa": "^0.14.1",
     "vite-svg-loader": "^4.0.0",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
