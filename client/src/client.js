@@ -38,11 +38,11 @@ export const doFetch = createFetch({
 })
 
 export function useFetch (url, options = {}) {
-  url = buildUrl(url, options.params)
-  const fetch = useAuthStore().handleExpiredToken(doFetch(url, options))
+  const fullUrl = buildUrl(url, options.params)
+  const fetch = useAuthStore().handleExpiredToken(doFetch(fullUrl, options))
 
   // Abort previous fetch when url changes if refetch is enabled
-  watch(url, () => unref(options.refetch) && fetch.abort())
+  watch(fullUrl, () => unref(options.refetch) && fetch.abort())
 
   return fetch
 }
