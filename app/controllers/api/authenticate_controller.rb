@@ -1,6 +1,6 @@
 class Api::AuthenticateController < ApiController
   rescue_from ActiveRecord::RecordNotFound, with: :access_denied
-  skip_before_action :authenticate!, except: :destroy
+  skip_before_action :authenticate!, :current_token, except: :destroy
 
   def create
     @user = User.authenticate!(params[:email], params[:password])

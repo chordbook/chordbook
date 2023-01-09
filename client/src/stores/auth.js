@@ -1,10 +1,8 @@
 import { defineStore } from 'pinia'
 import { useFetch } from '@/client'
 import { useStorage } from '@vueuse/core'
-import { unref, computed } from 'vue'
+import { ref, unref, computed, reactive, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
-
-let timeout = null
 
 export default defineStore('auth', () => {
   // Accepting the security trade-offs of persisting in localStorage. There is no other reasonable
@@ -16,7 +14,19 @@ export default defineStore('auth', () => {
   const expireAt = useStorage('expireAt', new Date())
   const refreshToken = useStorage('refreshToken', null)
   const isAuthenticated = computed(() => !!user.value.id)
-  const ttl = computed(() => +expireAt.value - new Date())
+  const ttl = computed(() => {
+    // 60 second jitter to reduce likelihood of multiple tabs refreshing at same time
+    const jitter = Math.round(Math.random() * 60000)
+    return +expireAt.value - new Date() - jitter
+  })
+
+  const refreshTimeout = ref(null)
+  const refreshPayload = computed(() => ({ refresh_token: refreshToken.value }))
+  const refreshFetch = reactive(useFetch('authenticate', {
+    immediate: false,
+    afterFetch: authenticated,
+    onFetchError: reset
+  }, {credentials: 'omit'}).put(refreshPayload).json())
 
   function signUp (data, useFetchOptions = {}) {
     const fetch = useFetch('users', useFetchOptions).post(data).json()
@@ -39,22 +49,16 @@ export default defineStore('auth', () => {
   }
 
   function signOut () {
-    return useFetch('authenticate', { beforeFetch: clear }).delete()
+    return useFetch('authenticate', { beforeFetch: reset }).delete()
   }
 
-  function refresh (force = false) {
-    if (!refreshToken.value) return
-    if (!force && ttl.value > 0) return
+  function refresh () {
+    if (!refreshFetch.isFetching && refreshToken.value) refreshFetch.execute(true)
 
-    const payload = { refresh_token: refreshToken.value }
-
-    // Refresh tokens are single use, so preemptively clear it
-    refreshToken.value = null
-
-    return useFetch('authenticate', { credentials: 'omit' }).put(payload).json().then(authenticated).catch(clear)
+    return refreshFetch
   }
 
-  function clear () {
+  function reset () {
     user.value = {}
     accessToken.value = null
     refreshToken.value = null
@@ -66,13 +70,9 @@ export default defineStore('auth', () => {
     expireAt.value = new Date(unref(response).headers.get('expire-at') * 1000)
     refreshToken.value = unref(response).headers.get('refresh-token')
     user.value = unref(data)
-
-    // FIXME: this won't work for multiple browser tabs. One of them will succeed with the refresh
-    clearTimeout(timeout)
-    timeout = setTimeout(refresh, ttl.value)
   }
 
-  function beforeFetch ({ options, ...other }) {
+  function beforeFetch ({ options }) {
     if (options.credentials !== 'omit' && accessToken.value) {
       options.credentials = 'include'
       options.headers = {
@@ -85,15 +85,9 @@ export default defineStore('auth', () => {
   }
 
   function handleExpiredToken (fetch) {
-    if (refreshToken.value) {
-      fetch.onFetchError(() => {
-        if (fetch.statusCode.value === 401) {
-          refresh(true).then(fetch.execute)
-        }
-      })
+    if (refreshToken.value && fetch.statusCode.value === 401) {
+      refresh().then(fetch.execute)
     }
-
-    return fetch
   }
 
   const router = useRouter()
@@ -108,6 +102,12 @@ export default defineStore('auth', () => {
   function guard (callback) {
     return () => assert() && callback()
   }
+
+  // Schedule refresh when token/ttl changes
+  watchEffect(() => {
+    clearTimeout(refreshTimeout.value)
+    refreshTimeout.value = refreshToken.value && setTimeout(refresh, ttl.value)
+  })
 
   return { beforeFetch, handleExpiredToken, user, isAuthenticated, signUp, signIn, signOut, forgotPassword, resetPassword, refresh, assert, guard }
 })

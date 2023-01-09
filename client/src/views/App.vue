@@ -18,10 +18,6 @@ import ReloadPwa from '@/components/ReloadPwa.vue'
 import AppMenu from '@/components/AppMenu.vue'
 import UserSigninModal from './UserSigninModal.vue'
 import UserSignupModal from './UserSignupModal.vue'
-import useAuthStore from '@/stores/auth'
-
-const auth = useAuthStore()
-auth.refresh()
 </script>
 
 <style scoped>
