@@ -3,6 +3,9 @@ module Authentication
 
   included do
     rescue_from JWT::DecodeError, with: :access_denied
+
+    # Make sure we have a valid token before running any action
+    before_action :current_token
   end
 
   private
@@ -22,10 +25,9 @@ module Authentication
   alias_method :authenticate!, :current_token!
 
   # Same as `#current_token!`, but returns nil if user is not authenticated
+  # It will still raise an error if the token is invalid
   def current_token
-    current_token!
-  rescue JWT::DecodeError, ActiveRecord::RecordNotFound
-    nil
+    current_token! if encoded_token
   end
 
   # Return `User` identified by current token. Raises same errors as `#current_token!`

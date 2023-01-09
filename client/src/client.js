@@ -1,19 +1,32 @@
 import { createFetch } from '@vueuse/core'
-import { computed, reactive, ref, unref } from 'vue'
+import { computed, reactive, unref, watch } from 'vue'
 import useAuthStore from '@/stores/auth'
 import LinkHeader from 'http-link-header'
 
+const BASE_URL = import.meta.env.APP_API_URL || 'https://api.chordbook.app/'
+
+// Prefix URL with base and add query parameters
+function buildUrl (url, params) {
+  return computed(() => {
+    // The existing useFetch implementation for baseUrl does naive string
+    // concatenation instead of proper URL joining.
+    const newUrl = new URL(unref(url), BASE_URL)
+
+    // Add support for query parameters to default useFetch implementation
+    if (params) {
+      for (const [key, val] of new URLSearchParams(unref(params))) {
+        newUrl.searchParams.append(key, val)
+      }
+    }
+
+    return newUrl.toString()
+  })
+}
+
 export const doFetch = createFetch({
   options: {
-    beforeFetch ({ options }) {
-      const auth = useAuthStore()
-
-      if (auth.isAuthenticated) {
-        options.credentials = 'include'
-        options.headers = { ...options.headers, ...auth.headers }
-
-        return { options }
-      }
+    beforeFetch (context) {
+      return useAuthStore().beforeFetch(context)
     }
   },
   fetchOptions: {
@@ -24,30 +37,22 @@ export const doFetch = createFetch({
   }
 })
 
-export const useFetch = (url, options = {}, ...args) => {
-  const fullUrl = computed(() => {
-    // Join url with base url
-    const newUrl = new URL(unref(url), import.meta.env.APP_API_URL || 'https://api.chordbook.app/')
+export function useFetch (url, options = {}) {
+  const fullUrl = buildUrl(url, options.params)
+  const fetch = useAuthStore().handleExpiredToken(doFetch(fullUrl, options))
 
-    // Add support for query parameters to default useFetch implementation
-    if (options?.params) {
-      for (const [key, val] of new URLSearchParams(options.params)) {
-        newUrl.searchParams.append(key, val)
-      }
-    }
+  // Abort previous fetch when url changes if refetch is enabled
+  watch(fullUrl, () => unref(options.refetch) && fetch.abort())
 
-    return newUrl.toString()
-  })
-
-  return doFetch(fullUrl, options, ...args)
+  return fetch
 }
 
 // A paginated data source
 export function useDataSource () {
-  const pages = ref([])
-  const items = ref([])
+  const pages = reactive([])
+  const items = reactive([])
 
-  const lastPage = computed(() => pages.value.slice(-1)[0])
+  const lastPage = computed(() => pages.slice(-1)[0])
   const nextSrc = computed(() => {
     if (isDisabled.value) return
 
@@ -60,17 +65,25 @@ export function useDataSource () {
     return false
   })
   const isDisabled = computed(() => !lastPage.value || lastPage.value.isFetching)
+  const isFetching = computed(() => pages.some(page => page.isFetching))
   const isEmpty = computed(() => {
-    const page = pages.value[0]
-    return page?.isFinished && !page.error && items.value.length === 0
+    const page = pages[0]
+    return page?.isFinished && !page.error && page.data.length === 0
   })
 
-  function load (src = nextSrc, params = {}) {
-    const page = reactive(useFetch(unref(src), { params }).get().json())
-    pages.value.push(page)
-    page.then(({ data }) => items.value.push(...Array.from(data.value)))
+  function load (src = nextSrc.value, options = {}) {
+    const page = useFetch(src, {
+      ...options,
+      afterFetch (page) {
+        items.push(...Array.from(page.data))
+
+        pages.indexOf()
+      }
+    }).get().json()
+
+    pages.push(page)
     return page
   }
 
-  return { items, pages, load, isDisabled, isEmpty }
+  return { items, pages, load, isFetching, isDisabled, isEmpty }
 }
