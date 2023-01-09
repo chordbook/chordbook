@@ -24,7 +24,7 @@
     "get-youtube-id": "^1.0",
     "http-link-header": "^1.1.0",
     "pinia": "^2.0.28",
-    "postcss": "^8.4.20",
+    "postcss": "^8.4.21",
     "postcss-import": "^15.1.0",
     "pwa-asset-generator": "^6.2.0",
     "rollup-plugin-string": "^3.0",
