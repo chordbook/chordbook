@@ -24,7 +24,13 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     assert_response 401
   end
 
-  test "home with invalid token" do
+  test "home with invalidated token" do
+    token = create(:access_token, invalidated_at: 1.second.ago)
+    get "/home.json", headers: token.request_headers
+    assert_response 401
+  end
+
+  test "home with bogus token" do
     get "/home.json", headers: {Authorization: "Bearer invalid"}
     assert_response 401
   end
