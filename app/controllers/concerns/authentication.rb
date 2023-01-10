@@ -2,7 +2,7 @@ module Authentication
   extend ActiveSupport::Concern
 
   included do
-    rescue_from JWT::DecodeError, with: :access_denied
+    rescue_from AccessToken::Invalid, JWT::DecodeError, with: :access_denied
 
     # Make sure we have a valid token before running any action
     before_action :current_token

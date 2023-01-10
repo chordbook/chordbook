@@ -1,4 +1,7 @@
 class AccessToken < ApplicationRecord
+  # Module to tag errors with
+  module Invalid; end
+
   # Signing secret derived from secret_key_base
   class_attribute :secret, default: Rails.application.key_generator.generate_key("access_token")
 
@@ -38,6 +41,10 @@ class AccessToken < ApplicationRecord
 
   def self.validate(token)
     valid.find_by! jti: decode(token).fetch("jti")
+  rescue ActiveRecord::RecordNotFound => e
+    # Tag error to make it rescuable
+    e.extend Invalid
+    raise e
   end
 
   def self.decode(token, verify = true)
