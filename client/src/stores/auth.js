@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { useFetch } from '@/client'
 import { useStorage } from '@vueuse/core'
-import { ref, unref, computed, reactive, watchEffect } from 'vue'
+import { unref, computed, reactive, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import console from '@/console'
 
@@ -15,13 +15,7 @@ export default defineStore('auth', () => {
   const expireAt = useStorage('expireAt', new Date())
   const refreshToken = useStorage('refreshToken', null)
   const isAuthenticated = computed(() => !!user.value.id)
-  const ttl = computed(() => {
-    // 5% random jitter to reduce likelihood of multiple tabs refreshing at same time
-    const jitter = 1 - (Math.random() * 0.05)
-    return (+expireAt.value - new Date()) * jitter
-  })
 
-  const refreshTimeout = ref(null)
   const refreshPayload = computed(() => ({ refresh_token: refreshToken.value }))
   const refreshFetch = reactive(useFetch('authenticate', { credentials: 'omit' }, {
     immediate: false,
@@ -53,6 +47,10 @@ export default defineStore('auth', () => {
     return useFetch('authenticate', { beforeFetch: reset }).delete()
   }
 
+  function needsRefresh () {
+    return expireAt.value - new Date() < 1000 // 1 second grace period
+  }
+
   function refresh () {
     if (!refreshFetch.isFetching && refreshToken.value) {
       console.log('auth: refreshing token')
@@ -80,8 +78,13 @@ export default defineStore('auth', () => {
     console.debug('auth: authenticated', unref(data))
   }
 
-  function beforeFetch ({ url, options }) {
+  async function beforeFetch ({ url, options }) {
     if (options.credentials !== 'omit' && accessToken.value) {
+      if (needsRefresh()) {
+        console.debug('auth: token is expired, refreshing before fetch', { url, options })
+        await refresh()
+      }
+
       console.debug('auth: adding credentials to request', { url, options, expireAt: expireAt.value })
       options.credentials = 'include'
       options.headers = {
@@ -95,7 +98,7 @@ export default defineStore('auth', () => {
 
   function handleExpiredToken (fetch) {
     if (refreshToken.value && fetch.statusCode.value === 401) {
-      console.warn('auth: token expired, trying to refresh')
+      console.warn('auth: token is invalid, trying to refresh')
       refresh().then(() => {
         console.info('auth: token refreshed, retrying', fetch.response.value.url)
         fetch.execute()
@@ -116,15 +119,8 @@ export default defineStore('auth', () => {
     return () => assert() && callback()
   }
 
-  // Schedule refresh when token/ttl changes
-  watchEffect(() => {
-    console.debug('auth: setting timeout for refresh', {
-      expireAt: expireAt.value,
-      setTimeout: new Date(+new Date() + ttl.value)
-    })
-    clearTimeout(refreshTimeout.value)
-    refreshTimeout.value = refreshToken.value && setTimeout(refresh, ttl.value)
-  })
+  // Abort refresh if refreshed from another tab
+  watch(refreshToken, () => refreshFetch.isFetching && refreshFetch.abort())
 
   return { beforeFetch, handleExpiredToken, user, isAuthenticated, signUp, signIn, signOut, forgotPassword, resetPassword, refresh, assert, guard }
 })
