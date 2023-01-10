@@ -20,7 +20,12 @@ export default defineStore('auth', () => {
   const refreshFetch = reactive(useFetch('authenticate', { credentials: 'omit' }, {
     immediate: false,
     afterFetch: authenticated,
-    onFetchError: reset
+    onFetchError: ({ error, response }) => {
+      if (response?.status === 401) {
+        console.error('auth: failed to refresh token', error)
+        reset()
+      }
+    }
   }).put(refreshPayload).json())
 
   function signUp (data, useFetchOptions = {}) {
