@@ -3,6 +3,7 @@ import { useFetch } from '@/client'
 import { useStorage } from '@vueuse/core'
 import { ref, unref, computed, reactive, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
+import console from '@/console'
 
 export default defineStore('auth', () => {
   // Accepting the security trade-offs of persisting in localStorage. There is no other reasonable
@@ -15,18 +16,18 @@ export default defineStore('auth', () => {
   const refreshToken = useStorage('refreshToken', null)
   const isAuthenticated = computed(() => !!user.value.id)
   const ttl = computed(() => {
-    // 60 second jitter to reduce likelihood of multiple tabs refreshing at same time
-    const jitter = Math.round(Math.random() * 60000)
-    return +expireAt.value - new Date() - jitter
+    // 5% random jitter to reduce likelihood of multiple tabs refreshing at same time
+    const jitter = 1 - (Math.random() * 0.05)
+    return (+expireAt.value - new Date()) * jitter
   })
 
   const refreshTimeout = ref(null)
   const refreshPayload = computed(() => ({ refresh_token: refreshToken.value }))
-  const refreshFetch = reactive(useFetch('authenticate', {
+  const refreshFetch = reactive(useFetch('authenticate', { credentials: 'omit' }, {
     immediate: false,
     afterFetch: authenticated,
     onFetchError: reset
-  }, {credentials: 'omit'}).put(refreshPayload).json())
+  }).put(refreshPayload).json())
 
   function signUp (data, useFetchOptions = {}) {
     const fetch = useFetch('users', useFetchOptions).post(data).json()
@@ -53,7 +54,10 @@ export default defineStore('auth', () => {
   }
 
   function refresh () {
-    if (!refreshFetch.isFetching && refreshToken.value) refreshFetch.execute(true)
+    if (!refreshFetch.isFetching && refreshToken.value) {
+      console.log('auth: refreshing token')
+      refreshFetch.execute(true)
+    }
 
     return refreshFetch
   }
@@ -63,6 +67,8 @@ export default defineStore('auth', () => {
     accessToken.value = null
     refreshToken.value = null
     expireAt.value = new Date()
+
+    console.debug('auth: reset')
   }
 
   function authenticated ({ data, response }) {
@@ -70,10 +76,13 @@ export default defineStore('auth', () => {
     expireAt.value = new Date(unref(response).headers.get('expire-at') * 1000)
     refreshToken.value = unref(response).headers.get('refresh-token')
     user.value = unref(data)
+
+    console.debug('auth: authenticated', unref(data))
   }
 
-  function beforeFetch ({ options }) {
+  function beforeFetch ({ url, options }) {
     if (options.credentials !== 'omit' && accessToken.value) {
+      console.debug('auth: adding credentials to request', { url, options, expireAt: expireAt.value })
       options.credentials = 'include'
       options.headers = {
         Authorization: `Bearer ${accessToken.value}`,
@@ -86,7 +95,11 @@ export default defineStore('auth', () => {
 
   function handleExpiredToken (fetch) {
     if (refreshToken.value && fetch.statusCode.value === 401) {
-      refresh().then(fetch.execute)
+      console.warn('auth: token expired, trying to refresh')
+      refresh().then(() => {
+        console.info('auth: token refreshed, retrying', fetch.response.value.url)
+        fetch.execute()
+      })
     }
   }
 
@@ -105,6 +118,10 @@ export default defineStore('auth', () => {
 
   // Schedule refresh when token/ttl changes
   watchEffect(() => {
+    console.debug('auth: setting timeout for refresh', {
+      expireAt: expireAt.value,
+      setTimeout: new Date(+new Date() + ttl.value)
+    })
     clearTimeout(refreshTimeout.value)
     refreshTimeout.value = refreshToken.value && setTimeout(refresh, ttl.value)
   })
