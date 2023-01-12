@@ -14,6 +14,7 @@ import { ref } from 'vue'
 const isOpen = ref(false)
 
 registerSW({
+  immediate: true,
   onOfflineReady () { isOpen.value = true }
 })
 </script>

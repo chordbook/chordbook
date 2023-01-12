@@ -4,6 +4,7 @@ import { registerRoute } from 'workbox-routing'
 import { CacheFirst, NetworkFirst } from 'workbox-strategies'
 import { ExpirationPlugin } from 'workbox-expiration'
 import { CacheableResponsePlugin } from 'workbox-cacheable-response'
+import { clientsClaim } from 'workbox-core'
 
 registerRoute(
   ({ request }) => ['script', 'style', 'image'].includes(request.destination),
@@ -28,9 +29,8 @@ registerRoute(
   })
 )
 
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting()
-})
+self.skipWaiting()
+clientsClaim()
 
 // self.__WB_MANIFEST is default injection point
 precacheAndRoute(self.__WB_MANIFEST)
