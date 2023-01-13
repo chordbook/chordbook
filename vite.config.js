@@ -30,7 +30,7 @@ export default defineConfig({
         sourcemap: true
       },
       devOptions: {
-        enabled: true,
+        enabled: !!process.env.APP_PWA,
         type: 'module',
         navigateFallback: 'index.html'
       },

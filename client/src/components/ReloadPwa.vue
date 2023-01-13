@@ -3,7 +3,7 @@ import { registerSW } from 'virtual:pwa-register'
 import { ref } from 'vue'
 import { UseOnline } from '@vueuse/components'
 
-const pwaEnabled = ref(import.meta.env.PWA || localStorage.getItem('pwa'))
+const pwaEnabled = ref(import.meta.env.APP_PWA || localStorage.getItem('pwa'))
 const offlineReady = ref(false)
 
 if (pwaEnabled.value) {
