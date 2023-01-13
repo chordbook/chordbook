@@ -13,6 +13,7 @@
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tombatossals/chords-db": "^0.5",
     "@vitejs/plugin-vue": "^4.0.0",
+    "@vueuse/components": "^9.10.0",
     "@vueuse/core": "^9.10.0",
     "@vueuse/router": "^9.10.0",
     "ace-builds": "^1.14.0",

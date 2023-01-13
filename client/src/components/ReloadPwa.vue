@@ -1,20 +1,34 @@
-<template>
-  <ion-toast
-    :is-open="isOpen"
-    message="Ready to work offline."
-    duration="2000"
-    :buttons="[{ text: 'Ok', role: 'cancel' }]"
-  />
-</template>
-
 <script setup>
 import { registerSW } from 'virtual:pwa-register'
 import { ref } from 'vue'
+import { UseOnline } from '@vueuse/components'
 
-const isOpen = ref(false)
+const pwaEnabled = ref(import.meta.env.PWA || localStorage.getItem('pwa'))
+const offlineReady = ref(false)
 
-registerSW({
-  immediate: true,
-  onOfflineReady () { isOpen.value = true }
-})
+if (pwaEnabled.value) {
+  registerSW({
+    immediate: true,
+    onOfflineReady () { offlineReady.value = true }
+  })
+}
 </script>
+
+<template>
+  <ion-toast
+    :is-open="offlineReady"
+    message="Ready to work offline."
+    duration="3000"
+    :buttons="[{ text: 'Ok', role: 'cancel' }]"
+  />
+  <UseOnline v-slot="{ isOnline }">
+    <ion-toast
+      :is-open="pwaEnabled && !isOnline"
+      :icon="offline"
+      header="It looks like you are offline"
+      message="Some functionality will be limited."
+      duration="5000"
+      :buttons="[{ text: 'Ok', role: 'cancel' }]"
+    />
+  </UseOnline>
+</template>

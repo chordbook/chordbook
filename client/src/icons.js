@@ -2,6 +2,8 @@ export {
   addOutline as save,
   albumsOutline as album,
   checkmarkOutline as saved,
+  cloudOfflineOutline as offline,
+  cloudOutline as online,
   createOutline as edit,
   ellipsisHorizontal as iosEllipsis,
   ellipsisVertical as mdEllipsis,
@@ -14,7 +16,7 @@ export {
   personCircleOutline as avatar,
   search,
   shareOutline as share,
-  trash
+  trash,
 } from 'ionicons/icons'
 
 export { default as transpose } from '@/icons/transpose.svg?url'
