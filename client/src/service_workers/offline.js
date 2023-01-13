@@ -12,17 +12,9 @@ precacheAndRoute(self.__WB_MANIFEST)
 // Assets, checks the cache first
 registerRoute(
   ({ request }) => ['script', 'style', 'image'].includes(request.destination),
-  new CacheFirst({ cacheName: 'assets' })
-)
-
-// Documents, checks the network first
-registerRoute(
-  ({ request }) => request.destination === 'document',
-  new NetworkFirst({
-    cacheName: 'documents',
-    networkTimeoutSeconds: 3,
+  new CacheFirst({
+    cacheName: 'assets',
     plugins: [
-      new ExpirationPlugin({ maxEntries: 500 }),
       new CacheableResponsePlugin({ statuses: [0, 200] })
     ]
   })
@@ -36,9 +28,7 @@ registerRoute(
     cacheName: 'api',
     plugins: [
       new ExpirationPlugin({ maxEntries: 500 }),
-      new CacheableResponsePlugin({
-        statuses: [0, 200]
-      })
+      new CacheableResponsePlugin({ statuses: [0, 200] })
     ]
   })
 )
