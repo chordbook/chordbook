@@ -9,9 +9,6 @@ import { clientsClaim } from 'workbox-core'
 // Pre-cache all generated assets
 precacheAndRoute(self.__WB_MANIFEST)
 
-// Use / for all navigation requests that are not cached
-registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html')))
-
 // Assets, checks the cache first
 registerRoute(
   ({ request }) => ['script', 'style', 'image'].includes(request.destination),
@@ -46,5 +43,9 @@ registerRoute(
   })
 )
 
+// Use / for all navigation requests that are not cached
+registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html')))
+
+// Take over and reload clients when service worker updates
 self.skipWaiting()
 clientsClaim()
