@@ -16,7 +16,7 @@ export {
   personCircleOutline as avatar,
   search,
   shareOutline as share,
-  trash,
+  trash
 } from 'ionicons/icons'
 
 export { default as transpose } from '@/icons/transpose.svg?url'
