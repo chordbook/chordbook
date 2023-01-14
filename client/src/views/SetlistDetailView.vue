@@ -20,7 +20,7 @@ const editing = ref(false)
 const songsheets = ref(null) // element ref
 
 async function reorder (e) {
-  const songsheet = songsheets.value.dataSource.items[e.detail.from]
+  const songsheet = songsheets.value.items[e.detail.from]
 
   await useFetch(`setlists/${props.id}/items/${songsheet.id}`).patch({
     item: { position: e.detail.to + 1 }
@@ -31,8 +31,8 @@ async function reorder (e) {
 
 async function remove (songsheet) {
   await useFetch(`setlists/${props.id}/items/${songsheet.id}`).delete()
-  const dataSource = songsheets.value.dataSource
-  dataSource.items.splice(dataSource.items.indexOf(songsheet), 1)
+  const items = songsheets.value.items
+  items.splice(items.indexOf(songsheet), 1)
 
   return (await toastController.create({
     message: `${songsheet.title} was removed from this setlist`,
@@ -127,7 +127,6 @@ async function destroy () {
               ref="songsheets"
               v-slot="{ items }"
               :src="`setlists/${props.id}/songsheets`"
-              paginate
             >
               <ion-item-sliding
                 v-for="songsheet in items"

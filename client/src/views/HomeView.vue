@@ -20,35 +20,34 @@ const auth = useAuthStore()
           favorite songs.
         </h1>
       </div>
-      <loading>
-        <data-source
-          v-slot="{ data }"
-          src="home"
-        >
-          <div
-            v-for="section in data"
-            :key="section.name"
-            class="ion-padding"
-          >
-            <ion-list-header>
-              <ion-label class="text-2xl">
-                {{ section.name }}
-              </ion-label>
-              <ion-button
-                v-if="section.href"
-                :router-link="section.href"
-              >
-                See All
-              </ion-button>
-            </ion-list-header>
 
-            <model-list
-              :items="section.items"
-              :format="section.format"
-            />
-          </div>
-        </data-source>
-      </loading>
+      <data-source
+        v-slot="{ data }"
+        src="home"
+      >
+        <div
+          v-for="section in data"
+          :key="section.name"
+          class="ion-padding"
+        >
+          <ion-list-header>
+            <ion-label class="text-2xl">
+              {{ section.name }}
+            </ion-label>
+            <ion-button
+              v-if="section.href"
+              :router-link="section.href"
+            >
+              See All
+            </ion-button>
+          </ion-list-header>
+
+          <model-list
+            :items="section.items"
+            :format="section.format"
+          />
+        </div>
+      </data-source>
 
       <div
         id="contribute"
