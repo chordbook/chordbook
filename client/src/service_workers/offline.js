@@ -15,6 +15,7 @@ registerRoute(
   new CacheFirst({
     cacheName: 'assets',
     plugins: [
+      new ExpirationPlugin({ maxEntries: 1000 }),
       new CacheableResponsePlugin({ statuses: [0, 200] })
     ]
   })
