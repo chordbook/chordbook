@@ -4,14 +4,17 @@ import { ref } from 'vue'
 import { UseOnline } from '@vueuse/components'
 import { offline } from '@/icons'
 
-const pwaEnabled = ref(import.meta.env.APP_PWA || localStorage.getItem('pwa'))
+const pwaEnabled = import.meta.env.APP_PWA || localStorage.getItem('pwa')
 const offlineReady = ref(false)
 
-if (pwaEnabled.value) {
+if (pwaEnabled) {
+  console.info('PWA enabled, registering service worker...')
   registerSW({
     immediate: true,
     onOfflineReady () { offlineReady.value = true }
   })
+} else {
+  console.info('PWA disabled')
 }
 </script>
 

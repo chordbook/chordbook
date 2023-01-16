@@ -10,6 +10,7 @@ export default function (app, router) {
   Sentry.init({
     app,
     dsn: SENTRY_DSN,
+    trackComponents: true,
     integrations: [
       new BrowserTracing({
         routingInstrumentation: Sentry.vueRouterInstrumentation(router),

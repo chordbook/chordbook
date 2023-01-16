@@ -58,6 +58,7 @@ const isEmpty = computed(() => {
 
 function load (params = {}) {
   const page = useFetch(src.value, {
+    immediate: false,
     params,
     afterFetch ({ data, response }) {
       items.push(...Array.from(data))
@@ -72,7 +73,7 @@ function load (params = {}) {
   }).get().json()
 
   pages.push(page)
-  return page
+  return page.execute(true) // true to throw on error
 }
 
 defineExpose({ items, pages, load, isFetching, isEmpty })
