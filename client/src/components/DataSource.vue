@@ -34,6 +34,8 @@ import { defineProps, ref, reactive, computed } from 'vue'
 import { useFetch } from '@/client'
 import LinkHeader from 'http-link-header'
 
+const emit = defineEmits(['load'])
+
 const props = defineProps({
   src: {
     type: String,
@@ -71,6 +73,10 @@ function load (params = {}) {
       }
     }
   }).get().json()
+
+  page.onFetchResponse(() => {
+    emit('load', page)
+  })
 
   pages.push(page)
   return page.execute(true) // true to throw on error

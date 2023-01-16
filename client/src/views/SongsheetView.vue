@@ -7,61 +7,24 @@ import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import AddToSetlistModal from '@/components/AddToSetlistModal.vue'
 import ShareItem from '@/components/ShareItem.vue'
 import * as icons from '@/icons'
-import { useFetch } from '@/client'
 import { modalController, onIonViewDidEnter, onIonViewWillLeave } from '@ionic/vue'
 import TunerView from '@/views/TunerView.vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import useSongsheetSettings from '@/stores/songsheet-settings'
-import { useRouter } from 'vue-router'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
-const props = defineProps({
+defineProps({
   id: {
     type: String,
     required: true
-  },
-  type: {
-    type: String,
-    default () { return 'songsheet' }
   }
 })
 
-const router = useRouter()
-const songsheet = ref({})
-const versions = ref([])
 const key = ref('C')
 const settings = useSongsheetSettings()
 
-const otherVersions = computed(() => {
-  return versions.value.filter(v => v.id !== songsheet.value.id)
-})
-
 onIonViewDidEnter(() => Insomnia.keepAwake())
 onIonViewWillLeave(() => Insomnia.allowSleepAgain())
-
-async function fetchData () {
-  if (props.type === 'songsheet') {
-    await fetchSongsheet(props.id)
-    if (songsheet.value.track) {
-      await fetchVersions(songsheet.value.track.id)
-    }
-  } else {
-    await fetchVersions(props.id)
-    if (versions.value.length > 0) {
-      fetchSongsheet(versions.value[0].id)
-    } else {
-      router.replace({ name: 'songsheet.new', params: { track: props.id } })
-    }
-  }
-}
-
-async function fetchSongsheet (id) {
-  songsheet.value = (await useFetch(`songsheets/${id}`).get().json()).data.value
-}
-
-async function fetchVersions (id) {
-  versions.value = (await useFetch(`tracks/${id}/songsheets`).get().json()).data.value
-}
 
 async function openTuner () {
   const modal = await modalController
@@ -86,145 +49,154 @@ function hostname (url) {
     return url
   }
 }
-
-fetchData()
 </script>
 
 <template>
-  <ion-page>
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button
-            text=""
-            default-href="/songsheets"
-          />
-          <ion-button
-            :id="`versions-button-${id}`"
-            :disabled="otherVersions.length == 0"
-          >
-            <ion-icon :icon="icons.list" />
-          </ion-button>
-        </ion-buttons>
-
-        <ion-buttons slot="end">
-          <ion-button :id="`settings-button-${id}`">
-            <ion-icon
-              slot="icon-only"
-              :icon="icons.transpose"
-            />
-          </ion-button>
-          <add-to-library-button
-            v-if="songsheet.id"
-            :id="songsheet.id"
-          />
-          <ion-button
-            :id="`songsheet-context-${songsheet.id}`"
-            fill="clear"
-            @click.prevent=""
-          >
-            <ion-icon
-              slot="icon-only"
-              size="small"
-              :ios="icons.iosEllipsis"
-              :md="icons.mdEllipsis"
-            />
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-
-    <song-sheet
-      v-if="songsheet.source"
-      :source="songsheet.source"
-      @update:key="(v) => key = v"
+  <app-view>
+    <data-source
+      v-slot="{ data: songsheet }"
+      :src="`songsheets/${id}`"
     >
-      <template #top>
-        <Transition name="slide-down">
-          <songsheet-media
-            v-if="settings.showPlayer"
-            :media="songsheet.media"
-          />
-        </Transition>
-      </template>
-      <template
-        v-if="songsheet.track"
-        #header
+      <ion-header translucent>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button
+              text=""
+              default-href="/songsheets"
+            />
+            <ion-button
+              :id="`versions-button-${id}`"
+              :disabled="!songsheet.track || songsheet.track.songsheets_count < 2"
+            >
+              <ion-icon
+                slot="icon-only"
+                :icon="icons.list"
+              />
+            </ion-button>
+          </ion-buttons>
+
+          <ion-buttons slot="end">
+            <ion-button :id="`settings-button-${id}`">
+              <ion-icon
+                slot="icon-only"
+                :icon="icons.transpose"
+              />
+            </ion-button>
+            <add-to-library-button
+              :id="id"
+            />
+            <ion-button
+              :id="`songsheet-context-${id}`"
+              fill="clear"
+              @click.prevent=""
+            >
+              <ion-icon
+                slot="icon-only"
+                size="small"
+                :ios="icons.iosEllipsis"
+                :md="icons.mdEllipsis"
+              />
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <song-sheet
+        v-if="songsheet.source"
+        :source="songsheet.source"
+        @update:key="(v) => key = v"
       >
-        <div class="flex gap-3 md:gap-4 items-center">
-          <div
-            v-if="songsheet.track?.album"
-            class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
-          >
-            <img :src="songsheet.track?.album.cover?.medium">
-          </div>
-
-          <div>
-            <h1 class="text-xl md:text-2xl my-1">
-              {{ songsheet.title }}
-            </h1>
-
-            <ion-label
-              v-if="songsheet.track.artist"
-              button
-              :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
-              class="block ion-activatable ion-focusable my-0"
+        <template #top>
+          <Transition name="slide-down">
+            <songsheet-media
+              v-if="settings.showPlayer"
+              :media="songsheet.media"
+            />
+          </Transition>
+        </template>
+        <template
+          v-if="songsheet.track"
+          #header
+        >
+          <div class="flex gap-3 md:gap-4 items-center">
+            <div
+              v-if="songsheet.track?.album"
+              class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
             >
-              <span class="text-muted">by </span>
-              <span class="text-teal-500">{{ songsheet.track.artist.name }}</span>
-            </ion-label>
-            <ion-label
-              v-if="songsheet.track.album"
-              button
-              :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
-              class="block ion-activatable ion-focusable truncate overflow-hidden my-1"
-            >
-              <span class="text-muted">from </span>
-              <span class="text-teal-500">{{ songsheet.track.album.title }}</span>
-            </ion-label>
-          </div>
-        </div>
-      </template>
+              <img :src="songsheet.track?.album.cover?.medium">
+            </div>
 
-      <template #footer>
-        <div class="ion-padding text-sm opacity-50 mb-8 flex gap-4">
-          <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
-          <div v-if="songsheet.imported_from">
-            Imported from
-            <a
-              target="_blank"
-              :href="songsheet.imported_from"
-              class="text-inherit no-underline"
-            >
-              {{ hostname(songsheet.imported_from) }}
-            </a>
-          </div>
-        </div>
-      </template>
-    </song-sheet>
+            <div>
+              <h1 class="text-xl md:text-2xl my-1">
+                {{ songsheet.title }}
+              </h1>
 
-    <songsheet-versions-modal
-      :trigger="`versions-button-${id}`"
-      :versions="otherVersions"
-    />
+              <ion-label
+                v-if="songsheet.track.artist"
+                button
+                :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
+                class="block ion-activatable ion-focusable my-0"
+              >
+                <span class="text-muted">by </span>
+                <span class="text-teal-500">{{ songsheet.track.artist.name }}</span>
+              </ion-label>
+              <ion-label
+                v-if="songsheet.track.album"
+                button
+                :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
+                class="block ion-activatable ion-focusable truncate overflow-hidden my-1"
+              >
+                <span class="text-muted">from </span>
+                <span class="text-teal-500">{{ songsheet.track.album.title }}</span>
+              </ion-label>
+            </div>
+          </div>
+        </template>
+
+        <template #footer>
+          <div class="ion-padding text-sm opacity-50 mb-8 flex gap-4">
+            <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
+            <div v-if="songsheet.imported_from">
+              Imported from
+              <a
+                target="_blank"
+                :href="songsheet.imported_from"
+                class="text-inherit no-underline"
+              >
+                {{ hostname(songsheet.imported_from) }}
+              </a>
+            </div>
+          </div>
+        </template>
+      </song-sheet>
+
+      <Suspense>
+        <!-- don't wait for modal to load -->
+        <songsheet-versions-modal
+          v-if="songsheet.track"
+          :id="songsheet.track?.id"
+          :trigger="`versions-button-${id}`"
+          :exclude="id"
+        />
+      </Suspense>
+    </data-source>
+
     <songsheet-settings-modal
-      :trigger="`settings-button-${id}` "
+      :trigger="`settings-button-${id}`"
       :note="key"
     />
     <add-to-setlist-modal
-      v-if="songsheet.id"
+      :id="id"
       ref="addToSetlistModal"
-      v-bind="songsheet"
     />
     <ion-popover
-      :trigger="`songsheet-context-${songsheet.id}`"
+      :trigger="`songsheet-context-${id}`"
       dismiss-on-select
     >
       <ion-list>
         <ion-item
           button
           detail
-          :router-link="{ name: 'songsheet.edit', params: { id: songsheet.id } }"
+          :router-link="{ name: 'songsheet.edit', params: { id } }"
           router-direction="replace"
           :detail-icon="icons.edit"
         >
@@ -258,7 +230,7 @@ fetchData()
         </ion-item>
         <share-item
           :title="songsheet.title"
-          :router-link="{ name: 'songsheet', params: { id: songsheet.id }}"
+          :router-link="{ name: 'songsheet', params: { id }}"
         />
         <ion-item
           button
@@ -271,5 +243,5 @@ fetchData()
         </ion-item>
       </ion-list>
     </ion-popover>
-  </ion-page>
+  </app-view>
 </template>

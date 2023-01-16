@@ -13,7 +13,6 @@ export default [
         path: '',
         redirect: '/home'
       },
-
       {
         path: '/home',
         name: 'home',
@@ -87,8 +86,8 @@ export default [
       {
         path: '/tracks/:id',
         name: 'track',
-        props: route => ({ id: route.params.id, type: 'track' }),
-        component: () => import('@/views/SongsheetView.vue')
+        props: true,
+        component: () => import('@/views/TrackView.vue')
       },
       {
         path: '/genres/:id',
@@ -146,7 +145,7 @@ export default [
   {
     path: '/songsheets/:id',
     name: 'songsheet',
-    props: route => ({ id: route.params.id, type: 'songsheet' }),
+    props: true,
     component: () => import('@/views/SongsheetView.vue'),
     meta: { selected: 'songs' }
   },
