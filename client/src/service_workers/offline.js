@@ -5,6 +5,7 @@ import { CacheFirst, NetworkFirst } from 'workbox-strategies'
 import { ExpirationPlugin } from 'workbox-expiration'
 import { CacheableResponsePlugin } from 'workbox-cacheable-response'
 import { clientsClaim } from 'workbox-core'
+import { BackgroundSyncPlugin } from 'workbox-background-sync'
 
 // Pre-cache all generated assets
 precacheAndRoute(self.__WB_MANIFEST)
@@ -16,7 +17,8 @@ registerRoute(
     cacheName: 'assets',
     plugins: [
       new ExpirationPlugin({ maxEntries: 1000 }),
-      new CacheableResponsePlugin({ statuses: [0, 200] })
+      new CacheableResponsePlugin({ statuses: [0, 200] }),
+      new BackgroundSyncPlugin('assets')
     ]
   })
 )
@@ -29,7 +31,8 @@ registerRoute(
     cacheName: 'api',
     plugins: [
       new ExpirationPlugin({ maxEntries: 500 }),
-      new CacheableResponsePlugin({ statuses: [0, 200] })
+      new CacheableResponsePlugin({ statuses: [0, 200] }),
+      new BackgroundSyncPlugin('api')
     ]
   })
 )
