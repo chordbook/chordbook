@@ -4,7 +4,8 @@ import { ref } from 'vue'
 import { UseOnline } from '@vueuse/components'
 import { offline } from '@/icons'
 
-const pwaEnabled = import.meta.env.APP_PWA || localStorage.getItem('pwa')
+const localPwa = localStorage.getItem('pwa')
+const pwaEnabled = (import.meta.env.APP_PWA || localPwa) && localPwa !== 'false'
 const offlineReady = ref(false)
 
 if (pwaEnabled) {
