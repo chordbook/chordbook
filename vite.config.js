@@ -22,11 +22,17 @@ export default defineConfig({
     vue(),
     svgLoader(),
     VitePWA({
+      strategies: 'injectManifest',
       registerType: 'autoUpdate',
-      srcDir: 'service_workers',
+      srcDir: 'src/service_workers',
       filename: 'offline.js',
       workbox: {
         sourcemap: true
+      },
+      devOptions: {
+        enabled: !!process.env.APP_PWA,
+        type: 'module',
+        navigateFallback: 'index.html'
       },
       manifest
     }),

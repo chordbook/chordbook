@@ -4,9 +4,13 @@ import { modalController } from '@ionic/vue'
 import SongsheetItem from '@/components/SongsheetItem.vue'
 
 defineProps({
-  versions: {
-    type: Array,
-    default () { return [] }
+  id: {
+    type: String,
+    required: true
+  },
+  exclude: {
+    type: String,
+    default: null
   }
 })
 </script>
@@ -32,13 +36,22 @@ defineProps({
     </ion-header>
     <ion-content>
       <ion-list>
-        <songsheet-item
-          v-for="version in versions"
-          :key="version.id"
-          v-bind="version"
-          router-direction="replace"
-          @click="modalController.dismiss()"
-        />
+        <data-source
+          v-slot="{ items }"
+          :src="`tracks/${id}/songsheets`"
+        >
+          <template
+            v-for="version in items"
+            :key="version.id"
+          >
+            <songsheet-item
+              v-if="version.id !== exclude"
+              v-bind="version"
+              router-direction="replace"
+              @click="modalController.dismiss()"
+            />
+          </template>
+        </data-source>
       </ion-list>
     </ion-content>
   </ion-modal>

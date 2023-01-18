@@ -1,36 +1,45 @@
 /* eslint-env serviceworker */
-import { precacheAndRoute } from 'workbox-precaching'
-import { registerRoute } from 'workbox-routing'
+import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching'
+import { registerRoute, NavigationRoute } from 'workbox-routing'
 import { CacheFirst, NetworkFirst } from 'workbox-strategies'
 import { ExpirationPlugin } from 'workbox-expiration'
 import { CacheableResponsePlugin } from 'workbox-cacheable-response'
+import { clientsClaim } from 'workbox-core'
+import { BackgroundSyncPlugin } from 'workbox-background-sync'
 
+// Pre-cache all generated assets
+precacheAndRoute(self.__WB_MANIFEST)
+
+// Assets, checks the cache first
 registerRoute(
   ({ request }) => ['script', 'style', 'image'].includes(request.destination),
-  new CacheFirst()
-)
-
-// Loading pages, checks the network first
-registerRoute(
-  ({ request }) => request.destination === 'document' || (
-    request.destination === '' &&
-    request.mode === 'cors'
-  ),
-  new NetworkFirst({
-    networkTimeoutSeconds: 3,
-    cacheName: 'documents',
+  new CacheFirst({
+    cacheName: 'assets',
     plugins: [
-      new ExpirationPlugin({ maxEntries: 500 }),
-      new CacheableResponsePlugin({
-        statuses: [0, 200]
-      })
+      new ExpirationPlugin({ maxEntries: 1000 }),
+      new CacheableResponsePlugin({ statuses: [0, 200] }),
+      new BackgroundSyncPlugin('assets')
     ]
   })
 )
 
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting()
-})
+// API requests, checks the network first
+registerRoute(
+  ({ request }) => request.destination === '' && request.mode === 'cors',
+  new NetworkFirst({
+    networkTimeoutSeconds: 3,
+    cacheName: 'api',
+    plugins: [
+      new ExpirationPlugin({ maxEntries: 500 }),
+      new CacheableResponsePlugin({ statuses: [0, 200] }),
+      new BackgroundSyncPlugin('api')
+    ]
+  })
+)
 
-// self.__WB_MANIFEST is default injection point
-precacheAndRoute(self.__WB_MANIFEST)
+// Use / for all navigation requests that are not cached
+registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html')))
+
+// Take over and reload clients when service worker updates
+self.skipWaiting()
+clientsClaim()

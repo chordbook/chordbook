@@ -25,7 +25,7 @@ const props = defineProps({
     default: true
   },
   released: {
-    type: Number,
+    type: [Number, null],
     required: true
   }
 })
