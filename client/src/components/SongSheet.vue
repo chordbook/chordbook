@@ -237,7 +237,8 @@ function chordSet (song) {
 
 function guessKey (song) {
   // FIXME: use intelligent key detection
-  return chordSet(song).values().next()
+  const [key] = chordSet(song)
+  return key
 }
 </script>
 
