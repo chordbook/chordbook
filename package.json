@@ -24,7 +24,7 @@
     "cordova-plugin-insomnia": "^4.3",
     "get-youtube-id": "^1.0",
     "http-link-header": "^1.1.0",
-    "pinia": "^2.0.28",
+    "pinia": "^2.0.29",
     "postcss": "^8.4.21",
     "postcss-import": "^15.1.0",
     "pwa-asset-generator": "^6.2.0",
