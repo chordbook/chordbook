@@ -178,70 +178,70 @@ function hostname (url) {
           :exclude="id"
         />
       </Suspense>
-    </data-source>
 
-    <songsheet-settings-modal
-      :trigger="`settings-button-${id}`"
-      :note="key"
-    />
-    <add-to-setlist-modal
-      :id="id"
-      ref="addToSetlistModal"
-    />
-    <ion-popover
-      :trigger="`songsheet-context-${id}`"
-      dismiss-on-select
-    >
-      <ion-list>
-        <ion-item
-          button
-          detail
-          :router-link="{ name: 'songsheet.edit', params: { id } }"
-          router-direction="replace"
-          :detail-icon="icons.edit"
-        >
-          <ion-label>Edit</ion-label>
-        </ion-item>
-        <ion-item
-          button
-          detail
-          :detail-icon="icons.setlist"
-          @click="$refs.addToSetlistModal.$el.present()"
-        >
-          <ion-label>Add to Setlist…</ion-label>
-        </ion-item>
-        <ion-item
-          v-if="songsheet.track?.artist"
-          button
-          detail
-          :detail-icon="icons.artist"
-          :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
-        >
-          View Artist
-        </ion-item>
-        <ion-item
-          v-if="songsheet.track?.album"
-          button
-          detail
-          :detail-icon="icons.album"
-          :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
-        >
-          View Album
-        </ion-item>
-        <share-item
-          :title="songsheet.title"
-          :router-link="{ name: 'songsheet', params: { id }}"
-        />
-        <ion-item
-          button
-          detail
-          :detail-icon="icons.tuningFork"
-          lines="none"
-          @click="openTuner"
-        >
-          Tuner
-        </ion-item>
-      </ion-list>
-    </ion-popover>
+      <songsheet-settings-modal
+        :trigger="`settings-button-${id}`"
+        :note="key"
+      />
+      <add-to-setlist-modal
+        :id="id"
+        ref="addToSetlistModal"
+      />
+      <ion-popover
+        :trigger="`songsheet-context-${id}`"
+        dismiss-on-select
+      >
+        <ion-list>
+          <ion-item
+            button
+            detail
+            :router-link="{ name: 'songsheet.edit', params: { id } }"
+            router-direction="replace"
+            :detail-icon="icons.edit"
+          >
+            <ion-label>Edit</ion-label>
+          </ion-item>
+          <ion-item
+            button
+            detail
+            :detail-icon="icons.setlist"
+            @click="$refs.addToSetlistModal.$el.present()"
+          >
+            <ion-label>Add to Setlist…</ion-label>
+          </ion-item>
+          <ion-item
+            v-if="songsheet.track?.artist"
+            button
+            detail
+            :detail-icon="icons.artist"
+            :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
+          >
+            View Artist
+          </ion-item>
+          <ion-item
+            v-if="songsheet.track?.album"
+            button
+            detail
+            :detail-icon="icons.album"
+            :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
+          >
+            View Album
+          </ion-item>
+          <share-item
+            :title="songsheet.title"
+            :router-link="{ name: 'songsheet', params: { id }}"
+          />
+          <ion-item
+            button
+            detail
+            :detail-icon="icons.tuningFork"
+            lines="none"
+            @click="openTuner"
+          >
+            Tuner
+          </ion-item>
+        </ion-list>
+      </ion-popover>
+    </data-source>
   </app-view>
 </template>
