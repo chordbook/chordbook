@@ -35,6 +35,9 @@ gem "image_processing"
 gem "aws-sdk-s3"
 gem "sentry-ruby"
 gem "sentry-rails"
+gem "flipper"
+gem "flipper-active_record"
+gem "flipper-cloud"
 
 group :development, :test do
   gem "debug"

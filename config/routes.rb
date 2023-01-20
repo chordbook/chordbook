@@ -34,6 +34,8 @@ Rails.application.routes.draw do
       resources :songsheets, only: [:index]
       resources :items, controller: :setlist_items
     end
+
+    resource :flipper, controller: "flipper", only: [:show]
   end
 
   resources :sitemaps
