@@ -1,15 +1,19 @@
 <script setup>
 import { registerSW } from 'virtual:pwa-register'
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, computed } from 'vue'
 import { UseOnline } from '@vueuse/components'
 import { offline } from '@/icons'
 import { useFlipper } from '@/useFlipper'
+import { useTimeout } from '@vueuse/core'
 
 const pwaEnabled = useFlipper('pwa').isEnabled
 const installPromptEnabled = useFlipper('installPrompt').isEnabled
 
 const offlineReady = ref(false)
 const installPrompt = ref(null)
+const showInstallPrompt = computed(() => {
+  installPrompt.value && installPromptEnabled.value && useTimeout(60 * 1000) // 60 second delay
+})
 
 watchEffect(() => {
   if (!pwaEnabled.value) return
@@ -48,9 +52,8 @@ function addToHomeScreen (e) {
     :buttons="[{ text: 'Ok', role: 'cancel' }]"
   />
   <ion-toast
-    :is-open="installPrompt && installPromptEnabled"
+    :is-open="showInstallPrompt"
     message="Add to home screen?"
-    position="top"
     :buttons="[
       { text: 'Not Now', role: 'cancel' },
       { text: 'Add', handler: addToHomeScreen }
