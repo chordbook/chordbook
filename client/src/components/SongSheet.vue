@@ -1,12 +1,96 @@
+<script setup>
+import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
+import SongSheetComment from '@/components/SongSheetComment.vue'
+import ChordDiagram from '@/components/ChordDiagram.vue'
+
+import { ref, computed, watch, onMounted, onUpdated } from 'vue'
+import detectFormat from '@/lib/detect_format'
+import useSongsheetSettingsStore from '@/stores/songsheet-settings'
+import arrify from 'arrify'
+
+const emit = defineEmits(['update:key', 'parse', 'error'])
+
+const props = defineProps({
+  source: {
+    type: String,
+    default: null
+  }
+})
+
+const output = ref(null) // template ref
+const columnWidth = ref(0)
+const settings = useSongsheetSettingsStore()
+const format = computed(() => detectFormat(props.source))
+
+const parsedSong = computed(() => {
+  try {
+    // FIXME: somehow \r is getting added by Ace
+    const song = format.value?.parse(props.source.replace(/\r\n/gm, '\n'))
+    return song.key ? song : song.setKey(guessKey(song))
+  } catch (error) {
+    console.error(error)
+    emit('error', error)
+    return null
+  }
+})
+
+const song = computed(() => parsedSong.value?.transpose(settings.transpose))
+const chords = computed(() => chordSet(song.value))
+const key = computed(() => song.value?.key)
+
+watch(() => settings.columns, updateColumnWidth)
+watch(key, key => emit('update:key', key), { immediate: true })
+watch(song, song => emit('parse', song), { immediate: true })
+
+onMounted(updateColumnWidth)
+onUpdated(updateColumnWidth)
+
+function componentFor (item) {
+  return [ChordLyricsPair, SongSheetComment].find(c => c.for(item))
+}
+
+function updateColumnWidth () {
+  if (!output.value) return
+
+  output.value.classList.add('content-width')
+  requestAnimationFrame(() => {
+    columnWidth.value = output.value.offsetWidth + 'px'
+    output.value.classList.remove('content-width')
+  })
+}
+
+function formatArray (args) {
+  return new Intl.ListFormat().format(arrify(args))
+}
+
+function chordSet (song) {
+  const chords = new Set()
+
+  song.lines.forEach(line => {
+    line.items.forEach(pair => {
+      if (pair.chords) chords.add(pair.chords)
+    })
+  })
+
+  return chords
+}
+
+function guessKey (song) {
+  // FIXME: use intelligent key detection
+  const [key] = chordSet(song)
+  return key
+}
+</script>
+
 <template>
   <ion-content
     v-if="song"
-    :scroll-y="columns == 1"
-    :scroll-x="columns == 2"
+    :scroll-y="settings.columns == 1"
+    :scroll-x="settings.columns == 2"
     fullscreen
   >
     <slot name="top" />
-    <div :class="'ion-padding ' + (columns == 1 ? 'single-column' : 'horizontal-columns')">
+    <div :class="'ion-padding ' + (settings.columns == 1 ? 'single-column' : 'horizontal-columns')">
       <!-- Hidden sprite of chord diagrams -->
       <svg
         hidden
@@ -14,9 +98,9 @@
       >
         <chord-diagram
           v-for="chord in chords"
-          :key="chord + instrument"
+          :key="chord + settings.instrument"
           :name="chord"
-          :instrument="instrument"
+          :instrument="settings.instrument"
         />
       </svg>
 
@@ -80,7 +164,7 @@
     <slot name="footer" />
   </ion-content>
   <ion-footer
-    v-if="showChords"
+    v-if="settings.showChords"
     translucent
   >
     <ion-toolbar translucent>
@@ -109,138 +193,6 @@
     </ion-toolbar>
   </ion-footer>
 </template>
-
-<script>
-import detectFormat from '@/lib/detect_format'
-import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
-import SongSheetComment from '@/components/SongSheetComment.vue'
-import ChordDiagram from '@/components/ChordDiagram.vue'
-import arrify from 'arrify'
-import useSongsheetSettingsStore from '@/stores/songsheet-settings'
-import { mapState } from 'pinia'
-
-export default {
-  components: { ChordLyricsPair, SongSheetComment, ChordDiagram },
-
-  props: {
-    source: {
-      type: String,
-      default: null
-    }
-  },
-
-  emits: ['update:key', 'parse', 'error'],
-
-  data () {
-    return {
-      columnWidth: 0
-    }
-  },
-
-  computed: {
-    ...mapState(useSongsheetSettingsStore, ['transpose', 'showChords', 'instrument', 'columns']),
-
-    format () {
-      return detectFormat(this.source)
-    },
-
-    parsedSong () {
-      try {
-        // FIXME: somehow \r is getting added by Ace
-        const song = this.format?.parse(this.source.replace(/\r\n/gm, '\n'))
-        return song.key ? song : song.setKey(guessKey(song))
-      } catch (error) {
-        console.error(error)
-        this.$emit('error', error)
-        return null
-      }
-    },
-
-    song () {
-      return this.parsedSong.transpose(this.transpose)
-    },
-
-    chords () {
-      return chordSet(this.song)
-    },
-
-    key () {
-      return this.parsedSong.key
-    }
-  },
-
-  watch: {
-    columns () {
-      this.updateColumnWidth()
-    },
-
-    key: {
-      immediate: true,
-      handler (key) {
-        this.$emit('update:key', key)
-      }
-    },
-
-    song: {
-      immediate: true,
-      handler (song) {
-        this.$emit('parse', song)
-      }
-    }
-  },
-
-  mounted () {
-    this.updateColumnWidth()
-  },
-
-  updated () {
-    this.updateColumnWidth()
-  },
-
-  methods: {
-    componentFor (item) {
-      return [ChordLyricsPair, SongSheetComment].find(c => c.for(item))
-    },
-
-    updateColumnWidth () {
-      const output = this.$refs.output
-      if (!output) return
-
-      output.classList.add('content-width')
-      requestAnimationFrame(() => {
-        this.columnWidth = output.offsetWidth + 'px'
-        output.classList.remove('content-width')
-      })
-    },
-
-    toggleTuner () {
-      this.showTuner = !this.showTuner
-    },
-
-    formatArray (args) {
-      return new Intl.ListFormat().format(arrify(args))
-    }
-  }
-}
-
-function chordSet (song) {
-  const chords = new Set()
-
-  song.lines.forEach(line => {
-    line.items.forEach(pair => {
-      if (pair.chords) chords.add(pair.chords)
-    })
-  })
-
-  return chords
-}
-
-function guessKey (song) {
-  // FIXME: use intelligent key detection
-  const [key] = chordSet(song)
-  return key
-}
-</script>
 
 <style>
 .horizontal-columns {
