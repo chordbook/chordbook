@@ -35,7 +35,7 @@ Rails.application.routes.draw do
       resources :items, controller: :setlist_items
     end
 
-    resources :flipper, controller: "flipper", param: "feature", only: [:show]
+    resource :flipper, controller: "flipper", only: [:show]
   end
 
   resources :sitemaps

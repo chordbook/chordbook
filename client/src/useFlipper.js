@@ -1,10 +1,13 @@
 import { useFetch } from '@/client'
-import { computed } from 'vue'
+import { reactive, computed } from 'vue'
 
-export function useFlipper (feature, initialData = { enabled: false }) {
-  const { data } = useFetch(`flipper/${feature}`, { initialData }).get().json()
+const fetch = reactive(useFetch('flipper', { immediate: false }).get().json())
+
+export function useFlipper (feature, defaultValue = false) {
+  // Fetch flipper data if it hasn't been fetched yet
+  if (!fetch.isFetching && !fetch.isFinished) fetch.execute()
 
   return {
-    isEnabled: computed(() => data.value.enabled)
+    isEnabled: computed(() => fetch.data?.[feature] ?? defaultValue)
   }
 }
