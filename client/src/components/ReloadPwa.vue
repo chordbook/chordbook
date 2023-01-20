@@ -1,31 +1,33 @@
 <script setup>
 import { registerSW } from 'virtual:pwa-register'
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { UseOnline } from '@vueuse/components'
 import { offline } from '@/icons'
+import { useFlipper } from '@/useFlipper'
 
-const localPwa = localStorage.getItem('pwa')
-const pwaEnabled = (import.meta.env.APP_PWA || localPwa) && localPwa !== 'false'
+const pwaEnabled = useFlipper('pwa').isEnabled
+const installPromptEnabled = useFlipper('installPrompt').isEnabled
+
 const offlineReady = ref(false)
 const installPrompt = ref(null)
 
-if (pwaEnabled) {
+watchEffect(() => {
+  if (!pwaEnabled.value) return
+
   console.info('PWA enabled, registering service worker...')
   registerSW({
     immediate: true,
     onOfflineReady () { offlineReady.value = true }
   })
+})
 
-  // Save prompt for installing to home screen
-  // https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Add_to_home_screen
-  window.addEventListener('beforeinstallprompt', (e) => {
-    // Stash the event so it can be triggered later.
-    installPrompt.value = e
-    console.debug('PWA: saved install prompt')
-  })
-} else {
-  console.info('PWA disabled')
-}
+// Save prompt for installing to home screen
+// https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Add_to_home_screen
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Stash the event so it can be triggered later.
+  installPrompt.value = e
+  console.debug('PWA: saved install prompt')
+})
 
 function addToHomeScreen (e) {
   // Show the prompt
@@ -46,7 +48,7 @@ function addToHomeScreen (e) {
     :buttons="[{ text: 'Ok', role: 'cancel' }]"
   />
   <ion-toast
-    :is-open="installPrompt"
+    :is-open="installPrompt && installPromptEnabled"
     message="Add to home screen?"
     position="top"
     :buttons="[

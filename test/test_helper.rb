@@ -5,6 +5,10 @@ require "vcr"
 
 require_relative "./factories"
 
+Flipper.configure do |config|
+  config.default { Flipper.new(Flipper::Adapters::Memory.new) }
+end
+
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
@@ -14,6 +18,7 @@ class ActiveSupport::TestCase
   setup do
     PaperTrail.enabled = false
     Searchkick.disable_callbacks
+    Flipper.instance = nil
   end
 
   teardown do
