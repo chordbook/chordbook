@@ -12,7 +12,7 @@ const installPromptEnabled = useFlipper('installPrompt').isEnabled
 const offlineReady = ref(false)
 const installPrompt = ref(null)
 const showInstallPrompt = computed(() => {
-  installPrompt.value && installPromptEnabled.value && useTimeout(60 * 1000) // 60 second delay
+  return installPrompt.value && installPromptEnabled.value && useTimeout(60 * 1000) // 60 second delay
 })
 
 watchEffect(() => {
