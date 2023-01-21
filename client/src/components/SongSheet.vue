@@ -7,6 +7,7 @@ import { ref, computed, watch, onMounted, onUpdated } from 'vue'
 import detectFormat from '@/lib/detect_format'
 import useSongsheetSettingsStore from '@/stores/songsheet-settings'
 import arrify from 'arrify'
+import { Chord } from 'chordsheetjs'
 
 const emit = defineEmits(['update:key', 'parse', 'error'])
 
@@ -35,7 +36,9 @@ const parsedSong = computed(() => {
 })
 
 const song = computed(() => parsedSong.value?.transpose(settings.transpose))
-const chords = computed(() => chordSet(song.value))
+const chords = computed(() => {
+  return Array.from(chordSet(song.value)).map(name => Chord.parse(name)).filter(Boolean)
+})
 const key = computed(() => song.value?.key)
 
 watch(() => settings.columns, updateColumnWidth)
@@ -99,7 +102,7 @@ function guessKey (song) {
         <chord-diagram
           v-for="chord in chords"
           :key="chord + settings.instrument"
-          :name="chord"
+          :chord="chord"
           :instrument="settings.instrument"
         />
       </svg>
@@ -170,12 +173,12 @@ function guessKey (song) {
     <ion-toolbar translucent>
       <div class="flex gap-2 overflow-x-auto place-content-center pt-2 px-4">
         <div
-          v-for="name in chords"
-          :key="name"
+          v-for="chord in chords"
+          :key="chord"
           class="text-center text-sm"
         >
           <div class="chord">
-            {{ name }}
+            {{ chord.toString({ useUnicodeModifier: true}) }}
           </div>
           <svg
             class="chord-diagram inline-block"
@@ -184,7 +187,7 @@ function guessKey (song) {
             :title="name"
           >
             <use
-              :xlink:href="`#chord-${name}`"
+              :xlink:href="`#chord-${chord}`"
               viewBox="0 0 50 65"
             />
           </svg>
