@@ -42,12 +42,11 @@ export default class ChordData {
     const positionData = suffixData?.positions[position]
 
     if (positionData) {
-      return new this(chord, positionData)
+      return new this(positionData)
     }
   }
 
-  constructor (chord, data) {
-    this.chord = chord
+  constructor (data) {
     this.data = data
   }
 

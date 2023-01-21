@@ -155,6 +155,12 @@ export default [
     component: () => import('@/views/TunerView.vue')
   },
   {
+    path: '/chords',
+    name: 'chords',
+    component: () => import('@/views/ChordsView.vue'),
+    meta: { selected: null }
+  },
+  {
     path: '/password/forgot',
     name: 'password/forgot',
     component: () => import('@/views/ForgotPasswordView.vue')
