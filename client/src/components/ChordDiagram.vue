@@ -2,7 +2,7 @@
   <!-- eslint-disable vue/no-v-html vue/no-v-text-v-html-on-component -->
   <component
     :is="as"
-    :id="`chord-${name}`"
+    :id="`chord-${chord}`"
     :width="width"
     :height="height"
     :viewBox="`0 0 ${width} ${height}`"
@@ -21,8 +21,8 @@ export default {
       type: String,
       default: 'symbol'
     },
-    name: {
-      type: String,
+    chord: {
+      type: Chord,
       required: true
     },
     instrument: {
@@ -44,10 +44,6 @@ export default {
   },
 
   computed: {
-    chord () {
-      return Chord.parse(this.name)
-    },
-
     chordData () {
       return ChordData.find(this.chord, this.instrument, this.position)
     },
