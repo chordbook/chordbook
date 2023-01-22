@@ -24,8 +24,15 @@
 @import "@/stylesheets/text-shadow";
 
 @layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  /* Chrome, Safari and Opera */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
   .grid-scroll-x {
-    @apply grid grid-flow-col overflow-x-auto snap-x snap-mandatory;
+    @apply grid grid-flow-col overflow-x-auto snap-x snap-mandatory scrollbar-hide;
   }
 
   .grid-scroll-x > * {
