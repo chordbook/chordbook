@@ -30,9 +30,10 @@ Empty placeholer:
   </data-source>
 -->
 <script setup>
-import { defineProps, ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, watch } from 'vue'
 import { useFetch } from '@/client'
 import LinkHeader from 'http-link-header'
+import useAuthStore from '@/stores/auth'
 
 const emit = defineEmits(['load'])
 
@@ -51,6 +52,7 @@ const pages = reactive([])
 const items = reactive([])
 const src = ref(props.src)
 const paginate = ref(true)
+const auth = useAuthStore()
 
 const isFetching = computed(() => pages.some(page => page.isFetching))
 const isEmpty = computed(() => {
@@ -82,7 +84,18 @@ function load (params = {}) {
   return page.execute(true) // true to throw on error
 }
 
-defineExpose({ items, pages, load, isFetching, isEmpty })
+function reload() {
+  pages.splice(0)
+  items.splice(0)
+  src.value = props.src
+  paginate.value = true
+  return load(props.params)
+}
+
+defineExpose({ items, pages, load, reload, isFetching, isEmpty })
+
+// Reload data when signing in/out
+watch(() => auth.isAuthenticated, reload)
 
 await load(props.params)
 </script>
