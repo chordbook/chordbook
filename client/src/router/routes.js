@@ -150,6 +150,12 @@ export default [
     meta: { selected: 'songs' }
   },
   {
+    path: '/account',
+    name: 'account',
+    component: AuthenticatedView,
+    props: { component: () => import('@/views/AccountView.vue') }
+  },
+  {
     path: '/tuner',
     name: 'tuner',
     component: () => import('@/views/TunerView.vue')

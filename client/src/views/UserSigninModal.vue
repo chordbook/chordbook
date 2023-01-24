@@ -45,24 +45,31 @@ function dismissed () {
             {{ data.error }}
           </div>
           <ion-item>
-            <ion-label position="floating">
+            <ion-label position="stacked">
               Email
             </ion-label>
             <ion-input
               v-model="form.email"
               type="email"
               autocomplete="email"
+              placeholder="Your email"
             />
           </ion-item>
           <ion-item>
-            <ion-label position="floating">
+            <ion-label position="stacked">
               Password
             </ion-label>
             <ion-input
               v-model="form.password"
               type="password"
               autocomplete="current-password"
+              placeholder="Your password"
             />
+            <ion-note slot="helper">
+              <router-link :to="{ name: 'password/forgot' }">
+                Forgot your password?
+              </router-link>
+            </ion-note>
           </ion-item>
 
           <div class="ion-margin ">
@@ -73,16 +80,25 @@ function dismissed () {
               Sign In
             </ion-button>
           </div>
-          <div class="ion-margin text-center text-sm text-muted">
-            <router-link to="#signup">
-              Sign Up
-            </router-link>
-            •
-            <router-link :to="{ name: 'password/forgot' }">
-              Forgot Password
-            </router-link>
-          </div>
+          <div class="ion-margin text-center text-sm text-muted" />
         </form>
+
+        <hr class="my-10">
+
+        <div class="ion-margin text-center">
+          <h2 class="font-semibold text-lg">
+            Don't have an account?
+          </h2>
+
+          <div class="ion-margin">
+            <ion-button
+              fill="outline"
+              router-link="#signup"
+            >
+              Sign up for Chord Book
+            </ion-button>
+          </div>
+        </div>
       </ion-content>
     </ion-page>
   </ion-modal>

@@ -1,7 +1,7 @@
 <h1 align="center">
   <a href="https://chordbook.app">
     <img width="150" src="./client/src/assets/logo-light.svg"><br>
-    <img src="./client/src/assets/wordmark-light.svg" alt="Chord Book">
+    <img width="150" src="./client/src/assets/wordmark-light.svg" alt="Chord Book">
   </a>
 </h1>
 

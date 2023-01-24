@@ -50,7 +50,7 @@ watch(online, (online) => {
               :icon="offline"
               class="text-4xl"
             />
-            <h2 class="text-2xl m-2">
+            <h2 class="text-3xl m-2">
               Not available offline
             </h2>
             <p>Try again when you are online and it will be available offline next time.</p>
