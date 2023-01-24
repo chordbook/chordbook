@@ -9,9 +9,9 @@
 /* Optional CSS utils that can be commented out */
 @import '@ionic/vue/css/padding.css';
 
-/* Theme variables */
 @import '@/stylesheets/variables.css';
-@import "@/stylesheets/text-shadow";
+@import '@/stylesheets/text-shadow';
+@import '@/stylesheets/transitions';
 
 /* Tailwind */
 @tailwind base;
@@ -61,18 +61,6 @@
 .reorder-enabled .hide-reorder {
   display: none;
 }
-
-.slide-down-enter-active,
-.slide-down-leave-active {
-  transition: all 0.33s ease-in-out;
-  @apply relative flex flex-col align-bottom max-h-full;
-}
-
-.slide-down-enter-from,
-.slide-down-leave-to {
-  @apply max-h-0 opacity-0;
-}
-
 
 *[routerlink] {
   @apply cursor-pointer;

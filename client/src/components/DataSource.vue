@@ -44,14 +44,22 @@ const props = defineProps({
   },
   params: {
     type: Object,
-    default () { return { } }
+    default () { return {} }
+  },
+  options: {
+    type: Object,
+    default () { return {} }
+  },
+  paginate: {
+    type: Boolean,
+    default: true
   }
 })
 
 const pages = reactive([])
 const items = reactive([])
 const src = ref(props.src)
-const paginate = ref(true)
+const paginate = ref(props.paginate)
 const auth = useAuthStore()
 
 const isFetching = computed(() => pages.some(page => page.isFetching))
@@ -62,33 +70,37 @@ const isEmpty = computed(() => {
 
 function load (params = {}) {
   const page = useFetch(src.value, {
+    ...props.options,
     immediate: false,
-    params,
-    afterFetch ({ data, response }) {
-      items.push(...Array.from(data))
-
-      const links = LinkHeader.parse(response.headers.get('Link') ?? '')
-      if (links.has('rel', 'next')) {
-        src.value = links.get('rel', 'next')[0].uri
-      } else {
-        paginate.value = false
-      }
-    }
+    params
   }).get().json()
 
   page.onFetchResponse(() => {
+    items.push(...Array.from(page.data.value))
+
+    const links = LinkHeader.parse(page.response.value.headers.get('Link') ?? '')
+    if (links.has('rel', 'next')) {
+      src.value = links.get('rel', 'next')[0].uri
+    } else {
+      paginate.value = false
+    }
+
     emit('load', page)
   })
 
   pages.push(page)
-  return page.execute(true) // true to throw on error
+
+  if (props.options.immediate !== false) {
+    page.execute(true /* throw error */)
+  }
+  return page
 }
 
 function reload () {
   pages.splice(0)
   items.splice(0)
   src.value = props.src
-  paginate.value = true
+  paginate.value = props.paginate
   return load(props.params)
 }
 
