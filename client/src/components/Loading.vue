@@ -9,6 +9,8 @@
           <ion-spinner
             name="dots"
             color="medium"
+            class="scale-150"
+            duration="1500"
           />
         </div>
       </ion-content>
