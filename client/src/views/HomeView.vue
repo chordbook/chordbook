@@ -88,7 +88,7 @@ const auth = useAuthStore()
             favorite songs.
           </h2>
 
-          <p class="text-lg md:text-xl lg:text-2xl text-white/80 text-shadow-md mt-4">
+          <p class="sm:text-lg md:text-xl lg:text-2xl text-white/80 text-shadow-md mt-4">
             Chord sheets and tab for guitar and ukulele.
           </p>
         </div>
