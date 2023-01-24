@@ -16,7 +16,14 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content fullscreen>
+      <ion-header collapse="condense">
+        <ion-toolbar>
+          <ion-title size="large">
+            Albums
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
       <data-source
         :src="$route.path"
         :params="$route.params"

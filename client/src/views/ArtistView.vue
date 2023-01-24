@@ -114,16 +114,7 @@ defineProps({
 </template>
 
 <style scoped>
-/* Safari does not respect max-height with aspect-ratio, so workaround it */
-.aspect-16\/9-max-h-screen-1\/2 {
-  @apply max-h-screen-1/2 overflow-hidden relative;
-}
-.aspect-16\/9-max-h-screen-1\/2:before {
-  content: '';
-  @apply block aspect-16/9;
-}
-
 ion-content ion-toolbar {
-  --background: transparent
+  --background: transparent;
 }
 </style>

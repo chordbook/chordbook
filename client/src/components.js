@@ -26,6 +26,7 @@ export {
   IonList,
   IonListHeader,
   IonMenu,
+  IonMenuButton,
   IonMenuToggle,
   IonModal,
   IonNote,

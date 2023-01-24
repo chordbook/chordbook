@@ -84,7 +84,7 @@ function load (params = {}) {
   return page.execute(true) // true to throw on error
 }
 
-function reload() {
+function reload () {
   pages.splice(0)
   items.splice(0)
   src.value = props.src

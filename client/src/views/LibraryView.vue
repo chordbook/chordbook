@@ -6,6 +6,9 @@ import * as icons from '@/icons'
   <app-view>
     <ion-header translucent>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button />
+        </ion-buttons>
         <ion-title>Library</ion-title>
       </ion-toolbar>
     </ion-header>

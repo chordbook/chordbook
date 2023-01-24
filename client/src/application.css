@@ -38,10 +38,29 @@
   .grid-scroll-x > * {
     @apply snap-start
   }
-}
 
-.text-muted {
-  @apply text-zinc-500;
+  /* Safari does not respect max-height with aspect-ratio, so workaround it */
+  .aspect-square-max-h-screen-1\/2 {
+    @apply max-h-screen-1/2 overflow-hidden relative;
+  }
+
+  .aspect-square-max-h-screen-1\/2:before {
+    content: '';
+    @apply block aspect-square;
+  }
+
+  .aspect-16\/9-max-h-screen-1\/2 {
+    @apply max-h-screen-1/2 overflow-hidden relative;
+  }
+
+  .aspect-16\/9-max-h-screen-1\/2:before {
+    content: '';
+    @apply block aspect-16/9;
+  }
+
+  .text-muted {
+    @apply text-zinc-500;
+  }
 }
 
 .reorder-enabled .hide-reorder {
