@@ -5,7 +5,7 @@
       <ion-tab-bar
         slot="bottom"
         translucent
-        class="md:hidden"
+        class="lg:hidden"
       >
         <ion-tab-button
           tab="home"

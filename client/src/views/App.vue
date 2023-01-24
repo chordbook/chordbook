@@ -3,7 +3,7 @@
     <reload-pwa />
     <ion-split-pane
       content-id="main"
-      when="md"
+      when="lg"
     >
       <app-menu content-id="main" />
       <ion-router-outlet id="main" />
@@ -22,6 +22,8 @@ import UserSignupModal from './UserSignupModal.vue'
 
 <style scoped>
 ion-split-pane {
-  --side-max-width: 220px;
+  --side-width: 200px;
+  --side-max-width: var(--side-width);
+  --side-min-width: var(--side-width);
 }
 </style>
