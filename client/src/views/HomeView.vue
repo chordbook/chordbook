@@ -33,12 +33,21 @@ const auth = useAuthStore()
         <ion-title class="flex">
           <img
             :src="icons.logoLight"
-            class="inline-block mr-3"
+            class="dark:hidden inline-block mr-3"
+          >
+          <img
+            :src="icons.logo"
+            class="hidden dark:inline-block mr-3"
           >
           <img
             alt="Chord Book"
             :src="icons.wordmarkLight"
-            class="inline-block max-w-[150px]"
+            class="inline-block max-w-[150px] dark:hidden"
+          >
+          <img
+            alt="Chord Book"
+            class="hidden dark:inline-block max-w-[150px]"
+            :src="icons.wordmark"
           >
         </ion-title>
 
@@ -73,10 +82,16 @@ const auth = useAuthStore()
         class="bg-black aspect-square-max-h-screen-1\/2 min-h-screen-1/2 shadow-inner bg-center bg-cover flex flex-col"
         style="background-image: url(https://images.pexels.com/photos/144428/pexels-photo-144428.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)"
       >
-        <h2 class="text-4xl sm:text-6xl md:text-7xl my-auto text-center font-bold text-white font-semibold text-shadow-lg">
-          Play all your<br>
-          favorite songs.
-        </h2>
+        <div class="my-auto text-center">
+          <h2 class="text-4xl sm:text-6xl md:text-7xl font-bold text-white font-semibold text-shadow-lg">
+            Play all your<br>
+            favorite songs.
+          </h2>
+
+          <p class="text-lg md:text-xl lg:text-2xl text-white/80 text-shadow-md mt-4">
+            Chord sheets and tab for guitar and ukulele.
+          </p>
+        </div>
       </ion-card>
 
       <data-source
