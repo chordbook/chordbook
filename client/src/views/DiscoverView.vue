@@ -3,12 +3,20 @@ import GenreListView from '@/views/GenreListView.vue'
 import ModelList from '../components/ModelList.vue'
 import { useRouteQuery } from '@vueuse/router'
 import { computed, ref, reactive } from 'vue'
+import { artist, album, song } from '@/icons'
 
 const types = {
   All: '',
   Artists: 'Artist',
   Albums: 'Album',
   Songs: 'Track,Songsheet'
+}
+
+const icons = {
+  Artist: artist,
+  Album: album,
+  Track: song,
+  Songsheet: song
 }
 
 const params = reactive({
@@ -83,7 +91,12 @@ const isSearching = computed(() => !!params.q || hasFocus.value)
           slot="fixed"
           class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         >
-          <ion-spinner name="dots" color="medium" class="scale-[2]" duration="1200" />
+          <ion-spinner
+            name="dots"
+            color="medium"
+            class="scale-[2]"
+            duration="1200"
+          />
         </div>
       </Transition>
 
@@ -109,13 +122,25 @@ const isSearching = computed(() => !!params.q || hasFocus.value)
           <ion-list>
             <TransitionGroup name="fade">
               <ion-item
-                v-for="(result, index) in data"
+                v-for="result in data"
                 :key="result.type + result.id"
                 button
                 :router-link="{ name: result.type.toLowerCase(), params: { id: result.id } }"
               >
-                <ion-avatar slot="start">
-                  <img :src="result.thumbnail">
+                <ion-avatar
+                  slot="start"
+                  class="bg-slate-100 flex place-content-center items-center rounded"
+                >
+                  <img
+                    v-if="result.thumbnail"
+                    :src="result.thumbnail"
+                    :class="{ roundedFull: result.type === 'Artist' }"
+                  >
+                  <ion-icon
+                    v-else
+                    :icon="icons[result.type]"
+                    class="text-slate-300"
+                  />
                 </ion-avatar>
                 <ion-label>
                   <p class="uppercase">
