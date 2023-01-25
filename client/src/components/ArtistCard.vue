@@ -1,5 +1,5 @@
 <script setup>
-import { artist } from '@/icons'
+import ModelAvatar from './ModelAvatar.vue'
 
 defineProps({
   id: {
@@ -27,19 +27,11 @@ defineProps({
   >
     <ion-label>
       <div>
-        <ion-avatar
-          class="w-full h-full flex place-content-center items-center overflow-hidden relative aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-3"
-        >
-          <img
-            v-if="thumbnail"
-            :src="thumbnail"
-          >
-          <ion-icon
-            v-else
-            :icon="artist"
-            class="text-slate-300"
-          />
-        </ion-avatar>
+        <model-avatar
+          :src="thumbnail"
+          type="Artist"
+          class="w-full h-full mb-3"
+        />
       </div>
       <h3 class="text-center">
         {{ name }}

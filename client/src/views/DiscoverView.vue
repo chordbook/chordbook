@@ -1,22 +1,15 @@
 <script setup>
 import GenreListView from '@/views/GenreListView.vue'
 import ModelList from '../components/ModelList.vue'
+import ModelAvatar from '@/components/ModelAvatar.vue'
 import { useRouteQuery } from '@vueuse/router'
 import { computed, ref, reactive } from 'vue'
-import { artist, album, song } from '@/icons'
 
 const types = {
   All: '',
   Artists: 'Artist',
   Albums: 'Album',
   Songs: 'Track,Songsheet'
-}
-
-const icons = {
-  Artist: artist,
-  Album: album,
-  Track: song,
-  Songsheet: song
 }
 
 const params = reactive({
@@ -127,21 +120,11 @@ const isSearching = computed(() => !!params.q || hasFocus.value)
                 button
                 :router-link="{ name: result.type.toLowerCase(), params: { id: result.id } }"
               >
-                <ion-avatar
+                <model-avatar
                   slot="start"
-                  class="bg-slate-100 flex place-content-center items-center rounded"
-                >
-                  <img
-                    v-if="result.thumbnail"
-                    :src="result.thumbnail"
-                    :class="{ roundedFull: result.type === 'Artist' }"
-                  >
-                  <ion-icon
-                    v-else
-                    :icon="icons[result.type]"
-                    class="text-slate-300"
-                  />
-                </ion-avatar>
+                  :src="result.thumbnail"
+                  :type="result.type"
+                />
                 <ion-label>
                   <p class="uppercase">
                     {{ result.type }}

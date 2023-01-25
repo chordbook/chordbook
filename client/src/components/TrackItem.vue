@@ -2,6 +2,7 @@
 import { defineProps } from 'vue'
 import * as icons from '@/icons'
 import ShareItem from '@/components/ShareItem.vue'
+import ModelAvatar from './ModelAvatar.vue'
 
 defineProps({
   id: {
@@ -35,12 +36,11 @@ defineProps({
     detail="false"
     :class="{ 'opacity-40 hover:opacity-100 transition-opacity': !has_songsheet }"
   >
-    <ion-avatar slot="start">
-      <img
-        :src="album?.cover.small"
-        class="rounded"
-      >
-    </ion-avatar>
+    <model-avatar
+      slot="start"
+      :src="album?.cover?.small"
+      type="Track"
+    />
     <ion-label>
       <h2>{{ title }}</h2>
       <p>{{ artist.name }}</p>
