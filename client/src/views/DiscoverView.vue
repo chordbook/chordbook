@@ -24,6 +24,9 @@ const isSearching = computed(() => !!params.q || hasFocus.value)
 
 <template>
   <app-view>
+    <Head>
+      <title>Discover</title>
+    </Head>
     <ion-header
       collapse="fade"
       class="ion-no-border"

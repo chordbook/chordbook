@@ -4,6 +4,9 @@ import SetlistCard from '@/components/SetlistCard.vue'
 
 <template>
   <app-view>
+    <Head>
+      <title>Setlists</title>
+    </Head>
     <ion-header translucent>
       <ion-toolbar>
         <ion-title>Setlists</ion-title>

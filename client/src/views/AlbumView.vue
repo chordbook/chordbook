@@ -16,6 +16,11 @@ defineProps({
       v-slot="{ data }"
       :src="`albums/${id}`"
     >
+      <Head>
+        <title v-if="data">
+          {{ data.title }} by {{ data.artist.name }}
+        </title>
+      </Head>
       <ion-header
         translucent
         collapse="fade"

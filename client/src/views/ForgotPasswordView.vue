@@ -9,6 +9,9 @@ const { isFinished, error, execute, data } = auth.forgotPassword(params, { immed
 
 <template>
   <ion-page>
+    <Head>
+      <title>Forgot Password</title>
+    </Head>
     <ion-header>
       <ion-toolbar>
         <ion-title>
