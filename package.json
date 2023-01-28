@@ -16,7 +16,7 @@
     "@vueuse/components": "^9.10.0",
     "@vueuse/core": "^9.10.0",
     "@vueuse/head": "^1.0.23",
-    "@vueuse/router": "^9.10.0",
+    "@vueuse/router": "^9.11.1",
     "ace-builds": "^1.14.0",
     "arrify": "^3.0",
     "aubiojs": "^0.2.1",
