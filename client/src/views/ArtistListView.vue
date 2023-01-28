@@ -5,6 +5,9 @@ import LibraryPlaceholder from '@/components/LibraryPlaceholder.vue'
 
 <template>
   <app-view>
+    <Head>
+      <title>Artists</title>
+    </Head>
     <ion-header translucent>
       <ion-toolbar>
         <ion-title>Artists</ion-title>

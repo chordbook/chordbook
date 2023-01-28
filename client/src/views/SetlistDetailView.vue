@@ -67,6 +67,11 @@ async function destroy () {
       v-slot="{ data }"
       :src="`setlists/${id}`"
     >
+      <Head>
+        <title v-if="data">
+          Setlist: {{ data.title }}
+        </title>
+      </Head>
       <ion-header
         translucent
         collapse="fade"

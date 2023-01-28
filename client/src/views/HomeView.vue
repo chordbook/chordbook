@@ -10,6 +10,13 @@ const auth = useAuthStore()
 
 <template>
   <app-view>
+    <Head>
+      <title>Home</title>
+      <meta
+        name="description"
+        content="Chord sheets and tab for guitar and ukulele."
+      >
+    </Head>
     <ion-header
       v-if="auth.isAuthenticated"
       collapse="fade"

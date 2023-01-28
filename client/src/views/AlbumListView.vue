@@ -1,5 +1,8 @@
 <template>
   <app-view>
+    <Head>
+      <title>Albums</title>
+    </Head>
     <ion-header
       translucent
       collapse="fade"

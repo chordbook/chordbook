@@ -1,5 +1,6 @@
 <template>
   <ion-page>
+    <Head>Tuner</Head>
     <ion-header translucent>
       <ion-toolbar>
         <ion-buttons slot="start">

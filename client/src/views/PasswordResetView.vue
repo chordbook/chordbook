@@ -24,6 +24,9 @@ onFetchResponse((response) => {
 
 <template>
   <ion-page>
+    <Head>
+      <title>Reset Your Password</title>
+    </Head>
     <ion-header>
       <ion-toolbar>
         <ion-title>Reset Your Password</ion-title>

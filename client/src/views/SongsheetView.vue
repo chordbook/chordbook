@@ -57,6 +57,16 @@ function hostname (url) {
       v-slot="{ data: songsheet }"
       :src="`songsheets/${id}`"
     >
+      <Head>
+        <title v-if="songsheet.track?.artist">
+          {{ songsheet.title }}
+          by
+          {{ songsheet.track.artist.name }}
+        </title>
+        <title v-else>
+          {{ songsheet.title }} - {{ songsheet.subtitle }}
+        </title>
+      </Head>
       <ion-header translucent>
         <ion-toolbar>
           <ion-buttons slot="start">

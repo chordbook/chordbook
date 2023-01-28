@@ -23,6 +23,9 @@ function dismissed () {
     @did-dismiss="dismissed"
   >
     <ion-page>
+      <Head>
+        <title>Sign Up</title>
+      </Head>
       <ion-header>
         <ion-toolbar>
           <ion-title>Sign Up</ion-title>

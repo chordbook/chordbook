@@ -7,6 +7,9 @@ const auth = useAuthStore()
 
 <template>
   <app-view>
+    <Head>
+      <title>Account</title>
+    </Head>
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
