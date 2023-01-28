@@ -1119,15 +1119,6 @@
     debug "^4.0.0"
     tslib "^2.0.1"
 
-"@ionic/core@6.4.2":
-  version "6.4.2"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.4.2.tgz#44e777f71f074a68734f15a40b84c685cc37a258"
-  integrity sha512-X6lKIrVL68UC3HenkUpOMw2Wu6D+XN42EbBPJdKFxGiW8ozhpzYj8QMUcX6ESC7jk44CrpUN3GpHhb+Lrw78OA==
-  dependencies:
-    "@stencil/core" "^2.18.0"
-    ionicons "^6.0.4"
-    tslib "^2.1.0"
-
 "@ionic/core@6.5.0":
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.5.0.tgz#60095211c15609218855a924117d65764db69334"
@@ -1212,22 +1203,14 @@
     untildify "^4.0.0"
     wrap-ansi "^7.0.0"
 
-"@ionic/vue-router@^6.4":
-  version "6.4.2"
-  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.4.2.tgz#2bdb42a91244f37733b51aafabffe37e3b8ba90c"
-  integrity sha512-g8PNiIbkxDpX6H+U6aiWS/GiWmlgRLdq0KirBD9UQaqTjjaT3pCMd5DTcRps6SLSBfbW7Vg0gwsTYnpXRLYU5A==
+"@ionic/vue-router@^6.5":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.5.0.tgz#2efaec5d8808531ca2e691b308323fd5021ddb93"
+  integrity sha512-kuZuNV8uKCwMYybsRIqI2GpCPtwJVAdPGWBZYd8bQ1EcCk0kGkkAVk+EpAsHt3Z8m2ZwPbdsFZvtoNbCU/qAGA==
   dependencies:
-    "@ionic/vue" "6.4.2"
+    "@ionic/vue" "6.5.0"
 
-"@ionic/vue@6.4.2":
-  version "6.4.2"
-  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.4.2.tgz#9add4620be36bd1466e52f228742223f2e3363de"
-  integrity sha512-6qYuHm8QWmjtdR+DE2hwkw93rq+trLUyoexqNRLTxAO3nqB+0WmtqaXbFYZgTAj0/IkmVV4aLXOz0zBTZFlT8w==
-  dependencies:
-    "@ionic/core" "6.4.2"
-    ionicons "^6.0.2"
-
-"@ionic/vue@^6.5":
+"@ionic/vue@6.5.0", "@ionic/vue@^6.5":
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.5.0.tgz#5b9e7fc944a55b449637caae0b56c20fa2b01f74"
   integrity sha512-zKccqwFK1y8SZtsgIo0ON9vaSlowwd4qWBAnY6gNGZYzVjtmUNQNP0cDcFsJrT/vIpwKg4Dn6oEdzxpupLD/TA==
@@ -3298,7 +3281,7 @@ internal-slot@^1.0.3:
     has "^1.0.3"
     side-channel "^1.0.4"
 
-ionicons@^6.0.2, ionicons@^6.0.4, ionicons@^6.1.1:
+ionicons@^6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-6.1.1.tgz#4c24c29aaf9ec235d741e7fe692e47ea814b1a7d"
   integrity sha512-Qe6mx25DFNwA9UL1rhewI5StI3uD4+BqB2KdvLjyWhtvoUXwyAsmfHLZuDANAHQowIKtTt6BZCt5/g5NIQ635Q==
