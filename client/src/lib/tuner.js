@@ -30,47 +30,54 @@ if (mediaDevices.getUserMedia === undefined) {
 }
 
 export class Tuner {
-  constructor (a4) {
+  constructor (a4, onNote) {
     this.middleA = a4 || 440
+    this.onNote = onNote
+
     this.semitone = 69
     this.bufferSize = 4096
     this.noteStrings = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B']
+
+    this.pitchDetector = PitchDetector.forFloat32Array(this.bufferSize)
   }
 
-  async start (onNote) {
-    if (!AudioContext) return alert('AudioContext not supported')
-
+  async start () {
     this.audioContext = new AudioContext()
-    this.analyser = new AnalyserNode(this.audioContext, { fftSize: this.bufferSize })
+
     this.scriptProcessor = this.audioContext.createScriptProcessor(this.bufferSize, 1, 1)
-    this.pitchDetector = PitchDetector.forFloat32Array(this.bufferSize)
+    this.scriptProcessor.connect(this.audioContext.destination)
+    this.scriptProcessor.addEventListener('audioprocess', this.process.bind(this))
+
+    this.analyser = new AnalyserNode(this.audioContext, { fftSize: this.bufferSize })
+    this.analyser.connect(this.scriptProcessor)
+
     this.stream = await mediaDevices.getUserMedia({ audio: true })
 
     this.audioContext.createMediaStreamSource(this.stream).connect(this.analyser)
-    this.analyser.connect(this.scriptProcessor)
-    this.scriptProcessor.connect(this.audioContext.destination)
-    this.scriptProcessor.addEventListener('audioprocess', (event) => {
-      const data = event.inputBuffer.getChannelData(0)
-
-      const [frequency, clarity] = this.pitchDetector.findPitch(data, this.audioContext.sampleRate)
-
-      if (clarity > 0.9) {
-        const note = this.getNote(frequency)
-        onNote({
-          name: this.noteStrings[note % 12],
-          value: note,
-          cents: this.getCents(frequency, note),
-          octave: parseInt(note / 12) - 1,
-          frequency,
-          clarity
-        })
-      }
-    })
   }
 
-  stop () {
+  process (event) {
+    const data = event.inputBuffer.getChannelData(0)
+
+    const [frequency, clarity] = this.pitchDetector.findPitch(data, this.audioContext.sampleRate)
+
+    if (clarity > 0.9) {
+      const note = this.getNote(frequency)
+      this.onNote({
+        name: this.noteStrings[note % 12],
+        value: note,
+        cents: this.getCents(frequency, note),
+        octave: parseInt(note / 12) - 1,
+        frequency,
+        clarity
+      })
+    }
+  }
+
+  async stop () {
     this.stream.getTracks().forEach(track => track.stop())
-    return this.audioContext.close()
+    await this.audioContext.close()
+    this.audioContext = this.scriptProcessor = this.analyser = this.stream = null
   }
 
   /**
