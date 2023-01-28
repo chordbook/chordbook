@@ -927,9 +927,9 @@
     to-fast-properties "^2.0.0"
 
 "@capacitor/cli@^4.6":
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-4.6.1.tgz#6fd109db9e96231bee638b0aab7be7c709666bf0"
-  integrity sha512-iFMK83B67RXEQyWi1kOzQmRdCFc/pPD924mjAXG7yFLVyMvVRGAwwf8LzWFzHyQDoKK+auPMHycVfzm9T6Iyyg==
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-4.6.2.tgz#7f471dfddaebc665a6936751fb91b1c43df3bb60"
+  integrity sha512-035RIynwnmusv9Z/1jPDP+i7Z54ZY3qxNtf6cA69TxZlnozAqBkjPyHGuaAugxSn+4jzCobSLE3456VHhHMx1g==
   dependencies:
     "@ionic/cli-framework-output" "^2.2.5"
     "@ionic/utils-fs" "^3.1.6"
