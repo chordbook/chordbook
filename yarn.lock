@@ -1673,7 +1673,7 @@
     "@vueuse/shared" "9.11.1"
     vue-demi "*"
 
-"@vueuse/core@9.11.1", "@vueuse/core@^9.10.0":
+"@vueuse/core@9.11.1", "@vueuse/core@^9.11.1":
   version "9.11.1"
   resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-9.11.1.tgz#1552aef67144220da7e6b797372a194a9c7ff52e"
   integrity sha512-E/cizD1w9ILkq4axYjZrXLkKaBfzloaby2n3NMjUfd6yI/jkfTVgc6iwy/Cw2e++Ld4LphGbO+3MhzizvwUslQ==
