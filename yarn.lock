@@ -1871,11 +1871,6 @@ at-least-node@^1.0.0:
   resolved "https://registry.yarnpkg.com/at-least-node/-/at-least-node-1.0.0.tgz#602cd4b46e844ad4effc92a8011a3c46e0238dc2"
   integrity sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
 
-aubiojs@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/aubiojs/-/aubiojs-0.2.1.tgz#59439f4122a9ce5b047a6885a3d28efbd7fe7041"
-  integrity sha512-lTMm5j/UMGlCvmZlBfBe9KM+tMdvnxm93fwaMugcPak/zUJfFMtkXf5azC4gG/V1FWXGmh1ejsa5sdm+Nlxs8w==
-
 autoprefixer@^10.4.13:
   version "10.4.13"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-10.4.13.tgz#b5136b59930209a321e9fa3dca2e7c4d223e83a8"
@@ -2896,6 +2891,11 @@ fd-slicer@~1.1.0:
   integrity sha512-cE1qsB/VwyQozZ+q1dGxR8LBYNZeofhEdUNGSMbQD3Gw2lAzX9Zb3uIU6Ebc/Fmyjo9AWWfnn0AUCHqtevs/8g==
   dependencies:
     pend "~1.2.0"
+
+fft.js@^4.0.4:
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/fft.js/-/fft.js-4.0.4.tgz#ffed83a397e58039141c804c1dbe1910dced8e6e"
+  integrity sha512-f9c00hphOgeQTlDyavwTtu6RiK8AIFjD6+jvXkNkpeQ7rirK3uFWVpalkoS4LAwbdX7mfZ8aoBfFVQX1Re/8aw==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
@@ -4216,6 +4216,13 @@ pinia@^2.0.29:
   dependencies:
     "@vue/devtools-api" "^6.4.5"
     vue-demi "*"
+
+pitchy@^4.0.7:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/pitchy/-/pitchy-4.0.7.tgz#95b41e5911321530a44a0cf67739d397fb302bef"
+  integrity sha512-AEMDKxw+o8eeLK432cJniBJLgQ+KgGb0QFFHMA+3v2wAqeYesVyoPSJqaezNZXdJnN+7nK+i8qVR/aQp/NLxiA==
+  dependencies:
+    fft.js "^4.0.4"
 
 pkg-conf@^3.1.0:
   version "3.1.0"

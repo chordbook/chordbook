@@ -1,4 +1,4 @@
-import aubio from 'aubiojs'
+import { PitchDetector } from 'pitchy'
 
 const AudioContext = window.AudioContext || window.webkitAudioContext
 
@@ -41,32 +41,35 @@ export class Tuner {
     if (!AudioContext) return alert('AudioContext not supported')
 
     this.audioContext = new AudioContext()
-    this.analyser = this.audioContext.createAnalyser()
+    this.analyser = new AnalyserNode(this.audioContext, { fftSize: this.bufferSize })
     this.scriptProcessor = this.audioContext.createScriptProcessor(this.bufferSize, 1, 1)
+    this.pitchDetector = PitchDetector.forFloat32Array(this.bufferSize)
+    this.stream = await mediaDevices.getUserMedia({ audio: true })
 
-    const { Pitch } = await aubio()
-    this.pitchDetector = new Pitch('default', this.bufferSize, 1, this.audioContext.sampleRate)
-    const stream = await mediaDevices.getUserMedia({ audio: true })
-    this.audioContext.createMediaStreamSource(stream).connect(this.analyser)
+    this.audioContext.createMediaStreamSource(this.stream).connect(this.analyser)
     this.analyser.connect(this.scriptProcessor)
     this.scriptProcessor.connect(this.audioContext.destination)
     this.scriptProcessor.addEventListener('audioprocess', (event) => {
-      const frequency = this.pitchDetector.do(event.inputBuffer.getChannelData(0))
+      const data = event.inputBuffer.getChannelData(0)
 
-      if (frequency) {
+      const [frequency, clarity] = this.pitchDetector.findPitch(data, this.audioContext.sampleRate)
+
+      if (clarity > 0.9) {
         const note = this.getNote(frequency)
         onNote({
           name: this.noteStrings[note % 12],
           value: note,
           cents: this.getCents(frequency, note),
           octave: parseInt(note / 12) - 1,
-          frequency
+          frequency,
+          clarity
         })
       }
     })
   }
 
   stop () {
+    this.stream.getTracks().forEach(track => track.stop())
     return this.audioContext.close()
   }
 
