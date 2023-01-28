@@ -1128,6 +1128,15 @@
     ionicons "^6.0.4"
     tslib "^2.1.0"
 
+"@ionic/core@6.5.0":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.5.0.tgz#60095211c15609218855a924117d65764db69334"
+  integrity sha512-vefrnd1WYZJnjSXwsY1sn3HJpBDKPGnwtO2US55Qrjz0d9HyUwocHgVvkvLAAKZG+LGErJbVeV8aTmdYEydRgg==
+  dependencies:
+    "@stencil/core" "^2.18.0"
+    ionicons "^6.1.1"
+    tslib "^2.1.0"
+
 "@ionic/utils-array@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@ionic/utils-array/-/utils-array-2.1.5.tgz#15e4119b01e3978d58324a06d816959c25e248b6"
@@ -1210,13 +1219,21 @@
   dependencies:
     "@ionic/vue" "6.4.2"
 
-"@ionic/vue@6.4.2", "@ionic/vue@^6.4":
+"@ionic/vue@6.4.2":
   version "6.4.2"
   resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.4.2.tgz#9add4620be36bd1466e52f228742223f2e3363de"
   integrity sha512-6qYuHm8QWmjtdR+DE2hwkw93rq+trLUyoexqNRLTxAO3nqB+0WmtqaXbFYZgTAj0/IkmVV4aLXOz0zBTZFlT8w==
   dependencies:
     "@ionic/core" "6.4.2"
     ionicons "^6.0.2"
+
+"@ionic/vue@^6.5":
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.5.0.tgz#5b9e7fc944a55b449637caae0b56c20fa2b01f74"
+  integrity sha512-zKccqwFK1y8SZtsgIo0ON9vaSlowwd4qWBAnY6gNGZYzVjtmUNQNP0cDcFsJrT/vIpwKg4Dn6oEdzxpupLD/TA==
+  dependencies:
+    "@ionic/core" "6.5.0"
+    ionicons "^6.1.1"
 
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
@@ -3288,10 +3305,10 @@ internal-slot@^1.0.3:
     has "^1.0.3"
     side-channel "^1.0.4"
 
-ionicons@^6.0.2, ionicons@^6.0.4:
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-6.0.4.tgz#ab7aa439b7f17f29e0ef0a28568b4920c3167bfd"
-  integrity sha512-uDNOkBo0OVYV+kIhb51g9mb7r3Z0b+78GPZQBsjXuaetNmrB/mNTqN/uFtO+vxL/rQySKjzk8qeKJI5NWL9Ueg==
+ionicons@^6.0.2, ionicons@^6.0.4, ionicons@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-6.1.1.tgz#4c24c29aaf9ec235d741e7fe692e47ea814b1a7d"
+  integrity sha512-Qe6mx25DFNwA9UL1rhewI5StI3uD4+BqB2KdvLjyWhtvoUXwyAsmfHLZuDANAHQowIKtTt6BZCt5/g5NIQ635Q==
   dependencies:
     "@stencil/core" "^2.18.0"
 
