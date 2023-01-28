@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onErrorCaptured, watch } from 'vue'
 import { useOnline } from '@vueuse/core'
-import { offline, warning } from '@/icons'
 
 const online = useOnline()
 const error = ref(null)
@@ -32,39 +31,18 @@ watch(online, (online) => {
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <div class="flex flex-col justify-center items-center text-center min-h-screen py-8 text-muted">
-          <div v-if="online">
-            <ion-icon
-              :icon="warning"
-              class="text-4xl"
-            />
-            <h2 class="bold text-3xl m-2">
-              Something went wrong
-            </h2>
-            <p>
-              An unexpected error occurred.
-            </p>
-          </div>
-          <div v-else>
-            <ion-icon
-              :icon="offline"
-              class="text-4xl"
-            />
-            <h2 class="text-2xl m-2">
-              Not available offline
-            </h2>
-            <p>Try again when you are online and it will be available offline next time.</p>
-          </div>
-
-          <ion-back-button
-            class="m-2 text-sm"
-            icon=""
-            text="Go Back"
-            type="reset"
-            default-href="/"
-            color="primary"
-          />
-        </div>
+        <blank-slate
+          v-if="online"
+          icon="warning"
+          title="Something went wrong"
+          description="An unexpected error occurred."
+        />
+        <blank-slate
+          v-else
+          icon="offline"
+          title="Not available offline"
+          description="Try again when you are online and it will be available offline next time."
+        />
       </ion-content>
     </template>
     <loading v-else>

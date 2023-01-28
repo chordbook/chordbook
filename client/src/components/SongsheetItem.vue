@@ -1,4 +1,5 @@
 <script setup>
+import ModelAvatar from './ModelAvatar.vue'
 import AddToSetlistModal from '@/components/AddToSetlistModal.vue'
 import ShareItem from '@/components/ShareItem.vue'
 import * as icons from '@/icons'
@@ -29,21 +30,11 @@ defineProps({
     :router-link="{ name: 'songsheet', params: { id } }"
     detail="false"
   >
-    <ion-avatar
+    <model-avatar
       slot="start"
-      class="bg-slate-100 flex place-content-center items-center rounded"
-    >
-      <img
-        v-if="track?.album"
-        :src="track?.album?.cover?.medium"
-        class="rounded"
-      >
-      <ion-icon
-        v-else
-        :icon="icons.song"
-        class="text-slate-300"
-      />
-    </ion-avatar>
+      :src="track?.album?.cover?.medium"
+      type="Songsheet"
+    />
     <ion-label>
       <h2>{{ title }}</h2>
       <p v-if="subtitle">

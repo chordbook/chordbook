@@ -11,6 +11,7 @@ class Api::AuthenticateController < ApiController
 
   def update
     @access_token = refresh_token!
+    ahoy.authenticate @access_token.user
     render @access_token.user
   end
 

@@ -22,6 +22,9 @@ function loaded ({ data }) {
 
 <template>
   <app-view>
+    <Head>
+      <title>Versions</title>
+    </Head>
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">

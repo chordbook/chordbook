@@ -3,23 +3,103 @@ import { logoGithub, handLeft, cashOutline } from 'ionicons/icons'
 import ColorizedImg from '@/components/ColorizedImg.vue'
 import ModelList from '../components/ModelList.vue'
 import useAuthStore from '@/stores/auth'
+import * as icons from '@/icons'
 
 const auth = useAuthStore()
 </script>
 
 <template>
   <app-view>
-    <ion-content>
-      <div
-        v-if="!auth.isAuthenticated"
-        class="ion-padding bg-black text-shadow min-h-screen-1/2 shadow-inner bg-center bg-cover flex flex-col place-content-center text-center"
+    <Head>
+      <title>Home</title>
+      <meta
+        name="description"
+        content="Chord sheets and tab for guitar and ukulele."
+      >
+    </Head>
+    <ion-header
+      v-if="auth.isAuthenticated"
+      collapse="fade"
+      translucent
+    >
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button />
+        </ion-buttons>
+        <ion-title>Home</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-header
+      v-else
+      translucent
+    >
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button />
+        </ion-buttons>
+        <ion-title class="flex">
+          <img
+            :src="icons.logoLight"
+            class="dark:hidden inline-block mr-3"
+          >
+          <img
+            :src="icons.logo"
+            class="hidden dark:inline-block mr-3"
+          >
+          <img
+            alt="Chord Book"
+            :src="icons.wordmarkLight"
+            class="inline-block max-w-[150px] dark:hidden"
+          >
+          <img
+            alt="Chord Book"
+            class="hidden dark:inline-block max-w-[150px]"
+            :src="icons.wordmark"
+          >
+        </ion-title>
+
+        <ion-buttons slot="end">
+          <ion-button router-link="#signin">
+            Sign In
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content fullscreen>
+      <ion-header
+        v-if="auth.isAuthenticated"
+        collapse="condense"
+      >
+        <ion-toolbar>
+          <ion-title size="large">
+            Home
+          </ion-title>
+          <ion-buttons slot="end">
+            <ion-button router-link="/account">
+              <ion-icon
+                slot="icon-only"
+                :icon="icons.avatar"
+              />
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-card
+        v-else
+        class="bg-black aspect-square-max-h-screen-1\/2 min-h-screen-1/2 shadow-inner bg-center bg-cover flex flex-col"
         style="background-image: url(https://images.pexels.com/photos/144428/pexels-photo-144428.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260)"
       >
-        <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold text-white font-semibold text-shadow-lg">
-          Play all your<br>
-          favorite songs.
-        </h1>
-      </div>
+        <div class="my-auto text-center">
+          <h2 class="text-4xl sm:text-6xl md:text-7xl font-bold text-white font-semibold text-shadow-lg">
+            Play all your<br>
+            favorite songs.
+          </h2>
+
+          <p class="sm:text-lg md:text-xl lg:text-2xl text-white/80 text-shadow-md mt-4">
+            Chord sheets and tab for guitar and ukulele.
+          </p>
+        </div>
+      </ion-card>
 
       <data-source
         v-slot="{ data }"
@@ -28,7 +108,6 @@ const auth = useAuthStore()
         <div
           v-for="section in data"
           :key="section.name"
-          class="ion-padding"
         >
           <ion-list-header>
             <ion-label class="text-2xl">

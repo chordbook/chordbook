@@ -1,5 +1,5 @@
 <script setup>
-import { artist } from '@/icons'
+import ModelAvatar from './ModelAvatar.vue'
 
 defineProps({
   id: {
@@ -22,20 +22,11 @@ defineProps({
     button
     :router-link="{ name: 'artist', params: { id } }"
   >
-    <ion-avatar
+    <model-avatar
       slot="start"
-      class="bg-slate-100 flex place-content-center items-center"
-    >
-      <img
-        v-if="thumbnail"
-        :src="thumbnail"
-      >
-      <ion-icon
-        v-else
-        :icon="artist"
-        class="text-slate-300"
-      />
-    </ion-avatar>
+      :src="thumbnail"
+      type="artist"
+    />
     <ion-label>
       <h2>{{ name }}</h2>
     </ion-label>

@@ -91,7 +91,15 @@ function paste (e) {
 </script>
 
 <template>
-  <ion-page>
+  <app-view>
+    <Head>
+      <title v-if="id">
+        Edit: {{ songsheet.title }}
+      </title>
+      <title v-else>
+        New Song
+      </title>
+    </Head>
     <ion-header translucent>
       <ion-toolbar>
         <ion-buttons slot="secondary">
@@ -169,5 +177,5 @@ function paste (e) {
         />
       </ion-content>
     </ion-modal>
-  </ion-page>
+  </app-view>
 </template>

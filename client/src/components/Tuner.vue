@@ -71,7 +71,7 @@ export default {
 
   computed: {
     tuner () {
-      return new Tuner(this.a4)
+      return new Tuner(this.a4, n => { this.note = n })
     },
 
     notes () {
@@ -101,7 +101,7 @@ export default {
 
     async start () {
       this.active = true
-      return this.tuner.start(n => { this.note = n }).then(() => {
+      return this.tuner.start().then(() => {
         this.frequencyData = new Uint8Array(this.tuner.analyser.frequencyBinCount)
         this.updateFrequencyBars()
       })

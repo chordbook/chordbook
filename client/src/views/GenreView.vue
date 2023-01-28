@@ -15,6 +15,11 @@ defineProps({
       v-slot="genre"
       :src="`genres/${id}`"
     >
+      <Head>
+        <title v-if="genre.data">
+          {{ genre.data.name }}
+        </title>
+      </Head>
       <ion-header translucent>
         <ion-toolbar>
           <ion-buttons slot="start">

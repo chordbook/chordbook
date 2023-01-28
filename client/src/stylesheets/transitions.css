@@ -1,0 +1,20 @@
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all 0.33s ease-in-out;
+  @apply relative flex flex-col align-bottom max-h-full;
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+  @apply max-h-0 opacity-0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

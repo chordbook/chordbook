@@ -1,6 +1,7 @@
 import './application.css'
 
 import { createApp } from 'vue'
+import { createHead } from '@vueuse/head'
 import { createPinia } from 'pinia'
 import { IonicVue } from '@ionic/vue'
 import App from './views/App.vue'
@@ -11,6 +12,7 @@ import ionicConfig from './config'
 import useSentry from './sentry'
 
 const app = createApp(App)
+  .use(createHead({ titleTemplate: '%s - Chord Book' }))
   .use(createPinia())
   .use(IonicVue, ionicConfig)
   .use(router)

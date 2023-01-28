@@ -1,10 +1,40 @@
+<script setup>
+import GenreListView from '@/views/GenreListView.vue'
+import ModelList from '../components/ModelList.vue'
+import ModelAvatar from '@/components/ModelAvatar.vue'
+import { useRouteQuery } from '@vueuse/router'
+import { computed, ref, reactive } from 'vue'
+
+const types = {
+  All: '',
+  Artists: 'Artist',
+  Albums: 'Album',
+  Songs: 'Track,Songsheet'
+}
+
+const params = reactive({
+  q: useRouteQuery('q'),
+  type: useRouteQuery('type', '')
+})
+
+const search = ref(null) // template ref
+const hasFocus = ref(false)
+const isSearching = computed(() => !!params.q || hasFocus.value)
+</script>
+
 <template>
   <app-view>
+    <Head>
+      <title>Discover</title>
+    </Head>
     <ion-header
       collapse="fade"
       class="ion-no-border"
     >
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button />
+        </ion-buttons>
         <ion-title>Discover</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -29,7 +59,7 @@
             ref="input"
             v-model="params.q"
             :show-cancel-button="isSearching ? 'always' : 'focus'"
-            debounce="150"
+            debounce="200"
             animated
             @ion-focus="hasFocus = true"
             @ion-blur="hasFocus = false"
@@ -51,41 +81,65 @@
         </ion-toolbar>
       </ion-header>
 
-      <ion-list v-show="isSearching">
-        <Transition>
-          <ion-item
-            v-if="search.isFinished && (!search.data || search.data.length == 0)"
-            lines="none"
-          >
-            No results
-          </ion-item>
-        </Transition>
-        <ion-item
-          v-for="result in search.data"
-          :key="result.type + result.id"
-          button
-          :router-link="{ name: result.type.toLowerCase(), params: { id: result.id } }"
+      <Transition name="fade">
+        <div
+          v-if="isSearching && search?.isFetching"
+          slot="fixed"
+          class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         >
-          <ion-avatar slot="start">
-            <img :src="result.thumbnail"> <!-- class="rounded" -->
-          </ion-avatar>
-          <ion-label>
-            <p class="uppercase">
-              {{ result.type }}
-            </p>
-            <h2>{{ result.title }}</h2>
-            <p>{{ result.subtitle }}</p>
-          </ion-label>
-        </ion-item>
-        <Transition name="slide-down">
-          <ion-item
-            v-if="search.isFetching"
-            lines="none"
-          >
-            <ion-spinner name="dots" />
-          </ion-item>
-        </Transition>
-      </ion-list>
+          <ion-spinner
+            name="dots"
+            color="medium"
+            class="scale-[2]"
+            duration="1200"
+          />
+        </div>
+      </Transition>
+
+      <data-source
+        v-if="isSearching"
+        ref="search"
+        src="search"
+        :params="params"
+        :options="{ immediate: !!params.q, refetch: true }"
+        :paginate="false"
+      >
+        <template
+          v-if="params.q"
+          #empty
+        >
+          <blank-slate
+            icon="search"
+            title="No results found"
+            description=""
+          />
+        </template>
+        <template #default="{ data }">
+          <ion-list>
+            <TransitionGroup name="fade">
+              <ion-item
+                v-for="result in data"
+                :key="result.type + result.id"
+                button
+                :router-link="{ name: result.type.toLowerCase(), params: { id: result.id } }"
+              >
+                <model-avatar
+                  slot="start"
+                  :src="result.thumbnail"
+                  :type="result.type"
+                />
+                <ion-label>
+                  <p class="uppercase">
+                    {{ result.type }}
+                  </p>
+                  <h2>{{ result.title }}</h2>
+                  <p>{{ result.subtitle }}</p>
+                </ion-label>
+              </ion-item>
+            </TransitionGroup>
+          </ion-list>
+        </template>
+      </data-source>
 
       <div v-show="!isSearching">
         <data-source
@@ -102,34 +156,3 @@
     </ion-content>
   </app-view>
 </template>
-
-<script setup>
-import GenreListView from '@/views/GenreListView.vue'
-import ModelList from '../components/ModelList.vue'
-import { useRouteQuery } from '@vueuse/router'
-import { useFetch } from '@/client'
-import { computed, ref, unref, reactive, watch } from 'vue'
-
-const types = {
-  All: '',
-  Artists: 'Artist',
-  Albums: 'Album',
-  Songs: 'Track,Songsheet'
-}
-
-const params = reactive({
-  q: useRouteQuery('q'),
-  type: useRouteQuery('type', '')
-})
-
-const hasFocus = ref(false)
-const isSearching = computed(() => !!unref(params.q || hasFocus))
-const search = reactive(useFetch('search', { params, immediate: params.q }).get().json())
-
-watch(params, () => {
-  if (params.q) {
-    search.abort()
-    search.execute()
-  }
-})
-</script>

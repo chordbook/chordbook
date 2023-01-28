@@ -6,6 +6,9 @@ import { add } from 'ionicons/icons'
 
 <template>
   <app-view>
+    <Head>
+      <title>Songs</title>
+    </Head>
     <ion-header
       translucent
       collapse="fade"

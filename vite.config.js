@@ -18,6 +18,9 @@ export default defineConfig({
     outDir: path.resolve(__dirname, 'public'),
     emptyOutDir: true
   },
+  css: {
+    devSourcemap: true
+  },
   plugins: [
     vue(),
     svgLoader(),

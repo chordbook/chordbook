@@ -38,6 +38,8 @@ module Authentication
   # Return `User` or nil if user is not authenticated
   def current_user
     current_token&.user
+  rescue JWT::DecodeError # don't raise error if token is invalid
+    nil
   end
 
   # Issue a new `AccessToken` for the given user

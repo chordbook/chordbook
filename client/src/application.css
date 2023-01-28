@@ -8,50 +8,59 @@
 
 /* Optional CSS utils that can be commented out */
 @import '@ionic/vue/css/padding.css';
-@import '@ionic/vue/css/float-elements.css';
-@import '@ionic/vue/css/text-alignment.css';
-@import '@ionic/vue/css/text-transformation.css';
-@import '@ionic/vue/css/flex-utils.css';
-@import '@ionic/vue/css/display.css';
 
-/* Theme variables */
 @import '@/stylesheets/variables.css';
+@import '@/stylesheets/text-shadow';
+@import '@/stylesheets/transitions';
 
 /* Tailwind */
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-@import "@/stylesheets/text-shadow";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  /* Chrome, Safari and Opera */
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
   .grid-scroll-x {
-    @apply grid grid-flow-col overflow-x-auto snap-x snap-mandatory;
+    @apply grid grid-flow-col overflow-x-auto snap-x snap-mandatory scrollbar-hide;
   }
 
   .grid-scroll-x > * {
     @apply snap-start
   }
-}
 
-.text-muted {
-  @apply text-zinc-500;
+  /* Safari does not respect max-height with aspect-ratio, so workaround it */
+  .aspect-square-max-h-screen-1\/2 {
+    @apply max-h-screen-1/2 overflow-hidden relative;
+  }
+
+  .aspect-square-max-h-screen-1\/2:before {
+    content: '';
+    @apply block aspect-square;
+  }
+
+  .aspect-16\/9-max-h-screen-1\/2 {
+    @apply max-h-screen-1/2 overflow-hidden relative;
+  }
+
+  .aspect-16\/9-max-h-screen-1\/2:before {
+    content: '';
+    @apply block aspect-16/9;
+  }
+
+  .text-muted {
+    @apply text-zinc-500;
+  }
 }
 
 .reorder-enabled .hide-reorder {
   display: none;
 }
-
-.slide-down-enter-active,
-.slide-down-leave-active {
-  transition: all 0.33s ease-in-out;
-  @apply relative flex flex-col align-bottom max-h-full;
-}
-
-.slide-down-enter-from,
-.slide-down-leave-to {
-  @apply max-h-0 opacity-0;
-}
-
 
 *[routerlink] {
   @apply cursor-pointer;

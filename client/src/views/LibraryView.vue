@@ -4,8 +4,14 @@ import * as icons from '@/icons'
 
 <template>
   <app-view>
+    <Head>
+      <title>Library</title>
+    </Head>
     <ion-header translucent>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button />
+        </ion-buttons>
         <ion-title>Library</ion-title>
       </ion-toolbar>
     </ion-header>
