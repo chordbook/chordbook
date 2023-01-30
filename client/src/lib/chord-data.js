@@ -55,15 +55,35 @@ export default class ChordData {
   }
 
   get fingerings () {
-    let string = this.strings
-    return this.data.frets.map(fret => [string--, fret >= 0 ? fret : 'x'])
+    // Array of string numbers from top to bottom, e.g. [6, 5, 4, 3, 2, 1]
+    const strings = Array.from({ length: this.strings }, (_, i) => i + 1).reverse()
+
+    return strings.map((string, i) => {
+      const fret = this.data.frets[i]
+      const finger = this.data.fingers[i]
+      return [string, fret >= 0 ? fret : 'x', finger > 0 ? finger : null]
+    })
   }
 
   get barres () {
     return this.data.barres.map(fret => {
-      const fromString = this.strings - this.data.frets.findIndex(f => f >= fret)
-      const toString = this.data.frets.slice().reverse().findIndex(f => f >= fret) + 1
+      // Get all the strings that could possibly be barred
+      const possibleStrings = this.fingerings.filter(f => f[1] >= fret)
+
+      // Which finger touches the most strings?
+      const finger = mode(possibleStrings.map(s => s[2]).filter(Boolean))
+
+      const strings = possibleStrings.filter(s => s[2] === finger).map(s => s[0])
+
+      const fromString = strings[0]
+      const toString = strings[strings.length - 1]
       return { fret, fromString, toString }
     })
   }
+}
+
+function mode (arr) {
+  return [...arr].sort((a, b) => {
+    return arr.filter(v => v === a).length - arr.filter(v => v === b).length
+  }).pop()
 }
