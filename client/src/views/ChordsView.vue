@@ -15,7 +15,13 @@ const instruments = ['Guitar', 'Ukulele']
 const selectedInstrument = ref(instruments[0].toLowerCase())
 const selectedKey = ref('C')
 const selectedChord = ref(null)
+
+const width = ref(112)
+const height = ref(150)
+
 const data = computed(() => db[selectedInstrument.value])
+const chords = computed(() => data.value?.chords[normalizeKey(selectedKey.value)])
+const chordData = computed(() => chords.value?.[selectedChord.value])
 
 function normalizeChordName (name) {
   return Chord.parse(name).normalize().toString({ useUnicodeModifier: true })
@@ -52,11 +58,11 @@ function normalizeKey (key) {
           scrollable
         >
           <ion-segment-button
-            v-for="key in data.keys"
+            v-for="key in data?.keys"
             :key="key"
             :value="key"
           >
-            <ion-label>{{ key }}</ion-label>
+            <ion-label>{{ Chord.parse(key).toString({ useUnicodeModifier: true }) }}</ion-label>
           </ion-segment-button>
         </ion-segment>
       </ion-toolbar>
@@ -67,54 +73,54 @@ function normalizeKey (key) {
         class="mt-6 chord-grid"
       >
         <ion-item
-          v-for="chord in data.chords[normalizeKey(selectedKey)]"
+          v-for="(chord, index) in chords"
           :key="chord.key + chord.suffix"
           button
           :detail="false"
-          @click="() => selectedChord = chord"
+          @click="() => selectedChord = index"
         >
-          <div class="flex flex-col items-center">
+          <div class="flex flex-col items-center pt-3">
             <h2 class="text-sm">
               {{ normalizeChordName(chord.key + chord.suffix) }}
             </h2>
             <chord-box
               as="svg"
               :data="new ChordData(chord.positions[0])"
-              width="75"
-              height="100"
+              :width="width"
+              :height="height"
             />
           </div>
         </ion-item>
       </ion-list>
     </ion-content>
     <ion-modal
-      :is-open="!!selectedChord"
-      :initial-breakpoint="0.33"
-      :breakpoints="[0, 0.33, 0.66, 1]"
+      :is-open="selectedChord !== null"
+      :initial-breakpoint="0.5"
+      :breakpoints="[0, 0.5, 1]"
       @did-dismiss="selectedChord = null"
     >
       <ion-page>
         <ion-header>
           <ion-toolbar>
             <ion-title>
-              {{ normalizeChordName(selectedChord.key + selectedChord.suffix) }}
+              {{ normalizeChordName(chordData.key + chordData.suffix) }}
             </ion-title>
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-          <!-- {{ parseChord(selectedChord).normalize().toString({ useUnicodeModifier: true }) }} -->
           <div class="mt-6 chord-grid text-center">
             <div
-              v-for="(position, index) in selectedChord.positions"
+              v-for="(position, index) in chordData.positions"
               :key="index"
+              class="flex-grow"
             >
               <h3>{{ index + 1 }}</h3>
               <chord-box
                 class="inline"
                 as="svg"
                 :data="new ChordData(position)"
-                width="75"
-                height="100"
+                :width="width"
+                :height="height"
               />
             </div>
           </div>
@@ -126,11 +132,12 @@ function normalizeKey (key) {
 
 <style>
 .chord-grid {
-  @apply grid gap-2;
-  grid-template-columns: repeat(auto-fit, minmax(75px, 1fr))
+  @apply flex flex-wrap;
 }
 
 .chord-grid > ion-item {
   --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
 }
 </style>
