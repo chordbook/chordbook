@@ -1,27 +1,16 @@
 <script setup>
 import useAuthStore from '@/stores/auth'
 import { ref, computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const router = useRouter()
 const auth = useAuthStore()
 const form = ref({ user: {} })
 const { execute, data } = auth.signUp(form, { immediate: false })
-
-const isOpen = computed(() => !auth.isAuthenticated && route.hash === '#signup')
-function dismissed () {
-  if (isOpen.value) router.back()
-}
 </script>
 
 <template>
-  <ion-modal
-    :is-open="isOpen"
-    can-dismiss
-    :presenting-element="$parent.$refs.ionRouterOutlet"
-    @did-dismiss="dismissed"
-  >
+  <ion-modal>
     <ion-page>
       <Head>
         <title>Sign Up</title>

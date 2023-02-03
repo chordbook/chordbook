@@ -8,7 +8,10 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="ion-padding-horizontal">
+    <ion-content
+      fullscreen
+      class="ion-padding-horizontal"
+    >
       <div class="flex h-full flex-col">
         <ion-list
           lines="none"
@@ -121,7 +124,9 @@
           lines="none"
           class="mt-auto mb-3"
         >
-          <ion-menu-toggle auto-hide="false">
+          <ion-menu-toggle
+            auto-hide="false"
+          >
             <ion-button
               class="block"
               color="primary"
@@ -139,6 +144,38 @@
         </ion-list>
       </div>
     </ion-content>
+    <ion-footer translucent>
+      <ion-toolbar>
+        <ion-buttons>
+          <ion-button
+            button
+            shape="round"
+            router-link="#chords"
+            :detail="false"
+            :color="colorFor('songs')"
+          >
+            <ion-icon
+              slot="icon-only"
+              size="small"
+              :icon="icons.chordDiagram"
+            />
+          </ion-button>
+          <ion-button
+            button
+            shape="round"
+            router-link="#tuner"
+            :detail="false"
+            :color="colorFor('songs')"
+          >
+            <ion-icon
+              slot="icon-only"
+              size="small"
+              :icon="icons.tuningFork"
+            />
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-footer>
   </ion-menu>
 </template>
 

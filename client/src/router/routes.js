@@ -156,17 +156,6 @@ export default [
     props: { component: () => import('@/views/AccountView.vue') }
   },
   {
-    path: '/tuner',
-    name: 'tuner',
-    component: () => import('@/views/TunerView.vue')
-  },
-  {
-    path: '/chords',
-    name: 'chords',
-    component: () => import('@/views/ChordsView.vue'),
-    meta: { selected: null }
-  },
-  {
     path: '/password/forgot',
     name: 'password/forgot',
     component: () => import('@/views/ForgotPasswordView.vue')
