@@ -10,6 +10,7 @@ export {
   home,
   list,
   listOutline as setlist,
+  logInOutline as signin,
   logOutOutline as signout,
   musicalNote as song,
   people as artist,

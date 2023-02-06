@@ -17,8 +17,8 @@ const component = computed(() => routes[route.hash])
 
 <template>
   <component
-    v-if="component"
     :is="defineAsyncComponent(component)"
+    v-if="component"
     can-dismiss
     :is-open="true"
     :presenting-element="$parent.$refs.ionRouterOutlet"
