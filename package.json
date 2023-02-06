@@ -34,7 +34,7 @@
     "share-api-polyfill": "^1.1.1",
     "string-hash": "^1.1",
     "tailwindcss": "^3.2.4",
-    "tinycolor2": "^1.5.2",
+    "tinycolor2": "^1.6.0",
     "vexchords": "^1.2",
     "vite": "^4.0.4",
     "vite-plugin-pwa": "^0.14.1",
