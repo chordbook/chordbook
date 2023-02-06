@@ -1341,15 +1341,15 @@
     estree-walker "^2.0.2"
     picomatch "^2.3.1"
 
-"@sentry/browser@7.31.1":
-  version "7.31.1"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.31.1.tgz#ac42ef5994d0e983e4c44c35b17013a0080c6527"
-  integrity sha512-Rg9F61S1tz1Dv3iUyyGP26bxoi7WJAG2+f2fBbSmFuJ+JTH4Jvu2/F1bBig8Dz01ejzVhbNSUUCfoDhSvksIsQ==
+"@sentry/browser@7.36.0":
+  version "7.36.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.36.0.tgz#097f00e1e48b5fb2705e94f32d915aec44104b57"
+  integrity sha512-Mu0OpisCZFICBGxVXdHWjUDgSvuQKjnO9acNcXR1+68IU08iX+cU6f2kq6VzI4mW/pNieI20FDFbx9KA0YZ4+A==
   dependencies:
-    "@sentry/core" "7.31.1"
-    "@sentry/replay" "7.31.1"
-    "@sentry/types" "7.31.1"
-    "@sentry/utils" "7.31.1"
+    "@sentry/core" "7.36.0"
+    "@sentry/replay" "7.36.0"
+    "@sentry/types" "7.36.0"
+    "@sentry/utils" "7.36.0"
     tslib "^1.9.3"
 
 "@sentry/core@7.31.1":
@@ -1361,14 +1361,23 @@
     "@sentry/utils" "7.31.1"
     tslib "^1.9.3"
 
-"@sentry/replay@7.31.1":
-  version "7.31.1"
-  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-7.31.1.tgz#453ad85fc2f14e4d203d3a7e0bf790877f697964"
-  integrity sha512-sLArvwZn6IwA/bASctyhxN7LhdCXJvMmyTynRfmk7pzuNzBMc5CNlHeIsDpHrfQuH53IKicvl6cHnHyclu5DSA==
+"@sentry/core@7.36.0":
+  version "7.36.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.36.0.tgz#37c82a1ad3f74dbe2c2fcd55f45068e127012fcc"
+  integrity sha512-lq1MlcMhvm7QIwUOknFeufkg4M6QREY3s61y6pm1o+o3vSqB7Hz0D19xlyEpP62qMn8OyuttVKOVK1UfGc2EyQ==
   dependencies:
-    "@sentry/core" "7.31.1"
-    "@sentry/types" "7.31.1"
-    "@sentry/utils" "7.31.1"
+    "@sentry/types" "7.36.0"
+    "@sentry/utils" "7.36.0"
+    tslib "^1.9.3"
+
+"@sentry/replay@7.36.0":
+  version "7.36.0"
+  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-7.36.0.tgz#87b24d44e8136e8c3fccd1d80097097c0c67affa"
+  integrity sha512-wNbME74/2GtkqdDXz7NaStyfPWVLjYmN9TFWvu6E9sNl9pkDDvii/Qc8F6ps1wa7bozkKcWRHgNvYiGCxUBHcg==
+  dependencies:
+    "@sentry/core" "7.36.0"
+    "@sentry/types" "7.36.0"
+    "@sentry/utils" "7.36.0"
 
 "@sentry/tracing@^7.31.1":
   version "7.31.1"
@@ -1385,6 +1394,11 @@
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.31.1.tgz#920fc10b289ac1f99f277033b4d26625028a1f9f"
   integrity sha512-1uzr2l0AxEnxUX/S0EdmXUQ15/kDsam8Nbdw4Gai8SU764XwQgA/TTjoewVP597CDI/AHKan67Y630/Ylmkx9w==
 
+"@sentry/types@7.36.0":
+  version "7.36.0"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.36.0.tgz#205baaf7332ff55d1fb35413cbde16dea4168520"
+  integrity sha512-uvfwUn3okAWSZ948D/xqBrkc3Sn6TeHUgi3+p/dTTNGAXXskzavgfgQ4rSW7f3YD4LL+boZojpoIARVLodMGuA==
+
 "@sentry/utils@7.31.1":
   version "7.31.1"
   resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.31.1.tgz#bdc988de603318a30ff247d5702c2f9ac81255cb"
@@ -1393,15 +1407,23 @@
     "@sentry/types" "7.31.1"
     tslib "^1.9.3"
 
-"@sentry/vue@^7.31.1":
-  version "7.31.1"
-  resolved "https://registry.yarnpkg.com/@sentry/vue/-/vue-7.31.1.tgz#5fa13ac8087b2be7a85beaf29344462cd7581e59"
-  integrity sha512-Frt48GRorCzk8i7CXS22anE6DLTBLL4SpowA0o3f/ksfFKWgjUSAPSmlCJ19xVNeFtXX30dO9i4P1Xzy3ZXoQw==
+"@sentry/utils@7.36.0":
+  version "7.36.0"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.36.0.tgz#b81cf63c7b5daad3f0f152c4ad319203f968ba1b"
+  integrity sha512-mgDi5X5Bm0sydCzXpnyKD/sD98yc2qnKXyRdNX4HRRwruhC/P53LT0hGhZXsyqsB/l8OAMl0zWXJLg0xONQsEw==
   dependencies:
-    "@sentry/browser" "7.31.1"
-    "@sentry/core" "7.31.1"
-    "@sentry/types" "7.31.1"
-    "@sentry/utils" "7.31.1"
+    "@sentry/types" "7.36.0"
+    tslib "^1.9.3"
+
+"@sentry/vue@^7.36.0":
+  version "7.36.0"
+  resolved "https://registry.yarnpkg.com/@sentry/vue/-/vue-7.36.0.tgz#76cc706a2fbf165bb9e79f8745127fe44e669735"
+  integrity sha512-GeGuHZimT/zlbWALx9rlT4N7Nvatfoi8HGFQNNlNG/WHNBjPrhPD5O/+54IM1es19wH1Yqdbne8D0O5mk4MAyg==
+  dependencies:
+    "@sentry/browser" "7.36.0"
+    "@sentry/core" "7.36.0"
+    "@sentry/types" "7.36.0"
+    "@sentry/utils" "7.36.0"
     tslib "^1.9.3"
 
 "@stencil/core@^2.18.0":
