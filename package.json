@@ -25,7 +25,7 @@
     "get-youtube-id": "^1.0",
     "http-link-header": "^1.1.0",
     "moving-average": "^1.0.1",
-    "pinia": "^2.0.29",
+    "pinia": "^2.0.30",
     "pitchy": "^4.0.7",
     "postcss": "^8.4.21",
     "postcss-import": "^15.1.0",
