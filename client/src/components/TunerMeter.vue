@@ -34,15 +34,21 @@ function centsToDegrees (cents) {
       >♯</span>
     </div>
     <div
-      :class="`opacity-${cents ? 1 : 0} absolute left-1/2 -translate-x-1/2 h-full origin-center transition-[transform,opacity] duration-750`"
+      v-if="cents"
+      class="absolute left-1/2 -translate-x-1/2 h-full origin-center transition-transform duration-100"
       :style="{ '--tw-rotate': centsToDegrees(cents || 0) }"
     >
       <div
+        v-if="cents"
         :class="{
-          'w-[5px] border-t-[20px] rounded transition-colors duration-300': true,
-          'border-green-500': cents && Math.abs(cents) <= 5,
-          'border-yellow-500': !cents || (Math.abs(cents) > 5 && Math.abs(cents) <= 25),
-          'border-red-500': cents && Math.abs(cents) > 25,
+          'rounded-md w-0 h-0 transition-all duration-200': true,
+          'h-[20px] border-x-[6px] rounded border-green-500': Math.abs(cents) <= 5,
+          // Make it a CSS arrow if off by more than 5 cents
+          'border-[10.5px] mt-[-1px] border-t-transparent border-b-transparent': Math.abs(cents) > 5,
+          'border-r-0': cents < 5, // Right arrow
+          'border-l-0': cents > 5, // Left arrow
+          'border-yellow-500': Math.abs(cents) > 5 && Math.abs(cents) <= 25,
+          'border-red-500': Math.abs(cents) > 25,
         }"
       />
     </div>
