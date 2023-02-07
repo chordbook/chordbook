@@ -46,8 +46,8 @@ export class Tuner {
 
   async start () {
     this.stream = await mediaDevices.getUserMedia({ audio: true })
-
-    this.audioContext = new AudioContext()
+    const { sampleRate } = this.stream.getAudioTracks()[0].getSettings()
+    this.audioContext = new AudioContext({ sampleRate })
 
     this.scriptProcessor = this.audioContext.createScriptProcessor(this.bufferSize, 1, 1)
     this.scriptProcessor.addEventListener('audioprocess', this.process.bind(this))
