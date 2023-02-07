@@ -35,25 +35,26 @@ export class Tuner {
     this.onNote = onNote
 
     this.semitone = 69
-    this.bufferSize = 4096
+    this.bufferSize = 2048
     this.noteStrings = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B']
 
     this.pitchDetector = PitchDetector.forFloat32Array(this.bufferSize)
   }
 
   async start () {
+    this.stream = await mediaDevices.getUserMedia({ audio: true })
+
     this.audioContext = new AudioContext()
 
     this.scriptProcessor = this.audioContext.createScriptProcessor(this.bufferSize, 1, 1)
-    this.scriptProcessor.connect(this.audioContext.destination)
     this.scriptProcessor.addEventListener('audioprocess', this.process.bind(this))
+    this.scriptProcessor.connect(this.audioContext.destination)
 
-    this.analyser = new AnalyserNode(this.audioContext, { fftSize: this.bufferSize })
+    this.analyser = new AnalyserNode(this.audioContext, { fftSize: this.bufferSize, smoothingTimeConstant: 0.9 })
     this.analyser.connect(this.scriptProcessor)
 
-    this.stream = await mediaDevices.getUserMedia({ audio: true })
-
-    this.audioContext.createMediaStreamSource(this.stream).connect(this.analyser)
+    this.source = this.audioContext.createMediaStreamSource(this.stream)
+    this.source.connect(this.analyser)
   }
 
   process (event) {
@@ -61,13 +62,14 @@ export class Tuner {
 
     const [frequency, clarity] = this.pitchDetector.findPitch(data, this.audioContext.sampleRate)
 
-    if (clarity > 0.9) {
+    if (clarity > 0.99) {
       const note = this.getNote(frequency)
+      const octave = parseInt(note / 12) - 1
       this.onNote({
         name: this.noteStrings[note % 12],
         value: note,
         cents: this.getCents(frequency, note),
-        octave: parseInt(note / 12) - 1,
+        octave,
         frequency,
         clarity
       })
@@ -77,7 +79,7 @@ export class Tuner {
   async stop () {
     this.stream.getTracks().forEach(track => track.stop())
     await this.audioContext.close()
-    this.audioContext = this.scriptProcessor = this.analyser = this.stream = null
+    this.audioContext = this.scriptProcessor = this.analyser = this.stream = this.source = null
   }
 
   /**
