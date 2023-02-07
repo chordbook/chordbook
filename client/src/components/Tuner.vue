@@ -3,6 +3,7 @@ import { Tuner } from '../lib/tuner'
 import TunerMeter from '@/components/TunerMeter.vue'
 import TunerNote from '@/components/TunerNote.vue'
 import { mic, micOff } from 'ionicons/icons'
+import debounce from 'lodash.debounce'
 
 export default {
   components: { TunerMeter, TunerNote },
@@ -39,6 +40,12 @@ export default {
 
       return notes
     }
+  },
+
+  watch: {
+    note: debounce(function (note) {
+      if (note.cents) this.note.cents = null
+    }, 1000)
   },
 
   methods: {
