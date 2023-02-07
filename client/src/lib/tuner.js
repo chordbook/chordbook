@@ -1,4 +1,5 @@
 import { PitchDetector } from 'pitchy'
+import useMovingAverage from 'moving-average'
 
 const AudioContext = window.AudioContext || window.webkitAudioContext
 
@@ -39,6 +40,8 @@ export class Tuner {
     this.noteStrings = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B']
 
     this.pitchDetector = PitchDetector.forFloat32Array(this.bufferSize)
+
+    this.movingAverage = useMovingAverage(250) // ms
   }
 
   async start () {
@@ -63,14 +66,17 @@ export class Tuner {
     const [frequency, clarity] = this.pitchDetector.findPitch(data, this.audioContext.sampleRate)
 
     if (clarity > 0.99) {
-      const note = this.getNote(frequency)
+      this.movingAverage.push(Date.now(), frequency)
+      const maFrequency = this.movingAverage.movingAverage()
+
+      const note = this.getNote(maFrequency)
       const octave = parseInt(note / 12) - 1
       this.onNote({
         name: this.noteStrings[note % 12],
         value: note,
-        cents: this.getCents(frequency, note),
+        cents: this.getCents(maFrequency, note),
         octave,
-        frequency,
+        frequency: maFrequency,
         clarity
       })
     }

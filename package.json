@@ -24,6 +24,7 @@
     "cordova-plugin-insomnia": "^4.3",
     "get-youtube-id": "^1.0",
     "http-link-header": "^1.1.0",
+    "moving-average": "^1.0.1",
     "pinia": "^2.0.29",
     "pitchy": "^4.0.7",
     "postcss": "^8.4.21",
