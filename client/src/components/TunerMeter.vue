@@ -1,82 +1,56 @@
-<template>
-  <div
-    class="meter"
-    style="position:relative"
-  >
-    <div
-      class="meter-pointer"
-      :style="`left: ${left}`"
-    />
-  </div>
-</template>
-
-<script>
-export default {
-  props: {
-    cents: {
-      type: Number,
-      required: true
-    }
-  },
-
-  computed: {
-    degrees () {
-      return (this.cents / 50) * 45
-    },
-
-    transform () {
-      return 'rotate(' + this.degrees + 'deg)'
-    },
-
-    left () {
-      return (this.cents + 50) + '%'
-    }
-  },
-
-  mounted () {
-    for (let i = 0; i <= 10; i += 1) {
-      const $scale = document.createElement('div')
-      $scale.className = 'meter-scale'
-      $scale.style.left = (i * 10) + '%'
-      if (i % 5 === 0) {
-        $scale.classList.add('meter-scale-strong')
-      }
-      this.$el.appendChild($scale)
-    }
+<script setup>
+defineProps({
+  cents: {
+    type: [Number, null],
+    required: true
   }
+})
+
+const range = 90
+
+function centsToDegrees (cents) {
+  return cents * (range / 100) + 'deg'
 }
 </script>
 
-<style>
-.meter {
-  position: relative;
-  height: 25px;
-}
-
-.meter-pointer {
-  z-index: 20;
-  width: 4px;
-  height: 20px;
-  transform: translate(-50%); /* Center items */
-  @apply bg-green-500;
-  transition: left 1s;
-  position: absolute;
-  left: 50%;
-}
-
-.meter-scale {
-  opacity: 0.5;
-  width: 1px;
-  margin-left:-0.5px;
-  height: 100%;
-  box-sizing: border-box;
-  border-top: 10px solid;
-  position: absolute;
-  left: 50%;
-}
-
-.meter-scale-strong {
-  width: 2px;
-  border-top-width: 20px;
-}
-</style>
+<template>
+  <div class="meter absolute inset-1">
+    <div
+      v-for="index in 11"
+      :key="index"
+      :class="{
+        'absolute left-1/2 -translate-x-1/2 h-full origin-center rounded opacity-50 w-[1px] border-current border-t-[10px]': true,
+        'w-[3px] border-t-[20px]': (index - 1) % 5 === 0
+      }"
+      :style="{ '--tw-rotate': centsToDegrees((index - 6) * 10) }"
+    >
+      <span
+        v-if="index == 1"
+        class="absolute right-2 -top-5"
+      >♭</span>
+      <span
+        v-if="index == 11"
+        class="absolute left-2 -top-5"
+      >♯</span>
+    </div>
+    <div
+      v-if="cents"
+      class="absolute left-1/2 -translate-x-1/2 h-full origin-center transition-transform duration-100"
+      :style="{ '--tw-rotate': centsToDegrees(cents || 0) }"
+    >
+      <div
+        v-if="cents"
+        :class="{
+          'rounded-md w-0 h-0 transition-all duration-200': true,
+          'h-[20px] border-x-[6px] rounded border-green-500': Math.abs(cents) <= 5,
+          // Make it a CSS arrow if off by more than 5 cents
+          'border-[10.5px] mt-[-1px] border-t-transparent border-b-transparent': Math.abs(cents) > 5,
+          'border-r-0': cents < 5, // Right arrow
+          'border-l-0': cents > 5, // Left arrow
+          'border-yellow-500': Math.abs(cents) > 5 && Math.abs(cents) <= 25,
+          'border-red-500': Math.abs(cents) > 25,
+        }"
+      />
+    </div>
+  </div>
+</template>

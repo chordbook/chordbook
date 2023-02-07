@@ -1,4 +1,5 @@
 import { PitchDetector } from 'pitchy'
+import useMovingAverage from 'moving-average'
 
 const AudioContext = window.AudioContext || window.webkitAudioContext
 
@@ -35,25 +36,28 @@ export class Tuner {
     this.onNote = onNote
 
     this.semitone = 69
-    this.bufferSize = 4096
+    this.bufferSize = 2048
     this.noteStrings = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B']
 
     this.pitchDetector = PitchDetector.forFloat32Array(this.bufferSize)
+
+    this.movingAverage = useMovingAverage(250) // ms
   }
 
   async start () {
-    this.audioContext = new AudioContext()
+    this.stream = await mediaDevices.getUserMedia({ audio: true })
+    const { sampleRate } = this.stream.getAudioTracks()[0].getSettings()
+    this.audioContext = new AudioContext({ sampleRate })
 
     this.scriptProcessor = this.audioContext.createScriptProcessor(this.bufferSize, 1, 1)
-    this.scriptProcessor.connect(this.audioContext.destination)
     this.scriptProcessor.addEventListener('audioprocess', this.process.bind(this))
+    this.scriptProcessor.connect(this.audioContext.destination)
 
-    this.analyser = new AnalyserNode(this.audioContext, { fftSize: this.bufferSize })
+    this.analyser = new AnalyserNode(this.audioContext, { fftSize: this.bufferSize, smoothingTimeConstant: 0.9 })
     this.analyser.connect(this.scriptProcessor)
 
-    this.stream = await mediaDevices.getUserMedia({ audio: true })
-
-    this.audioContext.createMediaStreamSource(this.stream).connect(this.analyser)
+    this.source = this.audioContext.createMediaStreamSource(this.stream)
+    this.source.connect(this.analyser)
   }
 
   process (event) {
@@ -61,14 +65,18 @@ export class Tuner {
 
     const [frequency, clarity] = this.pitchDetector.findPitch(data, this.audioContext.sampleRate)
 
-    if (clarity > 0.9) {
-      const note = this.getNote(frequency)
+    if (clarity > 0.99) {
+      this.movingAverage.push(Date.now(), frequency)
+      const maFrequency = this.movingAverage.movingAverage()
+
+      const note = this.getNote(maFrequency)
+      const octave = parseInt(note / 12) - 1
       this.onNote({
         name: this.noteStrings[note % 12],
         value: note,
-        cents: this.getCents(frequency, note),
-        octave: parseInt(note / 12) - 1,
-        frequency,
+        cents: this.getCents(maFrequency, note),
+        octave,
+        frequency: maFrequency,
         clarity
       })
     }
@@ -77,7 +85,7 @@ export class Tuner {
   async stop () {
     this.stream.getTracks().forEach(track => track.stop())
     await this.audioContext.close()
-    this.audioContext = this.scriptProcessor = this.analyser = this.stream = null
+    this.audioContext = this.scriptProcessor = this.analyser = this.stream = this.source = null
   }
 
   /**
