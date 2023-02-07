@@ -7,8 +7,7 @@ import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import AddToSetlistModal from '@/components/AddToSetlistModal.vue'
 import ShareItem from '@/components/ShareItem.vue'
 import * as icons from '@/icons'
-import { modalController, onIonViewDidEnter, onIonViewWillLeave } from '@ionic/vue'
-import TunerView from '@/views/TunerView.vue'
+import { onIonViewDidEnter, onIonViewWillLeave } from '@ionic/vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import useSongsheetSettings from '@/stores/songsheet-settings'
 import { ref } from 'vue'
@@ -25,16 +24,6 @@ const settings = useSongsheetSettings()
 
 onIonViewDidEnter(() => Insomnia.keepAwake())
 onIonViewWillLeave(() => Insomnia.allowSleepAgain())
-
-async function openTuner () {
-  const modal = await modalController
-    .create({
-      component: TunerView,
-      initialBreakpoint: 0.5,
-      breakpoints: [0, 0.5]
-    })
-  return modal.present()
-}
 
 function formatDate (input) {
   if (!input) return ''
@@ -246,7 +235,7 @@ function hostname (url) {
             detail
             :detail-icon="icons.tuningFork"
             lines="none"
-            @click="openTuner"
+            router-link="#tuner"
           >
             Tuner
           </ion-item>

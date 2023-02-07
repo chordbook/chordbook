@@ -8,16 +8,14 @@
       <app-menu content-id="main" />
       <ion-router-outlet id="main" />
     </ion-split-pane>
-    <user-signin-modal />
-    <user-signup-modal />
+    <modal-view />
   </ion-app>
 </template>
 
 <script setup>
 import ReloadPwa from '@/components/ReloadPwa.vue'
 import AppMenu from '@/components/AppMenu.vue'
-import UserSigninModal from './UserSigninModal.vue'
-import UserSignupModal from './UserSignupModal.vue'
+import ModalView from '@/views/ModalView.vue'
 </script>
 
 <style scoped>

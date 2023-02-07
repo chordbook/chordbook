@@ -1,72 +1,35 @@
-<template>
-  <!-- eslint-disable vue/no-v-html vue/no-v-text-v-html-on-component -->
-  <component
-    :is="as"
-    :id="`chord-${chord}`"
-    :width="width"
-    :height="height"
-    :viewBox="`0 0 ${width} ${height}`"
-    v-html="diagram"
-  />
-</template>
-
-<script>
-import { ChordBox } from 'vexchords'
+<script setup>
 import { Chord } from 'chordsheetjs'
 import ChordData from '@/lib/chord-data'
+import ChordBox from '@/components/ChordBox.vue'
+import { computed } from 'vue'
 
-export default {
-  props: {
-    as: {
-      type: String,
-      default: 'symbol'
-    },
-    chord: {
-      type: Chord,
-      required: true
-    },
-    instrument: {
-      type: String,
-      default: 'guitar'
-    },
-    position: {
-      type: Number,
-      default: 0
-    },
-    width: {
-      type: [Number, String],
-      default: '50'
-    },
-    height: {
-      type: [Number, String],
-      default: '65'
-    }
+const props = defineProps({
+  as: {
+    type: String,
+    default: 'symbol'
   },
-
-  computed: {
-    chordData () {
-      return ChordData.find(this.chord, this.instrument, this.position)
-    },
-
-    diagram () {
-      if (!this.chord || !this.chordData) return ''
-
-      const el = document.createElement('div')
-
-      new ChordBox(el, {
-        numStrings: this.chordData.strings,
-        showTuning: false,
-        width: this.width,
-        height: this.height,
-        defaultColor: 'currentColor'
-      }).draw({
-        chord: this.chordData.fingerings,
-        position: this.chordData.data.baseFret,
-        barres: this.chordData.barres
-      })
-
-      return el.querySelector('svg').innerHTML
-    }
+  chord: {
+    type: Chord,
+    required: true
+  },
+  instrument: {
+    type: String,
+    default: 'guitar'
+  },
+  position: {
+    type: Number,
+    default: 0
   }
-}
+})
+
+const data = computed(() => ChordData.find(props.chord, props.instrument, props.position))
 </script>
+
+<template>
+  <chord-box
+    :id="`chord-${chord}`"
+    :data="data"
+    v-bind="$attrs"
+  />
+</template>
