@@ -1,12 +1,11 @@
 <script>
 import { Tuner } from '../lib/tuner'
 import TunerMeter from '@/components/TunerMeter.vue'
-import TunerNote from '@/components/TunerNote.vue'
 import { mic, micOff } from 'ionicons/icons'
 import debounce from 'lodash.debounce'
 
 export default {
-  components: { TunerMeter, TunerNote },
+  components: { TunerMeter },
 
   data () {
     return {
@@ -95,22 +94,18 @@ export default {
 <template>
   <div>
     <div class="cursor-default select-none pt-14">
-      <div class="w-60 aspect-square mx-auto rounded-full shadow-md border relative">
+      <div class="w-60 aspect-square mx-auto rounded-full shadow-lg border dark:bg-black/30 dark:border-black/60 relative flex">
         <canvas
           ref="frequency-bars"
           class="w-full h-full inset-0 opacity-20 absolute rounded-full"
         />
         <tuner-meter :cents="note.cents" />
-        <div class="scrollbar-hide mask-image overflow-y-hidden overflow-x-auto snap-x whitespace-nowrap h-full flex flex-nowrap place-items-center">
-          <tuner-note
-            v-for="n in notes"
-            :key="n.name"
-            class="snap-center"
-            :name="n.name"
-            :octave="n.octave"
-            :frequency="n.frequency"
-            :active="note.name == n.name && note.octave == n.octave"
-          />
+        <div class="mx-auto my-auto relative">
+          <div class="text-8xl font-bold relative">
+            {{ note.name[0] }}
+            <span class="absolute font-normal text-3xl top-2 -right-5">{{ note.name[1] || '' }}</span>
+            <span class="absolute font-normal text-lg opacity-70 bottom-1 -right-5">{{ note.octave }}</span>
+          </div>
         </div>
         <div class="text-gray-500/60 absolute bottom-5 left-0 right-0 text-center whitespace-nowrap">
           <span class="inline-block font-mono text-sm font-bold w-8 ml-2 mr-1 text-right">{{ note.frequency.toFixed(0) }}</span>
