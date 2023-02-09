@@ -1,6 +1,5 @@
 <script setup>
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
-import ModelList from '@/components/ModelList.vue'
 
 defineProps({
   id: {

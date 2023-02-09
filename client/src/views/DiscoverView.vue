@@ -1,6 +1,5 @@
 <script setup>
 import GenreListView from '@/views/GenreListView.vue'
-import ModelList from '../components/ModelList.vue'
 import ModelAvatar from '@/components/ModelAvatar.vue'
 import { useRouteQuery } from '@vueuse/router'
 import { computed, ref, reactive } from 'vue'

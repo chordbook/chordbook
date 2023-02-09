@@ -1,7 +1,6 @@
 <script setup>
 import { logoGithub, handLeft, cashOutline } from 'ionicons/icons'
 import ColorizedImg from '@/components/ColorizedImg.vue'
-import ModelList from '../components/ModelList.vue'
 import useAuthStore from '@/stores/auth'
 import * as icons from '@/icons'
 
