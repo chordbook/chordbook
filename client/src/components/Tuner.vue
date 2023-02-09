@@ -71,7 +71,7 @@ export default {
       const length = 32 // low frequency only
       const width = el.width / length - 0.5
 
-      const scale = el.height / Math.max(...this.frequencyData.slice(0, length))
+      const scale = el.height / 2 / Math.max(...this.frequencyData.slice(0, length))
 
       const canvasContext = el.getContext('2d')
       canvasContext.clearRect(0, 0, el.width, el.height)
@@ -94,32 +94,27 @@ export default {
 
 <template>
   <div>
-    <div class="relative cursor-default select-none">
-      <div
-        ref="notes"
-        class="text-center pt-14"
-      >
-        <div class="w-40 aspect-square mx-auto rounded-full overflow-hidden shadow-md border relative">
-          <canvas
-            ref="frequency-bars"
-            class="opacity-20 absolute left-0 right-0 bottom-0 h-1/2 w-full z-0"
+    <div class="cursor-default select-none pt-14">
+      <div class="w-60 aspect-square mx-auto rounded-full shadow-md border relative">
+        <canvas
+          ref="frequency-bars"
+          class="w-full h-full inset-0 opacity-20 absolute rounded-full"
+        />
+        <tuner-meter :cents="note.cents" />
+        <div class="scrollbar-hide mask-image overflow-y-hidden overflow-x-auto snap-x whitespace-nowrap h-full flex flex-nowrap place-items-center">
+          <tuner-note
+            v-for="n in notes"
+            :key="n.name"
+            class="snap-center"
+            :name="n.name"
+            :octave="n.octave"
+            :frequency="n.frequency"
+            :active="note.name == n.name && note.octave == n.octave"
           />
-          <tuner-meter :cents="note.cents" />
-          <div class="scrollbar-hide mask-image overflow-y-hidden overflow-x-auto snap-x whitespace-nowrap h-full flex flex-nowrap place-items-center">
-            <tuner-note
-              v-for="n in notes"
-              :key="n.name"
-              class="snap-center"
-              :name="n.name"
-              :octave="n.octave"
-              :frequency="n.frequency"
-              :active="note.name == n.name && note.octave == n.octave"
-            />
-          </div>
-          <div class="text-gray-500/60 absolute bottom-5 left-0 right-0 text-center whitespace-nowrap">
-            <span class="inline-block font-mono text-sm font-bold w-8 ml-2 mr-1 text-right">{{ note.frequency.toFixed(0) }}</span>
-            <span class="text-xs">Hz</span>
-          </div>
+        </div>
+        <div class="text-gray-500/60 absolute bottom-5 left-0 right-0 text-center whitespace-nowrap">
+          <span class="inline-block font-mono text-sm font-bold w-8 ml-2 mr-1 text-right">{{ note.frequency.toFixed(0) }}</span>
+          <span class="text-xs">Hz</span>
         </div>
       </div>
     </div>

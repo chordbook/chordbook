@@ -1,6 +1,6 @@
 <template>
   <div
-    class="note mx-8 text-6xl font-bold relative inline-block transition[color] duration-200"
+    class="note mx-8 text-8xl font-bold relative inline-block transition[color] duration-200"
   >
     {{ name[0] }}
     <span class="absolute font-normal note-sharp text-3xl top-0">{{ name[1] || '' }}</span>
