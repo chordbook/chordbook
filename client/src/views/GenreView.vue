@@ -1,6 +1,4 @@
 <script setup>
-import ModelList from '@/components/ModelList.vue'
-
 defineProps({
   id: {
     type: String,
