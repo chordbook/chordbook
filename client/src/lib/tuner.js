@@ -71,14 +71,16 @@ export class Tuner {
 
       const note = this.getNote(maFrequency)
       const octave = parseInt(note / 12) - 1
-      this.onNote({
+      const data = {
         name: this.noteStrings[note % 12],
         value: note,
         cents: this.getCents(maFrequency, note),
         octave,
         frequency: maFrequency,
         clarity
-      })
+      }
+      console.log(data)
+      this.onNote(data)
     }
   }
 
