@@ -1,8 +1,8 @@
 <script setup>
-import { defineProps } from 'vue'
 import * as icons from '@/icons'
+import { gradient } from '@/lib/gradient'
 
-defineProps({
+const props = defineProps({
   id: {
     type: String,
     required: true
@@ -20,6 +20,12 @@ defineProps({
     required: true
   }
 })
+
+function rotate (index) {
+  if (index === 0) return 0
+  const spin = (360 / (props.thumbnails.length - 1))
+  return (index - 1) * spin + 45 + 'deg'
+}
 </script>
 
 <template>
@@ -31,21 +37,39 @@ defineProps({
     lines="none"
   >
     <ion-label>
-      <div class="rounded overflow-hidden relative aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2 flex place-content-center items-center">
-        <div
-          v-if="thumbnails.length > 0"
-          class="grid grid-cols-2 grid-rows-2"
-        >
-          <img
-            v-for="thumbnail in thumbnails"
+      <div
+        class="rounded overflow-hidden relative aspect-square shadow-md mb-2 flex place-content-center items-center"
+        :style="{ backgroundImage: gradient(id) }"
+      >
+        <template v-if="thumbnails.length > 0">
+          <div
+            v-for="(thumbnail, index) in thumbnails"
             :key="thumbnail"
-            :src="thumbnail"
+            :class="{
+              'absolute inset-0 origin-center mix-blend-luminosity rotate-0': true,
+            }"
+            :style="{ '--tw-rotate': rotate(index) }"
           >
-        </div>
+            <img
+              :src="thumbnail"
+              :class="{
+                'absolute left-1/2 -translate-x-1/2 aspect-square bg-slate-800 origin-center -translate-y-1/2 rounded-full shadow-md': true,
+                'top-1/2': index === 0,
+                'top-[16%]': index !== 0,
+                ['-' + rotate(index)]: true,
+              }"
+              :style="{
+                width: index === 0 ? '35%' : '25%',
+                '--tw-rotate': '-' + rotate(index)
+              }"
+            >
+          </div>
+        </template>
+
         <ion-icon
           v-else
           :icon="icons.setlist"
-          class="text-slate-300 text-5xl"
+          class="text-slate-100 text-3xl opacity-20 p-3 bg-slate-800 rounded-full"
         />
       </div>
       <h3 class="text-sm">

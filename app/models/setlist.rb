@@ -8,8 +8,8 @@ class Setlist < ApplicationRecord
     after_add: :update_thumbnails, after_remove: :update_thumbnails
   has_many :songsheets, through: :items
   has_many :tracks, through: :songsheets
-  has_many :albums, through: :tracks
-  has_many :album_images, through: :albums, source: :image_attachment
+  has_many :artists, through: :tracks
+  has_many :artist_images, through: :artists, source: :image_attachment
   has_many :library_items, as: :item, dependent: :destroy
 
   has_many_attached :thumbnails do |attachable|
@@ -25,7 +25,12 @@ class Setlist < ApplicationRecord
   scope :with_attachments, -> { includes(thumbnails_attachments: {blob: :variant_records}) }
 
   def update_thumbnails(_ = nil)
-    update thumbnails: album_images.select("active_storage_attachments.*, albums.rank")
-      .includes(:blob).reorder("albums.rank").distinct.limit(4).map(&:blob)
+    images = artist_images
+      .select("active_storage_attachments.*, min(setlist_items.position) AS min_position")
+      .includes(:blob)
+      .group("active_storage_attachments.id")
+      .reorder("min_position ASC").limit(9)
+
+    update thumbnails: images.map(&:blob)
   end
 end
