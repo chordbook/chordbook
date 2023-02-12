@@ -24,7 +24,7 @@ const props = defineProps({
 function rotate (index) {
   if (index === 0) return 0
   const spin = (360 / (props.thumbnails.length - 1))
-  return (index - 1) * spin + 45 + 'deg'
+  return (index - 1) * spin + 'deg'
 }
 </script>
 
@@ -55,11 +55,11 @@ function rotate (index) {
               :class="{
                 'absolute left-1/2 -translate-x-1/2 aspect-square bg-slate-800 origin-center -translate-y-1/2 rounded-full shadow-md': true,
                 'top-1/2': index === 0,
-                'top-[16%]': index !== 0,
+                'top-[17.5%]': index !== 0,
                 ['-' + rotate(index)]: true,
               }"
               :style="{
-                width: index === 0 ? '35%' : '25%',
+                width: index === 0 ? '35%' : '22%',
                 '--tw-rotate': '-' + rotate(index)
               }"
             >
