@@ -38,16 +38,14 @@ function rotate (index) {
   >
     <ion-label>
       <div
-        class="rounded overflow-hidden relative aspect-square shadow-md mb-2 flex place-content-center items-center"
+        class="rounded relative aspect-square shadow-md mb-2 flex place-content-center items-center"
         :style="{ backgroundImage: gradient(id) }"
       >
         <template v-if="thumbnails.length > 0">
           <div
             v-for="(thumbnail, index) in thumbnails"
             :key="thumbnail"
-            :class="{
-              'absolute inset-0 origin-center mix-blend-luminosity rotate-0': true,
-            }"
+            class="absolute inset-0 origin-center mix-blend-luminosity rotate-0"
             :style="{ '--tw-rotate': rotate(index) }"
           >
             <img

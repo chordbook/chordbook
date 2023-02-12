@@ -30,7 +30,7 @@ defineProps({
         <model-avatar
           :src="thumbnail"
           type="Artist"
-          class="w-full h-full mb-3"
+          class="w-full h-full mb-3 shadow-md"
         />
       </div>
       <h3 class="text-center">
