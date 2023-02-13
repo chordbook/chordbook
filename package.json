@@ -15,7 +15,7 @@
     "@vitejs/plugin-vue": "^4.0.0",
     "@vueuse/components": "^9.12.0",
     "@vueuse/core": "^9.12.0",
-    "@vueuse/head": "^1.0.24",
+    "@vueuse/head": "^1.0.25",
     "@vueuse/router": "^9.12.0",
     "ace-builds": "^1.15.0",
     "arrify": "^3.0",
