@@ -30,6 +30,10 @@ function normalizeChordName (name) {
 function normalizeKey (key) {
   return key.replace(/#/, 'sharp')
 }
+
+function positionData(position) {
+  return new ChordData(position)
+}
 </script>
 
 <template>
@@ -94,7 +98,7 @@ function normalizeKey (key) {
               </h2>
               <chord-box
                 as="svg"
-                :data="new ChordData(chord.positions[0])"
+                :data="positionData(chord.positions[0])"
                 :width="width"
                 :height="height"
               />
@@ -127,7 +131,7 @@ function normalizeKey (key) {
                 <chord-box
                   class="inline"
                   as="svg"
-                  :data="new ChordData(position)"
+                  :data="positionData(position)"
                   :width="width"
                   :height="height"
                 />
