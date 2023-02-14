@@ -13,6 +13,14 @@ import * as icons from '@/icons'
           <ion-menu-button />
         </ion-buttons>
         <ion-title>Library</ion-title>
+        <ion-buttons slot="end">
+          <ion-button router-link="/account">
+            <ion-icon
+              slot="icon-only"
+              :icon="icons.avatar"
+            />
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 

@@ -26,6 +26,14 @@ const auth = useAuthStore()
           <ion-menu-button />
         </ion-buttons>
         <ion-title>Home</ion-title>
+        <ion-buttons slot="end">
+          <ion-button router-link="/account">
+            <ion-icon
+              slot="icon-only"
+              :icon="icons.avatar"
+            />
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-header
@@ -73,14 +81,6 @@ const auth = useAuthStore()
           <ion-title size="large">
             Home
           </ion-title>
-          <ion-buttons slot="end">
-            <ion-button router-link="/account">
-              <ion-icon
-                slot="icon-only"
-                :icon="icons.avatar"
-              />
-            </ion-button>
-          </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-card
