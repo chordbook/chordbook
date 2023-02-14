@@ -3,7 +3,9 @@ class Api::SetlistItemsController < ApiController
   before_action :find_item, only: [:update, :destroy]
 
   def create
-    current_scope.create!(songsheet: Songsheet.find_by_uid(params[:id]))
+    songsheet = Songsheet.find_by_uid(params[:id])
+    current_scope.create!(songsheet: songsheet)
+    current_user.library.add(songsheet)
     head :created
   end
 
