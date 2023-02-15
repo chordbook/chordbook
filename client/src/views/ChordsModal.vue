@@ -31,7 +31,7 @@ function normalizeKey (key) {
   return key.replace(/#/, 'sharp')
 }
 
-function positionData(position) {
+function positionData (position) {
   return new ChordData(position)
 }
 </script>
