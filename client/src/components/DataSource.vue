@@ -68,7 +68,7 @@ const isEmpty = computed(() => {
   return page?.isFinished && !page.error && page.data.length === 0
 })
 
-function load (params = {}) {
+function load (params = {}, reload = false) {
   const page = useFetch(src.value, {
     ...props.options,
     immediate: false,
@@ -76,6 +76,15 @@ function load (params = {}) {
   }).get().json()
 
   page.onFetchResponse(() => {
+    if (reload) {
+      // Clear previous accumulator of items
+      items.splice(0)
+
+      // Clear pages and re-push current page
+      pages.splice(0)
+      pages.push(page)
+    }
+
     items.push(...Array.from(page.data.value))
 
     const links = LinkHeader.parse(page.response.value.headers.get('Link') ?? '')
@@ -96,12 +105,13 @@ function load (params = {}) {
   return page
 }
 
-function reload () {
-  pages.splice(0)
-  items.splice(0)
+function reload (event = null) {
   src.value = props.src
   paginate.value = props.paginate
-  return load(props.params)
+
+  const result = load(props.params, true)
+  if (event) result.then(() => event.target.complete())
+  return result
 }
 
 defineExpose({ items, pages, load, reload, isFetching, isEmpty })

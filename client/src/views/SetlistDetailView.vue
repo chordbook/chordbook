@@ -113,6 +113,14 @@ async function destroy () {
       </ion-header>
 
       <ion-content fullscreen>
+        <ion-refresher
+          v-if="$refs.songsheets"
+          slot="fixed"
+          @ion-refresh="$refs.songsheets.reload"
+        >
+          <ion-refresher-content />
+        </ion-refresher>
+
         <ion-header collapse="condense">
           <ion-toolbar>
             <ion-title>{{ data?.title }}</ion-title>

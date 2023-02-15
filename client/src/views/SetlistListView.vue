@@ -29,7 +29,17 @@ import SetlistCard from '@/components/SetlistCard.vue'
           </ion-title>
         </ion-toolbar>
       </ion-header>
+
+      <ion-refresher
+        v-if="$refs.dataSource"
+        slot="fixed"
+        @ion-refresh="$refs.dataSource.reload"
+      >
+        <ion-refresher-content />
+      </ion-refresher>
+
       <data-source
+        ref="dataSource"
         v-slot="{ items }"
         src="setlists"
         :params="$route.query"

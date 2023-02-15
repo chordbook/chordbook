@@ -32,6 +32,8 @@ export {
   IonNote,
   IonPage,
   IonPopover,
+  IonRefresher,
+  IonRefresherContent,
   IonReorder,
   IonReorderGroup,
   IonRouterOutlet,

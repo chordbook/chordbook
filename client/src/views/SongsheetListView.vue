@@ -39,6 +39,13 @@ import { add } from 'ionicons/icons'
       fullscreen
       class="relative"
     >
+      <ion-refresher
+        v-if="$refs.dataSource"
+        slot="fixed"
+        @ion-refresh="$refs.dataSource.reload"
+      >
+        <ion-refresher-content />
+      </ion-refresher>
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">
@@ -47,6 +54,7 @@ import { add } from 'ionicons/icons'
         </ion-toolbar>
       </ion-header>
       <data-source
+        ref="dataSource"
         :src="$route.path"
         :params="$route.query"
       >

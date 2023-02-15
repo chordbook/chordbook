@@ -73,6 +73,14 @@ const auth = useAuthStore()
       </ion-toolbar>
     </ion-header>
     <ion-content fullscreen>
+      <ion-refresher
+        v-if="$refs.dataSource"
+        slot="fixed"
+        @ion-refresh="$refs.dataSource.reload"
+      >
+        <ion-refresher-content />
+      </ion-refresher>
+
       <ion-header
         v-if="auth.isAuthenticated"
         collapse="condense"
@@ -101,6 +109,7 @@ const auth = useAuthStore()
       </ion-card>
 
       <data-source
+        ref="dataSource"
         v-slot="{ data }"
         src="home"
       >
