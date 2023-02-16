@@ -23,6 +23,7 @@ async function toast (message) {
   <ion-button
     v-if="library.exists"
     color="success"
+    title="Remove from your library"
     @click="library.remove().then(() => toast('Removed from your library'))"
   >
     <ion-icon
@@ -33,6 +34,7 @@ async function toast (message) {
 
   <ion-button
     v-else
+    title="Add to your library"
     @click="library.add().then(() => toast('Added to your library'))"
   >
     <ion-icon

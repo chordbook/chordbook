@@ -1,12 +1,16 @@
 <script setup>
 import { useFetch } from '@/client'
+import SetlistAvatar from '../components/SetlistAvatar.vue'
 import SongsheetItem from '@/components/SongsheetItem.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import ShareItem from '@/components/ShareItem.vue'
+import ShareButton from '@/components/ShareButton.vue'
 import { toastController, actionSheetController } from '@ionic/vue'
 import * as icons from '@/icons'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { gradient } from '@/lib/gradient'
+import { pluralize } from '@/util'
 
 const props = defineProps({
   id: {
@@ -72,46 +76,6 @@ async function destroy () {
           Setlist: {{ data.title }}
         </title>
       </Head>
-      <ion-header
-        translucent
-        collapse="fade"
-      >
-        <ion-toolbar>
-          <ion-title>{{ data?.title }}</ion-title>
-
-          <ion-buttons slot="start">
-            <ion-back-button
-              text=""
-              :default-href="{ name: 'setlists' }"
-            />
-          </ion-buttons>
-
-          <ion-buttons slot="end">
-            <ion-button
-              v-show="editing"
-              @click="editing = false"
-            >
-              Done
-            </ion-button>
-            <add-to-library-button
-              v-if="!editing"
-              :id="id"
-            />
-            <ion-button
-              v-if="!editing"
-              :id="`setlist-context-${id}`"
-            >
-              <ion-icon
-                slot="icon-only"
-                size="small"
-                :ios="icons.iosEllipsis"
-                :md="icons.mdEllipsis"
-              />
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-
       <ion-content fullscreen>
         <ion-refresher
           v-if="$refs.songsheets"
@@ -120,18 +84,142 @@ async function destroy () {
         >
           <ion-refresher-content />
         </ion-refresher>
-
-        <ion-header collapse="condense">
+        <ion-header
+          slot="fixed"
+          translucent
+          collapse="fade"
+        >
           <ion-toolbar>
             <ion-title>{{ data?.title }}</ion-title>
+
+            <ion-buttons slot="start">
+              <ion-back-button
+                text=""
+                :default-href="{ name: 'setlists' }"
+              />
+            </ion-buttons>
+
+            <ion-buttons
+              slot="end"
+              class="pr-[16px]"
+            >
+              <ion-button
+                v-show="editing"
+                @click="editing = false"
+              >
+                Done
+              </ion-button>
+              <ion-button
+                v-show="!editing"
+                :id="`setlist-context-${id}`"
+              >
+                <ion-icon
+                  slot="icon-only"
+                  size="small"
+                  :ios="icons.iosEllipsis"
+                  :md="icons.mdEllipsis"
+                />
+              </ion-button>
+            </ion-buttons>
           </ion-toolbar>
         </ion-header>
 
-        <p class="ion-padding">
-          {{ data?.description }}
-        </p>
+        <ion-header
+          collapse="condense"
+          :style="`background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3) 33%, rgba(0,0,0,0.8)), ${gradient(data?.id)};`"
+          class="block bg-slate-700 toolbar-padding"
+        >
+          <ion-toolbar
+            style="--background: transparent; --padding-top: 2rem;"
+            class="p-8"
+          >
+            <div class="flex flex-col sm:flex-row gap-8 lg:gap-10">
+              <div class="min-w-[200px]">
+                <setlist-avatar
+                  :id="data?.id"
+                  :thumbnails="data?.thumbnails"
+                  class="shadow-xl"
+                />
+              </div>
+              <div class="text-white text-shadow flex flex-col gap-3">
+                <ion-note class="text-white text-xs font-semibold uppercase tracking-wide">
+                  Setlist
+                </ion-note>
+                <h1 class="text-4xl font-bold">
+                  {{ data?.title }}
+                </h1>
+                <div
+                  v-if="data?.description"
+                  class="opacity-60"
+                >
+                  {{ data?.description }}
+                </div>
+                <div class="text-sm">
+                  <ion-chip
+                    color="light"
+                    class="m-0"
+                  >
+                    <ion-avatar>
+                      <img
+                        alt="Silhouette of a person's head"
+                        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                      >
+                    </ion-avatar>
+                    <ion-label>{{ data?.user?.name || 'unknown' }}</ion-label>
+                  </ion-chip>
 
-        <ion-list>
+                  <span class="inline-block mx-1">•</span>
+
+                  {{ pluralize(data?.songs_count, 'song', 'songs') }}
+                </div>
+
+                <ion-buttons class="mt-4">
+                  <add-to-library-button
+                    :id="id"
+                    size="large"
+                    color="light"
+                  />
+                  <share-button
+                    :title="data?.title"
+                    :router-link="{ name: 'setlist', params: { id } }"
+                    color="light"
+                  />
+                </ion-buttons>
+
+                <ion-popover
+                  :trigger="`setlist-context-${id}`"
+                  dismiss-on-select
+                >
+                  <ion-list>
+                    <ion-item
+                      button
+                      detail
+                      :detail-icon="icons.edit"
+                      @click="editing = true"
+                    >
+                      <ion-label>Edit</ion-label>
+                    </ion-item>
+                    <ion-item
+                      button
+                      detail
+                      :detail-icon="icons.trash"
+                      @click="destroy"
+                    >
+                      <ion-label>Delete</ion-label>
+                    </ion-item>
+                    <share-item
+                      lines="none"
+                      :title="data?.title"
+                      :router-link="{ name: 'setlist', params: { id } }"
+                    />
+                  </ion-list>
+                </ion-popover>
+              </div>
+            </div>
+          </ion-toolbar>
+        </ion-header>
+
+        <ion-list class="pt-3">
           <ion-reorder-group
             :disabled="!editing"
             @ion-item-reorder="reorder"
@@ -162,35 +250,11 @@ async function destroy () {
           </ion-reorder-group>
         </ion-list>
       </ion-content>
-
-      <ion-popover
-        :trigger="`setlist-context-${id}`"
-        dismiss-on-select
-      >
-        <ion-list>
-          <ion-item
-            button
-            detail
-            :detail-icon="icons.edit"
-            @click="editing = true"
-          >
-            <ion-label>Edit</ion-label>
-          </ion-item>
-          <ion-item
-            button
-            detail
-            :detail-icon="icons.trash"
-            @click="destroy"
-          >
-            <ion-label>Delete</ion-label>
-          </ion-item>
-          <share-item
-            lines="none"
-            :title="data?.title"
-            :router-link="{ name: 'setlist', params: { id } }"
-          />
-        </ion-list>
-      </ion-popover>
     </data-source>
   </app-view>
 </template>
+
+<style>
+.ios.toolbar-padding { padding-top: 44px; }
+.md.toolbar-padding { padding-top: 56px; }
+</style>
