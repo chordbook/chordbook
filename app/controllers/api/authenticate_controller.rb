@@ -6,13 +6,14 @@ class Api::AuthenticateController < ApiController
     @user = User.authenticate!(params[:email], params[:password])
     ahoy.authenticate @user
     issue_token @user
-    render @user
+    render :show
   end
 
   def update
     @access_token = refresh_token!
-    ahoy.authenticate @access_token.user
-    render @access_token.user
+    @user = @access_token.user
+    ahoy.authenticate @user
+    render :show
   end
 
   def destroy
