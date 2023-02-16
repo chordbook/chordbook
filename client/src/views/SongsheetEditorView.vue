@@ -19,7 +19,7 @@ const router = useRouter()
 const songsheet = ref({ source: '' })
 const errors = ref({})
 const parsed = ref(null)
-const url = computed(() => props.id ? `songsheets/${props.id}.json` : 'songsheets.json')
+const url = computed(() => props.id ? `songsheets/${props.id}` : 'songsheets')
 
 if (props.id) {
   useFetch(`songsheets/${props.id}`).get().json().then(({ data }) => {

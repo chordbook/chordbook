@@ -6,7 +6,7 @@ import { ref } from 'vue'
 const params = ref({})
 
 async function save () {
-  const response = await useFetch('setlists.json').post({ setlist: params.value })
+  const response = await useFetch('setlists').post({ setlist: params.value })
   modalController.dismiss(response.data)
 }
 </script>
