@@ -18,7 +18,7 @@ class Api::LibraryControllerTest < ActionDispatch::IntegrationTest
         headers: token_headers(@user)
     end
 
-    assert user.songsheets.incluces?(songsheet)
+    assert @user.songsheets.find(songsheet.id)
 
     assert_response 201
   end
