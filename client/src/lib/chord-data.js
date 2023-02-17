@@ -4,12 +4,14 @@ import ukulele from '@tombatossals/chords-db/lib/ukulele.json'
 const instruments = { guitar, ukulele }
 
 const keyAliases = {
-  Asharp: 'Bb',
-  Csharp: 'Db',
-  Dsharp: 'Eb',
-  Fsharp: 'Gb',
-  Gsharp: 'Ab'
+  Db: 'Csharp',
+  Eb: 'Dsharp',
+  Gb: 'Fsharp',
+  Ab: 'Gsharp',
+  Bb: 'Asharp'
 }
+// Map inverse of aliases
+Object.keys(keyAliases).forEach(key => keyAliases[keyAliases[key]] = key)
 
 const suffixAliases = {
   '': 'major',
@@ -28,7 +30,6 @@ export default class ChordData {
     if (modifier) key = key + modifier
 
     // Aliases
-    key = keyAliases[key] || key
     suffix = suffix ? suffixAliases[suffix] || suffix : 'major'
 
     return { key, suffix }
@@ -37,13 +38,19 @@ export default class ChordData {
   static find (chord, instrument = 'guitar', position = 0) {
     const { key, suffix } = this.translate(chord)
 
-    const chordData = instruments[instrument].chords[key]
+    console.log({ key: key.toString(), suffix })
+
+    const chordData = this.findChordData(key, instrument)
     const suffixData = chordData?.find(c => c.suffix === suffix)
     const positionData = suffixData?.positions[position]
 
     if (positionData) {
       return new this(positionData)
     }
+  }
+
+  static findChordData(key, instrument = 'guitar') {
+    return instruments[instrument].chords[key] || instruments[instrument].chords[keyAliases[key]]
   }
 
   constructor (data) {
