@@ -1,12 +1,19 @@
 <script setup>
 import useAuthStore from '@/stores/auth'
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, watchEffect } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
 const auth = useAuthStore()
 const form = ref({ user: {} })
 const { execute, data } = auth.signUp(form, { immediate: false })
+
+watchEffect(() => {
+  if (auth.isAuthenticated) {
+    router.replace({ path: route.path }) // without hash
+  }
+})
 </script>
 
 <template>
