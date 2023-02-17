@@ -54,7 +54,7 @@ function addToHomeScreen (e) {
   />
   <UseOnline v-slot="{ isOnline }">
     <ion-toast
-      :is-open="pwaEnabled && !isOnline"
+      :is-open="!isOnline"
       :icon="offline"
       header="It looks like you are offline"
       message="Some functionality will be limited."
