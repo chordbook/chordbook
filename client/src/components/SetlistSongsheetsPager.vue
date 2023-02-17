@@ -24,6 +24,7 @@ const currentIndex = computed(() => {
   } else {
     // Not found, load more and rely on reactivity to update this calculated value
     load()
+    return null
   }
 })
 
