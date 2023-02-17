@@ -6,6 +6,8 @@ module Authentication
 
     # Make sure we have a valid token before running any action
     before_action :current_token
+
+    helper_method :current_user
   end
 
   private
