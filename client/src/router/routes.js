@@ -154,7 +154,7 @@ export default [
     name: 'setlistSongsheet',
     props: true,
     component: () => import('@/views/SongsheetView.vue'),
-    meta: { selected: 'songs' }
+    meta: { selected: 'setlists' }
   },
   {
     path: '/account',
