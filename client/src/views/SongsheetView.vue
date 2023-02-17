@@ -66,7 +66,7 @@ function hostname (url) {
           <ion-buttons slot="start">
             <ion-back-button
               text=""
-              default-href="/songsheets"
+              :default-href="setlistId ? { name: 'setlist', params: { id: setlistId} } : '/songsheets'"
             />
             <ion-button
               :id="`versions-button-${id}`"
