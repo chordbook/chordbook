@@ -57,7 +57,7 @@ const emit = defineEmits(['load'])
 
 const pager = reactive(usePaginatedFetch(props.src, { ...props.options, params: props.params }))
 
-function load() {
+function load () {
   const page = pager.load()
   page.onFetchResponse(() => emit('load', page))
   return page

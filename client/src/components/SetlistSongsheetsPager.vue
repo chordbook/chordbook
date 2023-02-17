@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import * as icons from '@/icons'
 import usePaginatedFetch from '@/composables/usePaginatedFetch'
+import ModelAvatar from './ModelAvatar.vue'
 
 const props = defineProps({
   id: {
@@ -17,8 +18,8 @@ const props = defineProps({
 const { items, load } = usePaginatedFetch(`setlists/${props.id}/songsheets`)
 
 const currentIndex = computed(() => items.findIndex(({ id }) => id === props.songsheetId))
-const previousSongsheet = computed(() => items[currentIndex.value - 1])
-const nextSongsheet = computed(() => {
+const prev = computed(() => items[currentIndex.value - 1])
+const next = computed(() => {
   const songsheet = items[currentIndex.value + 1]
   if (songsheet) {
     return songsheet
@@ -29,6 +30,7 @@ const nextSongsheet = computed(() => {
   }
 })
 
+await load()
 </script>
 
 <template>
@@ -37,40 +39,74 @@ const nextSongsheet = computed(() => {
     :src="`setlists/${id}`"
   >
     <ion-footer translucent>
-      <ion-toolbar class="relative">
-        <ion-buttons>
-          <ion-button
-            v-if="previousSongsheet"
-            :router-link="{ name: 'setlistSongsheet', params: { id: previousSongsheet.id, setlistId: id }}"
-            slot="start"
+      <ion-toolbar class="relative flex items-center">
+        <ion-buttons
+          v-if="prev"
+          slot="start"
+          class="w-1/2 lg:w-1/3"
+        >
+          <ion-item
+            button
+            class="w-full"
+            :router-link="{ name: 'setlistSongsheet', params: { id: prev.id, setlistId: id } }"
+            detail="false"
           >
             <ion-icon
-              class="inline-block mr-2"
+              slot="start"
               :icon="icons.playBack"
             />
-            {{ previousSongsheet.title }}
-          </ion-button>
+            <model-avatar
+              slot="end"
+              class="hidden sm:block"
+              :src="prev.track?.album?.cover?.small"
+              type="Songsheet"
+            />
+            <ion-label>
+              <p>Previous</p>
+              <h2>{{ prev.title }}</h2>
+            </ion-label>
+          </ion-item>
         </ion-buttons>
-        <ion-title :router-link="{ name: 'setlist', params: { id }}" router-direction="back">
-          <div>
+        <ion-title
+          class="hidden lg:block"
+          :router-link="{ name: 'setlist', params: { id }}"
+          router-direction="back"
+        >
+          <div class="m-2">
             <ion-note class="block text-xs uppercase tracking-wider">
               Setlist:
             </ion-note>
             {{ data.title }}
           </div>
-
         </ion-title>
         <ion-buttons
-          v-if="nextSongsheet"
+          v-if="next"
           slot="end"
+          class="w-1/2 lg:w-1/3 w-1/3 lg:w-1/2 flex justify-end"
         >
-          <ion-button :router-link="{ name: 'setlistSongsheet', params: { id: nextSongsheet.id, setlistId: id }}">
-            {{ nextSongsheet.title }}
+          <ion-item
+            button
+            :router-link="{ name: 'setlistSongsheet', params: { id: next.id, setlistId: id } }"
+            detail="false"
+          >
+            <model-avatar
+              slot="start"
+              class="hidden sm:block"
+              :src="next.track?.album?.cover?.small"
+              type="Songsheet"
+            />
+            <ion-label class="text-right">
+              <p>Next</p>
+              <h2>{{ next.title }}</h2>
+            </ion-label>
             <ion-icon
-              class="inline-block ml-2"
+              slot="end"
               :icon="icons.playNext"
             />
-          </ion-button>
+          </ion-item>
+          <!-- <ion-button :router-link="{ name: 'setlistSongsheet', params: { id: next.id, setlistId: id }}">
+            {{ next.title }}
+          </ion-button> -->
         </ion-buttons>
       </ion-toolbar>
     </ion-footer>

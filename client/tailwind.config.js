@@ -38,8 +38,8 @@ module.exports = {
         '1/8': '11.875%'
       },
       fontSize: {
-        'bigger': '1.1em',
-        'smaller': '0.9em'
+        bigger: '1.1em',
+        smaller: '0.9em'
       }
     }
   },
