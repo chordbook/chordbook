@@ -39,7 +39,7 @@ module.exports = {
       },
       fontSize: {
         bigger: '1.1em',
-        smaller: '0.9em'
+        smaller: '0.75em'
       }
     }
   },

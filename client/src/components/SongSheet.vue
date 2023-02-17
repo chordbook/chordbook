@@ -121,7 +121,7 @@ function guessKey (song) {
 
       <div
         ref="output"
-        class="chord-sheet mt-2 sm:text-lg lg:text-xl"
+        class="chord-sheet mt-2 lg:text-lg"
       >
         <div
           v-if="song.capo"
@@ -220,10 +220,11 @@ function guessKey (song) {
 
 .chord-sheet {
   counter-reset: verse;
+  @apply leading-[1.1];
 }
 
 .paragraph {
-  @apply leading-tight break-inside-avoid;
+  @apply break-inside-avoid;
 }
 
 .paragraph + .paragraph {
