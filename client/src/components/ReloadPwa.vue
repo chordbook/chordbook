@@ -1,28 +1,20 @@
 <script setup>
 import { registerSW } from 'virtual:pwa-register'
-import { ref, watchEffect, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { UseOnline } from '@vueuse/components'
 import { offline } from '@/icons'
-import { useFlipper } from '@/useFlipper'
 import { useTimeout } from '@vueuse/core'
-
-const pwaEnabled = useFlipper('pwa').isEnabled
-const installPromptEnabled = useFlipper('installPrompt').isEnabled
 
 const offlineReady = ref(false)
 const installPrompt = ref(null)
 const showInstallPrompt = computed(() => {
-  return installPrompt.value && installPromptEnabled.value && useTimeout(60 * 1000) // 60 second delay
+  return installPrompt.value && useTimeout(60 * 1000) // 60 second delay
 })
 
-watchEffect(() => {
-  if (!pwaEnabled.value) return
-
-  console.info('PWA enabled, registering service worker...')
-  registerSW({
-    immediate: true,
-    onOfflineReady () { offlineReady.value = true }
-  })
+console.info('PWA enabled, registering service worker...')
+registerSW({
+  immediate: true,
+  onOfflineReady () { offlineReady.value = true }
 })
 
 // Save prompt for installing to home screen
