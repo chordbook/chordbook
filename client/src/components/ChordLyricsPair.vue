@@ -1,7 +1,7 @@
 <template>
   <div class="column">
     <song-sheet-chord :name="item.chords" />
-    <div class="lyrics">
+    <div v-if="item.lyrics?.trim()" class="lyrics">
       {{ item.lyrics }}
     </div>
   </div>
