@@ -60,8 +60,8 @@ await load()
               :icon="icons.playBack"
             />
             <model-avatar
-              slot="end"
-              class="hidden sm:block"
+              slot="start"
+              class="hidden sm:block ml-2"
               :src="prev.track?.album?.cover?.small"
               type="Songsheet"
             />
@@ -95,7 +95,7 @@ await load()
             detail="false"
           >
             <model-avatar
-              slot="start"
+              slot="end"
               class="hidden sm:block"
               :src="next.track?.album?.cover?.small"
               type="Songsheet"
