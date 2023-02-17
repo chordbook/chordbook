@@ -52,6 +52,7 @@ await load()
           <ion-item
             button
             class="w-full"
+            lines="none"
             :router-link="{ name: 'setlistSongsheet', params: { id: prev.id, setlistId: id } }"
             detail="false"
           >
@@ -91,6 +92,7 @@ await load()
           <ion-item
             button
             class="w-full"
+            lines="none"
             :router-link="{ name: 'setlistSongsheet', params: { id: next.id, setlistId: id } }"
             detail="false"
           >
@@ -109,9 +111,6 @@ await load()
               :icon="icons.playNext"
             />
           </ion-item>
-          <!-- <ion-button :router-link="{ name: 'setlistSongsheet', params: { id: next.id, setlistId: id }}">
-            {{ next.title }}
-          </ion-button> -->
         </ion-buttons>
       </ion-toolbar>
     </ion-footer>
