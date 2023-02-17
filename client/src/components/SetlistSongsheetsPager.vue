@@ -81,7 +81,7 @@ await load()
             <ion-note class="block text-xs uppercase tracking-wider">
               Setlist:
             </ion-note>
-            {{ data.title }} {{ currentIndex }}
+            {{ data.title }}
           </div>
         </ion-title>
         <ion-buttons
