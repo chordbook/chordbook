@@ -101,7 +101,6 @@ const isSearching = computed(() => !!params.q || hasFocus.value)
         src="search"
         :params="params"
         :options="{ immediate: !!params.q, refetch: true }"
-        :paginate="false"
       >
         <template
           v-if="params.q"

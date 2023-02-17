@@ -5,6 +5,7 @@ import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
 import SongsheetMedia from '@/components/SongsheetMedia.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import AddToSetlistModal from '@/components/AddToSetlistModal.vue'
+import SetlistSongsheetsPager from '../components/SetlistSongsheetsPager.vue'
 import ShareItem from '@/components/ShareItem.vue'
 import * as icons from '@/icons'
 import { onIonViewDidEnter, onIonViewWillLeave } from '@ionic/vue'
@@ -16,6 +17,10 @@ defineProps({
   id: {
     type: String,
     required: true
+  },
+  setlistId: {
+    type: String,
+    default: null
   }
 })
 
@@ -109,6 +114,7 @@ function hostname (url) {
             <songsheet-media
               v-if="settings.showPlayer"
               :media="songsheet.media"
+              class="no-print"
             />
           </Transition>
         </template>
@@ -167,6 +173,11 @@ function hostname (url) {
           </div>
         </template>
       </song-sheet>
+      <setlist-songsheets-pager
+        v-if="setlistId"
+        :id="setlistId"
+        :songsheet-id="id"
+      />
 
       <Suspense>
         <!-- don't wait for modal to load -->

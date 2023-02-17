@@ -43,6 +43,7 @@ import SetlistCard from '@/components/SetlistCard.vue'
         v-slot="{ items }"
         src="setlists"
         :params="$route.query"
+        paginate
       >
         <ion-list>
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">

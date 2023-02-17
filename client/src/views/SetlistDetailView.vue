@@ -228,6 +228,7 @@ async function destroy () {
               ref="songsheets"
               v-slot="{ items }"
               :src="`setlists/${props.id}/songsheets`"
+              paginate
             >
               <ion-item-sliding
                 v-for="songsheet in items"
@@ -242,9 +243,10 @@ async function destroy () {
                   </ion-item-option>
                 </ion-item-options>
 
-                <songsheet-item v-bind="songsheet">
-                  <!-- <ion-reorder slot="end"></ion-reorder> -->
-                </songsheet-item>
+                <songsheet-item
+                  v-bind="songsheet"
+                  :setlist-id="id"
+                />
               </ion-item-sliding>
             </data-source>
           </ion-reorder-group>

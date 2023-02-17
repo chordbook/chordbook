@@ -42,6 +42,7 @@ function loaded ({ data }) {
           v-slot="{ items }"
           :src="`tracks/${id}/songsheets`"
           @load="loaded"
+          paginate
         >
           <songsheet-item
             v-for="songsheet in items"

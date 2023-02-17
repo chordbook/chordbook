@@ -33,6 +33,7 @@ import LibraryPlaceholder from '@/components/LibraryPlaceholder.vue'
       <data-source
         :src="$route.path"
         :params="$route.query"
+        paginate
       >
         <template #empty>
           <library-placeholder type="artist" />

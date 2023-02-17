@@ -30,6 +30,7 @@
       <data-source
         :src="$route.path"
         :params="$route.params"
+        paginate
       >
         <template #empty>
           <library-placeholder type="album" />

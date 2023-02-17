@@ -150,6 +150,13 @@ export default [
     meta: { selected: 'songs' }
   },
   {
+    path: '/setlists/:setlistId/songsheets/:id',
+    name: 'setlistSongsheet',
+    props: true,
+    component: () => import('@/views/SongsheetView.vue'),
+    meta: { selected: 'songs' }
+  },
+  {
     path: '/account',
     name: 'account',
     component: AuthenticatedView,

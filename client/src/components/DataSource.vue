@@ -10,32 +10,29 @@ Load one page of data:
 
 Load a paginated list of items:
 
-  <data-source src="/things" v-slot="{ items }">
+  <data-source src="/things" v-slot="{ items }" paginate>
     <div v-for="thing in items"></div>
   </data-source>
 
 Or explicitly render each page
 
-  <data-source src="/things">
+  <data-source src="/things" paginate>
     <template #page="{ data, isFetching, error }">
       <div v-for="thing in data"></div>
     </template>
   </data-source>
 
-Empty placeholer:
+Empty placeholder:
 
-  <data-source src="/things" v-slot="{ items }">
+  <data-source src="/things">
     <template #empty>No Items to display</template>
     <template #default="{ items }">…</template>
   </data-source>
 -->
 <script setup>
-import { ref, reactive, computed, watch } from 'vue'
-import { useFetch } from '@/client'
-import LinkHeader from 'http-link-header'
+import { reactive, watch } from 'vue'
+import usePaginatedFetch from '@/composables/usePaginatedFetch'
 import useAuthStore from '@/stores/auth'
-
-const emit = defineEmits(['load'])
 
 const props = defineProps({
   src: {
@@ -56,91 +53,45 @@ const props = defineProps({
   }
 })
 
-const pages = reactive([])
-const items = reactive([])
-const src = ref(props.src)
-const paginate = ref(props.paginate)
-const auth = useAuthStore()
+const emit = defineEmits(['load'])
 
-const isFetching = computed(() => pages.some(page => page.isFetching))
-const isEmpty = computed(() => {
-  const page = pages[0]
-  return page?.isFinished && !page.error && page.data.length === 0
-})
+const pager = reactive(usePaginatedFetch(props.src, { ...props.options, params: props.params }))
 
-function load (params = {}, reload = false) {
-  const page = useFetch(src.value, {
-    ...props.options,
-    immediate: false,
-    params
-  }).get().json()
-
-  page.onFetchResponse(() => {
-    if (reload) {
-      // Clear previous accumulator of items
-      items.splice(0)
-
-      // Clear pages and re-push current page
-      pages.splice(0)
-      pages.push(page)
-    }
-
-    items.push(...Array.from(page.data.value))
-
-    const links = LinkHeader.parse(page.response.value.headers.get('Link') ?? '')
-    if (links.has('rel', 'next')) {
-      src.value = links.get('rel', 'next')[0].uri
-    } else {
-      paginate.value = false
-    }
-
-    emit('load', page)
-  })
-
-  pages.push(page)
-
-  if (props.options.immediate !== false) {
-    page.execute(true /* throw error */)
-  }
+function load() {
+  const page = pager.load()
+  page.onFetchResponse(() => emit('load', page))
   return page
 }
 
-function reload (event = null) {
-  src.value = props.src
-  paginate.value = props.paginate
+const auth = useAuthStore()
 
-  const result = load(props.params, true)
-  if (event) result.then(() => event.target.complete())
-  return result
-}
-
-defineExpose({ items, pages, load, reload, isFetching, isEmpty })
+defineExpose(pager)
 
 // Reload data when signing in/out
-watch(() => auth.isAuthenticated, reload)
+watch(() => auth.isAuthenticated, pager.reload)
 
-await load(props.params)
+await load()
 </script>
 
 <template>
   <slot
-    v-if="$slots.empty && isEmpty"
+    v-if="$slots.empty && pager.isEmpty"
     name="empty"
   />
   <template v-else>
-    <template v-for="page in pages">
+    <template v-for="page in pager.pages">
       <slot
         v-if="$slots.page"
         name="page"
         v-bind="page"
       />
     </template>
-    <slot v-bind="{ items, ...pages[0] }" />
+    <slot v-bind="{ items: pager.items, ...pager.pages[0] }" />
   </template>
 
   <ion-infinite-scroll
     v-if="paginate"
-    :disabled="isFetching"
+    :disabled="pager.isFetching || !pager.isPaginating"
     threshold="500px"
     @ion-infinite="load().then(() => $event.target.complete())"
   >

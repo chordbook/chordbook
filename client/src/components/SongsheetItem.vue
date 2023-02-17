@@ -20,6 +20,10 @@ defineProps({
   track: {
     type: Object,
     default: null
+  },
+  setlistId: {
+    type: String,
+    default: null
   }
 })
 </script>
@@ -27,7 +31,7 @@ defineProps({
 <template>
   <ion-item
     button
-    :router-link="{ name: 'songsheet', params: { id } }"
+    :router-link="{ name: setlistId ? 'setlistSongsheet' : 'songsheet', params: { id, setlistId } }"
     detail="false"
   >
     <model-avatar

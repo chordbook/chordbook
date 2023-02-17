@@ -15,6 +15,8 @@ export {
   musicalNote as song,
   people as artist,
   personCircleOutline as avatar,
+  playSkipBackCircleOutline as playBack,
+  playSkipForwardCircleOutline as playNext,
   search,
   shareOutline as share,
   trash,

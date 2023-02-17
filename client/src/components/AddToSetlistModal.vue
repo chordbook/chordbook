@@ -63,6 +63,7 @@ async function newModal () {
           <data-source
             v-slot="{ items }"
             src="setlists"
+            paginate
           >
             <ion-list>
               <setlist-item
