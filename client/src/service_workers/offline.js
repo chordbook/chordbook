@@ -7,6 +7,10 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response'
 import { clientsClaim } from 'workbox-core'
 import { BackgroundSyncPlugin } from 'workbox-background-sync'
 
+// Take over and reload clients when service worker updates
+self.skipWaiting()
+clientsClaim()
+
 // Pre-cache all generated assets
 precacheAndRoute(self.__WB_MANIFEST)
 
@@ -39,7 +43,3 @@ registerRoute(
 
 // Use / for all navigation requests that are not cached
 registerRoute(new NavigationRoute(createHandlerBoundToURL('index.html')))
-
-// Take over and reload clients when service worker updates
-self.skipWaiting()
-clientsClaim()
