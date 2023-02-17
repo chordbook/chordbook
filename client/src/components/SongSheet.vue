@@ -121,7 +121,7 @@ function guessKey (song) {
 
       <div
         ref="output"
-        class="chord-sheet mt-2"
+        class="chord-sheet mt-2 sm:text-lg lg:text-xl"
       >
         <div
           v-if="song.capo"
@@ -251,7 +251,7 @@ function guessKey (song) {
 }
 
 .chord-sheet *:not(.tab) .chord {
-  @apply text-indigo-800 dark:text-indigo-300 pr-1 font-medium text-sm;
+  @apply text-indigo-800 dark:text-indigo-300 pr-1 font-medium text-smaller;
 }
 
 .chorus {
