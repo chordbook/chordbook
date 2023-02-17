@@ -19,28 +19,19 @@ const { items, load } = usePaginatedFetch(`setlists/${props.id}/songsheets`)
 
 const currentIndex = computed(() => {
   const index = items.findIndex(({ id }) => id === props.songsheetId)
-  if (index >= 0) {
-    return index
-  } else {
-    // Not found, load more and rely on reactivity to update this calculated value
-    load()
-    return null
-  }
+  // Not found, load more and rely on reactivity to update this calculated value
+  if (index < 0) load()
+  return index
 })
 
 // Previous will always be loaded if current is loaded
-const prev = computed(() => currentIndex.value && items[currentIndex.value - 1])
+const prev = computed(() => currentIndex.value >= 0 && items[currentIndex.value - 1])
 
 const next = computed(() => {
-  const songsheet = currentIndex.value && items[currentIndex.value + 1]
-
-  if (songsheet) {
-    return songsheet
-  } else {
-    // Nothing found, load more and rely on reactivity to update this calculated value
-    load()
-    return null
-  }
+  const songsheet = currentIndex.value >= 0 && items[currentIndex.value + 1]
+  // Nothing found, load more and rely on reactivity to update this calculated value
+  if (!songsheet) load()
+  return songsheet
 })
 
 await load()
@@ -56,7 +47,7 @@ await load()
         <ion-buttons
           v-if="prev"
           slot="start"
-          class="w-1/2 lg:w-1/3"
+          class="w-1/2 sm:w-1/3"
         >
           <ion-item
             button
@@ -89,16 +80,17 @@ await load()
             <ion-note class="block text-xs uppercase tracking-wider">
               Setlist:
             </ion-note>
-            {{ data.title }}
+            {{ data.title }} {{ currentIndex }}
           </div>
         </ion-title>
         <ion-buttons
           v-if="next"
           slot="end"
-          class="w-1/2 lg:w-1/3 w-1/3 lg:w-1/2 flex justify-end"
+          class="w-1/2 sm:w-1/3 flex justify-end"
         >
           <ion-item
             button
+            class="w-full"
             :router-link="{ name: 'setlistSongsheet', params: { id: next.id, setlistId: id } }"
             detail="false"
           >
