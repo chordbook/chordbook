@@ -147,14 +147,14 @@ export default [
     name: 'songsheet',
     props: true,
     component: () => import('@/views/SongsheetView.vue'),
-    meta: { selected: 'songs' }
+    meta: { selected: 'songs', menu: false }
   },
   {
     path: '/setlists/:setlistId/songsheets/:id',
     name: 'setlistSongsheet',
     props: true,
     component: () => import('@/views/SongsheetView.vue'),
-    meta: { selected: 'setlists' }
+    meta: { selected: 'setlists', menu: false }
   },
   {
     path: '/account',

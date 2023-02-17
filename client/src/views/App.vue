@@ -4,6 +4,7 @@
     <ion-split-pane
       content-id="main"
       when="lg"
+      :disabled="route.meta?.menu === false"
     >
       <app-menu content-id="main" />
       <ion-router-outlet id="main" />
@@ -16,6 +17,9 @@
 import ReloadPwa from '@/components/ReloadPwa.vue'
 import AppMenu from '@/components/AppMenu.vue'
 import ModalView from '@/views/ModalView.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 </script>
 
 <style scoped>
