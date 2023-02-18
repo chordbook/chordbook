@@ -65,3 +65,24 @@
 *[routerlink] {
   @apply cursor-pointer;
 }
+
+@media print {
+  body {
+    position: initial !important;
+    max-height: initial !important;
+    overflow: auto !important;
+  }
+
+  ion-router-outlet, ion-content {
+    overflow: auto !important;
+    contain: none !important;
+    position: initial !important;
+  }
+
+  .no-print,
+  ion-menu,
+  ion-header,
+  ion-footer {
+    display: none;
+  }
+}

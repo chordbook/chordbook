@@ -202,11 +202,8 @@ function guessKey (song) {
   @apply h-full;
   column-count: auto;
   column-width: v-bind(columnWidth);
-  min-width: v-bind(columnWidth);
+  max-width: 50%;
 }
-.horizontal-columns .column-span-all { column-span: all; }
-
-.single-column .row { flex-wrap: wrap; }
 
 .content-width {
   overflow: auto !important;
@@ -216,6 +213,9 @@ function guessKey (song) {
   display: inline-block !important;
   flex-wrap: nowrap !important;
   padding: none !important;
+}
+.content-width .row {
+  flex-wrap: nowrap !important;
 }
 
 .chord-sheet {
@@ -232,7 +232,7 @@ function guessKey (song) {
 }
 
 .row {
-  @apply flex flex-nowrap relative break-inside-avoid;
+  @apply flex flex-wrap relative break-inside-avoid;
 }
 
 .column {
