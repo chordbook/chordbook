@@ -7,6 +7,10 @@ import { CacheableResponsePlugin } from 'workbox-cacheable-response'
 import { clientsClaim } from 'workbox-core'
 import { BackgroundSyncPlugin } from 'workbox-background-sync'
 
+// BUMP this to force clients to reload
+const VERSION = '1'
+console.log({ VERSION })
+
 // Take over and reload clients when service worker updates
 self.skipWaiting()
 clientsClaim()
