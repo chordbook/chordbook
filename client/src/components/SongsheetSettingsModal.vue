@@ -23,9 +23,9 @@ defineProps({
     style="--height:max-content"
   >
     <div class="ion-padding-vertical">
-      <ion-list-header>Chords</ion-list-header>
+      <ion-list-header>Settings</ion-list-header>
 
-      <ion-list>
+      <ion-list class="mb-2">
         <ion-item>
           <ion-label>Transpose</ion-label>
           <transpose-control
@@ -51,7 +51,7 @@ defineProps({
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-item lines="none">
+        <ion-item>
           <ion-label>Show Chord Diagrams</ion-label>
           <ion-toggle
             slot="end"
@@ -59,12 +59,9 @@ defineProps({
             @ion-change="settings.showChords = $event.detail.checked"
           />
         </ion-item>
-      </ion-list>
-
-      <ion-list-header>Layout</ion-list-header>
-
-      <ion-list lines="none">
         <ion-item>
+          <ion-label>Layout</ion-label>
+          <div slot="end">
           <ion-segment
             :value="settings.columns"
             @ion-change="settings.columns = $event.detail.value"
@@ -74,7 +71,6 @@ defineProps({
               layout="icon-start"
               class="py-1"
             >
-              <ion-label>Vertical</ion-label>
               <ion-icon :icon="tabletPortraitOutline" />
             </ion-segment-button>
             <ion-segment-button
@@ -82,12 +78,12 @@ defineProps({
               layout="icon-start"
               class="py-1"
             >
-              <ion-label>Horizontal</ion-label>
               <ion-icon :icon="tabletLandscapeOutline" />
             </ion-segment-button>
           </ion-segment>
+          </div>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>
             Show Media Player
           </ion-label>
