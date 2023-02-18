@@ -37,7 +37,7 @@ const parsedSong = computed(() => {
 
 const song = computed(() => parsedSong.value?.transpose(settings.transpose))
 const chords = computed(() => {
-  return Array.from(chordSet(song.value)).map(name => Chord.parse(name)).filter(Boolean)
+  return Array.from(chordSet(song.value)).map(name => Chord.parse(name)?.normalize()).filter(Boolean)
 })
 const key = computed(() => parsedSong.value?.key)
 

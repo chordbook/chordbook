@@ -38,8 +38,6 @@ export default class ChordData {
   static find (chord, instrument = 'guitar', position = 0) {
     const { key, suffix } = this.translate(chord)
 
-    console.log({ key: key.toString(), suffix })
-
     const chordData = this.findChordData(key, instrument)
     const suffixData = chordData?.find(c => c.suffix === suffix)
     const positionData = suffixData?.positions[position]
