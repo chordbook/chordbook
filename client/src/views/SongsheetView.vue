@@ -26,6 +26,7 @@ defineProps({
 
 const key = ref('C')
 const settings = useSongsheetSettings()
+settings.resetTranspose()
 
 onIonViewDidEnter(() => Insomnia.keepAwake())
 onIonViewWillLeave(() => Insomnia.allowSleepAgain())

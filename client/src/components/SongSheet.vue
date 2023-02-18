@@ -39,7 +39,7 @@ const song = computed(() => parsedSong.value?.transpose(settings.transpose))
 const chords = computed(() => {
   return Array.from(chordSet(song.value)).map(name => Chord.parse(name)).filter(Boolean)
 })
-const key = computed(() => song.value?.key)
+const key = computed(() => parsedSong.value?.key)
 
 watch(() => settings.columns, updateColumnWidth)
 watch(key, key => emit('update:key', key), { immediate: true })

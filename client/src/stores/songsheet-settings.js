@@ -10,5 +10,11 @@ export default defineStore('SongsheetSettings', {
 
     // Avoid persisting for now
     transpose: 0
-  })
+  }),
+
+  actions: {
+    resetTranspose() {
+      this.transpose = 0
+    }
+  }
 })
