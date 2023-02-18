@@ -62,25 +62,25 @@ defineProps({
         <ion-item>
           <ion-label>Layout</ion-label>
           <div slot="end">
-          <ion-segment
-            :value="settings.columns"
-            @ion-change="settings.columns = $event.detail.value"
-          >
-            <ion-segment-button
-              :value="1"
-              layout="icon-start"
-              class="py-1"
+            <ion-segment
+              :value="settings.columns"
+              @ion-change="settings.columns = $event.detail.value"
             >
-              <ion-icon :icon="tabletPortraitOutline" />
-            </ion-segment-button>
-            <ion-segment-button
-              :value="2"
-              layout="icon-start"
-              class="py-1"
-            >
-              <ion-icon :icon="tabletLandscapeOutline" />
-            </ion-segment-button>
-          </ion-segment>
+              <ion-segment-button
+                :value="1"
+                layout="icon-start"
+                class="py-1"
+              >
+                <ion-icon :icon="tabletPortraitOutline" />
+              </ion-segment-button>
+              <ion-segment-button
+                :value="2"
+                layout="icon-start"
+                class="py-1"
+              >
+                <ion-icon :icon="tabletLandscapeOutline" />
+              </ion-segment-button>
+            </ion-segment>
           </div>
         </ion-item>
         <ion-item lines="none">

@@ -11,7 +11,7 @@ const keyAliases = {
   Bb: 'Asharp'
 }
 // Map inverse of aliases
-Object.keys(keyAliases).forEach(key => keyAliases[keyAliases[key]] = key)
+Object.keys(keyAliases).forEach(key => (keyAliases[keyAliases[key]] = key))
 
 const suffixAliases = {
   '': 'major',
@@ -47,7 +47,7 @@ export default class ChordData {
     }
   }
 
-  static findChordData(key, instrument = 'guitar') {
+  static findChordData (key, instrument = 'guitar') {
     return instruments[instrument].chords[key] || instruments[instrument].chords[keyAliases[key]]
   }
 

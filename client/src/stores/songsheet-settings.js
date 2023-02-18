@@ -13,7 +13,7 @@ export default defineStore('SongsheetSettings', {
   }),
 
   actions: {
-    resetTranspose() {
+    resetTranspose () {
       this.transpose = 0
     }
   }
