@@ -1,5 +1,6 @@
 <script setup>
-import SongSheet from '@/components/SongSheet.vue'
+import SongsheetParser from '@/components/SongsheetParser.vue'
+import SongsheetContent from '@/components/SongsheetContent.vue'
 import SongsheetEditor from '@/components/SongsheetEditor.vue'
 import ChordSheetJS from 'chordsheetjs'
 import detectFormat from '@/lib/detect_format'
@@ -18,7 +19,7 @@ const props = defineProps({
 const router = useRouter()
 const songsheet = ref({ source: '' })
 const errors = ref({})
-const parsed = ref(null)
+const parser = ref(null) // template ref
 const url = computed(() => props.id ? `songsheets/${props.id}` : 'songsheets')
 
 if (props.id) {
@@ -28,7 +29,7 @@ if (props.id) {
 }
 
 async function save () {
-  const { metadata } = parsed.value.metadata
+  const { metadata } = parser.value.song.metadata
   const method = props.id ? 'patch' : 'post'
   const payload = {
     songsheet: {
@@ -169,12 +170,18 @@ function paste (e) {
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content fullscreen>
-        <song-sheet
+      <ion-content
+        fullscreen
+        class="ion-padding"
+      >
+        <songsheet-parser
           v-if="songsheet.source"
+          ref="parser"
+          v-slot=" { song }"
           :source="songsheet.source"
-          @parse="song => parsed = song"
-        />
+        >
+          <songsheet-content :song="song" />
+        </songsheet-parser>
       </ion-content>
     </ion-modal>
   </app-view>

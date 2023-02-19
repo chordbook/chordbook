@@ -28,6 +28,7 @@ const data = computed(() => ChordData.find(props.chord, props.instrument, props.
 
 <template>
   <chord-box
+    v-if="data"
     :id="`chord-${chord}`"
     :data="data"
     v-bind="$attrs"

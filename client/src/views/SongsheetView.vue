@@ -1,7 +1,9 @@
 <script setup>
-import SongSheet from '@/components/SongSheet.vue'
+import SongsheetContent from '@/components/SongsheetContent.vue'
+import SongsheetParser from '@/components/SongsheetParser.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
 import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
+import ChordDiagram from '@/components/ChordDiagram.vue'
 import SongsheetMedia from '@/components/SongsheetMedia.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import AddToSetlistModal from '@/components/AddToSetlistModal.vue'
@@ -11,7 +13,8 @@ import * as icons from '@/icons'
 import { onIonViewDidEnter, onIonViewWillLeave } from '@ionic/vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import useSongsheetSettings from '@/stores/songsheet-settings'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { formatDate, hostname } from '@/util'
 
 defineProps({
   id: {
@@ -24,26 +27,27 @@ defineProps({
   }
 })
 
-const key = ref('C')
 const settings = useSongsheetSettings()
+const output = ref(null) // template ref
+const columnWidth = ref(0)
+
 settings.resetTranspose()
 
 onIonViewDidEnter(() => Insomnia.keepAwake())
 onIonViewWillLeave(() => Insomnia.allowSleepAgain())
 
-function formatDate (input) {
-  if (!input) return ''
-  const date = new Date(input)
-  return new Intl.DateTimeFormat(navigator.language).format(date)
+function updateColumnWidth () {
+  if (!output.value) return
+
+  output.value.classList.add('content-width')
+  requestAnimationFrame(() => {
+    columnWidth.value = output.value.offsetWidth + 'px'
+    output.value.classList.remove('content-width')
+  })
 }
 
-function hostname (url) {
-  try {
-    return new URL(url).hostname
-  } catch (e) {
-    return url
-  }
-}
+watch(() => settings.columns, updateColumnWidth)
+watch(output, updateColumnWidth)
 </script>
 
 <template>
@@ -105,12 +109,17 @@ function hostname (url) {
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <song-sheet
-        v-if="songsheet.source"
+      <songsheet-parser
+        v-slot="{ song, transposed }"
         :source="songsheet.source"
-        @update:key="(v) => key = v"
+        :transpose="settings.transpose"
       >
-        <template #top>
+        <ion-content
+          v-if="song"
+          :scroll-y="settings.columns == 1"
+          :scroll-x="settings.columns == 2"
+          fullscreen
+        >
           <Transition name="slide-down">
             <songsheet-media
               v-if="settings.showPlayer"
@@ -118,47 +127,66 @@ function hostname (url) {
               class="no-print"
             />
           </Transition>
-        </template>
-        <template
-          v-if="songsheet.track"
-          #header
-        >
-          <div class="flex gap-3 md:gap-4 items-center">
-            <div
-              v-if="songsheet.track?.album"
-              class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
+          <div :class="'ion-padding ' + (settings.columns == 1 ? 'single-column' : 'horizontal-columns')">
+            <!-- Hidden sprite of chord diagrams -->
+            <svg
+              hidden
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <img :src="songsheet.track?.album.cover?.medium">
-            </div>
+              <chord-diagram
+                v-for="chord in transposed.chords"
+                :key="chord + settings.instrument"
+                :chord="chord"
+                :instrument="settings.instrument"
+              />
+            </svg>
 
-            <div>
-              <h1 class="text-xl md:text-2xl my-1">
-                {{ songsheet.title }}
-              </h1>
+            <div ref="output">
+              <songsheet-content
+                :song="transposed"
+                class="mt-2 lg:text-lg"
+              >
+                <template
+                  v-if="songsheet.track"
+                  #title
+                >
+                  <div class="flex gap-3 md:gap-4 items-center">
+                    <div
+                      v-if="songsheet.track?.album"
+                      class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
+                    >
+                      <img :src="songsheet.track?.album.cover?.medium">
+                    </div>
 
-              <ion-label
-                v-if="songsheet.track.artist"
-                button
-                :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
-                class="block ion-activatable ion-focusable my-0"
-              >
-                <span class="text-muted">by </span>
-                <span class="text-teal-500">{{ songsheet.track.artist.name }}</span>
-              </ion-label>
-              <ion-label
-                v-if="songsheet.track.album"
-                button
-                :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
-                class="block ion-activatable ion-focusable truncate overflow-hidden my-1"
-              >
-                <span class="text-muted">from </span>
-                <span class="text-teal-500">{{ songsheet.track.album.title }}</span>
-              </ion-label>
+                    <div>
+                      <h1 class="text-xl md:text-2xl my-1">
+                        {{ songsheet.title }}
+                      </h1>
+
+                      <ion-label
+                        v-if="songsheet.track.artist"
+                        button
+                        :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
+                        class="block ion-activatable ion-focusable my-0"
+                      >
+                        <span class="text-muted">by </span>
+                        <span class="text-teal-500">{{ songsheet.track.artist.name }}</span>
+                      </ion-label>
+                      <ion-label
+                        v-if="songsheet.track.album"
+                        button
+                        :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
+                        class="block ion-activatable ion-focusable truncate overflow-hidden my-1"
+                      >
+                        <span class="text-muted">from </span>
+                        <span class="text-teal-500">{{ songsheet.track.album.title }}</span>
+                      </ion-label>
+                    </div>
+                  </div>
+                </template>
+              </songsheet-content>
             </div>
           </div>
-        </template>
-
-        <template #footer>
           <div class="ion-padding text-sm opacity-50 mb-8 flex gap-4">
             <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
             <div v-if="songsheet.imported_from">
@@ -172,13 +200,46 @@ function hostname (url) {
               </a>
             </div>
           </div>
-        </template>
-      </song-sheet>
-      <setlist-songsheets-pager
-        v-if="setlistId"
-        :id="setlistId"
-        :songsheet-id="id"
-      />
+        </ion-content>
+        <ion-footer
+          v-if="settings.showChords"
+          translucent
+        >
+          <ion-toolbar translucent>
+            <div class="flex gap-2 overflow-x-auto place-content-center pt-2 px-4">
+              <div
+                v-for="chord in transposed.chords"
+                :key="chord"
+                class="text-center text-sm"
+              >
+                <div class="chord">
+                  {{ chord.toString({ useUnicodeModifier: true}) }}
+                </div>
+                <svg
+                  class="chord-diagram inline-block"
+                  xmlns="http://www.w3.org/2000/svg"
+                  role="image"
+                  :title="chord.toString({ useUnicodeModifier: true })"
+                >
+                  <use
+                    :xlink:href="`#chord-${chord}`"
+                    viewBox="0 0 50 65"
+                  />
+                </svg>
+              </div>
+            </div>
+          </ion-toolbar>
+        </ion-footer>
+        <setlist-songsheets-pager
+          v-if="setlistId"
+          :id="setlistId"
+          :songsheet-id="id"
+        />
+        <songsheet-settings-modal
+          :trigger="`settings-button-${id}`"
+          :note="song.key"
+        />
+      </songsheet-parser>
 
       <Suspense>
         <!-- don't wait for modal to load -->
@@ -190,10 +251,6 @@ function hostname (url) {
         />
       </Suspense>
 
-      <songsheet-settings-modal
-        :trigger="`settings-button-${id}`"
-        :note="key"
-      />
       <add-to-setlist-modal
         :id="id"
         ref="addToSetlistModal"
@@ -256,3 +313,30 @@ function hostname (url) {
     </data-source>
   </app-view>
 </template>
+
+<style>
+.horizontal-columns {
+  @apply h-full;
+  column-count: auto;
+  column-width: v-bind(columnWidth);
+  max-width: 50%;
+}
+
+.content-width {
+  overflow: auto !important;
+  max-width: max-content !important;
+  min-width: max-content !important;
+  width: max-content !important;
+  display: inline-block !important;
+  flex-wrap: nowrap !important;
+  padding: none !important;
+}
+
+.content-width .row {
+  flex-wrap: nowrap !important;
+}
+
+.capo {
+  @apply font-semibold text-sm text-zinc-600 break-after-avoid;
+}
+</style>
