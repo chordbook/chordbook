@@ -1,5 +1,6 @@
 import guitar from '@tombatossals/chords-db/lib/guitar.json'
 import ukulele from '@tombatossals/chords-db/lib/ukulele.json'
+import { Chord } from 'chordsheetjs'
 
 const instruments = { guitar, ukulele }
 
@@ -14,10 +15,14 @@ const keyAliases = {
 Object.keys(keyAliases).forEach(key => (keyAliases[keyAliases[key]] = key))
 
 const suffixAliases = {
-  '': 'major',
-  m: 'minor',
-  '+': 'aug'
+  '': 'major'
 }
+
+// Map suffixes to normalized version
+ukulele.suffixes.forEach(value => {
+  const key = Chord.parse('C' + value).normalize().suffix
+  if (key && key !== value) suffixAliases[key] = value
+})
 
 export default class ChordData {
   static translate (chord) {

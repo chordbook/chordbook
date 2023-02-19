@@ -1,7 +1,7 @@
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import detectFormat from '@/lib/detect_format'
-import { Chord } from 'chordsheetjs'
+import { Chord, ChordLyricsPair } from 'chordsheetjs'
 
 const props = defineProps({
   source: {
@@ -23,6 +23,17 @@ function guessKey (chords) {
   return chords[0]?.toString()
 }
 
+function normalize (song) {
+  return song.mapItems((item) => {
+    if (item instanceof ChordLyricsPair) {
+      const chords = Chord.parse(item.chords.trim())?.normalize()?.toString() || item.chords
+      return item.set({ chords })
+    }
+
+    return item
+  })
+}
+
 function chordSet (song) {
   const chords = new Set()
 
@@ -35,14 +46,20 @@ function chordSet (song) {
   return Array.from(chords).map(name => Chord.parse(name)).filter(Boolean)
 }
 
+const error = ref(null)
 const format = computed(() => props.format || detectFormat(props.source))
 
 const song = computed(() => {
-  let song = format.value?.parse(props.source)
-  const chords = chordSet(song)
-  if (!song.key) song = song.setKey(guessKey(chords))
-  song.chords = chords
-  return song
+  try {
+    let song = normalize(format.value?.parse(props.source))
+    const chords = chordSet(song)
+    if (!song.key) song = song.setKey(guessKey(chords))
+    song.chords = chords
+    return song
+  } catch (err) {
+    error.value = err
+    return null
+  }
 })
 
 const transposed = computed(() => {
@@ -53,9 +70,9 @@ const transposed = computed(() => {
   return transposed
 })
 
-defineExpose({ song, transposed })
+defineExpose({ song, transposed, error })
 </script>
 
 <template>
-  <slot v-bind="{ song, transposed }" />
+  <slot v-bind="{ song, transposed, error }" />
 </template>
