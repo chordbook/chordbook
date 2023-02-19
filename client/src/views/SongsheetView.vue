@@ -110,14 +110,13 @@ watch(output, updateColumnWidth)
         </ion-toolbar>
       </ion-header>
       <songsheet-parser
-        v-slot="{ song, transposed }"
+        v-slot="{ song, transposed, error }"
         :source="songsheet.source"
         :transpose="settings.transpose"
       >
         <ion-content
-          v-if="song"
-          :scroll-y="settings.columns == 1"
-          :scroll-x="settings.columns == 2"
+          :scroll-y="settings.columns == 1 || error"
+          :scroll-x="settings.columns == 2 && !error"
           fullscreen
         >
           <Transition name="slide-down">
@@ -127,9 +126,10 @@ watch(output, updateColumnWidth)
               class="no-print"
             />
           </Transition>
-          <div :class="'ion-padding ' + (settings.columns == 1 ? 'single-column' : 'horizontal-columns')">
+          <div :class="'ion-padding ' + (settings.columns == 1 || error ? 'single-column' : 'horizontal-columns')">
             <!-- Hidden sprite of chord diagrams -->
             <svg
+              v-if="transposed"
               hidden
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -142,7 +142,17 @@ watch(output, updateColumnWidth)
             </svg>
 
             <div ref="output">
+              <div v-if="error">
+                <h1 class="text-xl md:text-2xl my-1">
+                  Error parsing songsheet
+                </h1>
+
+                <pre class="text-red-600 my-6">{{ error }}</pre>
+
+                <pre>{{ songsheet.source }}</pre>
+              </div>
               <songsheet-content
+                v-if="transposed"
                 :song="transposed"
                 class="mt-2 lg:text-lg"
               >
@@ -202,7 +212,7 @@ watch(output, updateColumnWidth)
           </div>
         </ion-content>
         <ion-footer
-          v-if="settings.showChords"
+          v-if="settings.showChords && transposed"
           translucent
         >
           <ion-toolbar translucent>
@@ -236,6 +246,7 @@ watch(output, updateColumnWidth)
           :songsheet-id="id"
         />
         <songsheet-settings-modal
+          v-if="song"
           :trigger="`settings-button-${id}`"
           :note="song.key"
         />

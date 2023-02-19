@@ -57,12 +57,14 @@ const song = computed(() => {
     song.chords = chords
     return song
   } catch (err) {
-    error.value = err
+    console.error(err)
+    error.value = err // eslint-disable-line vue/no-side-effects-in-computed-properties
     return null
   }
 })
 
 const transposed = computed(() => {
+  if (!song.value) return null
   if (props.transpose === 0) return song.value
 
   const transposed = song.value.transpose(props.transpose, { normalizeChordSuffix: true })
