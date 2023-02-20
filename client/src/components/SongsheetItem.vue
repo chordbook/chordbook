@@ -21,6 +21,10 @@ defineProps({
     type: Object,
     default: null
   },
+  metadata: {
+    type: Object,
+    default() { return {} }
+  },
   setlistId: {
     type: String,
     default: null
@@ -45,6 +49,14 @@ defineProps({
         {{ subtitle }}
       </p>
     </ion-label>
+    <ion-note v-if="metadata.key || metadata.capo" slot="end" class="text-center w-10 text-nowrap">
+      <div v-if="metadata.capo" class="text-[0.6rem] uppercase font-semibold opacity-80">
+        Capo {{ metadata.capo }}
+      </div>
+      <span v-if="metadata.key" class="text-sm">
+        {{ metadata?.key }}
+      </span>
+    </ion-note>
     <ion-button
       :id="`songsheet-${id}`"
       slot="end"
