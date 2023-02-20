@@ -127,7 +127,7 @@ async function destroy () {
         <ion-header
           collapse="condense"
           :style="`background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3) 33%, rgba(0,0,0,0.8)), ${gradient(data?.id)};`"
-          class="block bg-slate-700 toolbar-padding"
+          class="block bg-slate-700 always-dark toolbar-padding"
         >
           <ion-toolbar
             style="--background: transparent; --padding-top: 2rem;"
