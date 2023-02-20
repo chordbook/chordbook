@@ -288,7 +288,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    mailgun-ruby (1.2.6)
+    mailgun-ruby (1.2.8)
       rest-client (>= 2.0.2)
     mailgun_rails (0.9.0)
       actionmailer (>= 3.2.13)
@@ -302,7 +302,7 @@ GEM
     method_source (1.0.0)
     mime-types (3.4.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2022.0105)
+    mime-types-data (3.2023.0218.1)
     mini_magick (4.12.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.1)
