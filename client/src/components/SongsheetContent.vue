@@ -84,7 +84,7 @@ function componentFor (item) {
   @apply break-inside-avoid;
 }
 
-.paragraph+.paragraph {
+.paragraph + .paragraph {
   @apply my-6;
 }
 
@@ -93,16 +93,15 @@ function componentFor (item) {
 }
 
 .column {
-  @apply flex flex-col
+  @apply flex flex-col;
 }
 
-.comment,
-.chorus:before,
-.verse::before,
+.comment, .chorus:before, .verse::before, .capo {
+  @apply font-semibold text-sm text-zinc-600 dark:text-zinc-500 break-after-avoid;
+}
 
-.chord,
-.lyrics {
-  @apply whitespace-pre
+.chord, .lyrics {
+  @apply whitespace-pre;
 }
 
 .tab {
@@ -117,7 +116,7 @@ function componentFor (item) {
   @apply border-neutral-200 dark:border-neutral-700 pl-4 border-l-4;
 }
 
-*:not(.chorus)+.chorus::before {
+*:not(.chorus) + .chorus::before {
   content: "Chorus:";
 }
 
@@ -130,8 +129,7 @@ function componentFor (item) {
   content: "Verse " counter(verse) ":";
 }
 
-.chord:after,
-.lyrics:after {
+.chord:after, .lyrics:after {
   content: '\200b';
 }
 
