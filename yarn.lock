@@ -956,10 +956,10 @@
   dependencies:
     tslib "^2.1.0"
 
-"@capacitor/ios@^4.6.3":
-  version "4.6.3"
-  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-4.6.3.tgz#3484006ac410ac33d1dd350a5adcab06a71b6933"
-  integrity sha512-sjvyIx/7U376YnTWIXjIBspzf0e1ZKocVjpTeqtM9AbUg4XtPQZa1Lje/lT6EFQ71bGTcxmq0wylnPRB7LzHNg==
+"@capacitor/ios@^4.7.0":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-4.7.0.tgz#ddea33ff3319555d92856f080eabed7d93b90598"
+  integrity sha512-GeuPXs4hoyQ5bQaSdBxLIGEd+TvO7IAQe00xe3tpEYsP3987SpkNUnhdW5ikUewFJmOtZIp+A8kCgWOJUmKbUg==
 
 "@esbuild/android-arm64@0.16.17":
   version "0.16.17"
