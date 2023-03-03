@@ -22,7 +22,7 @@ services:
   - type: web
     name: api
     env: ruby
-    buildCommand: "./bin/render-build.sh"
+    buildCommand: "bundle install && bundle exec rake db:migrate"
     startCommand: "bundle exec puma -C config/puma.rb"
     healthCheckPath: /ping
     envVars:
@@ -35,7 +35,7 @@ services:
   - type: worker
     name: worker
     env: ruby
-    buildCommand: bundle install
+    buildCommand: "bundle install && yarn install"
     startCommand: bundle exec good_job
     envVars:
       - fromGroup: public
