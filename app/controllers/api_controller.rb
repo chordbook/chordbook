@@ -5,6 +5,7 @@ class ApiController < ActionController::API
 
   # Authenticate by default. Call `skip_before_action :authenticate!` on actions that don't need it
   before_action :authenticate!
+  before_action :set_paper_trail_whodunnit
 
   private
 

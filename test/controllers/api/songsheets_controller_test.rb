@@ -67,4 +67,30 @@ class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
       assert_response :created
     end
   end
+
+  test "update unauthorized" do
+    songsheet = create :songsheet
+    patch api_songsheet_url(songsheet, format: :json), params: {
+      songsheet: {metadata: {title: "Hello World"}}
+    }
+    assert_response :unauthorized
+  end
+
+  test "update" do
+    PaperTrail.enabled = true
+    user = create(:user)
+    songsheet = create :songsheet
+
+    assert_difference -> { songsheet.versions.count }, 1 do
+      patch api_songsheet_url(songsheet, format: :json), headers: token_headers(user), params: {
+        songsheet: {metadata: {title: "Hello World"}}
+      }
+    end
+
+    songsheet.reload
+
+    assert_response :success
+    assert_equal "Hello World", songsheet.title
+    assert_equal user.id, songsheet.versions.last.whodunnit
+  end
 end
