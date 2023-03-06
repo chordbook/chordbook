@@ -1119,10 +1119,10 @@
     debug "^4.0.0"
     tslib "^2.0.1"
 
-"@ionic/core@6.5.4":
-  version "6.5.4"
-  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.5.4.tgz#9b4511709fc1d5bf583c5586798826482fa1dcf0"
-  integrity sha512-RHXoFRXOQl5o0COxlFfSfgAK8HZvmZ5Kd/YAORNzTqbm0W/bicUmbJf/oVUpWRnOl+R8sgGBUpOnwhTHl9jTag==
+"@ionic/core@6.6.0":
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-6.6.0.tgz#a81c7df6101496496671e1bd068a6651dad7bfa3"
+  integrity sha512-1X0b2/ziKhCwSO665tSpG32FOuMyjhyGDLFTJUKoDfQB0j/gIBv1d2okUzAk6GKHdnAPUZQHZFhUHcSIclW9cg==
   dependencies:
     "@stencil/core" "^2.18.0"
     ionicons "^6.1.3"
@@ -1203,19 +1203,19 @@
     untildify "^4.0.0"
     wrap-ansi "^7.0.0"
 
-"@ionic/vue-router@^6.5":
-  version "6.5.4"
-  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.5.4.tgz#963f8f0d744f695f64e0828027ea44771b7adbf0"
-  integrity sha512-t/1Rk0XjzuLRF1Ne6r9fTbxPjPmNiV94AVSCqvmMQm4I+xflj6RWkQlLr3idWd9UgKkcITYlCtQFVmlOhwihhQ==
+"@ionic/vue-router@^6.6":
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/@ionic/vue-router/-/vue-router-6.6.0.tgz#e19edcb82ca858fc7838969952535d52d8b782a8"
+  integrity sha512-arwb0Scz4edjZJfbsNQxPJPvboCuVUBF/3ihSIdqQc6CBUBhlO9aWL7873kWAwSfm+MY1tcSDZKW6IaKbzXXjA==
   dependencies:
-    "@ionic/vue" "6.5.4"
+    "@ionic/vue" "6.6.0"
 
-"@ionic/vue@6.5.4", "@ionic/vue@^6.5":
-  version "6.5.4"
-  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.5.4.tgz#24ef02f360987eda7f58f12db3f335d69e3b3cda"
-  integrity sha512-ugR2TsgA4GbW5AV4PNBW4Y59bQS/LJGFHAcrY4XixPnV76HQuhl03pFCTH1Ph5O9dJUH7g/q7B0giy0mTXbxng==
+"@ionic/vue@6.6.0", "@ionic/vue@^6.5":
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-6.6.0.tgz#8e6b090d42b2427136d778d1cf0009835f4c8853"
+  integrity sha512-rn+yW+zpxZox8F7MuoTgOoTq1rn54Cn7PIQJpwlm7FlDa0fYIwE3x3OaaWHxcKfpl5CBaKfNVvGuc3XPNV5Z0Q==
   dependencies:
-    "@ionic/core" "6.5.4"
+    "@ionic/core" "6.6.0"
     ionicons "^6.1.3"
 
 "@jridgewell/gen-mapping@^0.1.0":
