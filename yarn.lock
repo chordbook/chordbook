@@ -1341,15 +1341,26 @@
     estree-walker "^2.0.2"
     picomatch "^2.3.1"
 
-"@sentry/browser@7.38.0":
-  version "7.38.0"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.38.0.tgz#cdb39da23f9ee2ce47395b2c12542acb4969efa7"
-  integrity sha512-rPJr+2jRYL29PeMYA2JgzYKTZQx6bc3T9evbAdIh0n+popSjpVyOpOMV/3l6A7KZeeix3dpp6eUZUxTJukqriQ==
+"@sentry-internal/tracing@7.46.0":
+  version "7.46.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/tracing/-/tracing-7.46.0.tgz#26febabe21a2c2cab45a3de75809d88753ec07eb"
+  integrity sha512-KYoppa7PPL8Er7bdPoxTNUfIY804JL7hhOEomQHYD22rLynwQ4AaLm3YEY75QWwcGb0B7ZDMV+tSumW7Rxuwuw==
   dependencies:
-    "@sentry/core" "7.38.0"
-    "@sentry/replay" "7.38.0"
-    "@sentry/types" "7.38.0"
-    "@sentry/utils" "7.38.0"
+    "@sentry/core" "7.46.0"
+    "@sentry/types" "7.46.0"
+    "@sentry/utils" "7.46.0"
+    tslib "^1.9.3"
+
+"@sentry/browser@7.46.0":
+  version "7.46.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.46.0.tgz#27b291ddd3c61cc1073cbbb5c48c450b438ed83c"
+  integrity sha512-4rX9hKPjxzfH5LhZzO5DlS5NXQ8qZg2ibepaqEgcDHrpYh5813mjjnE4OQA8wiZ6WuG3xKFgHBrGeliD5jXz9w==
+  dependencies:
+    "@sentry-internal/tracing" "7.46.0"
+    "@sentry/core" "7.46.0"
+    "@sentry/replay" "7.46.0"
+    "@sentry/types" "7.46.0"
+    "@sentry/utils" "7.46.0"
     tslib "^1.9.3"
 
 "@sentry/core@7.38.0":
@@ -1361,14 +1372,23 @@
     "@sentry/utils" "7.38.0"
     tslib "^1.9.3"
 
-"@sentry/replay@7.38.0":
-  version "7.38.0"
-  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-7.38.0.tgz#48d240b67de6b4ab41c951d19abeceb0d3f7706d"
-  integrity sha512-Ai78/OIYedny605x8uS0n/a5uj7qnuevogGD6agLat9lGc8DFvC07m2iS+EFyGOwtQzyDlRYJvYkHL8peR3crQ==
+"@sentry/core@7.46.0":
+  version "7.46.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.46.0.tgz#f377e556d8679f29bde1cce15b1682b6c689d6b7"
+  integrity sha512-BnNHGh/ZTztqQedFko7vb2u6yLs/kWesOQNivav32ZbsEpVCjcmG1gOJXh2YmGIvj3jXOC9a4xfIuh+lYFcA6A==
   dependencies:
-    "@sentry/core" "7.38.0"
-    "@sentry/types" "7.38.0"
-    "@sentry/utils" "7.38.0"
+    "@sentry/types" "7.46.0"
+    "@sentry/utils" "7.46.0"
+    tslib "^1.9.3"
+
+"@sentry/replay@7.46.0":
+  version "7.46.0"
+  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-7.46.0.tgz#c5e595d0c2d8d4db2c95d68f518510c42eb122a3"
+  integrity sha512-rHsAFdeEu47JRy6mEwwN+M+zTTWlOFWw9sR/eDCvik2lxAXBN2mXvf/N/MN9zQB3+QnS13ke+SvwVW7CshLOXg==
+  dependencies:
+    "@sentry/core" "7.46.0"
+    "@sentry/types" "7.46.0"
+    "@sentry/utils" "7.46.0"
 
 "@sentry/tracing@^7.38.0":
   version "7.38.0"
@@ -1385,6 +1405,11 @@
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.38.0.tgz#6e2611544446271ed237440b12de782805aefe25"
   integrity sha512-NKOALR6pNUMzUrsk2m+dkPrO8uGNvNh1LD0BCPswKNjC2qHo1h1mDGCgBmF9+EWyii8ZoACTIsxvsda+MBf97Q==
 
+"@sentry/types@7.46.0":
+  version "7.46.0"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.46.0.tgz#8573ba8676342c594fcfefff4552123278cfec51"
+  integrity sha512-2FMEMgt2h6u7AoELhNhu9L54GAh67KKfK2pJ1kEXJHmWxM9FSCkizjLs/t+49xtY7jEXr8qYq8bV967VfDPQ9g==
+
 "@sentry/utils@7.38.0":
   version "7.38.0"
   resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.38.0.tgz#d10716e730108301f58766970493e9c5da0ba502"
@@ -1393,15 +1418,23 @@
     "@sentry/types" "7.38.0"
     tslib "^1.9.3"
 
-"@sentry/vue@^7.38.0":
-  version "7.38.0"
-  resolved "https://registry.yarnpkg.com/@sentry/vue/-/vue-7.38.0.tgz#f4cb0517b4b133e4e8eda70f69b1e0399536378f"
-  integrity sha512-0RqMUzjoQEpr36wvNO3OYZ+wR3iPpiFNRQjldnhhvkyNgPJG8aq4Z5hMYXGm0diQBNYqPWTP5hGGZJ/XTKc/zQ==
+"@sentry/utils@7.46.0":
+  version "7.46.0"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.46.0.tgz#7a713724db3d1c8bc0aef6d19a7fe2c76db0bdf2"
+  integrity sha512-elRezDAF84guMG0OVIIZEWm6wUpgbda4HGks98CFnPsrnMm3N1bdBI9XdlxYLtf+ir5KsGR5YlEIf/a0kRUwAQ==
   dependencies:
-    "@sentry/browser" "7.38.0"
-    "@sentry/core" "7.38.0"
-    "@sentry/types" "7.38.0"
-    "@sentry/utils" "7.38.0"
+    "@sentry/types" "7.46.0"
+    tslib "^1.9.3"
+
+"@sentry/vue@^7.46.0":
+  version "7.46.0"
+  resolved "https://registry.yarnpkg.com/@sentry/vue/-/vue-7.46.0.tgz#a6dcb3c7edf64119b1074f5cb21fbebef13228ef"
+  integrity sha512-J9xy8CdNri3a0tmUxTdldfZb5tidIRvOQuef/JfSw0CYH2NcEUucBHrFnV9Ixik8+onZHYIu1qEBNkTEDKW+WA==
+  dependencies:
+    "@sentry/browser" "7.46.0"
+    "@sentry/core" "7.46.0"
+    "@sentry/types" "7.46.0"
+    "@sentry/utils" "7.46.0"
     tslib "^1.9.3"
 
 "@stencil/core@^2.18.0":
