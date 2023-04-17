@@ -56,7 +56,7 @@
     "eslint-plugin-import": "^2.27",
     "eslint-plugin-node": "^11.1",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-vue": "^9.9.0",
+    "eslint-plugin-vue": "^9.11.0",
     "standard": "^17.0"
   },
   "scripts": {
