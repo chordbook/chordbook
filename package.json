@@ -23,7 +23,7 @@
     "chordsheetjs": "^7.16.0",
     "cordova-plugin-insomnia": "^4.3",
     "get-youtube-id": "^1.0",
-    "http-link-header": "^1.1.0",
+    "http-link-header": "^1.1.1",
     "moving-average": "^1.0.1",
     "pinia": "^2.0.30",
     "pitchy": "^4.0.7",
