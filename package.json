@@ -29,7 +29,7 @@
     "pitchy": "^4.0.7",
     "postcss": "^8.4.21",
     "postcss-import": "^15.1.0",
-    "pwa-asset-generator": "^6.2.1",
+    "pwa-asset-generator": "^6.3.0",
     "rollup-plugin-string": "^3.0",
     "rxjs": "^7.8.0",
     "serialize-error": "^11.0.0",
