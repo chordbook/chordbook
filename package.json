@@ -42,7 +42,7 @@
     "vite-plugin-pwa": "^0.14.4",
     "vite-svg-loader": "^4.0.0",
     "vue": "^3.2.47",
-    "vue-router": "^4.1.6",
+    "vue-router": "^4.2.0",
     "vue3-ace-editor": "^2.2"
   },
   "version": "0.1.0",
