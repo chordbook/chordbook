@@ -50,14 +50,14 @@
     "@capacitor/cli": "^4.6",
     "@capacitor/ios": "^4.6.3",
     "@types/http-link-header": "^1.0.3",
-    "eslint": "^8.34.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-gitignore": "^0.1",
-    "eslint-plugin-import": "^2.27",
-    "eslint-plugin-node": "^11.1",
+    "eslint": "^8.45.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-gitignore": "^0.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-vue": "^9.9.0",
-    "standard": "^17.0"
+    "eslint-plugin-vue": "^9.15.1",
+    "standard": "^17.1.0"
   },
   "scripts": {
     "dev": "vite",
