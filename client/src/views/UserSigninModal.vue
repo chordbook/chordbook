@@ -44,10 +44,9 @@ watchEffect(() => {
             {{ data.error }}
           </div>
           <ion-item>
-            <ion-label position="stacked">
-              Email
-            </ion-label>
             <ion-input
+              label="Email"
+              label-placement="stacked"
               v-model="form.email"
               type="email"
               autocomplete="email"
@@ -55,10 +54,9 @@ watchEffect(() => {
             />
           </ion-item>
           <ion-item>
-            <ion-label position="stacked">
-              Password
-            </ion-label>
             <ion-input
+              label="Password"
+              label-placement="stacked"
               v-model="form.password"
               type="password"
               autocomplete="current-password"

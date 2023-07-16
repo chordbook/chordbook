@@ -46,25 +46,21 @@ watchEffect(() => {
             </div>
           </Transition>
           <ion-item :class="{ 'ion-invalid': data?.error?.name }">
-            <ion-label position="stacked">
-              Name
-            </ion-label>
             <ion-input
+              label="Name"
+              label-position="stacked"
               v-model="form.user.name"
               type="text"
               autocomplete="name"
               required
               placeholder="Your name"
+              :error-text="data?.error?.name?.join(', ')"
             />
-            <ion-note slot="error">
-              {{ data?.error?.name?.join(', ') }}
-            </ion-note>
           </ion-item>
           <ion-item :class="{ 'ion-invalid': data?.error?.email }">
-            <ion-label position="stacked">
-              Email
-            </ion-label>
             <ion-input
+              label="Email"
+              label-position="stacked"
               v-model="form.user.email"
               type="email"
               autocomplete="email"
@@ -75,18 +71,15 @@ watchEffect(() => {
             </ion-note>
           </ion-item>
           <ion-item :class="{ 'ion-invalid': data?.error?.password }">
-            <ion-label position="stacked">
-              Password
-            </ion-label>
             <ion-input
+              label="Password"
+              label-position="stacked"
               v-model="form.user.password"
               type="password"
               autocomplete="new-password"
               placeholder="Create a password"
+              :error-text="data?.error?.password?.join(', ')"
             />
-            <ion-note slot="error">
-              {{ data?.error?.password?.join(', ') }}
-            </ion-note>
           </ion-item>
 
           <div class="ion-margin">

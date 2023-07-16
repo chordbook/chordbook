@@ -20,7 +20,6 @@
           <ion-menu-toggle auto-hide="false">
             <ion-item
               button
-              shape="round"
               :router-link="{ name: 'home' }"
               router-direction="root"
               :detail="false"
@@ -35,7 +34,6 @@
             </ion-item>
             <ion-item
               button
-              shape="round"
               :router-link="{ name: 'discover' }"
               router-direction="root"
               :detail="false"
@@ -58,7 +56,6 @@
           <ion-menu-toggle auto-hide="false">
             <ion-item
               button
-              shape="round"
               router-link="/songsheets"
               router-direction="root"
               :detail="false"
@@ -73,7 +70,6 @@
             </ion-item>
             <ion-item
               button
-              shape="round"
               router-link="/artists"
               router-direction="root"
               :detail="false"
@@ -88,7 +84,6 @@
             </ion-item>
             <ion-item
               button
-              shape="round"
               router-link="/albums"
               router-direction="root"
               :detail="false"
@@ -103,7 +98,6 @@
             </ion-item>
             <ion-item
               button
-              shape="round"
               router-link="/setlists"
               router-direction="root"
               :detail="false"
