@@ -35,10 +35,9 @@ gem "image_processing"
 gem "aws-sdk-s3"
 gem "sentry-ruby"
 gem "sentry-rails"
-flipper_version = { git: 'https://github.com/jnunemaker/flipper.git', branch: 'poll-memoizer', ref: '97ce4d8' }
-gem "flipper", flipper_version
-gem "flipper-active_record", flipper_version
-gem "flipper-cloud", flipper_version
+gem "flipper"
+gem "flipper-active_record"
+gem "flipper-cloud"
 
 group :development, :test do
   gem "debug"

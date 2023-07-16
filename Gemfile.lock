@@ -7,21 +7,6 @@ GIT
       builder
       parslet
 
-GIT
-  remote: https://github.com/jnunemaker/flipper.git
-  revision: 97ce4d842fa07dd468c35244149c95e34f2da4c4
-  ref: 97ce4d8
-  branch: poll-memoizer
-  specs:
-    flipper (0.26.0)
-      concurrent-ruby (< 2)
-    flipper-active_record (0.26.0)
-      activerecord (>= 4.2, < 8)
-      flipper (~> 0.26.0)
-    flipper-cloud (0.26.0)
-      brow (~> 0.4.1)
-      flipper (~> 0.26.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -195,6 +180,14 @@ GEM
     faraday-rack (1.0.0)
     faraday-retry (1.0.3)
     ffi (1.15.5)
+    flipper (0.26.0)
+      concurrent-ruby (< 2)
+    flipper-active_record (0.26.0)
+      activerecord (>= 4.2, < 8)
+      flipper (~> 0.26.0)
+    flipper-cloud (0.26.0)
+      brow (~> 0.4.1)
+      flipper (~> 0.26.0)
     formatador (1.1.0)
     fugit (1.8.1)
       et-orbi (~> 1, >= 1.2.7)
@@ -518,9 +511,9 @@ DEPENDENCIES
   elasticsearch (~> 7.17)
   factory_bot
   faker
-  flipper!
-  flipper-active_record!
-  flipper-cloud!
+  flipper
+  flipper-active_record
+  flipper-cloud
   good_job
   google-apis-youtube_v3
   guard
