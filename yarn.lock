@@ -29,17 +29,17 @@
     jsonpointer "^5.0.0"
     leven "^3.1.0"
 
-"@awesome-cordova-plugins/core@^6.3.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/core/-/core-6.3.0.tgz#05460eba56c06f9dce38f573f78bc74818fda321"
-  integrity sha512-MkcWO8akZLHa2RSJEPf76Y3P9wPqh5oXE8YCzn2vnYYeNyYWYnka2pHFsgUdbXJNiS+YeveUzvw+Isweg+wynA==
+"@awesome-cordova-plugins/core@^6.4.0":
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/core/-/core-6.4.0.tgz#eb16e0a9412d2eaaee8b8e155e362cceb2bbf9a6"
+  integrity sha512-06I5JdTgAgKTby+VG+3sQF5+z4RNCEyVl6y7tz2rICx8MURL1biuh3oGGN1rCQQjsuMZcX5siMBr0NF/OHqxLQ==
   dependencies:
     "@types/cordova" latest
 
-"@awesome-cordova-plugins/insomnia@^6.3.0":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/insomnia/-/insomnia-6.3.0.tgz#08ee2c76764ab7f04dca636c928ab91224f8295a"
-  integrity sha512-9NXrpl6SodM8dsD7oivj7FpRvKkx1n1ni/O0O7A+uDDGpasJxw9UkRwS0aahSAFEs9FOBRcuAF6aYYUJRa+WUw==
+"@awesome-cordova-plugins/insomnia@^6.4.0":
+  version "6.4.0"
+  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/insomnia/-/insomnia-6.4.0.tgz#292a5857cc30e814c2836e575b28954a99822e4f"
+  integrity sha512-WPNmpVM4JEcbBdHnKYAR8jEA1njirPR0sQvB/E9lul9biTKTe8J5CynzSSg1iQ+VDbwH2S6kVAI0DiB4V8TAVA==
   dependencies:
     "@types/cordova" latest
 
@@ -3346,10 +3346,10 @@ htmlparser2@^8.0.1:
     domutils "^3.0.1"
     entities "^4.3.0"
 
-http-link-header@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/http-link-header/-/http-link-header-1.1.0.tgz#a1ca87efdbcb7778d8d0d4525de1e6964ec1f129"
-  integrity sha512-pj6N1yxOz/ANO8HHsWGg/OoIL1kmRYvQnXQ7PIRpgp+15AnEsRH8fmIJE6D1OdWG2Bov+BJHVla1fFXxg1JbbA==
+http-link-header@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/http-link-header/-/http-link-header-1.1.1.tgz#f0e6971b0ed86e858d2077066ecb7ba4f2e50de9"
+  integrity sha512-mW3N/rTYpCn99s1do0zx6nzFZSwLH9HGfUM4ZqLWJ16ylmYaC2v5eYGqrNTQlByx8AzUgGI+V/32gXPugs1+Sw==
 
 https-proxy-agent@5.0.1:
   version "5.0.1"
@@ -4601,10 +4601,10 @@ puppeteer-core@^13.5.2:
     unbzip2-stream "1.4.3"
     ws "8.5.0"
 
-pwa-asset-generator@^6.2.1:
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/pwa-asset-generator/-/pwa-asset-generator-6.2.1.tgz#fa7e1ff828f76ad790c5001d3d1f46a25a15de42"
-  integrity sha512-GPtg3xb/jM2gth2FTpgzPhcCSbKKt6+woapMm61Ooktly3K9EdInriTjgMSSkiJFYP/U4MWlvOpjSKDhwdLo5Q==
+pwa-asset-generator@^6.3.1:
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/pwa-asset-generator/-/pwa-asset-generator-6.3.1.tgz#42a47dbac058432d08c24cd569afe565d1d14edb"
+  integrity sha512-iGbUvBH1T+yysr/31OsJyIbqrDUPOHZPOvCODgQmiBkbfALxF9Wqmzc9ddYYe0x07/qAurc54IAt4rDR+vaQDQ==
   dependencies:
     chalk "^4.1.2"
     cheerio "^1.0.0-rc.12"
@@ -4859,10 +4859,10 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-rxjs@^7.8.0:
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.8.0.tgz#90a938862a82888ff4c7359811a595e14e1e09a4"
-  integrity sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==
+rxjs@^7.8.1:
+  version "7.8.1"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.8.1.tgz#6f6f3d99ea8044291efd92e7c7fcf562c4057543"
+  integrity sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==
   dependencies:
     tslib "^2.1.0"
 
