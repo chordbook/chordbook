@@ -180,7 +180,7 @@ GEM
     faraday-rack (1.0.0)
     faraday-retry (1.0.3)
     ffi (1.15.5)
-    flipper (0.28.0)
+    flipper (0.28.3)
       concurrent-ruby (< 2)
     flipper-active_record (0.28.0)
       activerecord (>= 4.2, < 8)
