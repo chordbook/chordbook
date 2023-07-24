@@ -971,10 +971,10 @@
   dependencies:
     tslib "^2.1.0"
 
-"@capacitor/ios@^5.2.1":
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-5.2.1.tgz#68153da05b9c9ae4b6a0bb5d7d43071170b6154b"
-  integrity sha512-a69zJt4woD642BHqvIoD4cLgJoSYgy2AEaBw11Hi/hW/t8dZ/TzPv3wtj/lk6RLj0zPq9rn7bI7qaFQzLxPVHQ==
+"@capacitor/ios@^5.2.2":
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-5.2.2.tgz#209cc3b15199325f3f5515f7a208ff9830482f52"
+  integrity sha512-6nNhB+G9tamJFMdvPOIATEPIXlh3GNXMq8eeY3xrFO72bBTmQpXdbDQmMJeBbpVlkEnFoVUXiSxAu6O0E9x9Lw==
 
 "@esbuild/android-arm64@0.18.13":
   version "0.18.13"
