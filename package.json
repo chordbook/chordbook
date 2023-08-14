@@ -19,7 +19,7 @@
     "@vueuse/router": "^10.2.1",
     "ace-builds": "^1.23.4",
     "arrify": "^3.0",
-    "autoprefixer": "^10.4.14",
+    "autoprefixer": "^10.4.15",
     "chordsheetjs": "^7.17.2",
     "cordova-plugin-insomnia": "^4.3",
     "get-youtube-id": "^1.0",
