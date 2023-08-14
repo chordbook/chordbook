@@ -964,10 +964,10 @@
     tslib "^2.4.0"
     xml2js "^0.5.0"
 
-"@capacitor/core@^5.2.1":
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-5.2.1.tgz#f8b49d8a313fc49b3cada26d4f9ccad6e4d39d65"
-  integrity sha512-v7nzTQZj9l99Sp0v8C7Zq8QX6Cg5ljq7ASneWk/Hc5nBR5LOj/k3a+yEx/RoclWtkxJfs89Y5k+KJTFFQ6cLoA==
+"@capacitor/core@^5.2.3":
+  version "5.2.3"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-5.2.3.tgz#0d26ae70656b5281dd3c93f73843b0d730f31754"
+  integrity sha512-Q1zbgt3Mvldy7six2/GX54kTL0ozgnR37jeDUAXL/fOJBF4Iorr/8A0OjGEAnwEjpR1la7uFZUunESMFyMLhEQ==
   dependencies:
     tslib "^2.1.0"
 
@@ -5368,12 +5368,7 @@ tsconfig-paths@^3.14.1:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@^2.0.1, tslib@^2.1.0, tslib@^2.4.0:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
-  integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
-
-"tslib@^2.4.1 || ^1.9.3":
+tslib@^2.0.1, tslib@^2.1.0, tslib@^2.4.0, "tslib@^2.4.1 || ^1.9.3":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.0.tgz#b295854684dbda164e181d259a22cd779dcd7bc3"
   integrity sha512-7At1WUettjcSRHXCyYtTselblcHl9PJFFVKiCAy/bY97+BPZXSQ2wbq0P9s8tK2G7dFQfNnlJnPAiArVBVBsfA==
