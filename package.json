@@ -6,7 +6,7 @@
     "@awesome-cordova-plugins/insomnia": "^6.4.0",
     "@capacitor/core": "^5.2.1",
     "@headlessui/vue": "^1.7.14",
-    "@ionic/vue": "^7.1.3",
+    "@ionic/vue": "^7.3.0",
     "@ionic/vue-router": "^7.1.3",
     "@sentry/tracing": "^7.58.1",
     "@sentry/vue": "^7.58.1",
