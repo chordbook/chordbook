@@ -1160,6 +1160,15 @@
     ionicons "7.1.0"
     tslib "^2.1.0"
 
+"@ionic/core@7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@ionic/core/-/core-7.3.1.tgz#ab769c13dc7ab22646b66743de6fb3d02f809cfc"
+  integrity sha512-RdSJsFYx2oJ08duw+DMWVAfzjxlnA+o1saX5gOLSjP5SpwP7FqURFfXrFHIFN2vIKbeqUZTZjQwPHnrFsX04dQ==
+  dependencies:
+    "@stencil/core" "^4.1.0"
+    ionicons "7.1.0"
+    tslib "^2.1.0"
+
 "@ionic/utils-array@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@ionic/utils-array/-/utils-array-2.1.5.tgz#15e4119b01e3978d58324a06d816959c25e248b6"
@@ -1242,12 +1251,20 @@
   dependencies:
     "@ionic/vue" "7.1.3"
 
-"@ionic/vue@7.1.3", "@ionic/vue@^7.1.3":
+"@ionic/vue@7.1.3":
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-7.1.3.tgz#3562a2fa522100b579b6ea01849b807f8221f52e"
   integrity sha512-4pfmbYH86/H9699D3DLUvqRdDzW0MfAXT6Es/zdZr2mBJgH9bPFVfgJpdHUfjGIoSXQRo6WAGEWxMIzHqleHUg==
   dependencies:
     "@ionic/core" "7.1.3"
+    ionicons "^7.0.0"
+
+"@ionic/vue@^7.3.1":
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/@ionic/vue/-/vue-7.3.1.tgz#bda805b53367cb9dccf41ecbd1cd0681ee0cbad4"
+  integrity sha512-URxNXLYo4gh0riQlHiCoGDo7GqEqbVJi/1gMamM3tGBQHCMNZdm9IDfIDYjHY4L3dVi5pF+szl/b4p2lsIV3hw==
+  dependencies:
+    "@ionic/core" "7.3.1"
     ionicons "^7.0.0"
 
 "@jridgewell/gen-mapping@^0.1.0":
@@ -1441,6 +1458,11 @@
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@stencil/core/-/core-3.4.1.tgz#b4a3d7579fa1ebb312aaed4c3d8f4bd6dece13f1"
   integrity sha512-7rjOmM0W9K5op2gtOQRLERGH1155rv2fm6ppxOzYqqG8ISct4m9skp5XgUBYPu+GSPsJFdRuCIQs0IuVsG/7+g==
+
+"@stencil/core@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-4.1.0.tgz#236d88cc071e482ae096f56cee4c747541fb21ba"
+  integrity sha512-yIpL+CX02fy5zvFXwXcHZjjEILRm3aiONbucpfLIWPS7zcBAuucdROssartEa+D7E1JRko97ydxn1Ntdu4GoWg==
 
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
