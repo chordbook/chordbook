@@ -47,7 +47,7 @@
   },
   "version": "0.1.0",
   "devDependencies": {
-    "@capacitor/cli": "^5.2.1",
+    "@capacitor/cli": "^5.3.0",
     "@capacitor/ios": "^5.2.1",
     "@types/http-link-header": "^1.0.3",
     "eslint": "^8.45.0",
