@@ -4907,10 +4907,10 @@ semver@^7.0.0, semver@^7.3.4, semver@^7.3.5, semver@^7.3.6, semver@^7.3.7, semve
   dependencies:
     lru-cache "^6.0.0"
 
-serialize-error@^11.0.0:
-  version "11.0.0"
-  resolved "https://registry.yarnpkg.com/serialize-error/-/serialize-error-11.0.0.tgz#0129f2b07b19b09bc7a5f2d850ffe9cd2d561582"
-  integrity sha512-YKrURWDqcT3VGX/s/pCwaWtpfJEEaEw5Y4gAnQDku92b/HjVj4r4UhA5QrMVMFotymK2wIWs5xthny5SMFu7Vw==
+serialize-error@^11.0.2:
+  version "11.0.2"
+  resolved "https://registry.yarnpkg.com/serialize-error/-/serialize-error-11.0.2.tgz#8c1a44f0ab872ee2c3ca6736ca5c750003bc1d04"
+  integrity sha512-o43i0jLcA0LXA5Uu+gI1Vj+lF66KR9IAcy0ThbGq1bAMPN+k5IgSHsulfnqf/ddKAz6dWf+k8PD5hAr9oCSHEQ==
   dependencies:
     type-fest "^2.12.2"
 
