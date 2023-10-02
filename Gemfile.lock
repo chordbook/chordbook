@@ -141,12 +141,12 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    elasticsearch (7.17.7)
-      elasticsearch-api (= 7.17.7)
-      elasticsearch-transport (= 7.17.7)
-    elasticsearch-api (7.17.7)
+    elasticsearch (7.17.9)
+      elasticsearch-api (= 7.17.9)
+      elasticsearch-transport (= 7.17.9)
+    elasticsearch-api (7.17.9)
       multi_json
-    elasticsearch-transport (7.17.7)
+    elasticsearch-transport (7.17.9)
       faraday (~> 1)
       multi_json
     erubi (1.12.0)
