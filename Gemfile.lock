@@ -122,7 +122,6 @@ GEM
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
-    brow (0.4.1)
     builder (3.2.4)
     cancancan (3.5.0)
     capybara (3.39.2)
@@ -194,14 +193,11 @@ GEM
     faraday-rack (1.0.0)
     faraday-retry (1.0.3)
     ffi (1.15.5)
-    flipper (0.28.0)
+    flipper (1.2.2)
       concurrent-ruby (< 2)
-    flipper-active_record (0.28.0)
+    flipper-active_record (1.2.2)
       activerecord (>= 4.2, < 8)
-      flipper (~> 0.28.0)
-    flipper-cloud (0.28.0)
-      brow (~> 0.4.1)
-      flipper (~> 0.28.0)
+      flipper (~> 1.2.2)
     formatador (1.1.0)
     fugit (1.8.1)
       et-orbi (~> 1, >= 1.2.7)
@@ -549,7 +545,6 @@ DEPENDENCIES
   faker
   flipper
   flipper-active_record
-  flipper-cloud
   good_job
   google-apis-youtube_v3
   guard
