@@ -61,7 +61,25 @@ services:
       value: single-node
     - key: cluster.name
       value: elastic
-
+  - type: pserv
+    name: opensearch
+    runtime: image
+    image:
+      url: opensearchproject/opensearch
+    disk:
+      name: opensearch-data
+      mountPath: /usr/share/opensearch/data
+      sizeGB: 10
+    autoDeploy: false
+    envVars:
+    - key: ES_JAVA_OPTS
+      value: "-Xms512m -Xmx512m"
+    - key: discovery.type
+      value: single-node
+    - key: cluster.name
+      value: opensearch-chordbook
+    - key: network.host
+      value: "0.0.0.0"
 envVarGroups:
   - name: public
     envVars:
@@ -104,4 +122,6 @@ envVarGroups:
       - key: AWS_BUCKET
         sync: false
       - key: ELASTICSEARCH_URL
+        sync: false
+      - key: OPENSEARCH_URL
         sync: false
