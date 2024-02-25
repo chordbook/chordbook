@@ -73,7 +73,7 @@ services:
     autoDeploy: false
     envVars:
     - key: ES_JAVA_OPTS
-      value: "-Xms512m -Xmx512m"
+      value: "-Xms1g -Xmx1g"
     - key: discovery.type
       value: single-node
     - key: cluster.name
@@ -124,4 +124,6 @@ envVarGroups:
       - key: ELASTICSEARCH_URL
         sync: false
       - key: OPENSEARCH_URL
+        sync: false
+      - key: OPENSEARCH_INITIAL_ADMIN_PASSWORD
         sync: false
