@@ -3,7 +3,7 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "vcr"
 
-require_relative "./factories"
+require_relative "factories"
 
 Flipper.configure do |config|
   config.default { Flipper.new(Flipper::Adapters::Memory.new) }

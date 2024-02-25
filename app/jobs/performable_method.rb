@@ -6,7 +6,7 @@
 class PerformableMethod < ApplicationJob
   queue_as :low
 
-  def perform(target, method, *args, **kwargs)
-    target.send(method, *args, **kwargs)
+  def perform(target, method, ...)
+    target.send(method, ...)
   end
 end

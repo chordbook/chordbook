@@ -15,7 +15,7 @@ module Metadata
             read_store_attribute(:metadata, key)
           end
 
-          define_method("#{accessor}=") do |value|
+          define_method(:"#{accessor}=") do |value|
             write_store_attribute(:metadata, key, value)
           end
         end
@@ -27,14 +27,14 @@ module Metadata
       mapping.each do |name, keys|
         has_one_attached name, &block
 
-        define_method("download_#{name}_from_metadata") do
+        define_method(:"download_#{name}_from_metadata") do
           url = metadata.slice(*keys.map(&:to_s)).values.map(&:presence).compact.first
           if url && (!send(name).attached? || send(name).metadata[:src] != url)
             DownloadAttachment.perform_later(self, name, url)
           end
         end
 
-        after_save "download_#{name}_from_metadata".to_sym
+        after_save :"download_#{name}_from_metadata"
       end
     end
   end

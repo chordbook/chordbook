@@ -67,7 +67,7 @@ class LookupMetadata < ApplicationJob
 
   def self.get(path, *args)
     throttle.call do
-      super "/api/v1/json/#{API_KEY}/#{path}", *args
+      super("/api/v1/json/#{API_KEY}/#{path}", *args)
     end
   end
 

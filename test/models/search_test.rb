@@ -11,8 +11,8 @@ class SearchTest < ActiveSupport::TestCase
     end
   end
 
-  def search(query, **options)
-    Search.new(query: query, **options).results
+  def search(query, **)
+    Search.new(query: query, **).results
   end
 
   test "search track and artist" do
