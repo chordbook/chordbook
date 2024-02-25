@@ -79,7 +79,7 @@ GEM
       tzinfo (~> 2.0)
     acts_as_list (1.1.0)
       activerecord (>= 4.2)
-    addressable (2.8.4)
+    addressable (2.8.5)
       public_suffix (>= 2.0.2, < 6.0)
     ahoy_matey (4.2.1)
       activesupport (>= 5.2)
