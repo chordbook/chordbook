@@ -19,7 +19,6 @@ gem "addressable"
 gem "acts_as_list"
 gem "paper_trail"
 gem "searchkick"
-gem "elasticsearch", "~> 7.17"
 gem "bcrypt"
 gem "jwt"
 gem "strong_password"
@@ -40,6 +39,7 @@ gem "flipper-active_record"
 gem "flipper-cloud"
 
 group :development, :test do
+  gem "opensearch-ruby"
   gem "debug"
   gem "standard"
   gem "dotenv-rails"
@@ -63,4 +63,8 @@ group :test do
   gem "webmock"
   gem "factory_bot"
   gem "faker"
+end
+
+group :production do
+  gem "elasticsearch", "~> 7.17"
 end
