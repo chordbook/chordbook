@@ -436,7 +436,7 @@ GEM
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     safely_block (0.4.0)
-    searchkick (5.3.0)
+    searchkick (5.3.1)
       activemodel (>= 6.1)
       hashie
     selenium-webdriver (4.10.0)
