@@ -1361,6 +1361,15 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
+"@sentry-internal/tracing@7.102.1":
+  version "7.102.1"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/tracing/-/tracing-7.102.1.tgz#5c39c8f04a4a1a665fb6d368e1cd13605152f18b"
+  integrity sha512-RkFlFyAC0fQOvBbBqnq0CLmFW5m3JJz9pKbZd5vXPraWAlniKSb1bC/4DF9SlNx0FN1LWG+IU3ISdpzwwTeAGg==
+  dependencies:
+    "@sentry/core" "7.102.1"
+    "@sentry/types" "7.102.1"
+    "@sentry/utils" "7.102.1"
+
 "@sentry-internal/tracing@7.58.1":
   version "7.58.1"
   resolved "https://registry.yarnpkg.com/@sentry-internal/tracing/-/tracing-7.58.1.tgz#9be915092793da7f1e63eb0c56c7663c6e639933"
@@ -1383,6 +1392,14 @@
     "@sentry/utils" "7.58.1"
     tslib "^2.4.1 || ^1.9.3"
 
+"@sentry/core@7.102.1":
+  version "7.102.1"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.102.1.tgz#855d37b6bba9986a9380864c823e696d3fc5aa01"
+  integrity sha512-QjY+LSP3du3J/C8x/FfEbRxgZgsWd0jfTJ4P7s9f219I1csK4OeBMC3UA1HwEa0pY/9OF6H/egW2CjOcMM5Pdg==
+  dependencies:
+    "@sentry/types" "7.102.1"
+    "@sentry/utils" "7.102.1"
+
 "@sentry/core@7.58.1":
   version "7.58.1"
   resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.58.1.tgz#d4010f2b0bcfe87b57fa490c0c7ab7a567ed4707"
@@ -1401,17 +1418,29 @@
     "@sentry/types" "7.58.1"
     "@sentry/utils" "7.58.1"
 
-"@sentry/tracing@^7.58.1":
-  version "7.58.1"
-  resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-7.58.1.tgz#45ab0328f903562a42fa8de8cc290f75013686f5"
-  integrity sha512-j869DWe/nyI7/FQwqGGzwWPQy/x8Ows7ijYCvr66Kos6HLiyiEPfeNL+gmenk3itytsyU+gsxQZl/HZnairPWg==
+"@sentry/tracing@^7.102.1":
+  version "7.102.1"
+  resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-7.102.1.tgz#6594b1b01e0fd1201dca2a12f32919bd9b5d8a4d"
+  integrity sha512-9VQEox0R7ouhhUVHtBwlGlXG5beDCM/Uo0BY+G0M1H03aFJsLAwnxPNeWnK3WvPejxf94EgdimKMjDjv9l2Sbg==
   dependencies:
-    "@sentry-internal/tracing" "7.58.1"
+    "@sentry-internal/tracing" "7.102.1"
+
+"@sentry/types@7.102.1":
+  version "7.102.1"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.102.1.tgz#18c35f32ecbd12afb9860ca2de7bfff542d10b27"
+  integrity sha512-htKorf3t/D0XYtM7foTcmG+rM47rDP6XdbvCcX5gBCuCYlzpM1vqCt2rl3FLktZC6TaIpFRJw1TLfx6m+x5jdA==
 
 "@sentry/types@7.58.1":
   version "7.58.1"
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.58.1.tgz#c67f99f9af82ea930cdf895d71ae049575e38bf7"
   integrity sha512-OnKG+yrilPBeVNQK3biF0u/4IDjwH+boJU1XzJOnYdMRO8uzTWxvaRqpt0C8sVE9VAetRi2eutkzOgCXZISRrw==
+
+"@sentry/utils@7.102.1":
+  version "7.102.1"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.102.1.tgz#45ddcdf2e700d40160347bbdf4233aff3179d398"
+  integrity sha512-+8WcFjHVV/HROXSAwMuUzveElBFC43EiTG7SNEBNgOUeQzQVTmbUZXyTVgLrUmtoWqvnIxCacoLxtZo1o67kdg==
+  dependencies:
+    "@sentry/types" "7.102.1"
 
 "@sentry/utils@7.58.1":
   version "7.58.1"
