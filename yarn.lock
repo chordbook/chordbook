@@ -1361,6 +1361,15 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
+"@sentry-internal/tracing@7.106.0":
+  version "7.106.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/tracing/-/tracing-7.106.0.tgz#0752f6925c5120848c05dc6c87a60b25896f834b"
+  integrity sha512-O8Es6Sa/tP80nfl+8soNfWzeRNFcT484SvjLR8BS3pHM9KDAlwNXyoQhFr2BKNYL1irbq6UF6eku4xCnUKVmqA==
+  dependencies:
+    "@sentry/core" "7.106.0"
+    "@sentry/types" "7.106.0"
+    "@sentry/utils" "7.106.0"
+
 "@sentry-internal/tracing@7.58.1":
   version "7.58.1"
   resolved "https://registry.yarnpkg.com/@sentry-internal/tracing/-/tracing-7.58.1.tgz#9be915092793da7f1e63eb0c56c7663c6e639933"
@@ -1383,6 +1392,14 @@
     "@sentry/utils" "7.58.1"
     tslib "^2.4.1 || ^1.9.3"
 
+"@sentry/core@7.106.0":
+  version "7.106.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.106.0.tgz#501aebb349014189162dc77ec31eacbf45ee44c4"
+  integrity sha512-Dc13XtnyFaXup2E4vCbzuG0QKAVjrJBk4qfGwvSJaTuopEaEWBs2MpK6hRzFhsz9S3T0La7c1F/62NptvTUWsQ==
+  dependencies:
+    "@sentry/types" "7.106.0"
+    "@sentry/utils" "7.106.0"
+
 "@sentry/core@7.58.1":
   version "7.58.1"
   resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.58.1.tgz#d4010f2b0bcfe87b57fa490c0c7ab7a567ed4707"
@@ -1401,17 +1418,29 @@
     "@sentry/types" "7.58.1"
     "@sentry/utils" "7.58.1"
 
-"@sentry/tracing@^7.58.1":
-  version "7.58.1"
-  resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-7.58.1.tgz#45ab0328f903562a42fa8de8cc290f75013686f5"
-  integrity sha512-j869DWe/nyI7/FQwqGGzwWPQy/x8Ows7ijYCvr66Kos6HLiyiEPfeNL+gmenk3itytsyU+gsxQZl/HZnairPWg==
+"@sentry/tracing@^7.106.0":
+  version "7.106.0"
+  resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-7.106.0.tgz#761b010334fae5ab2d4a2cb926a885cb7fb3ed36"
+  integrity sha512-qHlRnNLcQpj7d/tSXL9uk49fjtfgKhd1VdqOcb66m180PF1vwIxzr3yPQ7wFZa91sHqf7Xto7faax8DnaDmpoQ==
   dependencies:
-    "@sentry-internal/tracing" "7.58.1"
+    "@sentry-internal/tracing" "7.106.0"
+
+"@sentry/types@7.106.0":
+  version "7.106.0"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.106.0.tgz#a68490c8d5f4b53f704af4c80535165e04c28e42"
+  integrity sha512-oKTkDaL6P9xJC5/zHLRemHTWboUqRYjkJNaZCN63j4kJqGy56wee4vDtDese/NWWn4U4C1QV1h+Mifm2HmDcQg==
 
 "@sentry/types@7.58.1":
   version "7.58.1"
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.58.1.tgz#c67f99f9af82ea930cdf895d71ae049575e38bf7"
   integrity sha512-OnKG+yrilPBeVNQK3biF0u/4IDjwH+boJU1XzJOnYdMRO8uzTWxvaRqpt0C8sVE9VAetRi2eutkzOgCXZISRrw==
+
+"@sentry/utils@7.106.0":
+  version "7.106.0"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.106.0.tgz#a4c05f79672f734c1a1475428144ab97d2f7bea9"
+  integrity sha512-bVsePsXLpFu/1sH4rpJrPcnVxW2fXXfGfGxKs6Bm+dkOMbuVTlk/KAzIbdjCDIpVlrMDJmMNEv5xgTFjgWDkjw==
+  dependencies:
+    "@sentry/types" "7.106.0"
 
 "@sentry/utils@7.58.1":
   version "7.58.1"
