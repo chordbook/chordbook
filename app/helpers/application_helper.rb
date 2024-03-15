@@ -3,7 +3,7 @@ module ApplicationHelper
     return unless attachment&.variable?
 
     variant = attachment.variant(variant_name)
-    if variant.processed? && variant.service.public?
+    if variant.send(:processed?) && variant.service.public?
       # Variant is processed and public, link directly to it.
       variant.url
     else
