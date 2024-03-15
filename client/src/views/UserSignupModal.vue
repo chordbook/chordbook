@@ -47,9 +47,9 @@ watchEffect(() => {
           </Transition>
           <ion-item :class="{ 'ion-invalid': data?.error?.name }">
             <ion-input
+              v-model="form.user.name"
               label="Name"
               label-position="stacked"
-              v-model="form.user.name"
               type="text"
               autocomplete="name"
               required
@@ -59,9 +59,9 @@ watchEffect(() => {
           </ion-item>
           <ion-item :class="{ 'ion-invalid': data?.error?.email }">
             <ion-input
+              v-model="form.user.email"
               label="Email"
               label-position="stacked"
-              v-model="form.user.email"
               type="email"
               autocomplete="email"
               placeholder="Your email"
@@ -72,9 +72,9 @@ watchEffect(() => {
           </ion-item>
           <ion-item :class="{ 'ion-invalid': data?.error?.password }">
             <ion-input
+              v-model="form.user.password"
               label="Password"
               label-position="stacked"
-              v-model="form.user.password"
               type="password"
               autocomplete="new-password"
               placeholder="Create a password"
