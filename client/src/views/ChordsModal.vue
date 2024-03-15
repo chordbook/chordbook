@@ -24,7 +24,7 @@ const chords = computed(() => data.value?.chords[normalizeKey(selectedKey.value)
 const chordData = computed(() => chords.value?.[selectedChord.value])
 
 function normalizeChordName (name) {
-  return Chord.parse(name).normalize().toString({ useUnicodeModifier: true })
+  return Chord.parse(name)?.normalize()?.toString({ useUnicodeModifier: true })
 }
 
 function normalizeKey (key) {
@@ -85,25 +85,26 @@ function positionData (position) {
           lines="none"
           class="mt-6 chord-grid"
         >
-          <ion-item
-            v-for="(chord, index) in chords"
-            :key="chord.key + chord.suffix"
-            button
-            :detail="false"
-            @click="() => selectedChord = index"
-          >
-            <div class="flex flex-col items-center pt-3">
-              <h2 class="text-sm">
-                {{ normalizeChordName(chord.key + chord.suffix) }}
-              </h2>
-              <chord-box
-                as="svg"
-                :data="positionData(chord.positions[0])"
-                :width="width"
-                :height="height"
-              />
-            </div>
-          </ion-item>
+          <template v-for="(chord, index) in chords" :key="chord.key + chord.suffix">
+            <ion-item
+              v-if="normalizeChordName(chord.key + chord.suffix)"
+              button
+              :detail="false"
+              @click="() => selectedChord = index"
+            >
+              <div class="flex flex-col items-center pt-3">
+                <h2 class="text-sm">
+                  {{ normalizeChordName(chord.key + chord.suffix) }}
+                </h2>
+                <chord-box
+                  as="svg"
+                  :data="positionData(chord.positions[0])"
+                  :width="width"
+                  :height="height"
+                />
+              </div>
+            </ion-item>
+          </template>
         </ion-list>
       </ion-content>
       <ion-modal
