@@ -29,9 +29,9 @@ class ActiveSupport::TestCase
     end
   end
 
-  def with_search(*models, &block)
+  def with_search(*models, &)
     Search.reindex(*models)
-    Searchkick.callbacks(true, &block)
+    Searchkick.callbacks(true, &)
   end
 
   def token_headers(user)

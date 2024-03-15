@@ -13,8 +13,8 @@ class Setlist < ApplicationRecord
   has_many :library_items, as: :item, dependent: :destroy
 
   has_many_attached :thumbnails do |attachable|
-    Album.attachment_reflections["image"].variants.each do |name, options|
-      attachable.variant(name, options)
+    Album.attachment_reflections["image"].named_variants.each do |name, variant|
+      attachable.variant(name, variant.transformations)
     end
   end
 
