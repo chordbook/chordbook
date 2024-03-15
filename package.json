@@ -23,7 +23,7 @@
     "chordsheetjs": "^8.5.1",
     "cordova-plugin-insomnia": "^4.3",
     "get-youtube-id": "^1.0",
-    "http-link-header": "^1.1.1",
+    "http-link-header": "^1.1.2",
     "moving-average": "^1.0.1",
     "pinia": "^2.1.4",
     "pitchy": "^4.0.7",
@@ -49,7 +49,7 @@
   "devDependencies": {
     "@capacitor/cli": "^5.7.2",
     "@capacitor/ios": "^5.2.1",
-    "@types/http-link-header": "^1.0.3",
+    "@types/http-link-header": "^1.0.5",
     "eslint": "^8.45.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-gitignore": "^0.1.0",
