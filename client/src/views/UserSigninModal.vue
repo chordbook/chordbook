@@ -45,9 +45,9 @@ watchEffect(() => {
           </div>
           <ion-item>
             <ion-input
+              v-model="form.email"
               label="Email"
               label-placement="stacked"
-              v-model="form.email"
               type="email"
               autocomplete="email"
               placeholder="Your email"
@@ -55,9 +55,9 @@ watchEffect(() => {
           </ion-item>
           <ion-item>
             <ion-input
+              v-model="form.password"
               label="Password"
               label-placement="stacked"
-              v-model="form.password"
               type="password"
               autocomplete="current-password"
               placeholder="Your password"

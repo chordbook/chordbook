@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.0"
+ruby "3.3.0"
 
 gem "rails"
 gem "pg"
@@ -19,7 +19,6 @@ gem "addressable"
 gem "acts_as_list"
 gem "paper_trail"
 gem "searchkick"
-gem "elasticsearch", "~> 7.17"
 gem "bcrypt"
 gem "jwt"
 gem "strong_password"
@@ -37,9 +36,9 @@ gem "sentry-ruby"
 gem "sentry-rails"
 gem "flipper"
 gem "flipper-active_record"
-gem "flipper-cloud"
 
 group :development, :test do
+  gem "opensearch-ruby"
   gem "debug"
   gem "standard"
   gem "dotenv-rails"
@@ -63,4 +62,8 @@ group :test do
   gem "webmock"
   gem "factory_bot"
   gem "faker"
+end
+
+group :production do
+  gem "elasticsearch", "~> 7.17"
 end

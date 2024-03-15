@@ -20,7 +20,7 @@ const suffixAliases = {
 
 // Map suffixes to normalized version
 ukulele.suffixes.forEach(value => {
-  const key = Chord.parse('C' + value).normalize().suffix
+  const key = Chord.parse('C' + value)?.normalize()?.suffix
   if (key && key !== value) suffixAliases[key] = value
 })
 

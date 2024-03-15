@@ -3,7 +3,7 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "vcr"
 
-require_relative "./factories"
+require_relative "factories"
 
 Flipper.configure do |config|
   config.default { Flipper.new(Flipper::Adapters::Memory.new) }
@@ -29,9 +29,9 @@ class ActiveSupport::TestCase
     end
   end
 
-  def with_search(*models, &block)
+  def with_search(*models, &)
     Search.reindex(*models)
-    Searchkick.callbacks(true, &block)
+    Searchkick.callbacks(true, &)
   end
 
   def token_headers(user)
