@@ -26,7 +26,7 @@
     "http-link-header": "^1.1.1",
     "moving-average": "^1.0.1",
     "pinia": "^2.1.4",
-    "pitchy": "^4.0.7",
+    "pitchy": "^4.1.0",
     "postcss": "^8.4.35",
     "postcss-import": "^15.1.0",
     "pwa-asset-generator": "^6.3.1",

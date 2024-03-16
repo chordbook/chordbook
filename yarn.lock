@@ -4520,10 +4520,10 @@ pirates@^4.0.1:
   resolved "https://registry.yarnpkg.com/pirates/-/pirates-4.0.6.tgz#3018ae32ecfcff6c29ba2267cbf21166ac1f36b9"
   integrity sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==
 
-pitchy@^4.0.7:
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/pitchy/-/pitchy-4.0.7.tgz#95b41e5911321530a44a0cf67739d397fb302bef"
-  integrity sha512-AEMDKxw+o8eeLK432cJniBJLgQ+KgGb0QFFHMA+3v2wAqeYesVyoPSJqaezNZXdJnN+7nK+i8qVR/aQp/NLxiA==
+pitchy@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/pitchy/-/pitchy-4.1.0.tgz#d67e8ef14512db7d2d0ab8ab51b8a7f6d3dc712b"
+  integrity sha512-E8nQ8svBroGSMcc3qu2KvLHIuRYAIfrSkqDKWhjgj3WizseqWQXjQ+Q5t4g1CU73R5Euk+DAinyNFDK+KZw7zA==
   dependencies:
     fft.js "^4.0.4"
 
