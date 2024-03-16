@@ -29,17 +29,17 @@
     jsonpointer "^5.0.0"
     leven "^3.1.0"
 
-"@awesome-cordova-plugins/core@^6.4.0":
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/core/-/core-6.4.0.tgz#eb16e0a9412d2eaaee8b8e155e362cceb2bbf9a6"
-  integrity sha512-06I5JdTgAgKTby+VG+3sQF5+z4RNCEyVl6y7tz2rICx8MURL1biuh3oGGN1rCQQjsuMZcX5siMBr0NF/OHqxLQ==
+"@awesome-cordova-plugins/core@^6.6.0":
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/core/-/core-6.6.0.tgz#2d274d4e618ed968727b092aa927f1688b8c0a9c"
+  integrity sha512-mr2oI+qIoxgoccG57VMkkQdedvulIFJ+kyDeXZvrA1CSkFu1RzTwRvM6QuyA01f9i9G9hSSONpAp4v94h45LNA==
   dependencies:
     "@types/cordova" latest
 
-"@awesome-cordova-plugins/insomnia@^6.4.0":
-  version "6.4.0"
-  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/insomnia/-/insomnia-6.4.0.tgz#292a5857cc30e814c2836e575b28954a99822e4f"
-  integrity sha512-WPNmpVM4JEcbBdHnKYAR8jEA1njirPR0sQvB/E9lul9biTKTe8J5CynzSSg1iQ+VDbwH2S6kVAI0DiB4V8TAVA==
+"@awesome-cordova-plugins/insomnia@^6.6.0":
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/@awesome-cordova-plugins/insomnia/-/insomnia-6.6.0.tgz#13feeff65a8f49eddb8e790bcf89b552ae2fecd5"
+  integrity sha512-qvNdI5gD8hzsdAAuzEBNaOnMPnfsfOtYFwOhRCYRbjDJJPM0N5B0AiGF9KvgIl0VJF1QafzjQ/2ys1qqxT+QOg==
   dependencies:
     "@types/cordova" latest
 
@@ -2513,11 +2513,6 @@ convert-source-map@^1.7.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-1.9.0.tgz#7faae62353fb4213366d0ca98358d22e8368b05f"
   integrity sha512-ASFBup0Mz1uyiIjANan1jzLQami9z1PoYSZCiiYW2FczPbenXc45FZdBZLzOT+r6+iciuEModtmCti+hjaAk0A==
-
-cordova-plugin-insomnia@^4.3:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/cordova-plugin-insomnia/-/cordova-plugin-insomnia-4.3.0.tgz#832a33f6d763f0b80273bdf761b35b678c43b957"
-  integrity sha512-MdlRFsyfmf6Q/8+npDeVSTo487eyrp7vbuGO3SPbnqR94DXmFRJWLbZGwf34dMeH6GQL45baxozUwhLTPxrQwg==
 
 core-js-compat@^3.25.1:
   version "3.26.1"

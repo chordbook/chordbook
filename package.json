@@ -3,8 +3,8 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "@awesome-cordova-plugins/core": "^6.4.0",
-    "@awesome-cordova-plugins/insomnia": "^6.4.0",
+    "@awesome-cordova-plugins/core": "^6.6.0",
+    "@awesome-cordova-plugins/insomnia": "^6.6.0",
     "@capacitor/core": "^5.7.3",
     "@headlessui/vue": "^1.7.19",
     "@ionic/vue": "^7.8.0",
@@ -21,7 +21,6 @@
     "arrify": "^3.0",
     "autoprefixer": "^10.4.14",
     "chordsheetjs": "^8.5.1",
-    "cordova-plugin-insomnia": "^4.3",
     "get-youtube-id": "^1.0",
     "http-link-header": "^1.1.1",
     "moving-average": "^1.0.1",
