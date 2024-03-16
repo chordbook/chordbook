@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   content: [
     './client/**/*.html',
     './client/**/*.js',
@@ -43,7 +43,5 @@ module.exports = {
       }
     }
   },
-  plugins: [
-    require('@tailwindcss/line-clamp')
-  ]
+  plugins: []
 }

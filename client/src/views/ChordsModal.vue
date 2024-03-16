@@ -85,7 +85,10 @@ function positionData (position) {
           lines="none"
           class="mt-6 chord-grid"
         >
-          <template v-for="(chord, index) in chords" :key="chord.key + chord.suffix">
+          <template
+            v-for="(chord, index) in chords"
+            :key="chord.key + chord.suffix"
+          >
             <ion-item
               v-if="normalizeChordName(chord.key + chord.suffix)"
               button
