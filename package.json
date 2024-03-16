@@ -17,7 +17,7 @@
     "@vueuse/core": "^10.9.0",
     "@vueuse/head": "^2.0.0",
     "@vueuse/router": "^10.9.0",
-    "ace-builds": "^1.23.4",
+    "ace-builds": "^1.32.7",
     "arrify": "^3.0",
     "autoprefixer": "^10.4.14",
     "chordsheetjs": "^8.5.1",
