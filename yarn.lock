@@ -941,10 +941,10 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@capacitor/cli@^5.7.2":
-  version "5.7.2"
-  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-5.7.2.tgz#9e130c0b49f4620f565f8448d45035a5cc26ace1"
-  integrity sha512-dTW48klx39Mm2twkRU5pHw7tFRGtGk80fw5psopmbx8Ep5FG08HprqnwK5DXsFPhgJaC+ax4VDwmFCvb8uAGFA==
+"@capacitor/cli@^5.7.3":
+  version "5.7.3"
+  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-5.7.3.tgz#f797fdf84de6b131a80b8056ad2ee4cec106eb6a"
+  integrity sha512-bfc2QraYS5AsMyYCrhKqcPlZ9bFpsCfnjLKTWLLPJOgOhCdTALPIbzTEtjHyjMPMfch3SFuxdfog57PCCKyJWg==
   dependencies:
     "@ionic/cli-framework-output" "^2.2.5"
     "@ionic/utils-fs" "^3.1.6"
@@ -964,17 +964,17 @@
     tslib "^2.4.0"
     xml2js "^0.5.0"
 
-"@capacitor/core@^5.7.2":
-  version "5.7.2"
-  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-5.7.2.tgz#48e25a2f0b9b4dff5bf93d866afaa72093728e2f"
-  integrity sha512-/OUtfINmk7ke32VtKIHRAy8NlunbeK+aCqCHOS+fvtr7nUsOJXPkYgbgqZp/CWXET/gSK1xxMecaVBzpE98UKA==
+"@capacitor/core@^5.7.3":
+  version "5.7.3"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-5.7.3.tgz#79f7833fba5d36a4e9dfebbc78c9efa1406071e8"
+  integrity sha512-xEuQmP+h0tugl2N+qRcdrUavZydvTnnmtvqu/OtCBb/bKZo2PDRFft7MxuQRE2GxXs6kLy3cvwzhDAHB3a+9mw==
   dependencies:
     tslib "^2.1.0"
 
-"@capacitor/ios@^5.2.1":
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-5.2.1.tgz#68153da05b9c9ae4b6a0bb5d7d43071170b6154b"
-  integrity sha512-a69zJt4woD642BHqvIoD4cLgJoSYgy2AEaBw11Hi/hW/t8dZ/TzPv3wtj/lk6RLj0zPq9rn7bI7qaFQzLxPVHQ==
+"@capacitor/ios@^5.7.3":
+  version "5.7.3"
+  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-5.7.3.tgz#cdd28634f0b4208fca7a1f6fe2a57b19fc7c333c"
+  integrity sha512-ntgayMTQlBZeZiONkqjLGQs2zFVMFghu/hsPcINgXxU53Mvticf2BBNRMmdR20eVHg2UbbJx9SLl8UlOvgQ4sA==
 
 "@esbuild/aix-ppc64@0.19.12":
   version "0.19.12"
