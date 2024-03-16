@@ -43,7 +43,7 @@
     "vite-svg-loader": "^5.1.0",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
-    "vue3-ace-editor": "^2.2.3"
+    "vue3-ace-editor": "^2.2.4"
   },
   "version": "0.1.0",
   "devDependencies": {
