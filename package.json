@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "@awesome-cordova-plugins/core": "^6.4.0",
+    "@awesome-cordova-plugins/core": "^6.6.0",
     "@awesome-cordova-plugins/insomnia": "^6.4.0",
     "@capacitor/core": "^5.7.2",
     "@headlessui/vue": "^1.7.19",
