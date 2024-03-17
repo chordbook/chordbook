@@ -66,4 +66,5 @@ end
 
 group :production do
   gem "elasticsearch", "~> 7.17"
+  gem "faraday-httpclient"
 end

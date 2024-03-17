@@ -170,6 +170,8 @@ GEM
       i18n (>= 1.8.11, < 2)
     faraday (2.9.0)
       faraday-net_http (>= 2.0, < 3.2)
+    faraday-httpclient (2.0.1)
+      httpclient (>= 2.2)
     faraday-net_http (3.1.0)
       net-http
     ffi (1.16.3)
@@ -535,6 +537,7 @@ DEPENDENCIES
   elasticsearch (~> 7.17)
   factory_bot
   faker
+  faraday-httpclient
   flipper
   flipper-active_record
   good_job
