@@ -20,6 +20,7 @@ class Api::SongsheetsController < ApiController
     @songsheet = Songsheet.new(songsheet_params)
 
     if @songsheet.save
+      current_user.library.add @songsheet
       render :show, status: :created, location: [:api, @songsheet]
     else
       render json: @songsheet.errors, status: :unprocessable_entity

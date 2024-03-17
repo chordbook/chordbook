@@ -57,8 +57,9 @@ class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create" do
-    assert_difference -> { Songsheet.count }, 1 do
-      post api_songsheets_url(format: :json), headers: token_headers(create(:user)), params: {
+    user = create(:user)
+    assert_difference -> { Songsheet.count } => 1, -> { user.songsheets.count } => 1 do
+      post api_songsheets_url(format: :json), headers: token_headers(user), params: {
         songsheet: {
           source: "test",
           metadata: {title: "Hello World", subtitle: "Nice to meet you"}
