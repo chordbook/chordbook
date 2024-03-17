@@ -20,7 +20,7 @@ defineProps({
     can-dismiss
     :breakpoints="[1]"
     :initial-breakpoint="1"
-    style="--height:max-content"
+    style="--height:auto"
   >
     <div class="ion-padding-vertical">
       <ion-list-header>Settings</ion-list-header>
