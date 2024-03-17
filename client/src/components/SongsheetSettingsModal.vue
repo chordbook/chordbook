@@ -37,8 +37,8 @@ defineProps({
 
         <ion-item>
           <ion-select
-            label="Instrument"
             v-model="settings.instrument"
+            label="Instrument"
             interface="popover"
           >
             <ion-select-option

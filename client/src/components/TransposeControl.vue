@@ -12,8 +12,8 @@
       </ion-button>
 
       <ion-select
-        aria-label="Key"
         v-model="value"
+        aria-label="Key"
         class="text-center w-20 relative"
         cancel-text="Reset"
         @ion-cancel="value = 0"
