@@ -1,51 +1,24 @@
 import { PitchDetector } from 'pitchy'
 import useMovingAverage from 'moving-average'
 
-const AudioContext = window.AudioContext || window.webkitAudioContext
-
-let mediaDevices = navigator.mediaDevices
-// Older browsers might not implement mediaDevices at all, so we set an empty object first
-if (mediaDevices === undefined) {
-  mediaDevices = {}
-}
-
-// Some browsers partially implement mediaDevices. We can't just assign an object
-// with getUserMedia as it would overwrite existing properties.
-// Here, we will just add the getUserMedia property if it's missing.
-if (mediaDevices.getUserMedia === undefined) {
-  mediaDevices.getUserMedia = function (constraints) {
-    // First get ahold of the legacy getUserMedia, if present
-    const getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia
-
-    return new Promise(function (resolve, reject) {
-      // Some browsers just don't implement it - return a rejected promise with an error
-      // to keep a consistent interface
-      if (!getUserMedia) {
-        reject(new Error('getUserMedia is not implemented in this browser'))
-      }
-
-      // Otherwise, wrap the call to the old navigator.getUserMedia with a Promise
-      getUserMedia.call(navigator, constraints, resolve, reject)
-    })
-  }
-}
-
 export class Tuner {
   constructor (a4, onNote) {
     this.middleA = a4 || 440
     this.onNote = onNote
+    this.clarityThreshold = 0.95
 
     this.semitone = 69
     this.bufferSize = 2048
     this.noteStrings = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B']
 
     this.pitchDetector = PitchDetector.forFloat32Array(this.bufferSize)
+    this.pitchDetector.minVolumeDecibels = -1000
 
-    this.movingAverage = useMovingAverage(250) // ms
+    this.movingAverage = useMovingAverage(500) // ms
   }
 
   async start () {
-    this.stream = await mediaDevices.getUserMedia({ audio: true })
+    this.stream = await navigator.mediaDevices.getUserMedia({ audio: true })
     const { sampleRate } = this.stream.getAudioTracks()[0].getSettings()
     this.audioContext = new AudioContext({ sampleRate })
 
@@ -65,40 +38,32 @@ export class Tuner {
 
     const [frequency, clarity] = this.pitchDetector.findPitch(data, this.audioContext.sampleRate)
 
-    if (clarity > 0.99) {
+    if (clarity > this.clarityThreshold) {
       this.movingAverage.push(Date.now(), frequency)
-      const maFrequency = this.movingAverage.movingAverage()
+      this.onNote(this.getNote(this.movingAverage.movingAverage(), clarity))
+    }
+  }
 
-      const note = this.getNote(maFrequency)
-      const octave = parseInt(note / 12) - 1
-      const data = {
-        name: this.noteStrings[note % 12],
-        value: note,
-        cents: this.getCents(maFrequency, note),
-        octave,
-        frequency: maFrequency,
-        clarity
-      }
-      console.log(data)
-      this.onNote(data)
+  getNote (frequency, clarity = null) {
+    const note = Math.round(12 * (Math.log(frequency / this.middleA) / Math.log(2))) + this.semitone
+    const octave = parseInt(note / 12) - 1
+    return {
+      name: this.noteStrings[note % 12],
+      value: note,
+      cents: this.getCents(frequency, note),
+      octave,
+      frequency,
+      clarity
     }
   }
 
   async stop () {
-    this.stream.getTracks().forEach(track => track.stop())
     await this.audioContext.close()
+    this.stream.getTracks().forEach(track => track.stop())
+    this.source.disconnect(this.analyser)
+    this.analyser.disconnect(this.scriptProcessor)
+    this.scriptProcessor.disconnect(this.audioContext.destination)
     this.audioContext = this.scriptProcessor = this.analyser = this.stream = this.source = null
-  }
-
-  /**
-   * get musical note from frequency
-   *
-   * @param {number} frequency
-   * @returns {number}
-   */
-  getNote (frequency) {
-    const note = 12 * (Math.log(frequency / this.middleA) / Math.log(2))
-    return Math.round(note) + this.semitone
   }
 
   /**

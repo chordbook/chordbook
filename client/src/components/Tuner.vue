@@ -1,93 +1,57 @@
-<script>
+<script setup>
 import { Tuner } from '../lib/tuner'
 import TunerMeter from '@/components/TunerMeter.vue'
 import { mic, micOff } from 'ionicons/icons'
 import debounce from 'lodash.debounce'
+import { ref, watch } from 'vue'
 
-export default {
-  components: { TunerMeter },
+const frequencyBars = ref(null) // template ref
+const tuner = new Tuner(440, n => { note.value = n })
+const note = ref(tuner.getNote(tuner.middleA))
+const active = ref(false)
 
-  data () {
-    return {
-      a4: 440,
-      note: { name: 'A', frequency: 440, octave: 4, cents: null },
-      active: false,
-      icons: { mic, micOff }
-    }
-  },
+let frequencyData = null
 
-  computed: {
-    tuner () {
-      return new Tuner(this.a4, n => { this.note = n })
-    },
+// Clear cents after 1 second
+watch(note, debounce((note) => { note.cents = null }, 1000))
 
-    notes () {
-      const minOctave = 1
-      const maxOctave = 6
-      const notes = []
+async function start () {
+  active.value = true
+  await tuner.start()
+  frequencyData = new Uint8Array(tuner.analyser.frequencyBinCount)
+  updateFrequencyBars()
+}
 
-      for (let octave = minOctave; octave <= maxOctave; octave += 1) {
-        for (let n = 0; n < 12; n += 1) {
-          const value = 12 * (octave + 1) + n
-          notes.push({
-            name: this.tuner.noteStrings[n],
-            octave: octave.toString(),
-            frequency: this.tuner.getStandardFrequency(value)
-          })
-        }
-      }
+async function stop () {
+  active.value = false
+  await tuner.stop()
+  note.value = tuner.getNote(tuner.middleA)
+}
 
-      return notes
-    }
-  },
+function updateFrequencyBars () {
+  if (!active.value) return
 
-  watch: {
-    note: debounce(function (note) {
-      if (note.cents) this.note.cents = null
-    }, 1000)
-  },
+  tuner.analyser.getByteFrequencyData(frequencyData)
+  const el = frequencyBars.value
+  const length = 32 // low frequency only
+  const width = el.width / length - 0.5
 
-  methods: {
-    async start () {
-      this.active = true
-      return this.tuner.start().then(() => {
-        this.frequencyData = new Uint8Array(this.tuner.analyser.frequencyBinCount)
-        this.updateFrequencyBars()
-      })
-    },
+  const scale = el.height / 2 / Math.max(...frequencyData.slice(0, length))
 
-    async stop () {
-      this.active = false
-      await this.tuner.stop()
-      Object.assign(this.$data, this.$options.data())
-    },
+  const canvasContext = el.getContext('2d')
+  canvasContext.clearRect(0, 0, el.width, el.height)
 
-    updateFrequencyBars () {
-      if (!this.active) return
-
-      this.tuner.analyser.getByteFrequencyData(this.frequencyData)
-      const el = this.$refs['frequency-bars']
-      const length = 32 // low frequency only
-      const width = el.width / length - 0.5
-
-      const scale = el.height / 2 / Math.max(...this.frequencyData.slice(0, length))
-
-      const canvasContext = el.getContext('2d')
-      canvasContext.clearRect(0, 0, el.width, el.height)
-
-      for (let i = 0; i < length; i += 1) {
-        canvasContext.fillStyle = 'rgb(120,120,120)'
-        canvasContext.fillRect(
-          i * (width + 0.5),
-          el.height - Math.floor(this.frequencyData[i] * scale),
-          width,
-          Math.floor(this.frequencyData[i] * scale)
-        )
-      }
-
-      requestAnimationFrame(this.updateFrequencyBars.bind(this))
-    }
+  for (let i = 0; i < length; i += 1) {
+    canvasContext.fillStyle = 'rgb(120,120,120)'
+    canvasContext.fillRect(
+      i * (width + 0.5),
+      el.height - Math.floor(frequencyData[i] * scale),
+      width,
+      Math.floor(frequencyData[i] * scale)
+    )
   }
+
+  requestAnimationFrame(updateFrequencyBars)
 }
 </script>
 
@@ -96,7 +60,7 @@ export default {
     <div class="cursor-default select-none pt-14">
       <div class="w-60 aspect-square mx-auto rounded-full shadow-lg border dark:bg-black/30 dark:border-black/60 relative flex">
         <canvas
-          ref="frequency-bars"
+          ref="frequencyBars"
           class="w-full h-full inset-0 opacity-20 absolute rounded-full"
         />
         <tuner-meter :cents="note.cents" />
@@ -121,7 +85,7 @@ export default {
       >
         <ion-icon
           slot="icon-only"
-          :icon="icons.mic"
+          :icon="mic"
         />
       </ion-button>
       <ion-button
@@ -132,7 +96,7 @@ export default {
       >
         <ion-icon
           slot="icon-only"
-          :icon="icons.micOff"
+          :icon="micOff"
           class="animate-pulse"
         />
       </ion-button>
