@@ -43,6 +43,7 @@ function positionData (position) {
         <ion-toolbar>
           <ion-title>Chord Reference</ion-title>
           <ion-select
+            aria-label="Instrument"
             slot="start"
             v-model="selectedInstrument"
             interface="popover"

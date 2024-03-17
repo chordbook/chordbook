@@ -36,9 +36,8 @@ defineProps({
         </ion-item>
 
         <ion-item>
-          <ion-label>Instrument</ion-label>
           <ion-select
-            slot="end"
+            label="Instrument"
             v-model="settings.instrument"
             interface="popover"
           >
@@ -52,12 +51,12 @@ defineProps({
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label>Show Chord Diagrams</ion-label>
           <ion-toggle
-            slot="end"
             :checked="settings.showChords"
             @ion-change="settings.showChords = $event.detail.checked"
-          />
+          >
+            Show Chord Diagrams
+          </ion-toggle>
         </ion-item>
         <ion-item>
           <ion-label>Layout</ion-label>
@@ -84,14 +83,12 @@ defineProps({
           </div>
         </ion-item>
         <ion-item lines="none">
-          <ion-label>
-            Show Media Player
-          </ion-label>
           <ion-toggle
-            slot="end"
             :checked="settings.showPlayer"
             @ion-change="settings.showPlayer = $event.detail.checked"
-          />
+          >
+            Show Media Player
+          </ion-toggle>
         </ion-item>
       </ion-list>
     </div>
