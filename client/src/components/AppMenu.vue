@@ -114,14 +114,40 @@
         </ion-list>
 
         <ion-list
-          v-if="!auth.isAuthenticated"
           lines="none"
           class="mt-auto mb-3"
         >
           <ion-menu-toggle
             auto-hide="false"
           >
+            <ion-item
+              button
+              router-link="#chords"
+              router-direction="root"
+              :detail="false"
+            >
+              <ion-icon
+                slot="start"
+                size="small"
+                :icon="icons.chordDiagram"
+              />
+              Chords
+            </ion-item>
+            <ion-item
+              button
+              router-link="#tuner"
+              router-direction="root"
+              :detail="false"
+            >
+              <ion-icon
+                slot="start"
+                size="small"
+                :icon="icons.tuningFork"
+              />
+              Tuner
+            </ion-item>
             <ion-button
+              v-if="!auth.isAuthenticated"
               class="block"
               color="primary"
               fill="outline"
@@ -138,38 +164,6 @@
         </ion-list>
       </div>
     </ion-content>
-    <ion-footer translucent>
-      <ion-toolbar>
-        <ion-buttons>
-          <ion-button
-            button
-            shape="round"
-            router-link="#chords"
-            :detail="false"
-            :color="colorFor('songs')"
-          >
-            <ion-icon
-              slot="icon-only"
-              size="small"
-              :icon="icons.chordDiagram"
-            />
-          </ion-button>
-          <ion-button
-            button
-            shape="round"
-            router-link="#tuner"
-            :detail="false"
-            :color="colorFor('songs')"
-          >
-            <ion-icon
-              slot="icon-only"
-              size="small"
-              :icon="icons.tuningFork"
-            />
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-footer>
   </ion-menu>
 </template>
 
