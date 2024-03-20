@@ -6,7 +6,7 @@ services:
   - type: web
     name: web
     env: static
-    buildCommand: yarn build
+    buildCommand: npm build
     staticPublishPath: ./public
     headers:
       - path: /*
@@ -35,7 +35,7 @@ services:
   - type: worker
     name: worker
     env: ruby
-    buildCommand: "bundle install && yarn install"
+    buildCommand: "bundle install && npm install"
     startCommand: bundle exec good_job
     envVars:
       - fromGroup: public
