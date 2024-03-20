@@ -1,13 +1,17 @@
-import ChordSheetJS from 'chordsheetjs'
+import { ChordProParser, ChordsOverWordsParser, UltimateGuitarParser } from 'chordsheetjs'
 
 const PARSERS = [
   {
+    pattern: /\[(Verse|Chorus)/i,
+    parser: new UltimateGuitarParser({ preserveWhitespace: false })
+  },
+  {
     pattern: /{\w+:.*|\[[A-G].*\]/i,
-    parser: new ChordSheetJS.ChordProParser()
+    parser: new ChordProParser()
   },
   {
     pattern: /.*/,
-    parser: new ChordSheetJS.ChordsOverWordsParser({ preserveWhitespace: false })
+    parser: new ChordsOverWordsParser({ preserveWhitespace: false })
   }
 ]
 
