@@ -1,7 +1,7 @@
 <script setup>
 import SongsheetParser from '@/components/SongsheetParser.vue'
 import SongsheetContent from '@/components/SongsheetContent.vue'
-import SongsheetEditor from '@/components/SongsheetEditor.vue'
+import SongsheetEditor from '@/components/Editor.js'
 import ChordSheetJS from 'chordsheetjs'
 import detectFormat from '@/lib/detect_format'
 import { useFetch } from '@/client'
@@ -79,15 +79,18 @@ async function destroy (e) {
   return alert.present()
 }
 
-function paste (e) {
-  const format = detectFormat(e.text)
+function paste (event) {
+  const text = event.clipboardData.getData('text/plain')
+  const format = detectFormat(text)
 
   // No need to convert if it's already in chordpro
   if (!format || format instanceof ChordSheetJS.ChordProParser) return
 
+  // Stop the paste event
+  event.preventDefault()
+
   // Convert to ChordPro
-  // Modifying text property will change text pasted into Ace editor
-  e.text = new ChordSheetJS.ChordProFormatter().format(format.parse(e.text))
+  songsheet.value.source = new ChordSheetJS.ChordProFormatter().format(format.parse(text))
 }
 </script>
 
@@ -130,7 +133,7 @@ function paste (e) {
       </div>
 
       <songsheet-editor
-        v-model:value="songsheet.source"
+        v-model="songsheet.source"
         @paste="paste"
       />
     </ion-content>
