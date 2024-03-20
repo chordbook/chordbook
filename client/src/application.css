@@ -97,3 +97,11 @@
     --ion-color-tint: var(--ion-color-dark-tint) !important;
   }
 }
+
+.cm-editor {
+  min-height: 100%;
+}
+
+.cm-content {
+  padding: 1rem !important;
+}

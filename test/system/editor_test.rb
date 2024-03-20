@@ -49,7 +49,7 @@ class EditorTest < ApplicationSystemTestCase
   private
 
   def fill_in_editor_field(text)
-    assert_css ".ace_editor" # wait for editor to appear
-    execute_script("editor.setValue(#{text.to_json})")
+    assert_css ".cm-editor" # wait for editor to appear
+    execute_script("editor.dispatch({changes: {from: 0, to: view.value.state.doc.length, insert: #{text.to_json}}})")
   end
 end
