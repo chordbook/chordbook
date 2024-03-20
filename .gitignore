@@ -28,9 +28,6 @@
 /config/master.key
 
 /node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
 *.local
 .DS_Store
 

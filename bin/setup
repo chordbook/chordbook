@@ -44,7 +44,7 @@ command -v node > /dev/null || {
 }
 
 echo '== Installing JavaScript dependencies =='
-bin/yarn
+npm install
 
 echo "== Preparing database =="
 bin/rails db:prepare
