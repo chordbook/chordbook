@@ -6,7 +6,7 @@ services:
   - type: web
     name: web
     env: static
-    buildCommand: npm build
+    buildCommand: npm run build
     staticPublishPath: ./public
     headers:
       - path: /*
