@@ -1,5 +1,4 @@
 import { defineComponent, shallowRef, onMounted, onBeforeUnmount, h, watch } from 'vue'
-import { onIonViewDidEnter } from '@ionic/vue'
 import { createEditor } from '@chordbook/editor'
 
 export default defineComponent({
@@ -53,7 +52,6 @@ export default defineComponent({
       setTimeout(() => view.value.focus(), 100)
     })
 
-    onIonViewDidEnter(() => view.value.focus())
     onBeforeUnmount(() => view.value.destroy())
 
     return () => {
