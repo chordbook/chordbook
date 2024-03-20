@@ -3,4 +3,4 @@
 set -x
 
 bundle exec standardrb --fix
-npm run lint --fix
+npm run lint -- --fix
