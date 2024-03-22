@@ -204,3 +204,9 @@ function paste (event) {
     </ion-footer>
   </app-view>
 </template>
+
+<style>
+.cm-content {
+  @apply p-4 lg:text-base md:text-sm;
+}
+</style>

@@ -18,6 +18,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply subpixel-antialiased !important;
+  }
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none; /* IE and Edge */
@@ -96,12 +102,4 @@
     --ion-color-shade: var(--ion-color-dark-shade) !important;
     --ion-color-tint: var(--ion-color-dark-tint) !important;
   }
-}
-
-.cm-editor {
-  min-height: 100%;
-}
-
-.cm-content {
-  padding: 1rem !important;
 }

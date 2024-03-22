@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
 
-const disabled = useMediaQuery('(max-width: 768px)')
+const disabled = useMediaQuery('(max-width: 992px)')
 const left = ref(null) // template ref
 const right = ref(null) // template ref
 
