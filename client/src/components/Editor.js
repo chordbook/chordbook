@@ -11,27 +11,19 @@ export default defineComponent({
     }
   },
 
-  emits: ['update:modelValue', 'ready', 'focus', 'blur', 'paste'],
+  emits: ['update:modelValue', 'ready'],
 
   setup (props, context) {
     const container = shallowRef()
     const view = shallowRef()
 
-    const events = {
-      onChange (doc) { context.emit('update:modelValue', doc) },
-      onFocus (v) { context.emit('focus', v) },
-      onBlur (v) { context.emit('blur', v) },
-      onPaste (event, v) { context.emit('paste', event, v) }
-    }
+    const onChange = (e) => { context.emit('update:modelValue', e.detail.doc) }
 
     onMounted(() => {
       view.value = createEditor({
         parent: container.value,
         root: document,
-        state: {
-          doc: props.modelValue,
-          events
-        }
+        state: { doc: props.modelValue }
       })
 
       // Expose editor to tests
@@ -55,7 +47,7 @@ export default defineComponent({
     onBeforeUnmount(() => view.value.destroy())
 
     return () => {
-      return h('div', { class: 'h-full', ref: container })
+      return h('div', { class: 'h-full', ref: container, onChange })
     }
   }
 })

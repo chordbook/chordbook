@@ -67,6 +67,6 @@
     "ionic:build": "vite build"
   },
   "engines": {
-    "node": "^18.0"
+    "node": "^20.0"
   }
 }

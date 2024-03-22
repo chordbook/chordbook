@@ -1,11 +1,12 @@
 <script setup>
 import SongsheetParser from '@/components/SongsheetParser.vue'
 import SongsheetContent from '@/components/SongsheetContent.vue'
+import EditorSplitView from '@/components/EditorSplitView.vue'
 import SongsheetEditor from '@/components/Editor.js'
 import ChordSheetJS from 'chordsheetjs'
 import detectFormat from '@/lib/detect_format'
 import { useFetch } from '@/client'
-import { alertController, loadingController, modalController } from '@ionic/vue'
+import { alertController, loadingController } from '@ionic/vue'
 import { useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
 
@@ -19,7 +20,8 @@ const props = defineProps({
 const router = useRouter()
 const songsheet = ref({ source: '' })
 const errors = ref({})
-const parser = ref(null) // template ref
+const preview = ref(null) // template ref
+const splitView = ref(null) // template ref
 const url = computed(() => props.id ? `songsheets/${props.id}` : 'songsheets')
 
 if (props.id) {
@@ -29,7 +31,7 @@ if (props.id) {
 }
 
 async function save () {
-  const { metadata } = parser.value.song.metadata
+  const { metadata } = preview.value.song.metadata
   const method = props.id ? 'patch' : 'post'
   const payload = {
     songsheet: {
@@ -46,7 +48,7 @@ async function save () {
   } else {
     router.replace({ name: 'songsheet', params: { id: data.value.id } })
   }
-  modalController.dismiss()
+  splitView.value.toggle()
 }
 
 async function destroy (e) {
@@ -114,8 +116,17 @@ function paste (event) {
         </ion-buttons>
 
         <ion-buttons slot="primary">
-          <ion-button id="trigger-preview">
+          <ion-button
+            v-if="splitView?.disabled"
+            @click="splitView.toggle()"
+          >
             <ion-label>Preview</ion-label>
+          </ion-button>
+          <ion-button
+            v-else
+            @click="save"
+          >
+            <ion-label>Save</ion-label>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -132,10 +143,50 @@ function paste (event) {
         </ul>
       </div>
 
-      <songsheet-editor
-        v-model="songsheet.source"
-        @paste="paste"
-      />
+      <editor-split-view
+        ref="splitView"
+        :disabled="true"
+      >
+        <template #left>
+          <songsheet-editor
+            ref="editor"
+            v-model="songsheet.source"
+            @paste="paste"
+          />
+        </template>
+        <template #right-toolbar="{ toggle }">
+          <ion-toolbar>
+            <ion-title>Preview</ion-title>
+
+            <ion-buttons slot="secondary">
+              <ion-back-button
+                text="Edit"
+                :default-href="$route.fullPath"
+                @click="toggle()"
+              />
+            </ion-buttons>
+
+            <ion-buttons slot="primary">
+              <ion-button @click="save">
+                <ion-label>Save</ion-label>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </template>
+        <template #right>
+          <div class="ion-padding">
+            <h3>Preview</h3>
+            <songsheet-parser
+              v-if="songsheet.source"
+              ref="preview"
+              v-slot="{ song }"
+              :source="songsheet.source"
+            >
+              <songsheet-content :song="song" />
+            </songsheet-parser>
+          </div>
+        </template>
+      </editor-split-view>
     </ion-content>
     <ion-footer>
       <ion-toolbar>
@@ -151,41 +202,5 @@ function paste (event) {
         </ion-buttons>
       </ion-toolbar>
     </ion-footer>
-
-    <ion-modal
-      ref="preview"
-      trigger="trigger-preview"
-    >
-      <ion-header translucent>
-        <ion-toolbar>
-          <ion-title>Preview</ion-title>
-
-          <ion-buttons slot="secondary">
-            <ion-button @click="modalController.dismiss()">
-              <ion-label>Edit</ion-label>
-            </ion-button>
-          </ion-buttons>
-
-          <ion-buttons slot="primary">
-            <ion-button @click="save">
-              <ion-label>Save</ion-label>
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content
-        fullscreen
-        class="ion-padding"
-      >
-        <songsheet-parser
-          v-if="songsheet.source"
-          ref="parser"
-          v-slot=" { song }"
-          :source="songsheet.source"
-        >
-          <songsheet-content :song="song" />
-        </songsheet-parser>
-      </ion-content>
-    </ion-modal>
   </app-view>
 </template>

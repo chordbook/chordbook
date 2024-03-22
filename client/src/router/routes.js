@@ -140,7 +140,7 @@ export default [
       ...route.params,
       component: () => import('@/views/SongsheetEditorView.vue')
     }),
-    meta: { selected: 'songs' }
+    meta: { menu: false }
   },
   {
     path: '/songsheets/:id',
