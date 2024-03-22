@@ -23,7 +23,7 @@ export default defineComponent({
       view.value = createEditor({
         parent: container.value,
         root: document,
-        state: { doc: props.modelValue }
+        doc: props.modelValue
       })
 
       // Expose editor to tests
