@@ -1,10 +1,10 @@
-import { ref, computed, watchEffect } from 'vue'
+import { ref, computed, watchEffect, toValue } from 'vue'
 import detectFormat from '@/lib/detect_format'
 import { Chord, ChordLyricsPair } from 'chordsheetjs'
 import useChords from '@/composables/useChords'
 
 export default function useSongsheetParser (source) {
-  const parser = computed(() => detectFormat(source.value))
+  const parser = computed(() => detectFormat(toValue(source)))
   const error = ref()
   const song = ref()
   const chords = useChords(song)
@@ -14,7 +14,7 @@ export default function useSongsheetParser (source) {
   // so we can keep the previously parsed song if it fails.
   watchEffect(() => {
     try {
-      song.value = normalize(parser.value?.parse(source.value))
+      song.value = normalize(parser.value?.parse(toValue(source)))
 
       // parsing succeeded, so clear last error
       error.value = null

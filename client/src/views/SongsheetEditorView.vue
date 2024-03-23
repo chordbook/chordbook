@@ -8,7 +8,7 @@ import { alertController, loadingController } from '@ionic/vue'
 import { ref, computed, reactive, toRef } from 'vue'
 import { useFetch } from '@/client'
 import { useRouter } from 'vue-router'
-import useSongsheetParser from '@/composables/useSongsheetParser'
+import { useSongsheetParser } from '@/composables'
 
 const props = defineProps({
   id: {
