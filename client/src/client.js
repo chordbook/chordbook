@@ -43,8 +43,5 @@ export function useFetch (url, options = {}, ...args) {
   // Check for expired token on errors, which will refresh the token and re-execute
   fetch.onFetchError(() => useAuthStore().handleExpiredToken(fetch))
 
-  // Abort previous fetch when url changes if refetch is enabled
-  watch(fullUrl, () => unref(options.refetch) && fetch.abort())
-
   return fetch
 }
