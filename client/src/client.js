@@ -1,5 +1,5 @@
 import { createFetch } from '@vueuse/core'
-import { computed, unref, watch } from 'vue'
+import { computed, unref } from 'vue'
 import useAuthStore from '@/stores/auth'
 
 const BASE_URL = import.meta.env.APP_API_URL || 'https://api.chordbook.app/'
