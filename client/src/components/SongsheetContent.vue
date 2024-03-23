@@ -21,20 +21,20 @@ function componentFor (item) {
     <div class="mb-6 text-base">
       <slot name="title">
         <h1 class="text-xl md:text-2xl my-1">
-          {{ song?.title }}
+          {{ song.title }}
         </h1>
-        <div
+        <h2
+          v-if="song.subtitle"
+          class="my-1"
+        >
+          {{ song.subtitle }}
+        </h2>
+        <h2
           v-if="song.artist"
           class="my-1"
         >
           <span class="text-muted">by</span> {{ formatArray(song.artist) }}
-        </div>
-        <div
-          v-else-if="song.subtitle"
-          class="my-1"
-        >
-          {{ song.subtitle }}
-        </div>
+        </h2>
       </slot>
     </div>
 

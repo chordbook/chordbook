@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue'
 import { toastController } from '@ionic/vue'
 import * as icons from '@/icons'
 import useLibraryStore from '@/stores/library'

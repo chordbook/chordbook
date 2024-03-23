@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue'
 import { modalController } from '@ionic/vue'
 import SongsheetItem from '@/components/SongsheetItem.vue'
 

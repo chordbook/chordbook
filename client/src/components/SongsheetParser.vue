@@ -1,7 +1,6 @@
 <script setup>
 import { toRef, computed, reactive } from 'vue'
-import useSongsheetParser from '@/composables/useSongsheetParser'
-import useChords from '@/composables/useChords'
+import { useSongsheetParser, useChords } from '@/composables'
 
 const props = defineProps({
   source: {

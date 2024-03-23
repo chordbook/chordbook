@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue'
 import TransposeControl from '@/components/TransposeControl.vue'
 import useSongsheetSettings from '@/stores/songsheet-settings'
 import { tabletPortraitOutline, tabletLandscapeOutline } from 'ionicons/icons'

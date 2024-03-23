@@ -45,5 +45,9 @@ export default defineConfig({
     alias: {
       '@': path.resolve(root, 'src')
     }
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom'
   }
 })
