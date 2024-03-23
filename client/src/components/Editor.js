@@ -1,5 +1,6 @@
 import { defineComponent, shallowRef, onMounted, onBeforeUnmount, h, watch } from 'vue'
 import { createEditor } from '@chordbook/editor'
+import { linter } from '@codemirror/lint'
 
 export default defineComponent({
   name: 'Editor',
@@ -8,6 +9,10 @@ export default defineComponent({
     modelValue: {
       type: String,
       default: ''
+    },
+    error: {
+      type: Error,
+      default: null
     }
   },
 
@@ -23,7 +28,20 @@ export default defineComponent({
       view.value = createEditor({
         parent: container.value,
         root: document,
-        doc: props.modelValue
+        doc: props.modelValue,
+        extensions: [
+          linter(view => {
+            if (!props.error) return []
+
+            const { message, location } = props.error
+            return [{
+              from: location.start.offset,
+              to: location.end.offset,
+              severity: 'error',
+              message
+            }]
+          })
+        ]
       })
 
       // Expose editor to tests

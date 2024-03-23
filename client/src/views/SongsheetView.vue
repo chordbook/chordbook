@@ -91,9 +91,7 @@ watch(output, updateColumnWidth)
                 :icon="icons.transpose"
               />
             </ion-button>
-            <add-to-library-button
-              :id="id"
-            />
+            <add-to-library-button :id="id" />
             <ion-button
               :id="`songsheet-context-${id}`"
               fill="clear"
@@ -110,7 +108,7 @@ watch(output, updateColumnWidth)
         </ion-toolbar>
       </ion-header>
       <songsheet-parser
-        v-slot="{ song, transposed, error }"
+        v-slot="{ song, key, transposed, chords, error }"
         :source="songsheet.source"
         :transpose="settings.transpose"
       >
@@ -134,7 +132,7 @@ watch(output, updateColumnWidth)
               xmlns="http://www.w3.org/2000/svg"
             >
               <chord-diagram
-                v-for="chord in transposed.chords"
+                v-for="chord in chords"
                 :key="chord + settings.instrument"
                 :chord="chord"
                 :instrument="settings.instrument"
@@ -218,7 +216,7 @@ watch(output, updateColumnWidth)
           <ion-toolbar translucent>
             <div class="flex gap-2 overflow-x-auto place-content-center pt-2 px-4">
               <div
-                v-for="chord in transposed.chords"
+                v-for="chord in chords"
                 :key="chord"
                 class="text-center text-sm"
               >
@@ -248,7 +246,7 @@ watch(output, updateColumnWidth)
         <songsheet-settings-modal
           v-if="song"
           :trigger="`settings-button-${id}`"
-          :note="song.key"
+          :note="key"
         />
       </songsheet-parser>
 

@@ -1,14 +1,14 @@
 <script setup>
-import SongsheetParser from '@/components/SongsheetParser.vue'
 import SongsheetContent from '@/components/SongsheetContent.vue'
 import EditorSplitView from '@/components/EditorSplitView.vue'
 import SongsheetEditor from '@/components/Editor.js'
-import ChordSheetJS from 'chordsheetjs'
+import { ChordProParser, ChordProFormatter } from 'chordsheetjs'
 import detectFormat from '@/lib/detect_format'
-import { useFetch } from '@/client'
 import { alertController, loadingController } from '@ionic/vue'
+import { ref, computed, reactive, toRef } from 'vue'
+import { useFetch } from '@/client'
 import { useRouter } from 'vue-router'
-import { ref, computed } from 'vue'
+import useSongsheetParser from '@/composables/useSongsheetParser'
 
 const props = defineProps({
   id: {
@@ -20,9 +20,10 @@ const props = defineProps({
 const router = useRouter()
 const songsheet = ref({ source: '' })
 const errors = ref({})
-const preview = ref(null) // template ref
 const splitView = ref(null) // template ref
 const url = computed(() => props.id ? `songsheets/${props.id}` : 'songsheets')
+
+const parser = reactive(useSongsheetParser(toRef(() => songsheet.value.source)))
 
 if (props.id) {
   useFetch(`songsheets/${props.id}`).get().json().then(({ data }) => {
@@ -31,7 +32,7 @@ if (props.id) {
 }
 
 async function save () {
-  const { metadata } = preview.value.song.metadata
+  const { metadata } = parser.song?.metadata || {}
   const method = props.id ? 'patch' : 'post'
   const payload = {
     songsheet: {
@@ -86,13 +87,13 @@ function paste (event) {
   const format = detectFormat(text)
 
   // No need to convert if it's already in chordpro
-  if (!format || format instanceof ChordSheetJS.ChordProParser) return
+  if (!format || format instanceof ChordProParser) return
 
   // Stop the paste event
   event.preventDefault()
 
   // Convert to ChordPro
-  songsheet.value.source = new ChordSheetJS.ChordProFormatter().format(format.parse(text))
+  songsheet.value.source = new ChordProFormatter().format(format.parse(text))
 }
 </script>
 
@@ -151,6 +152,7 @@ function paste (event) {
           <songsheet-editor
             ref="editor"
             v-model="songsheet.source"
+            :error="parser.error"
             @paste="paste"
           />
         </template>
@@ -176,14 +178,10 @@ function paste (event) {
         <template #right>
           <div class="ion-padding">
             <h3>Preview</h3>
-            <songsheet-parser
-              v-if="songsheet.source"
-              ref="preview"
-              v-slot="{ song }"
-              :source="songsheet.source"
-            >
-              <songsheet-content :song="song" />
-            </songsheet-parser>
+            <songsheet-content
+              v-if="parser.song"
+              :song="parser.song"
+            />
           </div>
         </template>
       </editor-split-view>
