@@ -35,13 +35,13 @@ function centsToDegrees (cents) {
     </div>
     <div
       v-if="cents"
-      class="absolute left-1/2 -translate-x-1/2 h-full origin-center transition-transform duration-100"
+      class="absolute left-1/2 -translate-x-1/2 h-full origin-center transition-transform duration-500"
       :style="{ '--tw-rotate': centsToDegrees(cents || 0) }"
     >
       <div
         v-if="cents"
         :class="{
-          'rounded-md w-0 h-0 transition-all duration-200': true,
+          'rounded-md w-0 h-0 transition-all duration-100': true,
           'h-[20px] border-x-[6px] rounded border-green-500': Math.abs(cents) <= 5,
           // Make it a CSS arrow if off by more than 5 cents
           'border-[10.5px] mt-[-1px] border-t-transparent border-b-transparent': Math.abs(cents) > 5,

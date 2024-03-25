@@ -1,13 +1,13 @@
 <script setup>
-import { Tuner } from '../lib/tuner'
+import { createTuner } from '@chordbook/tuner'
 import TunerMeter from '@/components/TunerMeter.vue'
 import { mic, micOff } from 'ionicons/icons'
 import debounce from 'lodash.debounce'
 import { ref, watch } from 'vue'
 
 const frequencyBars = ref(null) // template ref
-const tuner = new Tuner(440, n => { note.value = n })
-const note = ref(tuner.getNote(tuner.middleA))
+const tuner = createTuner({ onNote: (n) => { note.value = n }})
+const note = ref(tuner.getNote(tuner.config.a4))
 const active = ref(false)
 
 let frequencyData = null
@@ -25,7 +25,7 @@ async function start () {
 async function stop () {
   active.value = false
   await tuner.stop()
-  note.value = tuner.getNote(tuner.middleA)
+  note.value = tuner.getNote(tuner.config.a4)
 }
 
 function updateFrequencyBars () {
@@ -33,7 +33,7 @@ function updateFrequencyBars () {
 
   tuner.analyser.getByteFrequencyData(frequencyData)
   const el = frequencyBars.value
-  const length = 32 // low frequency only
+  const length = Math.sqrt(frequencyData.length) * 2 // low frequency only
   const width = el.width / length - 0.5
 
   const scale = el.height / 2 / Math.max(...frequencyData.slice(0, length))
