@@ -15,6 +15,7 @@ import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import useSongsheetSettings from '@/stores/songsheet-settings'
 import { ref, watch } from 'vue'
 import { formatDate, hostname } from '@/util'
+import { useAutoScroll } from '@/composables'
 
 defineProps({
   id: {
@@ -31,10 +32,19 @@ const settings = useSongsheetSettings()
 const output = ref(null) // template ref
 const columnWidth = ref(0)
 
+const scroller = ref() // template ref
+const autoscroll = useAutoScroll(scroller, 60 * 1000)
+
 settings.resetTranspose()
 
-onIonViewDidEnter(() => Insomnia.keepAwake())
-onIonViewWillLeave(() => Insomnia.allowSleepAgain())
+onIonViewDidEnter(() => {
+  Insomnia.keepAwake()
+  setTimeout(() => autoscroll.resume(), 1000)
+})
+onIonViewWillLeave(() => {
+  Insomnia.allowSleepAgain()
+  autoscroll.pause()
+})
 
 function updateColumnWidth () {
   if (!output.value) return
@@ -113,6 +123,7 @@ watch(output, updateColumnWidth)
         :transpose="settings.transpose"
       >
         <ion-content
+          ref="scroller"
           :scroll-y="settings.columns == 1 || error"
           :scroll-x="settings.columns == 2 && !error"
           fullscreen
