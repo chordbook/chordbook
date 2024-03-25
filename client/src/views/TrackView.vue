@@ -41,7 +41,6 @@ function loaded ({ data }) {
         <data-source
           v-slot="{ items }"
           :src="`tracks/${id}/songsheets`"
-          paginate
           @load="loaded"
         >
           <songsheet-item

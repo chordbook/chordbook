@@ -39,7 +39,6 @@ defineProps({
           <data-source
             v-slot="{ items }"
             :src="`tracks/${id}/songsheets`"
-            paginate
           >
             <template
               v-for="version in items"

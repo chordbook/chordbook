@@ -57,7 +57,6 @@ import { add } from 'ionicons/icons'
         ref="dataSource"
         :src="$route.path"
         :params="$route.query"
-        paginate
       >
         <template #empty>
           <library-placeholder type="song" />

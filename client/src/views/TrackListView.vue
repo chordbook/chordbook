@@ -23,7 +23,6 @@
         v-slot="{ items }"
         :src="$route.path"
         :params="$route.query"
-        paginate
       >
         <ion-list>
           <track-item
