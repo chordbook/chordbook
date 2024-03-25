@@ -19,7 +19,7 @@
     "@vueuse/head": "^2.0.0",
     "@vueuse/router": "^10.9.0",
     "arrify": "^3.0",
-    "autoprefixer": "^10.4.18",
+    "autoprefixer": "^10.4.19",
     "chordsheetjs": "^8.6.0",
     "get-youtube-id": "^1.0",
     "http-link-header": "^1.1.3",
