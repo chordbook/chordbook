@@ -228,7 +228,6 @@ async function destroy () {
               ref="songsheets"
               v-slot="{ items }"
               :src="`setlists/${props.id}/songsheets`"
-              paginate
             >
               <ion-item-sliding
                 v-for="songsheet in items"

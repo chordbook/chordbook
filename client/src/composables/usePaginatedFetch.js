@@ -39,7 +39,6 @@ export default function usePaginatedFetch (url, fetchOptions = {}) {
       } else {
         nextUrl.value = null
       }
-      // emit('load', page)
     })
 
     pages.push(page)
