@@ -40,7 +40,7 @@ defineProps({
       :src="album?.cover?.small"
       type="Track"
     />
-    <ion-label>
+    <ion-label class="truncate">
       <h2>{{ title }}</h2>
       <p>{{ artist.name }}</p>
     </ion-label>
