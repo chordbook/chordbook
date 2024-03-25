@@ -6,7 +6,7 @@ import debounce from 'lodash.debounce'
 import { ref, watch } from 'vue'
 
 const frequencyBars = ref(null) // template ref
-const tuner = createTuner({ onNote: (n) => { note.value = n }})
+const tuner = createTuner({ onNote: (n) => { note.value = n } })
 const note = ref(tuner.getNote(tuner.config.a4))
 const active = ref(false)
 
