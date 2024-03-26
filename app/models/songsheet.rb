@@ -55,4 +55,12 @@ class Songsheet < ApplicationRecord
   def all_media
     (Array(metadata["media"]) + Array(track&.media)).flatten.compact.uniq
   end
+
+  def duration
+    if metadata["duration"]
+      Duration.parse(metadata["duration"])
+    elsif track&.duration
+      Duration.new(track.duration)
+    end
+  end
 end
