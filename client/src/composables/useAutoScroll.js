@@ -1,5 +1,5 @@
-import { ref, toValue, watchEffect, computed, watch } from 'vue'
-import { useScroll, useElementSize, useIntervalFn, useEventListener } from '@vueuse/core'
+import { ref, toValue, watchEffect, computed } from 'vue'
+import { useScroll, useElementSize, useEventListener, executeTransition } from '@vueuse/core'
 
 export default function useAutoScroll (scroller, duration) {
   // the scrollable element, set in watchEffect below
@@ -11,39 +11,39 @@ export default function useAutoScroll (scroller, duration) {
     el.value = await (value?.$el?.getScrollElement?.() ?? value)
   })
 
-  // Get dimensions of elements, calculate scroll interval
   const { height } = useElementSize(el)
   const scrollHeight = computed(() => Math.max(el.value?.scrollHeight, height.value))
   const scrollDistance = computed(() => scrollHeight.value - height.value)
+  const isActive = ref(false)
+  const { y: scrollTop } = useScroll(el)
 
-  const step = ref(0.1)
-  const interval = computed(() => toValue(duration) / scrollDistance.value * step.value)
-  const scrollTop = ref(0)
-  const { y, arrivedState } = useScroll(el, { behavior: 'smooth', idle: interval })
+  async function start () {
+    isActive.value = true
+    const from = scrollTop.value
+    const to = scrollDistance.value
+    const currentDuration = toValue(duration) * (to - from) / to
 
-  function scroll () {
-    scrollTop.value += step.value
-    y.value = scrollTop.value
+    await executeTransition(scrollTop, from, to, {
+      duration: currentDuration,
+      abort: () => !isActive.value
+    })
+
+    isActive.value = false
   }
-  const { pause, resume: start, isActive } = useIntervalFn(scroll, interval, { immediate: false })
 
-  function resume () {
-    scrollTop.value = el.value.scrollTop
-    start()
+  async function stop () {
+    isActive.value = false
   }
 
   function pauseAndResume () {
     if (!isActive.value) return
-    pause()
-    setTimeout(resume, 1000)
+    stop()
+    setTimeout(start, 1000)
   }
-
-  // Pause when arriving at the bottom
-  watch(() => arrivedState.bottom, pause)
 
   // Pause when any of these events occur
   const pauseEvents = ['touchstart', 'mousedown', 'wheel']
   pauseEvents.forEach(event => { useEventListener(el, event, pauseAndResume) })
 
-  return { pause, resume, isActive }
+  return { start, stop, isActive }
 }

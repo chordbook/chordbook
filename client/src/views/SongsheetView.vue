@@ -89,7 +89,7 @@ watch(output, updateColumnWidth)
           <ion-buttons slot="end">
             <ion-button
               v-if="scroller"
-              @click="scroller.isActive ? scroller.pause() : scroller.resume()"
+              @click="scroller.isActive ? scroller.stop() : scroller.start()"
             >
               <ion-icon
                 slot="icon-only"
