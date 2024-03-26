@@ -126,7 +126,7 @@ watch(output, updateColumnWidth)
       >
         <auto-scroll
           ref="scroller"
-          :duration="songsheet.track?.duration || 3 * 60 * 1000"
+          :duration="songsheet.duration || 3 * 60 * 1000"
           :scroll-y="settings.columns == 1 || error"
           :scroll-x="settings.columns == 2 && !error"
           fullscreen

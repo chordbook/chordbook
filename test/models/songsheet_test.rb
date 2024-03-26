@@ -18,4 +18,12 @@ class SongsheetTest < ActiveSupport::TestCase
     songsheet = create :songsheet, metadata: {media: "vid1"}
     assert_equal ["vid1"], songsheet.all_media
   end
+
+  test "returns duration from metadata" do
+    assert_equal 120000, Songsheet.new(metadata: {duration: "120"}).duration.usec
+  end
+
+  test "returns duration from track" do
+    assert_equal 123456, Songsheet.new(track: Track.new(duration: 123456)).duration.usec
+  end
 end
