@@ -43,7 +43,7 @@ defineProps({
       :src="track?.album?.cover?.medium"
       type="Songsheet"
     />
-    <ion-label>
+    <ion-label class="truncate">
       <h2>{{ title }}</h2>
       <p v-if="subtitle">
         {{ subtitle }}
