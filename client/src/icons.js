@@ -21,8 +21,8 @@ export {
   shareOutline as share,
   trash,
   warningOutline as warning,
-  play,
-  pause
+  playCircleOutline as play,
+  pauseCircleOutline as pause
 } from 'ionicons/icons'
 
 export { default as transpose } from '@/icons/transpose.svg?url'
