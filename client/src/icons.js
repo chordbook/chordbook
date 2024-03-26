@@ -20,7 +20,9 @@ export {
   search,
   shareOutline as share,
   trash,
-  warningOutline as warning
+  warningOutline as warning,
+  play,
+  pause
 } from 'ionicons/icons'
 
 export { default as transpose } from '@/icons/transpose.svg?url'

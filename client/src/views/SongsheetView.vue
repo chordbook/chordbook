@@ -1,4 +1,5 @@
 <script setup>
+import AutoScroll from '@/components/AutoScroll.vue'
 import SongsheetContent from '@/components/SongsheetContent.vue'
 import SongsheetParser from '@/components/SongsheetParser.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
@@ -15,7 +16,6 @@ import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import useSongsheetSettings from '@/stores/songsheet-settings'
 import { ref, watch } from 'vue'
 import { formatDate, hostname } from '@/util'
-import { useAutoScroll } from '@/composables'
 
 defineProps({
   id: {
@@ -29,22 +29,14 @@ defineProps({
 })
 
 const settings = useSongsheetSettings()
+const scroller = ref() // template ref
 const output = ref(null) // template ref
 const columnWidth = ref(0)
 
-const scroller = ref() // template ref
-const autoscroll = useAutoScroll(scroller, 60 * 1000)
-
 settings.resetTranspose()
 
-onIonViewDidEnter(() => {
-  Insomnia.keepAwake()
-  setTimeout(() => autoscroll.resume(), 1000)
-})
-onIonViewWillLeave(() => {
-  Insomnia.allowSleepAgain()
-  autoscroll.pause()
-})
+onIonViewDidEnter(() => Insomnia.keepAwake())
+onIonViewWillLeave(() => Insomnia.allowSleepAgain())
 
 function updateColumnWidth () {
   if (!output.value) return
@@ -95,6 +87,16 @@ watch(output, updateColumnWidth)
           </ion-buttons>
 
           <ion-buttons slot="end">
+            <ion-button
+              v-if="scroller"
+              @click="scroller.isActive ? scroller.pause() : scroller.resume()"
+            >
+              <ion-icon
+                slot="icon-only"
+                :icon="scroller.isActive ? icons.pause : icons.play"
+              />
+              <ion-label>Auto-scroll</ion-label>
+            </ion-button>
             <ion-button :id="`settings-button-${id}`">
               <ion-icon
                 slot="icon-only"
@@ -122,8 +124,9 @@ watch(output, updateColumnWidth)
         :source="songsheet.source"
         :transpose="settings.transpose"
       >
-        <ion-content
+        <auto-scroll
           ref="scroller"
+          :duration="songsheet.track?.duration || 3 * 60 * 1000"
           :scroll-y="settings.columns == 1 || error"
           :scroll-x="settings.columns == 2 && !error"
           fullscreen
@@ -219,7 +222,7 @@ watch(output, updateColumnWidth)
               </a>
             </div>
           </div>
-        </ion-content>
+        </auto-scroll>
         <ion-footer
           v-if="settings.showChords && transposed"
           translucent
