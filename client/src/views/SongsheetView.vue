@@ -35,8 +35,15 @@ const columnWidth = ref(0)
 
 settings.resetTranspose()
 
-onIonViewDidEnter(() => Insomnia.keepAwake())
-onIonViewWillLeave(() => Insomnia.allowSleepAgain())
+onIonViewDidEnter(() => {
+  Insomnia.keepAwake()
+  if (settings.autoScroll) setTimeout(() => { scroller.value.start() }, 1000)
+})
+
+onIonViewWillLeave(() => {
+  scroller.value.stop()
+  Insomnia.allowSleepAgain()
+})
 
 function updateColumnWidth () {
   if (!output.value) return
@@ -46,6 +53,11 @@ function updateColumnWidth () {
     columnWidth.value = output.value.offsetWidth + 'px'
     output.value.classList.remove('content-width')
   })
+}
+
+function toggleAutoScroll () {
+  scroller.value.isActive ? scroller.value.stop() : scroller.value.start()
+  settings.autoScroll = scroller.value.isActive
 }
 
 watch(() => settings.columns, updateColumnWidth)
@@ -89,7 +101,7 @@ watch(output, updateColumnWidth)
           <ion-buttons slot="end">
             <ion-button
               v-if="scroller"
-              @click="scroller.isActive ? scroller.stop() : scroller.start()"
+              @click="toggleAutoScroll"
             >
               <ion-icon
                 slot="icon-only"
