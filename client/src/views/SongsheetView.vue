@@ -14,7 +14,7 @@ import * as icons from '@/icons'
 import { onIonViewDidEnter, onIonViewWillLeave } from '@ionic/vue'
 import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import useSongsheetSettings from '@/stores/songsheet-settings'
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { formatDate, hostname } from '@/util'
 
 defineProps({
@@ -32,12 +32,16 @@ const settings = useSongsheetSettings()
 const scroller = ref() // template ref
 const output = ref(null) // template ref
 const columnWidth = ref(0)
+const autoScrollAvailable = computed(() => settings.columns === 1)
 
 settings.resetTranspose()
 
 onIonViewDidEnter(() => {
   Insomnia.keepAwake()
-  if (settings.autoScroll) setTimeout(() => { scroller.value.start() }, 1000)
+
+  if (autoScrollAvailable.value && settings.autoScroll) {
+    setTimeout(() => { scroller.value.start() }, 1000)
+  }
 })
 
 onIonViewWillLeave(() => {
@@ -100,7 +104,7 @@ watch(output, updateColumnWidth)
 
           <ion-buttons slot="end">
             <ion-button
-              v-if="scroller"
+              v-if="scroller && autoScrollAvailable"
               @click="toggleAutoScroll"
             >
               <ion-icon
