@@ -1,6 +1,7 @@
 <script setup>
 import useSongsheetSettings from '@/stores/songsheet-settings'
 import { ref, watch } from 'vue'
+import { useResponsive } from '@/composables'
 
 defineProps({
   chords: {
@@ -10,16 +11,43 @@ defineProps({
 })
 
 const settings = useSongsheetSettings()
+const sidebar = useResponsive('sm')
 const expanded = ref(settings.showChords)
 
-const instruments = ['Guitar', 'Ukulele']
 const breakpoints = [0.2, 1]
 
 watch(expanded, value => { settings.showChords = value })
 </script>
 
 <template>
+  <div
+    v-if="sidebar"
+    slot="fixed"
+    class="left-0 top-0 bottom-0 w-[80px] overflow-y-auto px-3 py-8 bg-white border-r"
+  >
+    <div
+      v-for="chord in chords"
+      :key="chord"
+      class="text-center text-sm"
+    >
+      <div class="chord">
+        {{ chord.toString({ useUnicodeModifier: true}) }}
+      </div>
+      <svg
+        class="chord-diagram inline-block"
+        xmlns="http://www.w3.org/2000/svg"
+        role="image"
+        :title="chord.toString({ useUnicodeModifier: true })"
+      >
+        <use
+          :xlink:href="`#chord-${chord}`"
+          viewBox="0 0 50 65"
+        />
+      </svg>
+    </div>
+  </div>
   <ion-modal
+    v-else
     ref="chordsModal"
     :is-open="true"
     :animated="false"
@@ -33,20 +61,6 @@ watch(expanded, value => { settings.showChords = value })
     @ion-breakpoint-did-change="e => expanded = e.detail.breakpoint === breakpoints[1]"
   >
     <div class="flex gap-2 overflow-x-auto place-content-center pt-6 px-4 pb-2 place-items-center">
-      <ion-select
-        v-model="settings.instrument"
-        aria-label="Instrument"
-        interface="popover"
-        class=""
-      >
-        <ion-select-option
-          v-for="instrument in instruments"
-          :key="instrument"
-          :value="instrument.toLowerCase()"
-        >
-          {{ instrument }}
-        </ion-select-option>
-      </ion-select>
       <div
         v-for="chord in chords"
         :key="chord"
@@ -74,7 +88,6 @@ watch(expanded, value => { settings.showChords = value })
 <style scoped>
 ion-modal {
   --height:auto;
-  --width: auto;
   --max-width: 100%;
   --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
 }

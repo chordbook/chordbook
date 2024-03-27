@@ -49,7 +49,8 @@ onIonViewDidEnter(() => {
 onIonViewWillLeave(() => {
   scroller.value.stop()
   Insomnia.allowSleepAgain()
-  chordsPane.value.$el.dismiss()
+  // FIXME: modals without backdrops have to be dismissed manually. Figure out a cleaner way to do this.
+  chordsPane.value?.$el?.dismiss?.()
 })
 
 function updateColumnWidth () {
@@ -154,10 +155,10 @@ watch(output, updateColumnWidth)
             <songsheet-media
               v-if="settings.showPlayer"
               :media="songsheet.media"
-              class="no-print"
+              class="no-print maybe-sidebar"
             />
           </Transition>
-          <div :class="'ion-padding ' + (settings.columns == 1 || error ? 'single-column' : 'horizontal-columns')">
+          <div :class="'maybe-sidebar ion-padding ' + (settings.columns == 1 || error ? 'single-column' : 'horizontal-columns')">
             <!-- Hidden sprite of chord diagrams -->
             <svg
               v-if="transposed"
@@ -228,7 +229,7 @@ watch(output, updateColumnWidth)
               </songsheet-content>
             </div>
           </div>
-          <div class="ion-padding text-sm opacity-50 mb-8 flex gap-4">
+          <div class="ion-padding maybe-sidebar text-sm opacity-50 mb-8 flex gap-4">
             <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
             <div v-if="songsheet.imported_from">
               Imported from
@@ -241,11 +242,12 @@ watch(output, updateColumnWidth)
               </a>
             </div>
           </div>
+
+          <songsheet-chords-pane
+            ref="chordsPane"
+            :chords="chords"
+          />
         </auto-scroll>
-        <songsheet-chords-pane
-          ref="chordsPane"
-          :chords="chords"
-        />
         <setlist-songsheets-pager
           v-if="setlistId"
           :id="setlistId"
@@ -334,7 +336,10 @@ watch(output, updateColumnWidth)
 <style scoped>
 .ion-padding {
   @apply md:p-4 lg:p-8 xl:p-12;
-  padding-bottom: 120px;
+}
+
+.maybe-sidebar {
+  @apply sm:ml-[80px];
 }
 
 .horizontal-columns {

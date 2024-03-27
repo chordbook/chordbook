@@ -32,7 +32,21 @@ defineProps({
             @update="(v) => settings.transpose = v"
           />
         </ion-item>
-
+        <ion-item>
+          <ion-select
+            v-model="settings.instrument"
+            label="Instrument"
+            interface="popover"
+          >
+            <ion-select-option
+              v-for="instrument in ['Guitar', 'Ukulele']"
+              :key="instrument"
+              :value="instrument.toLowerCase()"
+            >
+              {{ instrument }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
         <ion-item>
           <ion-label>Layout</ion-label>
           <div slot="end">
