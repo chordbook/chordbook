@@ -11,6 +11,7 @@ const keyAliases = {
   Ab: 'Gsharp',
   Bb: 'Asharp'
 }
+
 // Map inverse of aliases
 Object.keys(keyAliases).forEach(key => (keyAliases[keyAliases[key]] = key))
 
@@ -27,12 +28,11 @@ ukulele.suffixes.forEach(value => {
 export default class ChordData {
   static translate (chord) {
     let key = chord.root.note
-    let modifier = chord.root.modifier
+    const modifier = chord.root.modifier
     let suffix = chord.suffix
 
-    // Normalize and append modifier to key
-    if (modifier === '#') modifier = 'sharp'
-    if (modifier) key = key + modifier
+    // Normalize modifier
+    if (modifier === '#') key = key.replace(modifier, 'sharp')
 
     // Aliases
     suffix = suffix ? suffixAliases[suffix] || suffix : 'major'
