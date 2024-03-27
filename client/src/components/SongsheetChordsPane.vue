@@ -23,12 +23,12 @@ watch(expanded, value => { settings.showChords = value })
   <div
     v-if="sidebar"
     slot="fixed"
-    class="left-0 top-0 bottom-0 w-[80px] overflow-y-auto px-3 py-8 bg-white border-r"
+    class="left-0 top-0 bottom-0 w-[80px] overflow-y-auto px-3 py-8 bg-white dark:bg-black border-r dark:border-zinc-900 snap-y snap-mandatory"
   >
     <div
       v-for="chord in chords"
       :key="chord"
-      class="text-center text-sm"
+      class="text-center text-sm snap-start"
     >
       <div class="chord">
         {{ chord.toString({ useUnicodeModifier: true}) }}
@@ -50,9 +50,6 @@ watch(expanded, value => { settings.showChords = value })
     v-else
     ref="chordsModal"
     :is-open="true"
-    :animated="false"
-    :enter-animation="null"
-    :leave-animation="null"
     :initial-breakpoint="expanded ? breakpoints[1] : breakpoints[0]"
     :backdrop-dismiss="false"
     :backdrop-breakpoint="breakpoints[1]"
