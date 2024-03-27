@@ -4,6 +4,7 @@ import SongsheetContent from '@/components/SongsheetContent.vue'
 import SongsheetParser from '@/components/SongsheetParser.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
 import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
+import SongsheetChordsPane from '@/components/SongsheetChordsPane.vue'
 import ChordDiagram from '@/components/ChordDiagram.vue'
 import SongsheetMedia from '@/components/SongsheetMedia.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
@@ -30,7 +31,8 @@ defineProps({
 
 const settings = useSongsheetSettings()
 const scroller = ref() // template ref
-const output = ref(null) // template ref
+const output = ref() // template ref
+const chordsPane = ref() // template ref
 const columnWidth = ref(0)
 const autoScrollAvailable = computed(() => settings.columns === 1)
 
@@ -47,6 +49,7 @@ onIonViewDidEnter(() => {
 onIonViewWillLeave(() => {
   scroller.value.stop()
   Insomnia.allowSleepAgain()
+  chordsPane.value.$el.dismiss()
 })
 
 function updateColumnWidth () {
@@ -239,35 +242,10 @@ watch(output, updateColumnWidth)
             </div>
           </div>
         </auto-scroll>
-        <ion-footer
-          v-if="settings.showChords && transposed"
-          translucent
-        >
-          <ion-toolbar translucent>
-            <div class="flex gap-2 overflow-x-auto place-content-center pt-2 px-4">
-              <div
-                v-for="chord in chords"
-                :key="chord"
-                class="text-center text-sm"
-              >
-                <div class="chord">
-                  {{ chord.toString({ useUnicodeModifier: true}) }}
-                </div>
-                <svg
-                  class="chord-diagram inline-block"
-                  xmlns="http://www.w3.org/2000/svg"
-                  role="image"
-                  :title="chord.toString({ useUnicodeModifier: true })"
-                >
-                  <use
-                    :xlink:href="`#chord-${chord}`"
-                    viewBox="0 0 50 65"
-                  />
-                </svg>
-              </div>
-            </div>
-          </ion-toolbar>
-        </ion-footer>
+        <songsheet-chords-pane
+          ref="chordsPane"
+          :chords="chords"
+        />
         <setlist-songsheets-pager
           v-if="setlistId"
           :id="setlistId"

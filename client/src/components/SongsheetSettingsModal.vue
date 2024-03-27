@@ -3,7 +3,6 @@ import TransposeControl from '@/components/TransposeControl.vue'
 import useSongsheetSettings from '@/stores/songsheet-settings'
 import { tabletPortraitOutline, tabletLandscapeOutline } from 'ionicons/icons'
 
-const instruments = ['Guitar', 'Ukulele']
 const settings = useSongsheetSettings()
 
 defineProps({
@@ -34,29 +33,6 @@ defineProps({
           />
         </ion-item>
 
-        <ion-item>
-          <ion-select
-            v-model="settings.instrument"
-            label="Instrument"
-            interface="popover"
-          >
-            <ion-select-option
-              v-for="instrument in instruments"
-              :key="instrument"
-              :value="instrument.toLowerCase()"
-            >
-              {{ instrument }}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-toggle
-            :checked="settings.showChords"
-            @ion-change="settings.showChords = $event.detail.checked"
-          >
-            Show Chord Diagrams
-          </ion-toggle>
-        </ion-item>
         <ion-item>
           <ion-label>Layout</ion-label>
           <div slot="end">
