@@ -1,6 +1,6 @@
 <script setup>
 import { Chord } from 'chordsheetjs'
-import ChordData from '@/lib/chord-data'
+import ChordData from '@/ChordData'
 import ChordBox from '@/components/ChordBox.vue'
 import { computed } from 'vue'
 

@@ -1,7 +1,6 @@
-import ChordData from '@/lib/chord-data'
+import ChordData from '@/ChordData'
 import { Chord } from 'chordsheetjs'
 import { describe, expect, test } from 'vitest'
-
 
 test('C', () => {
   const data = ChordData.find(Chord.parse('C'))
