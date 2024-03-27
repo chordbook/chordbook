@@ -28,7 +28,7 @@
     "pinia": "^2.1.7",
     "pitchy": "^4.1.0",
     "postcss": "^8.4.35",
-    "postcss-import": "^16.0.1",
+    "postcss-import": "^16.1.0",
     "pwa-asset-generator": "^6.3.1",
     "rollup-plugin-string": "^3.0",
     "rxjs": "^7.8.1",
