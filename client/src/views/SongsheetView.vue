@@ -331,7 +331,11 @@ watch(output, updateColumnWidth)
   </app-view>
 </template>
 
-<style>
+<style scoped>
+.ion-padding {
+  @apply md:p-4 lg:p-8 xl:p-12;
+}
+
 .horizontal-columns {
   @apply h-full;
   column-count: auto;
