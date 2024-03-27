@@ -2,7 +2,7 @@
 import guitar from '@tombatossals/chords-db/lib/guitar.json'
 import ukulele from '@tombatossals/chords-db/lib/ukulele.json'
 import ChordBox from '../components/ChordBox.vue'
-import ChordData from '@/lib/chord-data'
+import ChordData from '@/ChordData'
 import { ref, computed } from 'vue'
 import { Chord } from 'chordsheetjs'
 

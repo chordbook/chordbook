@@ -1,6 +1,6 @@
 <script setup>
 import { ChordBox } from 'vexchords'
-import ChordData from '@/lib/chord-data'
+import ChordData from '@/ChordData'
 import { computed } from 'vue'
 
 const props = defineProps({
