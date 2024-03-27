@@ -14,7 +14,7 @@ const settings = useSongsheetSettings()
 const sidebar = useResponsive('sm')
 const expanded = ref(settings.showChords)
 
-const breakpoints = [0.2, 1]
+const breakpoints = [0.33, 1]
 
 watch(expanded, value => { settings.showChords = value })
 </script>
