@@ -334,6 +334,7 @@ watch(output, updateColumnWidth)
 <style scoped>
 .ion-padding {
   @apply md:p-4 lg:p-8 xl:p-12;
+  padding-bottom: 120px;
 }
 
 .horizontal-columns {
