@@ -49,8 +49,6 @@ onIonViewDidEnter(() => {
 onIonViewWillLeave(() => {
   scroller.value.stop()
   Insomnia.allowSleepAgain()
-  // FIXME: modals without backdrops have to be dismissed manually. Figure out a cleaner way to do this.
-  chordsPane.value?.$el?.dismiss?.()
 })
 
 function updateColumnWidth () {

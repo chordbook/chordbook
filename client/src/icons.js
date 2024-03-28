@@ -25,7 +25,6 @@ export {
   pauseCircleOutline as pause
 } from 'ionicons/icons'
 
-export { default as transpose } from '@/icons/transpose.svg?url'
 export { default as tuningFork } from '@/icons/tuning-fork.svg?url'
 export { default as chordDiagram } from '@/icons/chord-diagram.svg?url'
 export { default as logo } from '@/assets/logo-dark.svg?url'
