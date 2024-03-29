@@ -146,7 +146,7 @@ watch(output, updateColumnWidth)
             <ion-buttons slot="end">
               <ion-button
                 v-if="scroller && autoScrollAvailable"
-                :color="scroller?.isActive ? 'default' : 'medium'"
+                :color="scroller?.isActive ? 'secondary' : 'default'"
                 @click="toggleAutoScroll"
               >
                 <ion-icon
@@ -156,7 +156,7 @@ watch(output, updateColumnWidth)
               </ion-button>
               <ion-button
                 v-if="bigScreen"
-                :color=" settings.showPlayer ? 'default' : 'medium'"
+                :color=" settings.showPlayer ? 'secondary' : 'default'"
                 @click="settings.showPlayer = !settings.showPlayer"
               >
                 <ion-icon
