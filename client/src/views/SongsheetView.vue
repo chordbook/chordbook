@@ -3,7 +3,6 @@ import AutoScroll from '@/components/AutoScroll.vue'
 import SongsheetContent from '@/components/SongsheetContent.vue'
 import SongsheetParser from '@/components/SongsheetParser.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
-import SongsheetSettingsModal from '@/components/SongsheetSettingsModal.vue'
 import SongsheetChordsPane from '@/components/SongsheetChordsPane.vue'
 import ChordDiagram from '@/components/ChordDiagram.vue'
 import SongsheetMedia from '@/components/SongsheetMedia.vue'
@@ -17,6 +16,10 @@ import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import useSongsheetSettings from '@/stores/songsheet-settings'
 import { ref, watch, computed } from 'vue'
 import { formatDate, hostname } from '@/util'
+import TransposeControl from '@/components/TransposeControl.vue'
+import InstrumentControl from '@/components/InstrumentControl.vue'
+import { tabletPortraitOutline, tabletLandscapeOutline } from 'ionicons/icons'
+import { useResponsive } from '@/composables'
 
 defineProps({
   id: {
@@ -35,6 +38,7 @@ const output = ref() // template ref
 const chordsPane = ref() // template ref
 const columnWidth = ref(0)
 const autoScrollAvailable = computed(() => settings.columns === 1)
+const bigScreen = useResponsive('sm')
 
 settings.resetTranspose()
 
@@ -86,64 +90,98 @@ watch(output, updateColumnWidth)
           {{ songsheet.title }} - {{ songsheet.subtitle }}
         </title>
       </Head>
-      <ion-header translucent>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-back-button
-              text=""
-              :default-href="setlistId ? { name: 'setlist', params: { id: setlistId} } : '/songsheets'"
-            />
-            <ion-button
-              :id="`versions-button-${id}`"
-              :disabled="!songsheet.track || songsheet.track.songsheets_count < 2"
-            >
-              <ion-icon
-                slot="icon-only"
-                :icon="icons.list"
-              />
-            </ion-button>
-          </ion-buttons>
-
-          <ion-buttons slot="end">
-            <ion-button
-              v-if="scroller && autoScrollAvailable"
-              @click="toggleAutoScroll"
-            >
-              <ion-icon
-                slot="icon-only"
-                :icon="scroller.isActive ? icons.pause : icons.play"
-              />
-              <ion-label>Auto-scroll</ion-label>
-            </ion-button>
-            <ion-button :id="`settings-button-${id}`">
-              <ion-icon
-                slot="icon-only"
-                :icon="icons.transpose"
-              />
-            </ion-button>
-            <add-to-library-button :id="id" />
-            <ion-button
-              :id="`songsheet-context-${id}`"
-              fill="clear"
-              @click.prevent=""
-            >
-              <ion-icon
-                slot="icon-only"
-                size="small"
-                :ios="icons.iosEllipsis"
-                :md="icons.mdEllipsis"
-              />
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
       <songsheet-parser
-        v-slot="{ song, key, transposed, chords, error }"
+        v-slot="{ key, transposed, chords, error }"
         :source="songsheet.source"
         :transpose="settings.transpose"
       >
+        <ion-header translucent>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-back-button
+                text=""
+                :default-href="setlistId ? { name: 'setlist', params: { id: setlistId} } : '/songsheets'"
+              />
+            </ion-buttons>
+            <ion-buttons
+              v-if="bigScreen"
+              slot="start"
+            >
+              <transpose-control
+                class="ml-4"
+                :note="key"
+                @update="(v) => settings.transpose = v"
+              />
+
+              <instrument-control v-model="settings.instrument" />
+            </ion-buttons>
+
+            <ion-buttons class="mx-auto">
+              <ion-segment
+                v-if="bigScreen"
+                :value="settings.columns"
+                @ion-change="settings.columns = $event.detail.value"
+              >
+                <ion-segment-button
+                  :value="1"
+                  layout="icon-start"
+                >
+                  <ion-icon
+                    :icon="tabletPortraitOutline"
+                    size="small"
+                  />
+                </ion-segment-button>
+                <ion-segment-button
+                  :value="2"
+                  layout="icon-start"
+                >
+                  <ion-icon
+                    :icon="tabletLandscapeOutline"
+                    size="small"
+                  />
+                </ion-segment-button>
+              </ion-segment>
+            </ion-buttons>
+
+            <ion-buttons slot="end">
+              <ion-button
+                v-if="scroller && autoScrollAvailable"
+                :color="scroller?.isActive ? 'default' : 'medium'"
+                @click="toggleAutoScroll"
+              >
+                <ion-icon
+                  slot="icon-only"
+                  :icon="scroller?.isActive ? icons.autoScrollOn : icons.autoScrollOff"
+                />
+              </ion-button>
+              <ion-button
+                v-if="bigScreen"
+                :color=" settings.showPlayer ? 'default' : 'medium'"
+                @click="settings.showPlayer = !settings.showPlayer"
+              >
+                <ion-icon
+                  slot="icon-only"
+                  :icon="icons.play"
+                />
+              </ion-button>
+              <add-to-library-button :id="id" />
+              <ion-button
+                :id="`songsheet-context-${id}`"
+                @click.prevent=""
+              >
+                <ion-icon
+                  slot="icon-only"
+                  :ios="icons.iosEllipsis"
+                  :md="icons.mdEllipsis"
+                  size="small"
+                />
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
         <auto-scroll
           ref="scroller"
+          style="--ion-safe-area-bottom: 200px;"
           :duration="songsheet.duration || 3 * 60 * 1000"
           :scroll-y="settings.columns == 1 || error"
           :scroll-x="settings.columns == 2 && !error"
@@ -156,7 +194,7 @@ watch(output, updateColumnWidth)
               class="no-print maybe-sidebar"
             />
           </Transition>
-          <div :class="'maybe-sidebar ion-padding ' + (settings.columns == 1 || error ? 'single-column' : 'horizontal-columns')">
+          <div :class="'relative maybe-sidebar ion-padding ' + (settings.columns == 1 || error ? 'single-column' : 'horizontal-columns')">
             <!-- Hidden sprite of chord diagrams -->
             <svg
               v-if="transposed"
@@ -181,6 +219,7 @@ watch(output, updateColumnWidth)
 
                 <pre>{{ songsheet.source }}</pre>
               </div>
+
               <songsheet-content
                 v-if="transposed"
                 :song="transposed"
@@ -243,6 +282,7 @@ watch(output, updateColumnWidth)
 
           <songsheet-chords-pane
             ref="chordsPane"
+            :note="key"
             :chords="chords"
           />
         </auto-scroll>
@@ -251,22 +291,7 @@ watch(output, updateColumnWidth)
           :id="setlistId"
           :songsheet-id="id"
         />
-        <songsheet-settings-modal
-          v-if="song"
-          :trigger="`settings-button-${id}`"
-          :note="key"
-        />
       </songsheet-parser>
-
-      <Suspense>
-        <!-- don't wait for modal to load -->
-        <songsheet-versions-modal
-          v-if="songsheet.track"
-          :id="songsheet.track?.id"
-          :trigger="`versions-button-${id}`"
-          :exclude="id"
-        />
-      </Suspense>
 
       <add-to-setlist-modal
         :id="id"
@@ -275,6 +300,7 @@ watch(output, updateColumnWidth)
       <ion-popover
         :trigger="`songsheet-context-${id}`"
         dismiss-on-select
+        keep-contents-mounted
       >
         <ion-list>
           <ion-item
@@ -293,6 +319,15 @@ watch(output, updateColumnWidth)
             @click="$refs.addToSetlistModal.$el.present()"
           >
             <ion-label>Add to Setlist…</ion-label>
+          </ion-item>
+          <ion-item
+            :id="`versions-button-${id}`"
+            button
+            detail
+            :detail-icon="icons.list"
+            :disabled="!songsheet.track || songsheet.track.songsheets_count < 2"
+          >
+            Other Versions…
           </ion-item>
           <ion-item
             v-if="songsheet.track?.artist"
@@ -326,6 +361,12 @@ watch(output, updateColumnWidth)
             Tuner
           </ion-item>
         </ion-list>
+        <songsheet-versions-modal
+          v-if="songsheet.track"
+          :id="songsheet.track?.id"
+          :trigger="`versions-button-${id}`"
+          :exclude="id"
+        />
       </ion-popover>
     </data-source>
   </app-view>
@@ -363,5 +404,9 @@ watch(output, updateColumnWidth)
 
 .capo {
   @apply font-semibold text-sm text-zinc-600 break-after-avoid;
+}
+
+ion-buttons > * {
+  @apply sm:mx-1 md:mx-2
 }
 </style>

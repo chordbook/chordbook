@@ -22,7 +22,8 @@ export {
   trash,
   warningOutline as warning,
   playCircleOutline as play,
-  pauseCircleOutline as pause
+  pauseCircle as autoScrollOn,
+  arrowDownCircleOutline as autoScrollOff
 } from 'ionicons/icons'
 
 export { default as tuningFork } from '@/icons/tuning-fork.svg?url'
