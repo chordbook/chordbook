@@ -2,7 +2,7 @@
 import TransposeControl from '@/components/TransposeControl.vue'
 import InstrumentControl from '@/components/InstrumentControl.vue'
 import useSongsheetSettings from '@/stores/songsheet-settings'
-import { ref, watch, onBeforeUnmount } from 'vue'
+import { ref, onBeforeUnmount } from 'vue'
 import { useResponsive } from '@/composables'
 
 defineProps({
@@ -18,11 +18,12 @@ defineProps({
 
 const settings = useSongsheetSettings()
 const sidebar = useResponsive('sm')
-const expanded = ref(settings.showChords)
 const chordsModal = ref()
-const breakpoints = [0.33, 0.75, 1]
+const breakpoints = [0.2, 0.6, 1]
 
-watch(expanded, value => { settings.showChords = value })
+function onBreakpointDidChange(event) {
+  settings.showChords = event.detail.breakpoint >= breakpoints[1]
+}
 
 onBeforeUnmount(() => {
   chordsModal.value?.$el.dismiss()
@@ -62,12 +63,12 @@ onBeforeUnmount(() => {
     v-else
     ref="chordsModal"
     :is-open="true"
-    :initial-breakpoint="expanded ? breakpoints[1] : breakpoints[0]"
+    :initial-breakpoint="settings.showChords ? breakpoints[1] : breakpoints[0]"
     :backdrop-dismiss="false"
     :backdrop-breakpoint="breakpoints[2]"
     :breakpoints="breakpoints"
     handle-behavior="cycle"
-    @ion-breakpoint-did-change="e => expanded = e.detail.breakpoint !== breakpoints[0]"
+    @ion-breakpoint-did-change="onBreakpointDidChange"
   >
     <div class="horizontal-scroller">
       <div
