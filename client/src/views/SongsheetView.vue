@@ -19,7 +19,7 @@ import { formatDate, hostname } from '@/util'
 import TransposeControl from '@/components/TransposeControl.vue'
 import InstrumentControl from '@/components/InstrumentControl.vue'
 import { tabletPortraitOutline, tabletLandscapeOutline } from 'ionicons/icons'
-import { useResponsive } from '@/composables'
+import { useResponsive, useHideOnScroll } from '@/composables'
 
 defineProps({
   id: {
@@ -36,9 +36,12 @@ const settings = useSongsheetSettings()
 const scroller = ref() // template ref
 const output = ref() // template ref
 const chordsPane = ref() // template ref
+const header = ref() // template ref
 const columnWidth = ref(0)
 const autoScrollAvailable = computed(() => settings.columns === 1)
 const bigScreen = useResponsive('sm')
+
+useHideOnScroll(scroller, header)
 
 settings.resetTranspose()
 
@@ -95,7 +98,11 @@ watch(output, updateColumnWidth)
         :source="songsheet.source"
         :transpose="settings.transpose"
       >
-        <ion-header translucent>
+        <ion-header
+          ref="header"
+          translucent
+          class="transition-transform"
+        >
           <ion-toolbar>
             <ion-buttons slot="start">
               <ion-back-button

@@ -15,7 +15,7 @@ export default function useAutoScroll (scroller, duration) {
   const scrollHeight = computed(() => Math.max(el.value?.scrollHeight, height.value))
   const scrollDistance = computed(() => scrollHeight.value - height.value)
   const isActive = ref(false)
-  const { y: scrollTop } = useScroll(el)
+  const { y: scrollTop } = useScroll(el, { behavior: 'smooth' })
 
   async function start () {
     isActive.value = true
