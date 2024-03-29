@@ -1,6 +1,7 @@
 <script setup>
 import TransposeControl from '@/components/TransposeControl.vue'
 import InstrumentControl from '@/components/InstrumentControl.vue'
+import ChordDiagramReference from '@/components/ChordDiagramReference.vue'
 import useSongsheetSettings from '@/stores/songsheet-settings'
 import { ref, onBeforeUnmount } from 'vue'
 import { useResponsive } from '@/composables'
@@ -21,7 +22,7 @@ const sidebar = useResponsive('sm')
 const chordsModal = ref()
 const breakpoints = [0.2, 0.6, 1]
 
-function onBreakpointDidChange(event) {
+function onBreakpointDidChange (event) {
   settings.showChords = event.detail.breakpoint >= breakpoints[1]
 }
 
@@ -34,28 +35,16 @@ onBeforeUnmount(() => {
   <div
     v-if="sidebar"
     slot="fixed"
-    class="left-0 top-0 bottom-0 w-[80px] overflow-y-auto px-3 py-8 bg-white dark:bg-black border-r dark:border-zinc-900"
+    class="left-0 top-0 bottom-0 w-[80px] bg-white dark:bg-black border-r dark:border-zinc-900"
   >
-    <div class="snap-y snap-mandatory">
+    <div class="snap-y snap-mandatory flex flex-col overflow-y-auto px-3 h-full">
       <div
         v-for="chord in chords"
         :key="chord"
-        class="text-center text-sm snap-start"
+        class="text-center text-sm snap-start pt-4 first:pt-6 last:pb-6"
       >
-        <div class="chord">
-          {{ chord.toString({ useUnicodeModifier: true}) }}
-        </div>
-        <svg
-          class="chord-diagram inline-block"
-          xmlns="http://www.w3.org/2000/svg"
-          role="image"
-          :title="chord.toString({ useUnicodeModifier: true })"
-        >
-          <use
-            :xlink:href="`#chord-${chord}`"
-            viewBox="0 0 50 65"
-          />
-        </svg>
+        <div>{{ chord.toString({ useUnicodeModifier: true}) }}</div>
+        <chord-diagram-reference :chord="chord" />
       </div>
     </div>
   </div>
@@ -70,26 +59,16 @@ onBeforeUnmount(() => {
     handle-behavior="cycle"
     @ion-breakpoint-did-change="onBreakpointDidChange"
   >
-    <div class="horizontal-scroller">
+    <div class="flex flex-row flex-nowrap overflow-x-auto w-full pt-6 pb-8 snap-x snap-mandatory">
       <div
         v-for="chord in chords"
         :key="chord"
-        class="text-center text-sm pointer-events-none select-none"
+        class="text-center text-sm pointer-events-none select-none snap-start pl-3 first:pl-6 last:pr-6 first:ms-auto last:me-auto"
       >
         <div class="chord">
           {{ chord.toString({ useUnicodeModifier: true}) }}
         </div>
-        <svg
-          class="chord-diagram inline-block"
-          xmlns="http://www.w3.org/2000/svg"
-          role="image"
-          :title="chord.toString({ useUnicodeModifier: true })"
-        >
-          <use
-            :xlink:href="`#chord-${chord}`"
-            viewBox="0 0 50 65"
-          />
-        </svg>
+        <chord-diagram-reference :chord="chord" />
       </div>
     </div>
     <ion-footer>
@@ -119,10 +98,6 @@ ion-modal {
 ion-modal::part(handle):focus {
   /* This is just to get rid of focus ring when testing mobile view in development */
   outline: none;
-}
-
-.horizontal-scroller {
-  @apply flex flex-nowrap gap-2 overflow-x-auto w-full p-6 pb-8;
 }
 
 .horizontal-scroller > *:first-child {

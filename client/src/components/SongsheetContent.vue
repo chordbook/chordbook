@@ -134,7 +134,7 @@ function componentFor (item) {
 }
 
 .chord-diagram {
-  width: 50px;
-  height: 65px;
+  width: 40px;
+  height: 52px;
 }
 </style>

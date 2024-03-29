@@ -1,4 +1,5 @@
 <script setup>
+import ChordDiagramReference from '@/components/ChordDiagramReference.vue'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import { computed } from 'vue'
 import { Chord } from 'chordsheetjs'
@@ -10,7 +11,8 @@ const props = defineProps({
   }
 })
 
-const formatted = computed(() => Chord.parse(props.name)?.toString({ useUnicodeModifier: true }) ?? props.name)
+const chord = computed(() => Chord.parse(props.name))
+const formatted = computed(() => chord.value?.toString({ useUnicodeModifier: true }) ?? props.name)
 </script>
 
 <template>
@@ -23,18 +25,11 @@ const formatted = computed(() => Chord.parse(props.name)?.toString({ useUnicodeM
       >
         {{ formatted }}
       </PopoverButton>
-      <PopoverPanel class="absolute z-10 -translate-x-1/2 left-1/2 bottom-full mb-1 p-1 pb-0 rounded text-center bg-white dark:bg-zinc-900 text-black dark:text-slate-50 border border-solid border-slate-200 dark:border-black/80 shadow-md">
-        <svg
-          class="chord-diagram"
-          xmlns="http://www.w3.org/2000/svg"
-          role="image"
-          :title="name"
-        >
-          <use
-            :xlink:href="`#chord-${name}`"
-            viewBox="0 0 50 65"
-          />
-        </svg>
+      <PopoverPanel
+        v-if="chord"
+        class="absolute z-10 -translate-x-1/2 left-1/2 bottom-full mb-1 p-1 pb-0 rounded text-center bg-white dark:bg-zinc-900 text-black dark:text-slate-50 border border-solid border-slate-200 dark:border-black/80 shadow-md"
+      >
+        <chord-diagram-reference :chord="chord" />
       </PopoverPanel>
     </Popover>
   </div>
