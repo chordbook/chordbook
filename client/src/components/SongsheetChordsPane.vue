@@ -20,7 +20,7 @@ const settings = useSongsheetSettings()
 const sidebar = useResponsive('sm')
 const expanded = ref(settings.showChords)
 const chordsModal = ref()
-const breakpoints = [0.33, 0.66, 1]
+const breakpoints = [0.33, 0.75, 1]
 
 watch(expanded, value => { settings.showChords = value })
 
@@ -73,7 +73,7 @@ onBeforeUnmount(() => {
       <div
         v-for="chord in chords"
         :key="chord"
-        class="text-center text-sm"
+        class="text-center text-sm pointer-events-none select-none"
       >
         <div class="chord">
           {{ chord.toString({ useUnicodeModifier: true}) }}
@@ -121,7 +121,7 @@ ion-modal::part(handle):focus {
 }
 
 .horizontal-scroller {
-  @apply flex flex-nowrap gap-2 overflow-x-auto w-full p-6;
+  @apply flex flex-nowrap gap-2 overflow-x-auto w-full p-6 pb-8;
 }
 
 .horizontal-scroller > *:first-child {
