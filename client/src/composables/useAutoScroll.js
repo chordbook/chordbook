@@ -42,7 +42,7 @@ export default function useAutoScroll (scroller, duration) {
   }
 
   // Pause when any of these events occur
-  const pauseEvents = ['touchstart', 'mousedown', 'wheel']
+  const pauseEvents = ['touchmove', 'wheel']
   pauseEvents.forEach(event => { useEventListener(el, event, pauseAndResume) })
 
   return { start, stop, isActive }

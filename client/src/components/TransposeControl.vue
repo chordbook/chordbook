@@ -1,42 +1,33 @@
 <template>
-  <div class="flex items-center">
-    <div class="flex flex-auto">
-      <ion-button
-        fill="clear"
-        @click="transposeDown"
+  <div class="flex align-center">
+    <ion-button
+      class="text-2xl"
+      @click="transposeDown"
+    >
+      ♭
+    </ion-button>
+    <ion-select
+      v-model="value"
+      aria-label="Key"
+      cancel-text="Reset"
+      justify="center"
+      :interface-options="{ header: 'Key…' }"
+      @ion-cancel="value = 0"
+    >
+      <ion-select-option
+        v-for="n in transpositions"
+        :key="n.step"
+        :value="n.step"
       >
-        <ion-icon
-          slot="icon-only"
-          :icon="icons.arrowDown"
-        />
-      </ion-button>
-
-      <ion-select
-        v-model="value"
-        aria-label="Key"
-        class="text-center w-20 relative"
-        cancel-text="Reset"
-        @ion-cancel="value = 0"
-      >
-        <ion-select-option
-          v-for="n in transpositions"
-          :key="n.step"
-          :value="n.step"
-        >
-          {{ n.name }}
-        </ion-select-option>
-      </ion-select>
-
-      <ion-button
-        fill="clear"
-        @click="transposeUp"
-      >
-        <ion-icon
-          slot="icon-only"
-          :icon="icons.arrowUp"
-        />
-      </ion-button>
-    </div>
+        {{ n.name }}
+      </ion-select-option>
+    </ion-select>
+    <ion-button
+      class="text-2xl"
+      @click="transposeUp"
+    >
+      ♯
+    </ion-button>
   </div>
 </template>
 
@@ -97,3 +88,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+ion-select::part(icon) {
+  @apply hidden;
+}
+
+ion-select::part(text) {
+  @apply w-10 inline-block text-center;
+}
+</style>
