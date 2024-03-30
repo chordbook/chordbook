@@ -3,8 +3,6 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "@awesome-cordova-plugins/core": "^6.6.0",
-    "@awesome-cordova-plugins/insomnia": "^6.6.0",
     "@capacitor/core": "^5.7.4",
     "@chordbook/editor": "github:chordbook/editor",
     "@chordbook/tuner": "github:chordbook/tuner",

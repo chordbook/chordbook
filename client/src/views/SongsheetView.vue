@@ -12,14 +12,14 @@ import SetlistSongsheetsPager from '../components/SetlistSongsheetsPager.vue'
 import ShareItem from '@/components/ShareItem.vue'
 import * as icons from '@/icons'
 import { onIonViewDidEnter, onIonViewWillLeave } from '@ionic/vue'
-import { Insomnia } from '@awesome-cordova-plugins/insomnia'
 import useSongsheetSettings from '@/stores/songsheet-settings'
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, reactive } from 'vue'
 import { formatDate, hostname } from '@/util'
 import TransposeControl from '@/components/TransposeControl.vue'
 import InstrumentControl from '@/components/InstrumentControl.vue'
 import { tabletPortraitOutline, tabletLandscapeOutline } from 'ionicons/icons'
 import { useResponsive, useHideOnScroll } from '@/composables'
+import { useWakeLock } from '@vueuse/core'
 
 defineProps({
   id: {
@@ -40,22 +40,22 @@ const header = ref() // template ref
 const columnWidth = ref(0)
 const autoScrollAvailable = computed(() => settings.columns === 1)
 const bigScreen = useResponsive('sm')
+const wakelock = reactive(useWakeLock())
 
 useHideOnScroll(scroller, header)
 
 settings.resetTranspose()
 
-onIonViewDidEnter(() => {
-  Insomnia.keepAwake()
-
+onIonViewDidEnter(async () => {
   if (autoScrollAvailable.value && settings.autoScroll) {
     setTimeout(() => { scroller.value.start() }, 1000)
   }
+  await wakelock.request()
 })
 
-onIonViewWillLeave(() => {
+onIonViewWillLeave(async () => {
   scroller.value.stop()
-  Insomnia.allowSleepAgain()
+  await wakelock.release()
 })
 
 function updateColumnWidth () {
