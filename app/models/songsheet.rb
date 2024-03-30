@@ -34,6 +34,7 @@ class Songsheet < ApplicationRecord
 
   class_attribute :perform_metadata_lookup, default: true
 
+  before_validation :downcase_metadata_keys
   after_commit(if: :perform_metadata_lookup) { AssociateSongsheetMetadata.perform_later self }
   after_commit { track&.songsheet_was_added if track_id_previously_changed? }
 
@@ -62,5 +63,11 @@ class Songsheet < ApplicationRecord
     elsif track&.duration
       Duration.new(track.duration)
     end
+  end
+
+  private
+
+  def downcase_metadata_keys
+    metadata.transform_keys!(&:downcase)
   end
 end

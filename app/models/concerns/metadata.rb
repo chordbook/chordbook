@@ -42,7 +42,7 @@ module Metadata
   def move_metadata_to_attributes
     return unless metadata
     metadata.each do |key, value|
-      attr_name = (metadata_mapping[key] || key).to_s
+      attr_name = metadata_mapping[key] || key.underscore
       if attribute_names.include?(attr_name) && metadata[key]
         write_attribute attr_name, read_store_attribute(:metadata, key)
         self.metadata = metadata.without(key)

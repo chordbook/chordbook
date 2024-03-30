@@ -26,4 +26,10 @@ class SongsheetTest < ActiveSupport::TestCase
   test "returns duration from track" do
     assert_equal 123456, Songsheet.new(track: Track.new(duration: 123456)).duration.usec
   end
+
+  test "downcases metadata keys" do
+    songsheet = Songsheet.create!(metadata: {"Title" => "Testing", "Key" => "C"}, source: "make it work")
+    assert_equal songsheet.title, "Testing"
+    assert_equal songsheet.metadata["key"], "C"
+  end
 end
