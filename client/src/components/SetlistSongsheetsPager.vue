@@ -47,7 +47,7 @@ await load()
         <ion-buttons
           v-if="prev"
           slot="start"
-          class="w-1/2 sm:w-1/3"
+          class="w-1/2 lg:w-1/3"
         >
           <ion-item
             button
@@ -66,9 +66,9 @@ await load()
               :src="prev.track?.album?.cover?.small"
               type="Songsheet"
             />
-            <ion-label>
+            <ion-label class="truncate">
               <p>Previous</p>
-              <h2>{{ prev.title }}</h2>
+              <h2 class="md:text-sm">{{ prev.title }}</h2>
             </ion-label>
           </ion-item>
         </ion-buttons>
@@ -87,7 +87,7 @@ await load()
         <ion-buttons
           v-if="next"
           slot="end"
-          class="w-1/2 sm:w-1/3 flex justify-end"
+          class="w-1/2 lg:w-1/3 flex justify-end"
         >
           <ion-item
             button
@@ -102,9 +102,9 @@ await load()
               :src="next.track?.album?.cover?.small"
               type="Songsheet"
             />
-            <ion-label class="text-right">
+            <ion-label class="text-right truncate text-sm">
               <p>Next</p>
-              <h2>{{ next.title }}</h2>
+              <h2 class="text-xs md:text-sm">{{ next.title }}</h2>
             </ion-label>
             <ion-icon
               slot="end"
