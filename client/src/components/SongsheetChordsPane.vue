@@ -3,7 +3,7 @@ import TransposeControl from '@/components/TransposeControl.vue'
 import InstrumentControl from '@/components/InstrumentControl.vue'
 import ChordDiagramReference from '@/components/ChordDiagramReference.vue'
 import useSongsheetSettings from '@/stores/songsheet-settings'
-import { ref, onBeforeUnmount } from 'vue'
+import { ref, onBeforeUnmount, watch } from 'vue'
 import { useResponsive } from '@/composables'
 
 defineProps({
@@ -26,21 +26,24 @@ function onBreakpointDidChange (event) {
   settings.showChords = event.detail.breakpoint >= breakpoints[1]
 }
 
-onBeforeUnmount(() => {
+function dismissModal () {
   chordsModal.value?.$el.dismiss()
-})
+}
+
+// Modal must be dismissed manually since backdrop-dismiss is disabled
+onBeforeUnmount(dismissModal)
+watch(sidebar, isVisible => { if (isVisible) dismissModal() })
 </script>
 
 <template>
   <div
     v-if="sidebar"
-    slot="fixed"
-    class="left-0 top-0 bottom-0 w-[80px] bg-white dark:bg-black border-r dark:border-zinc-900"
+    class="left-0 top-0 bottom-0 sidebar bg-white dark:bg-black border-r dark:border-zinc-900"
   >
-    <div class="snap-y snap-mandatory flex flex-col overflow-y-auto px-3 h-full">
+    <div class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto px-3 h-full">
       <div
         v-for="chord in chords"
-        :key="chord"
+        :key="`sidebar-${chord}`"
         class="text-center text-sm snap-start pt-4 first:pt-6 last:pb-6"
       >
         <div>{{ chord.toString({ useUnicodeModifier: true}) }}</div>
@@ -48,47 +51,52 @@ onBeforeUnmount(() => {
       </div>
     </div>
   </div>
-  <ion-modal
-    v-else
-    ref="chordsModal"
-    :is-open="true"
-    :initial-breakpoint="settings.showChords ? breakpoints[1] : breakpoints[0]"
-    :backdrop-dismiss="false"
-    :backdrop-breakpoint="breakpoints[2]"
-    :breakpoints="breakpoints"
-    handle-behavior="cycle"
-    @ion-breakpoint-did-change="onBreakpointDidChange"
-  >
-    <div class="flex flex-row flex-nowrap overflow-x-auto w-full pt-6 pb-8 snap-x snap-mandatory">
-      <div
-        v-for="chord in chords"
-        :key="chord"
-        class="text-center text-sm pointer-events-none select-none snap-start pl-3 first:pl-6 last:pr-6 first:ms-auto last:me-auto"
-      >
-        <div class="chord">
-          {{ chord.toString({ useUnicodeModifier: true}) }}
+  <div v-else>
+    <ion-modal
+      ref="chordsModal"
+      :is-open="true"
+      :initial-breakpoint="settings.showChords ? breakpoints[1] : breakpoints[0]"
+      :backdrop-dismiss="false"
+      :backdrop-breakpoint="breakpoints[2]"
+      :breakpoints="breakpoints"
+      handle-behavior="cycle"
+      @ion-breakpoint-did-change="onBreakpointDidChange"
+    >
+      <div class="flex flex-row flex-nowrap overflow-x-auto w-full pt-6 pb-8 snap-x snap-mandatory">
+        <div
+          v-for="chord in chords"
+          :key="`modal-${chord}`"
+          class="text-center text-sm pointer-events-none select-none snap-start pl-3 first:pl-6 last:pr-6 first:ms-auto last:me-auto"
+        >
+          <div class="chord">
+            {{ chord.toString({ useUnicodeModifier: true }) }}
+          </div>
+          <chord-diagram-reference :chord="chord" />
         </div>
-        <chord-diagram-reference :chord="chord" />
       </div>
-    </div>
-    <ion-footer>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <transpose-control
-            class="ml-4"
-            :note="note"
-            @update="(v) => settings.transpose = v"
-          />
-        </ion-buttons>
-        <ion-buttons slot="end">
-          <instrument-control v-model="settings.instrument" />
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-footer>
-  </ion-modal>
+      <ion-footer>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <transpose-control
+              class="ml-4"
+              :note="note"
+              @update="(v) => settings.transpose = v"
+            />
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <instrument-control v-model="settings.instrument" />
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-footer>
+    </ion-modal>
+  </div>
 </template>
 
 <style scoped>
+.sidebar {
+  padding-left: env(safe-area-inset-left, 0);
+}
+
 ion-modal {
   --height:auto;
   --max-width: 100%;

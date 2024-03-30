@@ -289,6 +289,7 @@ watch(output, updateColumnWidth)
 
           <songsheet-chords-pane
             ref="chordsPane"
+            slot="fixed"
             :note="key"
             :chords="chords"
           />
@@ -384,8 +385,10 @@ watch(output, updateColumnWidth)
   @apply md:p-4 lg:p-8 xl:p-12;
 }
 
-.maybe-sidebar {
-  @apply sm:ml-[80px];
+@media (min-width: 576px) {
+  .maybe-sidebar {
+    margin-left: calc(80px + env(safe-area-inset-left, 0));
+  }
 }
 
 .horizontal-columns {

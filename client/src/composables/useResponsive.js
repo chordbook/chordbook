@@ -1,13 +1,13 @@
 import { useMediaQuery } from '@vueuse/core'
 
 const breakpoints = {
-  xs: '0px',
-  sm: '576px',
-  md: '768px',
-  lg: '992px',
-  xl: '1200px'
+  xs: useMediaQuery('(min-width: 0px'),
+  sm: useMediaQuery('(min-width: 576px'),
+  md: useMediaQuery('(min-width: 768px'),
+  lg: useMediaQuery('(min-width: 992px'),
+  xl: useMediaQuery('(min-width: 1200px')
 }
 
 export default function useResponsive (size) {
-  return useMediaQuery(`(min-width: ${breakpoints[size]})`)
+  return breakpoints[size]
 }
