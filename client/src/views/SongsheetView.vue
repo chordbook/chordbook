@@ -17,7 +17,7 @@ import { formatDate, hostname } from '@/util'
 import TransposeControl from '@/components/TransposeControl.vue'
 import InstrumentControl from '@/components/InstrumentControl.vue'
 import { tabletPortraitOutline, tabletLandscapeOutline } from 'ionicons/icons'
-import { useResponsive, useHideOnScroll, useAutoScroll } from '@/composables'
+import { useResponsive, useIonScroll, useHideOnScroll, useAutoScroll } from '@/composables'
 import { useWakeLock } from '@vueuse/core'
 
 defineProps({
@@ -39,11 +39,12 @@ const header = ref() // template ref
 const columnWidth = ref(0)
 const bigScreen = useResponsive('sm')
 const wakelock = reactive(useWakeLock())
+
+const scroll = useIonScroll(scroller)
+useHideOnScroll(scroll, header)
 const autoScrollAvailable = computed(() => settings.columns === 1)
 const autoScrollDuration = computed(() => scroller.value?.$el?.dataset?.autoScrollDuration)
-const autoScroll = reactive(useAutoScroll(scroller, autoScrollDuration))
-
-useHideOnScroll(scroller, header)
+const autoScroll = reactive(useAutoScroll(scroll, autoScrollDuration))
 
 settings.resetTranspose()
 
