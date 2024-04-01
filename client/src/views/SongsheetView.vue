@@ -189,7 +189,6 @@ watch(output, updateColumnWidth)
         </ion-header>
         <ion-content
           ref="scroller"
-          style="--ion-safe-area-bottom: 200px;"
           :data-auto-scroll-duration="songsheet.duration || 3 * 60 * 1000"
           :scroll-y="settings.columns == 1 || error"
           :scroll-x="settings.columns == 2 && !error"
@@ -274,9 +273,9 @@ watch(output, updateColumnWidth)
               </songsheet-content>
             </div>
           </div>
-          <div class="ion-padding maybe-sidebar text-sm opacity-50 mb-8 flex gap-4">
+          <div class="ion-padding maybe-sidebar text-sm opacity-50 mb-8 flex flex-col md:flex-row gap-2">
             <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
-            <div v-if="songsheet.imported_from">
+            <div v-if="songsheet.imported_from" class="md:ms-auto">
               Imported from
               <a
                 target="_blank"
@@ -287,7 +286,14 @@ watch(output, updateColumnWidth)
               </a>
             </div>
           </div>
-
+          <div class="maybe-sidebar">
+            <setlist-songsheets-pager
+              v-if="setlistId"
+              :id="setlistId"
+              :songsheet-id="id"
+              class="maybe-sidebar"
+            />
+          </div>
           <songsheet-chords-pane
             ref="chordsPane"
             slot="fixed"
@@ -296,11 +302,6 @@ watch(output, updateColumnWidth)
             :is-open="!scroll.arrivedState.bottom"
           />
         </ion-content>
-        <setlist-songsheets-pager
-          v-if="setlistId"
-          :id="setlistId"
-          :songsheet-id="id"
-        />
       </songsheet-parser>
 
       <add-to-setlist-modal
