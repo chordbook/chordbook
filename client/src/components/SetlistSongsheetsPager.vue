@@ -68,7 +68,9 @@ await load()
             />
             <ion-label class="truncate">
               <p>Previous</p>
-              <h2 class="md:text-sm">{{ prev.title }}</h2>
+              <h2 class="md:text-sm">
+                {{ prev.title }}
+              </h2>
             </ion-label>
           </ion-item>
         </ion-buttons>
@@ -104,7 +106,9 @@ await load()
             />
             <ion-label class="text-right truncate text-sm">
               <p>Next</p>
-              <h2 class="text-xs md:text-sm">{{ next.title }}</h2>
+              <h2 class="text-xs md:text-sm">
+                {{ next.title }}
+              </h2>
             </ion-label>
             <ion-icon
               slot="end"

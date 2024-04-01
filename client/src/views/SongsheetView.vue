@@ -1,5 +1,4 @@
 <script setup>
-import AutoScroll from '@/components/AutoScroll.vue'
 import SongsheetContent from '@/components/SongsheetContent.vue'
 import SongsheetParser from '@/components/SongsheetParser.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
@@ -18,7 +17,7 @@ import { formatDate, hostname } from '@/util'
 import TransposeControl from '@/components/TransposeControl.vue'
 import InstrumentControl from '@/components/InstrumentControl.vue'
 import { tabletPortraitOutline, tabletLandscapeOutline } from 'ionicons/icons'
-import { useResponsive, useHideOnScroll } from '@/composables'
+import { useResponsive, useIonScroll, useHideOnScroll, useAutoScroll } from '@/composables'
 import { useWakeLock } from '@vueuse/core'
 
 defineProps({
@@ -38,23 +37,26 @@ const output = ref() // template ref
 const chordsPane = ref() // template ref
 const header = ref() // template ref
 const columnWidth = ref(0)
-const autoScrollAvailable = computed(() => settings.columns === 1)
 const bigScreen = useResponsive('sm')
 const wakelock = reactive(useWakeLock())
 
-useHideOnScroll(scroller, header)
+const scroll = useIonScroll(scroller)
+useHideOnScroll(scroll, header)
+const autoScrollAvailable = computed(() => settings.columns === 1)
+const autoScrollDuration = computed(() => scroller.value?.$el?.dataset?.autoScrollDuration)
+const autoScroll = reactive(useAutoScroll(scroll, autoScrollDuration))
 
 settings.resetTranspose()
 
 onIonViewDidEnter(async () => {
   if (autoScrollAvailable.value && settings.autoScroll) {
-    setTimeout(() => { scroller.value.start() }, 1000)
+    setTimeout(() => { autoScroll.start() }, 1000)
   }
   await wakelock.request()
 })
 
 onIonViewWillLeave(async () => {
-  scroller.value.stop()
+  autoScroll.stop()
   await wakelock.release()
 })
 
@@ -69,8 +71,8 @@ function updateColumnWidth () {
 }
 
 function toggleAutoScroll () {
-  scroller.value.isActive ? scroller.value.stop() : scroller.value.start()
-  settings.autoScroll = scroller.value.isActive
+  autoScroll.isActive ? autoScroll.stop() : autoScroll.start()
+  settings.autoScroll = autoScroll.isActive
 }
 
 watch(() => settings.columns, updateColumnWidth)
@@ -101,7 +103,6 @@ watch(output, updateColumnWidth)
         <ion-header
           ref="header"
           translucent
-          class="transition-transform"
         >
           <ion-toolbar>
             <ion-buttons slot="start">
@@ -186,10 +187,9 @@ watch(output, updateColumnWidth)
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
-        <auto-scroll
+        <ion-content
           ref="scroller"
-          style="--ion-safe-area-bottom: 200px;"
-          :duration="songsheet.duration || 3 * 60 * 1000"
+          :data-auto-scroll-duration="songsheet.duration || 3 * 60 * 1000"
           :scroll-y="settings.columns == 1 || error"
           :scroll-x="settings.columns == 2 && !error"
           fullscreen
@@ -273,9 +273,9 @@ watch(output, updateColumnWidth)
               </songsheet-content>
             </div>
           </div>
-          <div class="ion-padding maybe-sidebar text-sm opacity-50 mb-8 flex gap-4">
+          <div class="ion-padding maybe-sidebar text-sm opacity-50 mb-8 flex flex-col md:flex-row gap-2">
             <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
-            <div v-if="songsheet.imported_from">
+            <div v-if="songsheet.imported_from" class="md:ms-auto">
               Imported from
               <a
                 target="_blank"
@@ -286,19 +286,22 @@ watch(output, updateColumnWidth)
               </a>
             </div>
           </div>
-
+          <div class="maybe-sidebar">
+            <setlist-songsheets-pager
+              v-if="setlistId"
+              :id="setlistId"
+              :songsheet-id="id"
+              class="maybe-sidebar"
+            />
+          </div>
           <songsheet-chords-pane
             ref="chordsPane"
             slot="fixed"
             :note="key"
             :chords="chords"
+            :is-open="!scroll.arrivedState.bottom"
           />
-        </auto-scroll>
-        <setlist-songsheets-pager
-          v-if="setlistId"
-          :id="setlistId"
-          :songsheet-id="id"
-        />
+        </ion-content>
       </songsheet-parser>
 
       <add-to-setlist-modal
