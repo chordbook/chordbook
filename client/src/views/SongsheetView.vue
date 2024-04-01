@@ -101,7 +101,6 @@ watch(output, updateColumnWidth)
         <ion-header
           ref="header"
           translucent
-          class="transition-transform"
         >
           <ion-toolbar>
             <ion-buttons slot="start">

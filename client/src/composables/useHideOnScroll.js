@@ -17,8 +17,10 @@ export default function useHideOnScroll (scroller, target) {
 
   watch(scrollTop, () => {
     if (directions.bottom && scrollTop.value > 0 && !arrivedState.bottom) {
+      targetRef.value.classList.remove('transition-transform')
       translateY.value = Math.max(translateY.value - (scrollTop.value - lastScrollTop.value), -scrollHeight.value)
     } else if (translateY.value < 0 && (directions.top || arrivedState.bottom)) {
+      targetRef.value.classList.add('transition-transform')
       translateY.value = 0
     }
     lastScrollTop.value = Math.max(0, scrollTop.value)
