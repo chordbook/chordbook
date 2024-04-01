@@ -1,14 +1,14 @@
 import { ref, toValue, watchEffect, computed } from 'vue'
-import { useScroll, useElementSize, useEventListener, executeTransition } from '@vueuse/core'
+import { useScroll, useElementSize, useEventListener, executeTransition, unrefElement } from '@vueuse/core'
 
 export default function useAutoScroll (scroller, duration) {
   // the scrollable element, set in watchEffect below
   const el = ref()
 
   watchEffect(async () => {
-    const value = toValue(scroller)
+    const value = unrefElement(scroller)
     // if scroller is an <ion-content> element, get the underlying scrollable element
-    el.value = await (value?.$el?.getScrollElement?.() ?? value)
+    el.value = await (value?.getScrollElement?.() ?? value)
   })
 
   const { height } = useElementSize(el)
