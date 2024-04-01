@@ -14,6 +14,10 @@ defineProps({
   note: {
     type: String,
     required: true
+  },
+  isOpen: {
+    type: Boolean,
+    default: true
   }
 })
 
@@ -54,7 +58,7 @@ watch(sidebar, isVisible => { if (isVisible) dismissModal() })
   <div v-else>
     <ion-modal
       ref="chordsModal"
-      :is-open="true"
+      :is-open="isOpen"
       :initial-breakpoint="settings.showChords ? breakpoints[1] : breakpoints[0]"
       :backdrop-dismiss="false"
       :backdrop-breakpoint="breakpoints[2]"

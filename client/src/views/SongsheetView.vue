@@ -293,6 +293,7 @@ watch(output, updateColumnWidth)
             slot="fixed"
             :note="key"
             :chords="chords"
+            :is-open="!scroll.arrivedState.bottom"
           />
         </ion-content>
         <setlist-songsheets-pager
