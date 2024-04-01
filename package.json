@@ -8,7 +8,7 @@
     "@chordbook/tuner": "github:chordbook/tuner",
     "@headlessui/vue": "^1.7.19",
     "@ionic/vue": "^7.8.0",
-    "@ionic/vue-router": "^7.8.0",
+    "@ionic/vue-router": "^7.8.2",
     "@sentry/tracing": "^7.108.0",
     "@sentry/vue": "^7.108.0",
     "@tombatossals/chords-db": "^0.5",
