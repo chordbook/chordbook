@@ -9,6 +9,7 @@ export {
   ellipsisVertical as mdEllipsis,
   home,
   list,
+  library,
   listOutline as setlist,
   logInOutline as signin,
   logOutOutline as signout,
