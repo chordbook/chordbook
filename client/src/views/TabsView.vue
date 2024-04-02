@@ -1,3 +1,7 @@
+<script setup>
+import { search, library, home } from '@/icons'
+</script>
+
 <template>
   <ion-page>
     <ion-tabs>
@@ -5,7 +9,7 @@
       <ion-tab-bar
         slot="bottom"
         translucent
-        class="lg:hidden"
+        class="sm:hidden"
       >
         <ion-tab-button
           tab="home"
@@ -34,17 +38,3 @@
     </ion-tabs>
   </ion-page>
 </template>
-
-<script>
-import { search, library, home } from 'ionicons/icons'
-
-export default {
-  setup () {
-    return {
-      search,
-      library,
-      home
-    }
-  }
-}
-</script>

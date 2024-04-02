@@ -1,6 +1,6 @@
 <script setup>
 import { logoGithub, handLeft, cashOutline } from 'ionicons/icons'
-import ColorizedImg from '@/components/ColorizedImg.vue'
+import HelpCard from '@/components/HelpCard.vue'
 import useAuthStore from '@/stores/auth'
 import * as icons from '@/icons'
 
@@ -149,92 +149,37 @@ const auth = useAuthStore()
           </p>
         </div>
 
-        <div class="grid md:grid-cols-3 md:mb-6">
-          <ion-card class="flex flex-col">
-            <colorized-img
-              class="aspect-16/9 w-full"
-              src="https://images.pexels.com/photos/1407322/pexels-photo-1407322.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=720"
-            />
-
-            <ion-card-header>
-              <ion-card-subtitle>Musicians</ion-card-subtitle>
-              <ion-card-title>Improve Charts</ion-card-title>
-            </ion-card-header>
-            <ion-card-content class="grow">
-              <p>
-                Volunteer to be an editor and get full access to add new charts or make corrections to existing ones.
-              </p>
-            </ion-card-content>
-            <p class="text-center mb-4">
-              <ion-button
-                class="w-40"
-                href="mailto:help@chordbook.app?subject=I'd%20like%20to%20volunteer"
-              >
-                <ion-icon
-                  slot="start"
-                  :icon="handLeft"
-                />
-                Volunteer
-              </ion-button>
-            </p>
-          </ion-card>
-          <ion-card class="flex flex-col">
-            <colorized-img
-              class="aspect-16/9 w-full"
-              src="https://images.pexels.com/photos/48171/guitar-case-street-musicians-donate-donation-48171.jpeg?auto=compress&cs=tinysrgb&w=640"
-            />
-            <ion-card-header>
-              <ion-card-subtitle>Patrons</ion-card-subtitle>
-              <ion-card-title>Leave a Tip</ion-card-title>
-            </ion-card-header>
-            <ion-card-content class="grow">
-              <p>
-                Show your appreciation and support the costs of building and running the app.
-              </p>
-            </ion-card-content>
-            <p class="text-center mb-4">
-              <ion-button
-                class="w-40"
-                href="https://www.patreon.com/chordbook"
-              >
-                <ion-icon
-                  slot="start"
-                  :icon="cashOutline"
-                />
-                Donate
-              </ion-button>
-            </p>
-          </ion-card>
-          <ion-card class="flex flex-col">
-            <colorized-img
-              class="aspect-16/9 w-full"
-              src="https://images.pexels.com/photos/374563/pexels-photo-374563.jpeg?auto=compress&cs=tinysrgb&dpr=3w=640"
-            />
-
-            <ion-card-header>
-              <ion-card-subtitle>Developers</ion-card-subtitle>
-              <ion-card-title>Contribute Code</ion-card-title>
-            </ion-card-header>
-            <ion-card-content class="grow">
-              <p>
-                This app is open source! Help us fix bugs, improve features, and make progress on our <a href="https://github.com/bkeepers/chordbook/projects/1">roadmap</a>.
-              </p>
-            </ion-card-content>
-            <p class="text-center mb-4">
-              <ion-button
-                class="w-40"
-                href="https://github.com/bkeepers/chordbook"
-                target="_blank"
-                rel="noopener"
-              >
-                <ion-icon
-                  slot="start"
-                  :icon="logoGithub"
-                />
-                Contribute
-              </ion-button>
-            </p>
-          </ion-card>
+        <div class="grid xl:grid-cols-3 xl:mb-6 ion-padding gap-3 md:gap-4 xl:gap-4 2xl:gap-6">
+          <help-card
+            image="https://images.pexels.com/photos/1407322/pexels-photo-1407322.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=720"
+            audience="Musicians"
+            title="Improve Charts"
+            url="mailto:help@chordbook.app?subject=I'd%20like%20to%20volunteer"
+            :icon="handLeft"
+            button-text="Volunteer"
+          >
+            Volunteer to be an editor and get full access to add new charts or make corrections to existing ones.
+          </help-card>
+          <help-card
+            image="https://images.pexels.com/photos/48171/guitar-case-street-musicians-donate-donation-48171.jpeg?auto=compress&cs=tinysrgb&w=640"
+            audience="Patrons"
+            title="Leave a Tip"
+            url="https://www.patreon.com/chordbook"
+            :icon="cashOutline"
+            button-text="Donate"
+          >
+            Show your appreciation and support the costs of building and running the app.
+          </help-card>
+          <help-card
+            image="https://images.pexels.com/photos/374563/pexels-photo-374563.jpeg?auto=compress&cs=tinysrgb&dpr=3w=640"
+            audience="Developers"
+            title="Contribute Code"
+            url="https://github.com/bkeepers/chordbook"
+            :icon="logoGithub"
+            button-text="Contribute"
+          >
+            This app is open source! Help us fix bugs, improve features, and make progress on our <a href="https://github.com/bkeepers/chordbook/projects/1">roadmap</a>.
+          </help-card>
         </div>
       </div>
     </ion-content>

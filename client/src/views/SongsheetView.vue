@@ -275,7 +275,10 @@ watch(output, updateColumnWidth)
           </div>
           <div class="ion-padding maybe-sidebar text-sm opacity-50 mb-8 flex flex-col md:flex-row gap-2">
             <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
-            <div v-if="songsheet.imported_from" class="md:ms-auto">
+            <div
+              v-if="songsheet.imported_from"
+              class="md:ms-auto"
+            >
               Imported from
               <a
                 target="_blank"
