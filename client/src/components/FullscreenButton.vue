@@ -19,6 +19,8 @@ const { isSupported, isFullscreen, toggle } = useFullscreen(targetEl)
   <ion-button
     v-if="isSupported"
     ref="el"
+    style="--overflow: visible"
+    v-tooltip="isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'"
     @click="toggle"
   >
     <ion-icon

@@ -108,6 +108,7 @@ watch(output, updateColumnWidth)
           <ion-toolbar>
             <ion-buttons slot="start">
               <ion-back-button
+                v-tooltip="'Back'"
                 text=""
                 :default-href="setlistId ? { name: 'setlist', params: { id: setlistId} } : '/songsheets'"
               />
@@ -132,6 +133,7 @@ watch(output, updateColumnWidth)
                 @ion-change="settings.columns = $event.detail.value"
               >
                 <ion-segment-button
+                  v-tooltip="'Vertical scroll'"
                   :value="1"
                   layout="icon-start"
                 >
@@ -141,6 +143,7 @@ watch(output, updateColumnWidth)
                   />
                 </ion-segment-button>
                 <ion-segment-button
+                  v-tooltip="'Horizontal scroll'"
                   :value="2"
                   layout="icon-start"
                 >
@@ -156,6 +159,7 @@ watch(output, updateColumnWidth)
               <fullscreen-button />
               <ion-button
                 v-if="scroller && autoScrollAvailable"
+                v-tooltip="'Auto-scroll'"
                 :color="scroller?.isActive ? 'secondary' : 'default'"
                 @click="toggleAutoScroll"
               >
@@ -166,7 +170,9 @@ watch(output, updateColumnWidth)
               </ion-button>
               <ion-button
                 v-if="bigScreen"
-                :color=" settings.showPlayer ? 'secondary' : 'default'"
+                v-tooltip="settings.showPlayer ? 'Hide media player' : 'Show media player'"
+                :color="settings.showPlayer ? 'secondary' : 'default'"
+                :disabled="!songsheet.media?.length > 0"
                 @click="settings.showPlayer = !settings.showPlayer"
               >
                 <ion-icon

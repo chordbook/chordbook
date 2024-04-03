@@ -12,6 +12,7 @@
 @import '@/stylesheets/variables.css';
 @import '@/stylesheets/text-shadow';
 @import '@/stylesheets/transitions';
+@import 'floating-vue/dist/style.css';
 
 /* Tailwind */
 @tailwind base;

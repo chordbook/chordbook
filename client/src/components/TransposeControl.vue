@@ -1,6 +1,7 @@
 <template>
   <div class="flex align-center">
     <ion-button
+      v-tooltip="'Transpose down'"
       class="text-2xl"
       @click="transposeDown"
     >
@@ -8,6 +9,7 @@
     </ion-button>
     <ion-select
       v-model="value"
+      v-tooltip="'Key'"
       aria-label="Key"
       cancel-text="Reset"
       justify="center"
@@ -23,6 +25,7 @@
       </ion-select-option>
     </ion-select>
     <ion-button
+      v-tooltip="'Transpose up'"
       class="text-2xl"
       @click="transposeUp"
     >

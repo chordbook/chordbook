@@ -4,6 +4,7 @@ const instruments = ['Guitar', 'Ukulele']
 
 <template>
   <ion-select
+    v-tooltip="'Instrument'"
     aria-label="Instrument"
     interface="popover"
     class="w-20"
