@@ -12,6 +12,7 @@
 @import '@/stylesheets/variables.css';
 @import '@/stylesheets/text-shadow';
 @import '@/stylesheets/transitions';
+@import 'floating-vue/dist/style.css';
 
 /* Tailwind */
 @tailwind base;
@@ -102,4 +103,9 @@
     --ion-color-shade: var(--ion-color-dark-shade) !important;
     --ion-color-tint: var(--ion-color-dark-tint) !important;
   }
+}
+
+/* Add padding to tooltips to prevent them from running into edge of screen */
+.v-popper--theme-tooltip[data-popper-placement=bottom] {
+  @apply px-3;
 }
