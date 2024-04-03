@@ -1,21 +1,22 @@
 <script setup>
-import SongsheetContent from '@/components/SongsheetContent.vue'
-import SongsheetParser from '@/components/SongsheetParser.vue'
-import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
-import SongsheetChordsPane from '@/components/SongsheetChordsPane.vue'
-import ChordDiagram from '@/components/ChordDiagram.vue'
-import SongsheetMedia from '@/components/SongsheetMedia.vue'
 import AddToLibraryButton from '../components/AddToLibraryButton.vue'
 import AddToSetlistModal from '@/components/AddToSetlistModal.vue'
+import ChordDiagram from '@/components/ChordDiagram.vue'
+import FullscreenButton from '../components/FullscreenButton.vue'
+import InstrumentControl from '@/components/InstrumentControl.vue'
 import SetlistSongsheetsPager from '../components/SetlistSongsheetsPager.vue'
 import ShareItem from '@/components/ShareItem.vue'
+import SongsheetChordsPane from '@/components/SongsheetChordsPane.vue'
+import SongsheetContent from '@/components/SongsheetContent.vue'
+import SongsheetMedia from '@/components/SongsheetMedia.vue'
+import SongsheetParser from '@/components/SongsheetParser.vue'
+import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
+import TransposeControl from '@/components/TransposeControl.vue'
 import * as icons from '@/icons'
 import { onIonViewDidEnter, onIonViewWillLeave } from '@ionic/vue'
 import useSongsheetSettings from '@/stores/songsheet-settings'
 import { ref, watch, computed, reactive } from 'vue'
 import { formatDate, hostname } from '@/util'
-import TransposeControl from '@/components/TransposeControl.vue'
-import InstrumentControl from '@/components/InstrumentControl.vue'
 import { tabletPortraitOutline, tabletLandscapeOutline } from 'ionicons/icons'
 import { useResponsive, useIonScroll, useHideOnScroll, useAutoScroll } from '@/composables'
 import { useWakeLock } from '@vueuse/core'
@@ -152,6 +153,7 @@ watch(output, updateColumnWidth)
             </ion-buttons>
 
             <ion-buttons slot="end">
+              <fullscreen-button />
               <ion-button
                 v-if="scroller && autoScrollAvailable"
                 :color="scroller?.isActive ? 'secondary' : 'default'"
