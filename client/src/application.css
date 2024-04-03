@@ -104,3 +104,8 @@
     --ion-color-tint: var(--ion-color-dark-tint) !important;
   }
 }
+
+/* Add padding to tooltips to prevent them from running into edge of screen */
+.v-popper--theme-tooltip[data-popper-placement=bottom] {
+  @apply px-3;
+}
