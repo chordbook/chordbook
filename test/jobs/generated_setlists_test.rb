@@ -1,10 +1,15 @@
 require "test_helper"
 
 class GeneratedSetlistsTest < ActiveJob::TestCase
-  test "updates setlists" do
+  test "enqueues jobs" do
+    GeneratedSetlists.new.perform
+    assert_enqueued_jobs 8
+  end
+
+  test "trending" do
     songsheets = 101.times.map { |i| create :songsheet, rank: i + 1 }
 
-    GeneratedSetlists.perform_now
+    GeneratedSetlists::Trending.perform_now
 
     trending = User.app.setlists.find_by!(title: "Trending")
     assert_equal 100, trending.songsheets.count
@@ -16,7 +21,7 @@ class GeneratedSetlistsTest < ActiveJob::TestCase
     old_1.update! rank: 101
     new_1.update! rank: 1
 
-    GeneratedSetlists.new.perform
+    GeneratedSetlists::Trending.new.perform
 
     assert_equal 100, trending.reload.songsheets.count
     assert_equal new_1, trending.songsheets.first
@@ -26,7 +31,7 @@ class GeneratedSetlistsTest < ActiveJob::TestCase
   test "'Trending' includes top 100 songs by rank" do
     songsheets = 101.times.map { |i| create :songsheet, rank: i + 1 }
 
-    GeneratedSetlists.new.perform
+    GeneratedSetlists::Trending.new.perform
 
     setlist = User.app.setlists.find_by!(title: "Trending")
     assert_equal 100, setlist.songsheets.count
@@ -38,7 +43,7 @@ class GeneratedSetlistsTest < ActiveJob::TestCase
     # High rank but older songsheet
     older = create :songsheet, created_at: 1.week.ago, rank: 0
 
-    GeneratedSetlists.new.perform
+    GeneratedSetlists::WhatsNew.new.perform
 
     setlist = User.app.setlists.find_by!(title: "What's New")
 
@@ -48,7 +53,7 @@ class GeneratedSetlistsTest < ActiveJob::TestCase
   end
 
   test "creates decades setlists" do
-    GeneratedSetlists.new.perform
+    GeneratedSetlists::Decades.new.perform
 
     %w[1940s 1950s 1960s 1970s 1980s 1990s 2000s 2010s].each do |title|
       assert Setlist.find_by!(title: title)
