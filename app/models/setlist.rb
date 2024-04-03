@@ -23,6 +23,9 @@ class Setlist < ApplicationRecord
   scope :order_by_recent, -> { order(updated_at: :desc) }
   scope :order_by_popular, -> { order("setlists.rank") }
   scope :with_attachments, -> { includes(thumbnails_attachments: {blob: :variant_records}) }
+  scope :search_import, -> { with_attachments }
+
+  searchkick word_start: [:title], callbacks: :async
 
   def update_thumbnails(_ = nil)
     images = artist_images
@@ -32,5 +35,15 @@ class Setlist < ApplicationRecord
       .reorder("min_position ASC").limit(9)
 
     update thumbnails: images.map(&:blob)
+  end
+
+  def search_data
+    {
+      type: self.class,
+      title: title,
+      attachment_id: thumbnails_attachments.first&.id,
+      everything: [title, description].compact,
+      boost: 1.0
+    }
   end
 end

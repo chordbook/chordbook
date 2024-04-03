@@ -43,6 +43,8 @@ FactoryBot.define do
   factory :setlist do
     title { Faker::Music.genre }
     user
+
+    after(:create) { |model| refresh_index(model) }
   end
 
   factory :user do

@@ -8,6 +8,7 @@ class SearchTest < ActiveSupport::TestCase
       @track = create(:track, title: "Shivers", album: @album)
       @songsheet = create(:songsheet, title: "Bad Habits", metadata: {artist: @artist.name},
         track: create(:track, title: "Bad Habits", album: @album, artist: @artist))
+      @setlist = create(:setlist, title: "Best of Ed Sheeran", user: User.app, songsheets: [@songsheet])
     end
   end
 
@@ -19,10 +20,10 @@ class SearchTest < ActiveSupport::TestCase
     assert_includes search("Bad Habits Ed Sheeran"), @songsheet
   end
 
-  test "search artist includes songsheets, albums, and tracks" do
+  test "search includes songsheets, albums, tracks, and setlists" do
     results = search("Ed Sheeran")
 
-    [@artist, @songsheet, @album, @track].each do |record|
+    [@artist, @songsheet, @album, @track, @setlist].each do |record|
       assert_includes results, record
     end
   end
