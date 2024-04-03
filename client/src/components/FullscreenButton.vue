@@ -1,6 +1,6 @@
 <script setup>
 import { useFullscreen } from '@vueuse/core'
-import { ref, onMounted } from 'vue'
+import { ref, computed } from 'vue'
 import { exit, expand } from '@/icons'
 
 const props = defineProps({
@@ -11,12 +11,8 @@ const props = defineProps({
 })
 
 const el = ref()
-const targetEl = ref()
+const targetEl = computed(() => el.value?.closest?.(props.target))
 const { isSupported, isFullscreen, toggle } = useFullscreen(targetEl)
-
-onMounted(() => {
-  targetEl.value = el.value.closest?.(props.target)
-})
 </script>
 
 <template>
