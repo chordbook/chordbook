@@ -8,7 +8,8 @@ const types = {
   All: '',
   Artists: 'Artist',
   Albums: 'Album',
-  Songs: 'Track,Songsheet'
+  Songs: 'Track,Songsheet',
+  Setlists: 'Setlist'
 }
 
 const params = reactive({
