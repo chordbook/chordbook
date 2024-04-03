@@ -183,7 +183,6 @@ watch(output, updateColumnWidth)
                   slot="icon-only"
                   :ios="icons.iosEllipsis"
                   :md="icons.mdEllipsis"
-                  size="small"
                 />
               </ion-button>
             </ion-buttons>
