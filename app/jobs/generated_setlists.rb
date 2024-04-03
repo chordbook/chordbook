@@ -34,6 +34,8 @@ class GeneratedSetlists < ApplicationJob
     update_setlist "Too Many Versions" do
       Songsheet.joins(:track).order("tracks.songsheets_count DESC, songsheets.rank")
     end
+
+    KeyOf.perform_later
   end
 
   def update_setlist(title, attrs: nil, &scope)
