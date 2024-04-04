@@ -20,9 +20,10 @@ const transposed = computed(() => {
   return parser.song?.transpose(props.transpose, { normalizeChordSuffix: true })
 })
 
+const originalChords = useChords(toRef(parser, 'song'))
 const chords = useChords(transposed)
 </script>
 
 <template>
-  <slot v-bind="{ ...parser, transposed, chords }" />
+  <slot v-bind="{ ...parser, transposed, chords, originalChords }" />
 </template>
