@@ -7,6 +7,7 @@ import ColumnLayout from '@/components/ColumnLayout.vue'
 import FontSizeControl from '@/components/FontSizeControl.vue'
 import FullscreenButton from '../components/FullscreenButton.vue'
 import InstrumentControl from '@/components/InstrumentControl.vue'
+import KeyModal from '../components/KeyModal.vue'
 import SetlistSongsheetsPager from '../components/SetlistSongsheetsPager.vue'
 import ShareItem from '@/components/ShareItem.vue'
 import SongsheetChordsPane from '@/components/SongsheetChordsPane.vue'
@@ -320,6 +321,12 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
       :note="parser.key"
       :chords="parser.transposed.chords"
       :is-open="!scroll.arrivedState.bottom"
+    />
+    <key-modal
+      v-model:transpose="parser.transpose"
+      v-model:capo="parser.capo"
+      :chords="parser.chords"
+      trigger="key-metadata"
     />
   </ion-content>
 

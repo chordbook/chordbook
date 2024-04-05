@@ -45,13 +45,6 @@ function componentFor (item) {
     </div>
 
     <div
-      v-if="song.capo"
-      class="capo my-4"
-    >
-      Capo {{ song.capo }}
-    </div>
-
-    <div
       v-for="({ type, lines }, i) in song.paragraphs"
       :key="i"
       :class="type + ' paragraph'"
@@ -98,7 +91,7 @@ function componentFor (item) {
   @apply flex flex-col;
 }
 
-.comment, .chorus:before, .verse::before, .capo {
+.comment, .chorus:before, .verse::before {
   @apply font-semibold text-rel-sm text-zinc-600 dark:text-zinc-500 break-after-avoid;
 }
 

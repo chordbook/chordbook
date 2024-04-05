@@ -8,7 +8,7 @@ export default function useSongsheetParser (source) {
   const error = ref()
   const song = ref()
   const chords = useChords(song)
-  const key = computed(() => song.value?.key ?? chords.value[0]?.toString())
+  const key = computed(() => song.value?.key ?? guessKey(chords.value))
   const transpose = ref(0)
   const capo = ref(0)
   const transposedSong = computed(() => normalize(song.value?.transpose(transpose.value - capo.value)))
@@ -33,6 +33,11 @@ export default function useSongsheetParser (source) {
   })
 
   return { song, key, chords, error, parser, transpose, capo, transposed }
+}
+
+// FIXME: Replace this with something more intelligent
+export function guessKey (chords) {
+  return chords[0]?.toString()
 }
 
 function normalize (song) {
