@@ -1,7 +1,6 @@
 <script setup>
 import 'share-api-polyfill'
 import { share } from '@/icons'
-import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const props = defineProps({
@@ -16,15 +15,13 @@ const props = defineProps({
 })
 
 const router = useRouter()
-const data = computed(() => {
-  return {
-    title: props.title,
-    url: new URL(router.resolve(props.routerLink).href, window.location).toString()
-  }
-})
 
-function doShare () {
-  return navigator.share(data.value)
+async function doShare () {
+  const data = {
+    url: new URL(router.resolve(props.routerLink).href, window.location).toString(),
+    title: props.title
+  }
+  return navigator.share(data).catch(console.error)
 }
 </script>
 
