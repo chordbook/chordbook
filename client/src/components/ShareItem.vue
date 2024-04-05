@@ -22,7 +22,7 @@ function share () {
     url: new URL(router.resolve(props.routerLink).href, window.location).toString()
   }
 
-  return navigator.share(data)
+  return navigator.share(data).catch(console.error)
 }
 </script>
 
