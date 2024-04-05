@@ -28,7 +28,7 @@ async function add (setlist) {
 async function newModal () {
   const modal = await modalController.create({ component: NewSetlistModal })
   modal.onDidDismiss().then(({ data }) => {
-    if (data) add(data)
+    if (data.value) add(data.value)
   })
   return modal.present()
 }
