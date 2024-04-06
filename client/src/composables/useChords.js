@@ -1,11 +1,11 @@
 import { Chord } from 'chordsheetjs'
-import { computed } from 'vue'
+import { computed, toValue } from 'vue'
 
 export default function useChords (song) {
   return computed(() => {
     const chords = new Set()
 
-    song.value.lines.forEach(line => {
+    toValue(song)?.lines.forEach(line => {
       line.items.forEach(pair => {
         if (pair.chords) chords.add(pair.chords)
       })
