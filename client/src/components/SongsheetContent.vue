@@ -3,6 +3,7 @@ import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
 import SongSheetComment from '@/components/SongSheetComment.vue'
 import { Song } from 'chordsheetjs'
 import { formatArray } from '@/util'
+import { useThemeStore } from '@/stores'
 
 defineProps({
   song: {
@@ -11,13 +12,18 @@ defineProps({
   }
 })
 
+const theme = useThemeStore()
+
 function componentFor (item) {
   return [ChordLyricsPair, SongSheetComment].find(c => c.for(item))
 }
 </script>
 
 <template>
-  <div class="songsheet-content lg:text-lg">
+  <div
+    class="songsheet-content themed"
+    :data-font-size="theme.fontSize"
+  >
     <div class="mb-6 text-base">
       <slot name="title">
         <h1 class="text-xl md:text-2xl my-1">
@@ -77,7 +83,7 @@ function componentFor (item) {
 <style>
 .songsheet-content {
   counter-reset: verse;
-  @apply leading-[1.1];
+  @apply leading-tight;
 }
 
 .paragraph {
@@ -97,7 +103,7 @@ function componentFor (item) {
 }
 
 .comment, .chorus:before, .verse::before, .capo {
-  @apply font-semibold text-sm text-zinc-600 dark:text-zinc-500 break-after-avoid;
+  @apply font-semibold text-rel-sm text-zinc-600 dark:text-zinc-500 break-after-avoid;
 }
 
 .chord, .lyrics {
@@ -105,11 +111,11 @@ function componentFor (item) {
 }
 
 .tab {
-  @apply font-mono text-xs;
+  @apply font-mono text-rel-xs;
 }
 
 .songsheet-content *:not(.tab) .chord {
-  @apply text-indigo-800 dark:text-indigo-300 pr-1 font-medium text-smaller;
+  @apply text-indigo-800 dark:text-indigo-500 pr-1 font-semibold;
 }
 
 .chorus {
@@ -136,5 +142,29 @@ function componentFor (item) {
 .chord-diagram {
   width: 40px;
   height: 52px;
+}
+
+.themed[data-font-size="sm"] {
+  @apply text-rel-sm lg:text-rel-base;
+}
+
+.themed[data-font-size="md"] {
+  @apply text-rel-base lg:text-rel-lg;
+}
+
+.themed[data-font-size="lg"] {
+  @apply text-rel-lg lg:text-rel-xl;
+}
+
+.themed[data-font-size="xl"] {
+  @apply text-rel-xl lg:text-rel-2xl;
+}
+
+.themed[data-font-size="2xl"] {
+  @apply text-rel-2xl lg:text-rel-3xl;
+}
+
+.themed[data-font-size="3xl"] {
+  @apply text-rel-3xl lg:text-rel-4xl;
 }
 </style>
