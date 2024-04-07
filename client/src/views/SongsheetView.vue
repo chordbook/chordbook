@@ -161,12 +161,12 @@ watch(output, updateColumnWidth)
               <ion-button
                 v-if="scroller && autoScrollAvailable"
                 v-tooltip="'Auto-scroll'"
-                :color="scroller?.isActive ? 'secondary' : 'default'"
+                :color="autoScroll?.isActive ? 'secondary' : 'default'"
                 @click="toggleAutoScroll"
               >
                 <ion-icon
                   slot="icon-only"
-                  :icon="scroller?.isActive ? icons.autoScrollOn : icons.autoScrollOff"
+                  :icon="autoScroll?.isActive ? icons.autoScrollOn : icons.autoScrollOff"
                 />
               </ion-button>
               <ion-button
@@ -202,6 +202,7 @@ watch(output, updateColumnWidth)
           :scroll-y="settings.columns == 1 || error"
           :scroll-x="settings.columns == 2 && !error"
           fullscreen
+          :class="{ autoscrolling: autoScroll.isActive }"
         >
           <Transition name="slide-down">
             <songsheet-media
@@ -210,7 +211,7 @@ watch(output, updateColumnWidth)
               class="no-print maybe-sidebar"
             />
           </Transition>
-          <div :class="'relative maybe-sidebar ion-padding ' + (settings.columns == 1 || error ? 'single-column' : 'horizontal-columns')">
+          <div :class="'snap-start relative maybe-sidebar ion-padding ' + (settings.columns == 1 || error ? 'single-column' : 'horizontal-columns')">
             <!-- Hidden sprite of chord diagrams -->
             <svg
               v-if="transposed"
@@ -281,7 +282,7 @@ watch(output, updateColumnWidth)
               </songsheet-content>
             </div>
           </div>
-          <div class="ion-padding maybe-sidebar text-sm opacity-50 mb-8 flex flex-col md:flex-row gap-2">
+          <div class="ion-padding snap-end maybe-sidebar text-sm opacity-50 mb-8 flex flex-col md:flex-row gap-2">
             <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
             <div
               v-if="songsheet.imported_from"
@@ -297,7 +298,7 @@ watch(output, updateColumnWidth)
               </a>
             </div>
           </div>
-          <div class="maybe-sidebar">
+          <div class="maybe-sidebar snap-end">
             <setlist-songsheets-pager
               v-if="setlistId"
               :id="setlistId"
@@ -395,8 +396,13 @@ watch(output, updateColumnWidth)
 </template>
 
 <style scoped>
+ion-content:not(.autoscrolling)::part(scroll) {
+  @apply snap-both snap-proximity;
+}
+
 .ion-padding {
-  @apply md:p-4 lg:p-8 xl:p-12;
+  scroll-margin: var(--ion-padding);
+  @apply md:p-4 md:scroll-m-4 lg:p-8 lg:scroll-m-8 xl:p-12 xl:scroll-m-12;
 }
 
 @media (min-width: 576px) {

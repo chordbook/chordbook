@@ -87,11 +87,7 @@ function componentFor (item) {
 }
 
 .paragraph {
-  @apply break-inside-avoid;
-}
-
-.paragraph + .paragraph {
-  @apply my-6;
+  @apply break-inside-avoid my-6 scroll-m-6 snap-end;
 }
 
 .row {
