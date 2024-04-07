@@ -103,7 +103,7 @@ function componentFor (item) {
 }
 
 .chord, .lyrics {
-  @apply whitespace-pre;
+  @apply whitespace-pre-wrap;
 }
 
 .tab {
