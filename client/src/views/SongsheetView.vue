@@ -11,6 +11,7 @@ import SongsheetContent from '@/components/SongsheetContent.vue'
 import SongsheetMedia from '@/components/SongsheetMedia.vue'
 import SongsheetParser from '@/components/SongsheetParser.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
+import FontSizeControl from '@/components/FontSizeControl.vue'
 import TransposeControl from '@/components/TransposeControl.vue'
 import * as icons from '@/icons'
 import { onIonViewDidEnter, onIonViewWillLeave } from '@ionic/vue'
@@ -180,6 +181,7 @@ watch(output, updateColumnWidth)
                   :icon="icons.play"
                 />
               </ion-button>
+              <font-size-control />
               <add-to-library-button :id="id" />
               <ion-button
                 :id="`songsheet-context-${id}`"
@@ -237,7 +239,6 @@ watch(output, updateColumnWidth)
               <songsheet-content
                 v-if="transposed"
                 :song="transposed"
-                class="mt-2 lg:text-lg"
               >
                 <template
                   v-if="songsheet.track"

@@ -38,8 +38,14 @@ export default {
         '1/8': '11.875%'
       },
       fontSize: {
-        bigger: '1.1em',
-        smaller: '0.75em'
+        'rel-xs': '0.75em',
+        'rel-sm': '0.875em',
+        'rel-base': '1em',
+        'rel-lg': '1.125em',
+        'rel-xl': '1.25em',
+        'rel-2xl': '1.5em',
+        'rel-3xl': '1.875em',
+        'rel-4xl': '2.25em'
       }
     }
   },
