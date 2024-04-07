@@ -7,8 +7,8 @@ const theme = useThemeStore()
 
 <template>
   <ion-button
-    @click="theme.decreaseFontSize()"
     v-tooltip="'Decrease font size'"
+    @click="theme.decreaseFontSize()"
   >
     <ion-icon
       :icon="textOutline"
@@ -16,8 +16,8 @@ const theme = useThemeStore()
     />
   </ion-button>
   <ion-button
-    @click="theme.increaseFontSize()"
     v-tooltip="'Increase font size'"
+    @click="theme.increaseFontSize()"
   >
     <ion-icon :icon="textOutline" />
   </ion-button>
