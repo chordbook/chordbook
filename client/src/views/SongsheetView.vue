@@ -13,6 +13,7 @@ import SongsheetParser from '@/components/SongsheetParser.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
 import FontSizeControl from '@/components/FontSizeControl.vue'
 import TransposeControl from '@/components/TransposeControl.vue'
+import ColumnLayout from '@/components/ColumnLayout.vue'
 import * as icons from '@/icons'
 import { onIonViewDidEnter, onIonViewWillLeave } from '@ionic/vue'
 import useSongsheetSettings from '@/stores/songsheet-settings'
@@ -35,10 +36,8 @@ defineProps({
 
 const settings = useSongsheetSettings()
 const scroller = ref() // template ref
-const output = ref() // template ref
 const chordsPane = ref() // template ref
 const header = ref() // template ref
-const columnWidth = ref(0)
 const bigScreen = useResponsive('sm')
 const wakelock = reactive(useWakeLock())
 
@@ -49,6 +48,7 @@ const autoScrollDuration = computed(() => scroller.value?.$el?.dataset?.autoScro
 const autoScroll = reactive(useAutoScroll(scroll, autoScrollDuration))
 
 settings.resetTranspose()
+watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
 
 onIonViewDidEnter(async () => {
   if (autoScrollAvailable.value && settings.autoScroll) {
@@ -62,23 +62,10 @@ onIonViewWillLeave(async () => {
   await wakelock.release()
 })
 
-function updateColumnWidth () {
-  if (!output.value) return
-
-  output.value.classList.add('content-width')
-  requestAnimationFrame(() => {
-    columnWidth.value = output.value.offsetWidth + 'px'
-    output.value.classList.remove('content-width')
-  })
-}
-
 function toggleAutoScroll () {
   autoScroll.isActive ? autoScroll.stop() : autoScroll.start()
   settings.autoScroll = autoScroll.isActive
 }
-
-watch(() => settings.columns, updateColumnWidth)
-watch(output, updateColumnWidth)
 </script>
 
 <template>
@@ -161,12 +148,12 @@ watch(output, updateColumnWidth)
               <ion-button
                 v-if="scroller && autoScrollAvailable"
                 v-tooltip="'Auto-scroll'"
-                :color="scroller?.isActive ? 'secondary' : 'default'"
+                :color="autoScroll?.isActive ? 'secondary' : 'default'"
                 @click="toggleAutoScroll"
               >
                 <ion-icon
                   slot="icon-only"
-                  :icon="scroller?.isActive ? icons.autoScrollOn : icons.autoScrollOff"
+                  :icon="autoScroll?.isActive ? icons.autoScrollOn : icons.autoScrollOff"
                 />
               </ion-button>
               <ion-button
@@ -202,6 +189,7 @@ watch(output, updateColumnWidth)
           :scroll-y="settings.columns == 1 || error"
           :scroll-x="settings.columns == 2 && !error"
           fullscreen
+          :class="{ autoscrolling: autoScroll.isActive }"
         >
           <Transition name="slide-down">
             <songsheet-media
@@ -210,7 +198,10 @@ watch(output, updateColumnWidth)
               class="no-print maybe-sidebar"
             />
           </Transition>
-          <div :class="'relative maybe-sidebar ion-padding ' + (settings.columns == 1 || error ? 'single-column' : 'horizontal-columns')">
+          <column-layout
+            :enabled="!error && settings.columns == 2"
+            class="snap-start relative ion-padding"
+          >
             <!-- Hidden sprite of chord diagrams -->
             <svg
               v-if="transposed"
@@ -225,84 +216,81 @@ watch(output, updateColumnWidth)
               />
             </svg>
 
-            <div ref="output">
-              <div v-if="error">
-                <h1 class="text-xl md:text-2xl my-1">
-                  Error parsing songsheet
-                </h1>
+            <div v-if="error">
+              <h1 class="text-xl md:text-2xl my-1">
+                Error parsing songsheet
+              </h1>
 
-                <pre class="text-red-600 my-6">{{ error }}</pre>
+              <pre class="text-red-600 my-6">{{ error }}</pre>
 
-                <pre>{{ songsheet.source }}</pre>
-              </div>
-
-              <songsheet-content
-                v-if="transposed"
-                :song="transposed"
-              >
-                <template
-                  v-if="songsheet.track"
-                  #title
-                >
-                  <div class="flex gap-3 md:gap-4 items-center">
-                    <div
-                      v-if="songsheet.track?.album"
-                      class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
-                    >
-                      <img :src="songsheet.track?.album.cover?.medium">
-                    </div>
-
-                    <div>
-                      <h1 class="text-xl md:text-2xl my-1">
-                        {{ songsheet.title }}
-                      </h1>
-
-                      <ion-label
-                        v-if="songsheet.track.artist"
-                        button
-                        :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
-                        class="block ion-activatable ion-focusable my-0"
-                      >
-                        <span class="text-muted">by </span>
-                        <span class="text-teal-500">{{ songsheet.track.artist.name }}</span>
-                      </ion-label>
-                      <ion-label
-                        v-if="songsheet.track.album"
-                        button
-                        :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
-                        class="block ion-activatable ion-focusable truncate overflow-hidden my-1"
-                      >
-                        <span class="text-muted">from </span>
-                        <span class="text-teal-500">{{ songsheet.track.album.title }}</span>
-                      </ion-label>
-                    </div>
-                  </div>
-                </template>
-              </songsheet-content>
+              <pre>{{ songsheet.source }}</pre>
             </div>
-          </div>
-          <div class="ion-padding maybe-sidebar text-sm opacity-50 mb-8 flex flex-col md:flex-row gap-2">
-            <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
-            <div
-              v-if="songsheet.imported_from"
-              class="md:ms-auto"
+
+            <songsheet-content
+              v-if="transposed"
+              :song="transposed"
             >
-              Imported from
-              <a
-                target="_blank"
-                :href="songsheet.imported_from"
-                class="text-inherit no-underline"
+              <template
+                v-if="songsheet.track"
+                #title
               >
-                {{ hostname(songsheet.imported_from) }}
-              </a>
+                <div class="flex gap-3 md:gap-4 items-center">
+                  <div
+                    v-if="songsheet.track?.album"
+                    class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
+                  >
+                    <img :src="songsheet.track?.album.cover?.medium">
+                  </div>
+
+                  <div>
+                    <h1 class="text-xl md:text-2xl my-1">
+                      {{ songsheet.title }}
+                    </h1>
+
+                    <ion-label
+                      v-if="songsheet.track.artist"
+                      button
+                      :router-link="{ name: 'artist', params: { id: songsheet.track.artist.id } }"
+                      class="block ion-activatable ion-focusable my-0"
+                    >
+                      <span class="text-muted">by </span>
+                      <span class="text-teal-500">{{ songsheet.track.artist.name }}</span>
+                    </ion-label>
+                    <ion-label
+                      v-if="songsheet.track.album"
+                      button
+                      :router-link="{ name: 'album', params: { id: songsheet.track.album.id } }"
+                      class="block ion-activatable ion-focusable truncate overflow-hidden my-1"
+                    >
+                      <span class="text-muted">from </span>
+                      <span class="text-teal-500">{{ songsheet.track.album.title }}</span>
+                    </ion-label>
+                  </div>
+                </div>
+              </template>
+            </songsheet-content>
+            <div class="snap-end text-sm opacity-50 mb-8 flex flex-col md:flex-row gap-2">
+              <div>Updated {{ formatDate(songsheet.updated_at) }}</div>
+              <div
+                v-if="songsheet.imported_from"
+                class="md:ms-auto"
+              >
+                Imported from
+                <a
+                  target="_blank"
+                  :href="songsheet.imported_from"
+                  class="text-inherit no-underline"
+                >
+                  {{ hostname(songsheet.imported_from) }}
+                </a>
+              </div>
             </div>
-          </div>
-          <div class="maybe-sidebar">
+          </column-layout>
+          <div class="snap-end">
             <setlist-songsheets-pager
               v-if="setlistId"
               :id="setlistId"
               :songsheet-id="id"
-              class="maybe-sidebar"
             />
           </div>
           <songsheet-chords-pane
@@ -395,35 +383,19 @@ watch(output, updateColumnWidth)
 </template>
 
 <style scoped>
+ion-content:not(.autoscrolling)::part(scroll) {
+  @apply snap-both snap-proximity;
+}
+
 .ion-padding {
-  @apply md:p-4 lg:p-8 xl:p-12;
+  scroll-margin: var(--ion-padding);
+  @apply md:p-4 md:scroll-m-4 lg:p-8 lg:scroll-m-8 xl:p-12 xl:scroll-m-12;
 }
 
 @media (min-width: 576px) {
-  .maybe-sidebar {
+  ion-content::part(scroll), .maybe-sidebar {
     margin-left: calc(80px + env(safe-area-inset-left, 0));
   }
-}
-
-.horizontal-columns {
-  @apply h-full;
-  column-count: auto;
-  column-width: v-bind(columnWidth);
-  max-width: 50%;
-}
-
-.content-width {
-  overflow: auto !important;
-  max-width: max-content !important;
-  min-width: max-content !important;
-  width: max-content !important;
-  display: inline-block !important;
-  flex-wrap: nowrap !important;
-  padding: none !important;
-}
-
-.content-width .row {
-  flex-wrap: nowrap !important;
 }
 
 .capo {
