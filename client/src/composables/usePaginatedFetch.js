@@ -11,7 +11,7 @@ export default function usePaginatedFetch (url, fetchOptions = {}) {
     const page = pages[0]
     return page?.isFinished && !page.error && page.data.length === 0
   })
-  const isPaginating = computed(() => !!nextUrl.value)
+  const isPaginating = ref(false)
 
   // Load the next page
   function load (reload = false) {
@@ -36,10 +36,11 @@ export default function usePaginatedFetch (url, fetchOptions = {}) {
       const links = LinkHeader.parse(page.response.value.headers.get('Link') ?? '')
       if (links.has('rel', 'next')) {
         nextUrl.value = links.get('rel', 'next')[0].uri
+        isPaginating.value = true
       } else {
         nextUrl.value = null
+        isPaginating.value = false
       }
-      // emit('load', page)
     })
 
     pages.push(page)

@@ -3,7 +3,6 @@
     <ion-list-header>Browse by Genre</ion-list-header>
     <data-source
       src="genres"
-      paginate
     >
       <template #page="{ data }">
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 ion-margin">

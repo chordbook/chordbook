@@ -46,10 +46,6 @@ const props = defineProps({
   options: {
     type: Object,
     default () { return {} }
-  },
-  paginate: {
-    type: Boolean,
-    default: true
   }
 })
 
@@ -90,9 +86,7 @@ await load()
   </template>
 
   <ion-infinite-scroll
-    v-if="paginate"
-    :disabled="pager.isFetching || !pager.isPaginating"
-    threshold="500px"
+    v-if="pager.isPaginating"
     @ion-infinite="load().then(() => $event.target.complete())"
   >
     <ion-infinite-scroll-content
