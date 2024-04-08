@@ -8,7 +8,8 @@ class Api::HomeController < ApiController
       Section.new(
         name: "Keep on playing",
         scope: Songsheet.viewed_by(current_user).includes_track,
-        format: "item"
+        format: "item",
+        href: api_history_path
       ),
       Section.new(
         name: current_user ? "Your favorite setlists" : "Popular setlists",

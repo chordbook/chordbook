@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resource :home, controller: "home"
     resource :discover, controller: "discover"
     resource :library, controller: "library"
+    resource :history, controller: "history"
 
     resources :users
     resource :authenticate, controller: "authenticate"

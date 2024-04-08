@@ -7,14 +7,14 @@ import { add } from 'ionicons/icons'
 <template>
   <app-view>
     <Head>
-      <title>Songs</title>
+      <title>{{ $route.meta.title || 'Songs' }}</title>
     </Head>
     <ion-header
       translucent
       collapse="fade"
     >
       <ion-toolbar>
-        <ion-title>Songs</ion-title>
+        <ion-title>{{ $route.meta.title || 'Songs' }}</ion-title>
 
         <ion-buttons slot="start">
           <ion-back-button
@@ -49,7 +49,7 @@ import { add } from 'ionicons/icons'
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">
-            Songs
+            {{ $route.meta.title || 'Songs' }}
           </ion-title>
         </ion-toolbar>
       </ion-header>
