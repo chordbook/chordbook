@@ -47,7 +47,7 @@
     "@testing-library/vue": "^8.0.3",
     "@types/http-link-header": "^1.0.5",
     "@vue/test-utils": "^2.4.5",
-    "eslint": "^8.57.0",
+    "eslint": "^9.0.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-gitignore": "^0.1.0",
     "eslint-plugin-import": "^2.29.1",
