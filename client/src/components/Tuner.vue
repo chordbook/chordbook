@@ -57,7 +57,7 @@ function updateFrequencyBars () {
 
 <template>
   <div>
-    <div class="cursor-default select-none pt-14">
+    <div class="cursor-default select-none">
       <div class="w-60 aspect-square mx-auto rounded-full shadow-lg border dark:bg-black/30 dark:border-black/60 relative flex">
         <canvas
           ref="frequencyBars"
