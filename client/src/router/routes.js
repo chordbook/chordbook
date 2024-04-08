@@ -40,6 +40,13 @@ export default [
         meta: { selected: 'songs' }
       },
       {
+        path: '/history',
+        name: 'history',
+        component: AuthenticatedView,
+        props: { component: () => import('@/views/SongsheetListView.vue') },
+        meta: { selected: 'home', title: 'Recently Played' }
+      },
+      {
         path: '/albums',
         name: 'albums',
         component: AuthenticatedView,
