@@ -87,8 +87,6 @@ await load()
 
   <ion-infinite-scroll
     v-if="pager.isPaginating"
-    :disabled="pager.isFetching || !pager.isPaginating"
-    threshold="500px"
     @ion-infinite="load().then(() => $event.target.complete())"
   >
     <ion-infinite-scroll-content
