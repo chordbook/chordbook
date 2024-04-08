@@ -47,7 +47,7 @@ class Track < ApplicationRecord
       subtitle: artist.name,
       attachment_id: album.image_attachment&.id,
       everything: [title, artist.name, album.title],
-      boost: 0.75
+      boost: 0.1
     }
   end
 
