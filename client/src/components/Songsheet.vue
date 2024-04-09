@@ -14,7 +14,6 @@ import SongsheetChordsPane from '@/components/SongsheetChordsPane.vue'
 import SongsheetContent from '@/components/SongsheetContent.vue'
 import SongsheetMedia from '@/components/SongsheetMedia.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
-import TransposeControl from '@/components/TransposeControl.vue'
 import { IonChip } from '@ionic/vue'
 import * as icons from '@/icons'
 import { formatDate, hostname } from '@/util'
@@ -117,12 +116,6 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
         v-if="bigScreen"
         slot="start"
       >
-        <transpose-control
-          class="ml-4"
-          :note="parser.key"
-          @update="(v) => parser.transpose = v"
-        />
-
         <instrument-control v-model="settings.instrument" />
       </ion-buttons>
 

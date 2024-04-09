@@ -1,5 +1,4 @@
 <script setup>
-import TransposeControl from '@/components/TransposeControl.vue'
 import InstrumentControl from '@/components/InstrumentControl.vue'
 import ChordDiagramReference from '@/components/ChordDiagramReference.vue'
 import useSongsheetSettings from '@/stores/songsheet-settings'
@@ -80,13 +79,6 @@ watch(sidebar, isVisible => { if (isVisible) dismissModal() })
       </div>
       <ion-footer>
         <ion-toolbar>
-          <ion-buttons slot="start">
-            <transpose-control
-              class="ml-4"
-              :note="note"
-              @update="(v) => settings.transpose = v"
-            />
-          </ion-buttons>
           <ion-buttons slot="end">
             <instrument-control v-model="settings.instrument" />
           </ion-buttons>
