@@ -14,7 +14,7 @@ defineProps({
 <template>
   <div
     v-if="media?.length > 0"
-    class="z-10 md:fixed top-0 md:top-20 md:right-5 md:shadow-md md:border md:rounded dark:border-slate-900 md:w-72 lg:w-96"
+    class="z-10 md:fixed md:bottom-6 md:right-6 md:shadow-md md:border md:rounded dark:border-slate-900 md:w-72 lg:w-96"
   >
     <TabGroup>
       <TabPanels class="bg-black md:rounded overflow-hidden">
