@@ -15,6 +15,7 @@ import SongsheetContent from '@/components/SongsheetContent.vue'
 import SongsheetMedia from '@/components/SongsheetMedia.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
 import TransposeControl from '@/components/TransposeControl.vue'
+import { IonChip } from '@ionic/vue'
 import * as icons from '@/icons'
 import { formatDate, hostname } from '@/util'
 import { tabletPortraitOutline, tabletLandscapeOutline } from 'ionicons/icons'
@@ -157,8 +158,8 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
       <ion-buttons slot="end">
         <fullscreen-button />
         <ion-button
-          v-if="scroller && autoScrollAvailable"
           v-tooltip="'Auto-scroll'"
+          :disabled="!scroller || !autoScrollAvailable"
           :color="autoScroll?.isActive ? 'secondary' : 'default'"
           @click="toggleAutoScroll"
         >
@@ -206,7 +207,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
       <songsheet-media
         v-if="settings.showPlayer"
         :media="media"
-        class="no-print maybe-sidebar"
+        class="no-print"
       />
     </Transition>
 
@@ -246,16 +247,18 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
           v-if="track"
           #title
         >
-          <div class="flex gap-3 md:gap-4 items-center">
+          <div class="flex flex-wrap md:flex-nowrap gap-2 md:gap-3 items-center md:items-center border-b border-slate-300 dark:border-slate-800 py-2">
             <div
               v-if="track?.album"
-              class="aspect-square w-20 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
+              class="aspect-square w-12 shrink-0 sm:w-8 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
             >
-              <img :src="track?.album.cover?.medium">
+              <router-link :to="{ name: 'album', params: { id: track.album.id } }">
+                <img :src="track?.album.cover?.medium">
+              </router-link>
             </div>
 
-            <div>
-              <h1 class="text-xl md:text-2xl my-1">
+            <div class="flex flex-col sm:flex-row sm:items-baseline gap-x-1">
+              <h1 class="text-xl md:text-2xl mr-1 truncate">
                 {{ title }}
               </h1>
 
@@ -268,23 +271,32 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
                 <span class="text-muted">by </span>
                 <span class="text-teal-500">{{ track.artist.name }}</span>
               </ion-label>
-              <ion-label
-                v-if="track.album"
-                button
-                :router-link="{ name: 'album', params: { id: track.album.id } }"
-                class="block ion-activatable ion-focusable truncate overflow-hidden my-1"
-              >
-                <span class="text-muted">from </span>
-                <span class="text-teal-500">{{ track.album.title }}</span>
-              </ion-label>
             </div>
-            <div id="key-metadata">
-              <div>
-                Key: {{ parser.transposed.key }}
+            <div
+              id="key-metadata"
+              class="w-full md:w-auto md:ml-auto flex flex-row md:items-baseline gap-x-1 text-muted"
+            >
+              <div class="flex text-nowrap items-center">
+                <ion-chip
+                  class="py-0 border dark:border-slate-800 flex align-bottom gap-1"
+                  outline
+                >
+                  <span class="text-muted opacity-50 uppercase">Key:</span>
+                  <span class="chord pr-0">{{ parser.transposed.key }}</span>
+                </ion-chip>
               </div>
-              <div v-if="parser.capo">
-                Capo {{ parser.capo }}
-              </div>
+              <ion-chip
+                class="py-0 border dark:border-slate-800 flex align-baseline gap-1"
+                outline
+              >
+                <template v-if="parser.capo === 0">
+                  <span class="text-muted uppercase opacity-50">No Capo</span>
+                </template>
+                <template v-else>
+                  <span class="text-muted uppercase opacity-50">Capo:</span>
+                  <strong>{{ parser.capo }}</strong>
+                </template>
+              </ion-chip>
             </div>
           </div>
         </template>
@@ -420,10 +432,6 @@ ion-content:not(.autoscrolling)::part(scroll) {
   ion-content::part(scroll), .maybe-sidebar {
     margin-left: calc(80px + env(safe-area-inset-left, 0));
   }
-}
-
-.capo {
-  @apply font-semibold text-sm text-zinc-600 break-after-avoid;
 }
 
 ion-buttons > * {
