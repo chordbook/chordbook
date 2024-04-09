@@ -80,7 +80,7 @@ watch(transpose, () => { capo.value = 0 })
                 :key="chord"
                 class="text-nowrap min-w-12 first:ml-auto last:mr-auto"
               >
-                {{ chord.transpose(step, { normalizeChordSuffix: true }).toString() }}
+                {{ chord.transpose(step, { normalizeChordSuffix: true }).toString({ useUnicodeModifier: true }) }}
               </span>
             </div>
 
