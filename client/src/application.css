@@ -61,7 +61,7 @@
   }
 
   .text-muted {
-    @apply text-zinc-500;
+    @apply text-slate-500;
   }
 }
 

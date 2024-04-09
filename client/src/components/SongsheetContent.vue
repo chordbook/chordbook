@@ -92,7 +92,7 @@ function componentFor (item) {
 }
 
 .comment, .chorus:before, .verse::before {
-  @apply font-semibold text-rel-sm text-zinc-600 dark:text-zinc-500 break-after-avoid;
+  @apply font-semibold text-rel-sm text-muted text-xs uppercase break-after-avoid;
 }
 
 .chord, .lyrics {

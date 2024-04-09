@@ -42,7 +42,7 @@ watch(sidebar, isVisible => { if (isVisible) dismissModal() })
 <template>
   <div
     v-if="sidebar"
-    class="left-0 top-0 bottom-0 sidebar bg-white dark:bg-black border-r dark:border-zinc-900"
+    class="left-0 top-0 bottom-0 sidebar bg-white dark:bg-black border-r dark:border-slate-800"
   >
     <div class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto px-3 h-full">
       <div
