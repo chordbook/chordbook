@@ -87,7 +87,7 @@ await load()
 
   <ion-infinite-scroll
     v-if="pager.isPaginating"
-    @ion-infinite="load().then($event.target.complete)"
+    @ion-infinite="load().then(() => $event.target.complete())"
   >
     <ion-infinite-scroll-content
       loading-spinner="bubbles"
