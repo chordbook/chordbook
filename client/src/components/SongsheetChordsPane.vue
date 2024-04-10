@@ -10,10 +10,6 @@ defineProps({
     type: Array,
     required: true
   },
-  note: {
-    type: String,
-    required: true
-  },
   isOpen: {
     type: Boolean,
     default: true
@@ -97,11 +93,6 @@ ion-modal {
   --height:auto;
   --max-width: 100%;
   --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
-}
-
-ion-modal::part(handle):focus {
-  /* This is just to get rid of focus ring when testing mobile view in development */
-  outline: none;
 }
 
 .horizontal-scroller > *:first-child {

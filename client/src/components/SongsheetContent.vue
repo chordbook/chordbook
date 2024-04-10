@@ -1,6 +1,7 @@
 <script setup>
 import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
 import SongSheetComment from '@/components/SongSheetComment.vue'
+import MetadataChip from '@/components/MetadataChip.vue'
 import { Song } from 'chordsheetjs'
 import { formatArray } from '@/util'
 import { useThemeStore } from '@/stores'
@@ -8,10 +9,6 @@ import { useThemeStore } from '@/stores'
 defineProps({
   song: {
     type: Song,
-    required: true
-  },
-  songKey: {
-    type: String,
     required: true
   },
   capo: {
@@ -59,29 +56,20 @@ function componentFor (item) {
       </div>
       <div
         id="key-metadata"
-        class="w-full md:w-auto md:ml-auto flex flex-row md:items-baseline gap-x-1 text-muted"
+        class="w-full md:w-auto md:ml-auto flex flex-row gap-x-1"
       >
-        <div class="flex text-nowrap items-center">
-          <ion-chip
-            class="py-0 border dark:border-slate-800 flex align-bottom gap-1"
-            outline
-          >
-            <span class="text-muted opacity-50 uppercase">Key:</span>
-            <span class="chord pr-0">{{ songKey }}</span>
-          </ion-chip>
-        </div>
-        <ion-chip
-          class="py-0 border dark:border-slate-800 flex align-baseline gap-1"
-          outline
-        >
-          <template v-if="capo === 0">
-            <span class="text-muted uppercase opacity-50">No Capo</span>
-          </template>
-          <template v-else>
-            <span class="text-muted uppercase opacity-50">Capo:</span>
-            <strong>{{ capo }}</strong>
-          </template>
-        </ion-chip>
+        <MetadataChip name="Key">
+          <span class="chord pr-0">{{ song.metadata.get('_key') || song.key }}</span>
+        </MetadataChip>
+        <MetadataChip
+          v-if="song.capo > 0"
+          name="Capo"
+          :value="song.capo"
+        />
+        <MetadataChip
+          v-else
+          name="No capo"
+        />
       </div>
     </div>
 
