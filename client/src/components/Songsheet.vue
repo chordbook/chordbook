@@ -209,12 +209,12 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
     >
       <!-- Hidden sprite of chord diagrams -->
       <svg
-        v-if="parser.transposed.song"
+        v-if="parser.song"
         hidden
         xmlns="http://www.w3.org/2000/svg"
       >
         <chord-diagram
-          v-for="chord in parser.transposed.chords"
+          v-for="chord in parser.chords"
           :key="chord + settings.instrument"
           :chord="chord"
           :instrument="settings.instrument"
@@ -232,10 +232,8 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
       </div>
 
       <songsheet-content
-        v-if="parser.transposed.song"
-        :song="parser.transposed.song"
-        :song-key="parser.transposed.key"
-        :capo="parser.capo"
+        v-if="parser.song"
+        :song="parser.song"
       >
         <template
           v-if="track?.album"
@@ -296,14 +294,13 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
     <songsheet-chords-pane
       ref="chordsPane"
       slot="fixed"
-      :note="parser.key"
-      :chords="parser.transposed.chords"
+      :chords="parser.chords"
       :is-open="!scroll.arrivedState.bottom"
     />
     <key-modal
       v-model:transpose="parser.transpose"
       v-model:capo="parser.capo"
-      :chords="parser.chords"
+      :song="parser.song"
       trigger="key-metadata"
     />
   </ion-content>
