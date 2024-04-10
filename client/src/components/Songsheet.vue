@@ -241,7 +241,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
         >
           <div
             v-if="track?.album"
-            class="aspect-square w-12 shrink-0 sm:w-8 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
+            class="aspect-square w-12 shrink-0 sm:w-8 rounded overflow-hidden shadow flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
           >
             <router-link :to="{ name: 'album', params: { id: track.album.id } }">
               <img :src="track?.album.cover?.medium">

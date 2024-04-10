@@ -101,7 +101,7 @@ async function scrollToActive (smooth = true) {
           @click="transposeModel = step"
         />
         <div
-          :class="['flex flex-col gap-3 pb-3', { 'capo-selected': capo === capoModel }]"
+          :class="{ 'chord-list': true, 'capo-selected': capo === capoModel }"
           @click="capoModel = capo"
         >
           <div class="text-center text-xs uppercase">
@@ -126,7 +126,11 @@ async function scrollToActive (smooth = true) {
 </template>
 
 <style scoped>
+.chord-list {
+  @apply flex flex-col gap-3 pb-3 transition ease-in-out duration-300 rounded-[16px];
+}
+
 .capo-selected {
-  @apply bg-indigo-50 dark:bg-slate-500/10 rounded-2xl;
+  @apply bg-indigo-50 dark:bg-slate-500/10;
 }
 </style>
