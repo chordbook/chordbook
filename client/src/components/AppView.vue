@@ -14,7 +14,6 @@ onErrorCaptured((err, instance, info) => {
 watch(online, (online) => {
   if (online) error.value = null
 })
-
 </script>
 
 <template>

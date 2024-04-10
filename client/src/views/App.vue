@@ -1,5 +1,5 @@
 <template>
-  <ion-app>
+  <ion-app :class="platformClasses">
     <reload-pwa />
     <ion-split-pane
       content-id="main"
@@ -18,6 +18,10 @@ import ReloadPwa from '@/components/ReloadPwa.vue'
 import AppMenu from '@/components/AppMenu.vue'
 import ModalView from '@/views/ModalView.vue'
 import { useRoute } from 'vue-router'
+import { getPlatforms } from '@ionic/vue';
+
+const platformClasses = getPlatforms().map(platform => `platform-${platform}`)
+console.log('platformClasses', platformClasses)
 
 const route = useRoute()
 </script>
