@@ -14,7 +14,6 @@ import SongsheetChordsPane from '@/components/SongsheetChordsPane.vue'
 import SongsheetContent from '@/components/SongsheetContent.vue'
 import SongsheetMedia from '@/components/SongsheetMedia.vue'
 import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
-import { IonChip } from '@ionic/vue'
 import * as icons from '@/icons'
 import { formatDate, hostname } from '@/util'
 import { tabletPortraitOutline, tabletLandscapeOutline } from 'ionicons/icons'
@@ -235,65 +234,39 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
       <songsheet-content
         v-if="parser.transposed.song"
         :song="parser.transposed.song"
+        :song-key="parser.transposed.key"
+        :capo="parser.capo"
       >
         <template
-          v-if="track"
-          #title
+          v-if="track?.album"
+          #album
         >
-          <div class="flex flex-wrap md:flex-nowrap gap-2 md:gap-3 items-center md:items-center border-b border-slate-300 dark:border-slate-800 py-2">
-            <div
-              v-if="track?.album"
-              class="aspect-square w-12 shrink-0 sm:w-8 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
-            >
-              <router-link :to="{ name: 'album', params: { id: track.album.id } }">
-                <img :src="track?.album.cover?.medium">
-              </router-link>
-            </div>
-
-            <div class="flex flex-col sm:flex-row sm:items-baseline gap-x-1">
-              <h1 class="text-xl md:text-2xl mr-1 truncate">
-                {{ title }}
-              </h1>
-
-              <ion-label
-                v-if="track.artist"
-                button
-                :router-link="{ name: 'artist', params: { id: track.artist.id } }"
-                class="block ion-activatable ion-focusable my-0"
-              >
-                <span class="text-muted">by </span>
-                <span class="text-teal-500">{{ track.artist.name }}</span>
-              </ion-label>
-            </div>
-            <div
-              id="key-metadata"
-              class="w-full md:w-auto md:ml-auto flex flex-row md:items-baseline gap-x-1 text-muted"
-            >
-              <div class="flex text-nowrap items-center">
-                <ion-chip
-                  class="py-0 border dark:border-slate-800 flex align-bottom gap-1"
-                  outline
-                >
-                  <span class="text-muted opacity-50 uppercase">Key:</span>
-                  <span class="chord pr-0">{{ parser.transposed.key }}</span>
-                </ion-chip>
-              </div>
-              <ion-chip
-                class="py-0 border dark:border-slate-800 flex align-baseline gap-1"
-                outline
-              >
-                <template v-if="parser.capo === 0">
-                  <span class="text-muted uppercase opacity-50">No Capo</span>
-                </template>
-                <template v-else>
-                  <span class="text-muted uppercase opacity-50">Capo:</span>
-                  <strong>{{ parser.capo }}</strong>
-                </template>
-              </ion-chip>
-            </div>
+          <div
+            v-if="track?.album"
+            class="aspect-square w-12 shrink-0 sm:w-8 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
+          >
+            <router-link :to="{ name: 'album', params: { id: track.album.id } }">
+              <img :src="track?.album.cover?.medium">
+            </router-link>
           </div>
         </template>
+
+        <template
+          v-if="track?.artist"
+          #artist
+        >
+          <ion-label
+
+            button
+            :router-link="{ name: 'artist', params: { id: track.artist.id } }"
+            class="block ion-activatable ion-focusable my-0"
+          >
+            <span class="text-muted">by </span>
+            <span class="text-teal-500">{{ track.artist.name }}</span>
+          </ion-label>
+        </template>
       </songsheet-content>
+
       <div class="snap-end text-sm opacity-50 mb-8 flex flex-col md:flex-row gap-2">
         <div>Updated {{ formatDate(updated_at) }}</div>
         <div

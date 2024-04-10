@@ -181,6 +181,8 @@ function paste (event) {
             <songsheet-content
               v-if="parser.song"
               :song="parser.song"
+              :song-key="parser.transposed.key"
+              :capo="parser.capo"
             />
           </div>
         </template>

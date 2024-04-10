@@ -9,6 +9,14 @@ defineProps({
   song: {
     type: Song,
     required: true
+  },
+  songKey: {
+    type: String,
+    required: true
+  },
+  capo: {
+    type: Number,
+    default: 0
   }
 })
 
@@ -24,24 +32,57 @@ function componentFor (item) {
     class="songsheet-content themed"
     :data-font-size="theme.fontSize"
   >
-    <div class="mb-6 text-base">
-      <slot name="title">
-        <h1 class="text-xl md:text-2xl my-1">
+    <div
+      class="flex flex-wrap md:flex-nowrap gap-2 md:gap-3 items-center md:items-center border-b border-slate-300 dark:border-slate-800 py-2"
+    >
+      <slot name="album" />
+
+      <div class="flex flex-col sm:flex-row sm:items-baseline gap-x-1">
+        <h1 class="text-xl md:text-2xl mr-1 truncate">
           {{ song.title }}
         </h1>
-        <h2
-          v-if="song.subtitle"
-          class="my-1"
+
+        <slot name="artist">
+          <h2
+            v-if="song.subtitle"
+            class="my-1"
+          >
+            {{ song.subtitle }}
+          </h2>
+          <h2
+            v-if="song.artist"
+            class="my-1"
+          >
+            <span class="text-muted">by</span> {{ formatArray(song.artist) }}
+          </h2>
+        </slot>
+      </div>
+      <div
+        id="key-metadata"
+        class="w-full md:w-auto md:ml-auto flex flex-row md:items-baseline gap-x-1 text-muted"
+      >
+        <div class="flex text-nowrap items-center">
+          <ion-chip
+            class="py-0 border dark:border-slate-800 flex align-bottom gap-1"
+            outline
+          >
+            <span class="text-muted opacity-50 uppercase">Key:</span>
+            <span class="chord pr-0">{{ songKey }}</span>
+          </ion-chip>
+        </div>
+        <ion-chip
+          class="py-0 border dark:border-slate-800 flex align-baseline gap-1"
+          outline
         >
-          {{ song.subtitle }}
-        </h2>
-        <h2
-          v-if="song.artist"
-          class="my-1"
-        >
-          <span class="text-muted">by</span> {{ formatArray(song.artist) }}
-        </h2>
-      </slot>
+          <template v-if="capo === 0">
+            <span class="text-muted uppercase opacity-50">No Capo</span>
+          </template>
+          <template v-else>
+            <span class="text-muted uppercase opacity-50">Capo:</span>
+            <strong>{{ capo }}</strong>
+          </template>
+        </ion-chip>
+      </div>
     </div>
 
     <div
