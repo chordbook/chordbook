@@ -1,6 +1,7 @@
 <script setup>
 import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
 import SongSheetComment from '@/components/SongSheetComment.vue'
+import MetadataChip from '@/components/MetadataChip.vue'
 import { Song } from 'chordsheetjs'
 import { formatArray } from '@/util'
 import { useThemeStore } from '@/stores'
@@ -9,6 +10,10 @@ defineProps({
   song: {
     type: Song,
     required: true
+  },
+  capo: {
+    type: Number,
+    default: 0
   }
 })
 
@@ -24,31 +29,48 @@ function componentFor (item) {
     class="songsheet-content themed"
     :data-font-size="theme.fontSize"
   >
-    <div class="mb-6 text-base">
-      <slot name="title">
-        <h1 class="text-xl md:text-2xl my-1">
+    <div
+      class="flex flex-wrap md:flex-nowrap gap-2 md:gap-3 items-center md:items-center border-b border-slate-300 dark:border-slate-800 py-2"
+    >
+      <slot name="album" />
+
+      <div class="flex flex-col sm:flex-row sm:items-baseline gap-x-1">
+        <h1 class="text-xl md:text-2xl mr-1 truncate">
           {{ song.title }}
         </h1>
-        <h2
-          v-if="song.subtitle"
-          class="my-1"
-        >
-          {{ song.subtitle }}
-        </h2>
-        <h2
-          v-if="song.artist"
-          class="my-1"
-        >
-          <span class="text-muted">by</span> {{ formatArray(song.artist) }}
-        </h2>
-      </slot>
-    </div>
 
-    <div
-      v-if="song.capo"
-      class="capo my-4"
-    >
-      Capo {{ song.capo }}
+        <slot name="artist">
+          <h2
+            v-if="song.subtitle"
+            class="my-1"
+          >
+            {{ song.subtitle }}
+          </h2>
+          <h2
+            v-if="song.artist"
+            class="my-1"
+          >
+            <span class="text-muted">by</span> {{ formatArray(song.artist) }}
+          </h2>
+        </slot>
+      </div>
+      <div
+        id="key-metadata"
+        class="w-full md:w-auto md:ml-auto flex flex-row gap-x-1"
+      >
+        <MetadataChip name="Key">
+          <span class="chord pr-0">{{ song.metadata.get('_key') || song.key }}</span>
+        </MetadataChip>
+        <MetadataChip
+          v-if="song.capo > 0"
+          name="Capo"
+          :value="song.capo"
+        />
+        <MetadataChip
+          v-else
+          name="No capo"
+        />
+      </div>
     </div>
 
     <div
@@ -98,8 +120,8 @@ function componentFor (item) {
   @apply flex flex-col;
 }
 
-.comment, .chorus:before, .verse::before, .capo {
-  @apply font-semibold text-rel-sm text-zinc-600 dark:text-zinc-500 break-after-avoid;
+.comment, .chorus:before, .verse::before {
+  @apply font-semibold text-rel-sm text-muted text-xs uppercase break-after-avoid;
 }
 
 .chord, .lyrics {

@@ -186,7 +186,7 @@ function colorFor (item) {
 
 <style scoped>
 ion-menu {
-  @apply border-r dark:border-zinc-900;
+  @apply border-r dark:border-slate-900;
 }
 
 .ios ion-item {

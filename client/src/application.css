@@ -34,7 +34,7 @@
   .scrollbar-hide::-webkit-scrollbar { display: none; }
 
   .grid-scroll-x {
-    @apply grid grid-flow-col overflow-x-auto snap-x snap-mandatory scrollbar-hide;
+    @apply grid grid-flow-col overflow-x-auto snap-x snap-mandatory;
   }
 
   .grid-scroll-x > * {
@@ -61,7 +61,7 @@
   }
 
   .text-muted {
-    @apply text-zinc-500;
+    @apply text-slate-500;
   }
 }
 
@@ -108,4 +108,13 @@
 /* Add padding to tooltips to prevent them from running into edge of screen */
 .v-popper--theme-tooltip[data-popper-placement=bottom] {
   @apply px-3;
+}
+
+ion-modal::part(handle):focus {
+  /* This is just to get rid of focus ring when testing mobile view in development */
+  outline: none;
+}
+
+ion-modal.auto-height {
+  --height: auto;
 }

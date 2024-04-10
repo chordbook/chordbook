@@ -1,8 +1,11 @@
 import { setActivePinia, createPinia } from 'pinia'
-import { mount } from '@vue/test-utils'
+import { mount, config } from '@vue/test-utils'
 import component from '@/components/SongsheetContent.vue'
 import { expect, test, beforeEach } from 'vitest'
 import { useSongsheetParser } from '@/composables'
+import * as components from '@/components'
+
+config.global.components = components
 
 function render (content) {
   const { song } = useSongsheetParser(content)

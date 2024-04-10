@@ -1,5 +1,4 @@
 <script setup>
-import TransposeControl from '@/components/TransposeControl.vue'
 import InstrumentControl from '@/components/InstrumentControl.vue'
 import ChordDiagramReference from '@/components/ChordDiagramReference.vue'
 import useSongsheetSettings from '@/stores/songsheet-settings'
@@ -9,10 +8,6 @@ import { useResponsive } from '@/composables'
 defineProps({
   chords: {
     type: Array,
-    required: true
-  },
-  note: {
-    type: String,
     required: true
   },
   isOpen: {
@@ -42,7 +37,7 @@ watch(sidebar, isVisible => { if (isVisible) dismissModal() })
 <template>
   <div
     v-if="sidebar"
-    class="left-0 top-0 bottom-0 sidebar bg-white dark:bg-black border-r dark:border-zinc-900"
+    class="left-0 top-0 bottom-0 sidebar bg-white dark:bg-black border-r dark:border-slate-800"
   >
     <div class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto px-3 h-full">
       <div
@@ -80,13 +75,6 @@ watch(sidebar, isVisible => { if (isVisible) dismissModal() })
       </div>
       <ion-footer>
         <ion-toolbar>
-          <ion-buttons slot="start">
-            <transpose-control
-              class="ml-4"
-              :note="note"
-              @update="(v) => settings.transpose = v"
-            />
-          </ion-buttons>
           <ion-buttons slot="end">
             <instrument-control v-model="settings.instrument" />
           </ion-buttons>
@@ -105,11 +93,6 @@ ion-modal {
   --height:auto;
   --max-width: 100%;
   --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
-}
-
-ion-modal::part(handle):focus {
-  /* This is just to get rid of focus ring when testing mobile view in development */
-  outline: none;
 }
 
 .horizontal-scroller > *:first-child {
