@@ -1,4 +1,4 @@
-import { useSongsheetParser, getChords } from '@/composables'
+import { useSongsheetParser } from '@/composables'
 import { Chord } from 'chordsheetjs'
 import { describe, expect, test, beforeEach } from 'vitest'
 import { reactive, nextTick } from 'vue'
