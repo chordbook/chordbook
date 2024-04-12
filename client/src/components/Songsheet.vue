@@ -300,6 +300,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
     <key-modal
       v-model:transpose="parser.transpose"
       v-model:capo="parser.capo"
+      v-model:modifier="parser.modifier"
       :song="parser.song"
       trigger="key-metadata"
     />
