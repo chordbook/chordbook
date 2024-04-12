@@ -1,7 +1,7 @@
 <script setup>
 import { watch, computed, ref } from 'vue'
 import { Song, Key } from 'chordsheetjs'
-import { useChords } from '@/composables'
+import { getChords, preferredModifierForKey } from '@/composables'
 import MetadataChip from '@/components/MetadataChip.vue'
 
 const props = defineProps({
@@ -13,7 +13,7 @@ const props = defineProps({
 
 const transposeModel = defineModel('transpose', { type: Number, default: 0 })
 const capoModel = defineModel('capo', { type: Number, default: 0 })
-const modifier = ref('b')
+const modifier = defineModel('modifier', { type: [String, null], default: null })
 const scroller = ref()
 const keyEls = ref([])
 
@@ -23,7 +23,9 @@ const transpositions = computed(() => {
     const capo = (12 - step + transposeModel.value) % 12
     const transpose = step + capoModel.value - transposeModel.value
     const key = Key.wrap(props.song.key).transpose(transpose).useModifier(modifier.value).normalize()
-    const chords = useChords(props.song).value.map(chord => chord.transpose(transpose).useModifier(modifier.value).normalize(key))
+    const chordModifier = modifier.value || preferredModifierForKey(key)
+    const chords = getChords(props.song).map(chord => chord.transpose(transpose).useModifier(chordModifier).normalize(key))
+
     return { step, capo, chords, key }
   })
 })
@@ -33,7 +35,7 @@ watch([capoModel, transposeModel], scrollToActive)
 
 async function scrollToActive (smooth = true) {
   requestAnimationFrame(() => {
-    const index = transpositions.value.findIndex(({ capo }) => capoModel.value === capo)
+    const index = transpositions.value.findIndex(({ capo, step }) => capoModel.value === capo && step === transposeModel.value - capoModel.value)
     const el = keyEls.value[index]
     el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', inline: 'center' })
   })
@@ -45,7 +47,7 @@ async function scrollToActive (smooth = true) {
     ref="el"
     class="auto-height"
     :breakpoints="[0.25, 0.5, 1]"
-    :initial-breakpoint="0.5"
+    :initial-breakpoint="1"
     handle-behavior="cycle"
     @will-present="scrollToActive(false)"
   >

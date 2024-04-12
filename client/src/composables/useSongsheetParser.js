@@ -1,31 +1,44 @@
-import { ref, watch, computed, watchEffect, toValue } from 'vue'
+import { ref, toRef, computed, watchEffect, toValue } from 'vue'
 import detectFormat from '@/lib/detect_format'
-import { Chord, ChordLyricsPair } from 'chordsheetjs'
-import { useChords } from '@/composables'
+import { Chord, ChordLyricsPair, Key, Tag } from 'chordsheetjs'
 
-export default function useSongsheetParser (source) {
+export default function useSongsheetParser (source, settings = {}) {
+  // The parser to use for the source document (ChordPro, ChordsOverWords, UltimateGuitar)
   const parser = computed(() => detectFormat(toValue(source)))
+
+  // The last error that occurred while parsing the source document
   const error = ref()
-  const transpose = ref(0)
-  const capo = computed({
-    get: () => Number(song.value.capo || 0),
-    set: (to) => {
-      const from = Number(song.value.capo || 0)
-      song.value = song.value.transpose(from - to).setCapo(to)
-    }
-  })
+
+  // The number of steps to transpose
+  const transpose = toRef(settings.transpose ?? 0)
+
+  // The capo position
+  const capo = toRef(settings.capo ?? 0)
+
+  // The #/b modifier to apply to the key
+  const modifier = toRef(settings.modifier ?? null)
+
+  // The parsed songsheet as a `Song` object from ChordSheetJS
+  const originalSong = ref()
+
+  // The final `Song` after transposing, normalizing, etc.
   const song = ref()
-  const chords = useChords(song)
-  const key = computed(() => song.value?.metadata.calculateKeyFromCapo())
 
-  watch(transpose, (to, from) => {
-    song.value = song.value?.transpose(to - from)
+  // The chords used in the song
+  const chords = computed(() => getChords(song.value))
+
+  // The concert key of the song
+  const key = computed(() => {
+    const value = capo.value === 0 ? song.value.key : song.value?.metadata.calculateKeyFromCapo()
+    return Key.wrap(value).useModifier(modifier.value).normalize().toString()
   })
 
-  // Using watchEffect instead of computed so we can keep the previously parsed song if it fails.
+  // Parse the song when the source changes. This uses `watchEffect` instead of `computed` so we
+  // can keep the previously parsed song if it fails.
   watchEffect(() => {
     try {
-      song.value = normalize(parser.value?.parse(toValue(source)))
+      originalSong.value = parser.value?.parse(toValue(source))
+      capo.value = Number(originalSong.value.capo || 0)
       error.value = null // parsing succeeded, so clear last error
     } catch (e) {
       error.value = e
@@ -33,27 +46,65 @@ export default function useSongsheetParser (source) {
     }
   })
 
+  // Normalize the song when it changes. This will normalize the modifier on the key and chords (B# => C),
+  // and normalize the suffix on the chords (Bsus4 => Bsus).
   watchEffect(() => {
-    if (song.value && !song.value.key) {
-      song.value = song.value.setKey(guessKey(chords.value))
-    }
+    if (!originalSong.value) return
+
+    const capoDelta = Number(originalSong.value.capo || 0) - capo.value
+    let newSong = originalSong.value.transpose(transpose.value + capoDelta).setCapo(capo.value)
+    if (!newSong.key) newSong = newSong.setKey(guessKey(getChords(newSong)))
+    song.value = normalize(newSong, modifier.value || preferredModifierForKey(newSong.key))
   })
 
-  return { song, chords, error, parser, transpose, capo, key }
+  return { originalSong, song, chords, error, parser, transpose, capo, key, modifier }
 }
 
 // FIXME: Replace this with something more intelligent
 export function guessKey (chords) {
-  return chords[0]?.toString()
+  return chords[0]?.root.toString()
 }
 
-function normalize (song) {
-  return song?.mapItems((item) => {
-    if (item instanceof ChordLyricsPair) {
-      const chords = Chord.parse(item.chords.trim())?.normalize(song.key, { normalizeChordSuffix: true })?.toString() || item.chords
-      return item.set({ chords })
-    }
+export function normalize (song, modifier) {
+  let key = Key.parse(song.key)?.useModifier(modifier).normalize()
+  return song.setKey(key).mapItems((item) => {
+    if (item instanceof Tag && item.name === 'key') {
+      key = Key.parse(item.value).normalize()
+      return item.set({ value: key.toString() })
+    } else if (item instanceof ChordLyricsPair) {
+      const chord = Chord.parse(item.chords.trim())
 
+      if (chord) {
+        return item.set({ chords: chord.useModifier(modifier).normalize(key, { normalizeChordSuffix: true })?.toString() })
+      }
+    }
     return item
   })
+}
+
+export function getChords (song) {
+  const chords = new Set()
+
+  song?.lines.forEach(line => {
+    line.items.forEach(pair => {
+      if (pair.chords) chords.add(pair.chords)
+    })
+  })
+
+  return Array.from(chords).map(chord => Chord.parse(chord)).filter(Boolean)
+}
+
+// The preferred modifier to use for each key
+const IMPLICIT_MODIFIER = {
+  F: 'b',
+  G: '#',
+  D: '#',
+  A: '#',
+  E: '#',
+  B: '#'
+}
+
+export function preferredModifierForKey (key) {
+  const wrappedKey = Key.wrap(key)
+  return wrappedKey?.modifier || IMPLICIT_MODIFIER[wrappedKey?.toMajor().toString()] || null
 }

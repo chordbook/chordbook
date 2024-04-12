@@ -233,6 +233,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
 
       <songsheet-content
         v-if="parser.song"
+        :id="`songsheet-content-${id}`"
         :song="parser.song"
       >
         <template
@@ -300,8 +301,9 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
     <key-modal
       v-model:transpose="parser.transpose"
       v-model:capo="parser.capo"
+      v-model:modifier="parser.modifier"
       :song="parser.song"
-      trigger="key-metadata"
+      :trigger="`songsheet-content-${id}-key-metadata`"
     />
   </ion-content>
 
