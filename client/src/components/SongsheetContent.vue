@@ -55,7 +55,7 @@ function componentFor (item) {
         </slot>
       </div>
       <div
-        id="key-metadata"
+        :id="`${$attrs.id}-key-metadata`"
         class="w-full md:w-auto md:ml-auto flex flex-row gap-x-1"
       >
         <MetadataChip name="Key">
