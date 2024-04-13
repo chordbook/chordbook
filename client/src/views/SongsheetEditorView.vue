@@ -6,7 +6,7 @@ import { alertController, loadingController } from '@ionic/vue'
 import { ref, computed, reactive, toRef } from 'vue'
 import { useFetch } from '@/client'
 import { useRouter } from 'vue-router'
-import { useSongsheetParser } from '@/composables'
+import { useSongsheetParser, useScrollSync } from '@/composables'
 
 const props = defineProps({
   id: {
@@ -20,14 +20,17 @@ const songsheet = ref({ source: '' })
 const errors = ref({})
 const splitView = ref(null) // template ref
 const url = computed(() => props.id ? `songsheets/${props.id}` : 'songsheets')
-
 const parser = reactive(useSongsheetParser(toRef(() => songsheet.value.source)))
+const editor = ref() // template ref
+const preview = ref() // template ref
 
 if (props.id) {
   useFetch(`songsheets/${props.id}`).get().json().then(({ data }) => {
     songsheet.value = data.value
   })
 }
+
+useScrollSync(editor, preview)
 
 async function save () {
   const { metadata } = parser.song?.metadata || {}
@@ -116,7 +119,11 @@ async function destroy (e) {
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content fullscreen>
+    <ion-content
+      fullscreen
+      :scroll-y="false"
+      :scroll-x="false"
+    >
       <div v-if="Object.keys(errors).length">
         <ul class="px-8 py-4 text-red-600">
           <li
@@ -159,7 +166,10 @@ async function destroy (e) {
           </ion-toolbar>
         </template>
         <template #right>
-          <div class="ion-padding">
+          <div
+            ref="preview"
+            :class="{ 'ion-padding': true, 'h-full overflow-auto': !splitView?.disabled }"
+          >
             <h3>Preview</h3>
             <songsheet-content
               v-if="parser.song"
