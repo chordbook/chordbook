@@ -1,6 +1,7 @@
-import { defineComponent, shallowRef, onMounted, onBeforeUnmount, h, watch } from 'vue'
+import { defineComponent, shallowRef, onMounted, onBeforeUnmount, h, watch, computed } from 'vue'
 import { createEditor } from '@chordbook/editor'
 import { EditorState } from '@codemirror/state'
+import { EditorView } from '@codemirror/view'
 import { linter } from '@codemirror/lint'
 import { ChordProParser, ChordProFormatter } from 'chordsheetjs'
 import detectFormat from '@/lib/detect_format'
@@ -60,6 +61,16 @@ export default defineComponent({
         root: document,
         doc: props.modelValue,
         extensions: [
+          EditorView.theme({
+            '&': {
+              height: '100%',
+              overflow: 'hidden'
+            },
+            '.cm-scroller': {
+              flex: '1',
+              overflow: 'auto'
+            }
+          }),
           convertOnPaste,
           linter(view => {
             if (!props.error) return []
@@ -94,8 +105,10 @@ export default defineComponent({
 
     onBeforeUnmount(() => view.value.destroy())
 
+    context.expose({ scroller: computed(() => view.value?.scrollDOM) })
+
     return () => {
-      return h('div', { class: 'h-full', ref: container, onChange })
+      return h('div', { class: 'contents', ref: container, onChange })
     }
   }
 })
