@@ -1,6 +1,36 @@
 import { defineComponent, shallowRef, onMounted, onBeforeUnmount, h, watch } from 'vue'
 import { createEditor } from '@chordbook/editor'
+import { EditorState } from '@codemirror/state'
 import { linter } from '@codemirror/lint'
+import { ChordProParser, ChordProFormatter } from 'chordsheetjs'
+import detectFormat from '@/lib/detect_format'
+
+// Transaction Filter to convert pasted text to ChordPro format
+const convertOnPaste = EditorState.transactionFilter.of(tr => {
+  // Don't do anything if the change is not a paste event
+  if (!tr.isUserEvent('input.paste')) return tr
+
+  const newTr = []
+
+  tr.changes.iterChanges((fromA, toA, _fromB, _toB, inserted) => {
+    let text = inserted.toString()
+    // Detect the format of the pasted text
+    const format = detectFormat(text)
+
+    // If it's not ChordPro, convert it
+    if (format || !(format instanceof ChordProParser)) {
+      text = new ChordProFormatter().format(format.parse(text))
+    }
+
+    // Create a new transaction with the formatted text
+    newTr.push({
+      changes: { from: fromA, to: toA, insert: text },
+      selection: { anchor: fromA + text.length }
+    })
+  })
+
+  return newTr
+})
 
 export default defineComponent({
   name: 'Editor',
@@ -30,6 +60,7 @@ export default defineComponent({
         root: document,
         doc: props.modelValue,
         extensions: [
+          convertOnPaste,
           linter(view => {
             if (!props.error) return []
 
@@ -56,7 +87,6 @@ export default defineComponent({
           }
         }
       )
-
       context.emit('ready', { view: view.value, container: container.value })
 
       setTimeout(() => view.value.focus(), 100)

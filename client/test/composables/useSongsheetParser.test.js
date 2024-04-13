@@ -3,6 +3,11 @@ import { Chord } from 'chordsheetjs'
 import { describe, expect, test, beforeEach } from 'vitest'
 import { reactive, nextTick } from 'vue'
 
+test('empty song', () => {
+  expect(useSongsheetParser(null).song.value).toBeUndefined()
+  expect(useSongsheetParser('').song.value).toBeUndefined()
+})
+
 describe('transposing', () => {
   let parser = null
 
