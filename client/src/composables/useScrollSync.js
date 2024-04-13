@@ -1,4 +1,4 @@
-import { ref, computed, toValue } from 'vue'
+import { computed, toValue } from 'vue'
 import { unrefElement, useEventListener } from '@vueuse/core'
 import debounce from 'lodash.debounce'
 
