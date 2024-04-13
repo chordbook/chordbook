@@ -38,7 +38,7 @@ export default function useSongsheetParser (source, settings = {}) {
   watchEffect(() => {
     try {
       originalSong.value = parser.value?.parse(toValue(source))
-      capo.value = Number(originalSong.value.capo || 0)
+      capo.value = Number(originalSong.value?.capo || 0)
       error.value = null // parsing succeeded, so clear last error
     } catch (e) {
       error.value = e
