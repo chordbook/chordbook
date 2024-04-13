@@ -2,8 +2,6 @@
 import SongsheetContent from '@/components/SongsheetContent.vue'
 import EditorSplitView from '@/components/EditorSplitView.vue'
 import SongsheetEditor from '@/components/Editor.js'
-import { ChordProParser, ChordProFormatter } from 'chordsheetjs'
-import detectFormat from '@/lib/detect_format'
 import { alertController, loadingController } from '@ionic/vue'
 import { ref, computed, reactive, toRef } from 'vue'
 import { useFetch } from '@/client'
@@ -81,20 +79,6 @@ async function destroy (e) {
     })
   return alert.present()
 }
-
-function paste (event) {
-  const text = event.clipboardData.getData('text/plain')
-  const format = detectFormat(text)
-
-  // No need to convert if it's already in chordpro
-  if (!format || format instanceof ChordProParser) return
-
-  // Stop the paste event
-  event.preventDefault()
-
-  // Convert to ChordPro
-  songsheet.value.source = new ChordProFormatter().format(format.parse(text))
-}
 </script>
 
 <template>
@@ -153,7 +137,6 @@ function paste (event) {
             ref="editor"
             v-model="songsheet.source"
             :error="parser.error"
-            @paste="paste"
           />
         </template>
         <template #right-toolbar="{ toggle }">
