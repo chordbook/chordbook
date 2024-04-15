@@ -36,20 +36,20 @@ watchEffect(() => {
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <form @submit.prevent="execute">
+        <form @submit.prevent="execute(false)">
           <Transition name="slide-down">
             <div
               v-if="data?.error?.message"
               class="ion-padding text-red-500"
             >
-              {{ data?.error?.message }}
+              {{ data.error.message }}
             </div>
           </Transition>
           <ion-item :class="{ 'ion-invalid': data?.error?.name }">
             <ion-input
               v-model="form.user.name"
               label="Name"
-              label-position="stacked"
+              label-placement="floating"
               type="text"
               autocomplete="name"
               required
@@ -61,24 +61,25 @@ watchEffect(() => {
             <ion-input
               v-model="form.user.email"
               label="Email"
-              label-position="stacked"
+              label-placement="floating"
               type="email"
               autocomplete="email"
+              required
               placeholder="Your email"
+              :error-text="data?.error?.email?.join(', ')"
             />
-            <ion-note slot="error">
-              {{ data?.error?.email?.join(', ') }}
-            </ion-note>
           </ion-item>
-          <ion-item :class="{ 'ion-invalid': data?.error?.password }">
+          <ion-item>
             <ion-input
               v-model="form.user.password"
               label="Password"
-              label-position="stacked"
+              label-placement="floating"
               type="password"
               autocomplete="new-password"
+              required
               placeholder="Create a password"
-              :error-text="data?.error?.password?.join(', ')"
+              :error-text="data?.error?.password"
+              :class="{ 'ion-invalid ion-touched': data?.error?.password }"
             />
           </ion-item>
 

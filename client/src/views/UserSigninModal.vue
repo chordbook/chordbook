@@ -7,7 +7,7 @@ const route = useRoute()
 const router = useRouter()
 const auth = useAuthStore()
 const form = ref({})
-const { execute, error, data } = auth.signIn(form, { immediate: false })
+const { execute, data, isFetching } = auth.signIn(form, { immediate: false })
 
 watchEffect(() => {
   if (auth.isAuthenticated) {
@@ -36,18 +36,18 @@ watchEffect(() => {
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <form @submit.prevent="execute">
+        <form @submit.prevent="execute(false)">
           <div
-            v-if="error"
+            v-if="!isFetching && data?.error?.message"
             class="ion-padding text-red-500"
           >
-            {{ data.error }}
+            {{ data.error.message }}
           </div>
           <ion-item>
             <ion-input
               v-model="form.email"
               label="Email"
-              label-placement="stacked"
+              label-placement="floating"
               type="email"
               autocomplete="email"
               placeholder="Your email"
@@ -57,7 +57,7 @@ watchEffect(() => {
             <ion-input
               v-model="form.password"
               label="Password"
-              label-placement="stacked"
+              label-placement="floating"
               type="password"
               autocomplete="current-password"
               placeholder="Your password"
