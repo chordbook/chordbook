@@ -29,13 +29,13 @@ export default defineStore('auth', () => {
   }).put(refreshPayload).json())
 
   function signUp (data, useFetchOptions = {}) {
-    const fetch = useFetch('users', useFetchOptions).post(data).json()
+    const fetch = useFetch('users', { updateDataOnError: true, ...useFetchOptions }).post(data).json()
     fetch.onFetchResponse(() => authenticated(fetch))
     return fetch
   }
 
   function signIn (data, useFetchOptions = {}) {
-    const fetch = useFetch('authenticate', useFetchOptions).post(data).json()
+    const fetch = useFetch('authenticate', { updateDataOnError: true, ...useFetchOptions }).post(data).json()
     fetch.onFetchResponse(() => authenticated(fetch))
     return fetch
   }

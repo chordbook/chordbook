@@ -7,6 +7,8 @@ class Api::AuthenticateController < ApiController
     ahoy.authenticate @user
     issue_token @user
     render :show
+  rescue ActiveRecord::RecordNotFound
+    render json: {error: {message: "Invalid email or password"}}, status: :unauthorized
   end
 
   def update
