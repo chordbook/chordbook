@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from '@sentry/vite-plugin'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -39,7 +40,8 @@ export default defineConfig({
       },
       manifest
     }),
-    string({ include: '**/*.snippets' })
+    string({ include: '**/*.snippets' }),
+    sentryVitePlugin()
   ],
   resolve: {
     alias: {
