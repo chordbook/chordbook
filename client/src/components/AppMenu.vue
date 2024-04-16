@@ -122,6 +122,19 @@
           >
             <ion-item
               button
+              :router-link="{ name: 'news' }"
+              router-direction="root"
+              :detail="false"
+            >
+              <ion-icon
+                slot="start"
+                size="small"
+                :icon="icons.news"
+              />
+              What's New
+            </ion-item>
+            <ion-item
+              button
               router-link="#chords"
               router-direction="root"
               :detail="false"

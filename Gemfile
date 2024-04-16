@@ -36,6 +36,7 @@ gem "sentry-ruby"
 gem "sentry-rails"
 gem "flipper"
 gem "flipper-active_record"
+gem "commonmarker"
 
 group :development, :test do
   gem "opensearch-ruby"

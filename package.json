@@ -45,6 +45,7 @@
   "devDependencies": {
     "@capacitor/cli": "^5.7.4",
     "@capacitor/ios": "^5.7.4",
+    "@tailwindcss/typography": "^0.5.12",
     "@testing-library/vue": "^8.0.3",
     "@types/http-link-header": "^1.0.5",
     "@vue/test-utils": "^2.4.5",

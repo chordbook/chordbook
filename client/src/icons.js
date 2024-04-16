@@ -26,7 +26,8 @@ export {
   pauseCircle as autoScrollOn,
   arrowDownCircleOutline as autoScrollOff,
   expandOutline as expand,
-  exitOutline as exit
+  exitOutline as exit,
+  newspaperOutline as news
 } from 'ionicons/icons'
 
 export { default as tuningFork } from '@/icons/tuning-fork.svg?url'

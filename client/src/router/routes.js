@@ -181,6 +181,11 @@ export default [
     component: () => import('@/views/PasswordResetView.vue')
   },
   {
+    path: '/news',
+    name: 'news',
+    component: () => import('@/views/NewsView.vue')
+  },
+  {
     path: '/:path(.*)*',
     name: '404',
     component: () => import('@/views/NotFound.vue'),

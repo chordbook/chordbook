@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
   resources :sitemaps
 
+  get "changelog", to: "content#changelog"
   mount GoodJob::Engine => "admin/jobs"
   mount Motor::Admin => "/admin"
   get "ping", to: "content#ping"
