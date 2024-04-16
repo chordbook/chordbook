@@ -137,7 +137,7 @@ export default [
     name: 'songsheet.new',
     component: AuthenticatedView,
     props: { component: () => import('@/views/SongsheetEditorView.vue') },
-    meta: { selected: 'songs' }
+    meta: { selected: 'songs', menu: false }
   },
   {
     path: '/songsheets/:id/edit',
