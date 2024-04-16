@@ -59,6 +59,21 @@ namespace :data do
       artist.destroy
     end
   end
+
+  # Remove exra space around chords
+  task cleanup_chords: :environment do
+    puts "Cleaning up chords"
+    Searchkick.callbacks(false) do
+      Songsheet.find_each do |songsheet|
+        next unless songsheet.imported_from?
+        before = songsheet.source
+        songsheet.source = songsheet.source.gsub(/\b \[([^\]]+)\] \b/, ' [\1]')
+        songsheet.save
+        print "." if before != songsheet.source
+      end
+      puts
+    end
+  end
 end
 
 task data: "data:default"
