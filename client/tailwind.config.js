@@ -40,6 +40,7 @@ export default {
         '1/8': '11.875%'
       },
       fontSize: {
+        'rel-2xs': '0.65em',
         'rel-xs': '0.75em',
         'rel-sm': '0.875em',
         'rel-base': '1em',

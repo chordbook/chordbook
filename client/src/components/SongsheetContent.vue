@@ -107,6 +107,10 @@ const theme = useThemeStore()
   @apply break-inside-avoid my-6 scroll-m-6 snap-end;
 }
 
+.tab {
+  @apply whitespace-pre overflow-auto;
+}
+
 .row {
   @apply flex flex-wrap relative break-inside-avoid;
 }
