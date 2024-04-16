@@ -5,6 +5,13 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 100
+    groups:
+      sentry:
+        patterns:
+          - 'sentry*'
+      flipper:
+        patterns:
+          - 'flipper*'
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
