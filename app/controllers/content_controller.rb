@@ -9,7 +9,7 @@ class ContentController < ApiController
     head :ok
   end
 
-  CHANGELOG = Commonmarker.to_html(Rails.root.join("CHANGELOG.md").read, options: {parse: {smart: true}, render: {unsafe: true}})
+  CHANGELOG = Commonmarker.to_html(Rails.root.join("Changelog.md").read, options: {parse: {smart: true}, render: {unsafe: true}})
   def changelog
     render json: CHANGELOG.to_json
   end
