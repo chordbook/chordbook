@@ -12,5 +12,7 @@ export default {
 }
 </script>
 <template>
-  <div class="literal">{{ item.string }}</div>
+  <div class="literal">
+    {{ item.string }}
+  </div>
 </template>
