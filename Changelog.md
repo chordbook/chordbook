@@ -1,5 +1,24 @@
 # April 2024
 
+## Improve tab rendering ([#1410](https://github.com/chordbook/chordbook/pull/1410))
+
+This is a first step to improving tab rendering (it's at least readable now).
+
+![](https://github.com/chordbook/chordbook/assets/173/a5cc3bcd-96d4-4517-acca-7fb83428d4a0)
+
+To add tab, use the `start_of_tab` directive like this:
+
+```
+{start_of_tab: Intro}
+e|-----------------|
+B|-----------------|
+G|-----------------|
+D|-----------------|
+A|-----------------|
+E|-----------------|
+{end_of_tab}
+```
+
 ## Sync scroll between editor and preview ([#1394](https://github.com/chordbook/chordbook/pull/1394))
 
 The editor and the preview on larger screens now have their scroll position synced. This makes it a lot easier to see how your changes will look when you're playing a song. [Give it a try](https://chordbook.app/songsheets/c2EewWYLIqsv376rR7fPzkz/edit)!
