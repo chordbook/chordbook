@@ -14,9 +14,3 @@ export default {
 <template>
   <div class="literal">{{ item.string }}</div>
 </template>
-
-<style scoped>
-.literal {
-  @apply font-mono text-rel-2xs md:text-rel-xs text-slate-600 dark:text-slate-400;
-}
-</style>

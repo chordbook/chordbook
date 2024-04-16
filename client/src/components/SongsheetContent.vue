@@ -108,7 +108,7 @@ const theme = useThemeStore()
 }
 
 .tab {
-  @apply whitespace-pre overflow-auto;
+  @apply whitespace-pre overflow-auto text-rel-2xs md:text-rel-xs font-mono text-slate-600 dark:text-slate-400;
 }
 
 .row {
@@ -146,6 +146,11 @@ const theme = useThemeStore()
 .verse::before {
   counter-increment: verse;
   content: "Verse " counter(verse);
+}
+
+/* Hide implicit labels if explicit label is present */
+.verse:has(.start_of_verse)::before, .chorus:has(.start_of_chorus)::before {
+  display: none;
 }
 
 .chord:after, .lyrics:after {
