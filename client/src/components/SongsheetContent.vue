@@ -1,7 +1,6 @@
 <script setup>
-import ChordLyricsPair from '@/components/ChordLyricsPair.vue'
-import SongSheetComment from '@/components/SongSheetComment.vue'
 import MetadataChip from '@/components/MetadataChip.vue'
+import { componentFor } from '@/components/ChordSheet'
 import { Song } from 'chordsheetjs'
 import { formatArray } from '@/util'
 import { useThemeStore } from '@/stores'
@@ -18,10 +17,6 @@ defineProps({
 })
 
 const theme = useThemeStore()
-
-function componentFor (item) {
-  return [ChordLyricsPair, SongSheetComment].find(c => c.for(item))
-}
 </script>
 
 <template>
@@ -42,7 +37,7 @@ function componentFor (item) {
         <slot name="artist">
           <h2
             v-if="song.subtitle"
-            class="my-1"
+            class="my-1 text-base"
           >
             {{ song.subtitle }}
           </h2>
@@ -120,28 +115,24 @@ function componentFor (item) {
   @apply flex flex-col;
 }
 
-.comment, .chorus:before, .verse::before {
-  @apply font-semibold text-rel-sm text-muted text-xs uppercase break-after-avoid;
+.tag, .chorus:before, .verse::before {
+  @apply font-semibold text-rel-sm text-muted text-sm uppercase break-after-avoid mb-2 block;
 }
 
 .chord, .lyrics {
   @apply whitespace-pre-wrap;
 }
 
-.tab {
-  @apply font-mono text-rel-xs;
-}
-
-.songsheet-content *:not(.tab) .chord {
+.chord {
   @apply text-indigo-800 dark:text-indigo-500 pr-1 font-semibold;
 }
 
 .chorus {
-  @apply border-neutral-200 dark:border-neutral-700 pl-4 border-l-4;
+  @apply bg-slate-100 dark:bg-slate-900 rounded-lg p-6 pt-4 w-[max-content];
 }
 
 *:not(.chorus) + .chorus::before {
-  content: "Chorus:";
+  content: "Chorus";
 }
 
 .chorus+.chorus {
@@ -150,7 +141,7 @@ function componentFor (item) {
 
 .verse::before {
   counter-increment: verse;
-  content: "Verse " counter(verse) ":";
+  content: "Verse " counter(verse);
 }
 
 .chord:after, .lyrics:after {
