@@ -258,7 +258,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
 
             button
             :router-link="{ name: 'artist', params: { id: track.artist.id } }"
-            class="block ion-activatable ion-focusable my-0"
+            class="block ion-activatable ion-focusable my-0 text-lg"
           >
             <span class="text-muted">by </span>
             <span class="text-teal-500">{{ track.artist.name }}</span>
@@ -266,7 +266,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
         </template>
       </songsheet-content>
 
-      <div class="snap-end text-sm opacity-50 mb-8 flex flex-col md:flex-row gap-2">
+      <div class="snap-end text-xs text-muted mb-8 flex flex-col md:flex-row gap-2">
         <div>Updated {{ formatDate(updated_at) }}</div>
         <div
           v-if="imported_from"
