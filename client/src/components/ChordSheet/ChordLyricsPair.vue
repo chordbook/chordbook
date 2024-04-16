@@ -17,7 +17,16 @@ export default {
 
 <template>
   <div class="column">
-    <chord :name="item.chords" />
+    <div
+      v-if="item.annotation"
+      class="annotation"
+    >
+      {{ item.annotation }}
+    </div>
+    <chord
+      v-else
+      :name="item.chords"
+    />
     <div
       v-if="item.lyrics?.trim()"
       class="lyrics"

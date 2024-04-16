@@ -123,12 +123,20 @@ const theme = useThemeStore()
   @apply font-semibold text-rel-sm text-muted text-sm uppercase break-after-avoid mb-2 block;
 }
 
-.chord, .lyrics {
-  @apply whitespace-pre-wrap;
+.annotation, .chord, .lyrics {
+  @apply whitespace-pre-wrap inline-block;
+}
+
+.annotation {
+  @apply text-muted text-rel-sm;
 }
 
 .chord {
-  @apply text-indigo-800 dark:text-indigo-500 pr-1 font-semibold;
+  @apply text-indigo-800 dark:text-indigo-500 font-semibold mr-1;
+}
+
+.annotation, .chord {
+  @apply leading-6;
 }
 
 .chorus {
@@ -153,7 +161,7 @@ const theme = useThemeStore()
   display: none;
 }
 
-.chord:after, .lyrics:after {
+.annotation:after, .chord:after, .lyrics:after {
   content: '\200b';
 }
 
