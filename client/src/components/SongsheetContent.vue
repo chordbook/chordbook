@@ -100,7 +100,6 @@ const theme = useThemeStore()
 <style>
 .songsheet-content {
   counter-reset: verse;
-  @apply leading-tight;
 }
 
 .paragraph {
@@ -123,16 +122,28 @@ const theme = useThemeStore()
   @apply font-semibold text-rel-sm text-muted text-sm uppercase break-after-avoid mb-2 block;
 }
 
-.chord, .lyrics {
+.annotation, .chord, .lyrics {
   @apply whitespace-pre-wrap;
 }
 
+.annotation {
+  @apply text-muted text-rel-sm;
+}
+
+.lyrics {
+  @apply sm:text-rel-lg leading-snug;
+}
+
 .chord {
-  @apply text-indigo-800 dark:text-indigo-500 pr-1 font-semibold;
+  @apply text-indigo-800 dark:text-indigo-500 font-semibold mr-1;
+}
+
+.annotation, .chord {
+  @apply leading-5;
 }
 
 .chorus {
-  @apply bg-slate-100 dark:bg-slate-900 rounded-lg p-6 pt-4 w-[max-content];
+  @apply bg-slate-100 dark:bg-slate-900 rounded-lg p-6 pt-4 max-w-[max-content];
 }
 
 *:not(.chorus) + .chorus::before {
@@ -153,7 +164,7 @@ const theme = useThemeStore()
   display: none;
 }
 
-.chord:after, .lyrics:after {
+.annotation:after, .chord:after, .lyrics:after {
   content: '\200b';
 }
 
