@@ -100,7 +100,6 @@ const theme = useThemeStore()
 <style>
 .songsheet-content {
   counter-reset: verse;
-  @apply leading-tight;
 }
 
 .paragraph {
@@ -124,11 +123,15 @@ const theme = useThemeStore()
 }
 
 .annotation, .chord, .lyrics {
-  @apply whitespace-pre-wrap inline-block;
+  @apply whitespace-pre-wrap;
 }
 
 .annotation {
   @apply text-muted text-rel-sm;
+}
+
+.lyrics {
+  @apply sm:text-rel-lg leading-snug;
 }
 
 .chord {
@@ -136,11 +139,11 @@ const theme = useThemeStore()
 }
 
 .annotation, .chord {
-  @apply leading-6;
+  @apply leading-5;
 }
 
 .chorus {
-  @apply bg-slate-100 dark:bg-slate-900 rounded-lg p-6 pt-4 w-[max-content];
+  @apply bg-slate-100 dark:bg-slate-900 rounded-lg p-6 pt-4 max-w-[max-content];
 }
 
 *:not(.chorus) + .chorus::before {
