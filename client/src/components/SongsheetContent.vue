@@ -119,27 +119,27 @@ const theme = useThemeStore()
 }
 
 .tag, .chorus:before, .verse::before {
-  @apply font-semibold text-rel-sm text-muted text-sm uppercase break-after-avoid mb-2 block;
+  @apply font-semibold text-rel-xs text-muted uppercase break-after-avoid mb-2 block;
 }
 
 .annotation, .chord, .lyrics {
-  @apply whitespace-pre-wrap;
+  @apply whitespace-pre-wrap inline-block;
 }
 
 .annotation {
-  @apply text-muted text-rel-sm;
+  @apply text-muted italic;
 }
 
 .lyrics {
-  @apply sm:text-rel-lg leading-snug;
+  @apply sm:text-rel-lg mb-1;
 }
 
 .chord {
   @apply text-indigo-800 dark:text-indigo-500 font-semibold mr-1;
 }
 
-.annotation, .chord {
-  @apply leading-5;
+.annotation, .chord, .literal {
+  @apply text-rel-sm leading-none;
 }
 
 .chorus {

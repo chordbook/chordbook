@@ -16,11 +16,10 @@ const formatted = computed(() => chord.value?.toString({ useUnicodeModifier: tru
 </script>
 
 <template>
-  <Popover class="relative inline-block">
+  <Popover class="relative chord">
     <PopoverButton
-      as="div"
+      as="span"
       role="button"
-      class="chord"
     >
       {{ formatted }}
     </PopoverButton>
