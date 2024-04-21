@@ -21,7 +21,7 @@ const theme = useThemeStore()
 
 <template>
   <div
-    class="songsheet-content themed"
+    class="themed"
     :data-font-size="theme.fontSize"
   >
     <div
@@ -68,38 +68,41 @@ const theme = useThemeStore()
       </div>
     </div>
 
-    <div
-      v-for="({ type, lines }, i) in song.paragraphs"
-      :key="i"
-      :class="type + ' paragraph'"
-    >
-      <template
-        v-for="(line, j) in lines"
-        :key="j"
+    <div class="body">
+      <div
+        v-for="({ type, lines }, i) in song.paragraphs"
+        :key="i"
+        :class="type + ' paragraph'"
       >
-        <div
-          v-if="line.hasRenderableItems()"
-          class="row"
+        <template
+          v-for="(line, j) in lines"
+          :key="j"
         >
-          <template
-            v-for="(item, k) in line.items"
-            :key="k"
+          <div
+            v-if="line.hasRenderableItems()"
+            class="row"
           >
-            <component
-              :is="componentFor(item)"
-              v-if="item.isRenderable()"
-              :item="item"
-            />
-          </template>
-        </div>
-      </template>
+            <template
+              v-for="(item, k) in line.items"
+              :key="k"
+            >
+              <component
+                :is="componentFor(item)"
+                v-if="item.isRenderable()"
+                :item="item"
+              />
+            </template>
+          </div>
+        </template>
+      </div>
     </div>
   </div>
 </template>
 
 <style>
-.songsheet-content {
+.body {
   counter-reset: verse;
+  @apply leading-tight max-w-max;
 }
 
 .paragraph {
@@ -143,15 +146,19 @@ const theme = useThemeStore()
 }
 
 .chorus {
-  @apply bg-slate-100 dark:bg-slate-900 rounded-lg p-6 pt-4 max-w-[max-content];
+  @apply bg-slate-100 dark:bg-slate-900 rounded-lg p-6 pt-4;
 }
 
 *:not(.chorus) + .chorus::before {
   content: "Chorus";
 }
 
-.chorus+.chorus {
-  @apply mt-0 pt-6;
+.chorus:has(+ .chorus) {
+  @apply mb-0 pb-3 rounded-b-none;
+}
+
+.chorus + .chorus {
+  @apply mt-0 pt-3 rounded-t-none;
 }
 
 .verse::before {
