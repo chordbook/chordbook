@@ -244,7 +244,10 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
             v-if="track?.album"
             class="aspect-square w-12 shrink-0 sm:w-8 rounded overflow-hidden shadow flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
           >
-            <router-link :to="{ name: 'album', params: { id: track.album.id } }">
+            <router-link
+              :to="{ name: 'album', params: { id: track.album.id } }"
+              @click.stop
+            >
               <img :src="track?.album.cover?.medium">
             </router-link>
           </div>
@@ -255,10 +258,10 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
           #artist
         >
           <ion-label
-
             button
             :router-link="{ name: 'artist', params: { id: track.artist.id } }"
             class="block ion-activatable ion-focusable my-0 text-lg"
+            @click.stop
           >
             <span class="text-muted">by </span>
             <span class="text-teal-500">{{ track.artist.name }}</span>
