@@ -12,7 +12,9 @@ export default {
       sm: '576px',
       md: '768px',
       lg: '992px',
-      xl: '1200px'
+      xl: '1200px',
+      hoverable: { raw: '(hover: hover)' },
+      touch: { raw: '(pointer: coarse)' }
     },
     extend: {
       aspectRatio: {
@@ -31,13 +33,13 @@ export default {
         'screen-2/3': '66vh'
       },
       gridAutoColumns: {
-        '1/1': '92.5%',
-        '1/2': '46.25%',
-        '1/3': '31.66%',
-        '1/4': '23.75%',
-        '1/5': '19%',
-        '1/6': '15.833%',
-        '1/8': '11.875%'
+        '1/1': 'calc(var(--auto-cols-peek, 1) * 100%)',
+        '1/2': 'calc(var(--auto-cols-peek, 1) * 50%)',
+        '1/3': 'calc(var(--auto-cols-peek, 1) * 33.333%)',
+        '1/4': 'calc(var(--auto-cols-peek, 1) * 25%)',
+        '1/5': 'calc(var(--auto-cols-peek, 1) * 20%)',
+        '1/6': 'calc(var(--auto-cols-peek, 1) * 16.667%)',
+        '1/8': 'calc(var(--auto-cols-peek, 1) * 12.5%)'
       },
       fontSize: {
         'rel-2xs': '0.65em',
