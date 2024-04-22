@@ -39,7 +39,7 @@
     "vite-plugin-pwa": "^0.19.8",
     "vite-svg-loader": "^5.1.0",
     "vue": "^3.4.23",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.2"
   },
   "version": "0.1.0",
   "devDependencies": {
