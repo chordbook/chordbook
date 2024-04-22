@@ -127,13 +127,12 @@ async function destroy () {
         <ion-header
           collapse="condense"
           :style="`background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3) 33%, rgba(0,0,0,0.8)), ${gradient(data?.id)};`"
-          class="block bg-slate-700 always-dark toolbar-padding"
+          class="block bg-slate-700 always-dark main-content toolbar-padding"
         >
           <ion-toolbar
-            style="--background: transparent; --padding-top: 2rem;"
-            class="p-8"
+            style="--background: transparent; --padding-top: 1.5rem;"
           >
-            <div class="flex flex-col sm:flex-row gap-8 lg:gap-10">
+            <div class="flex flex-col sm:flex-row gap-8 lg:gap-10 ion-padding-horizontal">
               <div class="min-w-[200px]">
                 <setlist-avatar
                   :id="data?.id"
@@ -219,7 +218,7 @@ async function destroy () {
           </ion-toolbar>
         </ion-header>
 
-        <ion-list class="pt-3">
+        <ion-list class="main-content">
           <ion-reorder-group
             :disabled="!editing"
             @ion-item-reorder="reorder"

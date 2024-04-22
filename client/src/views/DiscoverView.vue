@@ -38,7 +38,10 @@ const isSearching = computed(() => !!params.q || hasFocus.value)
         <ion-title>Discover</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content fullscreen>
+    <ion-content
+      fullscreen
+      class="main-content"
+    >
       <ion-header
         v-show="!isSearching"
         collapse="condense"

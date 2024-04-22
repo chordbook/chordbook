@@ -40,14 +40,17 @@ defineProps({
         </ion-toolbar>
       </ion-header>
 
-      <ion-content fullscreen>
-        <div class="ion-padding ion-margin flex gap-4 md:gap-6 flex-col md:flex-row">
-          <div class="text-center flex-shrink-0 flex place-content-center">
+      <ion-content
+        fullscreen
+        class="main-content"
+      >
+        <div class="ion-padding flex gap-4 md:gap-6 lg:gap-8 flex-col md:flex-row">
+          <div class="flex place-content-center md:block md:place-content-start">
             <div
               class="aspect-square w-3/4 md:w-60 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
             >
               <img
-                v-if="data?.cover"
+                v-if="data?.cover?.large"
                 :src="data.cover.large"
               >
               <ion-icon
@@ -57,7 +60,7 @@ defineProps({
               />
             </div>
           </div>
-          <div class="text-center md:text-left md:pt-6">
+          <div class="text-center md:text-left">
             <h1 class="text-xl md:text-3xl m-0">
               {{ data?.title }}
             </h1>

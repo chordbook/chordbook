@@ -117,3 +117,12 @@ ion-modal::part(handle):focus {
 ion-modal.auto-height {
   --height: auto;
 }
+
+.main-content {
+  @apply md:p-4 lg:p-8 xl:p-12;
+}
+ion-content.main-content::part(scroll) {
+  @apply md:[--padding-top:0rem] md:[--padding-bottom:1rem] md:[--padding-start:1rem] md:[--padding-end:1rem];
+  @apply lg:[--padding-top:0.5rem] lg:[--padding-bottom:2rem] lg:[--padding-start:2rem] lg:[--padding-end:2rem];
+  @apply xl:[--padding-top:1rem] xl:[--padding-bottom:3rem] xl:[--padding-start:3rem] xl:[--padding-end:3rem];
+}

@@ -183,12 +183,14 @@ export default [
   {
     path: '/news',
     name: 'news',
-    component: () => import('@/views/NewsView.vue')
+    component: () => import('@/views/NewsView.vue'),
+    meta: { selected: 'news' }
   },
   {
     path: '/:path(.*)*',
     name: '404',
     component: () => import('@/views/NotFound.vue'),
+    meta: { menu: false },
     beforeEnter (to, from, next) {
       if (to.params.path || !to.redirectedFrom) {
         next()

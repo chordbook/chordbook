@@ -35,6 +35,7 @@ const borderRadius = computed(() => props.type.toLowerCase() === 'artist' ? '50%
     <ion-icon
       v-else
       :icon="icons[type.toLowerCase()]"
+      size="large"
     />
   </ion-avatar>
 </template>

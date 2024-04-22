@@ -25,12 +25,12 @@ defineProps({
     :detail="false"
     lines="none"
   >
-    <ion-label>
+    <ion-label class="me-0">
       <div>
         <model-avatar
           :src="thumbnail"
           type="Artist"
-          class="w-full h-full mb-3 shadow-md"
+          class="w-full h-full aspect-square mb-3 shadow-md"
         />
       </div>
       <h3 class="text-center">

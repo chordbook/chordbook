@@ -36,7 +36,10 @@ function loaded ({ data }) {
         <ion-title>Versions</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
+    <ion-content
+      fullscreen
+      class="main-content"
+    >
       <ion-list>
         <data-source
           v-slot="{ items }"

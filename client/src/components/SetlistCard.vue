@@ -29,7 +29,7 @@ defineProps({
     :detail="false"
     lines="none"
   >
-    <ion-label>
+    <ion-label class="me-0">
       <SetlistAvatar
         :id="id"
         :thumbnails="thumbnails"

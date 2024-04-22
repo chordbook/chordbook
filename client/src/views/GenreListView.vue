@@ -5,7 +5,7 @@
       src="genres"
     >
       <template #page="{ data }">
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 ion-margin">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-3 lg:gap-4 xl:gap-5 ion-margin">
           <ion-card
             v-for="genre in data"
             :key="genre.id"

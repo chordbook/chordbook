@@ -30,7 +30,10 @@ defineProps({
         </ion-toolbar>
       </ion-header>
 
-      <ion-content>
+      <ion-content
+        fullscreen
+        class="main-content"
+      >
         <ion-header collapse="condense">
           <ion-toolbar>
             <ion-title size="large">

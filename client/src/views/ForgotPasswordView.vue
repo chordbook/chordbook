@@ -28,7 +28,7 @@ const { isFinished, error, execute, data } = auth.forgotPassword(params, { immed
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <div class="max-w-md m-auto flex flex-col justify-center h-full">
+      <div class="max-w-md m-auto flex flex-col justify-center h-full main-content">
         <div
           v-if="isFinished && !error"
           class="text-center"

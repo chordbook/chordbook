@@ -8,14 +8,17 @@
       >
     </Head>
     <ion-header>
-      <ion-buttons slot="start">
-        <ion-menu-button />
-      </ion-buttons>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button />
+        </ion-buttons>
         <ion-title>What's New</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
+    <ion-content
+      fullscreen
+      class="main-content"
+    >
       <ion-header collapse="condense">
         <ion-buttons slot="start">
           <ion-menu-button />
@@ -41,13 +44,3 @@
     </ion-content>
   </app-view>
 </template>
-
-<style scoped>
-.ion-padding {
-  /* @apply md:p-4 md:scroll-m-4 lg:p-8 lg:scroll-m-8 xl:p-12 xl:scroll-m-12; */
-}
-
-img {
-  float: right;
-}
-</style>

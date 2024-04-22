@@ -205,7 +205,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
 
     <column-layout
       :enabled="!parser.error && settings.columns == 2"
-      class="snap-start relative ion-padding"
+      class="relative ion-padding main-content"
     >
       <!-- Hidden sprite of chord diagrams -->
       <svg
@@ -387,10 +387,6 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
 <style scoped>
 ion-content:not(.autoscrolling)::part(scroll) {
   @apply snap-both snap-proximity;
-}
-.ion-padding {
-  scroll-margin: var(--ion-padding);
-  @apply md:p-4 md:scroll-m-4 lg:p-8 lg:scroll-m-8 xl:p-12 xl:scroll-m-12;
 }
 
 @media (min-width: 576px) {

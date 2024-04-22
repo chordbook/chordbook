@@ -37,7 +37,7 @@ import { add } from 'ionicons/icons'
 
     <ion-content
       fullscreen
-      class="relative"
+      class="relative main-content"
     >
       <ion-refresher
         v-if="$refs.dataSource"

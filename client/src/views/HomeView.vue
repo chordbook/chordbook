@@ -72,7 +72,10 @@ const auth = useAuthStore()
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content fullscreen>
+    <ion-content
+      fullscreen
+      class="main-content"
+    >
       <ion-refresher
         v-if="$refs.dataSource"
         slot="fixed"
@@ -136,10 +139,7 @@ const auth = useAuthStore()
         </div>
       </data-source>
 
-      <div
-        id="contribute"
-        class="lg:px-8"
-      >
+      <div id="contribute">
         <div class="text-center mt-10 sm:mt-20 ion-padding">
           <h2 class="ion-margin text-4xl sm:text-5xl md:text-6xl font-bold">
             Help us make music&nbsp;better.

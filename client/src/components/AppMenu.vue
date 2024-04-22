@@ -125,6 +125,7 @@
               :router-link="{ name: 'news' }"
               router-direction="root"
               :detail="false"
+              :color="colorFor('news')"
             >
               <ion-icon
                 slot="start"

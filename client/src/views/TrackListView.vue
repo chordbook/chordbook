@@ -18,7 +18,10 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content>
+    <ion-content
+      fullscreen
+      class="main-content"
+    >
       <data-source
         v-slot="{ items }"
         :src="$route.path"
