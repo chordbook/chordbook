@@ -42,19 +42,17 @@ onFetchResponse((response) => {
     </ion-header>
     <ion-content>
       <div class="max-w-md m-auto flex flex-col justify-center h-full">
-        <form @submit.prevent="execute">
-          <ion-item :class="{ 'ion-invalid': data?.error?.password }">
-            <ion-label position="floating">
-              New Password
-            </ion-label>
+        <form @submit.prevent="execute(false)">
+          <ion-item>
             <ion-input
               v-model="params.password"
+              label="New Password"
+              label-placement="floating"
               type="password"
               autocomplete="new-password"
+              :class="{ 'ion-invalid ion-touched': data?.error?.password }"
+              :error-text="data?.error?.password?.join(', ')"
             />
-            <ion-note slot="error">
-              {{ data?.error?.password?.join(', ') }}
-            </ion-note>
           </ion-item>
 
           <div class="ion-margin">

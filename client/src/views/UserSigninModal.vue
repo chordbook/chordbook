@@ -35,7 +35,7 @@ watchEffect(() => {
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content>
+      <ion-content color="light">
         <form @submit.prevent="execute(false)">
           <div
             v-if="!isFetching && data?.error?.message"
@@ -43,33 +43,29 @@ watchEffect(() => {
           >
             {{ data.error.message }}
           </div>
-          <ion-item>
-            <ion-input
-              v-model="form.email"
-              label="Email"
-              label-placement="floating"
-              type="email"
-              autocomplete="email"
-              placeholder="Your email"
-            />
-          </ion-item>
-          <ion-item>
-            <ion-input
-              v-model="form.password"
-              label="Password"
-              label-placement="floating"
-              type="password"
-              autocomplete="current-password"
-              placeholder="Your password"
-            />
-            <ion-note slot="helper">
-              <router-link :to="{ name: 'password/forgot' }">
-                Forgot your password?
-              </router-link>
-            </ion-note>
-          </ion-item>
-
-          <div class="ion-margin ">
+          <ion-list inset>
+            <ion-item>
+              <ion-input
+                v-model="form.email"
+                label="Email"
+                label-placement="floating"
+                type="email"
+                autocomplete="email"
+                placeholder="Your email"
+              />
+            </ion-item>
+            <ion-item>
+              <ion-input
+                v-model="form.password"
+                label="Password"
+                label-placement="floating"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Your password"
+              />
+            </ion-item>
+          </ion-list>
+          <div class="ion-margin">
             <ion-button
               type="submit"
               expand="block"
@@ -77,6 +73,12 @@ watchEffect(() => {
               Sign In
             </ion-button>
           </div>
+          <router-link
+            :to="{ name: 'password/forgot' }"
+            class="text-muted text-sm text-center block"
+          >
+            Forgot your password?
+          </router-link>
           <div class="ion-margin text-center text-sm text-muted" />
         </form>
 

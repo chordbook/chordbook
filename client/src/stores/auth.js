@@ -41,11 +41,11 @@ export default defineStore('auth', () => {
   }
 
   function forgotPassword (data, useFetchOptions = {}) {
-    return useFetch('password', useFetchOptions).post(data).json()
+    return useFetch('password', { updateDataOnError: true, ...useFetchOptions }).post(data).json()
   }
 
   function resetPassword (data, useFetchOptions = {}) {
-    return useFetch('password', useFetchOptions).put(data).json()
+    return useFetch('password', { updateDataOnError: true, ...useFetchOptions }).put(data).json()
   }
 
   function signOut () {

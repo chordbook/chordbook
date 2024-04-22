@@ -35,7 +35,7 @@ watchEffect(() => {
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content>
+      <ion-content color="light">
         <form @submit.prevent="execute(false)">
           <Transition name="slide-down">
             <div
@@ -45,44 +45,47 @@ watchEffect(() => {
               {{ data.error.message }}
             </div>
           </Transition>
-          <ion-item :class="{ 'ion-invalid': data?.error?.name }">
-            <ion-input
-              v-model="form.user.name"
-              label="Name"
-              label-placement="floating"
-              type="text"
-              autocomplete="name"
-              required
-              placeholder="Your name"
-              :error-text="data?.error?.name?.join(', ')"
-            />
-          </ion-item>
-          <ion-item :class="{ 'ion-invalid': data?.error?.email }">
-            <ion-input
-              v-model="form.user.email"
-              label="Email"
-              label-placement="floating"
-              type="email"
-              autocomplete="email"
-              required
-              placeholder="Your email"
-              :error-text="data?.error?.email?.join(', ')"
-            />
-          </ion-item>
-          <ion-item>
-            <ion-input
-              v-model="form.user.password"
-              label="Password"
-              label-placement="floating"
-              type="password"
-              autocomplete="new-password"
-              required
-              placeholder="Create a password"
-              :error-text="data?.error?.password"
-              :class="{ 'ion-invalid ion-touched': data?.error?.password }"
-            />
-          </ion-item>
-
+          <ion-list inset>
+            <ion-item>
+              <ion-input
+                v-model="form.user.name"
+                label="Name"
+                label-placement="floating"
+                type="text"
+                autocomplete="name"
+                required
+                placeholder="Your name"
+                :error-text="data?.error?.name?.join(', ')"
+                :class="{ 'ion-invalid ion-touched': data?.error?.name }"
+              />
+            </ion-item>
+            <ion-item>
+              <ion-input
+                v-model="form.user.email"
+                label="Email"
+                label-placement="floating"
+                type="email"
+                autocomplete="email"
+                required
+                placeholder="Your email"
+                :error-text="data?.error?.email?.join(', ')"
+                :class="{ 'ion-invalid ion-touched': data?.error?.email }"
+              />
+            </ion-item>
+            <ion-item>
+              <ion-input
+                v-model="form.user.password"
+                label="Password"
+                label-placement="floating"
+                type="password"
+                autocomplete="new-password"
+                required
+                placeholder="Create a password"
+                :error-text="data?.error?.password"
+                :class="{ 'ion-invalid ion-touched': data?.error?.password }"
+              />
+            </ion-item>
+          </ion-list>
           <div class="ion-margin">
             <ion-button
               type="submit"

@@ -39,24 +39,19 @@ const { isFinished, error, execute, data } = auth.forgotPassword(params, { immed
         </div>
         <form
           v-else
-          @submit.prevent="execute"
+          @submit.prevent="execute(false)"
         >
-          <ion-item :class="{ 'ion-invalid': error }">
-            <ion-label position="floating">
-              Email
-            </ion-label>
+          <ion-item>
             <ion-input
               v-model="params.email"
+              label="Email"
+              label-placement="floating"
               type="email"
               autocomplete="email"
               required
+              :class="{ 'ion-invalid ion-touched': error }"
+              :error-text="data?.error?.message"
             />
-            <ion-note
-              v-if="error"
-              slot="error"
-            >
-              {{ data.error }}
-            </ion-note>
           </ion-item>
           <div class="ion-margin ">
             <ion-button
