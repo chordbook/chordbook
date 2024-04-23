@@ -62,6 +62,30 @@
   .text-muted {
     @apply text-slate-500;
   }
+
+  /* Vertical padding */
+  .main-content {
+    @apply md:py-4 lg:py-8 xl:py-12;
+  }
+
+  /* ion-content applies the padding on shadow dom parts */
+  ion-content.main-content::part(scroll) {
+    @apply md:[--padding-top:0rem] md:[--padding-bottom:1rem];
+    @apply lg:[--padding-top:0.5rem] lg:[--padding-bottom:2rem];
+    @apply xl:[--padding-top:1rem] xl:[--padding-bottom:3rem];
+  }
+
+  /* Horizontal padding */
+  .main-content>*,
+  .main-content-padding {
+    @apply md:px-4 lg:px-8 xl:px-12;
+    @apply md:scroll-p-4 lg:scroll-p-8 xl:scroll-p-12;
+  }
+
+  /* Allow an element to break out of the horizontal padding */
+  .main-content-breakout {
+    @apply md:-mx-4 lg:-mx-8 xl:-mx-12;
+  }
 }
 
 .reorder-enabled .hide-reorder {
@@ -116,16 +140,6 @@ ion-modal::part(handle):focus {
 
 ion-modal.auto-height {
   --height: auto;
-}
-
-.main-content {
-  @apply md:p-4 lg:p-8 xl:p-12;
-}
-
-ion-content.main-content::part(scroll) {
-  @apply md:[--padding-top:0rem] md:[--padding-bottom:1rem] md:[--padding-start:1rem] md:[--padding-end:1rem];
-  @apply lg:[--padding-top:0.5rem] lg:[--padding-bottom:2rem] lg:[--padding-start:2rem] lg:[--padding-end:2rem];
-  @apply xl:[--padding-top:1rem] xl:[--padding-bottom:3rem] xl:[--padding-start:3rem] xl:[--padding-end:3rem];
 }
 
 ion-list {
