@@ -24,7 +24,7 @@ const route = useRoute()
 
 <style scoped>
 ion-split-pane {
-  --side-width: 200px;
+  --side-width: 210px;
   --side-max-width: var(--side-width);
   --side-min-width: var(--side-width);
 }

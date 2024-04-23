@@ -2,7 +2,8 @@
 import GenreListView from '@/views/GenreListView.vue'
 import ModelAvatar from '@/components/ModelAvatar.vue'
 import { useRouteQuery } from '@vueuse/router'
-import { computed, ref, reactive } from 'vue'
+import { ref, reactive } from 'vue'
+import { getMode } from '@ionic/core'
 
 const types = {
   All: '',
@@ -12,14 +13,14 @@ const types = {
   Setlists: 'Setlist'
 }
 
+const mode = getMode()
 const params = reactive({
   q: useRouteQuery('q'),
   type: useRouteQuery('type', '')
 })
 
-const search = ref(null) // template ref
-const hasFocus = ref(false)
-const isSearching = computed(() => !!params.q || hasFocus.value)
+const input = ref() // template ref
+const search = ref() // template ref
 </script>
 
 <template>
@@ -28,8 +29,8 @@ const isSearching = computed(() => !!params.q || hasFocus.value)
       <title>Discover</title>
     </Head>
     <ion-header
+      translucent
       collapse="fade"
-      class="ion-no-border"
     >
       <ion-toolbar>
         <ion-buttons slot="start">
@@ -43,32 +44,25 @@ const isSearching = computed(() => !!params.q || hasFocus.value)
       class="main-content"
     >
       <ion-header
-        v-show="!isSearching"
-        collapse="condense"
+        :collapse="mode === 'ios' ? 'condense' : ''"
+        class="md:flex md:flex-wrap md:gap-2 md:items-center"
       >
-        <ion-toolbar>
+        <ion-toolbar class="no-md md:flex-1">
           <ion-title size="large">
             Discover
           </ion-title>
         </ion-toolbar>
-      </ion-header>
-
-      <ion-header
-        collapse="fade"
-        class="sticky top-0"
-      >
-        <ion-toolbar>
+        <ion-toolbar class="md:flex-1">
           <ion-searchbar
             ref="input"
             v-model="params.q"
-            :show-cancel-button="isSearching ? 'always' : 'focus'"
             debounce="200"
             animated
-            @ion-focus="hasFocus = true"
-            @ion-blur="hasFocus = false"
+            class="md:pb-0"
+            inputmode="search"
           />
         </ion-toolbar>
-        <ion-toolbar v-show="isSearching">
+        <ion-toolbar v-if="params.q">
           <ion-segment
             :value="params.type"
             @ion-change="params.type = $event.detail.value"
@@ -86,7 +80,7 @@ const isSearching = computed(() => !!params.q || hasFocus.value)
 
       <Transition name="fade">
         <div
-          v-if="isSearching && search?.isFetching"
+          v-if="search?.isFetching"
           slot="fixed"
           class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         >
@@ -100,7 +94,7 @@ const isSearching = computed(() => !!params.q || hasFocus.value)
       </Transition>
 
       <data-source
-        v-if="isSearching"
+        v-if="params.q"
         ref="search"
         src="search"
         :params="params"
@@ -143,7 +137,7 @@ const isSearching = computed(() => !!params.q || hasFocus.value)
         </template>
       </data-source>
 
-      <div v-show="!isSearching">
+      <div v-show="!params.q">
         <data-source
           v-slot="{ data }"
           src="discover"
@@ -158,3 +152,21 @@ const isSearching = computed(() => !!params.q || hasFocus.value)
     </ion-content>
   </app-view>
 </template>
+
+<style scoped>
+.md ion-content ion-header {
+  box-shadow: none !important;
+}
+
+.md .no-md {
+  display: none;
+}
+
+ion-searchbar {
+  padding-bottom: 0 !important;
+}
+
+.header-collapse-condense ion-toolbar {
+  @apply md:static;
+}
+</style>
