@@ -5,7 +5,7 @@
       src="genres"
     >
       <template #page="{ data }">
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-3 lg:gap-4 xl:gap-5 ion-margin">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-[32px] ion-margin">
           <ion-card
             v-for="genre in data"
             :key="genre.id"
@@ -19,10 +19,7 @@
               :src="genre.thumbnail"
               class="object-cover object-center absolute inset-0 w-full h-full opacity-50 saturate-0 mix-blend-luminosity"
             >
-            <div
-              translucent
-              class="aspect-4/3 flex items-end p-3"
-            >
+            <div class="aspect-square flex items-end p-4">
               <ion-card-title class="text-shadow font-bold text-lg sm:text-xl text-white">
                 {{ genre.name }}
               </ion-card-title>

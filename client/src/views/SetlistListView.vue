@@ -48,7 +48,7 @@ import SetlistCard from '@/components/SetlistCard.vue'
         :params="$route.query"
       >
         <ion-list>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
             <setlist-card
               v-for="setlist in items"
               :key="setlist.id"

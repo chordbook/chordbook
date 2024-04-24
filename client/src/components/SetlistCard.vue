@@ -25,21 +25,38 @@ defineProps({
   <ion-item
     button
     :router-link="{ name: 'setlist', params: { id } }"
-    class="rounded group"
+    class="rounded group @container"
     :detail="false"
     lines="none"
   >
-    <ion-label class="me-0">
-      <SetlistAvatar
-        :id="id"
-        :thumbnails="thumbnails"
-      />
-      <h3 class="text-sm">
-        {{ title }}
-      </h3>
-      <p class="whitespace-normal line-clamp-3 text-xs">
-        {{ description }}
-      </p>
+    <ion-label class="me-0 relative aspect-square rounded-lg overflow-hidden">
+      <div class="absolute inset-0 w-full h-full">
+        <SetlistAvatar
+          :id="id"
+          :thumbnails="thumbnails"
+        />
+      </div>
+      <div
+        class="relative w-full h-full flex items-end p-4 bg-gradient-to-b from-transparent from-50% to-black/60 to-90%"
+      >
+        <div
+          class="text-shadow font-semibold text-white text-balance truncate"
+        >
+          {{ title }}
+        </div>
+      </div>
     </ion-label>
   </ion-item>
 </template>
+
+<style scoped>
+/* ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  @apply m-[16px];
+}
+
+ion-label {
+  @apply m-0;
+} */
+</style>
