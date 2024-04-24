@@ -56,10 +56,12 @@ const props = defineProps({
   imported_from: {
     type: [String, null],
     default: null
+  },
+  setlistId: {
+    type: String,
+    default: null
   }
 })
-
-const setlistId = ref() // FIXME
 
 const parser = reactive(useSongsheetParser(toRef(props, 'source')))
 

@@ -32,7 +32,10 @@ useIonPageLifecycle()
           {{ songsheet.title }} - {{ songsheet.subtitle }}
         </title>
       </Head>
-      <Songsheet v-bind="songsheet" />
+      <Songsheet
+        v-bind="songsheet"
+        :setlist-id="setlistId"
+      />
     </data-source>
   </app-view>
 </template>
