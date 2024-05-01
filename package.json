@@ -20,7 +20,7 @@
     "@vueuse/router": "^10.9.0",
     "arrify": "^3.0",
     "autoprefixer": "^10.4.19",
-    "chordsheetjs": "^9.0.1",
+    "chordsheetjs": "^9.0.2",
     "floating-vue": "^5.2.2",
     "get-youtube-id": "^1.0",
     "http-link-header": "^1.1.3",
