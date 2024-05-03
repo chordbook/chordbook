@@ -23,7 +23,7 @@ export {
   trash,
   warningOutline as warning,
   playCircleOutline as play,
-  pauseCircle as autoScrollOn,
+  arrowDownCircle as autoScrollOn,
   arrowDownCircleOutline as autoScrollOff,
   expandOutline as expand,
   exitOutline as exit,

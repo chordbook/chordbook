@@ -56,10 +56,12 @@ const props = defineProps({
   imported_from: {
     type: [String, null],
     default: null
+  },
+  setlistId: {
+    type: String,
+    default: null
   }
 })
-
-const setlistId = ref() // FIXME
 
 const parser = reactive(useSongsheetParser(toRef(props, 'source')))
 
@@ -150,17 +152,6 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
       <ion-buttons slot="end">
         <fullscreen-button />
         <ion-button
-          v-tooltip="'Auto-scroll'"
-          :disabled="!scroller || !autoScrollAvailable"
-          :color="autoScroll?.isActive ? 'secondary' : 'default'"
-          @click="toggleAutoScroll"
-        >
-          <ion-icon
-            slot="icon-only"
-            :icon="autoScroll?.isActive ? icons.autoScrollOn : icons.autoScrollOff"
-          />
-        </ion-button>
-        <ion-button
           v-if="bigScreen"
           v-tooltip="settings.showPlayer ? 'Hide media player' : 'Show media player'"
           :color="settings.showPlayer ? 'secondary' : 'default'"
@@ -195,14 +186,6 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
     fullscreen
     :class="{ autoscrolling: autoScroll.isActive }"
   >
-    <Transition name="slide-down">
-      <songsheet-media
-        v-if="settings.showPlayer"
-        :media="media"
-        class="no-print"
-      />
-    </Transition>
-
     <column-layout
       :enabled="!parser.error && settings.columns == 2"
       class="relative ion-padding main-content"
@@ -267,6 +250,16 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
             <span class="text-teal-500">{{ track.artist.name }}</span>
           </ion-label>
         </template>
+
+        <template #media>
+          <Transition name="slide-down">
+            <songsheet-media
+              v-if="settings.showPlayer"
+              :media="media"
+              class="no-print"
+            />
+          </Transition>
+        </template>
       </songsheet-content>
 
       <div class="snap-end text-xs text-muted mb-8 flex flex-col md:flex-row gap-2">
@@ -286,29 +279,46 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
         </div>
       </div>
     </column-layout>
-    <div class="snap-end">
-      <Suspense>
-        <setlist-songsheets-pager
-          v-if="setlistId"
-          :id="setlistId"
-          :songsheet-id="id"
-        />
-      </Suspense>
+    <div class="sticky h-0 bottom-0 right-0">
+      <div class="absolute bottom-3 right-3 md:right-4 md:bottom-4 lg:right-8 lg:bottom-8 xl:right-12 xl:bottom-12">
+        <ion-button
+          v-tooltip.left="'Auto-scroll'"
+          fill="clear"
+          shape="round"
+          size="small"
+          :disabled="!scroller || !autoScrollAvailable"
+          class="p-0 shadow-md bg-white dark:bg-black rounded-full"
+          @click.stop="toggleAutoScroll"
+        >
+          <ion-icon
+            slot="icon-only"
+            :icon="autoScroll?.isActive ? icons.autoScrollOn : icons.autoScrollOff"
+            :class="{ 'text-4xl': true, 'animate-pulse': autoScroll.isActive }"
+          />
+        </ion-button>
+      </div>
     </div>
     <songsheet-chords-pane
       ref="chordsPane"
       slot="fixed"
       :chords="parser.chords"
-      :is-open="!scroll.arrivedState.bottom"
     />
-    <key-modal
-      v-model:transpose="parser.transpose"
-      v-model:capo="parser.capo"
-      v-model:modifier="parser.modifier"
-      :song="parser.song"
-      :trigger="`songsheet-content-${id}-key-metadata`"
-    />
+    <Suspense>
+      <setlist-songsheets-pager
+        v-if="setlistId"
+        :id="setlistId"
+        :songsheet-id="id"
+      />
+    </Suspense>
+    <div class="snap-end" />
   </ion-content>
+  <key-modal
+    v-model:transpose="parser.transpose"
+    v-model:capo="parser.capo"
+    v-model:modifier="parser.modifier"
+    :song="parser.song"
+    :trigger="`songsheet-content-${id}-key-metadata`"
+  />
 
   <add-to-setlist-modal
     :id="id"
@@ -317,7 +327,6 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
   <ion-popover
     :trigger="`songsheet-context-${id}`"
     dismiss-on-select
-    keep-contents-mounted
   >
     <ion-list>
       <ion-item
@@ -388,8 +397,14 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
 </template>
 
 <style scoped>
+ion-content::part(scroll) {
+  --pane-height: calc(v-bind('chordsPane.height') * 1px);
+  --padding-bottom: var(--pane-height);
+  transition: v-bind('chordsPane.transition');
+}
+
 ion-content:not(.autoscrolling)::part(scroll) {
-  @apply snap-both snap-proximity;
+  @apply snap-both snap-proximity scroll-pb-[--pane-height];
 }
 
 @media (min-width: 576px) {

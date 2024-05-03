@@ -56,18 +56,20 @@ await load()
             :router-link="{ name: 'setlistSongsheet', params: { id: prev.id, setlistId: id } }"
             detail="false"
           >
-            <ion-icon
-              slot="start"
-              :icon="icons.playBack"
-            />
             <model-avatar
               slot="start"
-              class="hidden sm:block ml-2"
+              class="hidden md:block ml-2"
               :src="prev.track?.album?.cover?.small"
               type="Songsheet"
             />
             <ion-label class="truncate">
-              <p>Previous</p>
+              <p class="flex items-center gap-1">
+                <ion-icon
+                  :icon="icons.playBack"
+                  size="small"
+                />
+                Previous
+              </p>
               <h2 class="md:text-sm">
                 {{ prev.title }}
               </h2>
@@ -105,15 +107,17 @@ await load()
               type="Songsheet"
             />
             <ion-label class="text-right truncate text-sm">
-              <p>Next</p>
+              <p class="inline-flex items-center gap-1">
+                Next
+                <ion-icon
+                  :icon="icons.playNext"
+                  size="small"
+                />
+              </p>
               <h2 class="text-xs md:text-sm">
                 {{ next.title }}
               </h2>
             </ion-label>
-            <ion-icon
-              slot="end"
-              :icon="icons.playNext"
-            />
           </ion-item>
         </ion-buttons>
       </ion-toolbar>
