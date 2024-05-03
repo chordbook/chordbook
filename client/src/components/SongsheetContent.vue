@@ -21,11 +21,11 @@ const theme = useThemeStore()
 
 <template>
   <div
-    class="themed"
+    class="themed flex flex-col"
     :data-font-size="theme.fontSize"
   >
     <div
-      class="flex flex-wrap md:flex-nowrap gap-2 md:gap-3 items-center md:items-center border-b border-slate-300 dark:border-slate-800 py-2"
+      class="order-2 md:order-1 flex flex-wrap md:flex-nowrap gap-2 md:gap-3 items-center md:items-center border-b border-slate-300 dark:border-slate-800 py-2"
     >
       <slot name="album" />
 
@@ -67,8 +67,13 @@ const theme = useThemeStore()
         />
       </div>
     </div>
-
-    <div class="body">
+    <div
+      v-if="$slots.media"
+      class="z-10 order-1 md:sticky md:h-0 top-4 right-0 -m-4 mb-0 pb-4 md:p-0 md:m-0"
+    >
+      <slot name="media" />
+    </div>
+    <div class="body order-3">
       <div
         v-for="({ type, lines }, i) in song.paragraphs"
         :key="i"

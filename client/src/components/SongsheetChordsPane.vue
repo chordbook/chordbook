@@ -2,36 +2,29 @@
 import InstrumentControl from '@/components/InstrumentControl.vue'
 import ChordDiagramReference from '@/components/ChordDiagramReference.vue'
 import useSongsheetSettings from '@/stores/songsheet-settings'
-import { ref, onBeforeUnmount, watch } from 'vue'
+import Pane from '@/components/Pane.vue'
+import { ref, defineExpose, computed } from 'vue'
 import { useResponsive } from '@/composables'
 
 defineProps({
   chords: {
     type: Array,
     required: true
-  },
-  isOpen: {
-    type: Boolean,
-    default: true
   }
+})
+
+defineExpose({
+  height: computed(() => chordsModal?.value?.height),
+  transition: computed(() => chordsModal?.value?.transition)
 })
 
 const settings = useSongsheetSettings()
 const sidebar = useResponsive('sm')
 const chordsModal = ref()
-const breakpoints = [0.2, 0.6, 1]
 
-function onBreakpointDidChange (event) {
-  settings.showChords = event.detail.breakpoint >= breakpoints[1]
+function onBreakpointDidChange (breakpoint) {
+  settings.showChords = breakpoint !== 'bottom'
 }
-
-function dismissModal () {
-  chordsModal.value?.$el.dismiss()
-}
-
-// Modal must be dismissed manually since backdrop-dismiss is disabled
-onBeforeUnmount(dismissModal)
-watch(sidebar, isVisible => { if (isVisible) dismissModal() })
 </script>
 
 <template>
@@ -51,21 +44,24 @@ watch(sidebar, isVisible => { if (isVisible) dismissModal() })
     </div>
   </div>
   <div v-else>
-    <ion-modal
+    <pane
       ref="chordsModal"
-      :is-open="isOpen"
-      :initial-breakpoint="settings.showChords ? breakpoints[1] : breakpoints[0]"
-      :backdrop-dismiss="false"
-      :backdrop-breakpoint="breakpoints[2]"
-      :breakpoints="breakpoints"
-      handle-behavior="cycle"
-      @ion-breakpoint-did-change="onBreakpointDidChange"
+      :is-open="true"
+      :settings="{
+        initialBreak: settings.showChords ? 'middle' : 'bottom',
+        breaks: {
+          top: { enabled: true, height: 172 },
+          middle: { enabled: true, height: 120 },
+          bottom: { enabled: true, height: 33 }
+        }
+      }"
+      @breakpoint-did-change="onBreakpointDidChange"
     >
-      <div class="flex flex-row flex-nowrap overflow-x-auto w-full pt-6 pb-8 snap-x snap-mandatory">
+      <div class="flex flex-row flex-nowrap overflow-x-auto w-full py-4 snap-x snap-mandatory">
         <div
           v-for="chord in chords"
           :key="`modal-${chord}`"
-          class="text-center text-sm pointer-events-none select-none snap-start pl-3 first:pl-6 last:pr-6 first:ms-auto last:me-auto"
+          class="flex flex-col text-center text-sm pointer-events-none select-none snap-start pl-3 first:pl-6 last:pr-6 first:ms-auto last:me-auto"
         >
           <div class="chord">
             {{ chord.toString({ useUnicodeModifier: true }) }}
@@ -80,19 +76,13 @@ watch(sidebar, isVisible => { if (isVisible) dismissModal() })
           </ion-buttons>
         </ion-toolbar>
       </ion-footer>
-    </ion-modal>
+    </pane>
   </div>
 </template>
 
 <style scoped>
 .sidebar {
   padding-left: env(safe-area-inset-left, 0);
-}
-
-ion-modal {
-  --height:auto;
-  --max-width: 100%;
-  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
 }
 
 .horizontal-scroller > *:first-child {
