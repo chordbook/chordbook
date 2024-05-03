@@ -326,6 +326,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
   />
   <ion-popover
     :trigger="`songsheet-context-${id}`"
+    keep-contents-mounted
     dismiss-on-select
   >
     <ion-list>
