@@ -76,6 +76,43 @@ async function destroy () {
           Setlist: {{ data.title }}
         </title>
       </Head>
+      <ion-header
+        translucent
+      >
+        <ion-toolbar>
+          <ion-title>{{ data?.title }}</ion-title>
+
+          <ion-buttons slot="start">
+            <ion-back-button
+              text=""
+              :default-href="{ name: 'setlists' }"
+            />
+          </ion-buttons>
+
+          <ion-buttons
+            slot="end"
+            class="pr-[16px]"
+          >
+            <ion-button
+              v-show="editing"
+              @click="editing = false"
+            >
+              Done
+            </ion-button>
+            <ion-button
+              v-show="!editing"
+              :id="`setlist-context-${id}`"
+            >
+              <ion-icon
+                slot="icon-only"
+                size="small"
+                :ios="icons.iosEllipsis"
+                :md="icons.mdEllipsis"
+              />
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
       <ion-content fullscreen>
         <ion-refresher
           v-if="$refs.songsheets"
@@ -84,55 +121,14 @@ async function destroy () {
         >
           <ion-refresher-content />
         </ion-refresher>
-        <ion-header
-          slot="fixed"
-          translucent
-          collapse="fade"
-        >
-          <ion-toolbar>
-            <ion-title>{{ data?.title }}</ion-title>
-
-            <ion-buttons slot="start">
-              <ion-back-button
-                text=""
-                :default-href="{ name: 'setlists' }"
-              />
-            </ion-buttons>
-
-            <ion-buttons
-              slot="end"
-              class="pr-[16px]"
-            >
-              <ion-button
-                v-show="editing"
-                @click="editing = false"
-              >
-                Done
-              </ion-button>
-              <ion-button
-                v-show="!editing"
-                :id="`setlist-context-${id}`"
-              >
-                <ion-icon
-                  slot="icon-only"
-                  size="small"
-                  :ios="icons.iosEllipsis"
-                  :md="icons.mdEllipsis"
-                />
-              </ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
 
         <ion-header
           collapse="condense"
           :style="`background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3) 33%, rgba(0,0,0,0.8)), ${gradient(data?.id)};`"
-          class="block bg-slate-700 always-dark main-content toolbar-padding"
+          class="block bg-slate-700 always-dark main-content"
         >
-          <ion-toolbar
-            style="--background: transparent; --padding-top: 1.5rem;"
-          >
-            <div class="flex flex-col sm:flex-row gap-8 lg:gap-10 ion-padding-horizontal">
+          <ion-toolbar style="--background: transparent; --padding-top: 1.5rem;">
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 ion-padding">
               <div class="min-w-[200px]">
                 <setlist-avatar
                   :id="data?.id"
@@ -172,7 +168,7 @@ async function destroy () {
                   {{ pluralize(data?.songs_count, 'song', 'songs') }}
                 </div>
 
-                <ion-buttons class="mt-4">
+                <ion-buttons>
                   <add-to-library-button
                     :id="id"
                     size="large"
@@ -218,43 +214,40 @@ async function destroy () {
           </ion-toolbar>
         </ion-header>
 
-        <ion-list class="main-content">
-          <ion-reorder-group
-            :disabled="!editing"
-            @ion-item-reorder="reorder"
-          >
-            <data-source
-              ref="songsheets"
-              v-slot="{ items }"
-              :src="`setlists/${props.id}/songsheets`"
+        <div class="main-content">
+          <ion-list>
+            <ion-reorder-group
+              :disabled="!editing"
+              @ion-item-reorder="reorder"
             >
-              <ion-item-sliding
-                v-for="songsheet in items"
-                :key="songsheet.id"
+              <data-source
+                ref="songsheets"
+                v-slot="{ items }"
+                :src="`setlists/${props.id}/songsheets`"
               >
-                <ion-item-options side="end">
-                  <ion-item-option
-                    color="danger"
-                    @click="remove(songsheet)"
-                  >
-                    Remove
-                  </ion-item-option>
-                </ion-item-options>
+                <ion-item-sliding
+                  v-for="songsheet in items"
+                  :key="songsheet.id"
+                >
+                  <ion-item-options side="end">
+                    <ion-item-option
+                      color="danger"
+                      @click="remove(songsheet)"
+                    >
+                      Remove
+                    </ion-item-option>
+                  </ion-item-options>
 
-                <songsheet-item
-                  v-bind="songsheet"
-                  :setlist-id="id"
-                />
-              </ion-item-sliding>
-            </data-source>
-          </ion-reorder-group>
-        </ion-list>
+                  <songsheet-item
+                    v-bind="songsheet"
+                    :setlist-id="id"
+                  />
+                </ion-item-sliding>
+              </data-source>
+            </ion-reorder-group>
+          </ion-list>
+        </div>
       </ion-content>
     </data-source>
   </app-view>
 </template>
-
-<style>
-.ios.toolbar-padding { padding-top: 44px; }
-.md.toolbar-padding { padding-top: 56px; }
-</style>
