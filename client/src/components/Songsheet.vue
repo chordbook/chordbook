@@ -279,14 +279,14 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
         </div>
       </div>
     </column-layout>
-    <div class="sticky h-0 bottom-0 right-0">
+    <div v-if="autoScrollAvailable" class="sticky h-0 bottom-0 right-0">
       <div class="absolute bottom-3 right-3 md:right-4 md:bottom-4 lg:right-8 lg:bottom-8 xl:right-12 xl:bottom-12">
         <ion-button
           v-tooltip.left="'Auto-scroll'"
           fill="clear"
           shape="round"
           size="small"
-          :disabled="!scroller || !autoScrollAvailable"
+          :disabled="!scroller"
           class="p-0 shadow-md bg-white dark:bg-black rounded-full"
           @click.stop="toggleAutoScroll"
         >
