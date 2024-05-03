@@ -17,7 +17,7 @@ useIonPageLifecycle()
 </script>
 
 <template>
-  <app-view>
+  <app-view class="pane-container">
     <data-source
       v-slot="{ data: songsheet }"
       :src="`songsheets/${id}`"
@@ -32,12 +32,10 @@ useIonPageLifecycle()
           {{ songsheet.title }} - {{ songsheet.subtitle }}
         </title>
       </Head>
-      <div class="pane-container h-screen w-screen flex flex-col justify-between">
-        <Songsheet
-          v-bind="songsheet"
-          :setlist-id="setlistId"
-        />
-      </div>
+      <Songsheet
+        v-bind="songsheet"
+        :setlist-id="setlistId"
+      />
     </data-source>
   </app-view>
 </template>
