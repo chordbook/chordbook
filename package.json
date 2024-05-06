@@ -59,7 +59,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.24.0",
     "jsdom": "^24.0.0",
-    "vitest": "^1.5.2"
+    "vitest": "^1.6.0"
   },
   "scripts": {
     "dev": "vite",
