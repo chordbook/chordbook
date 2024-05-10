@@ -40,7 +40,7 @@ defineProps({
         class="relative w-full h-full flex items-end p-4 bg-gradient-to-b from-transparent from-50% to-black/60 to-90%"
       >
         <div
-          class="text-shadow font-semibold text-white text-balance truncate"
+          class="text-shadow font-semibold text-white text-balance line-clamp-3"
         >
           {{ title }}
         </div>
