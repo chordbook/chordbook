@@ -1,122 +1,133 @@
 <!-- eslint-disable vue/prop-name-casing -->
 <script setup>
-import AddToLibraryButton from '../components/AddToLibraryButton.vue'
-import AddToSetlistModal from '@/components/AddToSetlistModal.vue'
-import ChordDiagram from '@/components/ChordDiagram.vue'
-import ColumnLayout from '@/components/ColumnLayout.vue'
-import FontSizeControl from '@/components/FontSizeControl.vue'
-import FullscreenButton from '../components/FullscreenButton.vue'
-import InstrumentControl from '@/components/InstrumentControl.vue'
-import KeyModal from '../components/KeyModal.vue'
-import SetlistSongsheetsPager from '../components/SetlistSongsheetsPager.vue'
-import ShareItem from '@/components/ShareItem.vue'
-import SongsheetChordsPane from '@/components/SongsheetChordsPane.vue'
-import SongsheetContent from '@/components/SongsheetContent.vue'
-import SongsheetMedia from '@/components/SongsheetMedia.vue'
-import SongsheetVersionsModal from '@/components/SongsheetVersionsModal.vue'
-import * as icons from '@/icons'
-import { formatDate, hostname } from '@/util'
-import { tabletPortraitOutline, tabletLandscapeOutline } from 'ionicons/icons'
-import useSongsheetSettings from '@/stores/songsheet-settings'
-import { ref, watch, computed, reactive, toRef, inject } from 'vue'
-import { useResponsive, useIonScroll, useHideOnScroll, useAutoScroll, useSongsheetParser } from '@/composables'
-import { useWakeLock } from '@vueuse/core'
+import AddToLibraryButton from "../components/AddToLibraryButton.vue";
+import AddToSetlistModal from "@/components/AddToSetlistModal.vue";
+import ChordDiagram from "@/components/ChordDiagram.vue";
+import ColumnLayout from "@/components/ColumnLayout.vue";
+import FontSizeControl from "@/components/FontSizeControl.vue";
+import FullscreenButton from "../components/FullscreenButton.vue";
+import InstrumentControl from "@/components/InstrumentControl.vue";
+import KeyModal from "../components/KeyModal.vue";
+import SetlistSongsheetsPager from "../components/SetlistSongsheetsPager.vue";
+import ShareItem from "@/components/ShareItem.vue";
+import SongsheetChordsPane from "@/components/SongsheetChordsPane.vue";
+import SongsheetContent from "@/components/SongsheetContent.vue";
+import SongsheetMedia from "@/components/SongsheetMedia.vue";
+import SongsheetVersionsModal from "@/components/SongsheetVersionsModal.vue";
+import * as icons from "@/icons";
+import { formatDate, hostname } from "@/util";
+import { tabletPortraitOutline, tabletLandscapeOutline } from "ionicons/icons";
+import useSongsheetSettings from "@/stores/songsheet-settings";
+import { ref, watch, computed, reactive, toRef, inject } from "vue";
+import {
+  useResponsive,
+  useIonScroll,
+  useHideOnScroll,
+  useAutoScroll,
+  useSongsheetParser,
+} from "@/composables";
+import { useWakeLock } from "@vueuse/core";
 
-defineOptions({ inheritAttrs: false })
+defineOptions({ inheritAttrs: false });
 
 const props = defineProps({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   source: {
     type: String,
-    required: true
+    required: true,
   },
   duration: {
     type: [Number, null],
-    default: null
+    default: null,
   },
   track: {
     type: [Object, null],
-    default: null
+    default: null,
   },
   media: {
     type: Array,
-    default: () => []
+    default: () => [],
   },
   updated_at: {
     type: [String, null],
-    default: null
+    default: null,
   },
   imported_from: {
     type: [String, null],
-    default: null
+    default: null,
   },
   setlistId: {
     type: String,
-    default: null
-  }
-})
+    default: null,
+  },
+});
 
-const parser = reactive(useSongsheetParser(toRef(props, 'source')))
+const parser = reactive(useSongsheetParser(toRef(props, "source")));
 
-const settings = useSongsheetSettings()
-const scroller = ref() // template ref
-const chordsPane = ref() // template ref
-const header = ref() // template ref
-const bigScreen = useResponsive('sm')
-const wakelock = reactive(useWakeLock())
+const settings = useSongsheetSettings();
+const scroller = ref(); // template ref
+const chordsPane = ref(); // template ref
+const header = ref(); // template ref
+const bigScreen = useResponsive("sm");
+const wakelock = reactive(useWakeLock());
 
-const scroll = useIonScroll(scroller)
-useHideOnScroll(scroll, header)
-const autoScrollAvailable = computed(() => settings.columns === 1)
-const autoScrollDuration = computed(() => scroller.value?.$el?.dataset?.autoScrollDuration)
-const autoScroll = reactive(useAutoScroll(scroll, autoScrollDuration))
-const { onDidEnter, onWillLeave } = inject('page')
+const scroll = useIonScroll(scroller);
+useHideOnScroll(scroll, header);
+const autoScrollAvailable = computed(() => settings.columns === 1);
+const autoScrollDuration = computed(
+  () => scroller.value?.$el?.dataset?.autoScrollDuration,
+);
+const autoScroll = reactive(useAutoScroll(scroll, autoScrollDuration));
+const { onDidEnter, onWillLeave } = inject("page");
 
 if (wakelock.isSupported) {
-  onDidEnter(() => wakelock.request().catch(() => { }))
-  onWillLeave(wakelock.release)
+  onDidEnter(() => wakelock.request().catch(() => {}));
+  onWillLeave(wakelock.release);
 }
 
 onDidEnter(() => {
   if (autoScrollAvailable.value && settings.autoScroll) {
-    setTimeout(() => { autoScroll.start() }, 1000)
+    setTimeout(() => {
+      autoScroll.start();
+    }, 1000);
   }
-})
+});
 
-onWillLeave(autoScroll.stop)
+onWillLeave(autoScroll.stop);
 
-function toggleAutoScroll () {
-  autoScroll.isActive ? autoScroll.stop() : autoScroll.start()
-  settings.autoScroll = autoScroll.isActive
+function toggleAutoScroll() {
+  autoScroll.isActive ? autoScroll.stop() : autoScroll.start();
+  settings.autoScroll = autoScroll.isActive;
 }
 
-watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
+watch(
+  () => settings.columns,
+  () => scroller.value?.$el?.scrollToPoint(0, 0),
+);
 </script>
 
 <template>
-  <ion-header
-    ref="header"
-    translucent
-  >
+  <ion-header ref="header" translucent>
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-back-button
           v-tooltip="'Back'"
           text=""
-          :default-href="setlistId ? { name: 'setlist', params: { id: setlistId} } : '/songsheets'"
+          :default-href="
+            setlistId
+              ? { name: 'setlist', params: { id: setlistId } }
+              : '/songsheets'
+          "
         />
       </ion-buttons>
-      <ion-buttons
-        v-if="bigScreen"
-        slot="start"
-      >
+      <ion-buttons v-if="bigScreen" slot="start">
         <instrument-control v-model="settings.instrument" />
       </ion-buttons>
 
@@ -131,20 +142,14 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
             :value="1"
             layout="icon-start"
           >
-            <ion-icon
-              :icon="tabletPortraitOutline"
-              size="small"
-            />
+            <ion-icon :icon="tabletPortraitOutline" size="small" />
           </ion-segment-button>
           <ion-segment-button
             v-tooltip="'Horizontal scroll'"
             :value="2"
             layout="icon-start"
           >
-            <ion-icon
-              :icon="tabletLandscapeOutline"
-              size="small"
-            />
+            <ion-icon :icon="tabletLandscapeOutline" size="small" />
           </ion-segment-button>
         </ion-segment>
       </ion-buttons>
@@ -153,22 +158,18 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
         <fullscreen-button />
         <ion-button
           v-if="bigScreen"
-          v-tooltip="settings.showPlayer ? 'Hide media player' : 'Show media player'"
+          v-tooltip="
+            settings.showPlayer ? 'Hide media player' : 'Show media player'
+          "
           :color="settings.showPlayer ? 'secondary' : 'default'"
           :disabled="!media?.length > 0"
           @click="settings.showPlayer = !settings.showPlayer"
         >
-          <ion-icon
-            slot="icon-only"
-            :icon="icons.play"
-          />
+          <ion-icon slot="icon-only" :icon="icons.play" />
         </ion-button>
         <font-size-control />
         <add-to-library-button :id="id" />
-        <ion-button
-          :id="`songsheet-context-${id}`"
-          @click.prevent=""
-        >
+        <ion-button :id="`songsheet-context-${id}`" @click.prevent="">
           <ion-icon
             slot="icon-only"
             :ios="icons.iosEllipsis"
@@ -191,11 +192,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
       class="relative ion-padding main-content"
     >
       <!-- Hidden sprite of chord diagrams -->
-      <svg
-        v-if="parser.song"
-        hidden
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <svg v-if="parser.song" hidden xmlns="http://www.w3.org/2000/svg">
         <chord-diagram
           v-for="chord in parser.chords"
           :key="chord + settings.instrument"
@@ -205,9 +202,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
       </svg>
 
       <div v-if="parser.error">
-        <h1 class="text-xl md:text-2xl my-1">
-          Error parsing songsheet
-        </h1>
+        <h1 class="text-xl md:text-2xl my-1">Error parsing songsheet</h1>
 
         <pre class="text-red-600 my-6">{{ parser.error }}</pre>
 
@@ -219,10 +214,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
         :id="`songsheet-content-${id}`"
         :song="parser.song"
       >
-        <template
-          v-if="track?.album"
-          #album
-        >
+        <template v-if="track?.album" #album>
           <div
             v-if="track?.album"
             class="aspect-square w-12 shrink-0 sm:w-8 rounded overflow-hidden shadow flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
@@ -231,15 +223,12 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
               :to="{ name: 'album', params: { id: track.album.id } }"
               @click.stop
             >
-              <img :src="track?.album.cover?.medium">
+              <img :src="track?.album.cover?.medium" />
             </router-link>
           </div>
         </template>
 
-        <template
-          v-if="track?.artist"
-          #artist
-        >
+        <template v-if="track?.artist" #artist>
           <ion-label
             button
             :router-link="{ name: 'artist', params: { id: track.artist.id } }"
@@ -262,12 +251,11 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
         </template>
       </songsheet-content>
 
-      <div class="snap-end text-xs text-muted mb-8 flex flex-col md:flex-row gap-2">
+      <div
+        class="snap-end text-xs text-muted mb-8 flex flex-col md:flex-row gap-2"
+      >
         <div>Updated {{ formatDate(updated_at) }}</div>
-        <div
-          v-if="imported_from"
-          class="md:ms-auto"
-        >
+        <div v-if="imported_from" class="md:ms-auto">
           Imported from
           <a
             target="_blank"
@@ -280,7 +268,9 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
       </div>
     </column-layout>
     <div v-if="autoScrollAvailable" class="sticky h-0 bottom-0 right-0">
-      <div class="absolute bottom-3 right-3 md:right-4 md:bottom-4 lg:right-8 lg:bottom-8 xl:right-12 xl:bottom-12">
+      <div
+        class="absolute bottom-3 right-3 md:right-4 md:bottom-4 lg:right-8 lg:bottom-8 xl:right-12 xl:bottom-12"
+      >
         <ion-button
           v-tooltip.left="'Auto-scroll'"
           fill="clear"
@@ -292,7 +282,9 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
         >
           <ion-icon
             slot="icon-only"
-            :icon="autoScroll?.isActive ? icons.autoScrollOn : icons.autoScrollOff"
+            :icon="
+              autoScroll?.isActive ? icons.autoScrollOn : icons.autoScrollOff
+            "
             :class="{ 'text-4xl': true, 'animate-pulse': autoScroll.isActive }"
           />
         </ion-button>
@@ -320,10 +312,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
     :trigger="`songsheet-content-${id}-key-metadata`"
   />
 
-  <add-to-setlist-modal
-    :id="id"
-    ref="addToSetlistModal"
-  />
+  <add-to-setlist-modal :id="id" ref="addToSetlistModal" />
   <ion-popover
     :trigger="`songsheet-context-${id}`"
     keep-contents-mounted
@@ -376,7 +365,7 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
       </ion-item>
       <share-item
         :title="title"
-        :router-link="{ name: 'songsheet', params: { id }}"
+        :router-link="{ name: 'songsheet', params: { id } }"
       />
       <ion-item
         button
@@ -399,9 +388,9 @@ watch(() => settings.columns, () => scroller.value?.$el?.scrollToPoint(0, 0))
 
 <style scoped>
 ion-content::part(scroll) {
-  --pane-height: calc(v-bind('chordsPane.height') * 1px);
+  --pane-height: calc(v-bind("chordsPane.height") * 1px);
   --padding-bottom: var(--pane-height);
-  transition: v-bind('chordsPane.transition');
+  transition: v-bind("chordsPane.transition");
 }
 
 ion-content:not(.autoscrolling)::part(scroll) {
@@ -409,12 +398,13 @@ ion-content:not(.autoscrolling)::part(scroll) {
 }
 
 @media (min-width: 576px) {
-  ion-content::part(scroll), .maybe-sidebar {
+  ion-content::part(scroll),
+  .maybe-sidebar {
     margin-left: calc(80px + env(safe-area-inset-left, 0));
   }
 }
 
 ion-buttons > * {
-  @apply sm:mx-1 md:mx-2
+  @apply sm:mx-1 md:mx-2;
 }
 </style>

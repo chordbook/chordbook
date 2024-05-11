@@ -28,15 +28,15 @@ If you would like to contribute code:
 
 1. [Fork the repository on GitHub](https://github.com/bkeepers/chordbook/fork) and clone a local copy
 2. Get the app running locally by running these commands from your terminal:
-    ```
-    $ bin/setup
-    $ bin/dev
-    ```
+   ```
+   $ bin/setup
+   $ bin/dev
+   ```
 3. Create your feature branch (`git checkout -b my-amazing-feature`)
 4. Make your changes and run the tests (`bin/test`)
-4. Commit your Changes (`git commit -m 'Add some my-amazing-feature`)
-5. Push to the branch (`git push -u origin my-amazing-feature`)
-6. Open a Pull Request
+5. Commit your Changes (`git commit -m 'Add some my-amazing-feature`)
+6. Push to the branch (`git push -u origin my-amazing-feature`)
+7. Open a Pull Request
 
 ## License
 

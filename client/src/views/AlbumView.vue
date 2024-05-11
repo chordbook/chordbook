@@ -1,30 +1,22 @@
 <script setup>
-import AddToLibraryButton from '../components/AddToLibraryButton.vue'
-import { album as placeholderIcon } from '@/icons'
+import AddToLibraryButton from "../components/AddToLibraryButton.vue";
+import { album as placeholderIcon } from "@/icons";
 
 defineProps({
   id: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <template>
   <app-view>
-    <data-source
-      v-slot="{ data }"
-      :src="`albums/${id}`"
-    >
+    <data-source v-slot="{ data }" :src="`albums/${id}`">
       <Head>
-        <title v-if="data">
-          {{ data.title }} by {{ data.artist.name }}
-        </title>
+        <title v-if="data">{{ data.title }} by {{ data.artist.name }}</title>
       </Head>
-      <ion-header
-        translucent
-        collapse="fade"
-      >
+      <ion-header translucent collapse="fade">
         <ion-toolbar>
           <ion-buttons slot="start">
             <ion-back-button
@@ -40,19 +32,17 @@ defineProps({
         </ion-toolbar>
       </ion-header>
 
-      <ion-content
-        fullscreen
-        class="main-content"
-      >
-        <div class="ion-padding flex gap-4 md:gap-6 lg:gap-8 flex-col md:flex-row">
-          <div class="flex place-content-center md:block md:place-content-start">
+      <ion-content fullscreen class="main-content">
+        <div
+          class="ion-padding flex gap-4 md:gap-6 lg:gap-8 flex-col md:flex-row"
+        >
+          <div
+            class="flex place-content-center md:block md:place-content-start"
+          >
             <div
               class="aspect-square w-3/4 md:w-60 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
             >
-              <img
-                v-if="data?.cover?.large"
-                :src="data.cover.large"
-              >
+              <img v-if="data?.cover?.large" :src="data.cover.large" />
               <ion-icon
                 v-else
                 :icon="placeholderIcon"
@@ -97,10 +87,15 @@ defineProps({
             v-for="track in data.tracks"
             :key="track.id"
             :href="`/tracks/${track.id}`"
-            :class="{'text-neutral-500/50 hover:text-current transition-opacity': !track.has_songsheet}"
+            :class="{
+              'text-neutral-500/50 hover:text-current transition-opacity':
+                !track.has_songsheet,
+            }"
           >
             <ion-text slot="start">
-              <span class="text-sm text-muted w-4 text-right inline-block">{{ track.number }}</span>
+              <span class="text-sm text-muted w-4 text-right inline-block">{{
+                track.number
+              }}</span>
             </ion-text>
             <ion-label>
               <h2>{{ track.title }}</h2>

@@ -1,21 +1,21 @@
 <script setup>
-import SongsheetItem from '@/components/SongsheetItem.vue'
-import { useRouter } from 'vue-router'
+import SongsheetItem from "@/components/SongsheetItem.vue";
+import { useRouter } from "vue-router";
 
-const router = useRouter()
+const router = useRouter();
 
 defineProps({
   id: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-function loaded ({ data }) {
+function loaded({ data }) {
   // Redirect to the only version if there is only one
   if (data.value.length === 1) {
-    const [{ id }] = data.value
-    router.replace(`/songsheets/${id}`)
+    const [{ id }] = data.value;
+    router.replace(`/songsheets/${id}`);
   }
 }
 </script>
@@ -28,18 +28,12 @@ function loaded ({ data }) {
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button
-            text=""
-            default-href="/"
-          />
+          <ion-back-button text="" default-href="/" />
         </ion-buttons>
         <ion-title>Versions</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content
-      fullscreen
-      class="main-content"
-    >
+    <ion-content fullscreen class="main-content">
       <ion-list>
         <data-source
           v-slot="{ items }"

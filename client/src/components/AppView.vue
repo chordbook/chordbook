@@ -1,18 +1,20 @@
 <script setup>
-import { ref, onErrorCaptured, watch } from 'vue'
-import { useOnline } from '@vueuse/core'
-import ErrorMessage from '@/components/ErrorMessage.vue'
-import OfflineMessage from '@/components/OfflineMessage.vue'
+import { ref, onErrorCaptured, watch } from "vue";
+import { useOnline } from "@vueuse/core";
+import ErrorMessage from "@/components/ErrorMessage.vue";
+import OfflineMessage from "@/components/OfflineMessage.vue";
 
-const online = useOnline()
-const error = ref(null)
+const online = useOnline();
+const error = ref(null);
 
-onErrorCaptured((err, instance, info) => {
-  error.value = err
-})
+onErrorCaptured((err) => {
+  error.value = err;
+});
 
 // Clear error to try again when internet connection restored
-watch(online, (online) => { if (online) error.value = null })
+watch(online, (online) => {
+  if (online) error.value = null;
+});
 </script>
 
 <template>

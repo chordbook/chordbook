@@ -1,26 +1,26 @@
 <script setup>
-import GenreListView from '@/views/GenreListView.vue'
-import ModelAvatar from '@/components/ModelAvatar.vue'
-import { useRouteQuery } from '@vueuse/router'
-import { ref, reactive } from 'vue'
-import { getMode } from '@ionic/core'
+import GenreListView from "@/views/GenreListView.vue";
+import ModelAvatar from "@/components/ModelAvatar.vue";
+import { useRouteQuery } from "@vueuse/router";
+import { ref, reactive } from "vue";
+import { getMode } from "@ionic/core";
 
 const types = {
-  All: '',
-  Artists: 'Artist',
-  Albums: 'Album',
-  Songs: 'Track,Songsheet',
-  Setlists: 'Setlist'
-}
+  All: "",
+  Artists: "Artist",
+  Albums: "Album",
+  Songs: "Track,Songsheet",
+  Setlists: "Setlist",
+};
 
-const mode = getMode()
+const mode = getMode();
 const params = reactive({
-  q: useRouteQuery('q'),
-  type: useRouteQuery('type', '')
-})
+  q: useRouteQuery("q"),
+  type: useRouteQuery("type", ""),
+});
 
-const input = ref() // template ref
-const search = ref() // template ref
+const input = ref(); // template ref
+const search = ref(); // template ref
 </script>
 
 <template>
@@ -28,10 +28,7 @@ const search = ref() // template ref
     <Head>
       <title>Discover</title>
     </Head>
-    <ion-header
-      translucent
-      collapse="fade"
-    >
+    <ion-header translucent collapse="fade">
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-menu-button />
@@ -39,18 +36,13 @@ const search = ref() // template ref
         <ion-title>Discover</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content
-      fullscreen
-      class="main-content"
-    >
+    <ion-content fullscreen class="main-content">
       <ion-header
         :collapse="mode === 'ios' ? 'condense' : ''"
         class="md:flex md:flex-wrap md:gap-2 md:items-center"
       >
         <ion-toolbar class="no-md md:flex-1">
-          <ion-title size="large">
-            Discover
-          </ion-title>
+          <ion-title size="large"> Discover </ion-title>
         </ion-toolbar>
         <ion-toolbar class="md:flex-1">
           <ion-searchbar
@@ -68,7 +60,7 @@ const search = ref() // template ref
             @ion-change="params.type = $event.detail.value"
           >
             <ion-segment-button
-              v-for="id, name in types"
+              v-for="(id, name) in types"
               :key="id"
               :value="id"
             >
@@ -100,15 +92,8 @@ const search = ref() // template ref
         :params="params"
         :options="{ immediate: !!params.q, refetch: true }"
       >
-        <template
-          v-if="params.q"
-          #empty
-        >
-          <blank-slate
-            icon="search"
-            title="No results found"
-            description=""
-          />
+        <template v-if="params.q" #empty>
+          <blank-slate icon="search" title="No results found" description="" />
         </template>
         <template #default="{ data }">
           <ion-list>
@@ -117,7 +102,10 @@ const search = ref() // template ref
                 v-for="result in data"
                 :key="result.type + result.id"
                 button
-                :router-link="{ name: result.type.toLowerCase(), params: { id: result.id } }"
+                :router-link="{
+                  name: result.type.toLowerCase(),
+                  params: { id: result.id },
+                }"
               >
                 <model-avatar
                   slot="start"
@@ -138,14 +126,8 @@ const search = ref() // template ref
       </data-source>
 
       <div v-show="!params.q">
-        <data-source
-          v-slot="{ data }"
-          src="discover"
-        >
-          <model-list
-            :items="data?.setlists"
-            format="card"
-          />
+        <data-source v-slot="{ data }" src="discover">
+          <model-list :items="data?.setlists" format="card" />
         </data-source>
         <GenreListView />
       </div>

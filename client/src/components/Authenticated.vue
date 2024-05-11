@@ -1,7 +1,7 @@
 <script setup>
-import useAuthStore from '@/stores/auth'
-import UnauthorizedView from '@/views/UnauthorizedView.vue'
-const auth = useAuthStore()
+import useAuthStore from "@/stores/auth";
+import UnauthorizedView from "@/views/UnauthorizedView.vue";
+const auth = useAuthStore();
 </script>
 
 <template>

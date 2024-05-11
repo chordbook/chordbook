@@ -1,12 +1,12 @@
 <script setup>
-import { Chord } from 'chordsheetjs'
+import { Chord } from "chordsheetjs";
 
 defineProps({
   chord: {
     type: Chord,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <template>

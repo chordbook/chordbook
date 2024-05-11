@@ -11,8 +11,8 @@
 //   console.log("This message will appear in the console")
 //
 export default new Proxy(console, {
-  get (target, prop) {
-    const debug = window.debug || localStorage.getItem('debug')
-    return debug ? target[prop] : function () { }
-  }
-})
+  get(target, prop) {
+    const debug = window.debug || localStorage.getItem("debug");
+    return debug ? target[prop] : function () {};
+  },
+});

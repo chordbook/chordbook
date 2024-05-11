@@ -1,32 +1,25 @@
 <script setup>
-import ModelAvatar from './ModelAvatar.vue'
+import ModelAvatar from "./ModelAvatar.vue";
 
 defineProps({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   thumbnail: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <template>
-  <ion-item
-    button
-    :router-link="{ name: 'artist', params: { id } }"
-  >
-    <model-avatar
-      slot="start"
-      :src="thumbnail"
-      type="artist"
-    />
+  <ion-item button :router-link="{ name: 'artist', params: { id } }">
+    <model-avatar slot="start" :src="thumbnail" type="artist" />
     <ion-label>
       <h2>{{ name }}</h2>
     </ion-label>

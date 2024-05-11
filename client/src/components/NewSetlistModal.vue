@@ -1,13 +1,15 @@
 <script setup>
-import { modalController } from '@ionic/vue'
-import { useFetch } from '@/client'
-import { ref } from 'vue'
+import { modalController } from "@ionic/vue";
+import { useFetch } from "@/client";
+import { ref } from "vue";
 
-const params = ref({})
+const params = ref({});
 
-async function save () {
-  const { data } = await useFetch('setlists').post({ setlist: params.value }).json()
-  modalController.dismiss(data)
+async function save() {
+  const { data } = await useFetch("setlists")
+    .post({ setlist: params.value })
+    .json();
+  modalController.dismiss(data);
 }
 </script>
 
@@ -16,10 +18,7 @@ async function save () {
     <ion-toolbar>
       <ion-title>New Setlist</ion-title>
       <ion-buttons slot="start">
-        <ion-button
-          role="cancel"
-          @click="modalController.dismiss()"
-        >
+        <ion-button role="cancel" @click="modalController.dismiss()">
           Cancel
         </ion-button>
       </ion-buttons>
@@ -27,27 +26,17 @@ async function save () {
   </ion-header>
   <ion-content>
     <ion-item>
-      <ion-label position="stacked">
-        Setlist title
-      </ion-label>
+      <ion-label position="stacked"> Setlist title </ion-label>
       <ion-input v-model="params.title" />
     </ion-item>
 
     <ion-item>
-      <ion-label position="stacked">
-        Description
-      </ion-label>
+      <ion-label position="stacked"> Description </ion-label>
       <ion-textarea v-model="params.description" />
     </ion-item>
 
     <div class="ion-padding">
-      <ion-button
-        expand="block"
-        type="submit"
-        @click="save"
-      >
-        Save
-      </ion-button>
+      <ion-button expand="block" type="submit" @click="save"> Save </ion-button>
     </div>
   </ion-content>
 </template>

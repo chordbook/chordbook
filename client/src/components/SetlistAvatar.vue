@@ -1,22 +1,22 @@
 <script setup>
-import { setlist } from '@/icons'
-import { gradient } from '@/lib/gradient'
+import { setlist } from "@/icons";
+import { gradient } from "@/lib/gradient";
 
 const props = defineProps({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   thumbnails: {
     type: Array,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-function rotate (index) {
-  if (index === 0) return 0
-  const spin = (360 / (props.thumbnails.length - 1))
-  return (index - 1) * spin + 'deg'
+function rotate(index) {
+  if (index === 0) return 0;
+  const spin = 360 / (props.thumbnails.length - 1);
+  return (index - 1) * spin + "deg";
 }
 </script>
 
@@ -42,9 +42,9 @@ function rotate (index) {
           }"
           :style="{
             width: index === 0 ? '35%' : '22%',
-            '--tw-rotate': '-' + rotate(index)
+            '--tw-rotate': '-' + rotate(index),
           }"
-        >
+        />
       </div>
     </template>
 

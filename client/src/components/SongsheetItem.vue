@@ -1,41 +1,46 @@
 <script setup>
-import ModelAvatar from './ModelAvatar.vue'
-import AddToSetlistModal from '@/components/AddToSetlistModal.vue'
-import ShareItem from '@/components/ShareItem.vue'
-import * as icons from '@/icons'
+import ModelAvatar from "./ModelAvatar.vue";
+import AddToSetlistModal from "@/components/AddToSetlistModal.vue";
+import ShareItem from "@/components/ShareItem.vue";
+import * as icons from "@/icons";
 
 defineProps({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   subtitle: {
     type: String,
-    required: true
+    required: true,
   },
   track: {
     type: Object,
-    default: null
+    default: null,
   },
   metadata: {
     type: Object,
-    default () { return {} }
+    default() {
+      return {};
+    },
   },
   setlistId: {
     type: String,
-    default: null
-  }
-})
+    default: null,
+  },
+});
 </script>
 
 <template>
   <ion-item
     button
-    :router-link="{ name: setlistId ? 'setlistSongsheet' : 'songsheet', params: { id, setlistId } }"
+    :router-link="{
+      name: setlistId ? 'setlistSongsheet' : 'songsheet',
+      params: { id, setlistId },
+    }"
     detail="false"
   >
     <model-avatar
@@ -60,10 +65,7 @@ defineProps({
       >
         Capo {{ metadata.capo }}
       </div>
-      <span
-        v-if="metadata.key"
-        class="text-sm"
-      >
+      <span v-if="metadata.key" class="text-sm">
         {{ metadata?.key }}
       </span>
     </ion-note>
@@ -84,11 +86,7 @@ defineProps({
     </ion-button>
     <ion-reorder slot="end" />
 
-    <ion-popover
-      :trigger="`songsheet-${id}`"
-      translucent
-      dismiss-on-select
-    >
+    <ion-popover :trigger="`songsheet-${id}`" translucent dismiss-on-select>
       <ion-list lines="full">
         <ion-item
           button
@@ -123,9 +121,6 @@ defineProps({
         />
       </ion-list>
     </ion-popover>
-    <add-to-setlist-modal
-      :id="id"
-      ref="addToSetlistModal"
-    />
+    <add-to-setlist-modal :id="id" ref="addToSetlistModal" />
   </ion-item>
 </template>

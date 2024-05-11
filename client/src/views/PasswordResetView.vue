@@ -1,25 +1,27 @@
 <script setup>
-import useAuthStore from '@/stores/auth'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import useAuthStore from "@/stores/auth";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-const auth = useAuthStore()
-const router = useRouter()
+const auth = useAuthStore();
+const router = useRouter();
 const props = defineProps({
   token: {
     type: String,
-    default: null
-  }
-})
+    default: null,
+  },
+});
 const params = ref({
-  token: props.token
-})
+  token: props.token,
+});
 
-const { execute, data, onFetchResponse } = auth.resetPassword(params, { immediate: false })
+const { execute, data, onFetchResponse } = auth.resetPassword(params, {
+  immediate: false,
+});
 
-onFetchResponse((response) => {
-  router.push('#signin')
-})
+onFetchResponse(() => {
+  router.push("#signin");
+});
 </script>
 
 <template>
@@ -56,18 +58,11 @@ onFetchResponse((response) => {
           </ion-item>
 
           <div class="ion-margin">
-            <ion-button
-              type="submit"
-              expand="block"
-            >
-              Set Password
-            </ion-button>
+            <ion-button type="submit" expand="block"> Set Password </ion-button>
           </div>
           <div class="ion-margin text-center text-sm text-muted">
             Did you remember your password?
-            <router-link to="#signin">
-              Sign In
-            </router-link>
+            <router-link to="#signin"> Sign In </router-link>
           </div>
         </form>
       </div>

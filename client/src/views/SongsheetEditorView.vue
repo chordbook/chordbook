@@ -1,98 +1,100 @@
 <script setup>
-import SongsheetContent from '@/components/SongsheetContent.vue'
-import EditorSplitView from '@/components/EditorSplitView.vue'
-import SongsheetEditor from '@/components/Editor.js'
-import { alertController, loadingController } from '@ionic/vue'
-import { ref, computed, reactive, toRef } from 'vue'
-import { useFetch } from '@/client'
-import { useRouter } from 'vue-router'
-import { useSongsheetParser, useScrollSync } from '@/composables'
+import SongsheetContent from "@/components/SongsheetContent.vue";
+import EditorSplitView from "@/components/EditorSplitView.vue";
+import SongsheetEditor from "@/components/Editor.js";
+import { alertController, loadingController } from "@ionic/vue";
+import { ref, computed, reactive, toRef } from "vue";
+import { useFetch } from "@/client";
+import { useRouter } from "vue-router";
+import { useSongsheetParser, useScrollSync } from "@/composables";
 
 const props = defineProps({
   id: {
     type: String,
-    default: null
-  }
-})
+    default: null,
+  },
+});
 
-const router = useRouter()
-const songsheet = ref({ source: '' })
-const errors = ref({})
-const splitView = ref(null) // template ref
-const url = computed(() => props.id ? `songsheets/${props.id}` : 'songsheets')
-const parser = reactive(useSongsheetParser(toRef(() => songsheet.value.source)))
-const editor = ref() // template ref
-const preview = ref() // template ref
+const router = useRouter();
+const songsheet = ref({ source: "" });
+const errors = ref({});
+const splitView = ref(null); // template ref
+const url = computed(() =>
+  props.id ? `songsheets/${props.id}` : "songsheets",
+);
+const parser = reactive(
+  useSongsheetParser(toRef(() => songsheet.value.source)),
+);
+const editor = ref(); // template ref
+const preview = ref(); // template ref
 
 if (props.id) {
-  useFetch(`songsheets/${props.id}`).get().json().then(({ data }) => {
-    songsheet.value = data.value
-  })
+  useFetch(`songsheets/${props.id}`)
+    .get()
+    .json()
+    .then(({ data }) => {
+      songsheet.value = data.value;
+    });
 }
 
-useScrollSync(editor, preview)
+useScrollSync(editor, preview);
 
-async function save () {
-  const { metadata } = parser.song?.metadata || {}
-  const method = props.id ? 'patch' : 'post'
+async function save() {
+  const { metadata } = parser.song?.metadata || {};
+  const method = props.id ? "patch" : "post";
   const payload = {
     songsheet: {
       source: songsheet.value.source,
-      metadata
-    }
-  }
+      metadata,
+    },
+  };
 
-  const { error, data } = await useFetch(url).json()[method](payload)
+  const { error, data } = await useFetch(url).json()[method](payload);
 
   if (error.value) {
-    console.error(error.value)
-    errors.value = data.value
+    console.error(error.value);
+    errors.value = data.value;
   } else {
-    router.replace({ name: 'songsheet', params: { id: data.value.id } })
+    router.replace({ name: "songsheet", params: { id: data.value.id } });
   }
-  splitView.value.toggle()
+  splitView.value.toggle();
 }
 
-async function destroy (e) {
-  const alert = await alertController
-    .create({
-      header: 'Are you sure?',
-      message: 'Do you want to delete this song?',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel'
+async function destroy() {
+  const alert = await alertController.create({
+    header: "Are you sure?",
+    message: "Do you want to delete this song?",
+    buttons: [
+      {
+        text: "Cancel",
+        role: "cancel",
+      },
+      {
+        text: "Delete",
+        role: "destructive",
+        handler: async () => {
+          const loading = await loadingController.create({
+            message: "Deleting…",
+            duration: 5000,
+            translucent: true,
+          });
+          await loading.present();
+          await useFetch(url).delete();
+          router.go(-2);
+          loading.dismiss();
         },
-        {
-          text: 'Delete',
-          role: 'destructive',
-          handler: async () => {
-            const loading = await loadingController.create({
-              message: 'Deleting…',
-              duration: 5000,
-              translucent: true
-            })
-            await loading.present()
-            await useFetch(url).delete()
-            router.go(-2)
-            loading.dismiss()
-          }
-        }
-      ]
-    })
-  return alert.present()
+      },
+    ],
+  });
+  return alert.present();
 }
 </script>
 
 <template>
   <app-view>
     <Head>
-      <title v-if="id">
-        Edit: {{ songsheet.title }}
-      </title>
-      <title v-else>
-        New Song
-      </title>
+      <title v-if="id">Edit: {{ songsheet.title }}</title>
+      <title v-else>New Song</title>
     </Head>
     <ion-header translucent>
       <ion-toolbar>
@@ -104,41 +106,25 @@ async function destroy (e) {
         </ion-buttons>
 
         <ion-buttons slot="primary">
-          <ion-button
-            v-if="splitView?.disabled"
-            @click="splitView.toggle()"
-          >
+          <ion-button v-if="splitView?.disabled" @click="splitView.toggle()">
             <ion-label>Preview</ion-label>
           </ion-button>
-          <ion-button
-            v-else
-            @click="save"
-          >
+          <ion-button v-else @click="save">
             <ion-label>Save</ion-label>
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content
-      fullscreen
-      :scroll-y="false"
-      :scroll-x="false"
-    >
+    <ion-content fullscreen :scroll-y="false" :scroll-x="false">
       <div v-if="Object.keys(errors).length">
         <ul class="px-8 py-4 text-red-600">
-          <li
-            v-for="(messages, attr) in errors"
-            :key="attr"
-          >
-            {{ attr }} {{ messages.join(', ') }}
+          <li v-for="(messages, attr) in errors" :key="attr">
+            {{ attr }} {{ messages.join(", ") }}
           </li>
         </ul>
       </div>
 
-      <editor-split-view
-        ref="splitView"
-        :disabled="true"
-      >
+      <editor-split-view ref="splitView" :disabled="true">
         <template #left>
           <songsheet-editor
             ref="editor"
@@ -168,13 +154,13 @@ async function destroy (e) {
         <template #right>
           <div
             ref="preview"
-            :class="{ 'ion-padding': true, 'h-full overflow-auto': !splitView?.disabled }"
+            :class="{
+              'ion-padding': true,
+              'h-full overflow-auto': !splitView?.disabled,
+            }"
           >
             <h3>Preview</h3>
-            <songsheet-content
-              v-if="parser.song"
-              :song="parser.song"
-            />
+            <songsheet-content v-if="parser.song" :song="parser.song" />
           </div>
         </template>
       </editor-split-view>
@@ -182,12 +168,7 @@ async function destroy (e) {
     <ion-footer>
       <ion-toolbar>
         <ion-buttons slot="secondary">
-          <ion-button
-            v-if="id"
-            fill="clear"
-            color="danger"
-            @click="destroy"
-          >
+          <ion-button v-if="id" fill="clear" color="danger" @click="destroy">
             Delete
           </ion-button>
         </ion-buttons>

@@ -1,33 +1,26 @@
 <script setup>
-import { modalController } from '@ionic/vue'
-import SongsheetItem from '@/components/SongsheetItem.vue'
+import { modalController } from "@ionic/vue";
+import SongsheetItem from "@/components/SongsheetItem.vue";
 
 defineProps({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   exclude: {
     type: String,
-    default: null
-  }
-})
+    default: null,
+  },
+});
 </script>
 
 <template>
-  <ion-modal
-    can-dismiss
-    :breakpoints="[0.5, 1]"
-    :initial-breakpoint="0.5"
-  >
+  <ion-modal can-dismiss :breakpoints="[0.5, 1]" :initial-breakpoint="0.5">
     <app-view>
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button
-              role="cancel"
-              @click="modalController.dismiss()"
-            >
+            <ion-button role="cancel" @click="modalController.dismiss()">
               Cancel
             </ion-button>
           </ion-buttons>
@@ -36,14 +29,8 @@ defineProps({
       </ion-header>
       <ion-content>
         <ion-list>
-          <data-source
-            v-slot="{ items }"
-            :src="`tracks/${id}/songsheets`"
-          >
-            <template
-              v-for="version in items"
-              :key="version.id"
-            >
+          <data-source v-slot="{ items }" :src="`tracks/${id}/songsheets`">
+            <template v-for="version in items" :key="version.id">
               <songsheet-item
                 v-if="version.id !== exclude"
                 v-bind="version"

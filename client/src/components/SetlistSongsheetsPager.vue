@@ -1,59 +1,57 @@
 <script setup>
-import { computed } from 'vue'
-import * as icons from '@/icons'
-import usePaginatedFetch from '@/composables/usePaginatedFetch'
-import ModelAvatar from './ModelAvatar.vue'
+import { computed } from "vue";
+import * as icons from "@/icons";
+import usePaginatedFetch from "@/composables/usePaginatedFetch";
+import ModelAvatar from "./ModelAvatar.vue";
 
 const props = defineProps({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   songsheetId: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const { items, load } = usePaginatedFetch(`setlists/${props.id}/songsheets`)
+const { items, load } = usePaginatedFetch(`setlists/${props.id}/songsheets`);
 
 const currentIndex = computed(() => {
-  const index = items.findIndex(({ id }) => id === props.songsheetId)
+  const index = items.findIndex(({ id }) => id === props.songsheetId);
   // Not found, load more and rely on reactivity to update this calculated value
-  if (index < 0) load()
-  return index
-})
+  if (index < 0) load();
+  return index;
+});
 
 // Previous will always be loaded if current is loaded
-const prev = computed(() => currentIndex.value >= 0 && items[currentIndex.value - 1])
+const prev = computed(
+  () => currentIndex.value >= 0 && items[currentIndex.value - 1],
+);
 
 const next = computed(() => {
-  const songsheet = currentIndex.value >= 0 && items[currentIndex.value + 1]
+  const songsheet = currentIndex.value >= 0 && items[currentIndex.value + 1];
   // Nothing found, load more and rely on reactivity to update this calculated value
-  if (!songsheet) load()
-  return songsheet
-})
+  if (!songsheet) load();
+  return songsheet;
+});
 
-await load()
+await load();
 </script>
 
 <template>
-  <data-source
-    v-slot="{ data }"
-    :src="`setlists/${id}`"
-  >
+  <data-source v-slot="{ data }" :src="`setlists/${id}`">
     <ion-footer translucent>
       <ion-toolbar class="relative flex items-center">
-        <ion-buttons
-          v-if="prev"
-          slot="start"
-          class="w-1/2 lg:w-1/3"
-        >
+        <ion-buttons v-if="prev" slot="start" class="w-1/2 lg:w-1/3">
           <ion-item
             button
             class="w-full"
             lines="none"
-            :router-link="{ name: 'setlistSongsheet', params: { id: prev.id, setlistId: id } }"
+            :router-link="{
+              name: 'setlistSongsheet',
+              params: { id: prev.id, setlistId: id },
+            }"
             detail="false"
           >
             <model-avatar
@@ -64,10 +62,7 @@ await load()
             />
             <ion-label class="truncate">
               <p class="flex items-center gap-1">
-                <ion-icon
-                  :icon="icons.playBack"
-                  size="small"
-                />
+                <ion-icon :icon="icons.playBack" size="small" />
                 Previous
               </p>
               <h2 class="md:text-sm">
@@ -78,7 +73,7 @@ await load()
         </ion-buttons>
         <ion-title
           class="hidden lg:block"
-          :router-link="{ name: 'setlist', params: { id }}"
+          :router-link="{ name: 'setlist', params: { id } }"
           router-direction="back"
         >
           <div class="m-2">
@@ -97,7 +92,10 @@ await load()
             button
             class="w-full"
             lines="none"
-            :router-link="{ name: 'setlistSongsheet', params: { id: next.id, setlistId: id } }"
+            :router-link="{
+              name: 'setlistSongsheet',
+              params: { id: next.id, setlistId: id },
+            }"
             detail="false"
           >
             <model-avatar
@@ -109,10 +107,7 @@ await load()
             <ion-label class="text-right truncate text-sm">
               <p class="inline-flex items-center gap-1">
                 Next
-                <ion-icon
-                  :icon="icons.playNext"
-                  size="small"
-                />
+                <ion-icon :icon="icons.playNext" size="small" />
               </p>
               <h2 class="text-xs md:text-sm">
                 {{ next.title }}

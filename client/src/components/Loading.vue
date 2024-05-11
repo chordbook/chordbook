@@ -5,7 +5,9 @@
     </template>
     <template #fallback>
       <ion-content>
-        <div class="flex flex-col justify-center items-center text-center min-h-screen py-8">
+        <div
+          class="flex flex-col justify-center items-center text-center min-h-screen py-8"
+        >
           <ion-spinner
             name="dots"
             color="medium"

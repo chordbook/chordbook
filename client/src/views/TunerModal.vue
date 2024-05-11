@@ -4,10 +4,7 @@
     <ion-header translucent>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button
-            text=""
-            default-href="/"
-          />
+          <ion-back-button text="" default-href="/" />
         </ion-buttons>
         <ion-title>Tuner</ion-title>
       </ion-toolbar>
@@ -20,7 +17,7 @@
 </template>
 
 <script setup>
-import Tuner from '@/components/Tuner.vue'
+import Tuner from "@/components/Tuner.vue";
 </script>
 
 <style scoped>

@@ -1,5 +1,5 @@
 <script setup>
-import SetlistCard from '@/components/SetlistCard.vue'
+import SetlistCard from "@/components/SetlistCard.vue";
 </script>
 
 <template>
@@ -12,24 +12,15 @@ import SetlistCard from '@/components/SetlistCard.vue'
         <ion-title>Setlists</ion-title>
 
         <ion-buttons slot="start">
-          <ion-back-button
-            class="md:hidden"
-            text=""
-            default-href="/library"
-          />
+          <ion-back-button class="md:hidden" text="" default-href="/library" />
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content
-      fullscreen
-      class="main-content"
-    >
+    <ion-content fullscreen class="main-content">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">
-            Setlists
-          </ion-title>
+          <ion-title size="large"> Setlists </ion-title>
         </ion-toolbar>
       </ion-header>
 
@@ -48,7 +39,9 @@ import SetlistCard from '@/components/SetlistCard.vue'
         :params="$route.query"
       >
         <ion-list>
-          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+          <div
+            class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+          >
             <setlist-card
               v-for="setlist in items"
               :key="setlist.id"

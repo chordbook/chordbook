@@ -1,39 +1,33 @@
 <script setup>
-import * as icons from '@/icons'
+import * as icons from "@/icons";
 
 defineProps({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   thumbnails: {
     type: Array,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <template>
-  <ion-item
-    button
-    class="rounded group"
-    :detail="false"
-    lines="none"
-  >
+  <ion-item button class="rounded group" :detail="false" lines="none">
     <ion-avatar
       slot="start"
       class="bg-slate-100 dark:bg-slate-800 flex place-content-center items-center rounded"
     >
-      <div class="overflow-hidden relative aspect-square flex place-content-center items-center">
-        <div
-          v-if="thumbnails.length > 0"
-          class="grid grid-cols-2 grid-rows-2"
-        >
+      <div
+        class="overflow-hidden relative aspect-square flex place-content-center items-center"
+      >
+        <div v-if="thumbnails.length > 0" class="grid grid-cols-2 grid-rows-2">
           <img
             v-for="thumbnail in thumbnails"
             :key="thumbnail"
             :src="thumbnail"
-          >
+          />
         </div>
         <ion-icon
           v-else
