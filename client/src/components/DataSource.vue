@@ -30,57 +30,56 @@ Empty placeholder:
   </data-source>
 -->
 <script setup>
-import { reactive, watch } from 'vue'
-import usePaginatedFetch from '@/composables/usePaginatedFetch'
-import useAuthStore from '@/stores/auth'
+import { reactive, watch } from "vue";
+import usePaginatedFetch from "@/composables/usePaginatedFetch";
+import useAuthStore from "@/stores/auth";
 
 const props = defineProps({
   src: {
     type: String,
-    required: true
+    required: true,
   },
   params: {
     type: Object,
-    default () { return {} }
+    default() {
+      return {};
+    },
   },
   options: {
     type: Object,
-    default () { return {} }
-  }
-})
+    default() {
+      return {};
+    },
+  },
+});
 
-const emit = defineEmits(['load'])
+const emit = defineEmits(["load"]);
 
-const pager = reactive(usePaginatedFetch(props.src, { ...props.options, params: props.params }))
+const pager = reactive(
+  usePaginatedFetch(props.src, { ...props.options, params: props.params }),
+);
 
-function load () {
-  const page = pager.load()
-  page.onFetchResponse(() => emit('load', page))
-  return page
+function load() {
+  const page = pager.load();
+  page.onFetchResponse(() => emit("load", page));
+  return page;
 }
 
-const auth = useAuthStore()
+const auth = useAuthStore();
 
-defineExpose(pager)
+defineExpose(pager);
 
 // Reload data when signing in/out
-watch(() => auth.isAuthenticated, pager.reload)
+watch(() => auth.isAuthenticated, pager.reload);
 
-await load()
+await load();
 </script>
 
 <template>
-  <slot
-    v-if="$slots.empty && pager.isEmpty"
-    name="empty"
-  />
+  <slot v-if="$slots.empty && pager.isEmpty" name="empty" />
   <template v-else>
     <template v-for="page in pager.pages">
-      <slot
-        v-if="$slots.page"
-        name="page"
-        v-bind="page"
-      />
+      <slot v-if="$slots.page" name="page" v-bind="page" />
     </template>
     <slot v-bind="{ items: pager.items, ...pager.pages[0] }" />
   </template>

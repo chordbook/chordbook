@@ -1,31 +1,33 @@
 <script setup>
-import { ref, nextTick, watch } from 'vue'
+import { ref, nextTick, watch } from "vue";
 
 const props = defineProps({
   enabled: {
     type: Boolean,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 
-const content = ref()
-const columnWidth = ref(0)
-const updating = ref(false)
+const content = ref();
+const columnWidth = ref(0);
+const updating = ref(false);
 
 // Calculate column width based on content width
-async function updateColumnWidth () {
-  if (!props.enabled) return
+async function updateColumnWidth() {
+  if (!props.enabled) return;
 
-  updating.value = true
+  updating.value = true;
 
   // Wait for element to update before getting width
-  await nextTick()
+  await nextTick();
 
-  columnWidth.value = content.value.offsetWidth + 'px'
-  updating.value = false
+  columnWidth.value = content.value.offsetWidth + "px";
+  updating.value = false;
 }
 
-watch([content, () => props.enabled], () => requestAnimationFrame(updateColumnWidth))
+watch([content, () => props.enabled], () =>
+  requestAnimationFrame(updateColumnWidth),
+);
 </script>
 
 <template>

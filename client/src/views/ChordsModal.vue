@@ -1,38 +1,40 @@
 <script setup>
-import guitar from '@tombatossals/chords-db/lib/guitar.json'
-import ukulele from '@tombatossals/chords-db/lib/ukulele.json'
-import ChordBox from '../components/ChordBox.vue'
-import ChordData from '@/ChordData'
-import { ref, computed } from 'vue'
-import { Chord } from 'chordsheetjs'
+import guitar from "@tombatossals/chords-db/lib/guitar.json";
+import ukulele from "@tombatossals/chords-db/lib/ukulele.json";
+import ChordBox from "../components/ChordBox.vue";
+import ChordData from "@/ChordData";
+import { ref, computed } from "vue";
+import { Chord } from "chordsheetjs";
 
 const db = {
   guitar,
-  ukulele
+  ukulele,
+};
+
+const instruments = ["Guitar", "Ukulele"];
+const selectedInstrument = ref(instruments[0].toLowerCase());
+const selectedKey = ref("C");
+const selectedChord = ref(null);
+
+const width = ref(112);
+const height = ref(150);
+
+const data = computed(() => db[selectedInstrument.value]);
+const chords = computed(
+  () => data.value?.chords[normalizeKey(selectedKey.value)],
+);
+const chordData = computed(() => chords.value?.[selectedChord.value]);
+
+function normalizeChordName(name) {
+  return Chord.parse(name)?.normalize()?.toString({ useUnicodeModifier: true });
 }
 
-const instruments = ['Guitar', 'Ukulele']
-const selectedInstrument = ref(instruments[0].toLowerCase())
-const selectedKey = ref('C')
-const selectedChord = ref(null)
-
-const width = ref(112)
-const height = ref(150)
-
-const data = computed(() => db[selectedInstrument.value])
-const chords = computed(() => data.value?.chords[normalizeKey(selectedKey.value)])
-const chordData = computed(() => chords.value?.[selectedChord.value])
-
-function normalizeChordName (name) {
-  return Chord.parse(name)?.normalize()?.toString({ useUnicodeModifier: true })
+function normalizeKey(key) {
+  return key.replace(/#/, "sharp");
 }
 
-function normalizeKey (key) {
-  return key.replace(/#/, 'sharp')
-}
-
-function positionData (position) {
-  return new ChordData(position)
+function positionData(position) {
+  return new ChordData(position);
 }
 </script>
 
@@ -76,16 +78,15 @@ function positionData (position) {
               :key="key"
               :value="key"
             >
-              <ion-label>{{ Chord.parse(key).toString({ useUnicodeModifier: true }) }}</ion-label>
+              <ion-label>{{
+                Chord.parse(key).toString({ useUnicodeModifier: true })
+              }}</ion-label>
             </ion-segment-button>
           </ion-segment>
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
-        <ion-list
-          lines="none"
-          class="mt-6 chord-grid"
-        >
+        <ion-list lines="none" class="mt-6 chord-grid">
           <template
             v-for="(chord, index) in chords"
             :key="chord.key + chord.suffix"
@@ -94,7 +95,7 @@ function positionData (position) {
               v-if="normalizeChordName(chord.key + chord.suffix)"
               button
               :detail="false"
-              @click="() => selectedChord = index"
+              @click="() => (selectedChord = index)"
             >
               <div class="flex flex-col items-center pt-3">
                 <h2 class="text-sm">

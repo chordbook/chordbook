@@ -1,19 +1,19 @@
 <script setup>
-import useAuthStore from '@/stores/auth'
-import { ref, watchEffect } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import useAuthStore from "@/stores/auth";
+import { ref, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
-const route = useRoute()
-const router = useRouter()
-const auth = useAuthStore()
-const form = ref({})
-const { execute, data, isFetching } = auth.signIn(form, { immediate: false })
+const route = useRoute();
+const router = useRouter();
+const auth = useAuthStore();
+const form = ref({});
+const { execute, data, isFetching } = auth.signIn(form, { immediate: false });
 
 watchEffect(() => {
   if (auth.isAuthenticated) {
-    router.replace({ path: route.path }) // without hash
+    router.replace({ path: route.path }); // without hash
   }
-})
+});
 </script>
 
 <template>
@@ -66,12 +66,7 @@ watchEffect(() => {
             </ion-item>
           </ion-list>
           <div class="ion-margin">
-            <ion-button
-              type="submit"
-              expand="block"
-            >
-              Sign In
-            </ion-button>
+            <ion-button type="submit" expand="block"> Sign In </ion-button>
           </div>
           <router-link
             :to="{ name: 'password/forgot' }"
@@ -82,18 +77,13 @@ watchEffect(() => {
           <div class="ion-margin text-center text-sm text-muted" />
         </form>
 
-        <hr class="my-10">
+        <hr class="my-10" />
 
         <div class="ion-margin text-center">
-          <h2 class="font-semibold text-lg">
-            Don't have an account?
-          </h2>
+          <h2 class="font-semibold text-lg">Don't have an account?</h2>
 
           <div class="ion-margin">
-            <ion-button
-              fill="outline"
-              router-link="#signup"
-            >
+            <ion-button fill="outline" router-link="#signup">
               Sign up for Chord Book
             </ion-button>
           </div>

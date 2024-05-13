@@ -14,12 +14,12 @@
 </template>
 
 <script setup>
-import ReloadPwa from '@/components/ReloadPwa.vue'
-import AppMenu from '@/components/AppMenu.vue'
-import ModalView from '@/views/ModalView.vue'
-import { useRoute } from 'vue-router'
+import ReloadPwa from "@/components/ReloadPwa.vue";
+import AppMenu from "@/components/AppMenu.vue";
+import ModalView from "@/views/ModalView.vue";
+import { useRoute } from "vue-router";
 
-const route = useRoute()
+const route = useRoute();
 </script>
 
 <style scoped>

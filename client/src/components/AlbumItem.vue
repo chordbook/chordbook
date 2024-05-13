@@ -1,35 +1,35 @@
 <script setup>
-import * as icons from '@/icons'
-import ShareItem from '@/components/ShareItem.vue'
+import * as icons from "@/icons";
+import ShareItem from "@/components/ShareItem.vue";
 
 const props = defineProps({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   cover: {
     type: Object,
-    required: true
+    required: true,
   },
   artist: {
     type: Object,
-    required: true
+    required: true,
   },
   showArtist: {
     type: Boolean,
-    default: true
+    default: true,
   },
   released: {
     type: [Number, null],
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const link = { name: 'album', params: { id: props.id } }
+const link = { name: "album", params: { id: props.id } };
 </script>
 
 <template>
@@ -41,16 +41,11 @@ const link = { name: 'album', params: { id: props.id } }
     lines="none"
   >
     <ion-label>
-      <div class="rounded overflow-hidden relative aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2 flex place-content-center items-center">
-        <img
-          v-if="cover"
-          :src="cover.medium"
-        >
-        <ion-icon
-          v-else
-          :icon="icons.album"
-          class="text-slate-300 text-5xl"
-        />
+      <div
+        class="rounded overflow-hidden relative aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2 flex place-content-center items-center"
+      >
+        <img v-if="cover" :src="cover.medium" />
+        <ion-icon v-else :icon="icons.album" class="text-slate-300 text-5xl" />
         <ion-icon
           :id="`album-${id}-popover`"
           :ios="icons.iosEllipsis"

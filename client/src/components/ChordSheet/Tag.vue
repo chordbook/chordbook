@@ -1,15 +1,15 @@
 <script>
-import { Tag } from 'chordsheetjs'
+import { Tag } from "chordsheetjs";
 
 export default {
   for: function (item) {
-    return item instanceof Tag && item.value
+    return item instanceof Tag && item.value;
   },
 
   props: {
-    item: Tag
-  }
-}
+    item: Tag,
+  },
+};
 </script>
 
 <template>

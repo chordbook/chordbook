@@ -1,86 +1,102 @@
 <script setup>
-import { CupertinoPane } from 'cupertino-pane'
-import { ref, computed, onMounted, onBeforeUnmount, watchEffect, defineExpose } from 'vue'
+import { CupertinoPane } from "cupertino-pane";
+import {
+  ref,
+  computed,
+  onMounted,
+  onBeforeUnmount,
+  watchEffect,
+  defineExpose,
+} from "vue";
 
 const props = defineProps({
   isOpen: {
     type: Boolean,
-    default: false
+    default: false,
   },
   canDismiss: {
     type: Boolean,
-    default: false
+    default: false,
   },
   settings: {
     type: Object,
-    default: () => ({})
-  }
-})
+    default: () => ({}),
+  },
+});
 
-const emit = defineEmits(['will-present', 'did-present', 'will-dismiss', 'did-dismiss', 'breakpoint-did-change'])
-const el = ref()
-const pane = ref()
-const height = ref(0)
-const transition = ref('initial')
+const emit = defineEmits([
+  "will-present",
+  "did-present",
+  "will-dismiss",
+  "did-dismiss",
+  "breakpoint-did-change",
+]);
+const el = ref();
+const pane = ref();
+const height = ref(0);
+const transition = ref("initial");
 
-const settings = computed(() => (
-  {
-    parentElement: el.value?.closest('.pane-container'),
-    buttonDestroy: false,
-    ...props.settings,
-    events: {
-      onDidDismiss: () => emit('did-dismiss', pane.value),
-      onWillDismiss: () => emit('will-dismiss', pane.value),
-      onWillPresent: () => emit('will-present', pane.value),
-      onDidPresent: () => emit('did-present', pane.value),
-      onTransitionEnd: () => requestAnimationFrame(() => emit('breakpoint-did-change', pane.value.currentBreak()))
-    }
-  }
-))
+const settings = computed(() => ({
+  parentElement: el.value?.closest(".pane-container"),
+  buttonDestroy: false,
+  ...props.settings,
+  events: {
+    onDidDismiss: () => emit("did-dismiss", pane.value),
+    onWillDismiss: () => emit("will-dismiss", pane.value),
+    onWillPresent: () => emit("will-present", pane.value),
+    onDidPresent: () => emit("did-present", pane.value),
+    onTransitionEnd: () =>
+      requestAnimationFrame(() =>
+        emit("breakpoint-did-change", pane.value.currentBreak()),
+      ),
+  },
+}));
 
 onMounted(async () => {
-  pane.value = new CupertinoPane(el.value, settings.value)
+  pane.value = new CupertinoPane(el.value, settings.value);
 
-  pane.value.on('rendered', () => {
-    const currentBreak = pane.value.settings.breaks[pane.value.currentBreak()]
-    transition.value = pane.value.transitions.buildTransitionValue(currentBreak?.bounce)
-    height.value = currentBreak?.height ?? 0
-  })
+  pane.value.on("rendered", () => {
+    const currentBreak = pane.value.settings.breaks[pane.value.currentBreak()];
+    transition.value = pane.value.transitions.buildTransitionValue(
+      currentBreak?.bounce,
+    );
+    height.value = currentBreak?.height ?? 0;
+  });
 
-  pane.value.on('onWillDismiss', (ev) => {
-    transition.value = 'initial'
-    height.value = 0
-  })
+  pane.value.on("onWillDismiss", () => {
+    transition.value = "initial";
+    height.value = 0;
+  });
 
-  pane.value.on('onMoveTransitionStart', (ev) => {
-    transition.value = 'initial'
-    height.value = window.innerHeight - ev.translateY
-  })
+  pane.value.on("onMoveTransitionStart", (ev) => {
+    transition.value = "initial";
+    height.value = window.innerHeight - ev.translateY;
+  });
 
-  pane.value.on('onTransitionStart', (ev) => {
-    transition.value = ev.transition
-    height.value = window.innerHeight - ev.translateY.new
-  })
-})
+  pane.value.on("onTransitionStart", (ev) => {
+    transition.value = ev.transition;
+    height.value = window.innerHeight - ev.translateY.new;
+  });
+});
 
 watchEffect(() => {
-  if (!pane.value) return
+  if (!pane.value) return;
 
   if (props.isOpen) {
-    pane.value.present()
-    pane.value.preventDismiss(!props.canDismiss)
+    pane.value.present();
+    pane.value.preventDismiss(!props.canDismiss);
   } else if (!pane.value.isHidden()) {
-    pane.value.preventDismiss(false)
-    pane.value.hide()
+    pane.value.preventDismiss(false);
+    pane.value.hide();
   }
-})
+});
 
 onBeforeUnmount(async () => {
-  pane.value.preventDismiss(false)
-  await pane.value.destroy()
-})
+  pane.value.preventDismiss(false);
+  await pane.value.destroy();
+});
 
-defineExpose({ pane, height, transition })
+defineExpose({ pane, height, transition });
 </script>
 
 <template>

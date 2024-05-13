@@ -8,10 +8,10 @@ updates:
     groups:
       sentry:
         patterns:
-          - 'sentry*'
+          - "sentry*"
       flipper:
         patterns:
-          - 'flipper*'
+          - "flipper*"
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -20,22 +20,22 @@ updates:
     groups:
       ionic:
         patterns:
-          - '@ionic/*'
+          - "@ionic/*"
       capacitor:
         patterns:
-          - '@capacitor/*'
+          - "@capacitor/*"
       sentry:
         patterns:
-          - '@sentry/*'
+          - "@sentry/*"
       vue:
         patterns:
-          - 'vue*'
-          - '@vue*'
-          - '@headlessui/vue'
-          - '@testing-library/vue'
+          - "vue*"
+          - "@vue*"
+          - "@headlessui/vue"
+          - "@testing-library/vue"
       eslint:
         patterns:
-          - 'eslint*'
+          - "eslint*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

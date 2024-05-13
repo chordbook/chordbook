@@ -1,29 +1,26 @@
 <script setup>
-import MetadataChip from '@/components/MetadataChip.vue'
-import { componentFor } from '@/components/ChordSheet'
-import { Song } from 'chordsheetjs'
-import { formatArray } from '@/util'
-import { useThemeStore } from '@/stores'
+import MetadataChip from "@/components/MetadataChip.vue";
+import { componentFor } from "@/components/ChordSheet";
+import { Song } from "chordsheetjs";
+import { formatArray } from "@/util";
+import { useThemeStore } from "@/stores";
 
 defineProps({
   song: {
     type: Song,
-    required: true
+    required: true,
   },
   capo: {
     type: Number,
-    default: 0
-  }
-})
+    default: 0,
+  },
+});
 
-const theme = useThemeStore()
+const theme = useThemeStore();
 </script>
 
 <template>
-  <div
-    class="themed flex flex-col"
-    :data-font-size="theme.fontSize"
-  >
+  <div class="themed flex flex-col" :data-font-size="theme.fontSize">
     <div
       class="order-2 md:order-1 flex flex-wrap md:flex-nowrap gap-2 md:gap-3 items-center md:items-center border-b border-slate-300 dark:border-slate-800 py-2"
     >
@@ -35,16 +32,10 @@ const theme = useThemeStore()
         </h1>
 
         <slot name="artist">
-          <h2
-            v-if="song.subtitle"
-            class="my-1 text-base"
-          >
+          <h2 v-if="song.subtitle" class="my-1 text-base">
             {{ song.subtitle }}
           </h2>
-          <h2
-            v-if="song.artist"
-            class="my-1"
-          >
+          <h2 v-if="song.artist" class="my-1">
             <span class="text-muted">by</span> {{ formatArray(song.artist) }}
           </h2>
         </slot>
@@ -54,17 +45,12 @@ const theme = useThemeStore()
         class="w-full md:w-auto md:ml-auto flex flex-row gap-x-1"
       >
         <MetadataChip name="Key">
-          <span class="chord pr-0">{{ song.metadata.get('_key') || song.key }}</span>
+          <span class="chord pr-0">{{
+            song.metadata.get("_key") || song.key
+          }}</span>
         </MetadataChip>
-        <MetadataChip
-          v-if="song.capo > 0"
-          name="Capo"
-          :value="song.capo"
-        />
-        <MetadataChip
-          v-else
-          name="No capo"
-        />
+        <MetadataChip v-if="song.capo > 0" name="Capo" :value="song.capo" />
+        <MetadataChip v-else name="No capo" />
       </div>
     </div>
     <div
@@ -79,18 +65,9 @@ const theme = useThemeStore()
         :key="i"
         :class="type + ' paragraph'"
       >
-        <template
-          v-for="(line, j) in lines"
-          :key="j"
-        >
-          <div
-            v-if="line.hasRenderableItems()"
-            class="row"
-          >
-            <template
-              v-for="(item, k) in line.items"
-              :key="k"
-            >
+        <template v-for="(line, j) in lines" :key="j">
+          <div v-if="line.hasRenderableItems()" class="row">
+            <template v-for="(item, k) in line.items" :key="k">
               <component
                 :is="componentFor(item)"
                 v-if="item.isRenderable()"
@@ -126,11 +103,15 @@ const theme = useThemeStore()
   @apply flex flex-col;
 }
 
-.tag, .chorus:before, .verse::before {
+.tag,
+.chorus:before,
+.verse::before {
   @apply font-semibold text-rel-xs text-muted uppercase break-after-avoid mb-2 block;
 }
 
-.annotation, .chord, .lyrics {
+.annotation,
+.chord,
+.lyrics {
   @apply whitespace-pre-wrap inline-block;
 }
 
@@ -146,7 +127,9 @@ const theme = useThemeStore()
   @apply text-indigo-800 dark:text-indigo-500 font-semibold mr-1;
 }
 
-.annotation, .chord, .literal {
+.annotation,
+.chord,
+.literal {
   @apply text-rel-sm leading-none;
 }
 
@@ -172,12 +155,15 @@ const theme = useThemeStore()
 }
 
 /* Hide implicit labels if explicit label is present */
-.verse:has(.start_of_verse)::before, .chorus:has(.start_of_chorus)::before {
+.verse:has(.start_of_verse)::before,
+.chorus:has(.start_of_chorus)::before {
   display: none;
 }
 
-.annotation:after, .chord:after, .lyrics:after {
-  content: '\200b';
+.annotation:after,
+.chord:after,
+.lyrics:after {
+  content: "\200b";
 }
 
 .chord-diagram {

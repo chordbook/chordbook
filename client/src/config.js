@@ -1,7 +1,7 @@
-const config = {}
+const config = {};
 
-if (navigator.platform.includes('Mac')) {
-  config.mode = 'ios'
+if (navigator.platform.includes("Mac")) {
+  config.mode = "ios";
 }
 
-export default config
+export default config;

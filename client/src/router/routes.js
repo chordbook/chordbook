@@ -1,210 +1,210 @@
-import AuthenticatedView from '@/views/AuthenticatedView.vue'
+import AuthenticatedView from "@/views/AuthenticatedView.vue";
 
 export default [
   {
-    path: '/',
-    redirect: '/home'
+    path: "/",
+    redirect: "/home",
   },
   {
-    path: '/tabs',
-    component: () => import('@/views/TabsView.vue'),
+    path: "/tabs",
+    component: () => import("@/views/TabsView.vue"),
     children: [
       {
-        path: '',
-        redirect: '/home'
+        path: "",
+        redirect: "/home",
       },
       {
-        path: '/home',
-        name: 'home',
-        component: () => import('@/views/HomeView.vue'),
-        meta: { selected: 'home' }
+        path: "/home",
+        name: "home",
+        component: () => import("@/views/HomeView.vue"),
+        meta: { selected: "home" },
       },
       {
-        path: '/discover',
-        name: 'discover',
-        component: () => import('@/views/DiscoverView.vue'),
-        meta: { selected: 'discover' }
+        path: "/discover",
+        name: "discover",
+        component: () => import("@/views/DiscoverView.vue"),
+        meta: { selected: "discover" },
       },
       {
-        path: '/library',
-        name: 'library',
+        path: "/library",
+        name: "library",
         component: AuthenticatedView,
-        props: { component: () => import('@/views/LibraryView.vue') },
-        meta: { selected: 'library' }
+        props: { component: () => import("@/views/LibraryView.vue") },
+        meta: { selected: "library" },
       },
       {
-        path: '/songsheets',
-        name: 'songsheets',
+        path: "/songsheets",
+        name: "songsheets",
         component: AuthenticatedView,
-        props: { component: () => import('@/views/SongsheetListView.vue') },
-        meta: { selected: 'songs' }
+        props: { component: () => import("@/views/SongsheetListView.vue") },
+        meta: { selected: "songs" },
       },
       {
-        path: '/history',
-        name: 'history',
+        path: "/history",
+        name: "history",
         component: AuthenticatedView,
-        props: { component: () => import('@/views/SongsheetListView.vue') },
-        meta: { selected: 'home', title: 'Recently Played' }
+        props: { component: () => import("@/views/SongsheetListView.vue") },
+        meta: { selected: "home", title: "Recently Played" },
       },
       {
-        path: '/albums',
-        name: 'albums',
+        path: "/albums",
+        name: "albums",
         component: AuthenticatedView,
-        props: { component: () => import('@/views/AlbumListView.vue') },
-        meta: { selected: 'albums' }
+        props: { component: () => import("@/views/AlbumListView.vue") },
+        meta: { selected: "albums" },
       },
       {
-        path: '/artists',
-        name: 'artists',
+        path: "/artists",
+        name: "artists",
         component: AuthenticatedView,
-        props: { component: () => import('@/views/ArtistListView.vue') },
-        meta: { selected: 'artists' }
+        props: { component: () => import("@/views/ArtistListView.vue") },
+        meta: { selected: "artists" },
       },
       {
-        path: '/setlists',
-        name: 'setlists',
+        path: "/setlists",
+        name: "setlists",
         component: AuthenticatedView,
-        props: { component: () => import('@/views/SetlistListView.vue') },
-        meta: { selected: 'setlists' }
+        props: { component: () => import("@/views/SetlistListView.vue") },
+        meta: { selected: "setlists" },
       },
       {
-        path: '/artists/:id',
-        name: 'artist',
+        path: "/artists/:id",
+        name: "artist",
         props: true,
-        component: () => import('@/views/ArtistView.vue')
+        component: () => import("@/views/ArtistView.vue"),
       },
       {
-        path: '/artists/:id/tracks',
-        name: 'artist.tracks',
+        path: "/artists/:id/tracks",
+        name: "artist.tracks",
         props: true,
-        component: () => import('@/views/TrackListView.vue')
+        component: () => import("@/views/TrackListView.vue"),
       },
       {
-        path: '/artists/:id/albums',
-        name: 'artist.albums',
-        component: () => import('@/views/AlbumListView.vue')
+        path: "/artists/:id/albums",
+        name: "artist.albums",
+        component: () => import("@/views/AlbumListView.vue"),
       },
       {
-        path: '/albums/:id',
-        name: 'album',
+        path: "/albums/:id",
+        name: "album",
         props: true,
-        component: () => import('@/views/AlbumView.vue')
+        component: () => import("@/views/AlbumView.vue"),
       },
       {
-        path: '/tracks/:id',
-        name: 'track',
+        path: "/tracks/:id",
+        name: "track",
         props: true,
-        component: () => import('@/views/TrackView.vue')
+        component: () => import("@/views/TrackView.vue"),
       },
       {
-        path: '/genres/:id',
-        name: 'genre',
+        path: "/genres/:id",
+        name: "genre",
         props: true,
-        component: () => import('@/views/GenreView.vue'),
-        meta: { selected: 'discover' }
+        component: () => import("@/views/GenreView.vue"),
+        meta: { selected: "discover" },
       },
       {
-        path: '/genres/:id/tracks',
-        name: 'genre.tracks',
+        path: "/genres/:id/tracks",
+        name: "genre.tracks",
         props: true,
-        component: () => import('@/views/TrackListView.vue'),
-        meta: { selected: 'discover' }
+        component: () => import("@/views/TrackListView.vue"),
+        meta: { selected: "discover" },
       },
       {
-        path: '/genres/:id/albums',
-        name: 'genre.albums',
-        component: () => import('@/views/AlbumListView.vue'),
-        meta: { selected: 'discover' }
+        path: "/genres/:id/albums",
+        name: "genre.albums",
+        component: () => import("@/views/AlbumListView.vue"),
+        meta: { selected: "discover" },
       },
       {
-        path: '/genres/:id/artists',
-        name: 'genre.artists',
+        path: "/genres/:id/artists",
+        name: "genre.artists",
         props: true,
-        component: () => import('@/views/ArtistListView.vue'),
-        meta: { selected: 'discover' }
+        component: () => import("@/views/ArtistListView.vue"),
+        meta: { selected: "discover" },
       },
       {
-        path: '/setlists/:id',
-        name: 'setlist',
+        path: "/setlists/:id",
+        name: "setlist",
         props: true,
-        component: () => import('@/views/SetlistDetailView.vue'),
-        meta: { selected: 'setlists' }
-      }
-    ]
+        component: () => import("@/views/SetlistDetailView.vue"),
+        meta: { selected: "setlists" },
+      },
+    ],
   },
   {
-    path: '/songsheets/new',
-    name: 'songsheet.new',
+    path: "/songsheets/new",
+    name: "songsheet.new",
     component: AuthenticatedView,
-    props: { component: () => import('@/views/SongsheetEditorView.vue') },
-    meta: { selected: 'songs', menu: false }
+    props: { component: () => import("@/views/SongsheetEditorView.vue") },
+    meta: { selected: "songs", menu: false },
   },
   {
-    path: '/songsheets/:id/edit',
-    name: 'songsheet.edit',
+    path: "/songsheets/:id/edit",
+    name: "songsheet.edit",
     component: AuthenticatedView,
-    props: route => ({
+    props: (route) => ({
       ...route.params,
-      component: () => import('@/views/SongsheetEditorView.vue')
+      component: () => import("@/views/SongsheetEditorView.vue"),
     }),
-    meta: { menu: false }
-  },
-  {
-    path: '/songsheets/:id',
-    name: 'songsheet',
-    props: true,
-    component: () => import('@/views/SongsheetView.vue'),
-    meta: { selected: 'songs', menu: false }
-  },
-  {
-    path: '/setlists/:setlistId/songsheets/:id',
-    name: 'setlistSongsheet',
-    props: true,
-    component: () => import('@/views/SongsheetView.vue'),
-    meta: { selected: 'setlists', menu: false }
-  },
-  {
-    path: '/account',
-    name: 'account',
-    component: AuthenticatedView,
-    props: { component: () => import('@/views/AccountView.vue') }
-  },
-  {
-    path: '/password/forgot',
-    name: 'password/forgot',
-    component: () => import('@/views/ForgotPasswordView.vue')
-  },
-  {
-    path: '/password/reset',
-    name: 'password',
-    props: route => route.query,
-    component: () => import('@/views/PasswordResetView.vue')
-  },
-  {
-    path: '/news',
-    name: 'news',
-    component: () => import('@/views/NewsView.vue'),
-    meta: { selected: 'news' }
-  },
-  {
-    path: '/:path(.*)*',
-    name: '404',
-    component: () => import('@/views/NotFound.vue'),
     meta: { menu: false },
-    beforeEnter (to, from, next) {
+  },
+  {
+    path: "/songsheets/:id",
+    name: "songsheet",
+    props: true,
+    component: () => import("@/views/SongsheetView.vue"),
+    meta: { selected: "songs", menu: false },
+  },
+  {
+    path: "/setlists/:setlistId/songsheets/:id",
+    name: "setlistSongsheet",
+    props: true,
+    component: () => import("@/views/SongsheetView.vue"),
+    meta: { selected: "setlists", menu: false },
+  },
+  {
+    path: "/account",
+    name: "account",
+    component: AuthenticatedView,
+    props: { component: () => import("@/views/AccountView.vue") },
+  },
+  {
+    path: "/password/forgot",
+    name: "password/forgot",
+    component: () => import("@/views/ForgotPasswordView.vue"),
+  },
+  {
+    path: "/password/reset",
+    name: "password",
+    props: (route) => route.query,
+    component: () => import("@/views/PasswordResetView.vue"),
+  },
+  {
+    path: "/news",
+    name: "news",
+    component: () => import("@/views/NewsView.vue"),
+    meta: { selected: "news" },
+  },
+  {
+    path: "/:path(.*)*",
+    name: "404",
+    component: () => import("@/views/NotFound.vue"),
+    meta: { menu: false },
+    beforeEnter(to, from, next) {
       if (to.params.path || !to.redirectedFrom) {
-        next()
+        next();
       } else {
         // Preserve path of View that redirected here
         next({
-          name: '404',
+          name: "404",
           replace: true,
           // Convert previous path into array
-          params: { path: to.redirectedFrom.path.slice(1).split('/') },
+          params: { path: to.redirectedFrom.path.slice(1).split("/") },
           query: to.redirectedFrom.query,
-          hash: to.redirectedFrom.hash
-        })
+          hash: to.redirectedFrom.hash,
+        });
       }
-    }
-  }
-]
+    },
+  },
+];

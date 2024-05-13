@@ -1,10 +1,10 @@
-import * as Sentry from '@sentry/vue'
+import * as Sentry from "@sentry/vue";
 
-const SENTRY_DSN = import.meta.env.APP_SENTRY_DSN
-const HOSTNAME = import.meta.env.APP_HOSTNAME
+const SENTRY_DSN = import.meta.env.APP_SENTRY_DSN;
+const HOSTNAME = import.meta.env.APP_HOSTNAME;
 
 export default function (app, router) {
-  if (!SENTRY_DSN) return
+  if (!SENTRY_DSN) return;
 
   Sentry.init({
     app,
@@ -12,9 +12,9 @@ export default function (app, router) {
     trackComponents: true,
     integrations: [
       Sentry.browserTracingIntegration({ router }),
-      Sentry.replayIntegration()
+      Sentry.replayIntegration(),
     ],
     tracesSampleRate: 0.1,
-    tracePropagationTargets: ['localhost', HOSTNAME]
-  })
+    tracePropagationTargets: ["localhost", HOSTNAME],
+  });
 }

@@ -1,18 +1,18 @@
 /* Core CSS required for Ionic components to work properly */
-@import '@ionic/vue/css/core.css';
+@import "@ionic/vue/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
-@import '@ionic/vue/css/normalize.css';
-@import '@ionic/vue/css/structure.css';
-@import '@ionic/vue/css/typography.css';
+@import "@ionic/vue/css/normalize.css";
+@import "@ionic/vue/css/structure.css";
+@import "@ionic/vue/css/typography.css";
 
 /* Optional CSS utils that can be commented out */
-@import '@ionic/vue/css/padding.css';
+@import "@ionic/vue/css/padding.css";
 
-@import '@/stylesheets/variables.css';
-@import '@/stylesheets/text-shadow';
-@import '@/stylesheets/transitions';
-@import 'floating-vue/dist/style.css';
+@import "@/stylesheets/variables.css";
+@import "@/stylesheets/text-shadow";
+@import "@/stylesheets/transitions";
+@import "floating-vue/dist/style.css";
 
 /* Tailwind */
 @tailwind base;
@@ -31,14 +31,16 @@
     scrollbar-width: none; /* Firefox */
   }
   /* Chrome, Safari and Opera */
-  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 
   .grid-scroll-x {
     @apply grid grid-flow-col overflow-x-auto snap-x snap-mandatory scrollbar-hide;
   }
 
   .grid-scroll-x > * {
-    @apply snap-start
+    @apply snap-start;
   }
 
   /* Safari does not respect max-height with aspect-ratio, so workaround it */
@@ -47,7 +49,7 @@
   }
 
   .aspect-square-max-h-screen-1\/2:before {
-    content: '';
+    content: "";
     @apply block aspect-square;
   }
 
@@ -56,7 +58,7 @@
   }
 
   .aspect-16\/9-max-h-screen-1\/2:before {
-    content: '';
+    content: "";
     @apply block aspect-16/9;
   }
 
@@ -77,7 +79,7 @@
   }
 
   /* Horizontal padding */
-  .main-content>*,
+  .main-content > *,
   .main-content-padding {
     @apply md:px-4 lg:px-8 xl:px-12;
     @apply md:scroll-p-4 lg:scroll-p-8 xl:scroll-p-12;
@@ -104,7 +106,8 @@
     overflow: auto !important;
   }
 
-  ion-router-outlet, ion-content {
+  ion-router-outlet,
+  ion-content {
     overflow: auto !important;
     contain: none !important;
     position: initial !important;
@@ -130,7 +133,7 @@
 }
 
 /* Add padding to tooltips to prevent them from running into edge of screen */
-.v-popper--theme-tooltip[data-popper-placement=bottom] {
+.v-popper--theme-tooltip[data-popper-placement="bottom"] {
   @apply px-3;
 }
 

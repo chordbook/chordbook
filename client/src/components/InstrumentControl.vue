@@ -1,5 +1,5 @@
 <script setup>
-const instruments = ['Guitar', 'Ukulele']
+const instruments = ["Guitar", "Ukulele"];
 </script>
 
 <template>

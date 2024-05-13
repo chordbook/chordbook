@@ -1,29 +1,29 @@
 <script setup>
-import InstrumentControl from '@/components/InstrumentControl.vue'
-import ChordDiagramReference from '@/components/ChordDiagramReference.vue'
-import useSongsheetSettings from '@/stores/songsheet-settings'
-import Pane from '@/components/Pane.vue'
-import { ref, defineExpose, computed } from 'vue'
-import { useResponsive } from '@/composables'
+import InstrumentControl from "@/components/InstrumentControl.vue";
+import ChordDiagramReference from "@/components/ChordDiagramReference.vue";
+import useSongsheetSettings from "@/stores/songsheet-settings";
+import Pane from "@/components/Pane.vue";
+import { ref, defineExpose, computed } from "vue";
+import { useResponsive } from "@/composables";
 
 defineProps({
   chords: {
     type: Array,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
 defineExpose({
   height: computed(() => chordsModal?.value?.height),
-  transition: computed(() => chordsModal?.value?.transition)
-})
+  transition: computed(() => chordsModal?.value?.transition),
+});
 
-const settings = useSongsheetSettings()
-const sidebar = useResponsive('sm')
-const chordsModal = ref()
+const settings = useSongsheetSettings();
+const sidebar = useResponsive("sm");
+const chordsModal = ref();
 
-function onBreakpointDidChange (breakpoint) {
-  settings.showChords = breakpoint !== 'bottom'
+function onBreakpointDidChange(breakpoint) {
+  settings.showChords = breakpoint !== "bottom";
 }
 </script>
 
@@ -32,13 +32,15 @@ function onBreakpointDidChange (breakpoint) {
     v-if="sidebar"
     class="left-0 top-0 bottom-0 sidebar bg-white dark:bg-black border-r dark:border-slate-800"
   >
-    <div class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto px-3 h-full">
+    <div
+      class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto px-3 h-full"
+    >
       <div
         v-for="chord in chords"
         :key="`sidebar-${chord}`"
         class="text-center text-sm snap-start pt-4 first:pt-6 last:pb-6"
       >
-        <div>{{ chord.toString({ useUnicodeModifier: true}) }}</div>
+        <div>{{ chord.toString({ useUnicodeModifier: true }) }}</div>
         <chord-diagram-reference :chord="chord" />
       </div>
     </div>
@@ -52,12 +54,14 @@ function onBreakpointDidChange (breakpoint) {
         breaks: {
           top: { enabled: true, height: 172 },
           middle: { enabled: true, height: 120 },
-          bottom: { enabled: true, height: 33 }
-        }
+          bottom: { enabled: true, height: 33 },
+        },
       }"
       @breakpoint-did-change="onBreakpointDidChange"
     >
-      <div class="flex flex-row flex-nowrap overflow-x-auto w-full py-4 snap-x snap-mandatory">
+      <div
+        class="flex flex-row flex-nowrap overflow-x-auto w-full py-4 snap-x snap-mandatory"
+      >
         <div
           v-for="chord in chords"
           :key="`modal-${chord}`"

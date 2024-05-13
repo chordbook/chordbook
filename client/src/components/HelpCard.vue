@@ -1,33 +1,32 @@
 <script setup>
-import ColorizedImg from '@/components/ColorizedImg.vue'
+import ColorizedImg from "@/components/ColorizedImg.vue";
 
 defineProps({
   image: {
     type: String,
-    required: true
+    required: true,
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   audience: {
     type: String,
-    required: true
+    required: true,
   },
   icon: {
     type: String,
-    required: true
+    required: true,
   },
   buttonText: {
     type: String,
-    required: true
+    required: true,
   },
   url: {
     type: String,
-    required: true
-  }
-
-})
+    required: true,
+  },
+});
 </script>
 <template>
   <ion-card class="flex flex-col sm:max-xl:flex-row m-0">
@@ -45,14 +44,8 @@ defineProps({
           <slot />
         </p>
         <p class="lg:text-center">
-          <ion-button
-            class="w-40"
-            :href="url"
-          >
-            <ion-icon
-              slot="start"
-              :icon="icon"
-            />
+          <ion-button class="w-40" :href="url">
+            <ion-icon slot="start" :icon="icon" />
             {{ buttonText }}
           </ion-button>
         </p>

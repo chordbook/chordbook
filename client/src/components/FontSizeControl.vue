@@ -1,8 +1,8 @@
 <script setup>
-import { useThemeStore } from '@/stores'
-import { textOutline } from 'ionicons/icons'
+import { useThemeStore } from "@/stores";
+import { textOutline } from "ionicons/icons";
 
-const theme = useThemeStore()
+const theme = useThemeStore();
 </script>
 
 <template>
@@ -10,10 +10,7 @@ const theme = useThemeStore()
     v-tooltip="'Decrease font size'"
     @click="theme.decreaseFontSize()"
   >
-    <ion-icon
-      :icon="textOutline"
-      class="text-base mt-1"
-    />
+    <ion-icon :icon="textOutline" class="text-base mt-1" />
   </ion-button>
   <ion-button
     v-tooltip="'Increase font size'"

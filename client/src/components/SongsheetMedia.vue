@@ -1,14 +1,14 @@
 <script setup>
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
-import YoutubeEmbed from '@/components/YoutubeEmbed.vue'
-import { logoYoutube } from 'ionicons/icons'
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
+import YoutubeEmbed from "@/components/YoutubeEmbed.vue";
+import { logoYoutube } from "ionicons/icons";
 
 defineProps({
   media: {
     type: Array,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 
 <template>
@@ -18,10 +18,7 @@ defineProps({
   >
     <TabGroup>
       <TabPanels class="bg-black md:rounded overflow-hidden">
-        <TabPanel
-          v-for="src in media"
-          :key="src"
-        >
+        <TabPanel v-for="src in media" :key="src">
           <youtube-embed :src="src" />
         </TabPanel>
       </TabPanels>
@@ -36,7 +33,12 @@ defineProps({
           as="template"
         >
           <button
-            :class="['px-4 py-2 rounded inline-flex align-center outline-none active:ring border', selected ? 'bg-blue-500 hover:bg-blue-400 text-white' : 'bg-slate-50 text-black hover:bg-slate-200']"
+            :class="[
+              'px-4 py-2 rounded inline-flex align-center outline-none active:ring border',
+              selected
+                ? 'bg-blue-500 hover:bg-blue-400 text-white'
+                : 'bg-slate-50 text-black hover:bg-slate-200',
+            ]"
           >
             <ion-icon :icon="logoYoutube" />
           </button>

@@ -55,12 +55,12 @@ services:
       sizeGB: 10
     autoDeploy: false
     envVars:
-    - key: ES_JAVA_OPTS
-      value: "-Xms512m -Xmx512m"
-    - key: discovery.type
-      value: single-node
-    - key: cluster.name
-      value: elastic
+      - key: ES_JAVA_OPTS
+        value: "-Xms512m -Xmx512m"
+      - key: discovery.type
+        value: single-node
+      - key: cluster.name
+        value: elastic
 
 envVarGroups:
   - name: public

@@ -1,44 +1,61 @@
 <script setup>
-import { watch, computed, ref } from 'vue'
-import { Song, Key } from 'chordsheetjs'
-import { getChords, preferredModifierForKey } from '@/composables'
-import MetadataChip from '@/components/MetadataChip.vue'
+import { watch, computed, ref } from "vue";
+import { Song, Key } from "chordsheetjs";
+import { getChords, preferredModifierForKey } from "@/composables";
+import MetadataChip from "@/components/MetadataChip.vue";
 
 const props = defineProps({
   song: {
     type: Song,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const transposeModel = defineModel('transpose', { type: Number, default: 0 })
-const capoModel = defineModel('capo', { type: Number, default: 0 })
-const modifier = defineModel('modifier', { type: [String, null], default: null })
-const scroller = ref()
-const keyEls = ref([])
+const transposeModel = defineModel("transpose", { type: Number, default: 0 });
+const capoModel = defineModel("capo", { type: Number, default: 0 });
+const modifier = defineModel("modifier", {
+  type: [String, null],
+  default: null,
+});
+const scroller = ref();
+const keyEls = ref([]);
 
 const transpositions = computed(() => {
-  return [...Array(12).keys()].map(i => {
-    const step = i - 5 // -5 to +6
-    const capo = (12 - step + transposeModel.value) % 12
-    const transpose = step + capoModel.value - transposeModel.value
-    const key = Key.wrap(props.song.key).transpose(transpose).useModifier(modifier.value).normalize()
-    const chordModifier = modifier.value || preferredModifierForKey(key)
-    const chords = getChords(props.song).map(chord => chord.transpose(transpose).useModifier(chordModifier).normalize(key))
+  return [...Array(12).keys()].map((i) => {
+    const step = i - 5; // -5 to +6
+    const capo = (12 - step + transposeModel.value) % 12;
+    const transpose = step + capoModel.value - transposeModel.value;
+    const key = Key.wrap(props.song.key)
+      .transpose(transpose)
+      .useModifier(modifier.value)
+      .normalize();
+    const chordModifier = modifier.value || preferredModifierForKey(key);
+    const chords = getChords(props.song).map((chord) =>
+      chord.transpose(transpose).useModifier(chordModifier).normalize(key),
+    );
 
-    return { step, capo, chords, key }
-  })
-})
+    return { step, capo, chords, key };
+  });
+});
 
-watch(transposeModel, () => { capoModel.value = 0 })
-watch([capoModel, transposeModel], scrollToActive)
+watch(transposeModel, () => {
+  capoModel.value = 0;
+});
+watch([capoModel, transposeModel], scrollToActive);
 
-async function scrollToActive (smooth = true) {
+async function scrollToActive(smooth = true) {
   requestAnimationFrame(() => {
-    const index = transpositions.value.findIndex(({ capo, step }) => capoModel.value === capo && step === transposeModel.value - capoModel.value)
-    const el = keyEls.value[index]
-    el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', inline: 'center' })
-  })
+    const index = transpositions.value.findIndex(
+      ({ capo, step }) =>
+        capoModel.value === capo &&
+        step === transposeModel.value - capoModel.value,
+    );
+    const el = keyEls.value[index];
+    el.scrollIntoView({
+      behavior: smooth ? "smooth" : "auto",
+      inline: "center",
+    });
+  });
 }
 </script>
 
@@ -54,31 +71,19 @@ async function scrollToActive (smooth = true) {
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-segment
-            slot="start"
-            v-model="modifier"
-          >
+          <ion-segment slot="start" v-model="modifier">
             <ion-segment-button value="b">
-              <div class="text-xl -mb-1">
-                ♭
-              </div>
+              <div class="text-xl -mb-1">♭</div>
             </ion-segment-button>
             <ion-segment-button value="#">
-              <div class="text-xl -mb-1">
-                ♯
-              </div>
+              <div class="text-xl -mb-1">♯</div>
             </ion-segment-button>
           </ion-segment>
         </ion-buttons>
 
         <ion-title>Transpose</ion-title>
         <ion-buttons slot="end">
-          <ion-button
-            role="cancel"
-            @click="$el.dismiss()"
-          >
-            Done
-          </ion-button>
+          <ion-button role="cancel" @click="$el.dismiss()"> Done </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -99,7 +104,10 @@ async function scrollToActive (smooth = true) {
           name="Key"
           :value="key.toString({ useUnicodeModifier: true })"
           :color="step === transposeModel ? 'tertiary' : 'medium'"
-          :class="['w-full text-center items-center sticky mx-0', { 'key-selected': step === transposeModel }]"
+          :class="[
+            'w-full text-center items-center sticky mx-0',
+            { 'key-selected': step === transposeModel },
+          ]"
           @click="transposeModel = step"
         />
         <div
@@ -117,7 +125,10 @@ async function scrollToActive (smooth = true) {
           <div
             v-for="chord in chords"
             :key="chord"
-            :class="['text-nowrap w-full text-center truncate', { 'opacity-25': capo !== capoModel }]"
+            :class="[
+              'text-nowrap w-full text-center truncate',
+              { 'opacity-25': capo !== capoModel },
+            ]"
           >
             {{ chord.toString({ useUnicodeModifier: true }) }}
           </div>

@@ -1,24 +1,24 @@
 <script>
-import getYoutubeId from 'get-youtube-id'
+import getYoutubeId from "get-youtube-id";
 
 export default {
   props: {
     src: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
 
   computed: {
-    id () {
-      return getYoutubeId(this.src)
+    id() {
+      return getYoutubeId(this.src);
     },
 
-    iframeSrc () {
-      return `https://www.youtube.com/embed/${this.id}`
-    }
-  }
-}
+    iframeSrc() {
+      return `https://www.youtube.com/embed/${this.id}`;
+    },
+  },
+};
 </script>
 
 <template>

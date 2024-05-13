@@ -1,238 +1,239 @@
 ---
 http_interactions:
-- request:
-    method: get
-    uri: https://www.theaudiodb.com/api/v1/json/<APIKEY>/search.php?s=Simon%20and%20Garfunkel
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Date:
-      - Wed, 18 May 2022 04:05:45 GMT
-      Content-Type:
-      - application/json
-      Transfer-Encoding:
-      - chunked
-      Connection:
-      - keep-alive
-      X-Powered-By:
-      - PHP/7.4.1
-      Access-Control-Allow-Origin:
-      - "*"
-      Cf-Cache-Status:
-      - DYNAMIC
-      Expect-Ct:
-      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-      Report-To:
-      - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=mMHEfbqM%2FfBf7nNcX6ByWTOzvtWlNydmZ9qzVOvf%2FQ6a5FyP3ZEaJaKN1F1VOkfGLS20bUsSq2roklh51oLqqLKrfxDd0xKaQKPn71BhqQ9tF%2BQyPa572HQ092W496%2FXckid3kc%3D"}],"group":"cf-nel","max_age":604800}'
-      Nel:
-      - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
-      Server:
-      - cloudflare
-      Cf-Ray:
-      - 70d1b760ba3128e9-ORD
-      Alt-Svc:
-      - h3=":443"; ma=86400, h3-29=":443"; ma=86400
-    body:
-      encoding: ASCII-8BIT
-      string: '{"artists":[{"idArtist":"112256","strArtist":"Simon & Garfunkel","strArtistStripped":null,"strArtistAlternate":"Simon
-        and Garfunkel","strLabel":"Columbia","idLabel":"43473","intFormedYear":"1963","intBornYear":"1963","intDiedYear":null,"strDisbanded":"Yes","strStyle":"Rock/Pop","strGenre":"Folk","strMood":"Happy","strWebsite":"www.simonandgarfunkel.com","strFacebook":"www.facebook.com/SimonandGarfunkel","strTwitter":"1","strBiographyEN":"Simon
-        & Garfunkel were an American music duo consisting of singer-songwriters Paul
-        Simon and Art Garfunkel. They formed the group Tom & Jerry in 1957 and had
-        their first success with the minor hit \"Hey, Schoolgirl\". As Simon & Garfunkel,
-        the duo rose to fame in 1965, largely on the strength of the hit single \"The
-        Sound of Silence\". Their music was featured in the landmark film The Graduate
-        (1967), propelling them further into the public consciousness.\n\nThey are
-        well known for their vocal harmonies and were among the most popular recording
-        artists of the 1960s. Their biggest hits - including \"The Sound of Silence\"
-        (1964), \"I Am a Rock\" (1965), \"Homeward Bound\" (1965), \"Scarborough Fair/Canticle\"
-        (1966), \"A Hazy Shade of Winter\" (1966), \"Mrs. Robinson\" (1968), \"Bridge
-        over Troubled Water\" (1969), \"The Boxer\" (1969), and \"Cecilia\" (1969)
-        - peaked at number one in several charts. They have received several Grammys
-        and were inducted into the Rock and Roll Hall of Fame in 1990 and the Long
-        Island Music Hall of Fame in 2007.\n\nTheir sometimes rocky relationship led
-        to their last album, Bridge Over Troubled Water, being delayed several times
-        due to artistic disagreements and as a result the duo broke up in 1970. It
-        was their most successful album worldwide to date, peaking at number one in
-        several countries, including the United States, and receiving 8\u00c3\u2014
-        platinum certification from the Recording Industry Association of America,
-        making it their highest-selling studio album in the U.S. and second-highest
-        album overall. Simon & Garfunkel have, at times, reunited to perform and sometimes
-        tour together. They have done so in every decade since the 1970 breakup, most
-        famously for 1981''s \"The Concert in Central Park\", which attracted more
-        than 500,000 people, making it the 7th-most attended concert in the history
-        of music. In 2004, they were ranked #40 on Rolling Stone''s list of the 100
-        greatest artists of all time.","strBiographyDE":"Simon & Garfunkel waren eine
-        US-amerikanische Musik-Duo, bestehend aus Singer-Songwriter Paul Simon und
-        Art Garfunkel. Sie bildeten die Gruppe Tom & Jerry im Jahr 1957 und hatte
-        ihren ersten Erfolg mit dem kleinen Hit \"Hey, Schoolgirl\". Wie Simon & Garfunkel,
-        stieg das Duo auf Ruhm im Jahr 1965 weitgehend von der St\u00e4rke der Hit-Single
-        \"The Sound of Silence\". Ihre Musik wurde in der Wahrzeichen Film Die Reifepr\u00fcfung
-        (1967) vorgestellten, weiter treibt sie in das \u00f6ffentliche Bewusstsein.
-        Sie sind bekannt f\u00fcr ihre Gesangsharmonien bekannt und geh\u00f6ren zu
-        den beliebtesten K\u00fcnstlern der 1960er Jahre. Ihre gr\u00f6\u00dften Hits
-        - darunter \"The Sound of Silence\" (1964), \"Ich bin ein Rock\" (1965), \"Homeward
-        Bound\" (1965), \"Scarborough Fair / Sonnengesang\" (1966), \"A Hazy Shade
-        of Winter\" (1966), \"Mrs. Robinson\" (1968), \"Bridge over Troubled Water\"
-        (1969), \"Der Boxer\" (1969) und \"Cecilia\" (1969) - erreichte Platz eins
-        in mehreren Charts. Sie haben mehrere Grammys erhalten und wurden in die Rock
-        and Roll Hall of Fame im Jahr 1990 und dem Long Island Music Hall of Fame
-        im Jahr 2007 aufgenommen. Deren manchmal schwierige Beziehung f\u00fchrte
-        zu ihrem letzten Album, Bridge Over Troubled Water, wobei mehrmals wegen Verz\u00f6gerung
-        k\u00fcnstlerischen Meinungsverschiedenheiten und als Ergebnis das Duo trennte
-        sich im Jahr 1970 Es war ihr erfolgreichstes Album bis heute weltweit, an
-        der Nummer eins in mehreren L\u00e4ndern, darunter den Vereinigten Staaten,
-        und Empfangen 8a- Platin Zertifizierung von der Recording Industry Association
-        of America, so dass es ihre meistverkaufte Studioalbum in den USA und zweith\u00f6chsten
-        Album insgesamt. Simon & Garfunkel haben, in Zeiten, wieder vereint zu erf\u00fcllen
-        und manchmal zusammen auf Tour. Sie haben so in jedem Jahrzehnt seit den 1970er
-        Aufl\u00f6sung am bekanntesten f\u00fcr das Jahr 1981 ist \"The Concert in
-        Central Park\", die mehr als 500.000 Menschen angezogen getan, und ist damit
-        die 7.-meist besuchten Konzert in der Geschichte der Musik. Im Jahr 2004 werden
-        sie auf Rolling Stone-Liste der 100 gr\u00f6\u00dften K\u00fcnstler aller
-        Zeiten auf Platz # 40 wurden.","strBiographyFR":"Simon & Garfunkel est un
-        duo am\u00e9ricain de musique pop aux influences folk, constitu\u00e9 de Paul
-        Simon et d''Arthur Garfunkel, qui comptent parmi les artistes les plus populaires
-        des ann\u00e9es 1960.\n\nPaul Frederic Simon na\u00eet en 1941 dans le New
-        Jersey, Arthur Ira Garfunkel na\u00eet trois semaines plus tard \u00e0 New
-        York. Simon et Garfunkel se rencontrent en 1956 au Forest Hills High School
-        \u00e0 New York, o\u00f9 ils commencent \u00e0 jouer tous les deux dans un
-        groupe appel\u00e9 Tom & Jerry. Ils commencent \u00e0 \u00e9crire leurs propres
-        chansons d\u00e8s 1957, et ils enregistrent une de leurs premi\u00e8res chansons
-        de rock and roll, Hey, Schoolgirl, dont les ventes estim\u00e9es atteignent
-        100 000 \u00e0 150 000 exemplaires.\n\nCependant, leurs tentatives suivantes
-        en 1958 n''ont pas le succ\u00e8s de ce coup d''essai, et le duo se s\u00e9pare.
-        Ils se retrouvent en 1963 gr\u00e2ce \u00e0 leur passion commune pour la musique
-        folk, et enregistrent leur premier v\u00e9ritable album, Wednesday Morning,
-        3 A.M. en 1964 ; il conna\u00eet un succ\u00e8s mitig\u00e9. Peu de temps
-        apr\u00e8s l''enregistrement, le duo se s\u00e9pare une nouvelle fois, et
-        Simon part en Angleterre, o\u00f9 il enregistre un album solo, The Paul Simon
-        Song Book, en 1965, dans lequel il r\u00e9\u00e9dite The Sound Of Silence,
-        He Was My Brother, qu''il avait enregistr\u00e9 avec Garfunkel dans ce premier
-        album, et compose des chansons, qui seront reprises plus tard par le duo,
-        comme I Am A Rock (inspir\u00e9e d''un s\u00e9jour \u00e0 Marseille, notamment
-        sur l''\u00eele du Frioul), ou Leaves That Are Green. Paul et \u00ab Art \u00bb
-        se revoient toujours, lorsque ce dernier vient \u00e0 Londres. Ils en profitent
-        pour jouer dans des bars, ou simplement tous les deux. Un de leurs amis leur
-        fait conna\u00eetre Scarborough Fair, chanson populaire anglaise du Moyen
-        \u00c2ge, et Simon apprend Anji, un morceau de guitare compos\u00e9 par Davy
-        Graham.\n\nPendant ce temps, la chanson The Sound of Silence, tir\u00e9e de
-        l''album Wednesday Morning, 3 A. M., conna\u00eet un grand succ\u00e8s, notamment
-        gr\u00e2ce \u00e0 l''ajout d''arrangements \u00e9lectroniques \u00e0 la version
-        acoustique. Paul Simon retourne alors aux \u00c9tats-Unis, o\u00f9 le groupe
-        se reforme une nouvelle fois pour enregistrer de nouveaux titres dans le m\u00eame
-        style. Ainsi, ils enregistrent \u00e0 deux voix leur premier album, de nouveaux
-        tubes, comme la r\u00e9\u00e9dition de I Am A Rock, Leaves That Are Green,
-        ou Anji, \u00e0 partir de laquelle ils enregistreront Somewhere They Can''t
-        Find Me, en ajoutant une m\u00e9lodie par dessus la guitare, et en utilisant
-        les paroles de la chanson \u00e9ponyme de leur premier album, Wednesday Morning,
-        3am. En 1966, l''album Sounds of Silence appara\u00eet dans les hit-parades,
-        gr\u00e2ce notamment \u00e0 la r\u00e9\u00e9dition du titre \u00e0 succ\u00e8s
-        du m\u00eame nom.\n\nEn 1966, Simon et Garfunkel reprennent Scarborough Fair,
-        qu''ils arrangent et font appara\u00eetre sur leur album Parsley, Sage, Rosemary
-        and Thyme. L''album propose \u00e9galement d''autres tubes, tels que Homeward
-        Bound, bien qu''enregistr\u00e9 fin 1965 et pr\u00e9vu sur l''album Sounds
-        Of Silence, The 59th Street Bridge Song (Feeling Groovy), ou encore For Emily,
-        Whenever I May Find Her, qui met en avant l''\u00e9poustouflante voix de Garfunkel.\n\nEn
-        1967, ils composent la bande originale du film Le Laur\u00e9at (The Graduate)
-        de Mike Nichols. L''album The Graduate arrive en t\u00eate du hit-parade en
-        1968, notamment gr\u00e2ce au tube Mrs. Robinson, r\u00e9compens\u00e9 aux
-        Grammy Awards de 1969. Ce titre, alors inachev\u00e9, est alors r\u00e9enregistr\u00e9
-        dans l''album Bookends en 1968, dans lequel figure d''autres titres c\u00e9l\u00e8bres
-        tels que America, At The Zoo.\n\nLes relations au sein du duo deviennent tendues.
-        L''album Bridge over Troubled Water, sorti en 1970, est leur dernier ensemble,
-        malgr\u00e9 un succ\u00e8s remarquable : n\u00b0 1 des ventes pendant six
-        semaines, et plusieurs Grammy Awards en 1971. L''album contient des titres
-        qui marqueront d\u00e9finitivement le groupe : le titre du m\u00eame nom que
-        l''album, o\u00f9 Garfunkel montre de nouveau ses incontestables talents vocaux,
-        The Boxer, enregistr\u00e9 en 1968, o\u00f9 Simon met en avant sa capacit\u00e9
-        \u00e0 composer de magnifiques m\u00e9lodies, un accompagnement envo\u00fbtant
-        \u00e0 la guitare, et des paroles po\u00e9tiques, o\u00f9 il montre la v\u00e9rit\u00e9
-        d''une m\u00e9thode magistrale. Paul Simon et Arthur Garfunkel se s\u00e9parent
-        fin 1971, alors m\u00eame que les ventes de leur album Greatest Hits, paru
-        en 1972, s''envolent. Simon s''engage dans une carri\u00e8re solo, et Garfunkel
-        se dirige vers le cin\u00e9ma. Le duo enregistrera encore une chanson en 1975,
-        My Little Town, qui para\u00eetra \u00e0 la fois sur l''album de Paul Simon
-        Still Crazy After All These Years et celui de Art Garfunkel, Breakaway.\n\nPar
-        la suite, Simon et Garfunkel reforment leur duo \u00e0 plusieurs reprises
-        pour des concerts exceptionnels, comme le 19 septembre 1981 pour un concert
-        gratuit \u00e0 Central Park qui r\u00e9unit 500 000 personnes, ou en 2003
-        pour l''ouverture des Grammy Awards, o\u00f9 ils sont r\u00e9compens\u00e9s
-        pour leur contribution de plus de quatre d\u00e9cennies \u00e0 la musique
-        populaire. En 2004, un double CD-DVD intitul\u00e9 Old Friends: Live on Stage
-        immortalise la tourn\u00e9e Old Friends Tour en 2003 \u00e0 travers les \u00c9tats-Unis
-        et l''Europe, reprenant tous les standards qui font leur succ\u00e8s depuis
-        40 ans. Ils repartiront en tourn\u00e9e \u00e0 travers l''Asie et l''Oc\u00e9anie
-        \u00e0 partir du 13 juin 2009 et en Am\u00e9rique du Nord \u00e0 partir du
-        24 avril 2010. Leur tourn\u00e9e en Am\u00e9rique du Nord est cependant suspendue
-        en raison des probl\u00e8mes vocaux d''Arthur Garfunkel.","strBiographyCN":null,"strBiographyIT":"Simon
-        & Garfunkel sono stati un popolare duo folk rock statunitense, costituito
-        da Paul Simon (Newark, New Jersey 13 ottobre 1941) e Art Garfunkel (Forest
-        Hills, New York 5 novembre 1941). Dopo il loro primo grande successo (The
-        Sound of Silence, 1965) divennero fra i pi\u00f9 famosi artisti musicali degli
-        anni sessanta.\nAlcune delle loro canzoni (The Sound of Silence, The Boxer,
-        Mrs. Robinson, Bridge over Troubled Water) sono veri e propri classici della
-        musica leggera. Il duo ha ricevuto innumerevoli premi Grammy ed \u00e8 citato
-        nella Rock and Roll Hall of Fame.","strBiographyJP":null,"strBiographyRU":null,"strBiographyES":"Simon
-        and Garfunkel es un d\u00fao de folk rock compuesto por Paul Simon y Arthur
-        \"Art\" Garfunkel. Simon y Garfunkel fueron unos artistas muy populares en
-        la d\u00e9cada de los 60. Algunas de sus canciones m\u00e1s conocidas son
-        The Sound of Silence (El sonido del silencio), Mrs. Robinson (Se\u00f1ora
-        Robinson) y Bridge Over Troubled Water (Puente sobre agua turbulenta). Adem\u00e1s,
-        han recibido varios Grammys y se incluyen en el Rock and Roll Hall of Fame.","strBiographyPT":"Simon
-        & Garfunkel foi uma dupla norte-americana de folk composta pelos cantores
-        e compositores Paul Simon e Art Garfunkel. Eles formaram o grupo Tom & Jerry
-        em 1957 e emplacaram seu primeiro sucesso com o single \"Hey, Schoolgirl\".
-        A dupla al\u00e7ou fama em 1965 como Simon & Garfunkel na esteira do sucesso
-        de \"The Sound of Silence\".\n\nEles s\u00e3o mais conhecidos por suas harmonias
-        vocais, e est\u00e3o entre os artistas mais populares da d\u00e9cada de 1960.
-        Seus maiores sucessos \u2013 entre eles \"The Sound of Silence\" (1964), \"I
-        Am a Rock\" (1965), \"Homeward Bound\" (1965), \"Scarborough Fair/Canticle\"
-        (1966), \"A Hazy Shade of Winter\" (1966), \"Mrs. Robinson\" (1968), \"Bridge
-        over Troubled Water\" (1969), \"The Boxer\" (1969) e \"Cecilia\" (1969) \u2013
-        alcan\u00e7aram a primeira coloca\u00e7\u00e3o em diversas paradas musicais.
-        A dupla foi premiada com v\u00e1rios Grammys, e foi inclu\u00edda no Hall
-        da Fama do Rock and Roll em 1990, e no Hall da Fama da M\u00fasica de Long
-        Island em 2007.\n\nSeu relacionamento por vezes conturbado fez com que seu
-        \u00faltimo \u00e1lbum, Bridge Over Troubled Water, fosse adiado v\u00e1rias
-        vezes devido a desentendimentos art\u00edsticos, o que acabou resultando na
-        separa\u00e7\u00e3o da dupla em 1970. Este foi seu \u00e1lbum de maior sucesso,
-        alcan\u00e7ando o primeiro lugar de vendas em diversos pa\u00edses, incluindo
-        os Estados Unidos, e recebendo a certifica\u00e7\u00e3o de platina \u00f3ctupla
-        da Recording Industry Association of America. Desde ent\u00e3o eles t\u00eam
-        se reunido esporadicamente, a ocasi\u00e3o mais famosa sendo para um concerto
-        no Central Park que atraiu mais de 500,000 pessoas, fazendo deste o s\u00e9timo
-        evento musical mais assistido na hist\u00f3ria da m\u00fasica.","strBiographySE":"Simon
-        & Garfunkel \u00e4r en amerikansk folk-rock-duo bildad i New York \u00e5r
-        1964. Gruppens namn kommer av efternamnen p\u00e5 s\u00e5ngarna Paul Simon
-        och Art Garfunkel, b\u00e5da f\u00f6dda 1941. Simon & Garfunkel kom att bli
-        den antagligen st\u00f6rsta duon under 1960-talet. Paul Simon var den som
-        skrev l\u00e5tarna. B\u00e5da sj\u00f6ng och producerade skivorna, tillsammans
-        med producenten Roy Halee.\n\nN\u00e4r tv\u00e5 lokala radiostationer i Florida
-        och Boston b\u00f6rjade f\u00e5 \u00f6nskningar fr\u00e5n lyssnare om att
-        f\u00e5 h\u00f6ra s\u00e5ngen \"The Sound of Silence\" fr\u00e5n LP:n l\u00e4t
-        Tom Wilson spela in 12-str\u00e4ngad gitarr, bas och trummor p\u00e5 den akustiska
-        versionen av s\u00e5ngen och skivbolaget gav ut den som singel. N\u00e4r den
-        n\u00e5dde f\u00f6rstaplatsen i december 1965 \u00e5terf\u00f6renades Simon
-        & Garfunkel f\u00f6r att snabbt spela in albumet Sounds of Silence som gavs
-        ut i januari efterf\u00f6ljande \u00e5r.\n\nSoundtracket till filmen Mandomsprovet
-        1968 gjorde Simon & Garfunkel till superstj\u00e4rnor, trots att soundtracket
-        i huvudsak bestod av redan utgivna l\u00e5tar. Den nyskrivna \"Mrs Robinson\"
-        (ursprungligen betitlad \"Mrs Roosevelt\") fr\u00e5n filmen hamnade ist\u00e4llet
-        p\u00e5 duons fj\u00e4rde skiva Bookends som kom ut i n\u00e4ra anslutning
-        till filmen.","strBiographyNL":null,"strBiographyHU":null,"strBiographyNO":null,"strBiographyIL":null,"strBiographyPL":null,"strGender":"Male","intMembers":"2","strCountry":"New
-        York, USA","strCountryCode":"US","strArtistThumb":"https://www.theaudiodb.com/images/media/artist/thumb/suvwup1341874982.jpg","strArtistLogo":"https://www.theaudiodb.com/images/media/artist/logo/rxxuur1389904417.png","strArtistCutout":"https://www.theaudiodb.com/images/media/artist/cutout/4r09u41643630311.png","strArtistClearart":"https://www.theaudiodb.com/images/media/artist/clearart/acn1ob1643630438.png","strArtistWideThumb":"https://www.theaudiodb.com/images/media/artist/widethumb/5e0z6y1643630562.jpg","strArtistFanart":"https://www.theaudiodb.com/images/media/artist/fanart/simon--garfunkel-4dede3030833c.jpg","strArtistFanart2":"https://www.theaudiodb.com/images/media/artist/fanart/simon--garfunkel-4dede315df44c.jpg","strArtistFanart3":"https://www.theaudiodb.com/images/media/artist/fanart/yxvwxx1390142999.jpg","strArtistFanart4":"https://www.theaudiodb.com/images/media/artist/fanart/an9l851616324320.jpg","strArtistBanner":"https://www.theaudiodb.com/images/media/artist/banner/simon--garfunkel-555674ff8c5d2.jpg","strMusicBrainzID":"5d02f264-e225-41ff-83f7-d9b1f0b1874a","strISNIcode":null,"strLastFMChart":"http://www.last.fm/music/Simon
-        & Garfunkel/+charts?rangetype=6month","intCharted":"3","strLocked":"unlocked"}]}'
-  recorded_at: Wed, 18 May 2022 04:05:45 GMT
+  - request:
+      method: get
+      uri: https://www.theaudiodb.com/api/v1/json/<APIKEY>/search.php?s=Simon%20and%20Garfunkel
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+        User-Agent:
+          - Ruby
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Wed, 18 May 2022 04:05:45 GMT
+        Content-Type:
+          - application/json
+        Transfer-Encoding:
+          - chunked
+        Connection:
+          - keep-alive
+        X-Powered-By:
+          - PHP/7.4.1
+        Access-Control-Allow-Origin:
+          - "*"
+        Cf-Cache-Status:
+          - DYNAMIC
+        Expect-Ct:
+          - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+        Report-To:
+          - '{"endpoints":[{"url":"https:\/\/a.nel.cloudflare.com\/report\/v3?s=mMHEfbqM%2FfBf7nNcX6ByWTOzvtWlNydmZ9qzVOvf%2FQ6a5FyP3ZEaJaKN1F1VOkfGLS20bUsSq2roklh51oLqqLKrfxDd0xKaQKPn71BhqQ9tF%2BQyPa572HQ092W496%2FXckid3kc%3D"}],"group":"cf-nel","max_age":604800}'
+        Nel:
+          - '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}'
+        Server:
+          - cloudflare
+        Cf-Ray:
+          - 70d1b760ba3128e9-ORD
+        Alt-Svc:
+          - h3=":443"; ma=86400, h3-29=":443"; ma=86400
+      body:
+        encoding: ASCII-8BIT
+        string:
+          '{"artists":[{"idArtist":"112256","strArtist":"Simon & Garfunkel","strArtistStripped":null,"strArtistAlternate":"Simon
+          and Garfunkel","strLabel":"Columbia","idLabel":"43473","intFormedYear":"1963","intBornYear":"1963","intDiedYear":null,"strDisbanded":"Yes","strStyle":"Rock/Pop","strGenre":"Folk","strMood":"Happy","strWebsite":"www.simonandgarfunkel.com","strFacebook":"www.facebook.com/SimonandGarfunkel","strTwitter":"1","strBiographyEN":"Simon
+          & Garfunkel were an American music duo consisting of singer-songwriters Paul
+          Simon and Art Garfunkel. They formed the group Tom & Jerry in 1957 and had
+          their first success with the minor hit \"Hey, Schoolgirl\". As Simon & Garfunkel,
+          the duo rose to fame in 1965, largely on the strength of the hit single \"The
+          Sound of Silence\". Their music was featured in the landmark film The Graduate
+          (1967), propelling them further into the public consciousness.\n\nThey are
+          well known for their vocal harmonies and were among the most popular recording
+          artists of the 1960s. Their biggest hits - including \"The Sound of Silence\"
+          (1964), \"I Am a Rock\" (1965), \"Homeward Bound\" (1965), \"Scarborough Fair/Canticle\"
+          (1966), \"A Hazy Shade of Winter\" (1966), \"Mrs. Robinson\" (1968), \"Bridge
+          over Troubled Water\" (1969), \"The Boxer\" (1969), and \"Cecilia\" (1969)
+          - peaked at number one in several charts. They have received several Grammys
+          and were inducted into the Rock and Roll Hall of Fame in 1990 and the Long
+          Island Music Hall of Fame in 2007.\n\nTheir sometimes rocky relationship led
+          to their last album, Bridge Over Troubled Water, being delayed several times
+          due to artistic disagreements and as a result the duo broke up in 1970. It
+          was their most successful album worldwide to date, peaking at number one in
+          several countries, including the United States, and receiving 8\u00c3\u2014
+          platinum certification from the Recording Industry Association of America,
+          making it their highest-selling studio album in the U.S. and second-highest
+          album overall. Simon & Garfunkel have, at times, reunited to perform and sometimes
+          tour together. They have done so in every decade since the 1970 breakup, most
+          famously for 1981''s \"The Concert in Central Park\", which attracted more
+          than 500,000 people, making it the 7th-most attended concert in the history
+          of music. In 2004, they were ranked #40 on Rolling Stone''s list of the 100
+          greatest artists of all time.","strBiographyDE":"Simon & Garfunkel waren eine
+          US-amerikanische Musik-Duo, bestehend aus Singer-Songwriter Paul Simon und
+          Art Garfunkel. Sie bildeten die Gruppe Tom & Jerry im Jahr 1957 und hatte
+          ihren ersten Erfolg mit dem kleinen Hit \"Hey, Schoolgirl\". Wie Simon & Garfunkel,
+          stieg das Duo auf Ruhm im Jahr 1965 weitgehend von der St\u00e4rke der Hit-Single
+          \"The Sound of Silence\". Ihre Musik wurde in der Wahrzeichen Film Die Reifepr\u00fcfung
+          (1967) vorgestellten, weiter treibt sie in das \u00f6ffentliche Bewusstsein.
+          Sie sind bekannt f\u00fcr ihre Gesangsharmonien bekannt und geh\u00f6ren zu
+          den beliebtesten K\u00fcnstlern der 1960er Jahre. Ihre gr\u00f6\u00dften Hits
+          - darunter \"The Sound of Silence\" (1964), \"Ich bin ein Rock\" (1965), \"Homeward
+          Bound\" (1965), \"Scarborough Fair / Sonnengesang\" (1966), \"A Hazy Shade
+          of Winter\" (1966), \"Mrs. Robinson\" (1968), \"Bridge over Troubled Water\"
+          (1969), \"Der Boxer\" (1969) und \"Cecilia\" (1969) - erreichte Platz eins
+          in mehreren Charts. Sie haben mehrere Grammys erhalten und wurden in die Rock
+          and Roll Hall of Fame im Jahr 1990 und dem Long Island Music Hall of Fame
+          im Jahr 2007 aufgenommen. Deren manchmal schwierige Beziehung f\u00fchrte
+          zu ihrem letzten Album, Bridge Over Troubled Water, wobei mehrmals wegen Verz\u00f6gerung
+          k\u00fcnstlerischen Meinungsverschiedenheiten und als Ergebnis das Duo trennte
+          sich im Jahr 1970 Es war ihr erfolgreichstes Album bis heute weltweit, an
+          der Nummer eins in mehreren L\u00e4ndern, darunter den Vereinigten Staaten,
+          und Empfangen 8a- Platin Zertifizierung von der Recording Industry Association
+          of America, so dass es ihre meistverkaufte Studioalbum in den USA und zweith\u00f6chsten
+          Album insgesamt. Simon & Garfunkel haben, in Zeiten, wieder vereint zu erf\u00fcllen
+          und manchmal zusammen auf Tour. Sie haben so in jedem Jahrzehnt seit den 1970er
+          Aufl\u00f6sung am bekanntesten f\u00fcr das Jahr 1981 ist \"The Concert in
+          Central Park\", die mehr als 500.000 Menschen angezogen getan, und ist damit
+          die 7.-meist besuchten Konzert in der Geschichte der Musik. Im Jahr 2004 werden
+          sie auf Rolling Stone-Liste der 100 gr\u00f6\u00dften K\u00fcnstler aller
+          Zeiten auf Platz # 40 wurden.","strBiographyFR":"Simon & Garfunkel est un
+          duo am\u00e9ricain de musique pop aux influences folk, constitu\u00e9 de Paul
+          Simon et d''Arthur Garfunkel, qui comptent parmi les artistes les plus populaires
+          des ann\u00e9es 1960.\n\nPaul Frederic Simon na\u00eet en 1941 dans le New
+          Jersey, Arthur Ira Garfunkel na\u00eet trois semaines plus tard \u00e0 New
+          York. Simon et Garfunkel se rencontrent en 1956 au Forest Hills High School
+          \u00e0 New York, o\u00f9 ils commencent \u00e0 jouer tous les deux dans un
+          groupe appel\u00e9 Tom & Jerry. Ils commencent \u00e0 \u00e9crire leurs propres
+          chansons d\u00e8s 1957, et ils enregistrent une de leurs premi\u00e8res chansons
+          de rock and roll, Hey, Schoolgirl, dont les ventes estim\u00e9es atteignent
+          100 000 \u00e0 150 000 exemplaires.\n\nCependant, leurs tentatives suivantes
+          en 1958 n''ont pas le succ\u00e8s de ce coup d''essai, et le duo se s\u00e9pare.
+          Ils se retrouvent en 1963 gr\u00e2ce \u00e0 leur passion commune pour la musique
+          folk, et enregistrent leur premier v\u00e9ritable album, Wednesday Morning,
+          3 A.M. en 1964 ; il conna\u00eet un succ\u00e8s mitig\u00e9. Peu de temps
+          apr\u00e8s l''enregistrement, le duo se s\u00e9pare une nouvelle fois, et
+          Simon part en Angleterre, o\u00f9 il enregistre un album solo, The Paul Simon
+          Song Book, en 1965, dans lequel il r\u00e9\u00e9dite The Sound Of Silence,
+          He Was My Brother, qu''il avait enregistr\u00e9 avec Garfunkel dans ce premier
+          album, et compose des chansons, qui seront reprises plus tard par le duo,
+          comme I Am A Rock (inspir\u00e9e d''un s\u00e9jour \u00e0 Marseille, notamment
+          sur l''\u00eele du Frioul), ou Leaves That Are Green. Paul et \u00ab Art \u00bb
+          se revoient toujours, lorsque ce dernier vient \u00e0 Londres. Ils en profitent
+          pour jouer dans des bars, ou simplement tous les deux. Un de leurs amis leur
+          fait conna\u00eetre Scarborough Fair, chanson populaire anglaise du Moyen
+          \u00c2ge, et Simon apprend Anji, un morceau de guitare compos\u00e9 par Davy
+          Graham.\n\nPendant ce temps, la chanson The Sound of Silence, tir\u00e9e de
+          l''album Wednesday Morning, 3 A. M., conna\u00eet un grand succ\u00e8s, notamment
+          gr\u00e2ce \u00e0 l''ajout d''arrangements \u00e9lectroniques \u00e0 la version
+          acoustique. Paul Simon retourne alors aux \u00c9tats-Unis, o\u00f9 le groupe
+          se reforme une nouvelle fois pour enregistrer de nouveaux titres dans le m\u00eame
+          style. Ainsi, ils enregistrent \u00e0 deux voix leur premier album, de nouveaux
+          tubes, comme la r\u00e9\u00e9dition de I Am A Rock, Leaves That Are Green,
+          ou Anji, \u00e0 partir de laquelle ils enregistreront Somewhere They Can''t
+          Find Me, en ajoutant une m\u00e9lodie par dessus la guitare, et en utilisant
+          les paroles de la chanson \u00e9ponyme de leur premier album, Wednesday Morning,
+          3am. En 1966, l''album Sounds of Silence appara\u00eet dans les hit-parades,
+          gr\u00e2ce notamment \u00e0 la r\u00e9\u00e9dition du titre \u00e0 succ\u00e8s
+          du m\u00eame nom.\n\nEn 1966, Simon et Garfunkel reprennent Scarborough Fair,
+          qu''ils arrangent et font appara\u00eetre sur leur album Parsley, Sage, Rosemary
+          and Thyme. L''album propose \u00e9galement d''autres tubes, tels que Homeward
+          Bound, bien qu''enregistr\u00e9 fin 1965 et pr\u00e9vu sur l''album Sounds
+          Of Silence, The 59th Street Bridge Song (Feeling Groovy), ou encore For Emily,
+          Whenever I May Find Her, qui met en avant l''\u00e9poustouflante voix de Garfunkel.\n\nEn
+          1967, ils composent la bande originale du film Le Laur\u00e9at (The Graduate)
+          de Mike Nichols. L''album The Graduate arrive en t\u00eate du hit-parade en
+          1968, notamment gr\u00e2ce au tube Mrs. Robinson, r\u00e9compens\u00e9 aux
+          Grammy Awards de 1969. Ce titre, alors inachev\u00e9, est alors r\u00e9enregistr\u00e9
+          dans l''album Bookends en 1968, dans lequel figure d''autres titres c\u00e9l\u00e8bres
+          tels que America, At The Zoo.\n\nLes relations au sein du duo deviennent tendues.
+          L''album Bridge over Troubled Water, sorti en 1970, est leur dernier ensemble,
+          malgr\u00e9 un succ\u00e8s remarquable : n\u00b0 1 des ventes pendant six
+          semaines, et plusieurs Grammy Awards en 1971. L''album contient des titres
+          qui marqueront d\u00e9finitivement le groupe : le titre du m\u00eame nom que
+          l''album, o\u00f9 Garfunkel montre de nouveau ses incontestables talents vocaux,
+          The Boxer, enregistr\u00e9 en 1968, o\u00f9 Simon met en avant sa capacit\u00e9
+          \u00e0 composer de magnifiques m\u00e9lodies, un accompagnement envo\u00fbtant
+          \u00e0 la guitare, et des paroles po\u00e9tiques, o\u00f9 il montre la v\u00e9rit\u00e9
+          d''une m\u00e9thode magistrale. Paul Simon et Arthur Garfunkel se s\u00e9parent
+          fin 1971, alors m\u00eame que les ventes de leur album Greatest Hits, paru
+          en 1972, s''envolent. Simon s''engage dans une carri\u00e8re solo, et Garfunkel
+          se dirige vers le cin\u00e9ma. Le duo enregistrera encore une chanson en 1975,
+          My Little Town, qui para\u00eetra \u00e0 la fois sur l''album de Paul Simon
+          Still Crazy After All These Years et celui de Art Garfunkel, Breakaway.\n\nPar
+          la suite, Simon et Garfunkel reforment leur duo \u00e0 plusieurs reprises
+          pour des concerts exceptionnels, comme le 19 septembre 1981 pour un concert
+          gratuit \u00e0 Central Park qui r\u00e9unit 500 000 personnes, ou en 2003
+          pour l''ouverture des Grammy Awards, o\u00f9 ils sont r\u00e9compens\u00e9s
+          pour leur contribution de plus de quatre d\u00e9cennies \u00e0 la musique
+          populaire. En 2004, un double CD-DVD intitul\u00e9 Old Friends: Live on Stage
+          immortalise la tourn\u00e9e Old Friends Tour en 2003 \u00e0 travers les \u00c9tats-Unis
+          et l''Europe, reprenant tous les standards qui font leur succ\u00e8s depuis
+          40 ans. Ils repartiront en tourn\u00e9e \u00e0 travers l''Asie et l''Oc\u00e9anie
+          \u00e0 partir du 13 juin 2009 et en Am\u00e9rique du Nord \u00e0 partir du
+          24 avril 2010. Leur tourn\u00e9e en Am\u00e9rique du Nord est cependant suspendue
+          en raison des probl\u00e8mes vocaux d''Arthur Garfunkel.","strBiographyCN":null,"strBiographyIT":"Simon
+          & Garfunkel sono stati un popolare duo folk rock statunitense, costituito
+          da Paul Simon (Newark, New Jersey 13 ottobre 1941) e Art Garfunkel (Forest
+          Hills, New York 5 novembre 1941). Dopo il loro primo grande successo (The
+          Sound of Silence, 1965) divennero fra i pi\u00f9 famosi artisti musicali degli
+          anni sessanta.\nAlcune delle loro canzoni (The Sound of Silence, The Boxer,
+          Mrs. Robinson, Bridge over Troubled Water) sono veri e propri classici della
+          musica leggera. Il duo ha ricevuto innumerevoli premi Grammy ed \u00e8 citato
+          nella Rock and Roll Hall of Fame.","strBiographyJP":null,"strBiographyRU":null,"strBiographyES":"Simon
+          and Garfunkel es un d\u00fao de folk rock compuesto por Paul Simon y Arthur
+          \"Art\" Garfunkel. Simon y Garfunkel fueron unos artistas muy populares en
+          la d\u00e9cada de los 60. Algunas de sus canciones m\u00e1s conocidas son
+          The Sound of Silence (El sonido del silencio), Mrs. Robinson (Se\u00f1ora
+          Robinson) y Bridge Over Troubled Water (Puente sobre agua turbulenta). Adem\u00e1s,
+          han recibido varios Grammys y se incluyen en el Rock and Roll Hall of Fame.","strBiographyPT":"Simon
+          & Garfunkel foi uma dupla norte-americana de folk composta pelos cantores
+          e compositores Paul Simon e Art Garfunkel. Eles formaram o grupo Tom & Jerry
+          em 1957 e emplacaram seu primeiro sucesso com o single \"Hey, Schoolgirl\".
+          A dupla al\u00e7ou fama em 1965 como Simon & Garfunkel na esteira do sucesso
+          de \"The Sound of Silence\".\n\nEles s\u00e3o mais conhecidos por suas harmonias
+          vocais, e est\u00e3o entre os artistas mais populares da d\u00e9cada de 1960.
+          Seus maiores sucessos \u2013 entre eles \"The Sound of Silence\" (1964), \"I
+          Am a Rock\" (1965), \"Homeward Bound\" (1965), \"Scarborough Fair/Canticle\"
+          (1966), \"A Hazy Shade of Winter\" (1966), \"Mrs. Robinson\" (1968), \"Bridge
+          over Troubled Water\" (1969), \"The Boxer\" (1969) e \"Cecilia\" (1969) \u2013
+          alcan\u00e7aram a primeira coloca\u00e7\u00e3o em diversas paradas musicais.
+          A dupla foi premiada com v\u00e1rios Grammys, e foi inclu\u00edda no Hall
+          da Fama do Rock and Roll em 1990, e no Hall da Fama da M\u00fasica de Long
+          Island em 2007.\n\nSeu relacionamento por vezes conturbado fez com que seu
+          \u00faltimo \u00e1lbum, Bridge Over Troubled Water, fosse adiado v\u00e1rias
+          vezes devido a desentendimentos art\u00edsticos, o que acabou resultando na
+          separa\u00e7\u00e3o da dupla em 1970. Este foi seu \u00e1lbum de maior sucesso,
+          alcan\u00e7ando o primeiro lugar de vendas em diversos pa\u00edses, incluindo
+          os Estados Unidos, e recebendo a certifica\u00e7\u00e3o de platina \u00f3ctupla
+          da Recording Industry Association of America. Desde ent\u00e3o eles t\u00eam
+          se reunido esporadicamente, a ocasi\u00e3o mais famosa sendo para um concerto
+          no Central Park que atraiu mais de 500,000 pessoas, fazendo deste o s\u00e9timo
+          evento musical mais assistido na hist\u00f3ria da m\u00fasica.","strBiographySE":"Simon
+          & Garfunkel \u00e4r en amerikansk folk-rock-duo bildad i New York \u00e5r
+          1964. Gruppens namn kommer av efternamnen p\u00e5 s\u00e5ngarna Paul Simon
+          och Art Garfunkel, b\u00e5da f\u00f6dda 1941. Simon & Garfunkel kom att bli
+          den antagligen st\u00f6rsta duon under 1960-talet. Paul Simon var den som
+          skrev l\u00e5tarna. B\u00e5da sj\u00f6ng och producerade skivorna, tillsammans
+          med producenten Roy Halee.\n\nN\u00e4r tv\u00e5 lokala radiostationer i Florida
+          och Boston b\u00f6rjade f\u00e5 \u00f6nskningar fr\u00e5n lyssnare om att
+          f\u00e5 h\u00f6ra s\u00e5ngen \"The Sound of Silence\" fr\u00e5n LP:n l\u00e4t
+          Tom Wilson spela in 12-str\u00e4ngad gitarr, bas och trummor p\u00e5 den akustiska
+          versionen av s\u00e5ngen och skivbolaget gav ut den som singel. N\u00e4r den
+          n\u00e5dde f\u00f6rstaplatsen i december 1965 \u00e5terf\u00f6renades Simon
+          & Garfunkel f\u00f6r att snabbt spela in albumet Sounds of Silence som gavs
+          ut i januari efterf\u00f6ljande \u00e5r.\n\nSoundtracket till filmen Mandomsprovet
+          1968 gjorde Simon & Garfunkel till superstj\u00e4rnor, trots att soundtracket
+          i huvudsak bestod av redan utgivna l\u00e5tar. Den nyskrivna \"Mrs Robinson\"
+          (ursprungligen betitlad \"Mrs Roosevelt\") fr\u00e5n filmen hamnade ist\u00e4llet
+          p\u00e5 duons fj\u00e4rde skiva Bookends som kom ut i n\u00e4ra anslutning
+          till filmen.","strBiographyNL":null,"strBiographyHU":null,"strBiographyNO":null,"strBiographyIL":null,"strBiographyPL":null,"strGender":"Male","intMembers":"2","strCountry":"New
+          York, USA","strCountryCode":"US","strArtistThumb":"https://www.theaudiodb.com/images/media/artist/thumb/suvwup1341874982.jpg","strArtistLogo":"https://www.theaudiodb.com/images/media/artist/logo/rxxuur1389904417.png","strArtistCutout":"https://www.theaudiodb.com/images/media/artist/cutout/4r09u41643630311.png","strArtistClearart":"https://www.theaudiodb.com/images/media/artist/clearart/acn1ob1643630438.png","strArtistWideThumb":"https://www.theaudiodb.com/images/media/artist/widethumb/5e0z6y1643630562.jpg","strArtistFanart":"https://www.theaudiodb.com/images/media/artist/fanart/simon--garfunkel-4dede3030833c.jpg","strArtistFanart2":"https://www.theaudiodb.com/images/media/artist/fanart/simon--garfunkel-4dede315df44c.jpg","strArtistFanart3":"https://www.theaudiodb.com/images/media/artist/fanart/yxvwxx1390142999.jpg","strArtistFanart4":"https://www.theaudiodb.com/images/media/artist/fanart/an9l851616324320.jpg","strArtistBanner":"https://www.theaudiodb.com/images/media/artist/banner/simon--garfunkel-555674ff8c5d2.jpg","strMusicBrainzID":"5d02f264-e225-41ff-83f7-d9b1f0b1874a","strISNIcode":null,"strLastFMChart":"http://www.last.fm/music/Simon
+          & Garfunkel/+charts?rangetype=6month","intCharted":"3","strLocked":"unlocked"}]}'
+    recorded_at: Wed, 18 May 2022 04:05:45 GMT
 recorded_with: VCR 6.1.0

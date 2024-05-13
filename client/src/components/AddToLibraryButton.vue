@@ -1,20 +1,20 @@
 <script setup>
-import { toastController } from '@ionic/vue'
-import * as icons from '@/icons'
-import useLibraryStore from '@/stores/library'
+import { toastController } from "@ionic/vue";
+import * as icons from "@/icons";
+import useLibraryStore from "@/stores/library";
 
 const props = defineProps({
   id: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const library = useLibraryStore(props.id)
+const library = useLibraryStore(props.id);
 
-async function toast (message) {
-  const toast = await toastController.create({ message, duration: 3000 })
-  return toast.present()
+async function toast(message) {
+  const toast = await toastController.create({ message, duration: 3000 });
+  return toast.present();
 }
 </script>
 
@@ -25,10 +25,7 @@ async function toast (message) {
     color="success"
     @click="library.remove().then(() => toast('Removed from your library'))"
   >
-    <ion-icon
-      slot="icon-only"
-      :icon="icons.saved"
-    />
+    <ion-icon slot="icon-only" :icon="icons.saved" />
   </ion-button>
 
   <ion-button
@@ -36,9 +33,6 @@ async function toast (message) {
     v-tooltip="'Add to library'"
     @click="library.add().then(() => toast('Added to your library'))"
   >
-    <ion-icon
-      slot="icon-only"
-      :icon="icons.save"
-    />
+    <ion-icon slot="icon-only" :icon="icons.save" />
   </ion-button>
 </template>

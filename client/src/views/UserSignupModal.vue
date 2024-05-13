@@ -1,19 +1,19 @@
 <script setup>
-import useAuthStore from '@/stores/auth'
-import { ref, watchEffect } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import useAuthStore from "@/stores/auth";
+import { ref, watchEffect } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
-const route = useRoute()
-const router = useRouter()
-const auth = useAuthStore()
-const form = ref({ user: {} })
-const { execute, data } = auth.signUp(form, { immediate: false })
+const route = useRoute();
+const router = useRouter();
+const auth = useAuthStore();
+const form = ref({ user: {} });
+const { execute, data } = auth.signUp(form, { immediate: false });
 
 watchEffect(() => {
   if (auth.isAuthenticated) {
-    router.replace({ path: route.path }) // without hash
+    router.replace({ path: route.path }); // without hash
   }
-})
+});
 </script>
 
 <template>
@@ -38,10 +38,7 @@ watchEffect(() => {
       <ion-content color="light">
         <form @submit.prevent="execute(false)">
           <Transition name="slide-down">
-            <div
-              v-if="data?.error?.message"
-              class="ion-padding text-red-500"
-            >
+            <div v-if="data?.error?.message" class="ion-padding text-red-500">
               {{ data.error.message }}
             </div>
           </Transition>
@@ -87,27 +84,17 @@ watchEffect(() => {
             </ion-item>
           </ion-list>
           <div class="ion-margin">
-            <ion-button
-              type="submit"
-              expand="block"
-            >
-              Sign Up
-            </ion-button>
+            <ion-button type="submit" expand="block"> Sign Up </ion-button>
           </div>
         </form>
 
-        <hr class="my-8">
+        <hr class="my-8" />
 
         <div class="ion-margin text-center">
-          <h2 class="font-semibold text-lg">
-            Already have an account?
-          </h2>
+          <h2 class="font-semibold text-lg">Already have an account?</h2>
 
           <div class="ion-margin">
-            <ion-button
-              fill="outline"
-              router-link="#signin"
-            >
+            <ion-button fill="outline" router-link="#signin">
               Sign in to your account
             </ion-button>
           </div>

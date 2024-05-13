@@ -1,6 +1,6 @@
 <script setup>
-import ArtistItem from '@/components/ArtistItem.vue'
-import LibraryPlaceholder from '@/components/LibraryPlaceholder.vue'
+import ArtistItem from "@/components/ArtistItem.vue";
+import LibraryPlaceholder from "@/components/LibraryPlaceholder.vue";
 </script>
 
 <template>
@@ -22,21 +22,13 @@ import LibraryPlaceholder from '@/components/LibraryPlaceholder.vue'
       </ion-toolbar>
     </ion-header>
 
-    <ion-content
-      fullscreen
-      class="main-content"
-    >
+    <ion-content fullscreen class="main-content">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">
-            Artists
-          </ion-title>
+          <ion-title size="large"> Artists </ion-title>
         </ion-toolbar>
       </ion-header>
-      <data-source
-        :src="$route.path"
-        :params="$route.query"
-      >
+      <data-source :src="$route.path" :params="$route.query">
         <template #empty>
           <library-placeholder type="artist" />
         </template>

@@ -1,31 +1,31 @@
 <script setup>
-import * as icons from '@/icons'
-import ShareItem from '@/components/ShareItem.vue'
-import ModelAvatar from './ModelAvatar.vue'
+import * as icons from "@/icons";
+import ShareItem from "@/components/ShareItem.vue";
+import ModelAvatar from "./ModelAvatar.vue";
 
 defineProps({
   id: {
     type: String,
-    required: true
+    required: true,
   },
   album: {
     type: Object,
-    required: true
+    required: true,
   },
   artist: {
     type: Object,
-    required: true
+    required: true,
   },
   title: {
     type: String,
-    required: true
+    required: true,
   },
   // eslint-disable-next-line vue/prop-name-casing
   has_songsheet: {
     type: Boolean,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 </script>
 
 <template>
@@ -33,13 +33,11 @@ defineProps({
     button
     :router-link="{ name: 'track', params: { id: id } }"
     detail="false"
-    :class="{ 'opacity-40 hover:opacity-100 transition-opacity': !has_songsheet }"
+    :class="{
+      'opacity-40 hover:opacity-100 transition-opacity': !has_songsheet,
+    }"
   >
-    <model-avatar
-      slot="start"
-      :src="album?.cover?.small"
-      type="Track"
-    />
+    <model-avatar slot="start" :src="album?.cover?.small" type="Track" />
     <ion-label class="truncate">
       <h2>{{ title }}</h2>
       <p>{{ artist.name }}</p>
@@ -71,7 +69,7 @@ defineProps({
         <ion-item
           v-if="!has_songsheet"
           button
-          :router-link="{ name: 'songsheet.new', query: { track: id }}"
+          :router-link="{ name: 'songsheet.new', query: { track: id } }"
         >
           Create Songsheet
         </ion-item>
@@ -92,11 +90,7 @@ defineProps({
         >
           View Album
         </ion-item>
-        <share-item
-          lines="none"
-          :router-link="link"
-          :title="title"
-        />
+        <share-item lines="none" :router-link="link" :title="title" />
       </ion-list>
     </ion-popover>
   </ion-item>

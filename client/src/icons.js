@@ -27,12 +27,12 @@ export {
   arrowDownCircleOutline as autoScrollOff,
   expandOutline as expand,
   exitOutline as exit,
-  newspaperOutline as news
-} from 'ionicons/icons'
+  newspaperOutline as news,
+} from "ionicons/icons";
 
-export { default as tuningFork } from '@/icons/tuning-fork.svg?url'
-export { default as chordDiagram } from '@/icons/chord-diagram.svg?url'
-export { default as logo } from '@/assets/logo-dark.svg?url'
-export { default as wordmark } from '@/assets/wordmark-dark.svg?url'
-export { default as logoLight } from '@/assets/logo-light.svg?url'
-export { default as wordmarkLight } from '@/assets/wordmark-light.svg?url'
+export { default as tuningFork } from "@/icons/tuning-fork.svg?url";
+export { default as chordDiagram } from "@/icons/chord-diagram.svg?url";
+export { default as logo } from "@/assets/logo-dark.svg?url";
+export { default as wordmark } from "@/assets/wordmark-dark.svg?url";
+export { default as logoLight } from "@/assets/logo-light.svg?url";
+export { default as wordmarkLight } from "@/assets/wordmark-light.svg?url";

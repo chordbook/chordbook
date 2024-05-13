@@ -1,26 +1,25 @@
 <script setup>
-import ChordDiagramReference from '@/components/ChordDiagramReference.vue'
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
-import { computed } from 'vue'
-import { Chord } from 'chordsheetjs'
+import ChordDiagramReference from "@/components/ChordDiagramReference.vue";
+import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
+import { computed } from "vue";
+import { Chord } from "chordsheetjs";
 
 const props = defineProps({
   name: {
     type: [String, undefined],
-    default: undefined
-  }
-})
+    default: undefined,
+  },
+});
 
-const chord = computed(() => Chord.parse(props.name))
-const formatted = computed(() => chord.value?.toString({ useUnicodeModifier: true }) ?? props.name)
+const chord = computed(() => Chord.parse(props.name));
+const formatted = computed(
+  () => chord.value?.toString({ useUnicodeModifier: true }) ?? props.name,
+);
 </script>
 
 <template>
   <Popover class="relative chord">
-    <PopoverButton
-      as="span"
-      role="button"
-    >
+    <PopoverButton as="span" role="button">
       {{ formatted }}
     </PopoverButton>
     <PopoverPanel
