@@ -74,7 +74,7 @@ onWillLeave(() => modal.value.$el.dismiss());
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-segment slot="start" v-model="modifier">
+          <ion-segment v-model="modifier">
             <ion-segment-button value="b">
               <div class="text-xl -mb-1">♭</div>
             </ion-segment-button>
