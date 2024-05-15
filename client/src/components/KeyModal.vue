@@ -1,5 +1,5 @@
 <script setup>
-import { watch, computed, ref } from "vue";
+import { watch, computed, ref, inject } from "vue";
 import { Song, Key } from "chordsheetjs";
 import { getChords, preferredModifierForKey } from "@/composables";
 import MetadataChip from "@/components/MetadataChip.vue";
@@ -17,6 +17,8 @@ const modifier = defineModel("modifier", {
   type: [String, null],
   default: null,
 });
+const { onWillLeave } = inject("page");
+const modal = ref();
 const scroller = ref();
 const keyEls = ref([]);
 
@@ -38,11 +40,6 @@ const transpositions = computed(() => {
   });
 });
 
-watch(transposeModel, () => {
-  capoModel.value = 0;
-});
-watch([capoModel, transposeModel], scrollToActive);
-
 async function scrollToActive(smooth = true) {
   requestAnimationFrame(() => {
     const index = transpositions.value.findIndex(
@@ -57,11 +54,17 @@ async function scrollToActive(smooth = true) {
     });
   });
 }
+
+watch(transposeModel, () => {
+  capoModel.value = 0;
+});
+watch([capoModel, transposeModel], scrollToActive);
+onWillLeave(() => modal.value.$el.dismiss());
 </script>
 
 <template>
   <ion-modal
-    ref="el"
+    ref="modal"
     class="auto-height"
     :breakpoints="[0.25, 0.5, 1]"
     :initial-breakpoint="1"
@@ -71,7 +74,7 @@ async function scrollToActive(smooth = true) {
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-segment slot="start" v-model="modifier">
+          <ion-segment v-model="modifier">
             <ion-segment-button value="b">
               <div class="text-xl -mb-1">♭</div>
             </ion-segment-button>
