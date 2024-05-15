@@ -13,6 +13,7 @@ const props = defineProps({
 
 const transposeModel = defineModel("transpose", { type: Number, default: 0 });
 const capoModel = defineModel("capo", { type: Number, default: 0 });
+const originalCapo = capoModel.value;
 const modifier = defineModel("modifier", {
   type: [String, null],
   default: null,
@@ -21,6 +22,9 @@ const { onWillLeave } = inject("page");
 const modal = ref();
 const scroller = ref();
 const keyEls = ref([]);
+const isChanged = computed(() => {
+  return transposeModel.value !== 0 || capoModel.value !== originalCapo;
+});
 
 const transpositions = computed(() => {
   return [...Array(12).keys()].map((i) => {
@@ -55,6 +59,11 @@ async function scrollToActive(smooth = true) {
   });
 }
 
+function reset() {
+  transposeModel.value = 0;
+  capoModel.value = originalCapo;
+}
+
 watch(transposeModel, () => {
   capoModel.value = 0;
 });
@@ -86,6 +95,7 @@ onWillLeave(() => modal.value.$el.dismiss());
 
         <ion-title>Transpose</ion-title>
         <ion-buttons slot="end">
+          <ion-button :disabled="!isChanged" @click="reset"> Reset </ion-button>
           <ion-button role="cancel" @click="$el.dismiss()"> Done </ion-button>
         </ion-buttons>
       </ion-toolbar>
