@@ -92,7 +92,7 @@ const theme = useThemeStore();
 }
 
 .tab {
-  @apply whitespace-pre overflow-auto text-rel-2xs md:text-rel-xs font-mono text-slate-600 dark:text-slate-400;
+  @apply whitespace-pre overflow-x-auto text-rel-2xs md:text-rel-xs font-mono text-slate-600 dark:text-slate-400;
 }
 
 .row {
