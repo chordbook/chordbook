@@ -156,7 +156,7 @@ async function destroy() {
             ref="preview"
             :class="{
               'ion-padding': true,
-              'h-full overflow-auto': !splitView?.disabled,
+              'h-full overflow-auto main-content-padding': !splitView?.disabled,
             }"
           >
             <h3>Preview</h3>
