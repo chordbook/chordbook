@@ -56,9 +56,10 @@ export default function usePaginatedFetch(url, fetchOptions = {}) {
     return page;
   }
 
-  function reload() {
+  async function reload(event) {
     nextUrl.value = url;
-    return load(true); // reload
+    await load(true); // reload
+    event?.target?.complete();
   }
 
   return { load, reload, items, pages, isFetching, isEmpty, isPaginating };
