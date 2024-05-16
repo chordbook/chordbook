@@ -1,5 +1,12 @@
 <template>
   <ion-menu>
+    <ion-header translucent>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button />
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
     <ion-content fullscreen class="ion-padding-horizontal">
       <div class="flex h-full flex-col">
         <ion-list lines="none" class="py-4">
