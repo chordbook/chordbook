@@ -6,7 +6,7 @@ import { search, library, home } from "@/icons";
   <ion-page>
     <ion-tabs>
       <ion-router-outlet />
-      <ion-tab-bar slot="bottom" translucent class="sm:hidden">
+      <ion-tab-bar slot="bottom" translucent class="lg:hidden">
         <ion-tab-button tab="home" href="/home">
           <ion-icon :icon="home" />
           <ion-label>Home</ion-label>

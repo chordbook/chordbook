@@ -3,7 +3,7 @@
     <reload-pwa />
     <ion-split-pane
       content-id="main"
-      when="md"
+      when="lg"
       :disabled="route.meta?.menu === false"
     >
       <app-menu content-id="main" />
