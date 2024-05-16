@@ -11,8 +11,8 @@ defineProps({
     required: true,
   },
   thumbnail: {
-    type: String,
-    required: true,
+    type: [String, null],
+    default: null,
   },
 });
 </script>
