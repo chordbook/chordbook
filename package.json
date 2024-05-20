@@ -11,7 +11,7 @@
     "@ionic/vue-router": "^8.1.1",
     "@sentry/tracing": "^7.114.0",
     "@sentry/vite-plugin": "^2.16.1",
-    "@sentry/vue": "^7.114.0",
+    "@sentry/vue": "^8.2.1",
     "@tombatossals/chords-db": "^0.5",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vueuse/components": "^10.9.0",
