@@ -46,7 +46,7 @@
   "devDependencies": {
     "@capacitor/cli": "^6.0.0",
     "@capacitor/ios": "^6.0.0",
-    "@eslint/js": "^9.2.0",
+    "@eslint/js": "^9.3.0",
     "@tailwindcss/typography": "^0.5.13",
     "@testing-library/vue": "^8.0.3",
     "@types/http-link-header": "^1.0.5",
