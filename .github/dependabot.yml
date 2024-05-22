@@ -36,6 +36,8 @@ updates:
       eslint:
         patterns:
           - "eslint*"
+          - "@eslint/*"
+          - "globals"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
