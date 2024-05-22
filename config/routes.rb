@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api, path: "" do
     get "search(.:format)", to: "search#index", as: :search
+    get "search/:search_id/convert/:id", as: :convert_search, to: "search#convert"
 
     resource :home, controller: "home"
     resource :discover, controller: "discover"
@@ -43,6 +44,7 @@ Rails.application.routes.draw do
 
   get "changelog", to: "content#changelog"
   mount GoodJob::Engine => "admin/jobs"
+  mount Searchjoy::Engine, at: "admin/search"
   mount Motor::Admin => "/admin"
   get "ping", to: "content#ping"
 
