@@ -4,7 +4,7 @@ import ModelAvatar from "@/components/ModelAvatar.vue";
 import { useRouteQuery } from "@vueuse/router";
 import { ref, reactive } from "vue";
 import { getMode } from "@ionic/core";
-import { useFetch } from "@/client"
+import { useFetch } from "@/client";
 
 const types = {
   All: "",

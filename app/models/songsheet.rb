@@ -38,6 +38,18 @@ class Songsheet < ApplicationRecord
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
+  def copyright
+    reference = track&.references&.musixmatch&.first
+    return unless reference
+
+    {
+      notice: reference.data["lyrics_copyright"],
+      url: reference.data["track_share_url"],
+      script_url: reference.data["script_tracking_url"],
+      pixel_url: reference.data["pixel_tracking_url"]
+    }
+  end
+
   def search_data
     {
       type: self.class,

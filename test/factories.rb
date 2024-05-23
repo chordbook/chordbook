@@ -74,4 +74,21 @@ FactoryBot.define do
       properties { {id: record.id, type: record.model_name.name} }
     end
   end
+
+  factory :reference do
+    record { build(:track) }
+
+    trait :musixmatch do
+      source { "musixmatch" }
+      identifier { "mm-#{record.id}" }
+
+      data do
+        {
+          "lyrics_copyright" => "© 2021 MusixMatch",
+          "script_tracking_url" => "https://www.musixmatch.com/track/123",
+          "pixel_tracking_url" => "https://www.musixmatch.com/track/123/pixel"
+        }
+      end
+    end
+  end
 end
