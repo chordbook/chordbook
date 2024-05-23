@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_25_142318) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_22_174643) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -471,6 +471,29 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_25_142318) do
     t.bigint "size"
     t.datetime "captured_at", precision: nil
     t.index ["database", "captured_at"], name: "index_pghero_space_stats_on_database_and_captured_at"
+  end
+
+  create_table "searchjoy_conversions", force: :cascade do |t|
+    t.bigint "search_id"
+    t.string "convertable_type"
+    t.bigint "convertable_id"
+    t.datetime "created_at"
+    t.index ["convertable_type", "convertable_id"], name: "index_searchjoy_conversions_on_convertable"
+    t.index ["search_id"], name: "index_searchjoy_conversions_on_search_id"
+  end
+
+  create_table "searchjoy_searches", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "search_type"
+    t.string "query"
+    t.string "normalized_query"
+    t.integer "results_count"
+    t.datetime "created_at"
+    t.datetime "converted_at"
+    t.index ["created_at"], name: "index_searchjoy_searches_on_created_at"
+    t.index ["search_type", "created_at"], name: "index_searchjoy_searches_on_search_type_and_created_at"
+    t.index ["search_type", "normalized_query", "created_at"], name: "index_searchjoy_searches_on_search_type_query"
+    t.index ["user_id"], name: "index_searchjoy_searches_on_user_id"
   end
 
   create_table "setlist_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

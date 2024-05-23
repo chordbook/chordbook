@@ -4,6 +4,7 @@ import ModelAvatar from "@/components/ModelAvatar.vue";
 import { useRouteQuery } from "@vueuse/router";
 import { ref, reactive } from "vue";
 import { getMode } from "@ionic/core";
+import { useFetch } from "@/client"
 
 const types = {
   All: "",
@@ -106,6 +107,7 @@ const search = ref(); // template ref
                   name: result.type.toLowerCase(),
                   params: { id: result.id },
                 }"
+                @click="useFetch(result.convert_url)"
               >
                 <model-avatar
                   slot="start"

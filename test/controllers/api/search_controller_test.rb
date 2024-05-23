@@ -30,4 +30,12 @@ class Api::SearchControllerTest < ActionDispatch::IntegrationTest
       assert_equal 2, JSON.parse(response.body).length
     end
   end
+
+  test "convert" do
+    search = Searchjoy::Search.create!(search_type: "Artist", query: @artist.name)
+    assert_difference -> { search.conversions.count } do
+      get api_convert_search_url(search_id: search.id, id: @artist.uid)
+      assert_response 201
+    end
+  end
 end
