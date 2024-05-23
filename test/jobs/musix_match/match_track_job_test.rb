@@ -1,6 +1,10 @@
 require "test_helper"
 
 class MusixMatch::MatchTrackJobTest < ActiveJob::TestCase
+  setup do
+    Flipper.enable :musixmatch
+  end
+
   test "saves reference to matched track" do
     artist = create :artist, name: "The Beatles"
     album = create :album, title: "Let It Be", artist: artist

@@ -1,6 +1,10 @@
 require "test_helper"
 
 class MusixMatch::MatchTrackJobTest < ActiveJob::TestCase
+  setup do
+    Flipper.enable :musixmatch
+  end
+
   test "updates reference with lyrics" do
     reference = Reference.create! record: create(:track), source: :musixmatch, identifier: 277941381, data: {"track_rating" => 57}
     VCR.use_cassette("musixmatch/track.lyrics.get") do

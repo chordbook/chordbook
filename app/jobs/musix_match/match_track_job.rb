@@ -2,6 +2,8 @@ class MusixMatch::MatchTrackJob < ApplicationJob
   queue_as :low
 
   def perform(track)
+    return unless Flipper.enabled?(:musixmatch)
+
     response = MusixMatch.match_track(q_artist: track.artist.name, q_track: track.title, q_album: track.album.title)
     data = response["message"]["body"]["track"]
     reference = track.references.find_or_initialize_by(source: :musixmatch, identifier: data["track_id"])
