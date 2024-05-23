@@ -11,6 +11,7 @@ end
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
+  include ActiveJob::TestHelper
 
   # Run tests in parallel with specified workers
   # parallelize(workers: :number_of_processors, with: :threads)
@@ -49,5 +50,6 @@ VCR.configure do |config|
   config.default_cassette_options = {record: ENV["VCR"] ? ENV["VCR"].to_sym : :once}
 
   config.filter_sensitive_data("<APIKEY>") { LookupMetadata::API_KEY }
+  config.filter_sensitive_data("<MUSIXMATCH-API-KEY>") { MusixMatch::API_KEY }
   config.filter_sensitive_data("<YOUTUBE-API-KEY>") { YoutubeLookup::API_KEY }
 end

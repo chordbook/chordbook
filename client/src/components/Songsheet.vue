@@ -67,6 +67,10 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  copyright: {
+    type: [Object, null],
+    default: null,
+  },
 });
 
 const parser = reactive(useSongsheetParser(toRef(props, "source")));
@@ -251,11 +255,9 @@ watch(
         </template>
       </songsheet-content>
 
-      <div
-        class="snap-end text-xs text-muted mb-8 flex flex-col md:flex-row gap-2"
-      >
+      <div class="snap-end text-xs text-muted mb-8 flex flex-col gap-1">
         <div>Updated {{ formatDate(updated_at) }}</div>
-        <div v-if="imported_from" class="md:ms-auto">
+        <div v-if="imported_from">
           Imported from
           <a
             target="_blank"
@@ -264,6 +266,12 @@ watch(
           >
             {{ hostname(imported_from) }}
           </a>
+        </div>
+        <div v-if="copyright">
+          <a :href="copyright.url" rel="nofollow" class="text-xs text-muted">{{
+            copyright.notice
+          }}</a>
+          <img :src="copyright.pixel_url" />
         </div>
       </div>
     </column-layout>

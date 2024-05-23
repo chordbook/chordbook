@@ -51,6 +51,18 @@ class Api::SongsheetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "show with copyright tracking" do
+    Flipper.enable :musixmatch
+    reference = create :reference, :musixmatch
+    @songsheet.update! track: reference.record
+    get api_songsheet_url(@songsheet, format: :json)
+    assert_response :success
+    body = JSON.parse(response.body)
+    assert_match(/MusixMatch/, body["copyright"]["notice"])
+    assert_match(/musixmatch.com/, body["copyright"]["script_url"])
+    assert_match(/musixmatch.com/, body["copyright"]["pixel_url"])
+  end
+
   test "create unauthenticated" do
     post api_songsheets_url
     assert_response :unauthorized

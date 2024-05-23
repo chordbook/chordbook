@@ -1,0 +1,91 @@
+---
+http_interactions:
+  - request:
+      method: get
+      uri: https://api.musixmatch.com/ws/1.1/track.search?apikey=<MUSIXMATCH-API-KEY>&f_artist_id=160&q_track=Let%20It%20Be&s_track_rating=desc
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+        User-Agent:
+          - Ruby
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Connection:
+          - keep-alive
+        Content-Length:
+          - "10075"
+        Content-Type:
+          - text/plain; charset=utf-8
+        Server:
+          - nginx
+        Via:
+          - 1.1 varnish, 1.1 varnish
+        X-Mxm-Header-Execute-Time:
+          - "0.033776998519897"
+        X-Mxm-Header-Status:
+          - "200"
+        X-Restarts:
+          - "0"
+        X-Varnish-Instance:
+          - api
+        Accept-Ranges:
+          - bytes
+        Age:
+          - "0"
+        Date:
+          - Fri, 03 May 2024 17:07:00 GMT
+        X-Served-By:
+          - cache-pdk-kpdk1780116-PDK
+        X-Cache:
+          - MISS
+        X-Cache-Hits:
+          - "0"
+        X-Timer:
+          - S1714756020.091590,VS0,VE69
+        Vary:
+          - Accept-Encoding
+      body:
+        encoding: ASCII-8BIT
+        string:
+          '{"message":{"header":{"status_code":200,"execute_time":0.033776998519897,"available":14},"body":{"track_list":[{"track":{"track_id":89179233,"track_name":"Let
+          It Be","track_name_translation_list":[{"track_name_translation":{"language":"u0","translation":"Let
+          It Be"}}],"track_rating":71,"commontrack_id":47341444,"instrumental":0,"explicit":0,"has_lyrics":1,"has_subtitles":1,"has_richsync":1,"num_favourite":5085,"album_id":21196056,"album_name":"The
+          Beatles 1967-1970 (The Blue Album)","artist_id":160,"artist_name":"The Beatles","track_share_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-Remastered-2009?utm_source=application&utm_campaign=api&utm_medium=","track_edit_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-Remastered-2009\/edit?utm_source=application&utm_campaign=api&utm_medium=","restricted":0,"updated_time":"2023-07-06T12:18:37Z","primary_genres":{"music_genre_list":[{"music_genre":{"music_genre_id":14,"music_genre_parent_id":34,"music_genre_name":"Pop","music_genre_name_extended":"Pop","music_genre_vanity":"Pop"}},{"music_genre":{"music_genre_id":21,"music_genre_parent_id":34,"music_genre_name":"Rock","music_genre_name_extended":"Rock","music_genre_vanity":"Rock"}},{"music_genre":{"music_genre_id":1101,"music_genre_parent_id":22,"music_genre_name":"Gospel","music_genre_name_extended":"Christian
+          & Gospel \/ Gospel","music_genre_vanity":"Christian-Gospel-Gospel"}}]}}},{"track":{"track_id":87843090,"track_name":"Let
+          It Be","track_name_translation_list":[],"track_rating":71,"commontrack_id":69568,"instrumental":0,"explicit":0,"has_lyrics":1,"has_subtitles":1,"has_richsync":1,"num_favourite":4218,"album_id":21121586,"album_name":"1","artist_id":160,"artist_name":"The
+          Beatles","track_share_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-Remastered-2015?utm_source=application&utm_campaign=api&utm_medium=","track_edit_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-Remastered-2015\/edit?utm_source=application&utm_campaign=api&utm_medium=","restricted":0,"updated_time":"2024-03-02T12:09:24Z","primary_genres":{"music_genre_list":[{"music_genre":{"music_genre_id":1133,"music_genre_parent_id":14,"music_genre_name":"Pop\/Rock","music_genre_name_extended":"Pop
+          \/ Pop\/Rock","music_genre_vanity":"Pop-Pop-Rock"}},{"music_genre":{"music_genre_id":21,"music_genre_parent_id":34,"music_genre_name":"Rock","music_genre_name_extended":"Rock","music_genre_vanity":"Rock"}}]}}},{"track":{"track_id":277941381,"track_name":"Let
+          It Be","track_name_translation_list":[],"track_rating":57,"commontrack_id":168735284,"instrumental":0,"explicit":0,"has_lyrics":1,"has_subtitles":1,"has_richsync":1,"num_favourite":18,"album_id":62678941,"album_name":"Let
+          It Be","artist_id":160,"artist_name":"The Beatles","track_share_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-5?utm_source=application&utm_campaign=api&utm_medium=","track_edit_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-5\/edit?utm_source=application&utm_campaign=api&utm_medium=","restricted":0,"updated_time":"2024-01-20T08:09:16Z","primary_genres":{"music_genre_list":[{"music_genre":{"music_genre_id":1146,"music_genre_parent_id":21,"music_genre_name":"Arena
+          Rock","music_genre_name_extended":"Rock \/ Arena Rock","music_genre_vanity":"Rock-Arena-Rock"}}]}}},{"track":{"track_id":89179034,"track_name":"Let
+          It Be - Remastered 2009","track_name_translation_list":[],"track_rating":79,"commontrack_id":136657545,"instrumental":0,"explicit":0,"has_lyrics":1,"has_subtitles":1,"has_richsync":1,"num_favourite":41,"album_id":21196039,"album_name":"Let
+          It Be (Remastered)","artist_id":160,"artist_name":"The Beatles","track_share_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-1?utm_source=application&utm_campaign=api&utm_medium=","track_edit_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-1\/edit?utm_source=application&utm_campaign=api&utm_medium=","restricted":0,"updated_time":"2024-03-02T12:24:54Z","primary_genres":{"music_genre_list":[]}}},{"track":{"track_id":222827300,"track_name":"Let
+          It Be - 2021 Mix","track_name_translation_list":[],"track_rating":72,"commontrack_id":132596344,"instrumental":0,"explicit":0,"has_lyrics":1,"has_subtitles":1,"has_richsync":1,"num_favourite":9,"album_id":46744542,"album_name":"Let
+          It Be (Super Deluxe)","artist_id":160,"artist_name":"The Beatles","track_share_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-2021-Mix?utm_source=application&utm_campaign=api&utm_medium=","track_edit_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-2021-Mix\/edit?utm_source=application&utm_campaign=api&utm_medium=","restricted":0,"updated_time":"2024-03-24T18:24:11Z","primary_genres":{"music_genre_list":[{"music_genre":{"music_genre_id":1134,"music_genre_parent_id":14,"music_genre_name":"Soft
+          Rock","music_genre_name_extended":"Pop \/ Soft Rock","music_genre_vanity":"Pop-Soft-Rock"}},{"music_genre":{"music_genre_id":1146,"music_genre_parent_id":21,"music_genre_name":"Arena
+          Rock","music_genre_name_extended":"Rock \/ Arena Rock","music_genre_vanity":"Rock-Arena-Rock"}}]}}},{"track":{"track_id":222827344,"track_name":"Let
+          It Be - Take 28","track_name_translation_list":[],"track_rating":71,"commontrack_id":134402958,"instrumental":0,"explicit":0,"has_lyrics":1,"has_subtitles":1,"has_richsync":0,"num_favourite":3,"album_id":46744542,"album_name":"Let
+          It Be (Super Deluxe)","artist_id":160,"artist_name":"The Beatles","track_share_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-Take-28?utm_source=application&utm_campaign=api&utm_medium=","track_edit_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-Take-28\/edit?utm_source=application&utm_campaign=api&utm_medium=","restricted":0,"updated_time":"2024-03-24T18:24:31Z","primary_genres":{"music_genre_list":[{"music_genre":{"music_genre_id":1146,"music_genre_parent_id":21,"music_genre_name":"Arena
+          Rock","music_genre_name_extended":"Rock \/ Arena Rock","music_genre_vanity":"Rock-Arena-Rock"}}]}}},{"track":{"track_id":152706776,"track_name":"Let
+          It Be - Naked Version \/ Remastered 2013","track_name_translation_list":[],"track_rating":57,"commontrack_id":85044189,"instrumental":0,"explicit":0,"has_lyrics":1,"has_subtitles":1,"has_richsync":1,"num_favourite":3,"album_id":29275061,"album_name":"Let
+          It Be... Naked (Remastered)","artist_id":160,"artist_name":"The Beatles","track_share_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/let-it-be-4?utm_source=application&utm_campaign=api&utm_medium=","track_edit_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/let-it-be-4\/edit?utm_source=application&utm_campaign=api&utm_medium=","restricted":0,"updated_time":"2024-03-24T18:24:52Z","primary_genres":{"music_genre_list":[{"music_genre":{"music_genre_id":1146,"music_genre_parent_id":21,"music_genre_name":"Arena
+          Rock","music_genre_name_extended":"Rock \/ Arena Rock","music_genre_vanity":"Rock-Arena-Rock"}},{"music_genre":{"music_genre_id":21,"music_genre_parent_id":34,"music_genre_name":"Rock","music_genre_name_extended":"Rock","music_genre_vanity":"Rock"}}]}}},{"track":{"track_id":222827367,"track_name":"Let
+          It Be - Single Version \/ 2021 Mix","track_name_translation_list":[],"track_rating":57,"commontrack_id":134402975,"instrumental":0,"explicit":0,"has_lyrics":1,"has_subtitles":1,"has_richsync":0,"num_favourite":2,"album_id":46744542,"album_name":"Let
+          It Be (Super Deluxe)","artist_id":160,"artist_name":"The Beatles","track_share_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-Single-Version-2021-Mix?utm_source=application&utm_campaign=api&utm_medium=","track_edit_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-Single-Version-2021-Mix\/edit?utm_source=application&utm_campaign=api&utm_medium=","restricted":0,"updated_time":"2024-04-15T10:10:03Z","primary_genres":{"music_genre_list":[{"music_genre":{"music_genre_id":1146,"music_genre_parent_id":21,"music_genre_name":"Arena
+          Rock","music_genre_name_extended":"Rock \/ Arena Rock","music_genre_vanity":"Rock-Arena-Rock"}}]}}},{"track":{"track_id":108563718,"track_name":"Let
+          It Be (Take 1)","track_name_translation_list":[{"track_name_translation":{"language":"u0","translation":"Let
+          It Be (Take 1)"}}],"track_rating":56,"commontrack_id":59553728,"instrumental":0,"explicit":0,"has_lyrics":1,"has_subtitles":1,"has_richsync":0,"num_favourite":1,"album_id":32540708,"album_name":"Anthology
+          3","artist_id":160,"artist_name":"The Beatles","track_share_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-Anthology-3-Version?utm_source=application&utm_campaign=api&utm_medium=","track_edit_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-Anthology-3-Version\/edit?utm_source=application&utm_campaign=api&utm_medium=","restricted":0,"updated_time":"2024-04-14T15:37:40Z","primary_genres":{"music_genre_list":[{"music_genre":{"music_genre_id":21,"music_genre_parent_id":34,"music_genre_name":"Rock","music_genre_name_extended":"Rock","music_genre_vanity":"Rock"}}]}}},{"track":{"track_id":222827361,"track_name":"Let
+          It Be - 1969 Glyn Johns Mix","track_name_translation_list":[],"track_rating":49,"commontrack_id":134402969,"instrumental":0,"explicit":0,"has_lyrics":1,"has_subtitles":1,"has_richsync":0,"num_favourite":0,"album_id":46744542,"album_name":"Let
+          It Be (Super Deluxe)","artist_id":160,"artist_name":"The Beatles","track_share_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-1969-Glyn-Johns-Mix?utm_source=application&utm_campaign=api&utm_medium=","track_edit_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-1969-Glyn-Johns-Mix\/edit?utm_source=application&utm_campaign=api&utm_medium=","restricted":0,"updated_time":"2024-03-24T18:24:39Z","primary_genres":{"music_genre_list":[{"music_genre":{"music_genre_id":1146,"music_genre_parent_id":21,"music_genre_name":"Arena
+          Rock","music_genre_name_extended":"Rock \/ Arena Rock","music_genre_vanity":"Rock-Arena-Rock"}}]}}}]}}}'
+    recorded_at: Fri, 03 May 2024 17:07:00 GMT
+recorded_with: VCR 6.2.0

@@ -1,6 +1,7 @@
 class Track < ApplicationRecord
   include AlphaPaginate
   include Metadata
+  include Referenceable
   include PgSearch::Model
 
   has_paper_trail
@@ -27,6 +28,7 @@ class Track < ApplicationRecord
     order_within_rank: "tracks.listeners DESC NULLS LAST, albums.released, albums.rank, tracks.rank"
 
   before_validation :associate_genre
+  after_commit :musixmatch_lookup
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
@@ -75,5 +77,9 @@ class Track < ApplicationRecord
       # Fall back to album genre
       album.genre
     end
+  end
+
+  def musixmatch_lookup
+    MusixMatch::MatchTrackJob.perform_later(self) if has_songsheet?
   end
 end

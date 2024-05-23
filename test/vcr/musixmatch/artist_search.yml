@@ -1,0 +1,64 @@
+---
+http_interactions:
+  - request:
+      method: get
+      uri: https://api.musixmatch.com/ws/1.1/artist.search?apikey=<MUSIXMATCH-API-KEY>&f_artist_mbid=b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+        User-Agent:
+          - Ruby
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Connection:
+          - keep-alive
+        Content-Length:
+          - "1084"
+        Content-Type:
+          - text/plain; charset=utf-8
+        Server:
+          - nginx
+        Via:
+          - 1.1 varnish, 1.1 varnish
+        X-Mxm-Header-Execute-Time:
+          - "0.055521965026855"
+        X-Mxm-Header-Status:
+          - "200"
+        X-Restarts:
+          - "0"
+        X-Varnish-Instance:
+          - api
+        Accept-Ranges:
+          - bytes
+        Age:
+          - "0"
+        Date:
+          - Fri, 03 May 2024 17:01:57 GMT
+        X-Served-By:
+          - cache-pdk-kpdk1780120-PDK
+        X-Cache:
+          - MISS
+        X-Cache-Hits:
+          - "0"
+        X-Timer:
+          - S1714755717.052092,VS0,VE90
+        Vary:
+          - Accept-Encoding
+      body:
+        encoding: ASCII-8BIT
+        string:
+          '{"message":{"header":{"status_code":200,"execute_time":0.055521965026855,"available":1},"body":{"artist_list":[{"artist":{"artist_id":160,"artist_name":"The
+          Beatles","artist_name_translation_list":[{"artist_name_translation":{"language":"JA","translation":"\u30d3\u30fc\u30c8\u30eb\u30ba"}}],"artist_comment":"","artist_country":"GB","artist_alias_list":[{"artist_alias":"\u30d3\u30fc\u30c8\u30eb\u30ba"},{"artist_alias":"Pitousiyuedui"},{"artist_alias":"\u0411\u0438\u0442\u043b\u0437"},{"artist_alias":"\u30b6\u30fb\u30d3\u30fc\u30c8\u30eb\u30ba"},{"artist_alias":"\ub354
+          \ube44\ud2c0\uc988"},{"artist_alias":"Los Beatles"},{"artist_alias":"Beatles"},{"artist_alias":"fab
+          four"},{"artist_alias":"Beetles"},{"artist_alias":"\u62ab\u5934\u58eb"},{"artist_alias":"\u62ab\u982d\u56db"},{"artist_alias":"The
+          Beatles"}],"artist_rating":87,"artist_twitter_url":"https:\/\/twitter.com\/thebeatles","artist_credits":{"artist_list":[]},"restricted":0,"updated_time":"2021-10-13T07:05:58Z","begin_date_year":"1957","begin_date":"1957-03-00","end_date_year":"1970","end_date":"1970-04-10"}}]}}}'
+    recorded_at: Fri, 03 May 2024 17:01:57 GMT
+recorded_with: VCR 6.2.0
