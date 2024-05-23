@@ -10,7 +10,7 @@ const types = {
   All: "",
   Artists: "Artist",
   Albums: "Album",
-  Songs: "Track,Songsheet",
+  Songs: "Songsheet",
   Setlists: "Setlist",
 };
 

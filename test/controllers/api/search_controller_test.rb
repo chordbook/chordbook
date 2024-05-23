@@ -19,15 +19,14 @@ class Api::SearchControllerTest < ActionDispatch::IntegrationTest
 
   test "index with type" do
     with_search do
-      track = create :track
-      create :songsheet, title: track.title
+      songsheet = create :songsheet
 
       # Create artist with same name, which should be excluded from results
-      create :artist, name: track.title
+      create :artist, name: songsheet.title
 
-      get api_search_url(q: track.title, type: "track,songsheet", format: :json)
+      get api_search_url(q: songsheet.title, type: "songsheet", format: :json)
       assert_response :success
-      assert_equal 2, JSON.parse(response.body).length
+      assert_equal 1, JSON.parse(response.body).length
     end
   end
 

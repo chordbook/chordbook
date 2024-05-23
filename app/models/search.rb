@@ -1,9 +1,8 @@
 class Search
-  MODELS = [Songsheet, Artist, Album, Track, Setlist]
+  MODELS = [Songsheet, Artist, Album, Setlist]
   MODEL_INCLUDES = {
     Songsheet => [{track: :album}],
-    Album => [:artist],
-    Track => [:artist, :album]
+    Album => [:artist]
   }
 
   DEFAULTS = {

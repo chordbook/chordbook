@@ -20,19 +20,11 @@ class SearchTest < ActiveSupport::TestCase
     assert_includes search("Bad Habits Ed Sheeran"), @songsheet
   end
 
-  test "search includes songsheets, albums, tracks, and setlists" do
+  test "search includes songsheets, albums, and setlists" do
     results = search("Ed Sheeran")
 
-    [@artist, @songsheet, @album, @track, @setlist].each do |record|
+    [@artist, @songsheet, @album, @setlist].each do |record|
       assert_includes results, record
     end
-  end
-
-  test "excludes tracks with songsheets" do
-    Track.reindex
-    results = search("Bad Habits")
-
-    assert_includes results, @songsheet
-    refute_includes results, @songsheet.track
   end
 end
