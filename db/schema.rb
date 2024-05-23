@@ -496,6 +496,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_22_174643) do
     t.index ["user_id"], name: "index_searchjoy_searches_on_user_id"
   end
 
+  create_table "references", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "record_type", null: false
+    t.uuid "record_id", null: false
+    t.string "identifier"
+    t.string "source"
+    t.json "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id"], name: "index_references_on_record"
+  end
+
   create_table "setlist_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "position"
     t.datetime "created_at", null: false

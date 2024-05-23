@@ -30,4 +30,9 @@ class TrackTest < ActiveSupport::TestCase
 
     assert_equal album.genre, track.genre
   end
+
+  test "musixmatch lookup" do
+    assert_no_enqueued_jobs { create :track, songsheets_count: 0 }
+    assert_enqueued_with(job: MusixMatch::MatchTrackJob) { create :track, songsheets_count: 1 }
+  end
 end

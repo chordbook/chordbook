@@ -1,0 +1,69 @@
+---
+http_interactions:
+  - request:
+      method: get
+      uri: https://api.musixmatch.com/ws/1.1/track.lyrics.get?apikey=<MUSIXMATCH-API-KEY>&track_id=277941381
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+        User-Agent:
+          - Ruby
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Connection:
+          - keep-alive
+        Content-Length:
+          - "1861"
+        Content-Type:
+          - text/plain; charset=utf-8
+        Server:
+          - nginx
+        Via:
+          - 1.1 varnish, 1.1 varnish
+        X-Mxm-Header-Execute-Time:
+          - "0.015895128250122"
+        X-Mxm-Header-Status:
+          - "200"
+        X-Restarts:
+          - "0"
+        X-Varnish-Instance:
+          - api
+        Accept-Ranges:
+          - bytes
+        Age:
+          - "0"
+        Date:
+          - Thu, 23 May 2024 14:18:02 GMT
+        X-Served-By:
+          - cache-mia-kmia1760077-MIA
+        X-Cache:
+          - MISS
+        X-Cache-Hits:
+          - "0"
+        X-Timer:
+          - S1716473883.795027,VS0,VE72
+        Vary:
+          - Accept-Encoding
+      body:
+        encoding: ASCII-8BIT
+        string:
+          '{"message":{"header":{"status_code":200,"execute_time":0.015895128250122},"body":{"lyrics":{"lyrics_id":34207630,"explicit":0,"lyrics_body":"When
+          I find myself in times of trouble\nMother Mary comes to me\nSpeaking words
+          of wisdom, let it be\n\nAnd in my hour of darkness\nShe is standing right
+          in front of me\nSpeaking words of wisdom, let it be\n\nLet it be, let it be\nLet
+          it be, let it be\nWhisper words of wisdom, let it be\n\nAnd when the broken-hearted
+          people\nLiving in the world agree\nThere will be an answer, let it be\n\nFor
+          though they may be parted\n...\n\n******* This Lyrics is NOT for Commercial
+          use *******","script_tracking_url":"https:\/\/tracking.musixmatch.com\/t1.0\/m_js\/e_1\/sn_0\/l_34207630\/su_0\/rs_0\/tr_3vUCAHhFpeIq7JHhnNbhLT4vkve5EBMqoupndiGSsG9OFCp951hCxfZWqM05BKIK8KoHDByAKzag3N65VF2R2XrWhlxBuPtb1_acIhm6V4zvjNCGS8XNeRua3pSQao9KQp4Jq8sK9fVqSlECXkCAuacOYBxKSwmKQCWPJBj7vEoucx36uo36rQnhADsIookBLq6LfgZ8-B4OSmOq6XmUzNCNqiCPrtDjbjWYAXle9lJVbQclk9OPpJ1SdFyFwfRT4af-6WTc37HDRPLvdXdP1GC_7w7cG2vXVgvbWwakbHi_hpyqVW0YR4V3o1ew9k4e7ZZUxsSy0ij8QxOB2remwzHNxI7JRZ8E6jjXqH5263M2JDPZXwauYxDaxEqcDXREEWIltYFR0xkoOU7ImjL8vkOdWPwZTgaG\/","pixel_tracking_url":"https:\/\/tracking.musixmatch.com\/t1.0\/m_img\/e_1\/sn_0\/l_34207630\/su_0\/rs_0\/tr_3vUCAJ8wBMQ_KhGLD47lYaDjl4O4nR7dDHm_Jn016pSjxdokaNnMKGnZkdR-hJMzLaqbOSGbpoa5Z_NdlRb1SttVvBEDGNf-iddZvM-1SUqfUfeUobpSTeQ1QIlAzO8NjUEkY2_ZnI5iyD_8T8vRrJo0bNwkivWq13BqFzzeNJfY58Juv1hwOXlLSa73KpSdGWUbM_gnD1G9Lp-PX2V-72C_V-jGb0c24i_fjyT76UO01GSTd-C0pqW5GOH9_bLEAibb5ngRUr0_SnnmMHAmlGnFEGW9zENsze00Zo_Iory_uscN_tz21ZHZKec8M0RJfuIKMnnNNQ-n2AGQWuevUDFx41qSnFQ8xNtilOQcn-Q3aGfzX7-6W-eg7wOAWTxtvgO2kVrcoqdY6b4l9V1LMyLyxzetnllj\/","lyrics_copyright":"Lyrics
+          powered by www.musixmatch.com. This Lyrics is NOT for Commercial use and only
+          30% of the lyrics are returned.","updated_time":"2024-01-20T08:09:15Z"}}}}'
+    recorded_at: Thu, 23 May 2024 14:18:02 GMT
+recorded_with: VCR 6.2.0
