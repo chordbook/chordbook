@@ -13,7 +13,7 @@
     "@sentry/vite-plugin": "^2.18.0",
     "@sentry/vue": "^8.9.2",
     "@tombatossals/chords-db": "^0.5",
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue": "^5.0.5",
     "@vueuse/components": "^10.11.0",
     "@vueuse/core": "^10.9.0",
     "@vueuse/head": "^2.0.0",
