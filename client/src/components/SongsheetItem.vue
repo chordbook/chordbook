@@ -88,6 +88,7 @@ defineProps({
 
     <ion-popover :trigger="`songsheet-${id}`" translucent dismiss-on-select>
       <ion-list lines="full">
+        <slot name="actions"></slot>
         <ion-item
           button
           detail

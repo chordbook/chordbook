@@ -208,7 +208,18 @@ async function destroy() {
                     </ion-item-option>
                   </ion-item-options>
 
-                  <songsheet-item v-bind="songsheet" :setlist-id="id" />
+                  <songsheet-item v-bind="songsheet" :setlist-id="id">
+                    <template #actions>
+                      <ion-item
+                        button
+                        detail
+                        :detail-icon="icons.setlist"
+                        @click="remove(songsheet)"
+                      >
+                        <ion-label color="danger">Remove</ion-label>
+                      </ion-item>
+                    </template>
+                  </songsheet-item>
                 </ion-item-sliding>
               </data-source>
             </ion-reorder-group>
