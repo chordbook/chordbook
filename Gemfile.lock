@@ -86,7 +86,7 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
-    acts_as_list (1.2.1)
+    acts_as_list (1.2.2)
       activerecord (>= 6.1)
       activesupport (>= 6.1)
     addressable (2.8.6)
@@ -314,7 +314,7 @@ GEM
     mime-types-data (3.2024.0305)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    minitest (5.23.1)
+    minitest (5.24.1)
     motor-admin (0.4.27)
       ar_lazy_preload (~> 1.0)
       audited (~> 5.0)
