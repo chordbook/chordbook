@@ -17,6 +17,14 @@ export default function usePaginatedFetch(url, fetchOptions = {}) {
   function load(reload = false) {
     if (nextUrl.value === null) return;
 
+    if (reload) {
+      // Clear previous accumulator of items
+      items.splice(0);
+
+      // Clear previous pages
+      pages.splice(-1);
+    }
+
     const page = useFetch(nextUrl.value, {
       ...fetchOptions,
       immediate: false,
@@ -25,14 +33,6 @@ export default function usePaginatedFetch(url, fetchOptions = {}) {
       .json();
 
     page.onFetchResponse(() => {
-      if (reload) {
-        // Clear previous accumulator of items
-        items.splice(0);
-
-        // Clear previous pages
-        pages.splice(-1);
-      }
-
       items.push(...Array.from(page.data.value));
 
       const links = LinkHeader.parse(

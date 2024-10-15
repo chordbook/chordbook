@@ -90,10 +90,10 @@ export default defineStore("auth", () => {
   }
 
   function reset() {
-    user.value = {};
     accessToken.value = null;
     refreshToken.value = null;
     expireAt.value = new Date();
+    user.value = {};
 
     console.debug("auth: reset");
   }
