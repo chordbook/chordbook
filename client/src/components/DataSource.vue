@@ -10,13 +10,13 @@ Load one page of data:
 
 Load a paginated list of items:
 
-  <data-source src="/things" v-slot="{ items }" paginate>
+  <data-source src="/things" v-slot="{ items }">
     <div v-for="thing in items"></div>
   </data-source>
 
 Or explicitly render each page
 
-  <data-source src="/things" paginate>
+  <data-source src="/things">
     <template #page="{ data, isFetching, error }">
       <div v-for="thing in data"></div>
     </template>
@@ -70,7 +70,10 @@ const auth = useAuthStore();
 defineExpose(pager);
 
 // Reload data when signing in/out
-watch(() => auth.isAuthenticated, pager.reload);
+watch(() => auth.isAuthenticated, () => {
+  console.log("isAuthenticated changed", auth.isAuthenticated)
+  pager.reload()
+});
 
 await load();
 </script>

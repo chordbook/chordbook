@@ -18,7 +18,7 @@
           <ion-title size="large"> Albums </ion-title>
         </ion-toolbar>
       </ion-header>
-      <data-source :src="$route.path" :params="$route.params" paginate>
+      <data-source :src="$route.path" :params="$route.params">
         <template #empty>
           <library-placeholder type="album" />
         </template>
