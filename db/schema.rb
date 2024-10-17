@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_17_150410) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_17_184151) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -105,7 +105,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_17_150410) do
 
   create_table "albums", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
-    t.json "metadata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "released"
@@ -131,7 +130,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_17_150410) do
 
   create_table "artists", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
-    t.json "metadata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "style"
@@ -555,7 +553,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_17_150410) do
 
   create_table "tracks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title"
-    t.json "metadata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "number"
