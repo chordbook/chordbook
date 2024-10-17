@@ -1,6 +1,18 @@
 require "test_helper"
 
 class SongsheetTest < ActiveSupport::TestCase
+  test "moves metadata with matching attribute name to stored attribute" do
+    songsheet = Songsheet.create!(metadata: {title: "Title", subtitle: "Subtitle"})
+    assert_equal "Title", songsheet.title
+    assert_nil songsheet.metadata["title"]
+  end
+
+  test "does not overwrite attribute with nil value" do
+    songsheet = Songsheet.create!(title: "Title", metadata: {subtitle: "Subtitle"})
+    assert_equal "Title", songsheet.title
+    assert_nil songsheet.metadata["title"]
+  end
+
   test "all_media returns tracks and songsheet" do
     songsheet = create :songsheet,
       metadata: {media: ["vid1", "vid2"]},

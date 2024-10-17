@@ -2,14 +2,14 @@ require "test_helper"
 
 class TrackTest < ActiveSupport::TestCase
   test "adds metadata strMusicVid to media" do
-    track = build :track, metadata: {"strMusicVid" => "http://www.youtube.com/watch?v=T0l_6Zw1828"},
-      media: ["https://www.youtube.com/watch?v=6XIBdSLRz3o"]
+    track = create :track, media: ["https://www.youtube.com/watch?v=6XIBdSLRz3o"]
+    create :reference, record: track, source: :theaudiodb, data: {"strMusicVid" => "http://www.youtube.com/watch?v=T0l_6Zw1828"}
 
     expected = [
       "https://www.youtube.com/watch?v=6XIBdSLRz3o",
       "http://www.youtube.com/watch?v=T0l_6Zw1828"
     ]
-    assert_equal expected, track.media
+    assert_equal expected, track.reload.media
   end
 
   test "lookup returns track with more listeners" do
@@ -21,7 +21,9 @@ class TrackTest < ActiveSupport::TestCase
   end
 
   test "gets genre from metadata" do
-    assert_equal "R&B", create(:track, metadata: {strGenre: "R&B"}).genre.name
+    track = create :track
+    create :reference, record: track, source: :theaudiodb, data: {strGenre: "R&B"}
+    assert_equal "R&B", track.reload.genre.name
   end
 
   test "falls back to album genre" do

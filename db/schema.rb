@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_22_174643) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_17_150410) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -114,6 +114,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_22_174643) do
     t.bigint "rank"
     t.uuid "artist_id"
     t.uuid "genre_id"
+    t.string "style"
+    t.text "description"
     t.index ["artist_id"], name: "index_albums_on_artist_id"
     t.index ["genre_id"], name: "index_albums_on_genre_id"
   end
@@ -473,6 +475,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_22_174643) do
     t.index ["database", "captured_at"], name: "index_pghero_space_stats_on_database_and_captured_at"
   end
 
+  create_table "references", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "record_type", null: false
+    t.uuid "record_id", null: false
+    t.string "identifier"
+    t.string "source"
+    t.json "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id"], name: "index_references_on_record"
+  end
+
   create_table "searchjoy_conversions", force: :cascade do |t|
     t.bigint "search_id"
     t.string "convertable_type"
@@ -496,17 +509,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_22_174643) do
     t.index ["user_id"], name: "index_searchjoy_searches_on_user_id"
   end
 
-  create_table "references", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "record_type", null: false
-    t.uuid "record_id", null: false
-    t.string "identifier"
-    t.string "source"
-    t.json "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["record_type", "record_id"], name: "index_references_on_record"
-  end
-
   create_table "setlist_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "position"
     t.datetime "created_at", null: false
@@ -525,6 +527,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_22_174643) do
     t.bigint "rank"
     t.uuid "user_id"
     t.index ["user_id"], name: "index_setlists_on_user_id"
+  end
+
+  create_table "songsheet_settings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "songsheet_id", null: false
+    t.string "record_type", null: false
+    t.uuid "record_id", null: false
+    t.jsonb "settings"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id"], name: "index_songsheet_settings_on_record"
+    t.index ["songsheet_id"], name: "index_songsheet_settings_on_songsheet_id"
   end
 
   create_table "songsheets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -602,6 +615,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_22_174643) do
   add_foreign_key "setlist_items", "setlists"
   add_foreign_key "setlist_items", "songsheets"
   add_foreign_key "setlists", "users"
+  add_foreign_key "songsheet_settings", "songsheets"
   add_foreign_key "songsheets", "tracks"
   add_foreign_key "tracks", "albums"
   add_foreign_key "tracks", "artists"

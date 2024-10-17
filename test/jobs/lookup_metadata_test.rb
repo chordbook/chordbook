@@ -7,42 +7,44 @@ class LookupMetadataTest < ActiveJob::TestCase
 
   test "new artist" do
     VCR.use_cassette("tadb/the_beatles") do
-      assert_difference -> { Album.count } => 50, -> { Artist.count } => 1 do
-        LookupMetadata.perform_now "The Beatles"
+      assert_difference -> { Album.count } => 51, -> { Artist.count } => 1 do
+        LookupMetadata.new.perform "The Beatles"
       end
 
       artist = Artist.first
-      assert_instance_of Hash, artist.metadata
-      assert_equal "111247", artist.metadata["idArtist"]
+      reference = artist.theaudiodb_reference
+      assert_equal "The Beatles", artist.name
+      assert_equal "111247", reference.data["idArtist"]
     end
   end
 
   test "existing artist, non-recursive" do
-    artist = create :artist, name: "The Beatles", metadata: {idArtist: 111247, intFormedYear: 1900}
+    artist = create :artist, name: "The Beatles"
+    reference = artist.references.create! source: :theaudiodb, identifier: 111247, data: {intFormedYear: 1900}
 
     VCR.use_cassette("tadb/the_beatles") do
       # Should not recursively sync albums
       assert_difference -> { Artist.count } => 0, -> { artist.albums.count } => 0 do
-        LookupMetadata.perform_now artist.name, recursive: false
+        LookupMetadata.new.perform artist.name, recursive: false
       end
     end
 
-    artist.reload
-    assert_instance_of Hash, artist.metadata
-    assert_equal "111247", artist.metadata["idArtist"]
-    assert_equal "1957", artist.metadata["intFormedYear"]
+    reference.reload
+    assert_equal "111247", reference.data["idArtist"]
+    assert_equal "1957", reference.data["intFormedYear"]
   end
 
   test "normalizes artist name" do
     VCR.use_cassette("tadb/simon_and_garfunkel") do
-      LookupMetadata.perform_now "Simon and Garfunkel", recursive: false
+      LookupMetadata.new.perform "Simon and Garfunkel", recursive: false
     end
 
     assert_equal "Simon & Garfunkel", Artist.first.name
   end
 
   test "sanity check for duplicates" do
-    artist = create :artist, name: "Simon and Garfunkel", metadata: {idArtist: "112256"}
+    artist = create :artist, name: "Simon and Garfunkel"
+    create :reference, record: artist, source: :theaudiodb, identifier: "112256"
 
     VCR.use_cassette("tadb/simon_and_garfunkel") do
       assert_no_difference -> { Artist.count } do
@@ -53,15 +55,13 @@ class LookupMetadataTest < ActiveJob::TestCase
 
   test "album" do
     VCR.use_cassette("tadb/the_beatles") do
-      artist = create :artist, name: "The Beatles", metadata: {idArtist: 111247}
+      artist = create :artist, name: "The Beatles"
       album = create :album, title: "The White Album", artist: artist
+      create :reference, record: album, source: :theaudiodb, identifier: "2213204"
 
       assert_difference -> { album.tracks.count }, 30 do
-        LookupMetadata.new.sync_album album
+        LookupMetadata.new.sync_tracks album
       end
-
-      assert_instance_of Hash, album.metadata
-      assert_equal "2213204", album.metadata["idAlbum"]
     end
   end
 end

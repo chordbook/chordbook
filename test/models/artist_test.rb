@@ -22,10 +22,9 @@ class ArtistTest < ActiveSupport::TestCase
   end
 
   test "lookup finds artist by alternate name" do
+    expected = create :artist, name: "Huey Lewis"
+    create(:reference, record: expected, source: :theaudiodb, data: {"strArtistAlternate" => "Huey Lewis & The News"})
     with_search Artist do
-      expected = create :artist, name: "Huey Lewis",
-        metadata: {"strArtistAlternate" => "Huey Lewis & The News"}
-
       assert_equal expected, Artist.lookup("Huey Lewis & The News")
     end
   end

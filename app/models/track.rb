@@ -1,6 +1,5 @@
 class Track < ApplicationRecord
   include AlphaPaginate
-  include Metadata
   include Referenceable
   include PgSearch::Model
 
@@ -32,12 +31,6 @@ class Track < ApplicationRecord
 
   searchkick word_start: [:title, :everything], stem: false, callbacks: :async
 
-  map_metadata(
-    intTrackNumber: :number,
-    intDuration: :duration,
-    intTotalListeners: :listeners
-  )
-
   def self.lookup(title)
     joins(:album).title_like(title).first
   end
@@ -53,6 +46,22 @@ class Track < ApplicationRecord
     }
   end
 
+  def reference_updated(reference)
+    if reference.theaudiodb?
+      update({
+        number: reference.data["intTrackNumber"],
+        duration: reference.data["intDuration"],
+        listeners: reference.data["intTotalListeners"],
+        media: (Array(media) + [reference.data["strMusicVid"].presence]).compact.uniq,
+        genre: Genre.named(reference.data["strGenre"])
+      }.compact)
+    end
+  end
+
+  def media
+    Array(super)
+  end
+
   # No need to index tracks with songsheets
   def should_index?
     !has_songsheet?
@@ -66,17 +75,9 @@ class Track < ApplicationRecord
     reindex(mode: :async) if Searchkick.callbacks?
   end
 
-  def media
-    (Array(super) + [metadata["strMusicVid"]]).compact.uniq
-  end
-
   def associate_genre
-    self.genre ||= if metadata["strGenre"].present?
-      Genre.find_or_create_by!(name: metadata["strGenre"])
-    else
-      # Fall back to album genre
-      album.genre
-    end
+    # Fall back to album genre
+    self.genre ||= album.genre
   end
 
   def musixmatch_lookup

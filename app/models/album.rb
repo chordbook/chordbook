@@ -1,5 +1,5 @@
 class Album < ApplicationRecord
-  include Metadata
+  include Referenceable
   include Viewable
 
   belongs_to :artist
@@ -7,7 +7,8 @@ class Album < ApplicationRecord
   has_many :tracks, -> { Track.order_by_number }, dependent: :destroy
   has_many :library_items, as: :item, dependent: :destroy
 
-  before_validation :associate_genre, :validate_released_year
+  before_validation :validate_released_year
+  before_save :default_to_artist_genre
 
   scope :order_by_popular, -> { order("albums.rank") }
   scope :order_by_released, ->(dir = :desc) { order(released: "#{dir} NULLS LAST") }
@@ -17,7 +18,7 @@ class Album < ApplicationRecord
   scope :search_import, -> { includes(:artist, :image_attachment) }
   scope :with_attachments, -> { includes(image_attachment: {blob: :variant_records}) }
 
-  attach_from_metadata image: [:strAlbumThumbHQ, :strAlbumThumb] do |attachable|
+  has_one_attached :image do |attachable|
     options = {
       format: :jpeg,
       saver: {subsample_mode: "on", strip: true, interlace: true, quality: 90}
@@ -28,12 +29,20 @@ class Album < ApplicationRecord
     attachable.variant :large, resize_to_fill: [500, 500], **options
   end
 
-  map_metadata(
-    intYearReleased: :released,
-    strStyle: :style,
-    strDescriptionEN: :description,
-    intScore: :score
-  )
+  def reference_updated(reference)
+    if reference.theaudiodb?
+      update({
+        title: reference.data["strAlbum"],
+        style: reference.data["strStyle"],
+        description: reference.data["strDescriptionEN"],
+        score: reference.data["intScore"],
+        released: reference.data["intYearReleased"],
+        genre: Genre.named(reference.data["strGenre"])
+      }.compact)
+
+      DownloadAttachment.perform_later self, :image, reference.data.values_at("strAlbumThumbHQ", "strAlbumThumb")
+    end
+  end
 
   def search_data
     {
@@ -46,13 +55,8 @@ class Album < ApplicationRecord
     }
   end
 
-  def associate_genre
-    self.genre ||= if metadata["strGenre"].present?
-      Genre.find_or_create_by!(name: metadata["strGenre"])
-    else
-      # Fall back to artist genre
-      artist.genre
-    end
+  def default_to_artist_genre
+    self.genre ||= artist.genre
   end
 
   def validate_released_year
