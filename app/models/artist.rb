@@ -1,6 +1,6 @@
 class Artist < ApplicationRecord
   include AlphaPaginate
-  include Metadata
+  include Referenceable
   include Viewable
 
   has_paper_trail
@@ -12,15 +12,13 @@ class Artist < ApplicationRecord
   belongs_to :genre, optional: true
   has_many :library_items, as: :item, dependent: :destroy
 
-  before_validation :associate_genre
-
   searchkick word_start: [:title], stem: false, callbacks: :async
   scope :order_by_alphabetical, -> { order("UPPER(artists.name)") }
   scope :order_by_popular, -> { order("artists.rank") }
   scope :search_import, -> { includes(:image_attachment) }
   scope :with_attachments, -> { includes(image_attachment: {blob: :variant_records}) }
 
-  attach_from_metadata image: %w[strArtistThumbHQ strArtistThumb] do |attachable|
+  has_one_attached :image do |attachable|
     options = {
       format: :jpeg,
       saver: {subsample_mode: "on", strip: true, interlace: true, quality: 90}
@@ -31,16 +29,10 @@ class Artist < ApplicationRecord
     attachable.variant :large, resize_to_fill: [800, 800], **options
   end
 
-  attach_from_metadata banner: %w[strArtistFanart strArtistWideThumb] do |attachable|
+  has_one_attached :banner do |attachable|
     attachable.variant :medium, resize_to_fit: [1280, 720], format: :jpeg,
       saver: {subsample_mode: "on", strip: true, interlace: true, quality: 90}
   end
-
-  map_metadata(
-    strArtist: :name,
-    strStyle: :style,
-    strBiographyEN: :biography
-  )
 
   # Look up a single artist by name
   def self.lookup(name)
@@ -85,13 +77,26 @@ class Artist < ApplicationRecord
       type: self.class,
       title: name,
       attachment_id: image_attachment&.id,
-      everything: [name, metadata["strArtistAlternate"].presence].compact,
+      everything: [name, references.theaudiodb.first&.data&.dig("strArtistAlternate").presence].compact,
       boost: 2.0
     }
   end
 
-  def associate_genre
-    return if metadata["strGenre"].blank?
-    self.genre ||= Genre.find_or_create_by!(name: metadata["strGenre"])
+  def biography
+    references.theaudiodb.first&.data&.dig("strBiographyEN")
+  end
+
+  def reference_updated(reference)
+    if reference.theaudiodb?
+      update!({
+        name: reference.data["strArtist"],
+        style: reference.data["strStyle"],
+        genre: Genre.named(reference.data["strGenre"]),
+        updated_at: Time.now
+      }.compact)
+
+      DownloadAttachment.perform_later self, :image, reference.data.values_at("strArtistThumbHQ", "strArtistThumb")
+      DownloadAttachment.perform_later self, :banner, reference.data.values_at("strArtistFanart", "strArtistWideThumb")
+    end
   end
 end

@@ -12,16 +12,16 @@ class LookupMetadata < ApplicationJob
   class_attribute :throttle, default: Throttle.new(2.5.seconds)
 
   def perform(artist_name, recursive: true, reassociate: nil)
-    artists = Array(get("search.php", query: {s: artist_name})["artists"]).map do |metadata|
-      # Find artist with given external id
-      artist = Artist.where("metadata->>'idArtist' = ?", metadata["idArtist"]).first_or_initialize
+    artists = Array(get("search.php", query: {s: artist_name})["artists"]).map do |data|
+      reference = Reference.theaudiodb.find_or_initialize_by(identifier: data["idArtist"])
+      reference.record ||= Artist.new
 
-      # Save new metadata
-      artist.update metadata: metadata
+      # Save new data
+      reference.update! data: data
 
-      sync_artist_albums artist if recursive
+      sync_artist_albums reference if recursive
 
-      artist
+      reference.record
     end
 
     # Run job to associate songsheet
@@ -32,36 +32,25 @@ class LookupMetadata < ApplicationJob
     artists
   end
 
-  def sync_artist_albums(artist, recursive: true)
+  def sync_artist_albums(artist_ref, recursive: true)
     # Look up albums by artist id
-    response = get "album.php", query: {i: artist.metadata["idArtist"]}
+    Array(get("album.php", query: {i: artist_ref.identifier})["album"]).each do |album_data|
+      reference = Reference.theaudiodb.find_or_initialize_by(identifier: album_data["idAlbum"])
+      reference.record ||= Album.new(artist: artist_ref.record)
+      reference.update! data: album_data
 
-    Array(response["album"]).each do |album_data|
-      album = artist.albums.find_or_create_by!(title: album_data["strAlbum"]) do |a|
-        a.metadata = album_data
-      end
-
-      # Album exists, update it with new metadata
-      sync_album album, recursive: recursive, metadata: album_data
+      sync_tracks reference.record, metadata: album_data if recursive
     end
   end
 
-  def sync_album(album, recursive: true, metadata: nil)
-    unless metadata
-      response = get "album.php", query: {i: album.artist.metadata["idArtist"]}
-      metadata = response["album"].detect { |data| data["strAlbum"] == album.title }
-    end
+  def sync_tracks(album, metadata: nil)
+    reference = Reference.theaudiodb.find_by!(record: album)
 
-    album.update metadata: metadata
-
-    if recursive
-      response = get "track.php", query: {m: metadata["idAlbum"]}
-      response["track"].each do |track_data|
-        album.tracks.find_or_create_by!(title: track_data["strTrack"]) do |t|
-          t.artist = album.artist
-          t.metadata = track_data
-        end
-      end
+    response = get "track.php", query: {m: reference.identifier}
+    response["track"].each do |track_data|
+      track = album.tracks.find_or_create_by!(title: track_data["strTrack"], artist: album.artist)
+      track_ref = track.theaudiodb_reference || track.build_theaudiodb_reference
+      track_ref.update! identifier: track_data["idTrack"], data: track_data
     end
   end
 

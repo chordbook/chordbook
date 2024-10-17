@@ -1,6 +1,5 @@
 class Songsheet < ApplicationRecord
   include AlphaPaginate
-  include Metadata
   include Viewable
   include Mergeable
 
@@ -35,6 +34,8 @@ class Songsheet < ApplicationRecord
 
   class_attribute :perform_metadata_lookup, default: true
 
+  after_initialize { write_attribute(:metadata, {}) unless read_attribute(:metadata) }
+  before_validation :move_metadata_to_attributes
   after_commit(if: :perform_metadata_lookup) { AssociateSongsheetMetadata.perform_later self }
   after_commit { track&.songsheet_was_added if track_id_previously_changed? }
 
@@ -74,6 +75,16 @@ class Songsheet < ApplicationRecord
       Duration.parse(metadata["duration"])
     elsif track&.duration
       Duration.new(track.duration)
+    end
+  end
+
+  def move_metadata_to_attributes
+    return unless metadata
+    metadata.each do |attr_name, value|
+      if attribute_names.include?(attr_name) && metadata[attr_name]
+        write_attribute attr_name, read_store_attribute(:metadata, attr_name)
+        self.metadata = metadata.without(attr_name)
+      end
     end
   end
 end
