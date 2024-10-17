@@ -77,14 +77,12 @@ class AssociateSongsheetMetadataTest < ActiveJob::TestCase
 
   test "does not create duplicate artist" do
     with_search Artist do
-      artist = create :artist, name: "The Beatles", metadata: {idArtist: "111247"}
+      artist = create :artist, name: "The Beatles"
 
-      VCR.use_cassette("tadb/the_beatles") do
-        perform_enqueued_jobs do
-          assert_no_difference -> { Artist.count } do
-            songsheet = create :songsheet, title: "Get Back", metadata: {artist: "Beatles"}
-            assert_includes songsheet.reload.artists, artist
-          end
+      perform_enqueued_jobs do
+        assert_no_difference -> { Artist.count } do
+          songsheet = create :songsheet, title: "Get Back", metadata: {artist: "Beatles"}
+          assert_includes songsheet.reload.artists, artist
         end
       end
     end

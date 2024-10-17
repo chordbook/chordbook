@@ -1,5 +1,5 @@
 json.partial! "api/albums/album", album: @album
-json.extract! @album, :description, :metadata
+json.extract! @album, :description
 json.artist do
   json.partial! @album.artist, shallow: true
 end
