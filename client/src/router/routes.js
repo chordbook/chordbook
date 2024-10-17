@@ -207,4 +207,10 @@ export default [
       }
     },
   },
+  {
+    path: "/admin",
+    redirect() {
+      window.location.href = import.meta.env.APP_API_URL + "/admin"
+    }
+  }
 ];
