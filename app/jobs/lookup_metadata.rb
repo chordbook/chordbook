@@ -39,11 +39,11 @@ class LookupMetadata < ApplicationJob
       reference.record ||= Album.new(artist: artist_ref.record)
       reference.update! data: album_data
 
-      sync_tracks reference.record, metadata: album_data if recursive
+      sync_tracks reference.record if recursive
     end
   end
 
-  def sync_tracks(album, metadata: nil)
+  def sync_tracks(album)
     reference = Reference.theaudiodb.find_by!(record: album)
 
     response = get "track.php", query: {m: reference.identifier}
