@@ -1,5 +1,6 @@
 <script setup>
 import { ref, nextTick, watch } from "vue";
+import { useWindowSize } from "@vueuse/core";
 
 const props = defineProps({
   enabled: {
@@ -11,6 +12,7 @@ const props = defineProps({
 const content = ref();
 const columnWidth = ref(0);
 const updating = ref(false);
+const { width: windowWidth } = useWindowSize();
 
 // Calculate column width based on content width
 async function updateColumnWidth() {
@@ -21,11 +23,13 @@ async function updateColumnWidth() {
   // Wait for element to update before getting width
   await nextTick();
 
-  columnWidth.value = content.value.offsetWidth + "px";
+  const width = Math.min(content.value.offsetWidth, windowWidth.value / 2.5);
+
+  columnWidth.value = width + "px";
   updating.value = false;
 }
 
-watch([content, () => props.enabled], () =>
+watch([content, windowWidth, () => props.enabled], () =>
   requestAnimationFrame(updateColumnWidth),
 );
 </script>
@@ -33,7 +37,7 @@ watch([content, () => props.enabled], () =>
 <template>
   <div
     ref="content"
-    :class="{ columns: enabled && !updating, 'content-width': updating }"
+    :class="{ columns: enabled && !updating, 'content-width': updating, 'using-columns': enabled }"
   >
     <slot />
   </div>

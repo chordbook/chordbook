@@ -40,7 +40,7 @@ export default function useSongsheetParser(source, settings = {}) {
   // can keep the previously parsed song if it fails.
   watchEffect(() => {
     try {
-      originalSong.value = parser.value?.parse(toValue(source));
+      originalSong.value = parser.value?.parse(toValue(source), { softLineBreaks: true});
       capo.value = Number(originalSong.value?.capo || 0);
       error.value = null; // parsing succeeded, so clear last error
     } catch (e) {

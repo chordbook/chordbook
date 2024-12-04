@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-  <div :class="['tag', item.name]">
+  <div v-if="item.isRenderable()" :class="['tag', item.name]">
     {{ item.value }}
   </div>
 </template>
