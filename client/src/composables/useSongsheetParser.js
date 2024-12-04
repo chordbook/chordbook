@@ -83,6 +83,7 @@ export function guessKey(chords) {
   return chords[0]?.root.toString();
 }
 
+// Normalize the key and chords to use the given modifier, and normalize chord suffixes
 export function normalize(song, modifier) {
   let key = Key.parse(song.key)?.useModifier(modifier).normalize();
   return song.setKey(key).mapItems((item) => {
@@ -106,15 +107,7 @@ export function normalize(song, modifier) {
 }
 
 export function getChords(song) {
-  const chords = new Set();
-
-  song?.lines.forEach((line) => {
-    line.items.forEach((pair) => {
-      if (pair.chords) chords.add(pair.chords);
-    });
-  });
-
-  return Array.from(chords)
+  return Array.from(song?.getChords() ?? new Set())
     .map((chord) => Chord.parse(chord))
     .filter(Boolean);
 }
