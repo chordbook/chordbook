@@ -1,6 +1,6 @@
 <script setup>
 import MetadataChip from "@/components/MetadataChip.vue";
-import { componentFor } from "@/components/ChordSheet";
+import ChordSheet from "@/components/ChordSheet/index.vue";
 import { Song } from "chordsheetjs";
 import { formatArray } from "@/util";
 import { useThemeStore } from "@/stores";
@@ -9,11 +9,7 @@ defineProps({
   song: {
     type: Song,
     required: true,
-  },
-  capo: {
-    type: Number,
-    default: 0,
-  },
+  }
 });
 
 const theme = useThemeStore();
@@ -66,15 +62,7 @@ const theme = useThemeStore();
         :class="type + ' paragraph'"
       >
         <template v-for="(line, j) in lines" :key="j">
-          <div v-if="line.hasRenderableItems()" class="row">
-            <template v-for="(item, k) in line.items" :key="k">
-              <component
-                :is="componentFor(item)"
-                v-if="item.isRenderable()"
-                :item="item"
-              />
-            </template>
-          </div>
+          <ChordSheet :item="line" />
         </template>
       </div>
     </div>
@@ -96,7 +84,7 @@ const theme = useThemeStore();
 }
 
 .row {
-  @apply flex flex-wrap relative break-inside-avoid;
+  @apply flex flex-wrap relative;
 }
 
 .column {
