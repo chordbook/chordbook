@@ -10,7 +10,7 @@ gem "bootsnap", ">= 1.4.4", require: false
 gem "jbuilder"
 gem "httparty"
 gem "pg_search"
-gem "good_job", "~> 3.99"
+gem "good_job"
 gem "rack-cors"
 gem "nokogiri"
 gem "chordpro", git: "https://github.com/bkeepers/chordpro.git", branch: "carriage-returns"
