@@ -38,6 +38,10 @@ updates:
           - "eslint*"
           - "@eslint/*"
           - "globals"
+      vite:
+        patterns:
+          - "vite*"
+          - "@vitejs/*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
