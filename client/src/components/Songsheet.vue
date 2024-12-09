@@ -10,6 +10,7 @@ import InstrumentControl from "@/components/InstrumentControl.vue";
 import KeyModal from "../components/KeyModal.vue";
 import SetlistSongsheetsPager from "../components/SetlistSongsheetsPager.vue";
 import ShareItem from "@/components/ShareItem.vue";
+import SongsheetHeader from "@/components/SongsheetHeader.vue";
 import SongsheetChordsPane from "@/components/SongsheetChordsPane.vue";
 import SongsheetContent from "@/components/SongsheetContent.vue";
 import SongsheetMedia from "@/components/SongsheetMedia.vue";
@@ -173,13 +174,6 @@ watch(
         </ion-button>
         <font-size-control />
         <add-to-library-button :id="id" />
-        <ion-button :id="`songsheet-context-${id}`" @click.prevent="">
-          <ion-icon
-            slot="icon-only"
-            :ios="icons.iosEllipsis"
-            :md="icons.mdEllipsis"
-          />
-        </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
@@ -213,46 +207,34 @@ watch(
         <pre>{{ source }}</pre>
       </div>
 
+      <SongsheetHeader :id="id" :song="parser.song" :track="track">
+        <template #end>
+          <ion-button :id="`songsheet-context-${id}`" shape="round"
+      color="light"
+>
+            <ion-icon
+              slot="icon-only"
+              :ios="icons.iosEllipsis"
+              :md="icons.mdEllipsis"
+              color="medium"
+            />
+          </ion-button>
+        </template>
+      </SongsheetHeader>
+      <div class="z-10 order-1 md:sticky md:h-0 top-4 right-0 -m-4 mb-0 pb-4 md:p-0 md:m-0">
+        <Transition name="slide-down">
+          <songsheet-media
+            v-if="settings.showPlayer"
+            :media="media"
+            class="no-print"
+          />
+        </Transition>
+      </div>
       <songsheet-content
         v-if="parser.song"
-        :id="`songsheet-content-${id}`"
+        :id="`songsheet-${id}`"
         :song="parser.song"
       >
-        <template v-if="track?.album" #album>
-          <div
-            v-if="track?.album"
-            class="aspect-square w-12 shrink-0 sm:w-8 rounded overflow-hidden shadow flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
-          >
-            <router-link
-              :to="{ name: 'album', params: { id: track.album.id } }"
-              @click.stop
-            >
-              <img :src="track?.album.cover?.medium" />
-            </router-link>
-          </div>
-        </template>
-
-        <template v-if="track?.artist" #artist>
-          <ion-label
-            button
-            :router-link="{ name: 'artist', params: { id: track.artist.id } }"
-            class="block ion-activatable ion-focusable my-0 text-lg"
-            @click.stop
-          >
-            <span class="text-muted">by </span>
-            <span class="text-teal-500">{{ track.artist.name }}</span>
-          </ion-label>
-        </template>
-
-        <template #media>
-          <Transition name="slide-down">
-            <songsheet-media
-              v-if="settings.showPlayer"
-              :media="media"
-              class="no-print"
-            />
-          </Transition>
-        </template>
       </songsheet-content>
 
       <div class="snap-end text-xs text-muted mb-8 flex flex-col gap-1">
@@ -317,7 +299,7 @@ watch(
     v-model:capo="parser.capo"
     v-model:modifier="parser.modifier"
     :song="parser.song"
-    :trigger="`songsheet-content-${id}-key-metadata`"
+    :trigger="`${id}-key-metadata`"
   />
 
   <add-to-setlist-modal :id="id" ref="addToSetlistModal" />

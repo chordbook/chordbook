@@ -1,4 +1,5 @@
 <script setup>
+import SongsheetHeader from "@/components/SongsheetHeader.vue";
 import SongsheetContent from "@/components/SongsheetContent.vue";
 import EditorSplitView from "@/components/EditorSplitView.vue";
 import SongsheetEditor from "@/components/Editor.js";
@@ -160,6 +161,7 @@ async function destroy() {
             }"
           >
             <h3>Preview</h3>
+            <SongsheetHeader v-if="parser.song" :song="parser.song" />
             <songsheet-content v-if="parser.song" :song="parser.song" />
           </div>
         </template>

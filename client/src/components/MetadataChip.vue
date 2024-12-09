@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <ion-chip class="py-0">
+  <ion-chip class="py-0" color="medium">
     <div
       class="text-nowrap w-full inline-flex items-baseline gap-1 justify-center"
     >
