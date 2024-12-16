@@ -25,7 +25,7 @@ export default function useSongsheetParser(source, settings = {}) {
   const song = ref();
 
   // The chords used in the song
-  const chords = computed(() => getChords(song.value));
+  const chords = computed(() => song.value?.getChords() ?? []);
 
   // The concert key of the song
   const key = computed(() => {
@@ -58,7 +58,7 @@ export default function useSongsheetParser(source, settings = {}) {
     let newSong = originalSong.value
       .transpose(transpose.value + capoDelta)
       .setCapo(capo.value);
-    if (!newSong.key) newSong = newSong.setKey(guessKey(getChords(newSong)));
+    if (!newSong.key) newSong = newSong.setKey(guessKey(newSong.getChords()));
     song.value = normalize(
       newSong,
       modifier.value || preferredModifierForKey(newSong.key),
@@ -80,7 +80,7 @@ export default function useSongsheetParser(source, settings = {}) {
 
 // FIXME: Replace this with something more intelligent
 export function guessKey(chords) {
-  return chords[0]?.root.toString();
+  return Chord.parse(chords[0])?.root.toString();
 }
 
 // Normalize the key and chords to use the given modifier, and normalize chord suffixes
@@ -90,7 +90,13 @@ export function normalize(song, modifier) {
     if (item instanceof Tag && item.name === "key") {
       key = Key.parse(item.value).normalize();
       return item.set({ value: key.toString() });
-    } else if (item instanceof ChordLyricsPair) {
+    } else if (item instanceof Tag && item.chordDefinition) {
+      // Normalize chord names in definitions (e.g. Cmaj7 => Cma7)
+      const chord = Chord.parse(item.chordDefinition.name)
+      if (chord) {
+        item.chordDefinition.name = chord.useModifier(modifier).normalize(key, { normalizeChordSuffix: true }).toString()
+      }
+    }else if (item instanceof ChordLyricsPair) {
       const chord = Chord.parse(item.chords.trim());
 
       if (chord) {
@@ -104,12 +110,6 @@ export function normalize(song, modifier) {
     }
     return item;
   });
-}
-
-export function getChords(song) {
-  return Array.from(song?.getChords() ?? new Set())
-    .map((chord) => Chord.parse(chord))
-    .filter(Boolean);
 }
 
 // The preferred modifier to use for each key

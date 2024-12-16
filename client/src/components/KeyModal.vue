@@ -1,7 +1,7 @@
 <script setup>
 import { watch, computed, ref, inject } from "vue";
-import { Song, Key } from "chordsheetjs";
-import { getChords, preferredModifierForKey } from "@/composables";
+import { Song, Key, Chord } from "chordsheetjs";
+import { preferredModifierForKey } from "@/composables";
 import MetadataChip from "@/components/MetadataChip.vue";
 
 const props = defineProps({
@@ -36,8 +36,8 @@ const transpositions = computed(() => {
       .useModifier(modifier.value)
       .normalize();
     const chordModifier = modifier.value || preferredModifierForKey(key);
-    const chords = getChords(props.song).map((chord) =>
-      chord.transpose(transpose).useModifier(chordModifier).normalize(key),
+    const chords = props.song?.getChords().map((chord) =>
+      Chord.parse(chord).transpose(transpose).useModifier(chordModifier).normalize(key),
     );
 
     return { step, capo, chords, key };

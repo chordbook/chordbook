@@ -1,17 +1,17 @@
 <script setup>
-import { Chord } from "chordsheetjs";
+import { ChordDefinition } from "chordsheetjs";
 import ChordData from "@/ChordData";
 import ChordBox from "@/components/ChordBox.vue";
 import { computed } from "vue";
 
 const props = defineProps({
-  as: {
-    type: String,
-    default: "symbol",
-  },
   chord: {
-    type: Chord,
+    type: String,
     required: true,
+  },
+  definition: {
+    type: ChordDefinition,
+    default: null,
   },
   instrument: {
     type: String,
@@ -23,9 +23,13 @@ const props = defineProps({
   },
 });
 
-const data = computed(() =>
-  ChordData.find(props.chord, props.instrument, props.position),
-);
+const data = computed(() => {
+  if(props.definition) {
+    return ChordData.fromDefinition(props.definition);
+  } else {
+    return ChordData.find(props.chord, props.instrument, props.position)
+  }
+});
 </script>
 
 <template>
