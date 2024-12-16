@@ -16,17 +16,19 @@ const { isSupported, isFullscreen, toggle } = useFullscreen(targetEl);
 </script>
 
 <template>
-  <ion-button
+  <ion-item
     v-if="isSupported"
     ref="el"
-    v-tooltip="isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'"
-    style="--overflow: visible"
+    button
+    detail
+    :detail-icon="isFullscreen ? exit : expand"
     @click="toggle"
   >
-    <ion-icon
+    {{ isFullscreen ? 'Exit Fullscreen' : 'Fullscreen' }}
+    <!-- <ion-icon
       slot="icon-only"
       :color="isFullscreen ? 'secondary' : 'default'"
-      :icon="isFullscreen ? exit : expand"
-    />
-  </ion-button>
+
+    /> -->
+  </ion-item>
 </template>

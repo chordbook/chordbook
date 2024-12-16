@@ -22,12 +22,14 @@ export {
   shareOutline as share,
   trash,
   warningOutline as warning,
-  playCircleOutline as play,
+  play,
+  playOutline,
   arrowDownCircle as autoScrollOn,
   arrowDownCircleOutline as autoScrollOff,
   expandOutline as expand,
   exitOutline as exit,
   newspaperOutline as news,
+  textOutline as text,
 } from "ionicons/icons";
 
 export { default as tuningFork } from "@/icons/tuning-fork.svg?url";

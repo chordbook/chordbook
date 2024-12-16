@@ -23,7 +23,7 @@ async function updateColumnWidth() {
   // Wait for element to update before getting width
   await nextTick();
 
-  const width = Math.min(content.value.offsetWidth, windowWidth.value / 2.5);
+  const width = Math.min(content.value.offsetWidth, windowWidth.value / 3.5);
 
   columnWidth.value = width + "px";
   updating.value = false;

@@ -67,12 +67,14 @@
   }
 
   /* Vertical padding */
-  .main-content {
+  .main-content,
+  .main-content-y {
     @apply md:py-4 lg:py-8 xl:py-12;
   }
 
   /* ion-content applies the padding on shadow dom parts */
-  ion-content.main-content::part(scroll) {
+  ion-content.main-content::part(scroll),
+  ion-content.main-content-y::part(scroll) {
     @apply md:[--padding-top:0rem] md:[--padding-bottom:1rem];
     @apply lg:[--padding-top:0.5rem] lg:[--padding-bottom:2rem];
     @apply xl:[--padding-top:1rem] xl:[--padding-bottom:3rem];
@@ -80,7 +82,7 @@
 
   /* Horizontal padding */
   .main-content > *,
-  .main-content-padding {
+  .main-content-x {
     @apply md:px-4 lg:px-8 xl:px-12;
     @apply md:scroll-p-4 lg:scroll-p-8 xl:scroll-p-12;
   }

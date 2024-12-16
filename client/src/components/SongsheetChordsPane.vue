@@ -5,6 +5,7 @@ import useSongsheetSettings from "@/stores/songsheet-settings";
 import Pane from "@/components/Pane.vue";
 import { ref, defineExpose, computed } from "vue";
 import { useResponsive } from "@/composables";
+import * as icons from "@/icons";
 
 defineProps({
   chords: {
@@ -30,18 +31,26 @@ function onBreakpointDidChange(breakpoint) {
 <template>
   <div
     v-if="sidebar"
-    class="left-0 top-0 bottom-0 sidebar bg-white dark:bg-black border-r dark:border-slate-800"
+    class="left-0 top-0 bottom-0 sidebar bg-white dark:bg-black dark:border-slate-800"
   >
-    <div
-      class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto px-3 h-full"
-    >
+    <div class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto px-3 h-full">
+      <instrument-control v-model="settings.instrument" />
       <div
         v-for="chord in chords"
         :key="`sidebar-${chord}`"
-        class="text-center text-sm snap-start pt-4 first:pt-6 last:pb-6"
+        class="text-center"
       >
-        <div>{{ chord.toString({ useUnicodeModifier: true }) }}</div>
+        <div class="text-sm">{{ chord.toString({ useUnicodeModifier: true }) }}</div>
         <chord-diagram-reference :chord="chord" />
+      </div>
+      <div>
+        <ion-button
+          shape="round"
+          color="light"
+          router-link="#tuner"
+        >
+          <ion-icon slot="icon-only" :icon="icons.tuningFork" />
+        </ion-button>
       </div>
     </div>
   </div>
