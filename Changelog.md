@@ -1,3 +1,22 @@
+# December 2024
+
+## Custom chord diagrams with `{define}` and `{chord}` directives ([#1778](https://github.com/chordbook/chordbook/pull/1778))
+
+Chords diagrams will now show the chords described by the [{define}](https://www.chordpro.org/chordpro/directives-define/) amd [{chord}](https://www.chordpro.org/chordpro/directives-chord/) directives.
+
+For example, here is [Coney Island by Good Old War](https://chordbook.app/songsheets/c2jtv3iOm4IsJziQW6O3sex):
+
+```
+{title: Coney Island}
+{artist: Good Old War}
+{capo: 5}
+{define: C/F# frets x x 4 0 1 0}
+{define: C/F frets x x 3 0 1 0}
+{define: C/E frets x x 2 0 1 0}
+```
+
+![Screenshot of custom chord diagrams](https://github.com/user-attachments/assets/d13372ec-aba1-4be9-a206-5680bd674936)
+
 # April 2024
 
 ## Improve tab rendering ([#1410](https://github.com/chordbook/chordbook/pull/1410))
