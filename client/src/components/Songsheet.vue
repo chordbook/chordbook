@@ -266,7 +266,7 @@ watch(
           <a :href="copyright.url" rel="nofollow" class="text-xs text-muted">{{
             copyright.notice
           }}</a>
-          <img class="w-0 h-0" :src="copyright.pixel_url" />
+          <img class="w-0 h-0" loading="eager" :src="copyright.pixel_url" />
         </div>
       </div>
     </column-layout>
