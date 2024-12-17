@@ -6,6 +6,7 @@ import useSongsheetSettings from "@/stores/songsheet-settings";
 import Pane from "@/components/Pane.vue";
 import { ref, defineExpose, computed } from "vue";
 import { useResponsive } from "@/composables";
+import { Chord } from "chordsheetjs";
 
 const props = defineProps({
   chords: {
@@ -32,13 +33,14 @@ const chordsModal = ref();
 function onBreakpointDidChange(breakpoint) {
   settings.showChords = breakpoint !== "bottom";
 }
+
+function formattedChord(chord) {
+  return Chord.parse(chord)?.toString({ useUnicodeModifier: true }) ?? chord;
+}
 </script>
 
 <template>
-  <div
-    v-if="sidebar"
-    class="left-0 top-0 bottom-0 sidebar bg-white dark:bg-black border-r dark:border-slate-800"
-  >
+  <div :class="{sidebar: sidebar}">
     <!-- Hidden sprite of chord diagrams -->
     <svg hidden xmlns="http://www.w3.org/2000/svg">
       <chord-diagram
@@ -50,6 +52,7 @@ function onBreakpointDidChange(breakpoint) {
       />
     </svg>
     <div
+      v-if="sidebar"
       class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto px-3 h-full"
     >
       <div
@@ -57,13 +60,12 @@ function onBreakpointDidChange(breakpoint) {
         :key="`sidebar-${chord}`"
         class="text-center text-sm snap-start pt-4 first:pt-6 last:pb-6"
       >
-        <div>{{ chord.toString({ useUnicodeModifier: true }) }}</div>
+        <div>{{ formattedChord(chord) }}</div>
         <chord-diagram-reference :chord="chord" />
       </div>
     </div>
-  </div>
-  <div v-else>
     <pane
+      v-else
       ref="chordsModal"
       :is-open="true"
       :settings="{
@@ -85,7 +87,7 @@ function onBreakpointDidChange(breakpoint) {
           class="flex flex-col text-center text-sm pointer-events-none select-none snap-start pl-3 first:pl-6 last:pr-6 first:ms-auto last:me-auto"
         >
           <div class="chord">
-            {{ chord.toString({ useUnicodeModifier: true }) }}
+            {{ formattedChord(chord) }}
           </div>
           <chord-diagram-reference :chord="chord" />
         </div>
@@ -103,6 +105,7 @@ function onBreakpointDidChange(breakpoint) {
 
 <style scoped>
 .sidebar {
+  @apply left-0 top-0 bottom-0 bg-white dark:bg-black border-r dark:border-slate-800;
   padding-left: env(safe-area-inset-left, 0);
 }
 
