@@ -41,7 +41,7 @@ export default class ChordData {
   }
 
   static find(chord, instrument = "guitar", position = 0) {
-    const { key, suffix } = this.translate(chord);
+    const { key, suffix } = this.translate(Chord.parse(chord));
 
     const chordData = this.findChordData(key, instrument);
     const suffixData = chordData?.find((c) => c.suffix === suffix);
@@ -57,6 +57,11 @@ export default class ChordData {
       instruments[instrument].chords[key] ||
       instruments[instrument].chords[keyAliases[key]]
     );
+  }
+
+  // https://martijnversluis.github.io/ChordSheetJS/classes/ChordDefinition.html
+  static fromDefinition(definition) {
+    return new this(definition)
   }
 
   constructor(data) {
@@ -82,7 +87,7 @@ export default class ChordData {
   }
 
   get barres() {
-    return this.data.barres.map((fret) => {
+    return (this.data.barres ?? []).map((fret) => {
       // Get all the strings that could possibly be barred
       const possibleStrings = this.fingerings.filter((f) => f[1] >= fret);
 
@@ -97,6 +102,10 @@ export default class ChordData {
       const toString = strings[strings.length - 1];
       return { fret, fromString, toString };
     });
+  }
+
+  get baseFret() {
+    return this.data.baseFret;
   }
 }
 

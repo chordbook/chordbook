@@ -1,4 +1,5 @@
 <script setup>
+import ChordDiagram from "@/components/ChordDiagram.vue";
 import InstrumentControl from "@/components/InstrumentControl.vue";
 import ChordDiagramReference from "@/components/ChordDiagramReference.vue";
 import useSongsheetSettings from "@/stores/songsheet-settings";
@@ -6,12 +7,18 @@ import Pane from "@/components/Pane.vue";
 import { ref, defineExpose, computed } from "vue";
 import { useResponsive } from "@/composables";
 
-defineProps({
+const props = defineProps({
   chords: {
     type: Array,
     required: true,
   },
+  definitions: {
+    type: Object,
+    default: null
+  }
 });
+
+const allChords = computed(() => new Set([...props.chords, ...Object.keys(props.definitions || [])]))
 
 defineExpose({
   height: computed(() => chordsModal?.value?.height),
@@ -32,11 +39,21 @@ function onBreakpointDidChange(breakpoint) {
     v-if="sidebar"
     class="left-0 top-0 bottom-0 sidebar bg-white dark:bg-black border-r dark:border-slate-800"
   >
+    <!-- Hidden sprite of chord diagrams -->
+    <svg hidden xmlns="http://www.w3.org/2000/svg">
+      <chord-diagram
+        v-for="chord in allChords"
+        :key="chord + settings.instrument"
+        :chord="chord"
+        :definition="definitions[chord]"
+        :instrument="settings.instrument"
+      />
+    </svg>
     <div
       class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto px-3 h-full"
     >
       <div
-        v-for="chord in chords"
+        v-for="chord in allChords"
         :key="`sidebar-${chord}`"
         class="text-center text-sm snap-start pt-4 first:pt-6 last:pb-6"
       >
