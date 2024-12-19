@@ -7,14 +7,4 @@ class MusixMatchTest < ActiveSupport::TestCase
       assert_equal 277941381, result["message"]["body"]["track"]["track_id"]
     end
   end
-
-  test "nope" do
-    VCR.use_cassette("musixmatch/matcher.track.get") do
-      MusixMatch.match_track(
-        q_artist: "Elivs Presley",
-        q_track: "All Shook Up",
-        q_album: "From Memphis to Vegas / From Vegas to Memphis"
-      )
-    end
-  end
 end
