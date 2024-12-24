@@ -19,6 +19,9 @@ const props = defineProps({
   }
 });
 
+const width = ref(54);
+const height = ref(72);
+
 const allChords = computed(() => new Set([...props.chords, ...Object.keys(props.definitions || [])]))
 
 defineExpose({
@@ -49,19 +52,26 @@ function formattedChord(chord) {
         :chord="chord"
         :definition="definitions[chord]"
         :instrument="settings.instrument"
+        :width="width"
+        :height="height"
       />
     </svg>
     <div
       v-if="sidebar"
-      class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto px-3 h-full"
+      class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto h-full"
     >
       <div
         v-for="chord in allChords"
         :key="`sidebar-${chord}`"
-        class="text-center text-sm snap-start pt-4 first:pt-6 last:pb-6"
+        class="text-center text-sm snap-start first:pt-6 last:pb-6"
       >
-        <div>{{ formattedChord(chord) }}</div>
-        <chord-diagram-reference :chord="chord" />
+        <div><span class="chord block">{{ formattedChord(chord) }}</span></div>
+        <chord-diagram-reference
+          :chord="chord"
+          :width="width"
+          :height="height"
+          class="-mt-2"
+         />
       </div>
     </div>
     <pane
@@ -84,12 +94,17 @@ function formattedChord(chord) {
         <div
           v-for="chord in chords"
           :key="`modal-${chord}`"
-          class="flex flex-col text-center text-sm pointer-events-none select-none snap-start pl-3 first:pl-6 last:pr-6 first:ms-auto last:me-auto"
+          class="flex flex-col text-center text-sm pointer-events-none select-none snap-start first:pl-2 last:pr-2 first:ms-auto last:me-auto"
         >
           <div class="chord">
             {{ formattedChord(chord) }}
           </div>
-          <chord-diagram-reference :chord="chord" />
+          <chord-diagram-reference
+            :chord="chord"
+            :width="width"
+            :height="height"
+            class="-mt-1"
+          />
         </div>
       </div>
       <ion-footer>

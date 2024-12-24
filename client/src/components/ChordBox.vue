@@ -1,7 +1,7 @@
 <script setup>
 import { ChordBox } from "vexchords";
 import ChordData from "@/ChordData";
-import { computed, reactive } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps({
   as: {
@@ -22,16 +22,9 @@ const props = defineProps({
   },
 });
 
-// Vexchords adds a lot of padding around the diagram, we'll use viewbox to crop it
-const padding = 0.1;
-const xPadding = computed(() => props.width * padding);
-const yPadding = computed(() => props.width * padding);
-const viewbox = reactive({
-  x: computed(() => xPadding.value + 2), // vexchords seems to draw these slightly shifted right
-  y: yPadding,
-  width: computed(() => props.width - xPadding.value * 2),
-  height: computed(() => props.height - yPadding.value * 2),
-});
+const multiplier = ref(2);
+const width = computed(() => props.width * multiplier.value)
+const height = computed(() => props.height * multiplier.value)
 
 const diagram = computed(() => {
   if (!props.data) return "";
@@ -41,10 +34,12 @@ const diagram = computed(() => {
   new ChordBox(el, {
     numStrings: props.data.strings,
     showTuning: false,
-    width: props.width,
-    height: props.height,
+    width: width.value,
+    height: height.value,
     defaultColor: "currentColor",
     numFrets: 4,
+    fontSize: 10 * multiplier.value,
+    strokeWidth: 0.5 * multiplier.value,
   }).draw({
     // Filter out fingerings for now since they're unreadable anyway
     chord: props.data.fingerings.map((f) => f.slice(0, 2)),
@@ -60,9 +55,7 @@ const diagram = computed(() => {
   <!-- eslint-disable vue/no-v-html vue/no-v-text-v-html-on-component -->
   <component
     :is="as"
-    :width="viewbox.width"
-    :height="viewbox.height"
-    :viewBox="`${viewbox.x} ${viewbox.y} ${viewbox.width} ${viewbox.height}`"
+    :viewBox="`0 0 ${width} ${height}`"
     v-html="diagram"
   />
 </template>

@@ -35,7 +35,7 @@
     "string-hash": "^1.1",
     "tailwindcss": "^3.4.16",
     "tinycolor2": "^1.6.0",
-    "vexchords": "^1.2",
+    "vexchords": "github:chordbook/vexchords",
     "vite": "^6.0.3",
     "vite-plugin-pwa": "^0.21.1",
     "vite-svg-loader": "^5.1.0",
