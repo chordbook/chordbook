@@ -124,7 +124,7 @@ const theme = useThemeStore();
 }
 
 .chord {
-  @apply text-indigo-800 dark:text-indigo-500 font-semibold mr-1;
+  @apply text-indigo-800 dark:text-indigo-500 font-semibold;
 }
 
 .annotation,
@@ -164,11 +164,6 @@ const theme = useThemeStore();
 .chord:after,
 .lyrics:after {
   content: "\200b";
-}
-
-.chord-diagram {
-  width: 40px;
-  height: 52px;
 }
 
 .themed[data-font-size="sm"] {
