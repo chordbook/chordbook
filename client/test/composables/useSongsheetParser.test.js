@@ -1,5 +1,4 @@
 import { useSongsheetParser } from "@/composables";
-import { Chord } from "chordsheetjs";
 import { describe, expect, test, beforeEach } from "vitest";
 import { reactive, nextTick } from "vue";
 
@@ -19,7 +18,7 @@ describe("transposing", () => {
     expect(parser.song.metadata.get("_key")).toEqual("Gm");
     expect(parser.song.key).toEqual("Em");
     expect(parser.song.capo).toEqual("3");
-    expect(parser.chords).toEqual(["Em", "G", "C"].map((c) => Chord.parse(c)));
+    expect(parser.chords).toEqual(["Em", "G", "C"]);
     expect(parser.capo).toEqual(3);
     expect(parser.transpose).toEqual(0);
   });
@@ -32,7 +31,7 @@ describe("transposing", () => {
     expect(parser.song.metadata.get("_key")).toEqual("Gm");
     expect(parser.song.key).toEqual("F#m");
     expect(parser.song.capo).toEqual("1");
-    expect(parser.chords).toEqual(["F#m", "A", "D"].map((c) => Chord.parse(c)));
+    expect(parser.chords).toEqual(["F#m", "A", "D"]);
     expect(parser.transpose).toEqual(0);
   });
 
@@ -69,6 +68,12 @@ describe("transposing", () => {
     expect(parser.song.key).toEqual("C");
     expect(parser.chords.map((c) => c.toString())).toEqual(["C", "G", "D"]);
   });
+
+  test("normalizes chord definitions", async () => {
+    const { song } = reactive(useSongsheetParser("{define: Cmaj7	base-fret 3 frets x 1 3 2 3 1}\n[Cmaj7]"));
+    expect(song.getChords()).toEqual(["Cma7"]);
+    expect(Object.keys(song.getChordDefinitions())).toEqual(["Cma7"]);
+  })
 });
 
 describe("modifier", () => {

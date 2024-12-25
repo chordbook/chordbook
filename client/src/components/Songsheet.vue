@@ -2,7 +2,6 @@
 <script setup>
 import AddToLibraryButton from "../components/AddToLibraryButton.vue";
 import AddToSetlistModal from "@/components/AddToSetlistModal.vue";
-import ChordDiagram from "@/components/ChordDiagram.vue";
 import ColumnLayout from "@/components/ColumnLayout.vue";
 import FontSizeControl from "@/components/FontSizeControl.vue";
 import FullscreenButton from "../components/FullscreenButton.vue";
@@ -191,20 +190,16 @@ watch(
     fullscreen
     :class="{ autoscrolling: autoScroll.isActive }"
   >
+    <songsheet-chords-pane
+      ref="chordsPane"
+      slot="fixed"
+      :chords="parser.chords"
+      :definitions="parser.song?.getChordDefinitions()"
+    />
     <column-layout
       :enabled="!parser.error && settings.columns == 2"
       class="relative ion-padding main-content"
     >
-      <!-- Hidden sprite of chord diagrams -->
-      <svg v-if="parser.song" hidden xmlns="http://www.w3.org/2000/svg">
-        <chord-diagram
-          v-for="chord in parser.chords"
-          :key="chord + settings.instrument"
-          :chord="chord"
-          :instrument="settings.instrument"
-        />
-      </svg>
-
       <div v-if="parser.error">
         <h1 class="text-xl md:text-2xl my-1">Error parsing songsheet</h1>
 
@@ -271,7 +266,7 @@ watch(
           <a :href="copyright.url" rel="nofollow" class="text-xs text-muted">{{
             copyright.notice
           }}</a>
-          <img :src="copyright.pixel_url" />
+          <img class="w-0 h-0" loading="eager" :src="copyright.pixel_url" />
         </div>
       </div>
     </column-layout>
@@ -298,11 +293,6 @@ watch(
         </ion-button>
       </div>
     </div>
-    <songsheet-chords-pane
-      ref="chordsPane"
-      slot="fixed"
-      :chords="parser.chords"
-    />
     <Suspense>
       <setlist-songsheets-pager
         v-if="setlistId"
