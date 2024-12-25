@@ -16,8 +16,8 @@ const selectedInstrument = ref(instruments[0].toLowerCase());
 const selectedKey = ref("C");
 const selectedChord = ref(null);
 
-const width = ref(112);
-const height = ref(150);
+const width = ref(75);
+const height = ref(100);
 
 const data = computed(() => db[selectedInstrument.value]);
 const chords = computed(
