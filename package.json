@@ -19,7 +19,7 @@
     "@vueuse/head": "^2.0.0",
     "@vueuse/router": "^12.1.0",
     "arrify": "^3.0",
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.4.20",
     "chordsheetjs": "^10.11.0",
     "cupertino-pane": "^1.4.21",
     "floating-vue": "^5.2.2",
