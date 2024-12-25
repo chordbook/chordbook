@@ -57,5 +57,7 @@ const diagram = computed(() => {
     :is="as"
     :viewBox="`0 0 ${width} ${height}`"
     v-html="diagram"
+    :width="width / multiplier"
+    :height="height / multiplier"
   />
 </template>
