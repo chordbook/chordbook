@@ -28,7 +28,7 @@
     "pinia": "^2.3.0",
     "postcss": "^8.4.47",
     "postcss-import": "^16.1.0",
-    "pwa-asset-generator": "^6.3.1",
+    "pwa-asset-generator": "^6.4.0",
     "rollup-plugin-string": "^3.0",
     "serialize-error": "^11.0.3",
     "share-api-polyfill": "^1.1.1",
