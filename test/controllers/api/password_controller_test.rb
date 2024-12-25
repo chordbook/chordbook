@@ -55,7 +55,6 @@ class Api::PasswordControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "update without password" do
-
     put api_password_path(format: :json), params: {
       token: @user.password_reset_token
     }
