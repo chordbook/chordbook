@@ -22,7 +22,6 @@ class User < ApplicationRecord
 
   scope :with_email, ->(email) { where("LOWER(email) = ?", email.to_s.downcase) }
 
-  before_save :clear_password_reset_token, if: :password_digest_changed?
   after_create :create_default_setlists
   after_create { subscribe("news") }
 
@@ -30,22 +29,11 @@ class User < ApplicationRecord
     with_email(email).take!.authenticate(password) || raise(ActiveRecord::RecordNotFound)
   end
 
-  def self.find_for_password_reset!(token)
-    find_by!(password_reset_token: token, password_reset_sent_at: 2.hours.ago..)
-  end
-
   def self.app
     find_or_create_by!(email: "help@chordbook.app") do |user|
       user.name = "Chord Book"
       user.password = SecureRandom.alphanumeric
     end
-  end
-
-  def generate_password_reset!
-    update!(
-      password_reset_token: SecureRandom.alphanumeric,
-      password_reset_sent_at: Time.now
-    )
   end
 
   private
@@ -58,10 +46,5 @@ class User < ApplicationRecord
 
   def create_default_setlists
     DEFAULT_SETLISTS.each { |attrs| owned_setlists.create(attrs) }
-  end
-
-  def clear_password_reset_token
-    self.password_reset_token = nil
-    self.password_reset_sent_at = nil
   end
 end

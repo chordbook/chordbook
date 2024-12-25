@@ -36,27 +36,21 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test "find_for_password_reset!" do
+  test "find_by_password_reset_token!" do
     user = create(:user)
 
-    assert_raises ActiveRecord::RecordNotFound do
-      User.find_for_password_reset!(nil)
+    assert_raises ActiveSupport::MessageVerifier::InvalidSignature do
+      User.find_by_password_reset_token!(nil)
     end
 
-    user.generate_password_reset!
-
-    assert_equal user, User.find_for_password_reset!(user.password_reset_token)
-
-    # Clears token so it can't be reused after reset
-    user.update! password: SecureRandom.alphanumeric
-    refute user.reload.password_reset_token
-    refute user.reload.password_reset_sent_at
+    assert_equal user, User.find_by_password_reset_token!(user.password_reset_token)
 
     # Expired
-    user.update!(password_reset_sent_at: 3.hours.ago)
+    token = user.password_reset_token
+    travel 16.minutes
 
-    assert_raises ActiveRecord::RecordNotFound do
-      User.find_for_password_reset!(user.password_reset_token)
+    assert_raises ActiveSupport::MessageVerifier::InvalidSignature do
+      User.find_by_password_reset_token!(token)
     end
   end
 end

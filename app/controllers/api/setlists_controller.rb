@@ -2,13 +2,13 @@ class Api::SetlistsController < ApiController
   skip_before_action :authenticate!, only: %i[show]
 
   def index
-    @setlists = current_user.setlists.includes(:user).with_attached_thumbnails.order_by_recent.page(params[:page])
+    @setlists = current_user.setlists.includes(:user).with_attachments.order_by_recent.page(params[:page])
     set_pagination_header @setlists
     fresh_when @setlists
   end
 
   def show
-    @setlist = Setlist.includes(:user).with_attached_thumbnails.find_by_uid(params[:id])
+    @setlist = Setlist.includes(:user).with_attachments.find_by_uid(params[:id])
     track_view @setlist
     fresh_when @setlist
   end

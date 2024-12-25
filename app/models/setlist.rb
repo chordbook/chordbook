@@ -22,7 +22,7 @@ class Setlist < ApplicationRecord
 
   scope :order_by_recent, -> { order(updated_at: :desc) }
   scope :order_by_popular, -> { order("setlists.rank") }
-  scope :with_attachments, -> { includes(thumbnails_attachments: {blob: :variant_records}) }
+  scope :with_attachments, -> { preload(thumbnails_attachments: {blob: :variant_records}) }
   scope :search_import, -> { with_attachments }
 
   searchkick word_start: [:title], callbacks: :async
