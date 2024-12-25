@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_05_175441) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_25_124957) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
   enable_extension "pgcrypto"
-  enable_extension "plpgsql"
   enable_extension "unaccent"
 
   create_table "access_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -587,8 +587,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_05_175441) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_reset_token"
-    t.datetime "password_reset_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

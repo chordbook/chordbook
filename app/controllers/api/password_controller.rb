@@ -2,7 +2,7 @@ class Api::PasswordController < ApiController
   skip_before_action :authenticate!
   wrap_parameters false
   before_action :find_user_by_token, only: %i[show update]
-  rescue_from ActiveRecord::RecordNotFound do
+  rescue_from ActiveSupport::MessageVerifier::InvalidSignature do
     render_error "Your password reset token is expired. Please try again.", status: :unauthorized
   end
 
@@ -32,6 +32,6 @@ class Api::PasswordController < ApiController
 
   # Find user by password reset token
   def find_user_by_token
-    @user ||= User.find_for_password_reset!(params[:token])
+    @user ||= User.find_by_password_reset_token!(params[:token])
   end
 end

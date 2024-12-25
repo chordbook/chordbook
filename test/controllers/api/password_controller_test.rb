@@ -20,8 +20,6 @@ class Api::PasswordControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show" do
-    @user.generate_password_reset!
-
     get api_password_path(format: :json), params: {
       token: @user.password_reset_token
     }
@@ -29,7 +27,6 @@ class Api::PasswordControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "update" do
-    @user.generate_password_reset!
     new_password = SecureRandom.alphanumeric
 
     put api_password_path(format: :json), params: {
@@ -42,11 +39,11 @@ class Api::PasswordControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "update with old token" do
-    @user.generate_password_reset!
-    @user.update! password_reset_sent_at: 3.hours.ago
+    token = @user.password_reset_token
+    travel 16.minutes
 
     put api_password_path(format: :json), params: {
-      token: @user.password_reset_token,
+      token: token,
       password: SecureRandom.alphanumeric
     }
     assert_response 401
@@ -58,7 +55,6 @@ class Api::PasswordControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "update without password" do
-    @user.generate_password_reset!
 
     put api_password_path(format: :json), params: {
       token: @user.password_reset_token
@@ -68,7 +64,6 @@ class Api::PasswordControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "update with invalid password" do
-    @user.generate_password_reset!
     new_password = "toosimple"
 
     put api_password_path(format: :json), params: {
