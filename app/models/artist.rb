@@ -16,7 +16,7 @@ class Artist < ApplicationRecord
   scope :order_by_alphabetical, -> { order("UPPER(artists.name)") }
   scope :order_by_popular, -> { order("artists.rank") }
   scope :search_import, -> { includes(:image_attachment) }
-  scope :with_attachments, -> { includes(image_attachment: {blob: :variant_records}) }
+  scope :with_attachments, -> { preload(image_attachment: {blob: :variant_records}) }
 
   has_one_attached :image do |attachable|
     options = {

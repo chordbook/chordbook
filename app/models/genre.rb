@@ -13,7 +13,7 @@ class Genre < ApplicationRecord
   end
 
   scope :order_by_popular, -> { order("genres.rank") }
-  scope :with_attachments, -> { includes(image_attachment: {blob: :variant_records}) }
+  scope :with_attachments, -> { preload(image_attachment: {blob: :variant_records}) }
 
   def self.named(name)
     find_or_create_by!(name: name) if name.present?
