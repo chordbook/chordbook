@@ -1,6 +1,13 @@
 import { ref, toRef, computed, watchEffect, toValue } from "vue";
-import detectFormat from "@/lib/detect_format";
-import { Chord, ChordLyricsPair, Key, Tag } from "chordsheetjs";
+import {
+  Chord,
+  ChordLyricsPair,
+  Key,
+  Tag,
+  ChordProParser,
+  ChordsOverWordsParser,
+  UltimateGuitarParser
+} from "chordsheetjs";
 
 export default function useSongsheetParser(source, settings = {}) {
   // The parser to use for the source document (ChordPro, ChordsOverWords, UltimateGuitar)
@@ -129,4 +136,24 @@ export function preferredModifierForKey(key) {
     IMPLICIT_MODIFIER[wrappedKey?.toMajor().toString()] ||
     null
   );
+}
+
+const PARSERS = [
+  {
+    pattern: /\[(Verse|Chorus)/i,
+    parser: () => new UltimateGuitarParser({ preserveWhitespace: false }),
+  },
+  {
+    pattern: /{\w+:.*|\[[A-G].*\]/i,
+    parser: () => new ChordProParser(),
+  },
+  {
+    pattern: /.*/,
+    parser: () => new ChordsOverWordsParser({ preserveWhitespace: false }),
+  },
+];
+
+export function detectFormat(source) {
+  if (!source) return;
+  return PARSERS.find(({ pattern }) => source.match(pattern))?.parser();
 }

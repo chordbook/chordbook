@@ -12,7 +12,7 @@ import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import { linter } from "@codemirror/lint";
 import { ChordProParser, ChordProFormatter } from "chordsheetjs";
-import detectFormat from "@/lib/detect_format";
+import detectFormat from "@/composables/useSongsheetParser";
 
 // Transaction Filter to convert pasted text to ChordPro format
 const convertOnPaste = EditorState.transactionFilter.of((tr) => {

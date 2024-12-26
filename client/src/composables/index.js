@@ -1,5 +1,6 @@
 export {
   default as useSongsheetParser,
+  detectFormat,
   preferredModifierForKey,
 } from "./useSongsheetParser";
 export { default as usePaginatedFetch } from "./usePaginatedFetch";
