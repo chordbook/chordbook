@@ -8,6 +8,6 @@ const breakpoints = {
   xl: useMediaQuery("(min-width: 1200px"),
 };
 
-export default function useResponsive(size) {
+export default function useResponsive(size: keyof typeof breakpoints) {
   return breakpoints[size];
 }
