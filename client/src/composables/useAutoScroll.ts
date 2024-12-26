@@ -1,15 +1,14 @@
 import { ref, toValue, computed } from "vue";
-import {
-  useElementSize,
-  useEventListener,
-  executeTransition,
-} from "@vueuse/core";
+import { useElementSize, useEventListener, executeTransition } from "@vueuse/core";
 
-export default function useAutoScroll(scroll, duration) {
+import type { MaybeRefOrGetter } from "vue";
+import type { UseIonScrollReturn } from "./useIonScroll";
+
+export default function useAutoScroll(scroll: UseIonScrollReturn, duration: MaybeRefOrGetter<number>) {
   const { y: scrollTop, el } = scroll;
   const { height } = useElementSize(el);
   const scrollHeight = computed(() =>
-    Math.max(el.value?.scrollHeight, height.value),
+    Math.max(toValue(el)?.scrollHeight ?? 0, height.value),
   );
   const scrollDistance = computed(() => scrollHeight.value - height.value);
   const isActive = ref(false);
