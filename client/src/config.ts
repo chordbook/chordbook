@@ -1,4 +1,6 @@
-const config = {};
+import { IonicConfig } from "@ionic/core";
+
+const config: IonicConfig = {};
 
 if (navigator.platform.includes("Mac")) {
   config.mode = "ios";
