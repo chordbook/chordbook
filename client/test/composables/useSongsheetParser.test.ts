@@ -1,4 +1,4 @@
-import { useSongsheetParser } from "@/composables";
+import { useSongsheetParser, preferredModifierForKey } from "@/composables";
 import { describe, expect, test, beforeEach } from "vitest";
 import { reactive, nextTick } from "vue";
 
@@ -147,3 +147,24 @@ describe("chords", () => {
     expect(chords.value.map((c) => c.toString())).toEqual(["C", "G", "D"]);
   });
 });
+
+
+describe("preferredModifierForKey", () => {
+  ["C", "Am"].forEach(key => {
+    test(`is null for ${key}`, () => {
+      expect(preferredModifierForKey(key)).toBeNull();
+    })
+  });
+
+  ["G", "D", "A", "E", "B", "A#", "C#", "D#", "F#", "G#", "Em", "Bm"].forEach(key => {
+    test(`is # for ${key}`, () => {
+      expect(preferredModifierForKey(key)).toEqual("#");
+    })
+  });
+
+  ["F", "Bb", "Eb", "Ab", "Db", "Gb"].forEach(key => {
+    test(`is b for ${key}`, () => {
+      expect(preferredModifierForKey(key)).toEqual("b");
+    })
+  });
+})
