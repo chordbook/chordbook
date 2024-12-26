@@ -1,9 +1,11 @@
 import { ref, watch, computed } from "vue";
 import { useElementSize, unrefElement, useEventListener } from "@vueuse/core";
+import type { Ref } from "vue";
+import type { UseIonScrollReturn } from "./useIonScroll";
 
-export default function useHideOnScroll(scroll, target) {
+export default function useHideOnScroll(scroll: UseIonScrollReturn, target: Ref<HTMLElement>) {
   const { el, y: scrollTop, directions, arrivedState } = scroll;
-  const targetRef = computed(() => unrefElement(target));
+  const targetRef = computed(() => unrefElement(target)!);
   const translateY = ref(0);
   const { height: scrollHeight } = useElementSize(targetRef);
   const lastScrollTop = ref(scrollTop.value);
