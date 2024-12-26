@@ -31,13 +31,13 @@ export default function useIonPageLifecycle() {
     active.value = leaving.value = false;
   });
 
-  function onDidEnter(fn) {
+  function onDidEnter(fn: CallableFunction) {
     watchEffect(() => {
       if (active.value) fn();
     });
   }
 
-  function onWillLeave(fn) {
+  function onWillLeave(fn: CallableFunction) {
     watchEffect(() => {
       if (leaving.value) fn();
     });
