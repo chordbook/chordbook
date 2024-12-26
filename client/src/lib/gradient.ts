@@ -1,15 +1,11 @@
 import hash from "string-hash";
 import color from "tinycolor2";
 
-const defaults = {
-  colors: 3,
-  spin: 45,
-};
-
 // Generate a gradient for a given string
-export function gradient(uid, options = {}) {
+export function gradient(uid: string, options: { colors?: number, spin?: number } = {}) {
   const n = hash(uid);
-  const { colors, spin } = Object.assign(defaults, options);
+  const colors = options.colors ?? 3;
+  const spin = options.spin ?? 45;
 
   const base = color({
     h: n % 360, // 360º
