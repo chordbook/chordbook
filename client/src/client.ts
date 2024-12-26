@@ -40,7 +40,7 @@ export type UseFetchOptionsWithParams = (RequestInit | UseFetchOptions) & {
   params?: Record<string, string>
 }
 
-export function useFetch(url: MaybeRef<string>, { params, ...options }: UseFetchOptionsWithParams, ...args: any[]) {
+export function useFetch(url: MaybeRef<string>, { params, ...options }: UseFetchOptionsWithParams = {}, ...args: any[]) {
   const fullUrl = buildUrl(url, params);
   const fetch = doFetch(fullUrl, options as RequestInit, ...args);
 
