@@ -57,12 +57,13 @@
     "globals": "^15.14.0",
     "jsdom": "^25.0.0",
     "prettier": "3.4.2",
+    "typescript": "^5.7.2",
     "vitest": "^2.1.5"
   },
   "scripts": {
     "dev": "vite",
     "dev:ios": "ionic capacitor run ios -l --external",
-    "build": "vite build && bin/app-icons",
+    "build": "tsc && vite build && bin/app-icons",
     "serve": "vite preview",
     "format": "prettier . --write",
     "format:check": "prettier . --write",
