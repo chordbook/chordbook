@@ -1,11 +1,11 @@
-import { createFetch } from "@vueuse/core";
-import { computed, unref } from "vue";
+import { createFetch, UseFetchOptions } from "@vueuse/core";
+import { computed, unref, MaybeRef } from "vue";
 import useAuthStore from "@/stores/auth";
 
 const BASE_URL = import.meta.env.APP_API_URL || "https://api.chordbook.app/";
 
 // Prefix URL with base and add query parameters
-function buildUrl(url, params) {
+function buildUrl(url: MaybeRef<string>, params: Record<string, string> | undefined) {
   return computed(() => {
     // The existing useFetch implementation for baseUrl does naive string
     // concatenation instead of proper URL joining.
@@ -36,9 +36,13 @@ export const doFetch = createFetch({
   },
 });
 
-export function useFetch(url, options = {}, ...args) {
-  const fullUrl = buildUrl(url, options.params);
-  const fetch = doFetch(fullUrl, options, ...args);
+export type UseFetchOptionsWithParams = (RequestInit | UseFetchOptions) & {
+  params?: Record<string, string>
+}
+
+export function useFetch(url: MaybeRef<string>, { params, ...options }: UseFetchOptionsWithParams, ...args: any[]) {
+  const fullUrl = buildUrl(url, params);
+  const fetch = doFetch(fullUrl, options as RequestInit, ...args);
 
   // Check for expired token on errors, which will refresh the token and re-execute
   fetch.onFetchError(() => useAuthStore().handleExpiredToken(fetch));

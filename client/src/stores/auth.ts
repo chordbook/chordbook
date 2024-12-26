@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { useFetch } from "@/client";
-import { useStorage } from "@vueuse/core";
-import { unref, computed, reactive, watch } from "vue";
+import { useStorage, RemovableRef, UseFetchReturn, BeforeFetchContext } from "@vueuse/core";
+import { unref, computed, reactive, watch, Ref } from "vue";
 import { useRouter } from "vue-router";
 import console from "@/console";
 
@@ -10,10 +10,10 @@ export default defineStore("auth", () => {
   // method to keep the user signed across page reloads and multiple browser tabs. The access token
   // expiry is short and the refresh token is rotated every time it is used, so risk is reduced.
   // If anyone knows a better way to persist this securely, please share it.
-  const user = useStorage("user", {});
-  const accessToken = useStorage("accessToken", null);
-  const expireAt = useStorage("expireAt", new Date());
-  const refreshToken = useStorage("refreshToken", null);
+  const user = useStorage("user", {}) as RemovableRef<Record<string, string>>;
+  const accessToken = useStorage("accessToken", '');
+  const expireAt = useStorage("expireAt", 0);
+  const refreshToken = useStorage("refreshToken", '');
   const isAuthenticated = computed(() => !!user.value.id);
 
   const refreshPayload = computed(() => ({
@@ -26,7 +26,7 @@ export default defineStore("auth", () => {
       {
         immediate: false,
         afterFetch: authenticated,
-        onFetchError: ({ error, response }) => {
+        onFetchError: ({ error, response }: { error: any, response: Response }) => {
           if (response?.status === 401) {
             console.error("auth: failed to refresh token", error);
             reset();
@@ -38,7 +38,7 @@ export default defineStore("auth", () => {
       .json(),
   );
 
-  function signUp(data, useFetchOptions = {}) {
+  function signUp(data: Record<string, string>, useFetchOptions = {}) {
     const fetch = useFetch("users", {
       updateDataOnError: true,
       ...useFetchOptions,
@@ -49,7 +49,7 @@ export default defineStore("auth", () => {
     return fetch;
   }
 
-  function signIn(data, useFetchOptions = {}) {
+  function signIn(data: Record<string, string>, useFetchOptions = {}) {
     const fetch = useFetch("authenticate", {
       updateDataOnError: true,
       ...useFetchOptions,
@@ -60,13 +60,13 @@ export default defineStore("auth", () => {
     return fetch;
   }
 
-  function forgotPassword(data, useFetchOptions = {}) {
+  function forgotPassword(data: Record<string, string>, useFetchOptions = {}) {
     return useFetch("password", { updateDataOnError: true, ...useFetchOptions })
       .post(data)
       .json();
   }
 
-  function resetPassword(data, useFetchOptions = {}) {
+  function resetPassword(data: Record<string, string>, useFetchOptions = {}) {
     return useFetch("password", { updateDataOnError: true, ...useFetchOptions })
       .put(data)
       .json();
@@ -77,7 +77,7 @@ export default defineStore("auth", () => {
   }
 
   function needsRefresh() {
-    return expireAt.value - new Date() < 1000; // 1 second grace period
+    return expireAt.value - new Date().valueOf() < 1000; // 1 second grace period
   }
 
   function refresh() {
@@ -92,22 +92,24 @@ export default defineStore("auth", () => {
   function reset() {
     accessToken.value = null;
     refreshToken.value = null;
-    expireAt.value = new Date();
+    expireAt.value = 0;
     user.value = {};
 
     console.debug("auth: reset");
   }
 
-  function authenticated({ data, response }) {
-    accessToken.value = unref(response).headers.get("access-token");
-    expireAt.value = new Date(unref(response).headers.get("expire-at") * 1000);
-    refreshToken.value = unref(response).headers.get("refresh-token");
+  function authenticated({ data, response }: { data: Ref<any> | null, response: Ref<Response | null> }) {
+    if (!unref(response)) return; // nothing to do
+
+    accessToken.value = unref(response)?.headers.get("access-token");
+    expireAt.value = Number(unref(response)!.headers.get("expire-at")) * 1000;
+    refreshToken.value = unref(response)!.headers.get("refresh-token");
     user.value = unref(data);
 
     console.debug("auth: authenticated", unref(data));
   }
 
-  async function beforeFetch({ url, options }) {
+  async function beforeFetch({ url, options }: BeforeFetchContext) {
     if (options.credentials !== "omit" && accessToken.value) {
       if (needsRefresh()) {
         console.debug("auth: token is expired, refreshing before fetch", {
@@ -132,13 +134,13 @@ export default defineStore("auth", () => {
     }
   }
 
-  function handleExpiredToken(fetch) {
+  function handleExpiredToken(fetch: UseFetchReturn<unknown>) {
     if (refreshToken.value && fetch.statusCode.value === 401) {
       console.warn("auth: token is invalid, trying to refresh");
       refresh().then(() => {
         console.info(
           "auth: token refreshed, retrying",
-          fetch.response.value.url,
+          fetch.response.value?.url,
         );
         fetch.execute();
       });
@@ -154,7 +156,7 @@ export default defineStore("auth", () => {
     return false;
   }
 
-  function guard(callback) {
+  function guard(callback: CallableFunction) {
     return () => assert() && callback();
   }
 
