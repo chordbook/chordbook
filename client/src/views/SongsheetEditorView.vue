@@ -37,7 +37,7 @@ if (props.id) {
     });
 }
 
-useScrollSync(editor, preview);
+useScrollSync(computed(() => editor.value?.scroller), preview);
 
 async function save() {
   const { metadata } = parser.song?.metadata || {};
