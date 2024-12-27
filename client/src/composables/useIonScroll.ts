@@ -1,5 +1,8 @@
-import { ref, watchEffect, Ref } from "vue";
-import { MaybeElementRef, unrefElement, useScroll, UseScrollReturn } from "@vueuse/core";
+import { ref, watchEffect } from "vue";
+import { unrefElement, useScroll } from "@vueuse/core";
+
+import type { Ref } from "vue";
+import type { MaybeElementRef, UseScrollReturn } from "@vueuse/core";
 
 export type UseIonScrollReturn = UseScrollReturn & {
   el: Ref<HTMLElement | undefined>

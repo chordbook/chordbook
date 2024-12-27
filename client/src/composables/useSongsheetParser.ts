@@ -1,4 +1,4 @@
-import { ref, toRef, computed, watchEffect, toValue, MaybeRefOrGetter, Ref } from "vue";
+import { ref, toRef, computed, watchEffect, toValue } from "vue";
 import {
   Song,
   Chord,
@@ -9,6 +9,8 @@ import {
   ChordsOverWordsParser,
   UltimateGuitarParser,
 } from "chordsheetjs";
+
+import type { MaybeRefOrGetter, Ref } from "vue";
 
 export type Modifier = '#' | 'b';
 

@@ -1,9 +1,12 @@
 import { defineStore } from "pinia";
 import { useFetch } from "@/client";
-import { useStorage, RemovableRef, UseFetchReturn, BeforeFetchContext } from "@vueuse/core";
-import { unref, computed, reactive, watch, Ref } from "vue";
+import { useStorage } from "@vueuse/core";
+import { unref, computed, reactive, watch } from "vue";
 import { useRouter } from "vue-router";
 import console from "@/console";
+
+import type { Ref } from "vue";
+import type { RemovableRef, UseFetchReturn, BeforeFetchContext } from "@vueuse/core";
 
 export default defineStore("auth", () => {
   // Accepting the security trade-offs of persisting in localStorage. There is no other reasonable

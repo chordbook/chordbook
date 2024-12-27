@@ -1,4 +1,4 @@
-import { IonicConfig } from "@ionic/core";
+import type { IonicConfig } from "@ionic/core";
 
 const config: IonicConfig = {};
 

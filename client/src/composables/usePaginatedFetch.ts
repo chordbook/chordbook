@@ -1,7 +1,9 @@
-import { ref, reactive, computed, Reactive, Ref } from "vue";
+import { ref, reactive, computed } from "vue";
 import { useFetch } from "@/client";
 import LinkHeader from "http-link-header";
-import { UseFetchReturn, UseFetchOptions } from "@vueuse/core";
+
+import type { Reactive, Ref } from "vue";
+import type { UseFetchReturn, UseFetchOptions } from "@vueuse/core";
 
 export default function usePaginatedFetch(url: string, fetchOptions: UseFetchOptions = {}) {
   const nextUrl: Ref<string | null> = ref(url);
