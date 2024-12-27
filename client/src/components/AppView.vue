@@ -1,11 +1,11 @@
-<script setup>
+<script lang="ts" setup>
 import { ref, onErrorCaptured, watch } from "vue";
 import { useOnline } from "@vueuse/core";
 import ErrorMessage from "@/components/ErrorMessage.vue";
 import OfflineMessage from "@/components/OfflineMessage.vue";
 
 const online = useOnline();
-const error = ref(null);
+const error = ref<unknown>(null);
 
 onErrorCaptured((err) => {
   error.value = err;
