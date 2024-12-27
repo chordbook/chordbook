@@ -16,7 +16,7 @@ export default function useIonScroll(scroller: MaybeElementRef): UseIonScrollRet
 
 // Get they underlying scrollable element from and ion-content element
 function unrefIonScrollElement(scroller: MaybeElementRef) {
-  const el: Ref<HTMLElement | undefined> = ref();
+  const el = ref<HTMLElement | undefined>();
 
   // Use async function with watchEffect since computed properties can't handle promises
   watchEffect(async () => {

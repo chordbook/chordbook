@@ -10,7 +10,7 @@ import {
   UltimateGuitarParser,
 } from "chordsheetjs";
 
-import type { MaybeRefOrGetter, Ref } from "vue";
+import type { MaybeRefOrGetter } from "vue";
 
 export type Modifier = '#' | 'b';
 
@@ -34,16 +34,16 @@ export default function useSongsheetParser(source: MaybeRefOrGetter<string | nul
   const capo = toRef(settings.capo ?? 0);
 
   // The #/b modifier to apply to the key
-  const modifier: Ref<Modifier | null> = toRef(settings.modifier ?? null);
+  const modifier = toRef<Modifier | null>(settings.modifier ?? null);
 
   // The parsed songsheet as a `Song` object from ChordSheetJS
   const originalSong = ref();
 
   // The final `Song` after transposing, normalizing, etc.
-  const song: Ref<Song | null> = ref(null);
+  const song = ref<Song | null>(null);
 
   // The chords used in the song
-  const chords: Ref<string[]> = computed(() => song.value?.getChords() ?? []);
+  const chords = computed<string[]>(() => song.value?.getChords() ?? []);
 
   // The concert key of the song
   const key = computed(() => {

@@ -5,8 +5,8 @@ import { reactive, nextTick } from "vue";
 import type { Reactive } from "vue";
 
 test("empty song", () => {
-  expect(useSongsheetParser(null).song.value).toBeUndefined();
-  expect(useSongsheetParser("").song.value).toBeUndefined();
+  expect(useSongsheetParser(null).song.value).toBeNull();
+  expect(useSongsheetParser("").song.value).toBeNull();
 });
 
 describe("transposing", () => {
