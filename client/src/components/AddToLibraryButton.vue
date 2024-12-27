@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { toastController } from "@ionic/vue";
 import * as icons from "@/icons";
 import useLibraryStore from "@/stores/library";
@@ -12,7 +12,7 @@ const props = defineProps({
 
 const library = useLibraryStore(props.id);
 
-async function toast(message) {
+async function toast(message: string) {
   const toast = await toastController.create({ message, duration: 3000 });
   return toast.present();
 }

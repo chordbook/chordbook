@@ -1,33 +1,24 @@
-<script setup>
+<script lang="ts" setup>
 import * as icons from "@/icons";
-import ShareItem from "@/components/ShareItem.vue";
+import ShareItem from "./ShareItem.vue";
 
-const props = defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
+// FIXME: move to shared definitions
+interface Album {
+  id: string;
+  title: string;
   cover: {
-    type: Object,
-    required: true,
-  },
+    medium: string;
+  };
   artist: {
-    type: Object,
-    required: true,
-  },
-  showArtist: {
-    type: Boolean,
-    default: true,
-  },
-  released: {
-    type: [Number, null],
-    required: true,
-  },
-});
+    id: string;
+    name: string;
+  };
+  released?: number;
+}
+
+const props = defineProps<Album & {
+  showArtist?: boolean;
+}>()
 
 const link = { name: "album", params: { id: props.id } };
 </script>
@@ -58,7 +49,7 @@ const link = { name: "album", params: { id: props.id } };
         {{ title }}
       </h3>
       <p>
-        <span v-if="showArtist">{{ artist.name }} •</span>
+        <span v-if="showArtist ?? true">{{ artist.name }} •</span>
         {{ released }}
       </p>
     </ion-label>
