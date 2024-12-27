@@ -20,7 +20,7 @@ export type SongsheetSettings = {
   modifier?: Modifier
 }
 
-export default function useSongsheetParser(source: MaybeRefOrGetter<string>, settings: SongsheetSettings = {}) {
+export default function useSongsheetParser(source: MaybeRefOrGetter<string | null>, settings: SongsheetSettings = {}) {
   // The parser to use for the source document (ChordPro, ChordsOverWords, UltimateGuitar)
   const parser = computed(() => detectFormat(toValue(source)));
 
@@ -40,22 +40,24 @@ export default function useSongsheetParser(source: MaybeRefOrGetter<string>, set
   const originalSong = ref();
 
   // The final `Song` after transposing, normalizing, etc.
-  const song = ref();
+  const song: Ref<Song | null> = ref(null);
 
   // The chords used in the song
-  const chords = computed(() => song.value?.getChords() ?? []);
+  const chords: Ref<string[]> = computed(() => song.value?.getChords() ?? []);
 
   // The concert key of the song
   const key = computed(() => {
-    const value = capo.value === 0 ? song.value.key : song.value?.metadata.calculateKeyFromCapo();
-    return Key.wrap(value)?.useModifier(modifier.value).normalize().toString();
+    const value = capo.value === 0 ? song.value?.key : song.value?.metadata.calculateKeyFromCapo();
+    return Key.wrap(value ?? null)?.useModifier(modifier.value).normalize().toString();
   });
 
   // Parse the song when the source changes. This uses `watchEffect` instead of `computed` so we
   // can keep the previously parsed song if it fails.
   watchEffect(() => {
     try {
-      originalSong.value = parser.value?.parse(toValue(source));
+      if (!toValue(source)) return;
+
+      originalSong.value = parser.value?.parse(toValue(source)!);
       capo.value = Number(originalSong.value?.capo || 0);
       error.value = null; // parsing succeeded, so clear last error
     } catch (e) {
@@ -155,7 +157,7 @@ const PARSERS = [
   },
 ];
 
-export function detectFormat(source: string) {
+export function detectFormat(source: string | null) {
   if (!source) return;
   return PARSERS.find(({ pattern }) => source.match(pattern))?.parser();
 }

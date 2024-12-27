@@ -3,7 +3,7 @@ import { ChordDefinition } from "chordsheetjs";
 import { describe, expect, test } from "vitest";
 
 test("C", () => {
-  const data = ChordData.find("C");
+  const data = ChordData.find("C")!;
   expect(data.strings).toEqual(6);
   expect(data.fingerings).toEqual([
     [6, "x", null],
