@@ -58,7 +58,7 @@ const auth = useAuthStore();
       <ion-refresher
         v-if="$refs.dataSource"
         slot="fixed"
-        @ion-refresh="$refs.dataSource.reload"
+        @ion-refresh="$refs.dataSource.reload().then(() => $event.target.complete())"
       >
         <ion-refresher-content />
       </ion-refresher>

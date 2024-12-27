@@ -99,7 +99,7 @@ async function destroy() {
         <ion-refresher
           v-if="$refs.songsheets"
           slot="fixed"
-          @ion-refresh="$refs.songsheets.reload"
+          @ion-refresh="$refs.songsheets.reload().then(() => $event.target.complete())"
         >
           <ion-refresher-content />
         </ion-refresher>
