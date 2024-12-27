@@ -1,3 +1,32 @@
+<script lang="ts" setup>
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
+import * as icons from "@/icons";
+import useAuthStore from "@/stores/auth";
+
+const auth = useAuthStore();
+const route = useRoute();
+const selected = ref("discover");
+
+watch(route, () => (selected.value = route.meta?.selected as string || selected.value), {
+  immediate: true,
+});
+
+function colorFor(item: string) {
+  return item === selected.value ? "primary" : "";
+}
+</script>
+
+<style scoped>
+ion-menu {
+  @apply border-r dark:border-slate-900;
+}
+
+.ios ion-item {
+  @apply rounded-lg;
+}
+</style>
+
 <template>
   <ion-menu>
     <ion-header translucent>
@@ -126,32 +155,3 @@
     </ion-content>
   </ion-menu>
 </template>
-
-<script setup>
-import { ref, watch } from "vue";
-import { useRoute } from "vue-router";
-import * as icons from "@/icons";
-import useAuthStore from "@/stores/auth";
-
-const auth = useAuthStore();
-const route = useRoute();
-const selected = ref("discover");
-
-watch(route, () => (selected.value = route.meta?.selected || selected.value), {
-  immediate: true,
-});
-
-function colorFor(item) {
-  return item === selected.value ? "primary" : "";
-}
-</script>
-
-<style scoped>
-ion-menu {
-  @apply border-r dark:border-slate-900;
-}
-
-.ios ion-item {
-  @apply rounded-lg;
-}
-</style>
