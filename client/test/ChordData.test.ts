@@ -17,7 +17,7 @@ test("C", () => {
 });
 
 ["guitar", "ukulele"].forEach((instrument) => {
-  describe(instrument, () => {
+  describe(`${instrument}`, () => {
     [
       "C",
       "C#",
@@ -37,7 +37,7 @@ test("C", () => {
       "Bb",
       "B",
     ].forEach((chordName) => {
-      test(chordName, () => {
+      test(`${chordName}`, () => {
         const data = ChordData.find(chordName, instrument);
         expect(data).not.toBeUndefined();
       });

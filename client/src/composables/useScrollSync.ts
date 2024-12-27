@@ -6,7 +6,7 @@ import type { Ref } from "vue";
 // Keeps multiple scrollable elements in sync
 export default function useScrollSync(...elements: Ref<HTMLElement>[]) {
   const refs = elements.map((el) => computed(() => toValue(el)));
-  let activeScroller: Ref<HTMLElement | null> = ref(null);
+  const activeScroller: Ref<HTMLElement | null> = ref(null);
 
   const doneScrolling = useDebounceFn(() => {
     activeScroller.value = null;

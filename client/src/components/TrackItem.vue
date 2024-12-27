@@ -20,7 +20,7 @@ defineProps({
     type: String,
     required: true,
   },
-  // eslint-disable-next-line vue/prop-name-casing
+   
   has_songsheet: {
     type: Boolean,
     default: false,
