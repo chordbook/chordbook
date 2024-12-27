@@ -3,7 +3,7 @@ import { ref, watch, unref } from "vue";
 import { useFetch } from "@/client";
 import useAuthStore from "@/stores/auth";
 
-export default (id) => {
+export default (id: string) => {
   return defineStore(`Library:${id}`, () => {
     const auth = useAuthStore();
     const exists = ref(false);
