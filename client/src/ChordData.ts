@@ -88,18 +88,19 @@ export default class ChordData {
     return this.data.frets.length;
   }
 
-  get fingerings() {
+  get fingerings(): [number, number | 'x', number | undefined][] {
     // Array of string numbers from top to bottom, e.g. [6, 5, 4, 3, 2, 1]
     const strings = Array.from(
       { length: this.strings },
       (_, i) => i + 1,
     ).reverse();
 
-    return strings.map((string, i) => {
+    return strings.map((stringNum, i) => {
       let fret = this.data.frets[i];
-      if (fret === -1) fret = "x";
+      if ([-1, "-1", "N"].includes(fret)) fret = "x";
+      if (fret === "0") fret = 0;
       const finger = this.data.fingers[i];
-      return [string, fret, finger > 0 ? finger : null];
+      return [stringNum, fret as number | 'x', finger > 0 ? finger : undefined];
     });
   }
 
