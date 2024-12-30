@@ -1,7 +1,7 @@
 <script setup>
 import SongsheetContent from "@/components/SongsheetContent.vue";
 import EditorSplitView from "@/components/EditorSplitView.vue";
-import SongsheetEditor from "@/components/Editor.js";
+import SongsheetEditor from "@/components/Editor";
 import { alertController, loadingController } from "@ionic/vue";
 import { ref, computed, reactive, toRef } from "vue";
 import { useFetch } from "@/client";

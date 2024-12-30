@@ -12,14 +12,17 @@ import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import { linter } from "@codemirror/lint";
 import { ChordProParser, ChordProFormatter } from "chordsheetjs";
-import detectFormat from "@/composables/useSongsheetParser";
+import { detectFormat } from "@/composables/useSongsheetParser";
+
+import type { TransactionSpec } from "@codemirror/state";
+import type { parser } from "peggy";
 
 // Transaction Filter to convert pasted text to ChordPro format
 const convertOnPaste = EditorState.transactionFilter.of((tr) => {
   // Don't do anything if the change is not a paste event
   if (!tr.isUserEvent("input.paste")) return tr;
 
-  const newTr = [];
+  const newTr: TransactionSpec[] = [];
 
   tr.changes.iterChanges((fromA, toA, _fromB, _toB, inserted) => {
     let text = inserted.toString();
@@ -27,7 +30,7 @@ const convertOnPaste = EditorState.transactionFilter.of((tr) => {
     const format = detectFormat(text);
 
     // If it's not ChordPro, convert it
-    if (format || !(format instanceof ChordProParser)) {
+    if (format && !(format instanceof ChordProParser)) {
       text = new ChordProFormatter().format(format.parse(text));
     }
 
@@ -61,8 +64,8 @@ export default defineComponent({
     const container = shallowRef();
     const view = shallowRef();
 
-    const onChange = (e) => {
-      context.emit("update:modelValue", e.detail.doc);
+    const onChange = ({ detail }: { detail: { doc: string } }) => {
+      context.emit("update:modelValue", detail.doc);
     };
 
     onMounted(() => {
@@ -85,7 +88,9 @@ export default defineComponent({
           linter(() => {
             if (!props.error) return [];
 
-            const { message, location } = props.error;
+            console.log(props.error);
+
+            const { message, location } = props.error as parser.SyntaxError;
             return [
               {
                 from: location.start.offset,
@@ -99,7 +104,8 @@ export default defineComponent({
       });
 
       // Expose editor to tests
-      window.editor = view.value;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (<any>window).editor = view.value;
 
       watch(
         () => props.modelValue,
