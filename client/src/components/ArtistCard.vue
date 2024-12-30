@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import ModelAvatar from "./ModelAvatar.vue";
 
 defineProps({

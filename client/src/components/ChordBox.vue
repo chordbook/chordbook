@@ -4,10 +4,10 @@ import ChordData from "@/ChordData";
 import { computed, ref } from "vue";
 
 const { as = 'symbol', data, width = 50, height = 65 } = defineProps<{
-  as: string;
   data: ChordData;
-  width: number;
-  height: number;
+  as?: string;
+  width?: number;
+  height?: number;
 }>();
 
 const multiplier = ref(2);

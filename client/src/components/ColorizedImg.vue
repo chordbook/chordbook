@@ -1,29 +1,14 @@
-<script>
+<script lang="ts" setup>
 import { gradient } from "@/lib/gradient";
 
-export default {
-  props: {
-    src: {
-      type: String,
-      required: true,
-    },
-
-    alt: {
-      type: String,
-      default: null,
-    },
-  },
-
-  computed: {
-    style() {
-      return `background-image: ${gradient(this.alt || this.src, { colors: 3, spin: 40 })}`;
-    },
-  },
-};
+defineProps<{
+  src: string;
+  alt?: string;
+}>();
 </script>
 
 <template>
-  <div :style="style">
+  <div :style="`background-image: ${gradient(alt ?? src, { colors: 3, spin: 40 })}`">
     <img
       :src="src"
       class="object-cover w-full h-full opacity-70 mix-blend-luminosity"

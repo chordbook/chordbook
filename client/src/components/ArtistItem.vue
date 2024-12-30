@@ -1,20 +1,11 @@
-<script setup>
+<script lang="ts" setup>
 import ModelAvatar from "./ModelAvatar.vue";
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  thumbnail: {
-    type: String,
-    required: true,
-  },
-});
+defineProps<{
+  id: string;
+  name: string;
+  thumbnail: string;
+}>();
 </script>
 
 <template>
