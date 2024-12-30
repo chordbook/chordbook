@@ -36,7 +36,7 @@
     "tailwindcss": "^3.4.17",
     "tinycolor2": "^1.6.0",
     "vexchords": "github:chordbook/vexchords",
-    "vite": "^6.0.5",
+    "vite": "^6.0.6",
     "vite-plugin-pwa": "^0.21.1",
     "vite-svg-loader": "^5.1.0",
     "vue": "^3.5.12",
