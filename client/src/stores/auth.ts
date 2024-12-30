@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
 import { useFetch } from "@/client";
 import { useStorage } from "@vueuse/core";
-import { unref, computed, reactive, watch } from "vue";
+import { toValue, computed, reactive, watch } from "vue";
 import { useRouter } from "vue-router";
 import console from "@/console";
 
-import type { Ref } from "vue";
+import type { MaybeRef } from "vue";
 import type { RemovableRef, UseFetchReturn, BeforeFetchContext } from "@vueuse/core";
 
 export default defineStore("auth", () => {
@@ -25,15 +25,19 @@ export default defineStore("auth", () => {
   const refreshFetch = reactive(
     useFetch(
       "authenticate",
-      { credentials: "omit" },
       {
+        options: { credentials: "omit" },
         immediate: false,
-        afterFetch: authenticated,
-        onFetchError: ({ error, response }: { error: any, response: Response }) => {
-          if (response?.status === 401) {
-            console.error("auth: failed to refresh token", error);
+        afterFetch(ctx) {
+          authenticated(ctx);
+          return ctx;
+        },
+        onFetchError(ctx) {
+          if (ctx.response?.status === 401) {
+            console.error("auth: failed to refresh token", ctx.error);
             reset();
           }
+          return ctx;
         },
       },
     )
@@ -101,15 +105,16 @@ export default defineStore("auth", () => {
     console.debug("auth: reset");
   }
 
-  function authenticated({ data, response }: { data: Ref<any> | null, response: Ref<Response | null> }) {
-    if (!unref(response)) return; // nothing to do
+  function authenticated({ data, response }: { data: MaybeRef<any>, response: MaybeRef<Response | null> }) {
+    const { headers } = toValue(response) || {};
+    if (!headers) return; // nothing to do
 
-    accessToken.value = unref(response)?.headers.get("access-token");
-    expireAt.value = Number(unref(response)!.headers.get("expire-at")) * 1000;
-    refreshToken.value = unref(response)!.headers.get("refresh-token");
-    user.value = unref(data);
+    accessToken.value = headers.get("access-token");
+    expireAt.value = Number(headers.get("expire-at")) * 1000;
+    refreshToken.value = headers.get("refresh-token");
+    user.value = toValue(data);
 
-    console.debug("auth: authenticated", unref(data));
+    console.debug("auth: authenticated", user.value);
   }
 
   async function beforeFetch({ url, options }: BeforeFetchContext) {

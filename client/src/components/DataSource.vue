@@ -29,29 +29,18 @@ Empty placeholder:
     <template #default="{ items }">…</template>
   </data-source>
 -->
-<script setup>
+<script lang="ts" setup>
 import { reactive, watch } from "vue";
 import usePaginatedFetch from "@/composables/usePaginatedFetch";
 import useAuthStore from "@/stores/auth";
 
-const props = defineProps({
-  src: {
-    type: String,
-    required: true,
-  },
-  params: {
-    type: Object,
-    default() {
-      return {};
-    },
-  },
-  options: {
-    type: Object,
-    default() {
-      return {};
-    },
-  },
-});
+import type { Params, UseFetchOptionsWithParams } from "@/client";
+
+const props = defineProps<{
+  src: string;
+  params?: Params;
+  options?: UseFetchOptionsWithParams;
+}>();
 
 const emit = defineEmits(["load"]);
 
@@ -61,7 +50,7 @@ const pager = reactive(
 
 function load() {
   const page = pager.load();
-  page.onFetchResponse(() => emit("load", page));
+  page?.onFetchResponse(() => emit("load", page));
   return page;
 }
 
@@ -89,7 +78,7 @@ await load();
 
   <ion-infinite-scroll
     v-if="pager.isPaginating"
-    @ion-infinite="load().then(() => $event.target.complete())"
+    @ion-infinite="load()?.then(() => $event.target.complete())"
   >
     <ion-infinite-scroll-content
       loading-spinner="bubbles"

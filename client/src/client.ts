@@ -1,22 +1,29 @@
 import { createFetch } from "@vueuse/core";
-import { computed, unref } from "vue";
+import { computed, toValue } from "vue";
 import useAuthStore from "@/stores/auth";
 
 import type { UseFetchOptions } from "@vueuse/core";
-import type { MaybeRef } from "vue";
+import type { MaybeRefOrGetter } from "vue";
+
+export type { UseFetchReturn } from "@vueuse/core";
+export type Params = Record<string, string>;
+export type UseFetchOptionsWithParams = UseFetchOptions & {
+  options?: RequestInit
+  params?: MaybeRefOrGetter<Params>
+}
 
 const BASE_URL = import.meta.env.APP_API_URL || "https://api.chordbook.app/";
 
 // Prefix URL with base and add query parameters
-function buildUrl(url: MaybeRef<string>, params: Record<string, string> | undefined) {
+function buildUrl(url: MaybeRefOrGetter<string>, params?: MaybeRefOrGetter<Params>) {
   return computed(() => {
     // The existing useFetch implementation for baseUrl does naive string
     // concatenation instead of proper URL joining.
-    const newUrl = new URL(unref(url), BASE_URL);
+    const newUrl = new URL(toValue(url), BASE_URL);
 
     // Add support for query parameters to default useFetch implementation
     if (params) {
-      for (const [key, val] of new URLSearchParams(unref(params))) {
+      for (const [key, val] of new URLSearchParams(toValue(params))) {
         newUrl.searchParams.append(key, val);
       }
     }
@@ -29,7 +36,7 @@ export const doFetch = createFetch({
   options: {
     beforeFetch(context) {
       return useAuthStore().beforeFetch(context);
-    },
+    }
   },
   fetchOptions: {
     headers: {
@@ -39,13 +46,12 @@ export const doFetch = createFetch({
   },
 });
 
-export type UseFetchOptionsWithParams = (RequestInit | UseFetchOptions) & {
-  params?: Record<string, string>
-}
-
-export function useFetch(url: MaybeRef<string>, { params, ...options }: UseFetchOptionsWithParams = {}, ...args: any[]) {
+export function useFetch(url: MaybeRefOrGetter<string>, { options, params, ...useFetchOptions }: UseFetchOptionsWithParams = {}) {
   const fullUrl = buildUrl(url, params);
-  const fetch = doFetch(fullUrl, options as RequestInit, ...args);
+
+  // useFetch from @vueuse/core has a very complicated method signature. Try to simplify it by accepting
+  // `options: RequestInit` as a property of `UseFetchOptionsWithParams` instead of an optional second argument.
+  const fetch = doFetch(fullUrl, options || {} as RequestInit, useFetchOptions as UseFetchOptions);
 
   // Check for expired token on errors, which will refresh the token and re-execute
   fetch.onFetchError(() => useAuthStore().handleExpiredToken(fetch));

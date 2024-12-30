@@ -2,9 +2,9 @@ import { ref, reactive, computed } from "vue";
 import { useFetch } from "@/client";
 import LinkHeader from "http-link-header";
 
-import type { UseFetchReturn, UseFetchOptions } from "@vueuse/core";
+import type { UseFetchReturn, UseFetchOptionsWithParams } from "@/client";
 
-export default function usePaginatedFetch(url: string, fetchOptions: UseFetchOptions = {}) {
+export default function usePaginatedFetch(url: string, fetchOptions: UseFetchOptionsWithParams = {}) {
   const nextUrl = ref<string | null>(url);
   // FIXME: This should be UseFetchReturn<any>[], but the `pages.push(…)` below gives a bizarre error
   const pages = reactive<any[]>([]);
