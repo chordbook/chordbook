@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { chevronBackOutline, chevronForwardOutline } from "ionicons/icons";
 import { onMounted, ref } from "vue";
 import { useScroll, useEventListener } from "@vueuse/core";

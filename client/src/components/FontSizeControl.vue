@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { useThemeStore } from "@/stores";
 import { textOutline } from "ionicons/icons";
 

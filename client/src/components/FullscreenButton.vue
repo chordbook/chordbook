@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { useFullscreen } from "@vueuse/core";
 import { ref, computed } from "vue";
 import { exit, expand } from "@/icons";

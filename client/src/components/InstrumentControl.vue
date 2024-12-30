@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 const instruments = ["Guitar", "Ukulele"];
 </script>
 
