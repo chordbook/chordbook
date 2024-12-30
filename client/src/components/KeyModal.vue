@@ -1,29 +1,25 @@
-<script setup>
+<script lang="ts" setup>
 import { watch, computed, ref, inject } from "vue";
 import { Song, Key, Chord } from "chordsheetjs";
 import { preferredModifierForKey } from "@/composables";
 import MetadataChip from "@/components/MetadataChip.vue";
 
-const props = defineProps({
-  song: {
-    type: Song,
-    required: true,
-  },
-});
+import type { IonPageLifecycle } from "@/composables";
+
+const props = defineProps<{
+  song: Song;
+}>();
 
 const transposeModel = defineModel("transpose", { type: Number, default: 0 });
 const capoModel = defineModel("capo", { type: Number, default: 0 });
 const originalCapo = capoModel.value;
-const modifier = defineModel("modifier", {
-  type: [String, null],
-  default: null,
-});
-const { onWillLeave } = inject("page");
+const modifier = defineModel<"#" | "b" | null>("modifier", { default: null });
+const { onWillLeave } = inject<IonPageLifecycle>("page")!;
 const modal = ref();
 const scroller = ref();
-const keyEls = ref([]);
+const keyEls = ref<HTMLElement[]>([]);
 const isChanged = computed(() => {
-  return transposeModel.value !== 0 || capoModel.value !== originalCapo;
+  return transposeModel.value !== 0 || capoModel.value !== originalCapo || modifier.value !== null;
 });
 
 const transpositions = computed(() => {
@@ -31,13 +27,13 @@ const transpositions = computed(() => {
     const step = i - 5; // -5 to +6
     const capo = (12 - step + transposeModel.value) % 12;
     const transpose = step + capoModel.value - transposeModel.value;
-    const key = Key.wrap(props.song.key)
+    const key = Key.wrap(props.song.key)!
       .transpose(transpose)
       .useModifier(modifier.value)
       .normalize();
-    const chordModifier = modifier.value || preferredModifierForKey(key);
+    const chordModifier = modifier.value || preferredModifierForKey(key.toString())!;
     const chords = props.song?.getChords().map((chord) =>
-      Chord.parse(chord).transpose(transpose).useModifier(chordModifier).normalize(key),
+      Chord.parse(chord)!.transpose(transpose).useModifier(chordModifier).normalize(key),
     );
 
     return { step, capo, chords, key };
@@ -62,12 +58,13 @@ async function scrollToActive(smooth = true) {
 function reset() {
   transposeModel.value = 0;
   capoModel.value = originalCapo;
+  modifier.value = null;
 }
 
 watch(transposeModel, () => {
   capoModel.value = 0;
 });
-watch([capoModel, transposeModel], scrollToActive);
+watch([capoModel, transposeModel], () => scrollToActive());
 onWillLeave(() => modal.value.$el.dismiss());
 </script>
 
@@ -137,7 +134,7 @@ onWillLeave(() => modal.value.$el.dismiss());
           </div>
           <div
             v-for="chord in chords"
-            :key="chord"
+            :key="chord.toString()"
             :class="[
               'text-nowrap w-full text-center truncate',
               { 'opacity-25': capo !== capoModel },

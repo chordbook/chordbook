@@ -10,3 +10,5 @@ export { default as useHideOnScroll } from "./useHideOnScroll";
 export { default as useIonScroll } from "./useIonScroll";
 export { default as useIonPageLifecycle } from "./useIonPageLifecycle";
 export { default as useScrollSync } from "./useScrollSync";
+
+export type { IonPageLifecycle } from "./useIonPageLifecycle";

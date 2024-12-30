@@ -1,14 +1,8 @@
-<script setup>
-defineProps({
-  name: {
-    type: String,
-    required: true,
-  },
-  value: {
-    type: [String, Number, null],
-    default: null,
-  },
-});
+<script lang="ts" setup>
+defineProps<{
+  name: string;
+  value?: string | number | null;
+}>();
 </script>
 
 <template>
