@@ -1,18 +1,19 @@
-<script>
+<script lang="ts">
 import { ChordLyricsPair } from "chordsheetjs";
-import Chord from "./Chord.vue";
 
 export default {
-  components: { Chord },
-
-  for: function (item) {
+  for: function (item: unknown): item is ChordLyricsPair {
     return item instanceof ChordLyricsPair;
-  },
-
-  props: {
-    item: ChordLyricsPair,
-  },
+  }
 };
+</script>
+
+<script lang="ts" setup>
+import Chord from "./Chord.vue";
+
+defineProps<{
+  item: ChordLyricsPair
+}>();
 </script>
 
 <template>

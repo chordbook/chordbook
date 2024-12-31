@@ -1,18 +1,13 @@
-<script setup>
+<script lang="ts" setup>
 import ChordDiagramReference from "@/components/ChordDiagramReference.vue";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
 import { computed } from "vue";
 import { Chord } from "chordsheetjs";
 
-const props = defineProps({
-  name: {
-    type: [String, undefined],
-    default: undefined,
-  },
-});
+const { name } = defineProps<{ name: string }>();
 
 const formatted = computed(() => {
-  return Chord.parse(props.name)?.toString({ useUnicodeModifier: true }) ?? props.name;
+  return Chord.parse(name)?.toString({ useUnicodeModifier: true }) ?? name;
 });
 </script>
 

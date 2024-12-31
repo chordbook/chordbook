@@ -1,15 +1,17 @@
-<script>
+<script lang="ts">
 import { Literal } from "chordsheetjs";
 
 export default {
-  for: function (item) {
+  for: function (item: unknown): item is Literal {
     return item instanceof Literal;
-  },
-
-  props: {
-    item: Literal,
-  },
+  }
 };
+</script>
+
+<script lang="ts" setup>
+defineProps<{
+  item: Literal
+}>();
 </script>
 <template>
   <div class="literal">
