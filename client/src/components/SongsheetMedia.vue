@@ -1,14 +1,11 @@
-<script setup>
+<script lang="ts" setup>
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 import YoutubeEmbed from "@/components/YoutubeEmbed.vue";
 import { logoYoutube } from "ionicons/icons";
 
-defineProps({
-  media: {
-    type: Array,
-    required: true,
-  },
-});
+defineProps<{
+  media: string[];
+}>();
 </script>
 
 <template>
