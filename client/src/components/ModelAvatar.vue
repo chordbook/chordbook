@@ -10,7 +10,7 @@ const icons = {
 };
 
 const props = defineProps<{
-  src: string | null;
+  src?: string | null;
   type: string;
 }>();
 

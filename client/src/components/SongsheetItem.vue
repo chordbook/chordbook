@@ -1,37 +1,14 @@
-<script setup>
+<script lang="ts" setup>
 import ModelAvatar from "./ModelAvatar.vue";
 import AddToSetlistModal from "@/components/AddToSetlistModal.vue";
 import ShareItem from "@/components/ShareItem.vue";
 import * as icons from "@/icons";
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  subtitle: {
-    type: String,
-    required: true,
-  },
-  track: {
-    type: Object,
-    default: null,
-  },
-  metadata: {
-    type: Object,
-    default() {
-      return {};
-    },
-  },
-  setlistId: {
-    type: String,
-    default: null,
-  },
-});
+import type { Songsheet } from "@/api";
+
+defineProps<Songsheet & {
+  setlistId?: string;
+}>();
 </script>
 
 <template>
@@ -93,7 +70,7 @@ defineProps({
           button
           detail
           :detail-icon="icons.setlist"
-          @click="$refs.addToSetlistModal.$el.present()"
+          @click="$refs.addToSetlistModal?.$el.present()"
         >
           <ion-label>Add to Setlist…</ion-label>
         </ion-item>
