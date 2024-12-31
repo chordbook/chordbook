@@ -1,17 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import AddToLibraryButton from "../components/AddToLibraryButton.vue";
+import type { ArtistFull } from "@/api";
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-});
+defineProps<{
+  id: string;
+}>();
 </script>
 
 <template>
   <app-view>
-    <data-source v-slot="{ data }" :src="`artists/${id}`">
+    <data-source v-slot="{ data }: { data: ArtistFull }" :src="`artists/${id}`">
       <Head>
         <title v-if="data">
           {{ data.name }}

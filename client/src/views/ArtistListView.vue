@@ -1,6 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import ArtistItem from "@/components/ArtistItem.vue";
 import LibraryPlaceholder from "@/components/LibraryPlaceholder.vue";
+
+import type { Artist } from "@/api"
 </script>
 
 <template>
@@ -32,7 +34,7 @@ import LibraryPlaceholder from "@/components/LibraryPlaceholder.vue";
         <template #empty>
           <library-placeholder type="artist" />
         </template>
-        <template #default="{ items }">
+        <template #default="{ items }: { items: Artist[] }">
           <ion-list>
             <artist-item
               v-for="artist in items"

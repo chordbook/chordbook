@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import * as icons from "@/icons";
 import useAuthStore from "@/stores/auth";
 

@@ -1,7 +1,3 @@
-// TODO:
-// - generate these from API serializers
-// - Separate partial/full types
-
 export type Genre = {
   id: string;
   type: 'Genre';
@@ -21,8 +17,9 @@ export type Artist = {
   updated_at: string;
   thumbnail: string;
   url: string
+}
 
-  // full
+export type ArtistFull = Artist & {
   biography: string;
   style: string;
   banner: string;
@@ -43,10 +40,13 @@ export type Album = {
     large: string;
   };
   url: string;
-
-  // full
   artist: Artist;
   genre: Genre;
+}
+
+export type AlbumFull = Album & {
+  description: string;
+  tracks: Track[];
 }
 
 export type Track = {
@@ -60,10 +60,12 @@ export type Track = {
   songsheets_count: number;
   has_songsheet: boolean;
   url: string;
-
-  // full
   artist: Artist;
   album: Album;
+}
+
+export type TrackFull = Track & {
+  songsheets: Songsheet[];
 }
 
 export type Songsheet = {
@@ -71,11 +73,24 @@ export type Songsheet = {
   type: 'Songsheet'
   title: string;
   subtitle: string;
-  track?: Track;
+  track?: TrackFull;
   metadata: {
     key?: string;
     capo?: string;
   };
+}
+
+export type SongsheetFull = Songsheet & {
+  source: string;
+  imported_from: string;
+  media: string[];
+  artists: Artist[];
+  copyright: {
+    notice: string;
+    url: string;
+    script_url: string;
+    pixel_url: string;
+  }
 }
 
 export type Setlist = {

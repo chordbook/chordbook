@@ -1,18 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import AddToLibraryButton from "../components/AddToLibraryButton.vue";
 import { album as placeholderIcon } from "@/icons";
+import type { AlbumFull } from "@/api"
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-});
+defineProps<{ id: string }>();
 </script>
 
 <template>
   <app-view>
-    <data-source v-slot="{ data }" :src="`albums/${id}`">
+    <data-source v-slot="{ data }: { data: AlbumFull }" :src="`albums/${id}`">
       <Head>
         <title v-if="data">{{ data.title }} by {{ data.artist.name }}</title>
       </Head>

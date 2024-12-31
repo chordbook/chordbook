@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import AlbumItem from "@/components/AlbumItem.vue";
+import LibraryPlaceholder from "@/components/LibraryPlaceholder.vue";
+import type { Album } from "@/api";
+</script>
+
 <template>
   <app-view>
     <Head>
@@ -6,7 +12,7 @@
     <ion-header translucent collapse="fade">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button class="md:hidden" text="" :default-href="backLink" />
+          <ion-back-button class="md:hidden" text="" :default-href="$route.path.replace('/albums', '')" />
         </ion-buttons>
         <ion-title>Albums</ion-title>
       </ion-toolbar>
@@ -22,7 +28,7 @@
         <template #empty>
           <library-placeholder type="album" />
         </template>
-        <template #default="{ items }">
+        <template #default="{ items }: { items: Album[] }">
           <ion-list>
             <div
               class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8"
@@ -39,18 +45,3 @@
     </ion-content>
   </app-view>
 </template>
-
-<script>
-import AlbumItem from "@/components/AlbumItem.vue";
-import LibraryPlaceholder from "@/components/LibraryPlaceholder.vue";
-
-export default {
-  components: { AlbumItem, LibraryPlaceholder },
-
-  computed: {
-    backLink() {
-      return this.$route.path.replace("/albums", "");
-    },
-  },
-};
-</script>

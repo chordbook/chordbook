@@ -2,19 +2,7 @@
 import * as icons from "@/icons";
 import ShareItem from "./ShareItem.vue";
 
-// FIXME: move to shared definitions
-interface Album {
-  id: string;
-  title: string;
-  cover: {
-    medium: string;
-  };
-  artist: {
-    id: string;
-    name: string;
-  };
-  released?: number;
-}
+import type { Album } from "@/api";
 
 const props = defineProps<Album & {
   showArtist?: boolean;
