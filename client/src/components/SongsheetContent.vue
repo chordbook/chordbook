@@ -1,20 +1,11 @@
-<script setup>
+<script lang="ts" setup>
 import MetadataChip from "@/components/MetadataChip.vue";
-import { componentFor } from "@/components/ChordSheet";
-import { Song } from "chordsheetjs";
+import Chord from "@/components/Chord.vue"
+import { Song, ChordLyricsPair, Tag, Literal } from "chordsheetjs";
 import { formatArray } from "@/util";
 import { useThemeStore } from "@/stores";
 
-defineProps({
-  song: {
-    type: Song,
-    required: true,
-  },
-  capo: {
-    type: Number,
-    default: 0,
-  },
-});
+defineProps<{ song: Song }>();
 
 const theme = useThemeStore();
 </script>
@@ -49,7 +40,7 @@ const theme = useThemeStore();
             song.metadata.get("_key") || song.key
           }}</span>
         </MetadataChip>
-        <MetadataChip v-if="song.capo > 0" name="Capo" :value="song.capo" />
+        <MetadataChip v-if="Number(song.capo) > 0" name="Capo" :value="song.capo?.toString()" />
         <MetadataChip v-else name="No capo" />
       </div>
     </div>
@@ -68,11 +59,21 @@ const theme = useThemeStore();
         <template v-for="(line, j) in lines" :key="j">
           <div v-if="line.hasRenderableItems()" class="row">
             <template v-for="(item, k) in line.items" :key="k">
-              <component
-                :is="componentFor(item)"
-                v-if="item.isRenderable()"
-                :item="item"
-              />
+              <div v-if="item instanceof ChordLyricsPair" class="column">
+                <div v-if="item.annotation" class="annotation">
+                  {{ item.annotation }}
+                </div>
+                <chord v-else :name="item.chords" />
+                <div v-if="item.lyrics?.trim()" class="lyrics">
+                  {{ item.lyrics }}
+                </div>
+              </div>
+              <div v-else-if="item instanceof Tag" :class="['tag', item.name]">
+                {{ item.value }}
+              </div>
+              <div v-else-if="item instanceof Literal" class="literal">
+                {{ item.string }}
+              </div>
             </template>
           </div>
         </template>
