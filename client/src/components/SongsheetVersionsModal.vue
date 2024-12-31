@@ -1,17 +1,11 @@
-<script setup>
+<script lang="ts" setup>
 import { modalController } from "@ionic/vue";
 import SongsheetItem from "@/components/SongsheetItem.vue";
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  exclude: {
-    type: String,
-    default: null,
-  },
-});
+defineProps<{
+  id: string;
+  exclude?: string;
+}>();
 </script>
 
 <template>
