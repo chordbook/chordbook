@@ -1,14 +1,11 @@
-<script setup>
-defineProps({
-  cents: {
-    type: [Number, null],
-    required: true,
-  },
-});
+<script lang="ts" setup>
+defineProps<{
+  cents: number | null;
+}>();
 
 const range = 90;
 
-function centsToDegrees(cents) {
+function centsToDegrees(cents: number) {
   return cents * (range / 100) + "deg";
 }
 </script>

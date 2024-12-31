@@ -1,28 +1,23 @@
-<script setup>
+<script lang="ts" setup>
 import { createTuner } from "@chordbook/tuner";
 import TunerMeter from "@/components/TunerMeter.vue";
 import { mic, micOff } from "ionicons/icons";
-import debounce from "lodash.debounce";
-import { ref, watch } from "vue";
+import { useDebounceFn } from "@vueuse/core";
+import { ref, watch, useTemplateRef } from "vue";
 
-const frequencyBars = ref(null); // template ref
+const frequencyBars = useTemplateRef('frequencyBars'); // template ref
 const tuner = createTuner({
   onNote: (n) => {
     note.value = n;
   },
 });
-const note = ref(tuner.getNote(tuner.config.a4));
+const note = ref(tuner.getNote(tuner.config.a4!));
 const active = ref(false);
 
-let frequencyData = null;
+let frequencyData: Uint8Array = new Uint8Array();
 
 // Clear cents after 1 second
-watch(
-  note,
-  debounce((note) => {
-    note.cents = null;
-  }, 1000),
-);
+watch( note, useDebounceFn((note) => { note.cents = null }, 1000));
 
 async function start() {
   active.value = true;
@@ -34,20 +29,20 @@ async function start() {
 async function stop() {
   active.value = false;
   await tuner.stop();
-  note.value = tuner.getNote(tuner.config.a4);
+  note.value = tuner.getNote(tuner.config.a4!);
 }
 
 function updateFrequencyBars() {
   if (!active.value) return;
 
   tuner.analyser.getByteFrequencyData(frequencyData);
-  const el = frequencyBars.value;
+  const el = frequencyBars.value!;
   const length = Math.sqrt(frequencyData.length) * 2; // low frequency only
   const width = el.width / length - 0.5;
 
   const scale = el.height / 2 / Math.max(...frequencyData.slice(0, length));
 
-  const canvasContext = el.getContext("2d");
+  const canvasContext = el.getContext("2d")!;
   canvasContext.clearRect(0, 0, el.width, el.height);
 
   for (let i = 0; i < length; i += 1) {
