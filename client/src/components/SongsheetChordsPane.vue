@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import ChordDiagram from "@/components/ChordDiagram.vue";
 import InstrumentControl from "@/components/InstrumentControl.vue";
 import ChordDiagramReference from "@/components/ChordDiagramReference.vue";
@@ -6,18 +6,12 @@ import useSongsheetSettings from "@/stores/songsheet-settings";
 import Pane from "@/components/Pane.vue";
 import { ref, defineExpose, computed } from "vue";
 import { useResponsive } from "@/composables";
-import { Chord } from "chordsheetjs";
+import { Song, Chord } from "chordsheetjs";
 
-const props = defineProps({
-  chords: {
-    type: Array,
-    required: true,
-  },
-  definitions: {
-    type: Object,
-    default: null
-  }
-});
+const props = defineProps<{
+  chords: string[];
+  definitions: ReturnType<Song["getChordDefinitions"]>;
+}>();
 
 const width = ref(54);
 const height = ref(72);
@@ -33,11 +27,11 @@ const settings = useSongsheetSettings();
 const sidebar = useResponsive("sm");
 const chordsModal = ref();
 
-function onBreakpointDidChange(breakpoint) {
+function onBreakpointDidChange(breakpoint: string) {
   settings.showChords = breakpoint !== "bottom";
 }
 
-function formattedChord(chord) {
+function formattedChord(chord: string) {
   return Chord.parse(chord)?.toString({ useUnicodeModifier: true }) ?? chord;
 }
 </script>

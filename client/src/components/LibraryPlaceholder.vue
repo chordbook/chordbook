@@ -1,12 +1,9 @@
-<script setup>
+<script lang="ts" setup>
 import * as icons from "@/icons";
 
-const props = defineProps({
-  type: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps<{
+  type: keyof typeof types;
+}>();
 
 const types = {
   artist: {

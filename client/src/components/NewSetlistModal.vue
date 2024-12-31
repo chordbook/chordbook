@@ -1,14 +1,12 @@
-<script setup>
+<script lang="ts" setup>
 import { modalController } from "@ionic/vue";
 import { useFetch } from "@/client";
-import { ref } from "vue";
+import { reactive } from "vue";
 
-const params = ref({});
+const params = reactive<{ title?: string, description?: string }>({});
 
 async function save() {
-  const { data } = await useFetch("setlists")
-    .post({ setlist: params.value })
-    .json();
+  const { data } = await useFetch("setlists").post({ setlist: params }).json();
   modalController.dismiss(data);
 }
 </script>
