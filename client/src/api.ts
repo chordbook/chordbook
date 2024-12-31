@@ -2,7 +2,7 @@
 // - generate these from API serializers
 // - Separate partial/full types
 
-export interface Genre {
+export type Genre = {
   id: string;
   type: 'Genre';
   name: string;
@@ -12,7 +12,7 @@ export interface Genre {
   url: string;
 }
 
-export interface Artist {
+export type Artist = {
   id: string;
   uid: string;
   type: 'Artist';
@@ -29,7 +29,7 @@ export interface Artist {
   genre: Genre;
 }
 
-export interface Album {
+export type Album = {
   id: string;
   type: 'Album';
   title: string;
@@ -49,7 +49,7 @@ export interface Album {
   genre: Genre;
 }
 
-export interface Track {
+export type Track = {
   id: string;
   type: 'Track';
   title: string;
@@ -66,8 +66,9 @@ export interface Track {
   album: Album;
 }
 
-export interface Songsheet {
+export type Songsheet = {
   id: string;
+  type: 'Songsheet'
   title: string;
   subtitle: string;
   track?: Track;
@@ -75,4 +76,24 @@ export interface Songsheet {
     key?: string;
     capo?: string;
   };
+}
+
+export type Setlist = {
+  id: string;
+  type: 'Setlist';
+  uid: string;
+  title: string;
+  created_at: string;
+  updated_at: string;
+  description: string,
+  user: User
+  thumbnails: string[]
+  url: string
+}
+
+export type User = {
+  id: string
+  type: 'User'
+  name: string
+  email?: string
 }
