@@ -1,4 +1,7 @@
-<script setup>
+<script lang="ts" setup>
+/// <reference types="@types/dom-chromium-installation-events" />
+/// <reference types="vite-plugin-pwa/client" />
+
 import { registerSW } from "virtual:pwa-register";
 import { ref, computed } from "vue";
 import { UseOnline } from "@vueuse/components";
@@ -6,7 +9,7 @@ import { offline } from "@/icons";
 import { useTimeout } from "@vueuse/core";
 
 const offlineReady = ref(false);
-const installPrompt = ref(null);
+const installPrompt = ref<BeforeInstallPromptEvent | null>(null);
 const showInstallPrompt = computed(() => {
   return installPrompt.value && useTimeout(60 * 1000); // 60 second delay
 });
@@ -21,7 +24,7 @@ registerSW({
 
 // Save prompt for installing to home screen
 // https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Add_to_home_screen
-window.addEventListener("beforeinstallprompt", (e) => {
+window.addEventListener("beforeinstallprompt", (e: BeforeInstallPromptEvent) => {
   // Stash the event so it can be triggered later.
   installPrompt.value = e;
   console.debug("PWA: saved install prompt");
@@ -29,9 +32,10 @@ window.addEventListener("beforeinstallprompt", (e) => {
 
 function addToHomeScreen() {
   // Show the prompt
-  installPrompt.value.prompt();
+  installPrompt.value?.prompt();
+
   // Wait for the user to respond to the prompt
-  installPrompt.value.userChoice.then((choiceResult) => {
+  installPrompt.value?.userChoice.then((choiceResult) => {
     console.log("Response to A2HS prompt", choiceResult);
     installPrompt.value = null;
   });

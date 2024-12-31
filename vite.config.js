@@ -29,7 +29,7 @@ export default defineConfig({
       strategies: "injectManifest",
       registerType: "autoUpdate",
       srcDir: "src/service_workers",
-      filename: "offline.js",
+      filename: "offline.ts",
       workbox: {
         sourcemap: true,
       },

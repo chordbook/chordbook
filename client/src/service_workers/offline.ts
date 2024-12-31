@@ -7,6 +7,8 @@ import { CacheableResponsePlugin } from "workbox-cacheable-response";
 import { clientsClaim } from "workbox-core";
 import { BackgroundSyncPlugin } from "workbox-background-sync";
 
+declare let self: ServiceWorkerGlobalScope
+
 // BUMP this to force clients to reload
 const VERSION = "1";
 console.log({ VERSION });
