@@ -1,14 +1,14 @@
-<script setup>
-import { ref } from "vue";
+<script lang="ts" setup>
+import { useTemplateRef } from "vue";
 import { useMediaQuery } from "@vueuse/core";
+import { IonModal } from "@ionic/vue";
 
 const disabled = useMediaQuery("(max-width: 992px)");
-const left = ref(null); // template ref
-const right = ref(null); // template ref
+const right = useTemplateRef<HTMLDivElement | typeof IonModal>('right');
 
 function toggle() {
-  if (!disabled.value) return;
-  const modal = right.value.$el;
+  if (!disabled.value || right.value) return;
+  const modal = (right.value! as typeof IonModal).$el;
   modal.isOpen = !modal.isOpen;
 }
 
@@ -32,7 +32,7 @@ defineExpose({ disabled, toggle });
   </template>
   <template v-else>
     <div class="grid grid-cols-2 h-full">
-      <div ref="left" class="h-full overflow-auto">
+      <div class="h-full overflow-auto">
         <slot name="left" />
       </div>
       <div ref="right" class="h-full overflow-auto">

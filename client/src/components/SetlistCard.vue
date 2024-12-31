@@ -1,24 +1,12 @@
-<script setup>
+<script lang="ts" setup>
 import SetlistAvatar from "@/components/SetlistAvatar.vue";
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    default: null,
-  },
-  thumbnails: {
-    type: Array,
-    required: true,
-  },
-});
+defineProps<{
+  id: string;
+  title: string;
+  description?: string;
+  thumbnails: string[];
+}>();
 </script>
 
 <template>

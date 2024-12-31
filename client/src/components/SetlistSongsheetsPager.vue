@@ -1,19 +1,13 @@
-<script setup>
+<script lang="ts" setup>
 import { computed } from "vue";
 import * as icons from "@/icons";
 import usePaginatedFetch from "@/composables/usePaginatedFetch";
 import ModelAvatar from "./ModelAvatar.vue";
 
-const props = defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  songsheetId: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps<{
+  id: string;
+  songsheetId: string;
+}>();
 
 const { items, load } = usePaginatedFetch(`setlists/${props.id}/songsheets`);
 

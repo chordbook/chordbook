@@ -1,16 +1,10 @@
-<script setup>
+<script lang="ts" setup>
 import * as icons from "@/icons";
 
-defineProps({
-  title: {
-    type: String,
-    required: true,
-  },
-  thumbnails: {
-    type: Array,
-    required: true,
-  },
-});
+defineProps<{
+  title: string;
+  thumbnails: string[];
+}>();
 </script>
 
 <template>

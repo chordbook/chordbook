@@ -1,17 +1,14 @@
-<script setup>
+<script lang="ts" setup>
 import { modalController, toastController } from "@ionic/vue";
 import SetlistItem from "@/components/SetlistItem.vue";
 import NewSetlistModal from "@/components/NewSetlistModal.vue";
 import { useFetch } from "@/client";
 
-const props = defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps<{
+  id: string;
+}>();
 
-async function add(setlist) {
+async function add(setlist: { id: string, title: string }) {
   await useFetch(`setlists/${setlist.id}/items`).post({ id: props.id });
 
   modalController.dismiss();
