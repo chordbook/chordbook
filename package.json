@@ -68,6 +68,7 @@
     "peggy": "^4.2.0",
     "prettier": "3.4.2",
     "typescript": "^5.7.2",
+    "vite-plugin-vue-devtools": "^7.6.8",
     "vitest": "^2.1.5",
     "vue-tsc": "^2.2.0"
   },

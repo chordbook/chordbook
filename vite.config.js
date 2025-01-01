@@ -1,6 +1,7 @@
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import vueDevTools from 'vite-plugin-vue-devtools'
 import { VitePWA } from "vite-plugin-pwa";
 import svgLoader from "vite-svg-loader";
 import { string } from "rollup-plugin-string";
@@ -24,6 +25,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    vueDevTools(),
     svgLoader(),
     VitePWA({
       strategies: "injectManifest",
