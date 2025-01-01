@@ -56,7 +56,7 @@ export default defineStore("auth", () => {
     return fetch;
   }
 
-  function signIn(data: Record<string, string>, useFetchOptions = {}) {
+  function signIn(data: MaybeRef<Record<string, string>>, useFetchOptions = {}) {
     const fetch = useFetch("authenticate", {
       updateDataOnError: true,
       ...useFetchOptions,
@@ -67,13 +67,13 @@ export default defineStore("auth", () => {
     return fetch;
   }
 
-  function forgotPassword(data: Record<string, string>, useFetchOptions = {}) {
+  function forgotPassword(data: MaybeRef<Record<string, string>>, useFetchOptions = {}) {
     return useFetch("password", { updateDataOnError: true, ...useFetchOptions })
       .post(data)
       .json();
   }
 
-  function resetPassword(data: Record<string, string>, useFetchOptions = {}) {
+  function resetPassword(data: MaybeRef<Record<string, string>>, useFetchOptions = {}) {
     return useFetch("password", { updateDataOnError: true, ...useFetchOptions })
       .put(data)
       .json();

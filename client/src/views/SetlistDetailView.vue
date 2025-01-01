@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useFetch } from "@/client";
 import SetlistAvatar from "../components/SetlistAvatar.vue";
 import SongsheetItem from "@/components/SongsheetItem.vue";
@@ -7,10 +7,14 @@ import ShareItem from "@/components/ShareItem.vue";
 import ShareButton from "@/components/ShareButton.vue";
 import { toastController, actionSheetController } from "@ionic/vue";
 import * as icons from "@/icons";
-import { ref } from "vue";
+import { ref, useTemplateRef } from "vue";
 import { useRouter } from "vue-router";
 import { gradient } from "@/lib/gradient";
 import { pluralize } from "@/util";
+
+import type { ItemReorderEventDetail } from "@ionic/core";
+import type { Songsheet } from "@/api";
+import type { DataSource } from "@/components";
 
 const props = defineProps({
   id: {
@@ -21,21 +25,21 @@ const props = defineProps({
 
 const router = useRouter();
 const editing = ref(false);
-const songsheets = ref(null); // element ref
+const songsheets = useTemplateRef<InstanceType<typeof DataSource>>("songsheets"); // element ref
 
-async function reorder(e) {
-  const songsheet = songsheets.value.items[e.detail.from];
+async function reorder({ detail }: { detail: ItemReorderEventDetail }) {
+  const songsheet = songsheets.value?.items[detail.from];
 
   await useFetch(`setlists/${props.id}/items/${songsheet.id}`).patch({
-    item: { position: e.detail.to + 1 },
+    item: { position: detail.to + 1 },
   });
 
-  e.detail.complete(true);
+  detail.complete(true);
 }
 
-async function remove(songsheet) {
+async function remove(songsheet: Songsheet) {
   await useFetch(`setlists/${props.id}/items/${songsheet.id}`).delete();
-  const items = songsheets.value.items;
+  const items = songsheets.value!.items;
   items.splice(items.indexOf(songsheet), 1);
 
   return (

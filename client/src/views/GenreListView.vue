@@ -1,8 +1,17 @@
+<script setup lang="ts">
+import { gradient } from "@/lib/gradient";
+import type { Genre } from "@/api";
+
+function style(uid: string) {
+  return `background-image: ${gradient(uid, { colors: 3, spin: 40 })}`;
+}
+</script>
+
 <template>
   <div>
     <ion-list-header>Browse by Genre</ion-list-header>
     <data-source src="genres">
-      <template #page="{ data }">
+      <template #page="{ data }: { data: Genre[] }">
         <div
           class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-[32px] ion-margin"
         >
@@ -32,14 +41,6 @@
     </data-source>
   </div>
 </template>
-
-<script setup>
-import { gradient } from "@/lib/gradient";
-
-function style(uid) {
-  return `background-image: ${gradient(uid, { colors: 3, spin: 40 })}`;
-}
-</script>
 
 <style scoped>
 ion-card {

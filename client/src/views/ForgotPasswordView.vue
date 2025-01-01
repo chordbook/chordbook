@@ -1,9 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import useAuthStore from "@/stores/auth";
 
 const auth = useAuthStore();
-const params = ref({});
+const params = ref<Record<string, string>>({});
+
 const { isFinished, error, execute, data } = auth.forgotPassword(params, {
   immediate: false,
 });

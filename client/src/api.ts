@@ -1,3 +1,14 @@
+export type Home = {
+  name: string,
+  href: string,
+  format: "item" | "card",
+  items: (Songsheet | Setlist | Artist | Album)[]
+}[]
+
+export type Discover = {
+  setlists: Setlist[];
+}
+
 export type Genre = {
   id: string;
   type: 'Genre';

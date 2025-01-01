@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import GenreListView from "@/views/GenreListView.vue";
 import ModelAvatar from "@/components/ModelAvatar.vue";
 import { useRouteQuery } from "@vueuse/router";
 import { ref, reactive } from "vue";
 import { getMode } from "@ionic/core";
 import { useFetch } from "@/client";
+import type { Discover } from "@/api";
 
 const types = {
   All: "",
@@ -128,7 +129,7 @@ const search = ref(); // template ref
       </data-source>
 
       <div v-show="!params.q">
-        <data-source v-slot="{ data }" src="discover">
+        <data-source v-slot="{ data }: { data: Discover }" src="discover">
           <model-list :items="data?.setlists" format="card" />
         </data-source>
         <GenreListView />
