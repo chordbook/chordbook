@@ -1,6 +1,6 @@
+import ChordSheetJS from "chordsheetjs";
 import { readFileSync } from "fs";
 import { serializeError } from "serialize-error";
-import ChordSheetJS from "chordsheetjs";
 
 const stdin = readFileSync(0); // STDIN_FILENO = 0
 

@@ -1,10 +1,15 @@
 <script lang="ts" setup>
-import { ChordDefinition } from "chordsheetjs";
 import ChordData, { Instrument } from "@/ChordData";
 import ChordBox from "@/components/ChordBox.vue";
+import { ChordDefinition } from "chordsheetjs";
 import { computed } from "vue";
 
-const { chord, definition, instrument = Instrument.Guitar, position = 0 } = defineProps<{
+const {
+  chord,
+  definition,
+  instrument = Instrument.Guitar,
+  position = 0,
+} = defineProps<{
   chord: string;
   definition?: ChordDefinition;
   instrument?: Instrument;
@@ -12,10 +17,10 @@ const { chord, definition, instrument = Instrument.Guitar, position = 0 } = defi
 }>();
 
 const data = computed(() => {
-  if(definition) {
+  if (definition) {
     return ChordData.fromDefinition(definition);
   } else {
-    return ChordData.find(chord, instrument, position)
+    return ChordData.find(chord, instrument, position);
   }
 });
 </script>

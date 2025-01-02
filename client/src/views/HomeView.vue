@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { logoGithub, handLeft, cashOutline } from "ionicons/icons";
-import HelpCard from "@/components/HelpCard.vue";
-import useAuthStore from "@/stores/auth";
-import * as icons from "@/icons";
-import { useTemplateRef } from "vue";
 import { DataSource } from "@/components";
+import HelpCard from "@/components/HelpCard.vue";
+import * as icons from "@/icons";
+import useAuthStore from "@/stores/auth";
+import { cashOutline, handLeft, logoGithub } from "ionicons/icons";
+import { useTemplateRef } from "vue";
 
 import type { Home } from "@/api";
 
@@ -16,10 +16,7 @@ const auth = useAuthStore();
   <app-view>
     <Head>
       <title>Home</title>
-      <meta
-        name="description"
-        content="Chord sheets and tab for guitar and ukulele."
-      />
+      <meta name="description" content="Chord sheets and tab for guitar and ukulele." />
     </Head>
     <ion-header v-if="auth.isAuthenticated" collapse="fade" translucent>
       <ion-toolbar>
@@ -88,9 +85,7 @@ const auth = useAuthStore();
             favorite songs.
           </h2>
 
-          <p
-            class="sm:text-lg md:text-xl lg:text-2xl text-white/80 text-shadow-md mt-4"
-          >
+          <p class="sm:text-lg md:text-xl lg:text-2xl text-white/80 text-shadow-md mt-4">
             Chord sheets and tab for guitar and ukulele.
           </p>
         </div>
@@ -102,9 +97,7 @@ const auth = useAuthStore();
             <ion-label class="text-2xl">
               {{ section.name }}
             </ion-label>
-            <ion-button v-if="section.href" :router-link="section.href">
-              See All
-            </ion-button>
+            <ion-button v-if="section.href" :router-link="section.href"> See All </ion-button>
           </ion-list-header>
 
           <model-list :items="section.items" :format="section.format" />
@@ -117,15 +110,12 @@ const auth = useAuthStore();
             Help us make music&nbsp;better.
           </h2>
           <p class="text-xl sm:text-2xl max-w-4xl mx-auto text-muted">
-            Chord Book is made by amateur musicians and volunteers. Here's how
-            you can lend your talent, time, or money to help make it even
-            better…
+            Chord Book is made by amateur musicians and volunteers. Here's how you can lend your
+            talent, time, or money to help make it even better…
           </p>
         </div>
 
-        <div
-          class="grid xl:grid-cols-3 xl:mb-6 ion-padding gap-3 md:gap-4 xl:gap-4 2xl:gap-6"
-        >
+        <div class="grid xl:grid-cols-3 xl:mb-6 ion-padding gap-3 md:gap-4 xl:gap-4 2xl:gap-6">
           <help-card
             image="https://images.pexels.com/photos/1407322/pexels-photo-1407322.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=720"
             audience="Musicians"
@@ -134,8 +124,8 @@ const auth = useAuthStore();
             :icon="handLeft"
             button-text="Volunteer"
           >
-            Volunteer to be an editor and get full access to add new charts or
-            make corrections to existing ones.
+            Volunteer to be an editor and get full access to add new charts or make corrections to
+            existing ones.
           </help-card>
           <help-card
             image="https://images.pexels.com/photos/48171/guitar-case-street-musicians-donate-donation-48171.jpeg?auto=compress&cs=tinysrgb&w=640"
@@ -145,8 +135,7 @@ const auth = useAuthStore();
             :icon="cashOutline"
             button-text="Donate"
           >
-            Show your appreciation and support the costs of building and running
-            the app.
+            Show your appreciation and support the costs of building and running the app.
           </help-card>
           <help-card
             image="https://images.pexels.com/photos/374563/pexels-photo-374563.jpeg?auto=compress&cs=tinysrgb&dpr=3w=640"
@@ -156,11 +145,8 @@ const auth = useAuthStore();
             :icon="logoGithub"
             button-text="Contribute"
           >
-            This app is open source! Help us fix bugs, improve features, and
-            make progress on our
-            <a href="https://github.com/bkeepers/chordbook/projects/1"
-              >roadmap</a
-            >.
+            This app is open source! Help us fix bugs, improve features, and make progress on our
+            <a href="https://github.com/bkeepers/chordbook/projects/1">roadmap</a>.
           </help-card>
         </div>
       </div>

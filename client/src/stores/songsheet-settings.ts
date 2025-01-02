@@ -1,6 +1,6 @@
-import { defineStore } from "pinia";
-import { useStorage } from "@vueuse/core";
 import { Instrument } from "@/ChordData";
+import { useStorage } from "@vueuse/core";
+import { defineStore } from "pinia";
 
 export default defineStore("SongsheetSettings", {
   state: () => ({

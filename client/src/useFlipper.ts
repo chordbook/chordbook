@@ -1,5 +1,5 @@
 import { useFetch } from "@/client";
-import { reactive, computed } from "vue";
+import { computed, reactive } from "vue";
 
 const fetch = reactive(useFetch("flipper", { immediate: false }).get().json());
 

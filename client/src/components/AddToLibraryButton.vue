@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { toastController } from "@ionic/vue";
 import * as icons from "@/icons";
 import useLibraryStore from "@/stores/library";
+import { toastController } from "@ionic/vue";
 
 const props = defineProps({
   id: {

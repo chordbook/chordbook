@@ -1,5 +1,5 @@
 import AuthenticatedView from "@/views/AuthenticatedView.vue";
-import type { RouteRecordRaw } from 'vue-router';
+import type { RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -211,10 +211,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/admin",
     redirect() {
-      window.location.href = import.meta.env.APP_API_URL + "/admin"
+      window.location.href = import.meta.env.APP_API_URL + "/admin";
       return {};
-    }
-  }
+    },
+  },
 ];
 
 export default routes;

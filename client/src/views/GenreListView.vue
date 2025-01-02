@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { gradient } from "@/lib/gradient";
 import type { Genre } from "@/api";
+import { gradient } from "@/lib/gradient";
 
 function style(uid: string) {
   return `background-image: ${gradient(uid, { colors: 3, spin: 40 })}`;
@@ -29,9 +29,7 @@ function style(uid: string) {
               class="object-cover object-center absolute inset-0 w-full h-full opacity-50 saturate-0 mix-blend-luminosity"
             />
             <div class="aspect-square flex items-end p-4">
-              <ion-card-title
-                class="text-shadow font-bold text-lg sm:text-xl text-white"
-              >
+              <ion-card-title class="text-shadow font-bold text-lg sm:text-xl text-white">
                 {{ genre.name }}
               </ion-card-title>
             </div>

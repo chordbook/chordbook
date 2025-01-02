@@ -45,10 +45,10 @@ test("C", () => {
   });
 });
 
-describe('fromDefinition', () => {
-  test('C7', () => {
-    const definition = ChordDefinition.parse('C7 base-fret 1 frets x 3 2 3 1 0')
-    const data = ChordData.fromDefinition(definition)
+describe("fromDefinition", () => {
+  test("C7", () => {
+    const definition = ChordDefinition.parse("C7 base-fret 1 frets x 3 2 3 1 0");
+    const data = ChordData.fromDefinition(definition);
 
     expect(data.strings).toEqual(6);
     expect(data.fingerings).toEqual([
@@ -62,9 +62,9 @@ describe('fromDefinition', () => {
     expect(data.barres).toEqual([]);
   });
 
-  test('D7', () => {
-    const definition = ChordDefinition.parse('D7 base-fret 3 frets x 3 2 3 1 x')
-    const data = ChordData.fromDefinition(definition)
+  test("D7", () => {
+    const definition = ChordDefinition.parse("D7 base-fret 3 frets x 3 2 3 1 x");
+    const data = ChordData.fromDefinition(definition);
 
     expect(data.strings).toEqual(6);
     expect(data.baseFret).toEqual(3);
@@ -74,14 +74,14 @@ describe('fromDefinition', () => {
       [4, 2, undefined],
       [3, 3, undefined],
       [2, 1, undefined],
-      [1, 'x', undefined],
+      [1, "x", undefined],
     ]);
     expect(data.barres).toEqual([]);
   });
 
-  test('E9', () => {
-    const definition = ChordDefinition.parse('E9 base-fret 7 frets 0 1 3 3 0 0')
-    const data = ChordData.fromDefinition(definition)
+  test("E9", () => {
+    const definition = ChordDefinition.parse("E9 base-fret 7 frets 0 1 3 3 0 0");
+    const data = ChordData.fromDefinition(definition);
 
     expect(data.strings).toEqual(6);
     expect(data.baseFret).toEqual(7);
@@ -95,4 +95,4 @@ describe('fromDefinition', () => {
     ]);
     expect(data.barres).toEqual([]);
   });
-})
+});

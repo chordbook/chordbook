@@ -1,9 +1,9 @@
-import { setActivePinia, createPinia } from "pinia";
-import { mount, config } from "@vue/test-utils";
-import component from "@/components/SongsheetContent.vue";
-import { expect, test, beforeEach } from "vitest";
-import { useSongsheetParser } from "@/composables";
 import * as components from "@/components";
+import component from "@/components/SongsheetContent.vue";
+import { useSongsheetParser } from "@/composables";
+import { config, mount } from "@vue/test-utils";
+import { createPinia, setActivePinia } from "pinia";
+import { beforeEach, expect, test } from "vitest";
 
 config.global.components = components;
 
@@ -27,9 +27,7 @@ test("artist", async () => {
 });
 
 test("multiple artists", async () => {
-  const wrapper = render(
-    "{title: Title}\n{artist: Artist 1}\n{artist: Artist 2}",
-  );
+  const wrapper = render("{title: Title}\n{artist: Artist 1}\n{artist: Artist 2}");
   expect(wrapper.find("h2").text()).toEqual("by Artist 1 and Artist 2");
 });
 

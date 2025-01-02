@@ -1,16 +1,16 @@
 import "./application.css";
 
-import { createApp } from "vue";
-import { createHead } from "@vueuse/head";
-import { createPinia } from "pinia";
 import { IonicVue } from "@ionic/vue";
-import App from "./views/App.vue";
-import router from "./router";
-import telemetry from "./telemetry";
+import { createHead } from "@vueuse/head";
+import FloatingVue from "floating-vue";
+import { createPinia } from "pinia";
+import { createApp } from "vue";
 import * as components from "./components";
 import ionicConfig from "./config";
+import router from "./router";
 import useSentry from "./sentry";
-import FloatingVue from "floating-vue";
+import telemetry from "./telemetry";
+import App from "./views/App.vue";
 
 const app = createApp(App)
   .use(createHead({ titleTemplate: "%s - Chord Book" }))

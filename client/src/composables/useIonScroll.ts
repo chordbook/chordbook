@@ -1,11 +1,11 @@
-import { ref, watchEffect } from "vue";
 import { unrefElement, useScroll } from "@vueuse/core";
+import { ref, watchEffect } from "vue";
 
-import type { Ref } from "vue";
 import type { MaybeElementRef, UseScrollReturn } from "@vueuse/core";
+import type { Ref } from "vue";
 
 export type UseIonScrollReturn = UseScrollReturn & {
-  el: Ref<HTMLElement | undefined>
+  el: Ref<HTMLElement | undefined>;
 };
 
 // Extend useScroll with support for Ionic's ion-content element
@@ -25,7 +25,7 @@ function unrefIonScrollElement(scroller: MaybeElementRef) {
     if ((value as HTMLIonContentElement)?.getScrollElement) {
       el.value = await (value as HTMLIonContentElement).getScrollElement();
     } else {
-      el.value = value
+      el.value = value;
     }
   });
 

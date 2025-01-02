@@ -1,27 +1,23 @@
 <script setup lang="ts">
-import SongsheetContent from "@/components/SongsheetContent.vue";
-import EditorSplitView from "@/components/EditorSplitView.vue";
-import SongsheetEditor from "@/components/Editor";
-import { alertController, loadingController } from "@ionic/vue";
-import { ref, computed, reactive, toRef, useTemplateRef } from "vue";
 import { useFetch } from "@/client";
+import SongsheetEditor from "@/components/Editor";
+import EditorSplitView from "@/components/EditorSplitView.vue";
+import SongsheetContent from "@/components/SongsheetContent.vue";
+import { useScrollSync, useSongsheetParser } from "@/composables";
+import { alertController, loadingController } from "@ionic/vue";
+import { computed, reactive, ref, toRef, useTemplateRef } from "vue";
 import { useRouter } from "vue-router";
-import { useSongsheetParser, useScrollSync } from "@/composables";
 
-import type { SongsheetFull, Errors } from "@/api";
+import type { Errors, SongsheetFull } from "@/api";
 
 const props = defineProps<{ id?: string }>();
 
 const router = useRouter();
-const songsheet = ref<Partial<SongsheetFull>>({ source: ""});
+const songsheet = ref<Partial<SongsheetFull>>({ source: "" });
 const errors = ref<Errors>({});
-const splitView = useTemplateRef('splitView');
-const url = computed(() =>
-  props.id ? `songsheets/${props.id}` : "songsheets",
-);
-const parser = reactive(
-  useSongsheetParser(toRef(() => songsheet.value?.source ?? "")),
-);
+const splitView = useTemplateRef("splitView");
+const url = computed(() => (props.id ? `songsheets/${props.id}` : "songsheets"));
+const parser = reactive(useSongsheetParser(toRef(() => songsheet.value?.source ?? "")));
 const editor = ref(); // template ref
 const preview = ref(); // template ref
 
@@ -34,7 +30,10 @@ if (props.id) {
     });
 }
 
-useScrollSync(computed(() => editor.value?.scroller), preview);
+useScrollSync(
+  computed(() => editor.value?.scroller),
+  preview,
+);
 
 async function save() {
   const { metadata } = parser.song?.metadata || {};
@@ -49,7 +48,7 @@ async function save() {
   const { error, data } = await useFetch(url, { updateDataOnError: true }).json()[method](payload);
 
   if (error.value) {
-    console.error('Songsheet could not be saved', data.value);
+    console.error("Songsheet could not be saved", data.value);
     errors.value = data.value;
   } else {
     router.replace({ name: "songsheet", params: { id: data.value.id } });
@@ -96,10 +95,7 @@ async function destroy() {
     <ion-header translucent>
       <ion-toolbar>
         <ion-buttons slot="secondary">
-          <ion-back-button
-            text="Cancel"
-            :default-href="id ? `/songsheets/${id}` : '/songsheets'"
-          />
+          <ion-back-button text="Cancel" :default-href="id ? `/songsheets/${id}` : '/songsheets'" />
         </ion-buttons>
 
         <ion-buttons slot="primary">
@@ -123,22 +119,14 @@ async function destroy() {
 
       <editor-split-view ref="splitView" :disabled="true">
         <template #left>
-          <songsheet-editor
-            ref="editor"
-            v-model="songsheet.source"
-            :error="parser.error"
-          />
+          <songsheet-editor ref="editor" v-model="songsheet.source" :error="parser.error" />
         </template>
         <template #right-toolbar="{ toggle }">
           <ion-toolbar>
             <ion-title>Preview</ion-title>
 
             <ion-buttons slot="secondary">
-              <ion-back-button
-                text="Edit"
-                :default-href="$route.fullPath"
-                @click="toggle()"
-              />
+              <ion-back-button text="Edit" :default-href="$route.fullPath" @click="toggle()" />
             </ion-buttons>
 
             <ion-buttons slot="primary">
@@ -165,9 +153,7 @@ async function destroy() {
     <ion-footer>
       <ion-toolbar>
         <ion-buttons slot="secondary">
-          <ion-button v-if="id" fill="clear" color="danger" @click="destroy">
-            Delete
-          </ion-button>
+          <ion-button v-if="id" fill="clear" color="danger" @click="destroy"> Delete </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-footer>

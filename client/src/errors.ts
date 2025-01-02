@@ -1,11 +1,11 @@
 // Error handling for better reporting in tests
 
 type ErrorLog = {
-  name: string,
-  message: string,
-  url: string,
-  stack?: string
-}
+  name: string;
+  message: string;
+  url: string;
+  stack?: string;
+};
 
 const errors: ErrorLog[] = [];
 
@@ -23,7 +23,7 @@ function captureError(error: Error) {
   });
 }
 
-window.addEventListener('error', (event) => captureError(event.error));
+window.addEventListener("error", (event) => captureError(event.error));
 window.addEventListener("unhandledrejection", (event) => captureError(event.reason));
 
 // Make available to tests

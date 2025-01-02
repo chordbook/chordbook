@@ -4,21 +4,17 @@ import ShareItem from "./ShareItem.vue";
 
 import type { Album } from "@/api";
 
-const props = defineProps<Album & {
-  showArtist?: boolean;
-}>()
+const props = defineProps<
+  Album & {
+    showArtist?: boolean;
+  }
+>();
 
 const link = { name: "album", params: { id: props.id } };
 </script>
 
 <template>
-  <ion-item
-    button
-    :router-link="link"
-    class="rounded group"
-    :detail="false"
-    lines="none"
-  >
+  <ion-item button :router-link="link" class="rounded group" :detail="false" lines="none">
     <ion-label>
       <div
         class="rounded overflow-hidden relative aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2 flex place-content-center items-center"
@@ -59,11 +55,7 @@ const link = { name: "album", params: { id: props.id } };
         >
           View Artist
         </ion-item>
-        <share-item
-          lines="none"
-          :router-link="link"
-          :title="`${title} by ${artist.name}`"
-        />
+        <share-item lines="none" :router-link="link" :title="`${title} by ${artist.name}`" />
       </ion-list>
     </ion-popover>
   </ion-item>

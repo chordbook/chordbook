@@ -252,8 +252,7 @@ http_interactions:
             v="43,46"
       body:
         encoding: UTF-8
-        string:
-          "{t: Yellow Rose Of Texas, The - Alt }\r\n{artist: Johnny Zero}\r\n{key:
+        string: "{t: Yellow Rose Of Texas, The - Alt }\r\n{artist: Johnny Zero}\r\n{key:
           G}\r\nhttps://www.youtube.com/watch?v=LArGlfEVYqM Capo 3\r\n{c: }  \r\nThere's
           a [G] yellow rose of Texas I'm going for to see,\r\nno other feller [D] knows
           her, no-[D7]body only me.\r\nShe [G] cried so when I left her, it like to

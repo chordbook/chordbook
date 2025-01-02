@@ -38,11 +38,7 @@ function loaded({ data }: { data: Ref<Songsheet[]> }) {
           :src="`tracks/${id}/songsheets`"
           @load="loaded"
         >
-          <songsheet-item
-            v-for="songsheet in items"
-            :key="songsheet.id"
-            v-bind="songsheet"
-          />
+          <songsheet-item v-for="songsheet in items" :key="songsheet.id" v-bind="songsheet" />
         </data-source>
       </ion-list>
     </ion-content>

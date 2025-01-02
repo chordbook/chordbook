@@ -9,9 +9,6 @@ defineProps<{
 
 <template>
   <div :style="`background-image: ${gradient(alt ?? src, { colors: 3, spin: 40 })}`">
-    <img
-      :src="src"
-      class="object-cover w-full h-full opacity-70 mix-blend-luminosity"
-    />
+    <img :src="src" class="object-cover w-full h-full opacity-70 mix-blend-luminosity" />
   </div>
 </template>

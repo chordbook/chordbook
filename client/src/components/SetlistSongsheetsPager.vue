@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { computed } from "vue";
-import * as icons from "@/icons";
 import usePaginatedFetch from "@/composables/usePaginatedFetch";
+import * as icons from "@/icons";
+import { computed } from "vue";
 import ModelAvatar from "./ModelAvatar.vue";
 
 const props = defineProps<{
@@ -19,9 +19,7 @@ const currentIndex = computed(() => {
 });
 
 // Previous will always be loaded if current is loaded
-const prev = computed(
-  () => currentIndex.value >= 0 && items[currentIndex.value - 1],
-);
+const prev = computed(() => currentIndex.value >= 0 && items[currentIndex.value - 1]);
 
 const next = computed(() => {
   const songsheet = currentIndex.value >= 0 && items[currentIndex.value + 1];
@@ -71,17 +69,11 @@ await load();
           router-direction="back"
         >
           <div class="m-2">
-            <ion-note class="block text-xs uppercase tracking-wider">
-              Setlist:
-            </ion-note>
+            <ion-note class="block text-xs uppercase tracking-wider"> Setlist: </ion-note>
             {{ data.title }}
           </div>
         </ion-title>
-        <ion-buttons
-          v-if="next"
-          slot="end"
-          class="w-1/2 lg:w-1/3 flex justify-end"
-        >
+        <ion-buttons v-if="next" slot="end" class="w-1/2 lg:w-1/3 flex justify-end">
           <ion-item
             button
             class="w-full"

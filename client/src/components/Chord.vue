@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import ChordDiagramReference from "@/components/ChordDiagramReference.vue";
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
-import { computed } from "vue";
 import { Chord } from "chordsheetjs";
+import { computed } from "vue";
 
 const { name } = defineProps<{ name: string }>();
 

@@ -1,6 +1,6 @@
-import { useSongsheetParser, preferredModifierForKey } from "@/composables";
-import { describe, expect, test, beforeEach } from "vitest";
-import { reactive, nextTick } from "vue";
+import { preferredModifierForKey, useSongsheetParser } from "@/composables";
+import { beforeEach, describe, expect, test } from "vitest";
+import { nextTick, reactive } from "vue";
 
 import type { Reactive } from "vue";
 
@@ -75,7 +75,7 @@ describe("transposing", () => {
     const { song } = useSongsheetParser("{define: Cmaj7	base-fret 3 frets x 1 3 2 3 1}\n[Cmaj7]");
     expect(song.value!.getChords()).toEqual(["Cma7"]);
     expect(Object.keys(song.value!.getChordDefinitions())).toEqual(["Cma7"]);
-  })
+  });
 });
 
 describe("modifier", () => {
@@ -87,9 +87,7 @@ describe("modifier", () => {
   });
 
   test("b modifier", async () => {
-    const parser = reactive(
-      useSongsheetParser("{key: A#}\n[A#]", { modifier: "b" }),
-    );
+    const parser = reactive(useSongsheetParser("{key: A#}\n[A#]", { modifier: "b" }));
     await nextTick();
     expect(parser.modifier).toEqual("b");
     expect(parser.key).toEqual("Bb");
@@ -97,9 +95,7 @@ describe("modifier", () => {
   });
 
   test("# modifier", async () => {
-    const parser = reactive(
-      useSongsheetParser("{key: Db}\n[Db]", { modifier: "#" }),
-    );
+    const parser = reactive(useSongsheetParser("{key: Db}\n[Db]", { modifier: "#" }));
     await nextTick();
     expect(parser.modifier).toEqual("#");
     expect(parser.key).toEqual("C#");
@@ -143,30 +139,27 @@ describe("chords", () => {
   });
 
   test("returns chords used in the song", () => {
-    const { chords } = useSongsheetParser(
-      "{title: Hello}\n[C]Hello [G]world [D]!",
-    );
+    const { chords } = useSongsheetParser("{title: Hello}\n[C]Hello [G]world [D]!");
     expect(chords.value.map((c) => c.toString())).toEqual(["C", "G", "D"]);
   });
 });
 
-
 describe("preferredModifierForKey", () => {
-  ["C", "Am"].forEach(key => {
+  ["C", "Am"].forEach((key) => {
     test(`is null for ${key}`, () => {
       expect(preferredModifierForKey(key)).toBeNull();
-    })
+    });
   });
 
-  ["G", "D", "A", "E", "B", "A#", "C#", "D#", "F#", "G#", "Em", "Bm"].forEach(key => {
+  ["G", "D", "A", "E", "B", "A#", "C#", "D#", "F#", "G#", "Em", "Bm"].forEach((key) => {
     test(`is # for ${key}`, () => {
       expect(preferredModifierForKey(key)).toEqual("#");
-    })
+    });
   });
 
-  ["F", "Bb", "Eb", "Ab", "Db", "Gb"].forEach(key => {
+  ["F", "Bb", "Eb", "Ab", "Db", "Gb"].forEach((key) => {
     test(`is b for ${key}`, () => {
       expect(preferredModifierForKey(key)).toEqual("b");
-    })
+    });
   });
-})
+});

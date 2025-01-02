@@ -29,12 +29,7 @@ const auth = useAuthStore();
           </ion-item>
         </ion-list>
         <div class="ion-padding">
-          <ion-button
-            class="mx-auto"
-            color="medium"
-            fill="outline"
-            @click="auth.signOut"
-          >
+          <ion-button class="mx-auto" color="medium" fill="outline" @click="auth.signOut">
             <ion-icon slot="start" :icon="icons.signout" />
             Sign Out
           </ion-button>

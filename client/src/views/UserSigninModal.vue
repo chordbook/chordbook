@@ -26,21 +26,13 @@ watchEffect(() => {
         <ion-toolbar>
           <ion-title>Sign In</ion-title>
           <ion-buttons slot="end">
-            <ion-back-button
-              role="cancel"
-              icon=""
-              text="Cancel"
-              :default-href="route.path"
-            />
+            <ion-back-button role="cancel" icon="" text="Cancel" :default-href="route.path" />
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content color="light">
         <form @submit.prevent="execute(false)">
-          <div
-            v-if="!isFetching && data?.error?.message"
-            class="ion-padding text-red-500"
-          >
+          <div v-if="!isFetching && data?.error?.message" class="ion-padding text-red-500">
             {{ data.error.message }}
           </div>
           <ion-list inset>
@@ -83,9 +75,7 @@ watchEffect(() => {
           <h2 class="font-semibold text-lg">Don't have an account?</h2>
 
           <div class="ion-margin">
-            <ion-button fill="outline" router-link="#signup">
-              Sign up for Chord Book
-            </ion-button>
+            <ion-button fill="outline" router-link="#signup"> Sign up for Chord Book </ion-button>
           </div>
         </div>
       </ion-content>

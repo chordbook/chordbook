@@ -1,9 +1,9 @@
 <script lang="ts" setup>
+import Chord from "@/components/Chord.vue";
 import MetadataChip from "@/components/MetadataChip.vue";
-import Chord from "@/components/Chord.vue"
-import { Song, ChordLyricsPair, Tag, Literal } from "chordsheetjs";
-import { formatArray } from "@/util";
 import { useThemeStore } from "@/stores";
+import { formatArray } from "@/util";
+import { ChordLyricsPair, Literal, Song, Tag } from "chordsheetjs";
 
 defineProps<{ song: Song }>();
 
@@ -36,9 +36,7 @@ const theme = useThemeStore();
         class="w-full md:w-auto md:ml-auto flex flex-row gap-x-1"
       >
         <MetadataChip name="Key">
-          <span class="chord pr-0">{{
-            song.metadata.get("_key") || song.key
-          }}</span>
+          <span class="chord pr-0">{{ song.metadata.get("_key") || song.key }}</span>
         </MetadataChip>
         <MetadataChip v-if="Number(song.capo) > 0" name="Capo" :value="song.capo?.toString()" />
         <MetadataChip v-else name="No capo" />
@@ -51,11 +49,7 @@ const theme = useThemeStore();
       <slot name="media" />
     </div>
     <div class="body order-3">
-      <div
-        v-for="({ type, lines }, i) in song.paragraphs"
-        :key="i"
-        :class="type + ' paragraph'"
-      >
+      <div v-for="({ type, lines }, i) in song.paragraphs" :key="i" :class="type + ' paragraph'">
         <template v-for="(line, j) in lines" :key="j">
           <div v-if="line.hasRenderableItems()" class="row">
             <template v-for="(item, k) in line.items" :key="k">

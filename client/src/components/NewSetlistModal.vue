@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { modalController } from "@ionic/vue";
 import { useFetch } from "@/client";
+import { modalController } from "@ionic/vue";
 import { reactive } from "vue";
 
-const params = reactive<{ title?: string, description?: string }>({});
+const params = reactive<{ title?: string; description?: string }>({});
 
 async function save() {
   const { data } = await useFetch("setlists").post({ setlist: params }).json();
@@ -16,9 +16,7 @@ async function save() {
     <ion-toolbar>
       <ion-title>New Setlist</ion-title>
       <ion-buttons slot="start">
-        <ion-button role="cancel" @click="modalController.dismiss()">
-          Cancel
-        </ion-button>
+        <ion-button role="cancel" @click="modalController.dismiss()"> Cancel </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>

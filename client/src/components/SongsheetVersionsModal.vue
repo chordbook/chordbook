@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { modalController } from "@ionic/vue";
 import SongsheetItem from "@/components/SongsheetItem.vue";
+import { modalController } from "@ionic/vue";
 
 defineProps<{
   id: string;
@@ -14,9 +14,7 @@ defineProps<{
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button role="cancel" @click="modalController.dismiss()">
-              Cancel
-            </ion-button>
+            <ion-button role="cancel" @click="modalController.dismiss()"> Cancel </ion-button>
           </ion-buttons>
           <ion-title>Alternate Versions</ion-title>
         </ion-toolbar>

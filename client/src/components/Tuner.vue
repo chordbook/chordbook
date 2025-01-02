@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { createTuner } from "@chordbook/tuner";
 import TunerMeter from "@/components/TunerMeter.vue";
-import { mic, micOff } from "ionicons/icons";
+import { createTuner } from "@chordbook/tuner";
 import { useDebounceFn } from "@vueuse/core";
-import { ref, watch, useTemplateRef } from "vue";
+import { mic, micOff } from "ionicons/icons";
+import { ref, useTemplateRef, watch } from "vue";
 
-const frequencyBars = useTemplateRef('frequencyBars'); // template ref
+const frequencyBars = useTemplateRef("frequencyBars"); // template ref
 const tuner = createTuner({
   onNote: (n) => {
     note.value = n;
@@ -17,7 +17,12 @@ const active = ref(false);
 let frequencyData: Uint8Array = new Uint8Array();
 
 // Clear cents after 1 second
-watch( note, useDebounceFn((note) => { note.cents = null }, 1000));
+watch(
+  note,
+  useDebounceFn((note) => {
+    note.cents = null;
+  }, 1000),
+);
 
 async function start() {
   active.value = true;
@@ -76,19 +81,17 @@ function updateFrequencyBars() {
             <span class="absolute font-normal text-3xl top-2 -right-5">{{
               note.name[1] || ""
             }}</span>
-            <span
-              class="absolute font-normal text-lg opacity-70 bottom-1 -right-5"
-              >{{ note.octave }}</span
-            >
+            <span class="absolute font-normal text-lg opacity-70 bottom-1 -right-5">{{
+              note.octave
+            }}</span>
           </div>
         </div>
         <div
           class="text-gray-500/60 absolute bottom-5 left-0 right-0 text-center whitespace-nowrap"
         >
-          <span
-            class="inline-block font-mono text-sm font-bold w-8 ml-2 mr-1 text-right"
-            >{{ note.frequency.toFixed(0) }}</span
-          >
+          <span class="inline-block font-mono text-sm font-bold w-8 ml-2 mr-1 text-right">{{
+            note.frequency.toFixed(0)
+          }}</span>
           <span class="text-xs">Hz</span>
         </div>
       </div>

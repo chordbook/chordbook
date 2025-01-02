@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import SongsheetItem from "@/components/SongsheetItem.vue";
-import LibraryPlaceholder from "../components/LibraryPlaceholder.vue";
-import { add } from "ionicons/icons";
 import { DataSource } from "@/components";
+import SongsheetItem from "@/components/SongsheetItem.vue";
+import { add } from "ionicons/icons";
 import { useTemplateRef } from "vue";
+import LibraryPlaceholder from "../components/LibraryPlaceholder.vue";
 
-const dataSource = useTemplateRef('dataSource')
+const dataSource = useTemplateRef("dataSource");
 </script>
 
 <template>
@@ -50,11 +50,7 @@ const dataSource = useTemplateRef('dataSource')
         </template>
         <template #default="{ items }">
           <ion-list>
-            <songsheet-item
-              v-for="songsheet in items"
-              :key="songsheet.id"
-              v-bind="songsheet"
-            />
+            <songsheet-item v-for="songsheet in items" :key="songsheet.id" v-bind="songsheet" />
           </ion-list>
         </template>
       </DataSource>

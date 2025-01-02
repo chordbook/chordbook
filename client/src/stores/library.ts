@@ -1,7 +1,7 @@
-import { defineStore } from "pinia";
-import { ref, watch, unref } from "vue";
 import { useFetch } from "@/client";
 import useAuthStore from "@/stores/auth";
+import { defineStore } from "pinia";
+import { ref, unref, watch } from "vue";
 
 export default (id: string) => {
   return defineStore(`Library:${id}`, () => {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import type { Album } from "@/api";
 import AlbumItem from "@/components/AlbumItem.vue";
 import LibraryPlaceholder from "@/components/LibraryPlaceholder.vue";
-import type { Album } from "@/api";
 </script>
 
 <template>
@@ -12,7 +12,11 @@ import type { Album } from "@/api";
     <ion-header translucent collapse="fade">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button class="md:hidden" text="" :default-href="$route.path.replace('/albums', '')" />
+          <ion-back-button
+            class="md:hidden"
+            text=""
+            :default-href="$route.path.replace('/albums', '')"
+          />
         </ion-buttons>
         <ion-title>Albums</ion-title>
       </ion-toolbar>
@@ -33,11 +37,7 @@ import type { Album } from "@/api";
             <div
               class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8"
             >
-              <album-item
-                v-for="album in items"
-                :key="album.id"
-                v-bind="album"
-              />
+              <album-item v-for="album in items" :key="album.id" v-bind="album" />
             </div>
           </ion-list>
         </template>

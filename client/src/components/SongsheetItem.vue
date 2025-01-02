@@ -6,9 +6,11 @@ import * as icons from "@/icons";
 
 import type { Songsheet } from "@/api";
 
-defineProps<Songsheet & {
-  setlistId?: string;
-}>();
+defineProps<
+  Songsheet & {
+    setlistId?: string;
+  }
+>();
 </script>
 
 <template>
@@ -20,26 +22,15 @@ defineProps<Songsheet & {
     }"
     detail="false"
   >
-    <model-avatar
-      slot="start"
-      :src="track?.album?.cover?.medium"
-      type="Songsheet"
-    />
+    <model-avatar slot="start" :src="track?.album?.cover?.medium" type="Songsheet" />
     <ion-label class="truncate">
       <h2>{{ title }}</h2>
       <p v-if="subtitle">
         {{ subtitle }}
       </p>
     </ion-label>
-    <ion-note
-      v-if="metadata.key || metadata.capo"
-      slot="end"
-      class="text-center w-10 text-nowrap"
-    >
-      <div
-        v-if="metadata.capo"
-        class="text-[0.6rem] uppercase font-semibold opacity-80"
-      >
+    <ion-note v-if="metadata.key || metadata.capo" slot="end" class="text-center w-10 text-nowrap">
+      <div v-if="metadata.capo" class="text-[0.6rem] uppercase font-semibold opacity-80">
         Capo {{ metadata.capo }}
       </div>
       <span v-if="metadata.key" class="text-sm">
@@ -54,12 +45,7 @@ defineProps<Songsheet & {
       color="dark"
       @click.prevent=""
     >
-      <ion-icon
-        slot="icon-only"
-        size="small"
-        :ios="icons.iosEllipsis"
-        :md="icons.mdEllipsis"
-      />
+      <ion-icon slot="icon-only" size="small" :ios="icons.iosEllipsis" :md="icons.mdEllipsis" />
     </ion-button>
     <ion-reorder slot="end" />
 

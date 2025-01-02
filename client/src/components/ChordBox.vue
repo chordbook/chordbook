@@ -1,9 +1,14 @@
 <script lang="ts" setup>
-import { ChordBox } from "@chordbook/charts";
 import ChordData from "@/ChordData";
+import { ChordBox } from "@chordbook/charts";
 import { computed, ref } from "vue";
 
-const { as = 'symbol', data, width = 50, height = 65 } = defineProps<{
+const {
+  as = "symbol",
+  data,
+  width = 50,
+  height = 65,
+} = defineProps<{
   data: ChordData;
   as?: string;
   width?: number;

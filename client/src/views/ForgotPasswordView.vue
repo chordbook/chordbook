@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import useAuthStore from "@/stores/auth";
+import { ref } from "vue";
 
 const auth = useAuthStore();
 const params = ref<Record<string, string>>({});
@@ -19,19 +19,12 @@ const { isFinished, error, execute, data } = auth.forgotPassword(params, {
       <ion-toolbar>
         <ion-title> Reset Password </ion-title>
         <ion-buttons slot="end">
-          <ion-back-button
-            role="cancel"
-            icon=""
-            text="Cancel"
-            default-href="/"
-          />
+          <ion-back-button role="cancel" icon="" text="Cancel" default-href="/" />
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <div
-        class="max-w-md m-auto flex flex-col justify-center h-full main-content"
-      >
+      <div class="max-w-md m-auto flex flex-col justify-center h-full main-content">
         <div v-if="isFinished && !error" class="text-center">
           <p class="text-lg">
             {{ data.message }}
@@ -51,9 +44,7 @@ const { isFinished, error, execute, data } = auth.forgotPassword(params, {
             />
           </ion-item>
           <div class="ion-margin">
-            <ion-button type="submit" expand="block">
-              Reset Password
-            </ion-button>
+            <ion-button type="submit" expand="block"> Reset Password </ion-button>
           </div>
           <div class="ion-margin text-center text-sm text-muted">
             <router-link to="#signin"> Sign In </router-link>

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { ref, onErrorCaptured, watch } from "vue";
-import { useOnline } from "@vueuse/core";
 import ErrorMessage from "@/components/ErrorMessage.vue";
 import OfflineMessage from "@/components/OfflineMessage.vue";
+import { useOnline } from "@vueuse/core";
+import { onErrorCaptured, ref, watch } from "vue";
 
 const online = useOnline();
 const error = ref<unknown>(null);
@@ -19,11 +19,7 @@ watch(online, (online) => {
 
 <template>
   <ion-page>
-    <error-message
-      v-if="error && online"
-      :error="error"
-      @did-dismiss="error = null"
-    />
+    <error-message v-if="error && online" :error="error" @did-dismiss="error = null" />
 
     <OfflineMessage v-if="error && !online" />
     <loading v-else>

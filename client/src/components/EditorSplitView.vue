@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { useTemplateRef } from "vue";
-import { useMediaQuery } from "@vueuse/core";
 import { IonModal } from "@ionic/vue";
+import { useMediaQuery } from "@vueuse/core";
+import { useTemplateRef } from "vue";
 
 const disabled = useMediaQuery("(max-width: 992px)");
-const right = useTemplateRef<HTMLDivElement | typeof IonModal>('right');
+const right = useTemplateRef<HTMLDivElement | typeof IonModal>("right");
 
 function toggle() {
   if (!disabled.value || right.value) return;

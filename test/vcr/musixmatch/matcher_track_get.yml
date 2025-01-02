@@ -1,62 +1,63 @@
 ---
 http_interactions:
-- request:
-    method: get
-    uri: https://api.musixmatch.com/ws/1.1/matcher.track.get?apikey=<MUSIXMATCH-API-KEY>&q_album=Let%20It%20Be&q_artist=The%20Beatles&q_track=Let%20It%20Be
-    body:
-      encoding: US-ASCII
-      string: ''
-    headers:
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-      User-Agent:
-      - Ruby
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '1005'
-      Content-Type:
-      - text/plain; charset=utf-8
-      Server:
-      - nginx
-      Via:
-      - 1.1 varnish, 1.1 varnish
-      X-Mxm-Header-Execute-Time:
-      - '0.16777205467224'
-      X-Mxm-Header-Status:
-      - '200'
-      X-Restarts:
-      - '0'
-      X-Varnish-Instance:
-      - api
-      Accept-Ranges:
-      - bytes
-      Age:
-      - '0'
-      Date:
-      - Fri, 03 May 2024 17:26:20 GMT
-      X-Served-By:
-      - cache-pdk-kpdk1780107-PDK
-      X-Cache:
-      - MISS
-      X-Cache-Hits:
-      - '0'
-      X-Timer:
-      - S1714757180.953895,VS0,VE205
-      Vary:
-      - Accept-Encoding
-    body:
-      encoding: ASCII-8BIT
-      string: '{"message":{"header":{"status_code":200,"execute_time":0.16777205467224,"confidence":1000,"mode":"search","cached":0},"body":{"track":{"track_id":277941381,"track_name":"Let
-        It Be","track_name_translation_list":[],"track_rating":57,"commontrack_id":168735284,"instrumental":0,"explicit":0,"has_lyrics":1,"has_subtitles":1,"has_richsync":1,"num_favourite":18,"album_id":62678941,"album_name":"Let
-        It Be","artist_id":160,"artist_name":"The Beatles","track_share_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-5?utm_source=application&utm_campaign=api&utm_medium=","track_edit_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-5\/edit?utm_source=application&utm_campaign=api&utm_medium=","restricted":0,"updated_time":"2024-01-20T08:09:16Z","primary_genres":{"music_genre_list":[{"music_genre":{"music_genre_id":1146,"music_genre_parent_id":21,"music_genre_name":"Arena
-        Rock","music_genre_name_extended":"Rock \/ Arena Rock","music_genre_vanity":"Rock-Arena-Rock"}}]}}}}}'
-  recorded_at: Fri, 03 May 2024 17:26:20 GMT
+  - request:
+      method: get
+      uri: https://api.musixmatch.com/ws/1.1/matcher.track.get?apikey=<MUSIXMATCH-API-KEY>&q_album=Let%20It%20Be&q_artist=The%20Beatles&q_track=Let%20It%20Be
+      body:
+        encoding: US-ASCII
+        string: ""
+      headers:
+        Accept-Encoding:
+          - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+        Accept:
+          - "*/*"
+        User-Agent:
+          - Ruby
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Connection:
+          - keep-alive
+        Content-Length:
+          - "1005"
+        Content-Type:
+          - text/plain; charset=utf-8
+        Server:
+          - nginx
+        Via:
+          - 1.1 varnish, 1.1 varnish
+        X-Mxm-Header-Execute-Time:
+          - "0.16777205467224"
+        X-Mxm-Header-Status:
+          - "200"
+        X-Restarts:
+          - "0"
+        X-Varnish-Instance:
+          - api
+        Accept-Ranges:
+          - bytes
+        Age:
+          - "0"
+        Date:
+          - Fri, 03 May 2024 17:26:20 GMT
+        X-Served-By:
+          - cache-pdk-kpdk1780107-PDK
+        X-Cache:
+          - MISS
+        X-Cache-Hits:
+          - "0"
+        X-Timer:
+          - S1714757180.953895,VS0,VE205
+        Vary:
+          - Accept-Encoding
+      body:
+        encoding: ASCII-8BIT
+        string:
+          '{"message":{"header":{"status_code":200,"execute_time":0.16777205467224,"confidence":1000,"mode":"search","cached":0},"body":{"track":{"track_id":277941381,"track_name":"Let
+          It Be","track_name_translation_list":[],"track_rating":57,"commontrack_id":168735284,"instrumental":0,"explicit":0,"has_lyrics":1,"has_subtitles":1,"has_richsync":1,"num_favourite":18,"album_id":62678941,"album_name":"Let
+          It Be","artist_id":160,"artist_name":"The Beatles","track_share_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-5?utm_source=application&utm_campaign=api&utm_medium=","track_edit_url":"https:\/\/www.musixmatch.com\/lyrics\/The-Beatles\/Let-It-Be-5\/edit?utm_source=application&utm_campaign=api&utm_medium=","restricted":0,"updated_time":"2024-01-20T08:09:16Z","primary_genres":{"music_genre_list":[{"music_genre":{"music_genre_id":1146,"music_genre_parent_id":21,"music_genre_name":"Arena
+          Rock","music_genre_name_extended":"Rock \/ Arena Rock","music_genre_vanity":"Rock-Arena-Rock"}}]}}}}}'
+    recorded_at: Fri, 03 May 2024 17:26:20 GMT
 recorded_with: VCR 6.2.0

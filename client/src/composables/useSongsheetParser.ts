@@ -1,26 +1,29 @@
-import { ref, toRef, computed, watchEffect, toValue } from "vue";
 import {
-  Song,
   Chord,
   ChordLyricsPair,
-  Key,
-  Tag,
   ChordProParser,
   ChordsOverWordsParser,
+  Key,
+  Song,
+  Tag,
   UltimateGuitarParser,
 } from "chordsheetjs";
+import { computed, ref, toRef, toValue, watchEffect } from "vue";
 
 import type { MaybeRefOrGetter } from "vue";
 
-export type Modifier = '#' | 'b';
+export type Modifier = "#" | "b";
 
 export type SongsheetSettings = {
   transpose?: number;
   capo?: number;
-  modifier?: Modifier
-}
+  modifier?: Modifier;
+};
 
-export default function useSongsheetParser(source: MaybeRefOrGetter<string | null>, settings: SongsheetSettings = {}) {
+export default function useSongsheetParser(
+  source: MaybeRefOrGetter<string | null>,
+  settings: SongsheetSettings = {},
+) {
   // The parser to use for the source document (ChordPro, ChordsOverWords, UltimateGuitar)
   const parser = computed(() => detectFormat(toValue(source)));
 
@@ -48,7 +51,10 @@ export default function useSongsheetParser(source: MaybeRefOrGetter<string | nul
   // The concert key of the song
   const key = computed(() => {
     const value = capo.value === 0 ? song.value?.key : song.value?.metadata.calculateKeyFromCapo();
-    return Key.wrap(value ?? null)?.useModifier(modifier.value).normalize().toString();
+    return Key.wrap(value ?? null)
+      ?.useModifier(modifier.value)
+      .normalize()
+      .toString();
   });
 
   // Parse the song when the source changes. This uses `watchEffect` instead of `computed` so we
@@ -72,9 +78,7 @@ export default function useSongsheetParser(source: MaybeRefOrGetter<string | nul
     if (!originalSong.value) return;
 
     const capoDelta = Number(originalSong.value.capo || 0) - capo.value;
-    let newSong = originalSong.value
-      .transpose(transpose.value + capoDelta)
-      .setCapo(capo.value);
+    let newSong = originalSong.value.transpose(transpose.value + capoDelta).setCapo(capo.value);
     if (!newSong.key) newSong = newSong.setKey(guessKey(newSong.getChords()));
     song.value = normalize(newSong, modifier.value || preferredModifierForKey(newSong.key));
   });
@@ -106,15 +110,17 @@ export function normalize(song: Song, modifier: Modifier | null) {
       if (key) return item.set({ value: key });
     } else if (item instanceof Tag && item.chordDefinition) {
       // Normalize chord names in definitions (e.g. Cmaj7 => Cma7)
-      let chord = Chord.parse(item.chordDefinition.name)
+      let chord = Chord.parse(item.chordDefinition.name);
       if (chord) {
         if (modifier) chord = chord.useModifier(modifier);
-        item.chordDefinition.name = chord.normalize(key, { normalizeSuffix: true }).toString()
+        item.chordDefinition.name = chord.normalize(key, { normalizeSuffix: true }).toString();
       }
     } else if (item instanceof ChordLyricsPair) {
       const chord = Chord.parse(item.chords.trim());
       if (chord) {
-        const normalized = chord.useModifier(modifier as Modifier).normalize(key, { normalizeSuffix: true })
+        const normalized = chord
+          .useModifier(modifier as Modifier)
+          .normalize(key, { normalizeSuffix: true });
         if (normalized) return item.set({ chords: normalized.toString() });
       }
     }

@@ -13,6 +13,6 @@
 export default new Proxy(console, {
   get(target, prop) {
     const debug = (window as any).debug || localStorage.getItem("debug");
-    return debug ? target[prop as keyof typeof target] : function () { };
+    return debug ? target[prop as keyof typeof target] : function () {};
   },
 });

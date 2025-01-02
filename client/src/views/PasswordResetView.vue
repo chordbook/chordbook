@@ -10,7 +10,7 @@ const props = defineProps<{
 }>();
 const params = ref({
   token: props.token,
-  password: ""
+  password: "",
 });
 
 const { execute, data, onFetchResponse } = auth.resetPassword(params, {
@@ -31,12 +31,7 @@ onFetchResponse(() => {
       <ion-toolbar>
         <ion-title>Reset Your Password</ion-title>
         <ion-buttons slot="end">
-          <ion-back-button
-            role="cancel"
-            icon=""
-            text="Cancel"
-            default-href="#signin"
-          />
+          <ion-back-button role="cancel" icon="" text="Cancel" default-href="#signin" />
         </ion-buttons>
       </ion-toolbar>
     </ion-header>

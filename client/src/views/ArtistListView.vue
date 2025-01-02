@@ -2,7 +2,7 @@
 import ArtistItem from "@/components/ArtistItem.vue";
 import LibraryPlaceholder from "@/components/LibraryPlaceholder.vue";
 
-import type { Artist } from "@/api"
+import type { Artist } from "@/api";
 </script>
 
 <template>
@@ -36,11 +36,7 @@ import type { Artist } from "@/api"
         </template>
         <template #default="{ items }: { items: Artist[] }">
           <ion-list>
-            <artist-item
-              v-for="artist in items"
-              :key="artist.id"
-              v-bind="artist"
-            />
+            <artist-item v-for="artist in items" :key="artist.id" v-bind="artist" />
           </ion-list>
         </template>
       </data-source>

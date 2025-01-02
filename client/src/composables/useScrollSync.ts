@@ -1,5 +1,5 @@
+import { useDebounceFn, useEventListener } from "@vueuse/core";
 import { computed, ref, toValue } from "vue";
-import { useEventListener, useDebounceFn } from "@vueuse/core";
 
 import type { Ref } from "vue";
 
@@ -24,8 +24,7 @@ export default function useScrollSync(...elements: Ref<HTMLElement>[]) {
 
       refs.forEach((ref) => {
         if (ref.value && ref.value !== target) {
-          ref.value.scrollTop =
-            progress * (ref.value.scrollHeight - ref.value.clientHeight);
+          ref.value.scrollTop = progress * (ref.value.scrollHeight - ref.value.clientHeight);
         }
       });
 

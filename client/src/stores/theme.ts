@@ -1,5 +1,5 @@
-import { defineStore } from "pinia";
 import { useStorage } from "@vueuse/core";
+import { defineStore } from "pinia";
 
 const sizes = ["sm", "md", "lg", "xl", "2xl", "3xl"];
 

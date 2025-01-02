@@ -1,32 +1,34 @@
 <script lang="ts" setup>
 import { CupertinoPane, type CupertinoSettings } from "cupertino-pane";
 import {
-  ref,
   computed,
-  onMounted,
-  onBeforeUnmount,
-  watchEffect,
   defineExpose,
-  useTemplateRef
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  useTemplateRef,
+  watchEffect,
 } from "vue";
 
-const { isOpen = false, canDismiss = false, settings = {} } = defineProps<{
+const {
+  isOpen = false,
+  canDismiss = false,
+  settings = {},
+} = defineProps<{
   isOpen?: boolean;
   canDismiss?: boolean;
   settings?: CupertinoSettings;
 }>();
 
 const emit = defineEmits<{
-  "will-present": [pane: CupertinoPane]
-  "did-present": [pane: CupertinoPane]
-  "will-dismiss": [pane: CupertinoPane]
-  "did-dismiss": [pane: CupertinoPane]
-  "breakpoint-did-change": [breakpoint: Breaks]
-}>()
+  "will-present": [pane: CupertinoPane];
+  "did-present": [pane: CupertinoPane];
+  "will-dismiss": [pane: CupertinoPane];
+  "did-dismiss": [pane: CupertinoPane];
+  "breakpoint-did-change": [breakpoint: Breaks];
+}>();
 
-
-
-const el = useTemplateRef('el');
+const el = useTemplateRef("el");
 const pane = ref<CupertinoPane>();
 const height = ref(0);
 const transition = ref("initial");
@@ -59,9 +61,7 @@ onMounted(async () => {
   pane.value.on("rendered", () => {
     const currentBreak = pane.value?.currentBreak() as Breaks;
     const breakSettings = pane.value!.settings.breaks![currentBreak];
-    transition.value = pane.value!.transitions.buildTransitionValue(
-      breakSettings?.bounce ?? false,
-    );
+    transition.value = pane.value!.transitions.buildTransitionValue(breakSettings?.bounce ?? false);
     height.value = breakSettings?.height ?? 0;
   });
 
@@ -75,10 +75,13 @@ onMounted(async () => {
     height.value = window.innerHeight - translateY;
   });
 
-  pane.value.on("onTransitionStart", ({ transition: t, translateY }: { transition: string, translateY: { new: number }}) => {
-    transition.value = t;
-    height.value = window.innerHeight - translateY.new;
-  });
+  pane.value.on(
+    "onTransitionStart",
+    ({ transition: t, translateY }: { transition: string; translateY: { new: number } }) => {
+      transition.value = t;
+      height.value = window.innerHeight - translateY.new;
+    },
+  );
 });
 
 watchEffect(() => {

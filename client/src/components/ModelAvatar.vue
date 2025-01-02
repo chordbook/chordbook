@@ -1,6 +1,6 @@
 <script lang="ts" setup>
+import { album, artist, song } from "@/icons";
 import { computed } from "vue";
-import { artist, album, song } from "@/icons";
 
 const icons = {
   artist,
@@ -14,9 +14,7 @@ const props = defineProps<{
   type: string;
 }>();
 
-const borderRadius = computed(() =>
-  props.type.toLowerCase() === "artist" ? "50%" : "0.25rem",
-);
+const borderRadius = computed(() => (props.type.toLowerCase() === "artist" ? "50%" : "0.25rem"));
 </script>
 
 <template>

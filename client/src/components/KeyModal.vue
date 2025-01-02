@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { watch, computed, ref, inject } from "vue";
-import { Song, Key, Chord } from "chordsheetjs";
-import { preferredModifierForKey } from "@/composables";
 import MetadataChip from "@/components/MetadataChip.vue";
+import { preferredModifierForKey } from "@/composables";
+import { Chord, Key, Song } from "chordsheetjs";
+import { computed, inject, ref, watch } from "vue";
 
 import type { IonPageLifecycle } from "@/composables";
 
@@ -32,9 +32,11 @@ const transpositions = computed(() => {
       .useModifier(modifier.value)
       .normalize();
     const chordModifier = modifier.value || preferredModifierForKey(key.toString())!;
-    const chords = props.song?.getChords().map((chord) =>
-      Chord.parse(chord)!.transpose(transpose).useModifier(chordModifier).normalize(key),
-    );
+    const chords = props.song
+      ?.getChords()
+      .map((chord) =>
+        Chord.parse(chord)!.transpose(transpose).useModifier(chordModifier).normalize(key),
+      );
 
     return { step, capo, chords, key };
   });
@@ -44,8 +46,7 @@ async function scrollToActive(smooth = true) {
   requestAnimationFrame(() => {
     const index = transpositions.value.findIndex(
       ({ capo, step }) =>
-        capoModel.value === capo &&
-        step === transposeModel.value - capoModel.value,
+        capoModel.value === capo && step === transposeModel.value - capoModel.value,
     );
     const el = keyEls.value[index];
     el.scrollIntoView({

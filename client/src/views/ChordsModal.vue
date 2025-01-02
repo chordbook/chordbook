@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import ChordBox from "../components/ChordBox.vue";
 import ChordData, { Instrument } from "@/ChordData";
-import { ref, computed } from "vue";
 import { Chord } from "chordsheetjs";
+import { computed, ref } from "vue";
+import ChordBox from "../components/ChordBox.vue";
 
 import type { ChordPositionData, Keys } from "@/ChordData";
 
@@ -14,9 +14,7 @@ const width = ref(75);
 const height = ref(100);
 
 const data = computed(() => ChordData.db[selectedInstrument.value]);
-const chords = computed(
-  () => data.value.chords[normalizeKey(selectedKey.value)],
-);
+const chords = computed(() => data.value.chords[normalizeKey(selectedKey.value)]);
 const chordData = computed(() => chords.value?.[selectedChord.value!]);
 
 function normalizeChordName(name: string) {
@@ -53,40 +51,21 @@ function positionData(position: ChordPositionData) {
             </ion-select-option>
           </ion-select>
           <ion-buttons slot="end">
-            <ion-back-button
-              role="cancel"
-              icon=""
-              text="Done"
-              default-href="/"
-            />
+            <ion-back-button role="cancel" icon="" text="Done" default-href="/" />
           </ion-buttons>
         </ion-toolbar>
         <ion-toolbar>
-          <ion-segment
-            v-model="selectedKey"
-            class="mx-auto max-w-4xl"
-            scrollable
-          >
-            <ion-segment-button
-              v-for="key in data?.keys"
-              :key="key"
-              :value="key"
-            >
-              <ion-label>{{
-                Chord.parse(key)!.toString({ useUnicodeModifier: true })
-              }}</ion-label>
+          <ion-segment v-model="selectedKey" class="mx-auto max-w-4xl" scrollable>
+            <ion-segment-button v-for="key in data?.keys" :key="key" :value="key">
+              <ion-label>{{ Chord.parse(key)!.toString({ useUnicodeModifier: true }) }}</ion-label>
             </ion-segment-button>
           </ion-segment>
         </ion-toolbar>
       </ion-header>
       <ion-content class="ion-padding">
-        Key: {{ selectedKey }}
-        Chord: {{ selectedChord }}
+        Key: {{ selectedKey }} Chord: {{ selectedChord }}
         <ion-list lines="none" class="mt-6 chord-grid">
-          <template
-            v-for="(chord, index) in chords"
-            :key="chord.key + chord.suffix"
-          >
+          <template v-for="(chord, index) in chords" :key="chord.key + chord.suffix">
             <ion-item
               v-if="normalizeChordName(chord.key + chord.suffix)"
               button
@@ -124,11 +103,7 @@ function positionData(position: ChordPositionData) {
           </ion-header>
           <ion-content class="ion-padding">
             <div class="mt-6 chord-grid text-center">
-              <div
-                v-for="(position, index) in chordData!.positions"
-                :key="index"
-                class="flex-grow"
-              >
+              <div v-for="(position, index) in chordData!.positions" :key="index" class="flex-grow">
                 <h3>{{ index + 1 }}</h3>
                 <chord-box
                   class="inline"

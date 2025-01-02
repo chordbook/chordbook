@@ -1,10 +1,13 @@
-import { ref, reactive, computed } from "vue";
 import { useFetch } from "@/client";
 import LinkHeader from "http-link-header";
+import { computed, reactive, ref } from "vue";
 
-import type { UseFetchReturn, UseFetchOptionsWithParams } from "@/client";
+import type { UseFetchOptionsWithParams, UseFetchReturn } from "@/client";
 
-export default function usePaginatedFetch(url: string, fetchOptions: UseFetchOptionsWithParams = {}) {
+export default function usePaginatedFetch(
+  url: string,
+  fetchOptions: UseFetchOptionsWithParams = {},
+) {
   const nextUrl = ref<string | null>(url);
   // FIXME: This should be UseFetchReturn<any>[], but the `pages.push(…)` below gives a bizarre error
   const pages = reactive<any[]>([]);
@@ -28,14 +31,14 @@ export default function usePaginatedFetch(url: string, fetchOptions: UseFetchOpt
       pages.splice(-1);
     }
 
-    const page = useFetch(nextUrl.value, { ...fetchOptions, immediate: false }).get().json();
+    const page = useFetch(nextUrl.value, { ...fetchOptions, immediate: false })
+      .get()
+      .json();
 
     page.onFetchResponse(() => {
       items.push(...Array.from(page.data.value));
 
-      const links = LinkHeader.parse(
-        page.response.value?.headers.get("Link") ?? "",
-      );
+      const links = LinkHeader.parse(page.response.value?.headers.get("Link") ?? "");
       if (links.has("rel", "next")) {
         nextUrl.value = links.get("rel", "next")[0].uri;
         isPaginating.value = true;

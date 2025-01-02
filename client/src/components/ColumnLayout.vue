@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { ref, nextTick, watch } from "vue";
+import { nextTick, ref, watch } from "vue";
 
 const { enabled = false } = defineProps<{ enabled?: boolean }>();
 
 const content = ref();
-const columnWidth = ref('auto');
+const columnWidth = ref("auto");
 const updating = ref(false);
 
 // Calculate column width based on content width
@@ -20,16 +20,11 @@ async function updateColumnWidth() {
   updating.value = false;
 }
 
-watch([content, () => enabled], () =>
-  requestAnimationFrame(updateColumnWidth),
-);
+watch([content, () => enabled], () => requestAnimationFrame(updateColumnWidth));
 </script>
 
 <template>
-  <div
-    ref="content"
-    :class="{ columns: enabled && !updating, 'content-width': updating }"
-  >
+  <div ref="content" :class="{ columns: enabled && !updating, 'content-width': updating }">
     <slot />
   </div>
 </template>

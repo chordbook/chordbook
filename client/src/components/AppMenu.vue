@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { ref, watch } from "vue";
-import { useRoute } from "vue-router";
 import * as icons from "@/icons";
 import useAuthStore from "@/stores/auth";
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
 
 const auth = useAuthStore();
 const route = useRoute();
 const selected = ref("discover");
 
-watch(route, () => (selected.value = route.meta?.selected as string || selected.value), {
+watch(route, () => (selected.value = (route.meta?.selected as string) || selected.value), {
   immediate: true,
 });
 
@@ -121,21 +121,11 @@ ion-menu {
               <ion-icon slot="start" size="small" :icon="icons.news" />
               What's New
             </ion-item>
-            <ion-item
-              button
-              router-link="#chords"
-              router-direction="root"
-              :detail="false"
-            >
+            <ion-item button router-link="#chords" router-direction="root" :detail="false">
               <ion-icon slot="start" size="small" :icon="icons.chordDiagram" />
               Chords
             </ion-item>
-            <ion-item
-              button
-              router-link="#tuner"
-              router-direction="root"
-              :detail="false"
-            >
+            <ion-item button router-link="#tuner" router-direction="root" :detail="false">
               <ion-icon slot="start" size="small" :icon="icons.tuningFork" />
               Tuner
             </ion-item>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import TrackItem from "@/components/TrackItem.vue";
 import type { Track } from "@/api";
+import TrackItem from "@/components/TrackItem.vue";
 </script>
 
 <template>

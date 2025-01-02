@@ -1,10 +1,10 @@
 <script lang="ts" setup generic="T extends Album | Artist | Setlist | Songsheet | Track">
-import type { Album, Artist, Setlist, Songsheet, Track } from "@/api"
+import type { Album, Artist, Setlist, Songsheet, Track } from "@/api";
 
-import HorizontalScroller from "./HorizontalScroller.vue";
 import AlbumItem from "./AlbumItem.vue";
 import ArtistCard from "./ArtistCard.vue";
 import ArtistItem from "./ArtistItem.vue";
+import HorizontalScroller from "./HorizontalScroller.vue";
 import SetlistCard from "./SetlistCard.vue";
 import SetlistItem from "./SetlistItem.vue";
 import SongsheetItem from "./SongsheetItem.vue";
@@ -28,12 +28,12 @@ const components = {
 };
 
 const { items, format = "item" } = defineProps<{
-  items: T[]
+  items: T[];
   format?: "item" | "card";
 }>();
 
 function componentFor(item: T) {
-  return components[format][item.type]
+  return components[format][item.type];
 }
 </script>
 

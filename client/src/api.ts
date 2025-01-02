@@ -1,45 +1,45 @@
 export type Home = {
-  name: string,
-  href: string,
-  format: "item" | "card",
-  items: (Songsheet | Setlist | Artist | Album)[]
-}[]
+  name: string;
+  href: string;
+  format: "item" | "card";
+  items: (Songsheet | Setlist | Artist | Album)[];
+}[];
 
 export type Discover = {
   setlists: Setlist[];
-}
+};
 
 export type Genre = {
   id: string;
-  type: 'Genre';
+  type: "Genre";
   name: string;
   created_at: string;
   updated_at: string;
   thumbnail: string;
   url: string;
-}
+};
 
 export type Artist = {
   id: string;
   uid: string;
-  type: 'Artist';
+  type: "Artist";
   name: string;
   created_at: string;
   updated_at: string;
   thumbnail: string;
-  url: string
-}
+  url: string;
+};
 
 export type ArtistFull = Artist & {
   biography: string;
   style: string;
   banner: string;
   genre: Genre;
-}
+};
 
 export type Album = {
   id: string;
-  type: 'Album';
+  type: "Album";
   title: string;
   released: number;
   created_at: string;
@@ -53,16 +53,16 @@ export type Album = {
   url: string;
   artist: Artist;
   genre: Genre;
-}
+};
 
 export type AlbumFull = Album & {
   description: string;
   tracks: Track[];
-}
+};
 
 export type Track = {
   id: string;
-  type: 'Track';
+  type: "Track";
   title: string;
   number: number;
   duration: number;
@@ -73,15 +73,15 @@ export type Track = {
   url: string;
   artist: Artist;
   album: Album;
-}
+};
 
 export type TrackFull = Track & {
   songsheets: Songsheet[];
-}
+};
 
 export type Songsheet = {
   id: string;
-  type: 'Songsheet'
+  type: "Songsheet";
   title: string;
   subtitle: string;
   track?: TrackFull;
@@ -89,11 +89,11 @@ export type Songsheet = {
     key?: string;
     capo?: string;
   };
-  duration?: number
+  duration?: number;
   created_at: string;
   updated_at: string;
   url: string;
-}
+};
 
 export type SongsheetFull = Songsheet & {
   source: string;
@@ -105,35 +105,35 @@ export type SongsheetFull = Songsheet & {
     url: string;
     script_url: string;
     pixel_url: string;
-  }
-}
+  };
+};
 
 export type Setlist = {
   id: string;
-  type: 'Setlist';
+  type: "Setlist";
   uid: string;
   title: string;
   created_at: string;
   updated_at: string;
-  description: string,
-  user: User
-  thumbnails: string[]
-  url: string
-}
+  description: string;
+  user: User;
+  thumbnails: string[];
+  url: string;
+};
 
 export type User = {
-  id: string
-  type: 'User'
-  name: string
-  email?: string
-}
+  id: string;
+  type: "User";
+  name: string;
+  email?: string;
+};
 
-export type Errors = Record<string, string[]>
+export type Errors = Record<string, string[]>;
 
 export type SignUp = {
   user: {
-    name: string
-    email: string
-    password: string
-  }
-}
+    name: string;
+    email: string;
+    password: string;
+  };
+};

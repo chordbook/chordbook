@@ -1,18 +1,10 @@
-import {
-  defineComponent,
-  shallowRef,
-  onMounted,
-  onBeforeUnmount,
-  h,
-  watch,
-  computed,
-} from "vue";
+import { detectFormat } from "@/composables/useSongsheetParser";
 import { createEditor } from "@chordbook/editor";
+import { linter } from "@codemirror/lint";
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
-import { linter } from "@codemirror/lint";
-import { ChordProParser, ChordProFormatter } from "chordsheetjs";
-import { detectFormat } from "@/composables/useSongsheetParser";
+import { ChordProFormatter, ChordProParser } from "chordsheetjs";
+import { computed, defineComponent, h, onBeforeUnmount, onMounted, shallowRef, watch } from "vue";
 
 import type { TransactionSpec } from "@codemirror/state";
 import type { parser } from "peggy";

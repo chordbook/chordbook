@@ -2,11 +2,11 @@
 /// <reference types="@types/dom-chromium-installation-events" />
 /// <reference types="vite-plugin-pwa/client" />
 
-import { registerSW } from "virtual:pwa-register";
-import { ref, computed } from "vue";
-import { UseOnline } from "@vueuse/components";
 import { offline } from "@/icons";
+import { UseOnline } from "@vueuse/components";
 import { useTimeout } from "@vueuse/core";
+import { registerSW } from "virtual:pwa-register";
+import { computed, ref } from "vue";
 
 const offlineReady = ref(false);
 const installPrompt = ref<BeforeInstallPromptEvent | null>(null);

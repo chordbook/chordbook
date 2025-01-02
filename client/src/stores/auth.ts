@@ -1,13 +1,13 @@
-import { defineStore } from "pinia";
 import { useFetch } from "@/client";
-import { useStorage } from "@vueuse/core";
-import { toValue, computed, reactive, watch } from "vue";
-import { useRouter } from "vue-router";
 import console from "@/console";
+import { useStorage } from "@vueuse/core";
+import { defineStore } from "pinia";
+import { computed, reactive, toValue, watch } from "vue";
+import { useRouter } from "vue-router";
 
-import type { MaybeRef } from "vue";
-import type { RemovableRef, UseFetchReturn, BeforeFetchContext } from "@vueuse/core";
 import type { SignUp } from "@/api";
+import type { BeforeFetchContext, RemovableRef, UseFetchReturn } from "@vueuse/core";
+import type { MaybeRef } from "vue";
 
 export default defineStore("auth", () => {
   // Accepting the security trade-offs of persisting in localStorage. There is no other reasonable
@@ -15,33 +15,30 @@ export default defineStore("auth", () => {
   // expiry is short and the refresh token is rotated every time it is used, so risk is reduced.
   // If anyone knows a better way to persist this securely, please share it.
   const user = useStorage("user", {}) as RemovableRef<Record<string, string>>;
-  const accessToken = useStorage("accessToken", '');
+  const accessToken = useStorage("accessToken", "");
   const expireAt = useStorage("expireAt", 0);
-  const refreshToken = useStorage("refreshToken", '');
+  const refreshToken = useStorage("refreshToken", "");
   const isAuthenticated = computed(() => !!user.value.id);
 
   const refreshPayload = computed(() => ({
     refresh_token: refreshToken.value,
   }));
   const refreshFetch = reactive(
-    useFetch(
-      "authenticate",
-      {
-        options: { credentials: "omit" },
-        immediate: false,
-        afterFetch(ctx) {
-          authenticated(ctx);
-          return ctx;
-        },
-        onFetchError(ctx) {
-          if (ctx.response?.status === 401) {
-            console.error("auth: failed to refresh token", ctx.error);
-            reset();
-          }
-          return ctx;
-        },
+    useFetch("authenticate", {
+      options: { credentials: "omit" },
+      immediate: false,
+      afterFetch(ctx) {
+        authenticated(ctx);
+        return ctx;
       },
-    )
+      onFetchError(ctx) {
+        if (ctx.response?.status === 401) {
+          console.error("auth: failed to refresh token", ctx.error);
+          reset();
+        }
+        return ctx;
+      },
+    })
       .put(refreshPayload)
       .json(),
   );
@@ -106,7 +103,13 @@ export default defineStore("auth", () => {
     console.debug("auth: reset");
   }
 
-  function authenticated({ data, response }: { data: MaybeRef<any>, response: MaybeRef<Response | null> }) {
+  function authenticated({
+    data,
+    response,
+  }: {
+    data: MaybeRef<any>;
+    response: MaybeRef<Response | null>;
+  }) {
     const { headers } = toValue(response) || {};
     if (!headers) return; // nothing to do
 
@@ -147,10 +150,7 @@ export default defineStore("auth", () => {
     if (refreshToken.value && fetch.statusCode.value === 401) {
       console.warn("auth: token is invalid, trying to refresh");
       refresh().then(() => {
-        console.info(
-          "auth: token refreshed, retrying",
-          fetch.response.value?.url,
-        );
+        console.info("auth: token refreshed, retrying", fetch.response.value?.url);
         fetch.execute();
       });
     }

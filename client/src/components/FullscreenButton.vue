@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useFullscreen } from "@vueuse/core";
-import { ref, computed } from "vue";
 import { exit, expand } from "@/icons";
+import { useFullscreen } from "@vueuse/core";
+import { computed, ref } from "vue";
 
 const props = defineProps({
   target: {

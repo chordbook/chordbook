@@ -1,6 +1,6 @@
-import { ref, watch, computed } from "vue";
-import { useElementSize, unrefElement, useEventListener } from "@vueuse/core";
+import { unrefElement, useElementSize, useEventListener } from "@vueuse/core";
 import type { Ref } from "vue";
+import { computed, ref, watch } from "vue";
 import type { UseIonScrollReturn } from "./useIonScroll";
 
 export default function useHideOnScroll(scroll: UseIonScrollReturn, target: Ref<HTMLElement>) {
@@ -24,10 +24,7 @@ export default function useHideOnScroll(scroll: UseIonScrollReturn, target: Ref<
         translateY.value - (scrollTop.value - lastScrollTop.value),
         -scrollHeight.value,
       );
-    } else if (
-      translateY.value < 0 &&
-      (directions.top || arrivedState.bottom)
-    ) {
+    } else if (translateY.value < 0 && (directions.top || arrivedState.bottom)) {
       translateY.value = 0;
     }
     lastScrollTop.value = Math.max(0, scrollTop.value);

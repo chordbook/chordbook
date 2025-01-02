@@ -23,19 +23,8 @@ defineProps<Track>();
       <p>{{ artist.name }}</p>
     </ion-label>
 
-    <ion-button
-      :id="`track-${id}`"
-      slot="end"
-      fill="clear"
-      color="medium"
-      @click.prevent=""
-    >
-      <ion-icon
-        slot="icon-only"
-        size="small"
-        :ios="icons.iosEllipsis"
-        :md="icons.mdEllipsis"
-      />
+    <ion-button :id="`track-${id}`" slot="end" fill="clear" color="medium" @click.prevent="">
+      <ion-icon slot="icon-only" size="small" :ios="icons.iosEllipsis" :md="icons.mdEllipsis" />
     </ion-button>
     <ion-popover
       :trigger="`track-${id}`"

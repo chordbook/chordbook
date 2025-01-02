@@ -28,12 +28,7 @@ watchEffect(() => {
         <ion-toolbar>
           <ion-title>Sign Up</ion-title>
           <ion-buttons slot="end">
-            <ion-back-button
-              role="cancel"
-              icon=""
-              text="Cancel"
-              :default-href="route.path"
-            />
+            <ion-back-button role="cancel" icon="" text="Cancel" :default-href="route.path" />
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -96,9 +91,7 @@ watchEffect(() => {
           <h2 class="font-semibold text-lg">Already have an account?</h2>
 
           <div class="ion-margin">
-            <ion-button fill="outline" router-link="#signin">
-              Sign in to your account
-            </ion-button>
+            <ion-button fill="outline" router-link="#signin"> Sign in to your account </ion-button>
           </div>
         </div>
       </ion-content>

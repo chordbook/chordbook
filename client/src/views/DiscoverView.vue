@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import GenreListView from "@/views/GenreListView.vue";
-import ModelAvatar from "@/components/ModelAvatar.vue";
-import { useRouteQuery } from "@vueuse/router";
-import { ref, reactive } from "vue";
-import { getMode } from "@ionic/core";
-import { useFetch } from "@/client";
 import type { Discover } from "@/api";
+import { useFetch } from "@/client";
+import ModelAvatar from "@/components/ModelAvatar.vue";
+import GenreListView from "@/views/GenreListView.vue";
+import { getMode } from "@ionic/core";
+import { useRouteQuery } from "@vueuse/router";
+import { reactive, ref } from "vue";
 
 const types = {
   All: "",
@@ -57,15 +57,8 @@ const search = ref(); // template ref
           />
         </ion-toolbar>
         <ion-toolbar v-if="params.q">
-          <ion-segment
-            :value="params.type"
-            @ion-change="params.type = $event.detail.value"
-          >
-            <ion-segment-button
-              v-for="(id, name) in types"
-              :key="id"
-              :value="id"
-            >
+          <ion-segment :value="params.type" @ion-change="params.type = $event.detail.value">
+            <ion-segment-button v-for="(id, name) in types" :key="id" :value="id">
               <ion-label>{{ name }}</ion-label>
             </ion-segment-button>
           </ion-segment>
@@ -78,12 +71,7 @@ const search = ref(); // template ref
           slot="fixed"
           class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         >
-          <ion-spinner
-            name="dots"
-            color="medium"
-            class="scale-[2]"
-            duration="1200"
-          />
+          <ion-spinner name="dots" color="medium" class="scale-[2]" duration="1200" />
         </div>
       </Transition>
 
@@ -110,11 +98,7 @@ const search = ref(); // template ref
                 }"
                 @click="useFetch(result.convert_url)"
               >
-                <model-avatar
-                  slot="start"
-                  :src="result.thumbnail"
-                  :type="result.type"
-                />
+                <model-avatar slot="start" :src="result.thumbnail" :type="result.type" />
                 <ion-label>
                   <p class="uppercase">
                     {{ result.type }}

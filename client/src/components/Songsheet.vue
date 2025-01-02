@@ -30,9 +30,11 @@ import type { SongsheetFull } from "@/api";
 
 defineOptions({ inheritAttrs: false });
 
-const props = defineProps<SongsheetFull & {
-  setlistId?: string;
-}>();
+const props = defineProps<
+  SongsheetFull & {
+    setlistId?: string;
+  }
+>();
 
 const parser = reactive(useSongsheetParser(toRef(props, "source")));
 
@@ -46,9 +48,7 @@ const wakelock = reactive(useWakeLock());
 const scroll = useIonScroll(scroller);
 useHideOnScroll(scroll, header);
 const autoScrollAvailable = computed(() => settings.columns === 1);
-const autoScrollDuration = computed(
-  () => scroller.value?.$el?.dataset?.autoScrollDuration,
-);
+const autoScrollDuration = computed(() => scroller.value?.$el?.dataset?.autoScrollDuration);
 const autoScroll = reactive(useAutoScroll(scroll, autoScrollDuration));
 const { onDidEnter, onWillLeave } = inject<IonPageLifecycle>("page")!;
 
@@ -85,11 +85,7 @@ watch(
         <ion-back-button
           v-tooltip="'Back'"
           text=""
-          :default-href="
-            setlistId
-              ? { name: 'setlist', params: { id: setlistId } }
-              : '/songsheets'
-          "
+          :default-href="setlistId ? { name: 'setlist', params: { id: setlistId } } : '/songsheets'"
         />
       </ion-buttons>
       <ion-buttons v-if="bigScreen" slot="start">
@@ -102,18 +98,10 @@ watch(
           :value="settings.columns"
           @ion-change="settings.columns = $event.detail.value"
         >
-          <ion-segment-button
-            v-tooltip="'Vertical scroll'"
-            :value="1"
-            layout="icon-start"
-          >
+          <ion-segment-button v-tooltip="'Vertical scroll'" :value="1" layout="icon-start">
             <ion-icon :icon="tabletPortraitOutline" size="small" />
           </ion-segment-button>
-          <ion-segment-button
-            v-tooltip="'Horizontal scroll'"
-            :value="2"
-            layout="icon-start"
-          >
+          <ion-segment-button v-tooltip="'Horizontal scroll'" :value="2" layout="icon-start">
             <ion-icon :icon="tabletLandscapeOutline" size="small" />
           </ion-segment-button>
         </ion-segment>
@@ -123,9 +111,7 @@ watch(
         <fullscreen-button />
         <ion-button
           v-if="bigScreen"
-          v-tooltip="
-            settings.showPlayer ? 'Hide media player' : 'Show media player'
-          "
+          v-tooltip="settings.showPlayer ? 'Hide media player' : 'Show media player'"
           :color="settings.showPlayer ? 'secondary' : 'default'"
           :disabled="!media || media.length == 0"
           @click="settings.showPlayer = !settings.showPlayer"
@@ -135,11 +121,7 @@ watch(
         <font-size-control />
         <add-to-library-button :id="id" />
         <ion-button :id="`songsheet-context-${id}`" @click.prevent="">
-          <ion-icon
-            slot="icon-only"
-            :ios="icons.iosEllipsis"
-            :md="icons.mdEllipsis"
-          />
+          <ion-icon slot="icon-only" :ios="icons.iosEllipsis" :md="icons.mdEllipsis" />
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
@@ -171,20 +153,13 @@ watch(
         <pre>{{ source }}</pre>
       </div>
 
-      <songsheet-content
-        v-if="parser.song"
-        :id="`songsheet-content-${id}`"
-        :song="parser.song"
-      >
+      <songsheet-content v-if="parser.song" :id="`songsheet-content-${id}`" :song="parser.song">
         <template v-if="track?.album" #album>
           <div
             v-if="track?.album"
             class="aspect-square w-12 shrink-0 sm:w-8 rounded overflow-hidden shadow flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
           >
-            <router-link
-              :to="{ name: 'album', params: { id: track.album.id } }"
-              @click.stop
-            >
+            <router-link :to="{ name: 'album', params: { id: track.album.id } }" @click.stop>
               <img :src="track?.album.cover?.medium" />
             </router-link>
           </div>
@@ -204,11 +179,7 @@ watch(
 
         <template #media>
           <Transition name="slide-down">
-            <songsheet-media
-              v-if="settings.showPlayer"
-              :media="media"
-              class="no-print"
-            />
+            <songsheet-media v-if="settings.showPlayer" :media="media" class="no-print" />
           </Transition>
         </template>
       </songsheet-content>
@@ -217,11 +188,7 @@ watch(
         <div>Updated {{ formatDate(updated_at) }}</div>
         <div v-if="imported_from">
           Imported from
-          <a
-            target="_blank"
-            :href="imported_from"
-            class="text-inherit no-underline"
-          >
+          <a target="_blank" :href="imported_from" class="text-inherit no-underline">
             {{ hostname(imported_from) }}
           </a>
         </div>
@@ -248,20 +215,14 @@ watch(
         >
           <ion-icon
             slot="icon-only"
-            :icon="
-              autoScroll?.isActive ? icons.autoScrollOn : icons.autoScrollOff
-            "
+            :icon="autoScroll?.isActive ? icons.autoScrollOn : icons.autoScrollOff"
             :class="{ 'text-4xl': true, 'animate-pulse': autoScroll.isActive }"
           />
         </ion-button>
       </div>
     </div>
     <Suspense>
-      <setlist-songsheets-pager
-        v-if="setlistId"
-        :id="setlistId"
-        :songsheet-id="id"
-      />
+      <setlist-songsheets-pager v-if="setlistId" :id="setlistId" :songsheet-id="id" />
     </Suspense>
     <div class="snap-end" />
   </ion-content>
@@ -275,11 +236,7 @@ watch(
   />
 
   <add-to-setlist-modal :id="id" ref="addToSetlistModal" />
-  <ion-popover
-    :trigger="`songsheet-context-${id}`"
-    keep-contents-mounted
-    dismiss-on-select
-  >
+  <ion-popover :trigger="`songsheet-context-${id}`" keep-contents-mounted dismiss-on-select>
     <ion-list>
       <ion-item
         button
@@ -325,17 +282,8 @@ watch(
       >
         View Album
       </ion-item>
-      <share-item
-        :title="title"
-        :router-link="{ name: 'songsheet', params: { id } }"
-      />
-      <ion-item
-        button
-        detail
-        :detail-icon="icons.tuningFork"
-        lines="none"
-        router-link="#tuner"
-      >
+      <share-item :title="title" :router-link="{ name: 'songsheet', params: { id } }" />
+      <ion-item button detail :detail-icon="icons.tuningFork" lines="none" router-link="#tuner">
         Tuner
       </ion-item>
     </ion-list>

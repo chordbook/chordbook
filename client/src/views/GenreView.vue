@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Genre, Track, Artist, Album } from '@/api';
+import type { Album, Artist, Genre, Track } from "@/api";
 defineProps<{ id: string }>();
 </script>
 
@@ -45,9 +45,7 @@ defineProps<{ id: string }>();
         <ion-list>
           <ion-list-header>
             <ion-label>Top Artists</ion-label>
-            <ion-button
-              :router-link="{ name: 'genre.artists', params: { id } }"
-            >
+            <ion-button :router-link="{ name: 'genre.artists', params: { id } }">
               See All
             </ion-button>
           </ion-list-header>

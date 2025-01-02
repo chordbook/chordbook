@@ -1,10 +1,10 @@
 import {
-  onIonViewWillEnter,
   onIonViewDidEnter,
-  onIonViewWillLeave,
   onIonViewDidLeave,
+  onIonViewWillEnter,
+  onIonViewWillLeave,
 } from "@ionic/vue";
-import { ref, provide, watchEffect } from "vue";
+import { provide, ref, watchEffect } from "vue";
 
 import type { Ref } from "vue";
 

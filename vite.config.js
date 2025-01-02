@@ -1,12 +1,12 @@
 import { sentryVitePlugin } from "@sentry/vite-plugin";
-import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import vueDevTools from 'vite-plugin-vue-devtools'
-import { VitePWA } from "vite-plugin-pwa";
-import svgLoader from "vite-svg-loader";
-import { string } from "rollup-plugin-string";
-import manifest from "./client/manifest.json";
 import path from "path";
+import { string } from "rollup-plugin-string";
+import { defineConfig } from "vite";
+import { VitePWA } from "vite-plugin-pwa";
+import vueDevTools from "vite-plugin-vue-devtools";
+import svgLoader from "vite-svg-loader";
+import manifest from "./client/manifest.json";
 
 const root = path.resolve(__dirname, "client");
 
