@@ -1,9 +1,12 @@
 import * as Sentry from "@sentry/vue";
 
+import type { App } from "vue"
+import type { Router } from "vue-router"
+
 const SENTRY_DSN = import.meta.env.APP_SENTRY_DSN;
 const HOSTNAME = import.meta.env.APP_HOSTNAME;
 
-export default function (app, router) {
+export default function (app: App, router: Router) {
   if (!SENTRY_DSN) return;
 
   Sentry.init({

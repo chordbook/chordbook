@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import ReloadPwa from "@/components/ReloadPwa.vue";
+import AppMenu from "@/components/AppMenu.vue";
+import ModalView from "@/views/ModalView.vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+</script>
+
 <template>
   <ion-app>
     <reload-pwa />
@@ -12,15 +21,6 @@
     <modal-view />
   </ion-app>
 </template>
-
-<script setup>
-import ReloadPwa from "@/components/ReloadPwa.vue";
-import AppMenu from "@/components/AppMenu.vue";
-import ModalView from "@/views/ModalView.vue";
-import { useRoute } from "vue-router";
-
-const route = useRoute();
-</script>
 
 <style scoped>
 ion-split-pane {

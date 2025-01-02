@@ -1,6 +1,7 @@
 import AuthenticatedView from "@/views/AuthenticatedView.vue";
+import type { RouteRecordRaw } from 'vue-router';
 
-export default [
+const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     redirect: "/home",
@@ -191,7 +192,7 @@ export default [
     name: "404",
     component: () => import("@/views/NotFound.vue"),
     meta: { menu: false },
-    beforeEnter(to, from, next) {
+    beforeEnter(to, _, next) {
       if (to.params.path || !to.redirectedFrom) {
         next();
       } else {
@@ -211,6 +212,9 @@ export default [
     path: "/admin",
     redirect() {
       window.location.href = import.meta.env.APP_API_URL + "/admin"
+      return {};
     }
   }
 ];
+
+export default routes;

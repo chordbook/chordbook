@@ -21,13 +21,13 @@ const app = createApp(App)
     themes: {
       tooltip: {
         triggers: ["hover"], // Only trigger on hover
-        hideTriggers: (events) => events, // don't close on click
+        hideTriggers: (events: string[]) => events, // don't close on click
       },
     },
   });
 
 for (const name in components) {
-  app.component(name, components[name]);
+  app.component(name, components[name as keyof typeof components]);
 }
 
 useSentry(app, router);
