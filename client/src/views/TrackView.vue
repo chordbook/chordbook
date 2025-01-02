@@ -1,17 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import SongsheetItem from "@/components/SongsheetItem.vue";
 import { useRouter } from "vue-router";
 
+import type { Songsheet } from "@/api";
+import type { Ref } from "vue";
+
 const router = useRouter();
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-});
+defineProps<{ id: string }>();
 
-function loaded({ data }) {
+function loaded({ data }: { data: Ref<Songsheet[]> }) {
   // Redirect to the only version if there is only one
   if (data.value.length === 1) {
     const [{ id }] = data.value;
@@ -36,7 +34,7 @@ function loaded({ data }) {
     <ion-content fullscreen class="main-content">
       <ion-list>
         <data-source
-          v-slot="{ items }"
+          v-slot="{ items }: { items: Songsheet[] }"
           :src="`tracks/${id}/songsheets`"
           @load="loaded"
         >
