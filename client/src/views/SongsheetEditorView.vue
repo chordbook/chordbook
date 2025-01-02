@@ -1,29 +1,26 @@
-<script setup>
+<script setup lang="ts">
 import SongsheetContent from "@/components/SongsheetContent.vue";
 import EditorSplitView from "@/components/EditorSplitView.vue";
 import SongsheetEditor from "@/components/Editor";
 import { alertController, loadingController } from "@ionic/vue";
-import { ref, computed, reactive, toRef } from "vue";
+import { ref, computed, reactive, toRef, useTemplateRef } from "vue";
 import { useFetch } from "@/client";
 import { useRouter } from "vue-router";
 import { useSongsheetParser, useScrollSync } from "@/composables";
 
-const props = defineProps({
-  id: {
-    type: String,
-    default: null,
-  },
-});
+import type { SongsheetFull, Errors } from "@/api";
+
+const props = defineProps<{ id?: string }>();
 
 const router = useRouter();
-const songsheet = ref({ source: "" });
-const errors = ref({});
-const splitView = ref(null); // template ref
+const songsheet = ref<Partial<SongsheetFull>>({ source: ""});
+const errors = ref<Errors>({});
+const splitView = useTemplateRef('splitView');
 const url = computed(() =>
   props.id ? `songsheets/${props.id}` : "songsheets",
 );
 const parser = reactive(
-  useSongsheetParser(toRef(() => songsheet.value.source)),
+  useSongsheetParser(toRef(() => songsheet.value?.source ?? "")),
 );
 const editor = ref(); // template ref
 const preview = ref(); // template ref
@@ -44,20 +41,20 @@ async function save() {
   const method = props.id ? "patch" : "post";
   const payload = {
     songsheet: {
-      source: songsheet.value.source,
+      source: songsheet.value?.source,
       metadata,
     },
   };
 
-  const { error, data } = await useFetch(url).json()[method](payload);
+  const { error, data } = await useFetch(url, { updateDataOnError: true }).json()[method](payload);
 
   if (error.value) {
-    console.error(error.value);
+    console.error('Songsheet could not be saved', data.value);
     errors.value = data.value;
   } else {
     router.replace({ name: "songsheet", params: { id: data.value.id } });
   }
-  splitView.value.toggle();
+  splitView.value?.toggle();
 }
 
 async function destroy() {
@@ -93,7 +90,7 @@ async function destroy() {
 <template>
   <app-view>
     <Head>
-      <title v-if="id">Edit: {{ songsheet.title }}</title>
+      <title v-if="id">Edit: {{ songsheet?.title }}</title>
       <title v-else>New Song</title>
     </Head>
     <ion-header translucent>
@@ -106,7 +103,7 @@ async function destroy() {
         </ion-buttons>
 
         <ion-buttons slot="primary">
-          <ion-button v-if="splitView?.disabled" @click="splitView.toggle()">
+          <ion-button v-if="splitView?.disabled" @click="splitView?.toggle()">
             <ion-label>Preview</ion-label>
           </ion-button>
           <ion-button v-else @click="save">

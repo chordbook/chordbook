@@ -1,5 +1,3 @@
-<script lang="ts" setup></script>
-
 <template>
   <ion-page>
     <ion-content>

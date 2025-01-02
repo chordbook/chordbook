@@ -1,12 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import useAuthStore from "@/stores/auth";
 import { ref, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
+import type { SignUp } from "@/api";
+
 const route = useRoute();
 const router = useRouter();
 const auth = useAuthStore();
-const form = ref({ user: {} });
+const form = ref<SignUp["user"]>({ name: "", email: "", password: "" });
 const { execute, data } = auth.signUp(form, { immediate: false });
 
 watchEffect(() => {
@@ -45,7 +47,7 @@ watchEffect(() => {
           <ion-list inset>
             <ion-item>
               <ion-input
-                v-model="form.user.name"
+                v-model="form.name"
                 label="Name"
                 label-placement="floating"
                 type="text"
@@ -58,7 +60,7 @@ watchEffect(() => {
             </ion-item>
             <ion-item>
               <ion-input
-                v-model="form.user.email"
+                v-model="form.email"
                 label="Email"
                 label-placement="floating"
                 type="email"
@@ -71,7 +73,7 @@ watchEffect(() => {
             </ion-item>
             <ion-item>
               <ion-input
-                v-model="form.user.password"
+                v-model="form.password"
                 label="Password"
                 label-placement="floating"
                 type="password"

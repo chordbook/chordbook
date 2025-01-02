@@ -1,18 +1,16 @@
-<script setup>
+<script setup lang="ts">
 import useAuthStore from "@/stores/auth";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const auth = useAuthStore();
 const router = useRouter();
-const props = defineProps({
-  token: {
-    type: String,
-    default: null,
-  },
-});
+const props = defineProps<{
+  token: string;
+}>();
 const params = ref({
   token: props.token,
+  password: ""
 });
 
 const { execute, data, onFetchResponse } = auth.resetPassword(params, {

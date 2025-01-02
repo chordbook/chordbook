@@ -1,5 +1,4 @@
-<!-- eslint-disable vue/prop-name-casing -->
-<script setup>
+<script setup lang="ts">
 import AddToLibraryButton from "../components/AddToLibraryButton.vue";
 import AddToSetlistModal from "@/components/AddToSetlistModal.vue";
 import ColumnLayout from "@/components/ColumnLayout.vue";
@@ -24,53 +23,16 @@ import {
   useHideOnScroll,
   useAutoScroll,
   useSongsheetParser,
+  type IonPageLifecycle,
 } from "@/composables";
 import { useWakeLock } from "@vueuse/core";
+import type { SongsheetFull } from "@/api";
 
 defineOptions({ inheritAttrs: false });
 
-const props = defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  source: {
-    type: String,
-    required: true,
-  },
-  duration: {
-    type: [Number, null],
-    default: null,
-  },
-  track: {
-    type: [Object, null],
-    default: null,
-  },
-  media: {
-    type: Array,
-    default: () => [],
-  },
-  updated_at: {
-    type: [String, null],
-    default: null,
-  },
-  imported_from: {
-    type: [String, null],
-    default: null,
-  },
-  setlistId: {
-    type: String,
-    default: null,
-  },
-  copyright: {
-    type: [Object, null],
-    default: null,
-  },
-});
+const props = defineProps<SongsheetFull & {
+  setlistId?: string;
+}>();
 
 const parser = reactive(useSongsheetParser(toRef(props, "source")));
 
@@ -88,10 +50,10 @@ const autoScrollDuration = computed(
   () => scroller.value?.$el?.dataset?.autoScrollDuration,
 );
 const autoScroll = reactive(useAutoScroll(scroll, autoScrollDuration));
-const { onDidEnter, onWillLeave } = inject("page");
+const { onDidEnter, onWillLeave } = inject<IonPageLifecycle>("page")!;
 
 if (wakelock.isSupported) {
-  onDidEnter(() => wakelock.request().catch(() => {}));
+  onDidEnter(() => wakelock.request("screen").catch(() => {}));
   onWillLeave(wakelock.release);
 }
 
@@ -165,7 +127,7 @@ watch(
             settings.showPlayer ? 'Hide media player' : 'Show media player'
           "
           :color="settings.showPlayer ? 'secondary' : 'default'"
-          :disabled="!media?.length > 0"
+          :disabled="!media || media.length == 0"
           @click="settings.showPlayer = !settings.showPlayer"
         >
           <ion-icon slot="icon-only" :icon="icons.play" />
@@ -191,10 +153,11 @@ watch(
     :class="{ autoscrolling: autoScroll.isActive }"
   >
     <songsheet-chords-pane
+      v-if="parser.song"
       ref="chordsPane"
       slot="fixed"
       :chords="parser.chords"
-      :definitions="parser.song?.getChordDefinitions()"
+      :definitions="parser.song.getChordDefinitions()"
     />
     <column-layout
       :enabled="!parser.error && settings.columns == 2"
@@ -303,6 +266,7 @@ watch(
     <div class="snap-end" />
   </ion-content>
   <key-modal
+    v-if="parser.song"
     v-model:transpose="parser.transpose"
     v-model:capo="parser.capo"
     v-model:modifier="parser.modifier"
@@ -330,7 +294,7 @@ watch(
         button
         detail
         :detail-icon="icons.setlist"
-        @click="$refs.addToSetlistModal.$el.present()"
+        @click="$refs.addToSetlistModal?.$el.present()"
       >
         <ion-label>Add to Setlist…</ion-label>
       </ion-item>

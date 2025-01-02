@@ -7,6 +7,7 @@ import console from "@/console";
 
 import type { MaybeRef } from "vue";
 import type { RemovableRef, UseFetchReturn, BeforeFetchContext } from "@vueuse/core";
+import type { SignUp } from "@/api";
 
 export default defineStore("auth", () => {
   // Accepting the security trade-offs of persisting in localStorage. There is no other reasonable
@@ -45,12 +46,12 @@ export default defineStore("auth", () => {
       .json(),
   );
 
-  function signUp(data: Record<string, string>, useFetchOptions = {}) {
+  function signUp(data: MaybeRef<SignUp["user"]>, useFetchOptions = {}) {
     const fetch = useFetch("users", {
       updateDataOnError: true,
       ...useFetchOptions,
     })
-      .post(data)
+      .post({ user: toValue(data) })
       .json();
     fetch.onFetchResponse(() => authenticated(fetch));
     return fetch;

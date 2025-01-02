@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import useAuthStore from "@/stores/auth";
 import { ref, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -6,7 +6,7 @@ import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 const auth = useAuthStore();
-const form = ref({});
+const form = ref({ email: "", password: "" });
 const { execute, data, isFetching } = auth.signIn(form, { immediate: false });
 
 watchEffect(() => {

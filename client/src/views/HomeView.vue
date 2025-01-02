@@ -1,9 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { logoGithub, handLeft, cashOutline } from "ionicons/icons";
 import HelpCard from "@/components/HelpCard.vue";
 import useAuthStore from "@/stores/auth";
 import * as icons from "@/icons";
+import { useTemplateRef } from "vue";
+import { DataSource } from "@/components";
 
+import type { Home } from "@/api";
+
+const dataSource = useTemplateRef("dataSource");
 const auth = useAuthStore();
 </script>
 
@@ -56,9 +61,9 @@ const auth = useAuthStore();
     </ion-header>
     <ion-content fullscreen class="main-content">
       <ion-refresher
-        v-if="$refs.dataSource"
+        v-if="dataSource"
         slot="fixed"
-        @ion-refresh="$refs.dataSource.reload().then(() => $event.target.complete())"
+        @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
       >
         <ion-refresher-content />
       </ion-refresher>
@@ -91,7 +96,7 @@ const auth = useAuthStore();
         </div>
       </ion-card>
 
-      <data-source ref="dataSource" v-slot="{ data }" src="home">
+      <DataSource ref="dataSource" v-slot="{ data }: { data: Home }" src="home">
         <div v-for="section in data" :key="section.name">
           <ion-list-header>
             <ion-label class="text-2xl">
@@ -104,7 +109,7 @@ const auth = useAuthStore();
 
           <model-list :items="section.items" :format="section.format" />
         </div>
-      </data-source>
+      </DataSource>
 
       <div id="contribute">
         <div class="text-center mt-10 sm:mt-20 ion-padding">

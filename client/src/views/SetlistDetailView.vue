@@ -8,7 +8,7 @@ import ShareButton from "@/components/ShareButton.vue";
 import { toastController, actionSheetController } from "@ionic/vue";
 import * as icons from "@/icons";
 import { ref, useTemplateRef } from "vue";
-import { useRouter } from "vue-router";
+import { useIonRouter } from "@ionic/vue";
 import { gradient } from "@/lib/gradient";
 import { pluralize } from "@/util";
 
@@ -23,7 +23,7 @@ const props = defineProps({
   },
 });
 
-const router = useRouter();
+const router = useIonRouter();
 const editing = ref(false);
 const songsheets = useTemplateRef<InstanceType<typeof DataSource>>("songsheets"); // element ref
 
@@ -60,10 +60,10 @@ async function destroy() {
         icon: icons.trash,
         handler: async () => {
           await useFetch(`setlists/${props.id}`).delete();
-          router.back({ name: "setlists" });
+          router.navigate({ name: "setlists" }, 'back');
         },
       },
-      { text: "Cancel", icon: close, role: "cancel" },
+      { text: "Cancel", icon: icons.close, role: "cancel" },
     ],
   });
   await actionSheet.present();
@@ -103,7 +103,7 @@ async function destroy() {
         <ion-refresher
           v-if="$refs.songsheets"
           slot="fixed"
-          @ion-refresh="$refs.songsheets.reload().then(() => $event.target.complete())"
+          @ion-refresh="songsheets?.reload().then(() => $event.target.complete())"
         >
           <ion-refresher-content />
         </ion-refresher>

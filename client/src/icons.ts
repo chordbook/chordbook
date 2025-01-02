@@ -2,6 +2,7 @@ export {
   addOutline as save,
   albumsOutline as album,
   checkmarkOutline as saved,
+  close,
   cloudOfflineOutline as offline,
   cloudOutline as online,
   createOutline as edit,

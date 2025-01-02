@@ -89,6 +89,10 @@ export type Songsheet = {
     key?: string;
     capo?: string;
   };
+  duration?: number
+  created_at: string;
+  updated_at: string;
+  url: string;
 }
 
 export type SongsheetFull = Songsheet & {
@@ -122,4 +126,14 @@ export type User = {
   type: 'User'
   name: string
   email?: string
+}
+
+export type Errors = Record<string, string[]>
+
+export type SignUp = {
+  user: {
+    name: string
+    email: string
+    password: string
+  }
 }
