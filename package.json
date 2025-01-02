@@ -67,6 +67,7 @@
     "jsdom": "^25.0.1",
     "peggy": "^4.2.0",
     "prettier": "3.4.2",
+    "prettier-plugin-organize-imports": "^4.1.0",
     "typescript": "^5.7.2",
     "vite-plugin-vue-devtools": "^7.6.8",
     "vitest": "^2.1.5",
