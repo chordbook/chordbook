@@ -1,5 +1,10 @@
 <script lang="ts" setup>
-const instruments = ["Guitar", "Ukulele"];
+import { Instrument } from "@/ChordData";
+
+const instruments: Record<Instrument, string>  = {
+  [Instrument.Guitar]: "Guitar",
+  [Instrument.Ukulele]: "Ukulele"
+};
 </script>
 
 <template>
@@ -10,9 +15,9 @@ const instruments = ["Guitar", "Ukulele"];
     class="w-20"
   >
     <ion-select-option
-      v-for="instrument in instruments"
-      :key="instrument"
-      :value="instrument.toLowerCase()"
+      v-for="(instrument, value) of instruments"
+      :key="value"
+      :value="value"
     >
       {{ instrument }}
     </ion-select-option>

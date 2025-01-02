@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { ChordDefinition } from "chordsheetjs";
-import ChordData from "@/ChordData";
+import ChordData, { Instrument } from "@/ChordData";
 import ChordBox from "@/components/ChordBox.vue";
 import { computed } from "vue";
 
-const { chord, definition, instrument = "guitar", position = 0 } = defineProps<{
+const { chord, definition, instrument = Instrument.Guitar, position = 0 } = defineProps<{
   chord: string;
   definition?: ChordDefinition;
-  instrument?: string;
+  instrument?: Instrument;
   position?: number;
 }>();
 

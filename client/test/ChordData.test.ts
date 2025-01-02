@@ -1,4 +1,4 @@
-import ChordData from "@/ChordData";
+import ChordData, { Instrument } from "@/ChordData";
 import { ChordDefinition } from "chordsheetjs";
 import { describe, expect, test } from "vitest";
 
@@ -6,17 +6,17 @@ test("C", () => {
   const data = ChordData.find("C")!;
   expect(data.strings).toEqual(6);
   expect(data.fingerings).toEqual([
-    [6, "x", null],
+    [6, "x", undefined],
     [5, 3, 3],
     [4, 2, 2],
-    [3, 0, null],
+    [3, 0, undefined],
     [2, 1, 1],
-    [1, 0, null],
+    [1, 0, undefined],
   ]);
   expect(data.barres).toEqual([]);
 });
 
-["guitar", "ukulele"].forEach((instrument) => {
+[Instrument.Guitar, Instrument.Ukulele].forEach((instrument) => {
   describe(`${instrument}`, () => {
     [
       "C",
@@ -52,12 +52,12 @@ describe('fromDefinition', () => {
 
     expect(data.strings).toEqual(6);
     expect(data.fingerings).toEqual([
-      [6, "x", null],
-      [5, 3, null],
-      [4, 2, null],
-      [3, 3, null],
-      [2, 1, null],
-      [1, 0, null],
+      [6, "x", undefined],
+      [5, 3, undefined],
+      [4, 2, undefined],
+      [3, 3, undefined],
+      [2, 1, undefined],
+      [1, 0, undefined],
     ]);
     expect(data.barres).toEqual([]);
   });
@@ -69,12 +69,12 @@ describe('fromDefinition', () => {
     expect(data.strings).toEqual(6);
     expect(data.baseFret).toEqual(3);
     expect(data.fingerings).toEqual([
-      [6, "x", null],
-      [5, 3, null],
-      [4, 2, null],
-      [3, 3, null],
-      [2, 1, null],
-      [1, 'x', null],
+      [6, "x", undefined],
+      [5, 3, undefined],
+      [4, 2, undefined],
+      [3, 3, undefined],
+      [2, 1, undefined],
+      [1, 'x', undefined],
     ]);
     expect(data.barres).toEqual([]);
   });
@@ -86,12 +86,12 @@ describe('fromDefinition', () => {
     expect(data.strings).toEqual(6);
     expect(data.baseFret).toEqual(7);
     expect(data.fingerings).toEqual([
-      [6, 0, null],
-      [5, 1, null],
-      [4, 3, null],
-      [3, 3, null],
-      [2, 0, null],
-      [1, 0, null],
+      [6, 0, undefined],
+      [5, 1, undefined],
+      [4, 3, undefined],
+      [3, 3, undefined],
+      [2, 0, undefined],
+      [1, 0, undefined],
     ]);
     expect(data.barres).toEqual([]);
   });

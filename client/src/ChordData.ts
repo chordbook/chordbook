@@ -2,42 +2,71 @@ import guitar from "@tombatossals/chords-db/lib/guitar.json";
 import ukulele from "@tombatossals/chords-db/lib/ukulele.json";
 import { Chord, ChordDefinition } from "chordsheetjs";
 
-type ChordDefinitionData = typeof guitar["chords"]["C"][0];
+export enum Instrument {
+  Guitar = "guitar",
+  Ukulele = "ukulele",
+}
 
-type ChordPositionData = {
-  frets: (number | '0' | '-1' | 'N' | 'x')[];
+export type ChordPositionData = {
+  frets: number[];
   fingers: number[];
   barres: number[];
   baseFret: number;
+  capo?: boolean;
+  midi?: number[];
 }
 
-const instruments: Record<string, any> = { guitar, ukulele };
-
-const keyAliases: Record<string, string> = {
-  Db: "Csharp",
-  Eb: "Dsharp",
-  Gb: "Fsharp",
-  Ab: "Gsharp",
-  Bb: "Asharp",
+export type ChordDefinitionData = {
+  key: string;
+  suffix: string;
+  positions: ChordPositionData[];
 };
 
-// Map inverse of aliases
-Object.keys(keyAliases).forEach((key) => (keyAliases[keyAliases[key]] = key));
+export type Keys = "C" | "Csharp" | "Db" | "D" | "Dsharp" | "Eb" | "E" | "F" | "Fsharp" | "Gb" | "G" | "Gsharp" | "Ab" | "A" | "Asharp" | "Bb" | "B";
 
-const suffixAliases: Record<string, string> = {
-  "": "major",
+type InstrumentData = {
+  main: {
+    strings: number;
+    fretsOnChord: number;
+    name: string;
+    numberOfChords: number;
+  };
+  tunings: Record<string, string[]>,
+  keys: string[];
+  suffixes: string[];
+  chords: { [K in Keys]?: ChordDefinitionData[] }
 };
 
-// Map suffixes to normalized version
-ukulele.suffixes.forEach((value) => {
-  const key = Chord.parse("C" + value)?.normalize()?.suffix;
-  if (key && key !== value) suffixAliases[key] = value;
-});
+type InstrumentDatabase = {
+  [K in Instrument]: InstrumentData;
+};
 
 export default class ChordData {
-  data: ChordPositionData;
+  static db: InstrumentDatabase = {
+    [Instrument.Guitar]: guitar,
+    [Instrument.Ukulele]: ukulele
+  };
 
-  static translate(chord: Chord) {
+  static suffixAliases: Record<string, string> = {
+    "": "major",
+  };
+
+  static keyAliases: { [K in Keys]?: Keys } = {
+    "Csharp": "Db",
+    "Dsharp": "Eb",
+    "Fsharp": "Gb",
+    "Gsharp": "Ab",
+    "Asharp": "Bb",
+
+    "Db": "Csharp",
+    "Eb": "Dsharp",
+    "Gb": "Fsharp",
+    "Ab": "Gsharp",
+    "Bb": "Asharp",
+  }
+
+  static translate(string: string): { key: Keys, suffix: string } {
+    const chord = Chord.parse(string)!;
     let key = chord.root!.note;
     const modifier = chord.root!.modifier;
     let suffix = chord.suffix;
@@ -46,13 +75,13 @@ export default class ChordData {
     if (modifier === "#") key = key.replace(modifier, "sharp");
 
     // Aliases
-    suffix = suffix ? suffixAliases[suffix] || suffix : "major";
+    suffix = suffix ? this.suffixAliases[suffix] || suffix : "major";
 
-    return { key, suffix };
+    return { key: key as Keys, suffix };
   }
 
-  static find(chord: string, instrument = "guitar", position = 0) {
-    const { key, suffix } = this.translate(Chord.parse(chord)!);
+  static find(chord: string, instrument = Instrument.Guitar, position = 0) {
+    const { key, suffix } = this.translate(chord);
 
     const chordData = this.findChordData(key, instrument);
     const suffixData = chordData?.find((c: ChordDefinitionData) => c.suffix === suffix);
@@ -63,11 +92,9 @@ export default class ChordData {
     }
   }
 
-  static findChordData(key: string, instrument = "guitar") {
-    return (
-      instruments[instrument].chords[key] ||
-      instruments[instrument].chords[keyAliases[key]]
-    );
+  static findChordData(key: Keys, instrument = Instrument.Guitar) {
+    const chords = this.db[instrument].chords
+    return chords[key] || chords[this.keyAliases[key]!];
   }
 
   // https://martijnversluis.github.io/ChordSheetJS/classes/ChordDefinition.html
@@ -75,10 +102,20 @@ export default class ChordData {
     return new this({
       barres: [],
       baseFret: definition.baseFret,
-      frets: definition.frets,
+      frets: definition.frets.map(fret => {
+        if (typeof fret === "number") {
+          return fret
+        } else if (fret === "0") {
+          return 0;
+        } else {
+          return -1;
+        }
+      }),
       fingers: definition.fingers,
     })
   }
+
+  data: ChordPositionData;
 
   constructor(data: ChordPositionData) {
     this.data = data;
@@ -96,9 +133,8 @@ export default class ChordData {
     ).reverse();
 
     return strings.map((stringNum, i) => {
-      let fret = this.data.frets[i];
-      if ([-1, "-1", "N"].includes(fret)) fret = "x";
-      if (fret === "0") fret = 0;
+      let fret: number | "x" = this.data.frets[i];
+      if (fret === -1) fret = "x";
       const finger = this.data.fingers[i];
       return [stringNum, fret as number | 'x', finger > 0 ? finger : undefined];
     });
@@ -134,3 +170,12 @@ function mode<T>(arr: T[]): T | undefined {
     );
   }).pop();
 }
+
+// Map suffixes to normalized version
+[ukulele, guitar].forEach((instrument) => {
+  instrument.suffixes.forEach((value) => {
+    const noRoot = value.split("/")[0];
+    const normalized = Chord.parse("C" + noRoot)?.normalize(null, { normalizeSuffix: true })?.suffix;
+    if (normalized && normalized !== noRoot) ChordData.suffixAliases[normalized] = noRoot;
+  });
+});
