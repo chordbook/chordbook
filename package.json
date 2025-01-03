@@ -81,7 +81,7 @@
     "format": "prettier . --write",
     "format:check": "prettier . --write",
     "lint": "eslint . --fix",
-    "lint:check": "eslint . --fix",
+    "lint:check": "eslint .",
     "ionic:serve": "vite",
     "ionic:build": "vite build",
     "test": "vitest"

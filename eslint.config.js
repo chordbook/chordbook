@@ -15,7 +15,7 @@ export default [
     ignores: ["public/"],
   },
 
-  ...pluginVue.configs["flat/essential"],
+  ...pluginVue.configs["flat/recommended"],
   ...vueTsEslintConfig(),
 
   {
