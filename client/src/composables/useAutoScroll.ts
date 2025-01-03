@@ -28,8 +28,18 @@ export default function useAutoScroll(
     isActive.value = false;
   }
 
-  async function stop() {
+  function stop() {
     isActive.value = false;
+  }
+
+  function toggle() {
+    if (isActive.value) {
+      stop();
+    } else {
+      start();
+    }
+
+    return isActive.value;
   }
 
   function pauseAndResume() {
@@ -44,5 +54,5 @@ export default function useAutoScroll(
     useEventListener(el, event, pauseAndResume);
   });
 
-  return { start, stop, isActive };
+  return { start, stop, toggle, isActive };
 }

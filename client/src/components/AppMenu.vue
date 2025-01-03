@@ -17,16 +17,6 @@ function colorFor(item: string) {
 }
 </script>
 
-<style scoped>
-ion-menu {
-  @apply border-r dark:border-slate-900;
-}
-
-.ios ion-item {
-  @apply rounded-lg;
-}
-</style>
-
 <template>
   <ion-menu>
     <ion-header translucent>
@@ -145,3 +135,13 @@ ion-menu {
     </ion-content>
   </ion-menu>
 </template>
+
+<style scoped>
+ion-menu {
+  @apply border-r dark:border-slate-900;
+}
+
+.ios ion-item {
+  @apply rounded-lg;
+}
+</style>

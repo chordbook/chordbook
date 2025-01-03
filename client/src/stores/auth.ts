@@ -1,12 +1,12 @@
-import { useFetch } from "@/client";
+import { useFetch } from "@/composables";
 import console from "@/console";
-import { useStorage } from "@vueuse/core";
+import { StorageSerializers, useStorage } from "@vueuse/core";
 import { defineStore } from "pinia";
 import { computed, reactive, toValue, watch } from "vue";
 import { useRouter } from "vue-router";
 
-import type { SignUp } from "@/api";
-import type { BeforeFetchContext, RemovableRef, UseFetchReturn } from "@vueuse/core";
+import type { SignUp, User } from "@/api";
+import type { BeforeFetchContext, UseFetchReturn } from "@vueuse/core";
 import type { MaybeRef } from "vue";
 
 export default defineStore("auth", () => {
@@ -14,11 +14,11 @@ export default defineStore("auth", () => {
   // method to keep the user signed across page reloads and multiple browser tabs. The access token
   // expiry is short and the refresh token is rotated every time it is used, so risk is reduced.
   // If anyone knows a better way to persist this securely, please share it.
-  const user = useStorage("user", {}) as RemovableRef<Record<string, string>>;
+  const user = useStorage<User>("user", null, undefined, { serializer: StorageSerializers.object });
   const accessToken = useStorage("accessToken", "");
   const expireAt = useStorage("expireAt", 0);
   const refreshToken = useStorage("refreshToken", "");
-  const isAuthenticated = computed(() => !!user.value.id);
+  const isAuthenticated = computed(() => !!user.value);
 
   const refreshPayload = computed(() => ({
     refresh_token: refreshToken.value,
@@ -98,7 +98,7 @@ export default defineStore("auth", () => {
     accessToken.value = null;
     refreshToken.value = null;
     expireAt.value = 0;
-    user.value = {};
+    user.value = null;
 
     console.debug("auth: reset");
   }
@@ -107,7 +107,7 @@ export default defineStore("auth", () => {
     data,
     response,
   }: {
-    data: MaybeRef<any>;
+    data: MaybeRef<User>;
     response: MaybeRef<Response | null>;
   }) {
     const { headers } = toValue(response) || {};

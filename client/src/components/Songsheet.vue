@@ -68,8 +68,7 @@ onDidEnter(() => {
 onWillLeave(autoScroll.stop);
 
 function toggleAutoScroll() {
-  autoScroll.isActive ? autoScroll.stop() : autoScroll.start();
-  settings.autoScroll = autoScroll.isActive;
+  settings.autoScroll = autoScroll.toggle();
 }
 
 watch(

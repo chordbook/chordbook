@@ -48,9 +48,9 @@ function componentFor(item: T) {
     }"
   >
     <component
+      :is="componentFor(item)"
       v-for="item in items"
       :key="item.id"
-      :is="componentFor(item)"
       :format="format"
       v-bind="{ ...item, ...$attrs }"
     />
