@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Discover } from "@/api";
-import { useFetch } from "@/client";
 import ModelAvatar from "@/components/ModelAvatar.vue";
+import { useFetch } from "@/composables";
 import GenreListView from "@/views/GenreListView.vue";
 import { getMode } from "@ionic/core";
 import { useRouteQuery } from "@vueuse/router";

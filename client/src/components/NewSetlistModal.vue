@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useFetch } from "@/client";
+import { useFetch } from "@/composables";
 import { modalController } from "@ionic/vue";
 import { reactive } from "vue";
 

@@ -1,4 +1,4 @@
-import { useFetch } from "@/client";
+import { useFetch } from "@/composables";
 import useAuthStore from "@/stores/auth";
 import { defineStore } from "pinia";
 import { ref, unref, watch } from "vue";

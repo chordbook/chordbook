@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useFetch } from "@/client";
 import ShareButton from "@/components/ShareButton.vue";
 import ShareItem from "@/components/ShareItem.vue";
 import SongsheetItem from "@/components/SongsheetItem.vue";
+import { useFetch } from "@/composables";
 import * as icons from "@/icons";
 import { gradient } from "@/lib/gradient";
 import { pluralize } from "@/util";

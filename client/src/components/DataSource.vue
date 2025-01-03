@@ -34,7 +34,7 @@ import usePaginatedFetch from "@/composables/usePaginatedFetch";
 import useAuthStore from "@/stores/auth";
 import { reactive, watch } from "vue";
 
-import type { Params, UseFetchOptionsWithParams } from "@/client";
+import type { Params, UseFetchOptionsWithParams } from "@/composables";
 
 const props = defineProps<{
   src: string;

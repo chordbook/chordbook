@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useFetch } from "@/client";
 import NewSetlistModal from "@/components/NewSetlistModal.vue";
 import SetlistItem from "@/components/SetlistItem.vue";
+import { useFetch } from "@/composables";
 import { modalController, toastController } from "@ionic/vue";
 
 const props = defineProps<{

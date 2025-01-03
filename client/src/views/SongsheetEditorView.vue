@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { useFetch } from "@/client";
 import SongsheetEditor from "@/components/Editor";
 import EditorSplitView from "@/components/EditorSplitView.vue";
 import SongsheetContent from "@/components/SongsheetContent.vue";
-import { useScrollSync, useSongsheetParser } from "@/composables";
+import { useFetch, useScrollSync, useSongsheetParser } from "@/composables";
 import { alertController, loadingController } from "@ionic/vue";
 import { computed, reactive, ref, toRef, useTemplateRef } from "vue";
 import { useRouter } from "vue-router";
