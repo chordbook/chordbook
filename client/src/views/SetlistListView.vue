@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { DataSource } from "@/components";
+import type { Setlist } from "@/api";
 import SetlistCard from "@/components/SetlistCard.vue";
-import { useTemplateRef } from "vue";
+import { usePaginatedFetch } from "@/composables";
+import { reactive } from "vue";
 
-const dataSource = useTemplateRef("dataSource");
+const dataSource = reactive(usePaginatedFetch<Setlist>("setlists"));
+
+// const dataSource = useTemplateRef("dataSource");
 </script>
 
 <template>
@@ -28,23 +31,17 @@ const dataSource = useTemplateRef("dataSource");
         </ion-toolbar>
       </ion-header>
 
-      <ion-refresher
-        v-if="dataSource"
-        slot="fixed"
-        @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
-      >
+      <ion-refresher slot="fixed" @ion-refresh="reload">
         <ion-refresher-content />
       </ion-refresher>
 
-      <DataSource ref="dataSource" v-slot="{ items }" src="setlists">
-        <ion-list>
-          <div
-            class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
-          >
-            <setlist-card v-for="setlist in items" :key="setlist.id" v-bind="setlist" />
-          </div>
-        </ion-list>
-      </DataSource>
+      <!-- <DataSource ref="dataSource" v-slot="{ items }: { items: Setlist }" src="setlists"> -->
+      <ion-list>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+          <setlist-card v-for="setlist in dataSource.items" :key="setlist.id" v-bind="setlist" />
+        </div>
+      </ion-list>
+      <!-- </DataSource> -->
     </ion-content>
   </app-view>
 </template>

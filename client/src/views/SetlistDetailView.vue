@@ -1,21 +1,21 @@
 <script setup lang="ts">
+import PaginatedList from "@/components/PaginatedList.vue";
 import ShareButton from "@/components/ShareButton.vue";
 import ShareItem from "@/components/ShareItem.vue";
 import SongsheetItem from "@/components/SongsheetItem.vue";
-import { useFetch } from "@/composables";
+import { useFetch, usePaginatedFetch } from "@/composables";
 import * as icons from "@/icons";
 import { gradient } from "@/lib/gradient";
 import { pluralize } from "@/util";
 import { actionSheetController, toastController, useIonRouter } from "@ionic/vue";
-import { ref, useTemplateRef } from "vue";
+import { reactive, ref } from "vue";
 import AddToLibraryButton from "../components/AddToLibraryButton.vue";
 import SetlistAvatar from "../components/SetlistAvatar.vue";
 
 import type { Songsheet } from "@/api";
-import type { DataSource } from "@/components";
 import type { ItemReorderEventDetail } from "@ionic/core";
 
-const props = defineProps({
+const { id } = defineProps({
   id: {
     type: String,
     required: true,
@@ -24,12 +24,12 @@ const props = defineProps({
 
 const router = useIonRouter();
 const editing = ref(false);
-const songsheets = useTemplateRef<InstanceType<typeof DataSource>>("songsheets"); // element ref
+const songsheets = reactive(usePaginatedFetch<Songsheet>(`setlists/${id}/songsheets`));
 
 async function reorder({ detail }: { detail: ItemReorderEventDetail }) {
-  const songsheet = songsheets.value?.items[detail.from];
+  const songsheet = songsheets.items[detail.from];
 
-  await useFetch(`setlists/${props.id}/items/${songsheet.id}`).patch({
+  await useFetch(`setlists/${id}/items/${songsheet.id}`).patch({
     item: { position: detail.to + 1 },
   });
 
@@ -37,8 +37,8 @@ async function reorder({ detail }: { detail: ItemReorderEventDetail }) {
 }
 
 async function remove(songsheet: Songsheet) {
-  await useFetch(`setlists/${props.id}/items/${songsheet.id}`).delete();
-  const items = songsheets.value!.items;
+  await useFetch(`setlists/${id}/items/${songsheet.id}`).delete();
+  const items = songsheets.items;
   items.splice(items.indexOf(songsheet), 1);
 
   return (
@@ -58,7 +58,7 @@ async function destroy() {
         role: "destructive",
         icon: icons.trash,
         handler: async () => {
-          await useFetch(`setlists/${props.id}`).delete();
+          await useFetch(`setlists/${id}`).delete();
           router.navigate({ name: "setlists" }, "back");
         },
       },
@@ -97,14 +97,6 @@ async function destroy() {
         </ion-toolbar>
       </ion-header>
       <ion-content fullscreen>
-        <ion-refresher
-          v-if="$refs.songsheets"
-          slot="fixed"
-          @ion-refresh="songsheets?.reload().then(() => $event.target.complete())"
-        >
-          <ion-refresher-content />
-        </ion-refresher>
-
         <ion-header
           collapse="condense"
           :style="`background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3) 33%, rgba(0,0,0,0.8)), ${gradient(data?.id)};`"
@@ -171,14 +163,10 @@ async function destroy() {
         </ion-header>
 
         <div class="main-content">
-          <ion-list>
-            <ion-reorder-group :disabled="!editing" @ion-item-reorder="reorder">
-              <data-source
-                ref="songsheets"
-                v-slot="{ items }"
-                :src="`setlists/${props.id}/songsheets`"
-              >
-                <ion-item-sliding v-for="songsheet in items" :key="songsheet.id">
+          <PaginatedList :data-source="songsheets">
+            <ion-list>
+              <ion-reorder-group :disabled="!editing" @ion-item-reorder="reorder">
+                <ion-item-sliding v-for="songsheet in songsheets.items" :key="songsheet.id">
                   <ion-item-options side="end">
                     <ion-item-option color="danger" @click="remove(songsheet)">
                       Remove
@@ -198,9 +186,9 @@ async function destroy() {
                     </template>
                   </songsheet-item>
                 </ion-item-sliding>
-              </data-source>
-            </ion-reorder-group>
-          </ion-list>
+              </ion-reorder-group>
+            </ion-list>
+          </PaginatedList>
         </div>
       </ion-content>
     </data-source>

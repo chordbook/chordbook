@@ -61,4 +61,5 @@ export { default as BlankSlate } from "@/components/BlankSlate.vue";
 export { default as DataSource } from "@/components/DataSource.vue";
 export { default as Loading } from "@/components/Loading.vue";
 export { default as ModelList } from "@/components/ModelList.vue";
+export { default as PaginatedList } from "@/components/PaginatedList.vue";
 export { Head } from "@vueuse/head";

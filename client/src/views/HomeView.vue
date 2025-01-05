@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { DataSource } from "@/components";
 import HelpCard from "@/components/HelpCard.vue";
+import { useFetch } from "@/composables";
 import * as icons from "@/icons";
 import useAuthStore from "@/stores/auth";
 import { cashOutline, handLeft, logoGithub } from "ionicons/icons";
-import { useTemplateRef } from "vue";
 
 import type { Home } from "@/api";
+import { ref } from "vue";
 
-const dataSource = useTemplateRef("dataSource");
+const dataSource = ref(useFetch<Home>("home").json());
 const auth = useAuthStore();
 </script>
 
@@ -58,9 +58,8 @@ const auth = useAuthStore();
     </ion-header>
     <ion-content fullscreen class="main-content">
       <ion-refresher
-        v-if="dataSource"
         slot="fixed"
-        @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
+        @ion-refresh="dataSource.execute().then(() => $event.target.complete())"
       >
         <ion-refresher-content />
       </ion-refresher>
@@ -91,18 +90,16 @@ const auth = useAuthStore();
         </div>
       </ion-card>
 
-      <DataSource ref="dataSource" v-slot="{ data }: { data: Home }" src="home">
-        <div v-for="section in data" :key="section.name">
-          <ion-list-header>
-            <ion-label class="text-2xl">
-              {{ section.name }}
-            </ion-label>
-            <ion-button v-if="section.href" :router-link="section.href"> See All </ion-button>
-          </ion-list-header>
+      <div v-for="section in dataSource.data ?? []" :key="section.name">
+        <ion-list-header>
+          <ion-label class="text-2xl">
+            {{ section.name }}
+          </ion-label>
+          <ion-button v-if="section.href" :router-link="section.href"> See All </ion-button>
+        </ion-list-header>
 
-          <model-list :items="section.items" :format="section.format" />
-        </div>
-      </DataSource>
+        <model-list :items="section.items" :format="section.format" />
+      </div>
 
       <div id="contribute">
         <div class="text-center mt-10 sm:mt-20 ion-padding">

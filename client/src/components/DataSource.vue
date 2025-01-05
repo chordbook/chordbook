@@ -43,43 +43,44 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(["load"]);
+const fetch = reactive(
+  usePaginatedFetch(props.src, {
+    ...props.options,
+    params: props.params,
+    immediate: false,
+  }),
+);
 
-const pager = reactive(usePaginatedFetch(props.src, { ...props.options, params: props.params }));
-
-function load() {
-  const page = pager.load();
-  page?.onFetchResponse(() => emit("load", page));
-  return page;
+async function loadMore() {
+  await fetch.load();
+  emit("load", fetch);
 }
 
 const auth = useAuthStore();
 
-defineExpose(pager);
+defineExpose(fetch);
 
 // Reload data when signing in/out
 watch(
   () => auth.isAuthenticated,
   () => {
     console.log("isAuthenticated changed", auth.isAuthenticated);
-    pager.reload();
+    fetch.reload();
   },
 );
 
-await load();
+await loadMore();
 </script>
 
 <template>
-  <slot v-if="$slots.empty && pager.isEmpty" name="empty" />
+  <slot v-if="$slots.empty && fetch.isEmpty" name="empty" />
   <template v-else>
-    <template v-for="page in pager.pages">
-      <slot v-if="$slots.page" name="page" v-bind="page" />
-    </template>
-    <slot v-bind="{ items: pager.items, ...pager.pages[0] }" />
+    <slot v-bind="fetch" />
   </template>
 
   <ion-infinite-scroll
-    v-if="pager.isPaginating"
-    @ion-infinite="load()?.then(() => $event.target.complete())"
+    v-if="fetch.isPaginating"
+    @ion-infinite="loadMore().then(() => $event.target.complete())"
   >
     <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading…" />
   </ion-infinite-scroll>

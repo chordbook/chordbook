@@ -46,7 +46,7 @@ export const doFetch = createFetch({
   },
 });
 
-export function useFetch(
+export function useFetch<T>(
   url: MaybeRefOrGetter<string>,
   { options, params, ...useFetchOptions }: UseFetchOptionsWithParams = {},
 ) {
@@ -54,7 +54,7 @@ export function useFetch(
 
   // useFetch from @vueuse/core has a very complicated method signature. Try to simplify it by accepting
   // `options: RequestInit` as a property of `UseFetchOptionsWithParams` instead of an optional second argument.
-  const fetch = doFetch(
+  const fetch = doFetch<T>(
     fullUrl,
     options || ({} as RequestInit),
     useFetchOptions as UseFetchOptions,

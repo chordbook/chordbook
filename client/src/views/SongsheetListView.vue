@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Songsheet } from "@/api";
 import { DataSource } from "@/components";
 import SongsheetItem from "@/components/SongsheetItem.vue";
 import { add } from "ionicons/icons";
@@ -30,11 +31,7 @@ const dataSource = useTemplateRef("dataSource");
     </ion-header>
 
     <ion-content fullscreen class="relative main-content">
-      <ion-refresher
-        v-if="dataSource"
-        slot="fixed"
-        @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
-      >
+      <ion-refresher v-if="dataSource" slot="fixed" @ion-refresh="dataSource?.reload($event)">
         <ion-refresher-content />
       </ion-refresher>
       <ion-header collapse="condense">
@@ -48,7 +45,7 @@ const dataSource = useTemplateRef("dataSource");
         <template #empty>
           <library-placeholder type="song" />
         </template>
-        <template #default="{ items }">
+        <template #default="{ items }: { items: Songsheet[] }">
           <ion-list>
             <songsheet-item v-for="songsheet in items" :key="songsheet.id" v-bind="songsheet" />
           </ion-list>
