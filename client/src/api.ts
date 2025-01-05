@@ -9,6 +9,15 @@ export type Discover = {
   setlists: Setlist[];
 };
 
+export type SearchResult = {
+  id: string;
+  type: "Artist" | "Album" | "Track" | "Songsheet" | "Setlist";
+  thumbnail: string;
+  title: string;
+  subtitle: string;
+  convert_url: string;
+};
+
 export type Genre = {
   id: string;
   type: "Genre";
@@ -97,7 +106,7 @@ export type Songsheet = {
 
 export type SongsheetFull = Songsheet & {
   source: string;
-  imported_from: string;
+  imported_from?: string;
   media: string[];
   artists: Artist[];
   copyright: {

@@ -44,8 +44,8 @@ async function newModal() {
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding">
-        <loading>
+      <loading>
+        <ion-content class="ion-padding">
           <data-source v-slot="{ items }" src="setlists">
             <ion-list>
               <setlist-item
@@ -56,8 +56,8 @@ async function newModal() {
               />
             </ion-list>
           </data-source>
-        </loading>
-      </ion-content>
+        </ion-content>
+      </loading>
     </authenticated>
   </ion-modal>
 </template>

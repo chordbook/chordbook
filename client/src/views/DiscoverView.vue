@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Discover } from "@/api";
+import type { Discover, SearchResult } from "@/api";
 import ModelAvatar from "@/components/ModelAvatar.vue";
 import { useFetch } from "@/composables";
 import GenreListView from "@/views/GenreListView.vue";
@@ -85,7 +85,7 @@ const search = ref(); // template ref
         <template v-if="params.q" #empty>
           <blank-slate icon="search" title="No results found" description="" />
         </template>
-        <template #default="{ data }">
+        <template #default="{ data }: { data: SearchResult[] }">
           <ion-list>
             <TransitionGroup name="fade">
               <ion-item
