@@ -23,7 +23,7 @@ function share() {
 </script>
 
 <template>
-  <ion-item button detail :detail-icon="icons.share" @click="share">
-    <ion-label>Share</ion-label>
-  </ion-item>
+  <IonItem button detail :detail-icon="icons.share" @click="share">
+    <IonLabel>Share</IonLabel>
+  </IonItem>
 </template>

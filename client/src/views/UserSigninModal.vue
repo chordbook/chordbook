@@ -17,27 +17,27 @@ watchEffect(() => {
 </script>
 
 <template>
-  <ion-modal>
-    <ion-page>
+  <IonModal>
+    <IonPage>
       <Head>
         <title>Sign In</title>
       </Head>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Sign In</ion-title>
-          <ion-buttons slot="end">
-            <ion-back-button role="cancel" icon="" text="Cancel" :default-href="route.path" />
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content color="light">
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Sign In</IonTitle>
+          <IonButtons slot="end">
+            <IonBackButton role="cancel" icon="" text="Cancel" :default-href="route.path" />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent color="light">
         <form @submit.prevent="execute(false)">
           <div v-if="!isFetching && data?.error?.message" class="ion-padding text-red-500">
             {{ data.error.message }}
           </div>
-          <ion-list inset>
-            <ion-item>
-              <ion-input
+          <IonList inset>
+            <IonItem>
+              <IonInput
                 v-model="form.email"
                 label="Email"
                 label-placement="floating"
@@ -45,9 +45,9 @@ watchEffect(() => {
                 autocomplete="email"
                 placeholder="Your email"
               />
-            </ion-item>
-            <ion-item>
-              <ion-input
+            </IonItem>
+            <IonItem>
+              <IonInput
                 v-model="form.password"
                 label="Password"
                 label-placement="floating"
@@ -55,17 +55,17 @@ watchEffect(() => {
                 autocomplete="current-password"
                 placeholder="Your password"
               />
-            </ion-item>
-          </ion-list>
+            </IonItem>
+          </IonList>
           <div class="ion-margin">
-            <ion-button type="submit" expand="block"> Sign In </ion-button>
+            <IonButton type="submit" expand="block"> Sign In </IonButton>
           </div>
-          <router-link
+          <RouterLink
             :to="{ name: 'password/forgot' }"
             class="text-muted text-sm text-center block"
           >
             Forgot your password?
-          </router-link>
+          </RouterLink>
           <div class="ion-margin text-center text-sm text-muted" />
         </form>
 
@@ -75,10 +75,10 @@ watchEffect(() => {
           <h2 class="font-semibold text-lg">Don't have an account?</h2>
 
           <div class="ion-margin">
-            <ion-button fill="outline" router-link="#signup"> Sign up for Chord Book </ion-button>
+            <IonButton fill="outline" router-link="#signup"> Sign up for Chord Book </IonButton>
           </div>
         </div>
-      </ion-content>
-    </ion-page>
-  </ion-modal>
+      </IonContent>
+    </IonPage>
+  </IonModal>
 </template>

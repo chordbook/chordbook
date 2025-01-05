@@ -18,16 +18,16 @@ defineProps({
 </script>
 
 <template>
-  <ion-item
+  <IonItem
     button
     :router-link="{ name: 'artist', params: { id } }"
     class="rounded group"
     :detail="false"
     lines="none"
   >
-    <ion-label class="me-0">
+    <IonLabel class="me-0">
       <div>
-        <model-avatar
+        <ModelAvatar
           :src="thumbnail"
           type="Artist"
           class="w-full h-full aspect-square mb-3 shadow-md"
@@ -36,6 +36,6 @@ defineProps({
       <h3 class="text-center">
         {{ name }}
       </h3>
-    </ion-label>
-  </ion-item>
+    </IonLabel>
+  </IonItem>
 </template>

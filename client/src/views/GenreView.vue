@@ -4,70 +4,66 @@ defineProps<{ id: string }>();
 </script>
 
 <template>
-  <app-view>
-    <data-source v-slot="{ data: genre }: { data: Genre }" :src="`genres/${id}`">
+  <AppView>
+    <DataSource v-slot="{ data: genre }: { data: Genre }" :src="`genres/${id}`">
       <Head>
         <title>
           {{ genre.name }}
         </title>
       </Head>
-      <ion-header translucent>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-back-button text="" default-href="/discover" />
-          </ion-buttons>
-          <ion-title>{{ genre.name }}</ion-title>
-        </ion-toolbar>
-      </ion-header>
+      <IonHeader translucent>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton text="" default-href="/discover" />
+          </IonButtons>
+          <IonTitle>{{ genre.name }}</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
-      <ion-content fullscreen class="main-content">
-        <ion-header collapse="condense">
-          <ion-toolbar>
-            <ion-title size="large">
+      <IonContent fullscreen class="main-content">
+        <IonHeader collapse="condense">
+          <IonToolbar>
+            <IonTitle size="large">
               {{ genre.name }}
-            </ion-title>
-          </ion-toolbar>
-        </ion-header>
+            </IonTitle>
+          </IonToolbar>
+        </IonHeader>
 
-        <ion-list>
-          <ion-list-header>
-            <ion-label>Top Songs</ion-label>
-            <ion-button :router-link="{ name: 'genre.tracks', params: { id } }">
+        <IonList>
+          <IonListHeader>
+            <IonLabel>Top Songs</IonLabel>
+            <IonButton :router-link="{ name: 'genre.tracks', params: { id } }"> See All </IonButton>
+          </IonListHeader>
+
+          <DataSource v-slot="{ data }: { data: Track[] }" :src="`genres/${id}/tracks`">
+            <ModelList :items="data" />
+          </DataSource>
+        </IonList>
+
+        <IonList>
+          <IonListHeader>
+            <IonLabel>Top Artists</IonLabel>
+            <IonButton :router-link="{ name: 'genre.artists', params: { id } }">
               See All
-            </ion-button>
-          </ion-list-header>
+            </IonButton>
+          </IonListHeader>
 
-          <data-source v-slot="{ data }: { data: Track[] }" :src="`genres/${id}/tracks`">
-            <model-list :items="data" />
-          </data-source>
-        </ion-list>
+          <DataSource v-slot="{ data }: { data: Artist[] }" :src="`genres/${id}/artists`">
+            <ModelList :items="data" format="card" />
+          </DataSource>
+        </IonList>
 
-        <ion-list>
-          <ion-list-header>
-            <ion-label>Top Artists</ion-label>
-            <ion-button :router-link="{ name: 'genre.artists', params: { id } }">
-              See All
-            </ion-button>
-          </ion-list-header>
+        <IonList>
+          <IonListHeader>
+            <IonLabel>Top Albums</IonLabel>
+            <IonButton :router-link="{ name: 'genre.albums', params: { id } }"> See All </IonButton>
+          </IonListHeader>
 
-          <data-source v-slot="{ data }: { data: Artist[] }" :src="`genres/${id}/artists`">
-            <model-list :items="data" format="card" />
-          </data-source>
-        </ion-list>
-
-        <ion-list>
-          <ion-list-header>
-            <ion-label>Top Albums</ion-label>
-            <ion-button :router-link="{ name: 'genre.albums', params: { id } }">
-              See All
-            </ion-button>
-          </ion-list-header>
-
-          <data-source v-slot="{ data }: { data: Album[] }" :src="`genres/${id}/albums`">
-            <model-list :items="data" format="card" />
-          </data-source>
-        </ion-list>
-      </ion-content>
-    </data-source>
-  </app-view>
+          <DataSource v-slot="{ data }: { data: Album[] }" :src="`genres/${id}/albums`">
+            <ModelList :items="data" format="card" />
+          </DataSource>
+        </IonList>
+      </IonContent>
+    </DataSource>
+  </AppView>
 </template>

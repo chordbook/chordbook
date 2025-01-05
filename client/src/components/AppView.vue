@@ -18,12 +18,12 @@ watch(online, (online) => {
 </script>
 
 <template>
-  <ion-page>
-    <error-message v-if="error && online" :error="error" @did-dismiss="error = null" />
+  <IonPage>
+    <ErrorMessage v-if="error && online" :error="error" @did-dismiss="error = null" />
 
     <OfflineMessage v-if="error && !online" />
-    <loading v-else>
+    <Loading v-else>
       <slot />
-    </loading>
-  </ion-page>
+    </Loading>
+  </IonPage>
 </template>

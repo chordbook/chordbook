@@ -86,28 +86,28 @@ async function destroy() {
 </script>
 
 <template>
-  <app-view>
+  <AppView>
     <Head>
       <title v-if="id">Edit: {{ songsheet?.title }}</title>
       <title v-else>New Song</title>
     </Head>
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-buttons slot="secondary">
-          <ion-back-button text="Cancel" :default-href="id ? `/songsheets/${id}` : '/songsheets'" />
-        </ion-buttons>
+    <IonHeader translucent>
+      <IonToolbar>
+        <IonButtons slot="secondary">
+          <IonBackButton text="Cancel" :default-href="id ? `/songsheets/${id}` : '/songsheets'" />
+        </IonButtons>
 
-        <ion-buttons slot="primary">
-          <ion-button v-if="splitView?.disabled" @click="splitView?.toggle()">
-            <ion-label>Preview</ion-label>
-          </ion-button>
-          <ion-button v-else @click="save">
-            <ion-label>Save</ion-label>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content fullscreen :scroll-y="false" :scroll-x="false">
+        <IonButtons slot="primary">
+          <IonButton v-if="splitView?.disabled" @click="splitView?.toggle()">
+            <IonLabel>Preview</IonLabel>
+          </IonButton>
+          <IonButton v-else @click="save">
+            <IonLabel>Save</IonLabel>
+          </IonButton>
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
+    <IonContent fullscreen :scroll-y="false" :scroll-x="false">
       <div v-if="Object.keys(errors).length">
         <ul class="px-8 py-4 text-red-600">
           <li v-for="(messages, attr) in errors" :key="attr">
@@ -116,24 +116,24 @@ async function destroy() {
         </ul>
       </div>
 
-      <editor-split-view ref="splitView" :disabled="true">
+      <EditorSplitView ref="splitView" :disabled="true">
         <template #left>
-          <songsheet-editor ref="editor" v-model="songsheet.source" :error="parser.error" />
+          <SongsheetEditor ref="editor" v-model="songsheet.source" :error="parser.error" />
         </template>
         <template #right-toolbar="{ toggle }">
-          <ion-toolbar>
-            <ion-title>Preview</ion-title>
+          <IonToolbar>
+            <IonTitle>Preview</IonTitle>
 
-            <ion-buttons slot="secondary">
-              <ion-back-button text="Edit" :default-href="$route.fullPath" @click="toggle()" />
-            </ion-buttons>
+            <IonButtons slot="secondary">
+              <IonBackButton text="Edit" :default-href="$route.fullPath" @click="toggle()" />
+            </IonButtons>
 
-            <ion-buttons slot="primary">
-              <ion-button @click="save">
-                <ion-label>Save</ion-label>
-              </ion-button>
-            </ion-buttons>
-          </ion-toolbar>
+            <IonButtons slot="primary">
+              <IonButton @click="save">
+                <IonLabel>Save</IonLabel>
+              </IonButton>
+            </IonButtons>
+          </IonToolbar>
         </template>
         <template #right>
           <div
@@ -144,19 +144,19 @@ async function destroy() {
             }"
           >
             <h3>Preview</h3>
-            <songsheet-content v-if="parser.song" :song="parser.song" />
+            <SongsheetContent v-if="parser.song" :song="parser.song" />
           </div>
         </template>
-      </editor-split-view>
-    </ion-content>
-    <ion-footer>
-      <ion-toolbar>
-        <ion-buttons slot="secondary">
-          <ion-button v-if="id" fill="clear" color="danger" @click="destroy"> Delete </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-footer>
-  </app-view>
+      </EditorSplitView>
+    </IonContent>
+    <IonFooter>
+      <IonToolbar>
+        <IonButtons slot="secondary">
+          <IonButton v-if="id" fill="clear" color="danger" @click="destroy"> Delete </IonButton>
+        </IonButtons>
+      </IonToolbar>
+    </IonFooter>
+  </AppView>
 </template>
 
 <style>

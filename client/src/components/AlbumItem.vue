@@ -14,14 +14,14 @@ const link = { name: "album", params: { id: props.id } };
 </script>
 
 <template>
-  <ion-item button :router-link="link" class="rounded group" :detail="false" lines="none">
-    <ion-label>
+  <IonItem button :router-link="link" class="rounded group" :detail="false" lines="none">
+    <IonLabel>
       <div
         class="rounded overflow-hidden relative aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2 flex place-content-center items-center"
       >
         <img v-if="cover" :src="cover.medium" />
-        <ion-icon v-else :icon="icons.album" class="text-slate-300 text-5xl" />
-        <ion-icon
+        <IonIcon v-else :icon="icons.album" class="text-slate-300 text-5xl" />
+        <IonIcon
           :id="`album-${id}-popover`"
           :ios="icons.iosEllipsis"
           :md="icons.mdEllipsis"
@@ -36,8 +36,8 @@ const link = { name: "album", params: { id: props.id } };
         <span v-if="showArtist ?? true">{{ artist.name }} •</span>
         {{ released }}
       </p>
-    </ion-label>
-    <ion-popover
+    </IonLabel>
+    <IonPopover
       :trigger="`album-${id}-popover`"
       alignment="center"
       side="top"
@@ -45,8 +45,8 @@ const link = { name: "album", params: { id: props.id } };
       dismiss-on-select
       animated
     >
-      <ion-list lines="full">
-        <ion-item
+      <IonList lines="full">
+        <IonItem
           button
           detail
           lines="none"
@@ -54,9 +54,9 @@ const link = { name: "album", params: { id: props.id } };
           :router-link="{ name: 'artist', params: { id: artist?.id } }"
         >
           View Artist
-        </ion-item>
-        <share-item lines="none" :router-link="link" :title="`${title} by ${artist.name}`" />
-      </ion-list>
-    </ion-popover>
-  </ion-item>
+        </IonItem>
+        <ShareItem lines="none" :router-link="link" :title="`${title} by ${artist.name}`" />
+      </IonList>
+    </IonPopover>
+  </IonItem>
 </template>

@@ -13,8 +13,8 @@ useIonPageLifecycle();
 </script>
 
 <template>
-  <app-view class="pane-container">
-    <data-source v-slot="{ data: songsheet }: { data: SongsheetFull }" :src="`songsheets/${id}`">
+  <AppView class="pane-container">
+    <DataSource v-slot="{ data: songsheet }: { data: SongsheetFull }" :src="`songsheets/${id}`">
       <Head>
         <title v-if="songsheet.track?.artist">
           {{ songsheet.title }}
@@ -24,6 +24,6 @@ useIonPageLifecycle();
         <title v-else>{{ songsheet.title }} - {{ songsheet.subtitle }}</title>
       </Head>
       <Songsheet v-bind="songsheet" :setlist-id="setlistId" />
-    </data-source>
-  </app-view>
+    </DataSource>
+  </AppView>
 </template>

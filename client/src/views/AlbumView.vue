@@ -7,35 +7,35 @@ defineProps<{ id: string }>();
 </script>
 
 <template>
-  <app-view>
-    <data-source v-slot="{ data }: { data: AlbumFull }" :src="`albums/${id}`">
+  <AppView>
+    <DataSource v-slot="{ data }: { data: AlbumFull }" :src="`albums/${id}`">
       <Head>
         <title v-if="data">{{ data.title }} by {{ data.artist.name }}</title>
       </Head>
-      <ion-header translucent collapse="fade">
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-back-button
+      <IonHeader translucent collapse="fade">
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton
               v-if="data?.artist"
               text=""
               :default-href="`/artists/${data.artist.id}`"
             />
-          </ion-buttons>
-          <ion-title>{{ data?.title }}</ion-title>
-          <ion-buttons slot="end">
-            <add-to-library-button :id="id" />
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
+          </IonButtons>
+          <IonTitle>{{ data?.title }}</IonTitle>
+          <IonButtons slot="end">
+            <AddToLibraryButton :id="id" />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
 
-      <ion-content fullscreen class="main-content">
+      <IonContent fullscreen class="main-content">
         <div class="ion-padding flex gap-4 md:gap-6 lg:gap-8 flex-col md:flex-row">
           <div class="flex place-content-center md:block md:place-content-start">
             <div
               class="aspect-square w-3/4 md:w-60 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
             >
               <img v-if="data?.cover?.large" :src="data.cover.large" />
-              <ion-icon
+              <IonIcon
                 v-else
                 :icon="placeholderIcon"
                 class="text-slate-300 dark:text-slate-700 text-6xl"
@@ -46,36 +46,36 @@ defineProps<{ id: string }>();
             <h1 class="text-xl md:text-3xl m-0">
               {{ data?.title }}
             </h1>
-            <ion-label
+            <IonLabel
               v-if="data?.artist"
               button
               :router-link="{ name: 'artist', params: { id: data.artist.id } }"
               class="block text-xl md:text-2xl text-teal-500 ion-activatable ion-focusable"
             >
               {{ data.artist.name }}
-            </ion-label>
-            <ion-note class="text-xs uppercase font-semibold">
-              <ion-label
+            </IonLabel>
+            <IonNote class="text-xs uppercase font-semibold">
+              <IonLabel
                 v-if="data?.genre"
                 :router-link="{ name: 'genre', params: { id: data.genre.id } }"
               >
                 {{ data.genre.name }}
-              </ion-label>
+              </IonLabel>
               •
               {{ data?.released }}
-            </ion-note>
+            </IonNote>
 
-            <ion-note
+            <IonNote
               class="block text-sm line-clamp-3 overflow-hidden mt-4"
               onclick="this.classList.toggle('line-clamp-3')"
             >
               {{ data?.description }}
-            </ion-note>
+            </IonNote>
           </div>
         </div>
 
-        <ion-list v-if="data?.tracks && data.tracks.length > 0">
-          <ion-item
+        <IonList v-if="data?.tracks && data.tracks.length > 0">
+          <IonItem
             v-for="track in data.tracks"
             :key="track.id"
             :href="`/tracks/${track.id}`"
@@ -83,15 +83,15 @@ defineProps<{ id: string }>();
               'text-neutral-500/50 hover:text-current transition-opacity': !track.has_songsheet,
             }"
           >
-            <ion-text slot="start">
+            <IonText slot="start">
               <span class="text-sm text-muted w-4 text-right inline-block">{{ track.number }}</span>
-            </ion-text>
-            <ion-label>
+            </IonText>
+            <IonLabel>
               <h2>{{ track.title }}</h2>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </data-source>
-  </app-view>
+            </IonLabel>
+          </IonItem>
+        </IonList>
+      </IonContent>
+    </DataSource>
+  </AppView>
 </template>

@@ -26,28 +26,28 @@ const search = ref(); // template ref
 </script>
 
 <template>
-  <app-view>
+  <AppView>
     <Head>
       <title>Discover</title>
     </Head>
-    <ion-header translucent collapse="fade">
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button />
-        </ion-buttons>
-        <ion-title>Discover</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content fullscreen class="main-content">
-      <ion-header
+    <IonHeader translucent collapse="fade">
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonMenuButton />
+        </IonButtons>
+        <IonTitle>Discover</IonTitle>
+      </IonToolbar>
+    </IonHeader>
+    <IonContent fullscreen class="main-content">
+      <IonHeader
         :collapse="mode === 'ios' ? 'condense' : ''"
         class="md:flex md:flex-wrap md:gap-2 md:items-center"
       >
-        <ion-toolbar class="no-md md:flex-1">
-          <ion-title size="large"> Discover </ion-title>
-        </ion-toolbar>
-        <ion-toolbar class="md:flex-1">
-          <ion-searchbar
+        <IonToolbar class="no-md md:flex-1">
+          <IonTitle size="large"> Discover </IonTitle>
+        </IonToolbar>
+        <IonToolbar class="md:flex-1">
+          <IonSearchbar
             ref="input"
             v-model="params.q"
             debounce="200"
@@ -55,15 +55,15 @@ const search = ref(); // template ref
             class="md:pb-0"
             inputmode="search"
           />
-        </ion-toolbar>
-        <ion-toolbar v-if="params.q">
-          <ion-segment :value="params.type" @ion-change="params.type = $event.detail.value">
-            <ion-segment-button v-for="(id, name) in types" :key="id" :value="id">
-              <ion-label>{{ name }}</ion-label>
-            </ion-segment-button>
-          </ion-segment>
-        </ion-toolbar>
-      </ion-header>
+        </IonToolbar>
+        <IonToolbar v-if="params.q">
+          <IonSegment :value="params.type" @ion-change="params.type = $event.detail.value">
+            <IonSegmentButton v-for="(id, name) in types" :key="id" :value="id">
+              <IonLabel>{{ name }}</IonLabel>
+            </IonSegmentButton>
+          </IonSegment>
+        </IonToolbar>
+      </IonHeader>
 
       <Transition name="fade">
         <div
@@ -71,11 +71,11 @@ const search = ref(); // template ref
           slot="fixed"
           class="top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         >
-          <ion-spinner name="dots" color="medium" class="scale-[2]" duration="1200" />
+          <IonSpinner name="dots" color="medium" class="scale-[2]" duration="1200" />
         </div>
       </Transition>
 
-      <data-source
+      <DataSource
         v-if="params.q"
         ref="search"
         src="search"
@@ -83,12 +83,12 @@ const search = ref(); // template ref
         :options="{ immediate: !!params.q, refetch: true }"
       >
         <template v-if="params.q" #empty>
-          <blank-slate icon="search" title="No results found" description="" />
+          <BlankSlate icon="search" title="No results found" description="" />
         </template>
         <template #default="{ data }: { data: SearchResult[] }">
-          <ion-list>
+          <IonList>
             <TransitionGroup name="fade">
-              <ion-item
+              <IonItem
                 v-for="result in data"
                 :key="result.type + result.id"
                 button
@@ -98,28 +98,28 @@ const search = ref(); // template ref
                 }"
                 @click="useFetch(result.convert_url)"
               >
-                <model-avatar slot="start" :src="result.thumbnail" :type="result.type" />
-                <ion-label>
+                <ModelAvatar slot="start" :src="result.thumbnail" :type="result.type" />
+                <IonLabel>
                   <p class="uppercase">
                     {{ result.type }}
                   </p>
                   <h2>{{ result.title }}</h2>
                   <p>{{ result.subtitle }}</p>
-                </ion-label>
-              </ion-item>
+                </IonLabel>
+              </IonItem>
             </TransitionGroup>
-          </ion-list>
+          </IonList>
         </template>
-      </data-source>
+      </DataSource>
 
       <div v-show="!params.q">
-        <data-source v-slot="{ data }: { data: Discover }" src="discover">
-          <model-list :items="data?.setlists" format="card" />
-        </data-source>
+        <DataSource v-slot="{ data }: { data: Discover }" src="discover">
+          <ModelList :items="data?.setlists" format="card" />
+        </DataSource>
         <GenreListView />
       </div>
-    </ion-content>
-  </app-view>
+    </IonContent>
+  </AppView>
 </template>
 
 <style scoped>

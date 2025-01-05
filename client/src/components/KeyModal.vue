@@ -70,7 +70,7 @@ onWillLeave(() => modal.value.$el.dismiss());
 </script>
 
 <template>
-  <ion-modal
+  <IonModal
     ref="modal"
     class="auto-height"
     :breakpoints="[0.25, 0.5, 1]"
@@ -78,26 +78,26 @@ onWillLeave(() => modal.value.$el.dismiss());
     handle-behavior="cycle"
     @will-present="scrollToActive(false)"
   >
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-segment v-model="modifier">
-            <ion-segment-button value="b">
+    <IonHeader>
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonSegment v-model="modifier">
+            <IonSegmentButton value="b">
               <div class="text-xl -mb-1">♭</div>
-            </ion-segment-button>
-            <ion-segment-button value="#">
+            </IonSegmentButton>
+            <IonSegmentButton value="#">
               <div class="text-xl -mb-1">♯</div>
-            </ion-segment-button>
-          </ion-segment>
-        </ion-buttons>
+            </IonSegmentButton>
+          </IonSegment>
+        </IonButtons>
 
-        <ion-title>Transpose</ion-title>
-        <ion-buttons slot="end">
-          <ion-button :disabled="!isChanged" @click="reset"> Reset </ion-button>
-          <ion-button role="cancel" @click="$el.dismiss()"> Done </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+        <IonTitle>Transpose</IonTitle>
+        <IonButtons slot="end">
+          <IonButton :disabled="!isChanged" @click="reset"> Reset </IonButton>
+          <IonButton role="cancel" @click="$el.dismiss()"> Done </IonButton>
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
     <div
       ref="scroller"
       class="flex flex-row flex-nowrap gap-1 ion-padding w-full overflow-auto snap-x snap-mandatory"
@@ -111,7 +111,7 @@ onWillLeave(() => modal.value.$el.dismiss());
         <div class="text-xs text-muted text-center">
           {{ step > 0 ? `+${step}` : step }}
         </div>
-        <metadata-chip
+        <MetadataChip
           name="Key"
           :value="key.toString({ useUnicodeModifier: true })"
           :color="step === transposeModel ? 'tertiary' : 'medium'"
@@ -126,7 +126,7 @@ onWillLeave(() => modal.value.$el.dismiss());
           @click="capoModel = capo"
         >
           <div class="text-center text-xs uppercase">
-            <metadata-chip
+            <MetadataChip
               class="w-full mx-0 mt-0"
               :color="capo === capoModel ? 'primary' : 'medium'"
               :name="capo !== 0 ? 'Capo' : 'No capo'"
@@ -146,7 +146,7 @@ onWillLeave(() => modal.value.$el.dismiss());
         </div>
       </div>
     </div>
-  </ion-modal>
+  </IonModal>
 </template>
 
 <style scoped>

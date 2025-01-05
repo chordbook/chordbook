@@ -11,19 +11,19 @@ const { isFinished, error, execute, data } = auth.forgotPassword(params, {
 </script>
 
 <template>
-  <ion-page>
+  <IonPage>
     <Head>
       <title>Forgot Password</title>
     </Head>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title> Reset Password </ion-title>
-        <ion-buttons slot="end">
-          <ion-back-button role="cancel" icon="" text="Cancel" default-href="/" />
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
+    <IonHeader>
+      <IonToolbar>
+        <IonTitle> Reset Password </IonTitle>
+        <IonButtons slot="end">
+          <IonBackButton role="cancel" icon="" text="Cancel" default-href="/" />
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
+    <IonContent>
       <div class="max-w-md m-auto flex flex-col justify-center h-full main-content">
         <div v-if="isFinished && !error" class="text-center">
           <p class="text-lg">
@@ -31,8 +31,8 @@ const { isFinished, error, execute, data } = auth.forgotPassword(params, {
           </p>
         </div>
         <form v-else @submit.prevent="execute(false)">
-          <ion-item>
-            <ion-input
+          <IonItem>
+            <IonInput
               v-model="params.email"
               label="Email"
               label-placement="floating"
@@ -42,17 +42,17 @@ const { isFinished, error, execute, data } = auth.forgotPassword(params, {
               :class="{ 'ion-invalid ion-touched': error }"
               :error-text="data?.error?.message"
             />
-          </ion-item>
+          </IonItem>
           <div class="ion-margin">
-            <ion-button type="submit" expand="block"> Reset Password </ion-button>
+            <IonButton type="submit" expand="block"> Reset Password </IonButton>
           </div>
           <div class="ion-margin text-center text-sm text-muted">
-            <router-link to="#signin"> Sign In </router-link>
+            <RouterLink to="#signin"> Sign In </RouterLink>
             •
-            <router-link to="#signup"> Sign Up </router-link>
+            <RouterLink to="#signup"> Sign Up </RouterLink>
           </div>
         </form>
       </div>
-    </ion-content>
-  </ion-page>
+    </IonContent>
+  </IonPage>
 </template>

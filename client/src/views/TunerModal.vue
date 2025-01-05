@@ -3,21 +3,21 @@ import Tuner from "@/components/Tuner.vue";
 </script>
 
 <template>
-  <ion-modal>
+  <IonModal>
     <Head>Tuner</Head>
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button text="" default-href="/" />
-        </ion-buttons>
-        <ion-title>Tuner</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <IonHeader translucent>
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonBackButton text="" default-href="/" />
+        </IonButtons>
+        <IonTitle>Tuner</IonTitle>
+      </IonToolbar>
+    </IonHeader>
 
     <div class="flex place-content-center p-10">
-      <tuner />
+      <Tuner />
     </div>
-  </ion-modal>
+  </IonModal>
 </template>
 
 <style scoped>

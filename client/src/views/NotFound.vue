@@ -8,7 +8,7 @@
       <p>Uh oh! The page you're looking seems to be missing.</p>
 
       <p>
-        <router-link to="/"> Return to home page </router-link>
+        <RouterLink to="/"> Return to home page </RouterLink>
       </p>
     </div>
   </div>

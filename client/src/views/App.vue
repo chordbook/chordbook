@@ -8,14 +8,14 @@ const route = useRoute();
 </script>
 
 <template>
-  <ion-app>
-    <reload-pwa />
-    <ion-split-pane content-id="main" when="lg" :disabled="route.meta?.menu === false">
-      <app-menu content-id="main" />
-      <ion-router-outlet id="main" />
-    </ion-split-pane>
-    <modal-view />
-  </ion-app>
+  <IonApp>
+    <ReloadPwa />
+    <IonSplitPane content-id="main" when="lg" :disabled="route.meta?.menu === false">
+      <AppMenu content-id="main" />
+      <IonRouterOutlet id="main" />
+    </IonSplitPane>
+    <ModalView />
+  </IonApp>
 </template>
 
 <style scoped>

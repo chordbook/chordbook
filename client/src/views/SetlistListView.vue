@@ -8,48 +8,48 @@ const dataSource = useTemplateRef("dataSource");
 </script>
 
 <template>
-  <app-view>
+  <AppView>
     <Head>
       <title>Setlists</title>
     </Head>
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-title>Setlists</ion-title>
+    <IonHeader translucent>
+      <IonToolbar>
+        <IonTitle>Setlists</IonTitle>
 
-        <ion-buttons slot="start">
-          <ion-back-button class="md:hidden" text="" default-href="/library" />
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+        <IonButtons slot="start">
+          <IonBackButton class="md:hidden" text="" default-href="/library" />
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
 
-    <ion-content fullscreen class="main-content">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large"> Setlists </ion-title>
-        </ion-toolbar>
-      </ion-header>
+    <IonContent fullscreen class="main-content">
+      <IonHeader collapse="condense">
+        <IonToolbar>
+          <IonTitle size="large"> Setlists </IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
-      <ion-refresher
+      <IonRefresher
         v-if="dataSource"
         slot="fixed"
         @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
       >
-        <ion-refresher-content />
-      </ion-refresher>
+        <IonRefresherContent />
+      </IonRefresher>
 
       <DataSource ref="dataSource" v-slot="{ items }" src="setlists">
-        <ion-list>
+        <IonList>
           <div
             class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
           >
-            <setlist-card
+            <SetlistCard
               v-for="setlist in items"
               :key="(setlist as Setlist).id"
               v-bind="setlist as Setlist"
             />
           </div>
-        </ion-list>
+        </IonList>
       </DataSource>
-    </ion-content>
-  </app-view>
+    </IonContent>
+  </AppView>
 </template>

@@ -22,7 +22,7 @@ async function doShare() {
 </script>
 
 <template>
-  <ion-button @click="doShare">
-    <ion-icon slot="icon-only" :icon="share" />
-  </ion-button>
+  <IonButton @click="doShare">
+    <IonIcon slot="icon-only" :icon="share" />
+  </IonButton>
 </template>

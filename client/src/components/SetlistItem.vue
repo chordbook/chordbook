@@ -8,8 +8,8 @@ defineProps<{
 </script>
 
 <template>
-  <ion-item button class="rounded group" :detail="false" lines="none">
-    <ion-avatar
+  <IonItem button class="rounded group" :detail="false" lines="none">
+    <IonAvatar
       slot="start"
       class="bg-slate-100 dark:bg-slate-800 flex place-content-center items-center rounded"
     >
@@ -17,14 +17,14 @@ defineProps<{
         <div v-if="thumbnails.length > 0" class="grid grid-cols-2 grid-rows-2">
           <img v-for="thumbnail in thumbnails" :key="thumbnail" :src="thumbnail" />
         </div>
-        <ion-icon v-else :icon="icons.setlist" size="small" class="text-slate-300 text-5xl" />
+        <IonIcon v-else :icon="icons.setlist" size="small" class="text-slate-300 text-5xl" />
       </div>
-    </ion-avatar>
+    </IonAvatar>
 
-    <ion-label>
+    <IonLabel>
       <h3 class="text-sm">
         {{ title }}
       </h3>
-    </ion-label>
-  </ion-item>
+    </IonLabel>
+  </IonItem>
 </template>

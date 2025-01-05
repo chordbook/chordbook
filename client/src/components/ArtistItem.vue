@@ -7,10 +7,10 @@ defineProps<Artist>();
 </script>
 
 <template>
-  <ion-item button :router-link="{ name: 'artist', params: { id } }">
-    <model-avatar slot="start" :src="thumbnail" type="artist" />
-    <ion-label>
+  <IonItem button :router-link="{ name: 'artist', params: { id } }">
+    <ModelAvatar slot="start" :src="thumbnail" type="artist" />
+    <IonLabel>
       <h2>{{ name }}</h2>
-    </ion-label>
-  </ion-item>
+    </IonLabel>
+  </IonItem>
 </template>

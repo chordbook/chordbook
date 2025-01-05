@@ -19,20 +19,20 @@ async function toast(message: string) {
 </script>
 
 <template>
-  <ion-button
+  <IonButton
     v-if="library.exists"
     v-tooltip="'Remove from library'"
     color="success"
     @click="library.remove().then(() => toast('Removed from your library'))"
   >
-    <ion-icon slot="icon-only" :icon="icons.saved" />
-  </ion-button>
+    <IonIcon slot="icon-only" :icon="icons.saved" />
+  </IonButton>
 
-  <ion-button
+  <IonButton
     v-else
     v-tooltip="'Add to library'"
     @click="library.add().then(() => toast('Added to your library'))"
   >
-    <ion-icon slot="icon-only" :icon="icons.save" />
-  </ion-button>
+    <IonIcon slot="icon-only" :icon="icons.save" />
+  </IonButton>
 </template>

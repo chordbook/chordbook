@@ -70,55 +70,55 @@ async function destroy() {
 </script>
 
 <template>
-  <app-view>
-    <data-source v-slot="{ data }" :src="`setlists/${id}`">
+  <AppView>
+    <DataSource v-slot="{ data }" :src="`setlists/${id}`">
       <Head>
         <title v-if="data">Setlist: {{ data.title }}</title>
       </Head>
-      <ion-header translucent>
-        <ion-toolbar>
-          <ion-title>{{ data?.title }}</ion-title>
+      <IonHeader translucent>
+        <IonToolbar>
+          <IonTitle>{{ data?.title }}</IonTitle>
 
-          <ion-buttons slot="start">
-            <ion-back-button text="" :default-href="{ name: 'setlists' }" />
-          </ion-buttons>
+          <IonButtons slot="start">
+            <IonBackButton text="" :default-href="{ name: 'setlists' }" />
+          </IonButtons>
 
-          <ion-buttons slot="end" class="pr-[16px]">
-            <ion-button v-show="editing" @click="editing = false"> Done </ion-button>
-            <ion-button v-show="!editing" :id="`setlist-context-${id}`">
-              <ion-icon
+          <IonButtons slot="end" class="pr-[16px]">
+            <IonButton v-show="editing" @click="editing = false"> Done </IonButton>
+            <IonButton v-show="!editing" :id="`setlist-context-${id}`">
+              <IonIcon
                 slot="icon-only"
                 size="small"
                 :ios="icons.iosEllipsis"
                 :md="icons.mdEllipsis"
               />
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content fullscreen>
-        <ion-refresher
+            </IonButton>
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent fullscreen>
+        <IonRefresher
           v-if="$refs.songsheets"
           slot="fixed"
           @ion-refresh="songsheets?.reload().then(() => $event.target.complete())"
         >
-          <ion-refresher-content />
-        </ion-refresher>
+          <IonRefresherContent />
+        </IonRefresher>
 
-        <ion-header
+        <IonHeader
           collapse="condense"
           :style="`background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3) 33%, rgba(0,0,0,0.8)), ${gradient(data?.id)};`"
           class="block bg-slate-700 always-dark main-content"
         >
-          <ion-toolbar style="--background: transparent; --padding-top: 1.5rem">
+          <IonToolbar style="--background: transparent; --padding-top: 1.5rem">
             <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 ion-padding">
               <div class="min-w-[200px]">
-                <setlist-avatar :id="data?.id" :thumbnails="data?.thumbnails" class="shadow-xl" />
+                <SetlistAvatar :id="data?.id" :thumbnails="data?.thumbnails" class="shadow-xl" />
               </div>
               <div class="text-white text-shadow flex flex-col gap-3">
-                <ion-note class="text-white text-xs font-semibold uppercase tracking-wide">
+                <IonNote class="text-white text-xs font-semibold uppercase tracking-wide">
                   Setlist
-                </ion-note>
+                </IonNote>
                 <h1 class="text-4xl font-bold">
                   {{ data?.title }}
                 </h1>
@@ -126,83 +126,83 @@ async function destroy() {
                   {{ data?.description }}
                 </div>
                 <div class="text-sm">
-                  <ion-chip color="light" class="m-0">
-                    <ion-avatar>
+                  <IonChip color="light" class="m-0">
+                    <IonAvatar>
                       <img
                         alt="Silhouette of a person's head"
                         src="https://ionicframework.com/docs/img/demos/avatar.svg"
                       />
-                    </ion-avatar>
-                    <ion-label>{{ data?.user?.name || "unknown" }}</ion-label>
-                  </ion-chip>
+                    </IonAvatar>
+                    <IonLabel>{{ data?.user?.name || "unknown" }}</IonLabel>
+                  </IonChip>
 
                   <span class="inline-block mx-1">•</span>
 
                   {{ pluralize(data?.songs_count, "song", "songs") }}
                 </div>
 
-                <ion-buttons>
-                  <add-to-library-button :id="id" size="large" color="light" />
-                  <share-button
+                <IonButtons>
+                  <AddToLibraryButton :id="id" size="large" color="light" />
+                  <ShareButton
                     :title="data?.title"
                     :router-link="{ name: 'setlist', params: { id } }"
                     color="light"
                   />
-                </ion-buttons>
+                </IonButtons>
 
-                <ion-popover :trigger="`setlist-context-${id}`" dismiss-on-select>
-                  <ion-list>
-                    <ion-item button detail :detail-icon="icons.edit" @click="editing = true">
-                      <ion-label>Edit</ion-label>
-                    </ion-item>
-                    <ion-item button detail :detail-icon="icons.trash" @click="destroy">
-                      <ion-label>Delete</ion-label>
-                    </ion-item>
-                    <share-item
+                <IonPopover :trigger="`setlist-context-${id}`" dismiss-on-select>
+                  <IonList>
+                    <IonItem button detail :detail-icon="icons.edit" @click="editing = true">
+                      <IonLabel>Edit</IonLabel>
+                    </IonItem>
+                    <IonItem button detail :detail-icon="icons.trash" @click="destroy">
+                      <IonLabel>Delete</IonLabel>
+                    </IonItem>
+                    <ShareItem
                       lines="none"
                       :title="data?.title"
                       :router-link="{ name: 'setlist', params: { id } }"
                     />
-                  </ion-list>
-                </ion-popover>
+                  </IonList>
+                </IonPopover>
               </div>
             </div>
-          </ion-toolbar>
-        </ion-header>
+          </IonToolbar>
+        </IonHeader>
 
         <div class="main-content">
-          <ion-list>
-            <ion-reorder-group :disabled="!editing" @ion-item-reorder="reorder">
-              <data-source
+          <IonList>
+            <IonReorderGroup :disabled="!editing" @ion-item-reorder="reorder">
+              <DataSource
                 ref="songsheets"
                 v-slot="{ items }"
                 :src="`setlists/${props.id}/songsheets`"
               >
-                <ion-item-sliding v-for="songsheet in items" :key="songsheet.id">
-                  <ion-item-options side="end">
-                    <ion-item-option color="danger" @click="remove(songsheet)">
+                <IonItemSliding v-for="songsheet in items" :key="songsheet.id">
+                  <IonItemOptions side="end">
+                    <IonItemOption color="danger" @click="remove(songsheet)">
                       Remove
-                    </ion-item-option>
-                  </ion-item-options>
+                    </IonItemOption>
+                  </IonItemOptions>
 
-                  <songsheet-item v-bind="songsheet" :setlist-id="id">
+                  <SongsheetItem v-bind="songsheet" :setlist-id="id">
                     <template #actions>
-                      <ion-item
+                      <IonItem
                         button
                         detail
                         :detail-icon="icons.setlist"
                         @click="remove(songsheet)"
                       >
-                        <ion-label color="danger">Remove</ion-label>
-                      </ion-item>
+                        <IonLabel color="danger">Remove</IonLabel>
+                      </IonItem>
                     </template>
-                  </songsheet-item>
-                </ion-item-sliding>
-              </data-source>
-            </ion-reorder-group>
-          </ion-list>
+                  </SongsheetItem>
+                </IonItemSliding>
+              </DataSource>
+            </IonReorderGroup>
+          </IonList>
         </div>
-      </ion-content>
-    </data-source>
-  </app-view>
+      </IonContent>
+    </DataSource>
+  </AppView>
 </template>

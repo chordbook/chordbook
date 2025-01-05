@@ -6,7 +6,7 @@ defineProps<{
 </script>
 
 <template>
-  <ion-chip class="py-0">
+  <IonChip class="py-0">
     <div class="text-nowrap w-full inline-flex items-baseline gap-1 justify-center">
       <span class="opacity-70 uppercase text-xs">
         {{ name }}{{ value || $slots.default ? ":" : "" }}
@@ -15,5 +15,5 @@ defineProps<{
         ><strong>{{ value }}</strong></slot
       >
     </div>
-  </ion-chip>
+  </IonChip>
 </template>

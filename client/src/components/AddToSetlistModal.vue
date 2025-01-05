@@ -31,33 +31,33 @@ async function newModal() {
 </script>
 
 <template>
-  <ion-modal>
-    <authenticated>
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-button role="cancel" @click="modalController.dismiss()"> Cancel </ion-button>
-          </ion-buttons>
-          <ion-title>Add to Setlist</ion-title>
-          <ion-buttons slot="end">
-            <ion-button role="cancel" @click="newModal()"> New setlist </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <loading>
-        <ion-content class="ion-padding">
-          <data-source v-slot="{ items }" src="setlists">
-            <ion-list>
-              <setlist-item
+  <IonModal>
+    <Authenticated>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonButton role="cancel" @click="modalController.dismiss()"> Cancel </IonButton>
+          </IonButtons>
+          <IonTitle>Add to Setlist</IonTitle>
+          <IonButtons slot="end">
+            <IonButton role="cancel" @click="newModal()"> New setlist </IonButton>
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+      <Loading>
+        <IonContent class="ion-padding">
+          <DataSource v-slot="{ items }" src="setlists">
+            <IonList>
+              <SetlistItem
                 v-for="setlist in items"
                 :key="setlist.id"
                 v-bind="setlist"
                 @click.prevent="add(setlist)"
               />
-            </ion-list>
-          </data-source>
-        </ion-content>
-      </loading>
-    </authenticated>
-  </ion-modal>
+            </IonList>
+          </DataSource>
+        </IonContent>
+      </Loading>
+    </Authenticated>
+  </IonModal>
 </template>

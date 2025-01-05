@@ -20,14 +20,14 @@ defineExpose({ disabled, toggle });
     <div class="h-full">
       <slot name="left" />
 
-      <ion-modal ref="right">
-        <ion-header translucent>
+      <IonModal ref="right">
+        <IonHeader translucent>
           <slot name="right-toolbar" v-bind="{ toggle }" />
-        </ion-header>
-        <ion-content fullscreen>
+        </IonHeader>
+        <IonContent fullscreen>
           <slot name="right" />
-        </ion-content>
-      </ion-modal>
+        </IonContent>
+      </IonModal>
     </div>
   </template>
   <template v-else>

@@ -42,7 +42,7 @@ function rotate(index: number) {
       </div>
     </template>
 
-    <ion-icon
+    <IonIcon
       v-else
       :icon="setlist"
       class="text-slate-100 text-3xl opacity-20 p-3 bg-slate-800 rounded-full absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"

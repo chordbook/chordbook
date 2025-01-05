@@ -19,29 +19,29 @@ watchEffect(() => {
 </script>
 
 <template>
-  <ion-modal>
-    <ion-page>
+  <IonModal>
+    <IonPage>
       <Head>
         <title>Sign Up</title>
       </Head>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Sign Up</ion-title>
-          <ion-buttons slot="end">
-            <ion-back-button role="cancel" icon="" text="Cancel" :default-href="route.path" />
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content color="light">
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Sign Up</IonTitle>
+          <IonButtons slot="end">
+            <IonBackButton role="cancel" icon="" text="Cancel" :default-href="route.path" />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent color="light">
         <form @submit.prevent="execute(false)">
           <Transition name="slide-down">
             <div v-if="data?.error?.message" class="ion-padding text-red-500">
               {{ data.error.message }}
             </div>
           </Transition>
-          <ion-list inset>
-            <ion-item>
-              <ion-input
+          <IonList inset>
+            <IonItem>
+              <IonInput
                 v-model="form.name"
                 label="Name"
                 label-placement="floating"
@@ -52,9 +52,9 @@ watchEffect(() => {
                 :error-text="data?.error?.name?.join(', ')"
                 :class="{ 'ion-invalid ion-touched': data?.error?.name }"
               />
-            </ion-item>
-            <ion-item>
-              <ion-input
+            </IonItem>
+            <IonItem>
+              <IonInput
                 v-model="form.email"
                 label="Email"
                 label-placement="floating"
@@ -65,9 +65,9 @@ watchEffect(() => {
                 :error-text="data?.error?.email?.join(', ')"
                 :class="{ 'ion-invalid ion-touched': data?.error?.email }"
               />
-            </ion-item>
-            <ion-item>
-              <ion-input
+            </IonItem>
+            <IonItem>
+              <IonInput
                 v-model="form.password"
                 label="Password"
                 label-placement="floating"
@@ -78,10 +78,10 @@ watchEffect(() => {
                 :error-text="data?.error?.password"
                 :class="{ 'ion-invalid ion-touched': data?.error?.password }"
               />
-            </ion-item>
-          </ion-list>
+            </IonItem>
+          </IonList>
           <div class="ion-margin">
-            <ion-button type="submit" expand="block"> Sign Up </ion-button>
+            <IonButton type="submit" expand="block"> Sign Up </IonButton>
           </div>
         </form>
 
@@ -91,10 +91,10 @@ watchEffect(() => {
           <h2 class="font-semibold text-lg">Already have an account?</h2>
 
           <div class="ion-margin">
-            <ion-button fill="outline" router-link="#signin"> Sign in to your account </ion-button>
+            <IonButton fill="outline" router-link="#signin"> Sign in to your account </IonButton>
           </div>
         </div>
-      </ion-content>
-    </ion-page>
-  </ion-modal>
+      </IonContent>
+    </IonPage>
+  </IonModal>
 </template>

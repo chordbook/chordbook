@@ -3,45 +3,45 @@ import * as icons from "@/icons";
 </script>
 
 <template>
-  <app-view>
+  <AppView>
     <Head>
       <title>Library</title>
     </Head>
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button />
-        </ion-buttons>
-        <ion-title>Library</ion-title>
-        <ion-buttons slot="end">
-          <ion-button router-link="/account">
-            <ion-icon slot="icon-only" :icon="icons.avatar" />
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+    <IonHeader translucent>
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonMenuButton />
+        </IonButtons>
+        <IonTitle>Library</IonTitle>
+        <IonButtons slot="end">
+          <IonButton router-link="/account">
+            <IonIcon slot="icon-only" :icon="icons.avatar" />
+          </IonButton>
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
 
-    <ion-content fullscreen class="main-content">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large"> Library </ion-title>
-        </ion-toolbar>
-      </ion-header>
+    <IonContent fullscreen class="main-content">
+      <IonHeader collapse="condense">
+        <IonToolbar>
+          <IonTitle size="large"> Library </IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
-      <ion-list>
-        <ion-item button router-link="/songsheets">
-          <ion-icon slot="start" size="small" :icon="icons.song" />
-          <ion-label>Songs</ion-label>
-        </ion-item>
-        <ion-item button router-link="/artists">
-          <ion-icon slot="start" size="small" :icon="icons.artist" />
-          <ion-label>Artists</ion-label>
-        </ion-item>
-        <ion-item button router-link="/setlists">
-          <ion-icon slot="start" size="small" :icon="icons.setlist" />
-          <ion-label>Setlists</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  </app-view>
+      <IonList>
+        <IonItem button router-link="/songsheets">
+          <IonIcon slot="start" size="small" :icon="icons.song" />
+          <IonLabel>Songs</IonLabel>
+        </IonItem>
+        <IonItem button router-link="/artists">
+          <IonIcon slot="start" size="small" :icon="icons.artist" />
+          <IonLabel>Artists</IonLabel>
+        </IonItem>
+        <IonItem button router-link="/setlists">
+          <IonIcon slot="start" size="small" :icon="icons.setlist" />
+          <IonLabel>Setlists</IonLabel>
+        </IonItem>
+      </IonList>
+    </IonContent>
+  </AppView>
 </template>

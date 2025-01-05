@@ -10,55 +10,55 @@ const dataSource = useTemplateRef("dataSource");
 </script>
 
 <template>
-  <app-view>
+  <AppView>
     <Head>
       <title>{{ $route.meta.title || "Songs" }}</title>
     </Head>
-    <ion-header translucent collapse="fade">
-      <ion-toolbar>
-        <ion-title>{{ $route.meta.title || "Songs" }}</ion-title>
+    <IonHeader translucent collapse="fade">
+      <IonToolbar>
+        <IonTitle>{{ $route.meta.title || "Songs" }}</IonTitle>
 
-        <ion-buttons slot="start">
-          <ion-back-button class="md:hidden" text="" default-href="/library" />
-        </ion-buttons>
+        <IonButtons slot="start">
+          <IonBackButton class="md:hidden" text="" default-href="/library" />
+        </IonButtons>
 
-        <ion-buttons slot="end">
-          <ion-button :router-link="{ name: 'songsheet.new' }">
-            <ion-icon slot="icon-only" :icon="add" />
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+        <IonButtons slot="end">
+          <IonButton :router-link="{ name: 'songsheet.new' }">
+            <IonIcon slot="icon-only" :icon="add" />
+          </IonButton>
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
 
-    <ion-content fullscreen class="relative main-content">
-      <ion-refresher
+    <IonContent fullscreen class="relative main-content">
+      <IonRefresher
         v-if="dataSource"
         slot="fixed"
         @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
       >
-        <ion-refresher-content />
-      </ion-refresher>
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">
+        <IonRefresherContent />
+      </IonRefresher>
+      <IonHeader collapse="condense">
+        <IonToolbar>
+          <IonTitle size="large">
             {{ $route.meta.title || "Songs" }}
-          </ion-title>
-        </ion-toolbar>
-      </ion-header>
+          </IonTitle>
+        </IonToolbar>
+      </IonHeader>
       <DataSource ref="dataSource" :src="$route.path">
         <template #empty>
-          <library-placeholder type="song" />
+          <LibraryPlaceholder type="song" />
         </template>
         <template #default="{ items }">
-          <ion-list>
-            <songsheet-item
+          <IonList>
+            <SongsheetItem
               v-for="songsheet in items"
               :key="(songsheet as Songsheet).id"
               v-bind="songsheet as Songsheet"
             />
-          </ion-list>
+          </IonList>
         </template>
       </DataSource>
-    </ion-content>
-  </app-view>
+    </IonContent>
+  </AppView>
 </template>

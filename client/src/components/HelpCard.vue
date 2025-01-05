@@ -11,27 +11,27 @@ defineProps<{
 }>();
 </script>
 <template>
-  <ion-card class="flex flex-col sm:max-xl:flex-row m-0">
-    <colorized-img
+  <IonCard class="flex flex-col sm:max-xl:flex-row m-0">
+    <ColorizedImg
       class="aspect-16/9 w-full sm:max-xl:aspect-square sm:max-xl:h-60 sm:max-xl:w-60"
       :src="image"
     />
     <div>
-      <ion-card-header>
-        <ion-card-subtitle>{{ audience }}</ion-card-subtitle>
-        <ion-card-title>{{ title }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content class="grow flex flex-col gap-4">
+      <IonCardHeader>
+        <IonCardSubtitle>{{ audience }}</IonCardSubtitle>
+        <IonCardTitle>{{ title }}</IonCardTitle>
+      </IonCardHeader>
+      <IonCardContent class="grow flex flex-col gap-4">
         <p>
           <slot />
         </p>
         <p class="lg:text-center">
-          <ion-button class="w-40" :href="url">
-            <ion-icon slot="start" :icon="icon" />
+          <IonButton class="w-40" :href="url">
+            <IonIcon slot="start" :icon="icon" />
             {{ buttonText }}
-          </ion-button>
+          </IonButton>
         </p>
-      </ion-card-content>
+      </IonCardContent>
     </div>
-  </ion-card>
+  </IonCard>
 </template>

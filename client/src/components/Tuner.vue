@@ -74,7 +74,7 @@ function updateFrequencyBars() {
           ref="frequencyBars"
           class="w-full h-full inset-0 opacity-20 absolute rounded-full"
         />
-        <tuner-meter :cents="note.cents" />
+        <TunerMeter :cents="note.cents" />
         <div class="mx-auto my-auto relative">
           <div class="text-8xl font-bold relative">
             {{ note.name[0] }}
@@ -97,12 +97,12 @@ function updateFrequencyBars() {
       </div>
     </div>
     <div class="mt-4 text-center">
-      <ion-button v-if="!active" color="success" @click="start">
-        <ion-icon slot="icon-only" :icon="mic" />
-      </ion-button>
-      <ion-button v-if="active" color="danger" type="reset" @click="stop">
-        <ion-icon slot="icon-only" :icon="micOff" class="animate-pulse" />
-      </ion-button>
+      <IonButton v-if="!active" color="success" @click="start">
+        <IonIcon slot="icon-only" :icon="mic" />
+      </IonButton>
+      <IonButton v-if="active" color="danger" type="reset" @click="stop">
+        <IonIcon slot="icon-only" :icon="micOff" class="animate-pulse" />
+      </IonButton>
     </div>
   </div>
 </template>

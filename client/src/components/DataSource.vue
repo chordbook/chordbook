@@ -77,10 +77,10 @@ await load();
     <slot v-bind="{ items: pager.items, ...pager.pages[0] }" />
   </template>
 
-  <ion-infinite-scroll
+  <IonInfiniteScroll
     v-if="pager.isPaginating"
     @ion-infinite="load()?.then(() => $event.target.complete())"
   >
-    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading…" />
-  </ion-infinite-scroll>
+    <IonInfiniteScrollContent loading-spinner="bubbles" loading-text="Loading…" />
+  </IonInfiniteScroll>
 </template>

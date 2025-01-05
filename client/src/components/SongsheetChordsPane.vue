@@ -42,7 +42,7 @@ function formattedChord(chord: string) {
   <div :class="{ sidebar: sidebar }">
     <!-- Hidden sprite of chord diagrams -->
     <svg hidden xmlns="http://www.w3.org/2000/svg">
-      <chord-diagram
+      <ChordDiagram
         v-for="chord in allChords"
         :key="chord + settings.instrument"
         :chord="chord"
@@ -61,10 +61,10 @@ function formattedChord(chord: string) {
         <div>
           <span class="chord block">{{ formattedChord(chord) }}</span>
         </div>
-        <chord-diagram-reference :chord="chord" :width="width" :height="height" class="-mt-2" />
+        <ChordDiagramReference :chord="chord" :width="width" :height="height" class="-mt-2" />
       </div>
     </div>
-    <pane
+    <Pane
       v-else
       ref="chordsModal"
       :is-open="true"
@@ -87,17 +87,17 @@ function formattedChord(chord: string) {
           <div class="chord">
             {{ formattedChord(chord) }}
           </div>
-          <chord-diagram-reference :chord="chord" :width="width" :height="height" class="-mt-1" />
+          <ChordDiagramReference :chord="chord" :width="width" :height="height" class="-mt-1" />
         </div>
       </div>
-      <ion-footer>
-        <ion-toolbar>
-          <ion-buttons slot="end">
-            <instrument-control v-model="settings.instrument" />
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-footer>
-    </pane>
+      <IonFooter>
+        <IonToolbar>
+          <IonButtons slot="end">
+            <InstrumentControl v-model="settings.instrument" />
+          </IonButtons>
+        </IonToolbar>
+      </IonFooter>
+    </Pane>
   </div>
 </template>
 

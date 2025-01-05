@@ -18,122 +18,122 @@ function colorFor(item: string) {
 </script>
 
 <template>
-  <ion-menu>
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button />
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content fullscreen class="ion-padding-horizontal">
+  <IonMenu>
+    <IonHeader translucent>
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonMenuButton />
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
+    <IonContent fullscreen class="ion-padding-horizontal">
       <div class="flex h-full flex-col">
-        <ion-list lines="none" class="py-4">
-          <ion-menu-toggle auto-hide="false">
-            <ion-item
+        <IonList lines="none" class="py-4">
+          <IonMenuToggle auto-hide="false">
+            <IonItem
               button
               :router-link="{ name: 'home' }"
               router-direction="root"
               :detail="false"
               :color="colorFor('home')"
             >
-              <ion-icon slot="start" size="small" :icon="icons.home" />
-              <ion-label>Home</ion-label>
-            </ion-item>
-            <ion-item
+              <IonIcon slot="start" size="small" :icon="icons.home" />
+              <IonLabel>Home</IonLabel>
+            </IonItem>
+            <IonItem
               button
               :router-link="{ name: 'discover' }"
               router-direction="root"
               :detail="false"
               :color="colorFor('discover')"
             >
-              <ion-icon slot="start" size="small" :icon="icons.search" />
-              <ion-label>Discover</ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+              <IonIcon slot="start" size="small" :icon="icons.search" />
+              <IonLabel>Discover</IonLabel>
+            </IonItem>
+          </IonMenuToggle>
+        </IonList>
 
-        <ion-list lines="none">
-          <ion-list-header lines="none"> Library </ion-list-header>
-          <ion-menu-toggle auto-hide="false">
-            <ion-item
+        <IonList lines="none">
+          <IonListHeader lines="none"> Library </IonListHeader>
+          <IonMenuToggle auto-hide="false">
+            <IonItem
               button
               router-link="/songsheets"
               router-direction="root"
               :detail="false"
               :color="colorFor('songs')"
             >
-              <ion-icon slot="start" size="small" :icon="icons.song" />
+              <IonIcon slot="start" size="small" :icon="icons.song" />
               Songs
-            </ion-item>
-            <ion-item
+            </IonItem>
+            <IonItem
               button
               router-link="/artists"
               router-direction="root"
               :detail="false"
               :color="colorFor('artists')"
             >
-              <ion-icon slot="start" size="small" :icon="icons.artist" />
+              <IonIcon slot="start" size="small" :icon="icons.artist" />
               Artists
-            </ion-item>
-            <ion-item
+            </IonItem>
+            <IonItem
               button
               router-link="/albums"
               router-direction="root"
               :detail="false"
               :color="colorFor('albums')"
             >
-              <ion-icon slot="start" size="small" :icon="icons.album" />
+              <IonIcon slot="start" size="small" :icon="icons.album" />
               Albums
-            </ion-item>
-            <ion-item
+            </IonItem>
+            <IonItem
               button
               router-link="/setlists"
               router-direction="root"
               :detail="false"
               :color="colorFor('setlists')"
             >
-              <ion-icon slot="start" size="small" :icon="icons.setlist" />
+              <IonIcon slot="start" size="small" :icon="icons.setlist" />
               Setlists
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
+            </IonItem>
+          </IonMenuToggle>
+        </IonList>
 
-        <ion-list lines="none" class="mt-auto mb-3">
-          <ion-menu-toggle auto-hide="false">
-            <ion-item
+        <IonList lines="none" class="mt-auto mb-3">
+          <IonMenuToggle auto-hide="false">
+            <IonItem
               button
               :router-link="{ name: 'news' }"
               router-direction="root"
               :detail="false"
               :color="colorFor('news')"
             >
-              <ion-icon slot="start" size="small" :icon="icons.news" />
+              <IonIcon slot="start" size="small" :icon="icons.news" />
               What's New
-            </ion-item>
-            <ion-item button router-link="#chords" router-direction="root" :detail="false">
-              <ion-icon slot="start" size="small" :icon="icons.chordDiagram" />
+            </IonItem>
+            <IonItem button router-link="#chords" router-direction="root" :detail="false">
+              <IonIcon slot="start" size="small" :icon="icons.chordDiagram" />
               Chords
-            </ion-item>
-            <ion-item button router-link="#tuner" router-direction="root" :detail="false">
-              <ion-icon slot="start" size="small" :icon="icons.tuningFork" />
+            </IonItem>
+            <IonItem button router-link="#tuner" router-direction="root" :detail="false">
+              <IonIcon slot="start" size="small" :icon="icons.tuningFork" />
               Tuner
-            </ion-item>
-            <ion-button
+            </IonItem>
+            <IonButton
               v-if="!auth.isAuthenticated"
               class="block"
               color="primary"
               fill="outline"
               router-link="#signin"
             >
-              <ion-icon slot="start" size="small" :icon="icons.signin" />
+              <IonIcon slot="start" size="small" :icon="icons.signin" />
               Sign In
-            </ion-button>
-          </ion-menu-toggle>
-        </ion-list>
+            </IonButton>
+          </IonMenuToggle>
+        </IonList>
       </div>
-    </ion-content>
-  </ion-menu>
+    </IonContent>
+  </IonMenu>
 </template>
 
 <style scoped>
