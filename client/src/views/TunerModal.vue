@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import Tuner from "@/components/Tuner.vue";
+</script>
+
 <template>
   <ion-modal>
     <Head>Tuner</Head>
@@ -15,10 +19,6 @@
     </div>
   </ion-modal>
 </template>
-
-<script setup>
-import Tuner from "@/components/Tuner.vue";
-</script>
 
 <style scoped>
 ion-modal {

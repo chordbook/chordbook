@@ -1,32 +1,14 @@
-<script setup>
+<script lang="ts" setup>
 import ColorizedImg from "@/components/ColorizedImg.vue";
 
-defineProps({
-  image: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  audience: {
-    type: String,
-    required: true,
-  },
-  icon: {
-    type: String,
-    required: true,
-  },
-  buttonText: {
-    type: String,
-    required: true,
-  },
-  url: {
-    type: String,
-    required: true,
-  },
-});
+defineProps<{
+  image: string;
+  title: string;
+  audience: string;
+  icon: string;
+  buttonText: string;
+  url: string;
+}>();
 </script>
 <template>
   <ion-card class="flex flex-col sm:max-xl:flex-row m-0">

@@ -1,19 +1,13 @@
-<script setup>
+<script lang="ts" setup>
 import { setlist } from "@/icons";
 import { gradient } from "@/lib/gradient";
 
-const props = defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  thumbnails: {
-    type: Array,
-    required: true,
-  },
-});
+const props = defineProps<{
+  id: string;
+  thumbnails: string[];
+}>();
 
-function rotate(index) {
+function rotate(index: number) {
   if (index === 0) return 0;
   const spin = 360 / (props.thumbnails.length - 1);
   return (index - 1) * spin + "deg";

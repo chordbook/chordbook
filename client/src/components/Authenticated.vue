@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import useAuthStore from "@/stores/auth";
 import UnauthorizedView from "@/views/UnauthorizedView.vue";
 const auth = useAuthStore();

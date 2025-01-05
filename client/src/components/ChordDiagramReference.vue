@@ -1,10 +1,7 @@
-<script setup>
-defineProps({
-  chord: {
-    type: String,
-    required: true,
-  },
-});
+<script lang="ts" setup>
+defineProps<{
+  chord: string;
+}>();
 </script>
 
 <template>

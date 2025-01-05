@@ -1,6 +1,6 @@
-<script setup>
+<script lang="ts" setup>
+import { album, artist, song } from "@/icons";
 import { computed } from "vue";
-import { artist, album, song } from "@/icons";
 
 const icons = {
   artist,
@@ -9,20 +9,12 @@ const icons = {
   songsheet: song,
 };
 
-const props = defineProps({
-  src: {
-    type: [String, null],
-    default: null,
-  },
-  type: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps<{
+  src?: string | null;
+  type: string;
+}>();
 
-const borderRadius = computed(() =>
-  props.type.toLowerCase() === "artist" ? "50%" : "0.25rem",
-);
+const borderRadius = computed(() => (props.type.toLowerCase() === "artist" ? "50%" : "0.25rem"));
 </script>
 
 <template>
@@ -31,6 +23,6 @@ const borderRadius = computed(() =>
     :style="{ '--border-radius': borderRadius }"
   >
     <img v-if="src" :src="src" />
-    <ion-icon v-else :icon="icons[type.toLowerCase()]" size="large" />
+    <ion-icon v-else :icon="icons[type.toLowerCase() as keyof typeof icons]" size="large" />
   </ion-avatar>
 </template>

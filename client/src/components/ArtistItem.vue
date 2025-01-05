@@ -1,20 +1,9 @@
-<script setup>
+<script lang="ts" setup>
 import ModelAvatar from "./ModelAvatar.vue";
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  thumbnail: {
-    type: String,
-    required: true,
-  },
-});
+import type { Artist } from "@/api";
+
+defineProps<Artist>();
 </script>
 
 <template>

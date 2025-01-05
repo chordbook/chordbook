@@ -29,39 +29,26 @@ Empty placeholder:
     <template #default="{ items }">…</template>
   </data-source>
 -->
-<script setup>
-import { reactive, watch } from "vue";
+<script lang="ts" setup>
 import usePaginatedFetch from "@/composables/usePaginatedFetch";
 import useAuthStore from "@/stores/auth";
+import { reactive, watch } from "vue";
 
-const props = defineProps({
-  src: {
-    type: String,
-    required: true,
-  },
-  params: {
-    type: Object,
-    default() {
-      return {};
-    },
-  },
-  options: {
-    type: Object,
-    default() {
-      return {};
-    },
-  },
-});
+import type { Params, UseFetchOptionsWithParams } from "@/composables";
+
+const props = defineProps<{
+  src: string;
+  params?: Params;
+  options?: UseFetchOptionsWithParams;
+}>();
 
 const emit = defineEmits(["load"]);
 
-const pager = reactive(
-  usePaginatedFetch(props.src, { ...props.options, params: props.params }),
-);
+const pager = reactive(usePaginatedFetch(props.src, { ...props.options, params: props.params }));
 
 function load() {
   const page = pager.load();
-  page.onFetchResponse(() => emit("load", page));
+  page?.onFetchResponse(() => emit("load", page));
   return page;
 }
 
@@ -70,10 +57,13 @@ const auth = useAuthStore();
 defineExpose(pager);
 
 // Reload data when signing in/out
-watch(() => auth.isAuthenticated, () => {
-  console.log("isAuthenticated changed", auth.isAuthenticated)
-  pager.reload()
-});
+watch(
+  () => auth.isAuthenticated,
+  () => {
+    console.log("isAuthenticated changed", auth.isAuthenticated);
+    pager.reload();
+  },
+);
 
 await load();
 </script>
@@ -89,11 +79,8 @@ await load();
 
   <ion-infinite-scroll
     v-if="pager.isPaginating"
-    @ion-infinite="load().then(() => $event.target.complete())"
+    @ion-infinite="load()?.then(() => $event.target.complete())"
   >
-    <ion-infinite-scroll-content
-      loading-spinner="bubbles"
-      loading-text="Loading…"
-    />
+    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Loading…" />
   </ion-infinite-scroll>
 </template>

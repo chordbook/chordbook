@@ -1,31 +1,11 @@
-<script setup>
+<script lang="ts" setup>
 import * as icons from "@/icons";
 import ShareItem from "@/components/ShareItem.vue";
 import ModelAvatar from "./ModelAvatar.vue";
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  album: {
-    type: Object,
-    required: true,
-  },
-  artist: {
-    type: Object,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  // eslint-disable-next-line vue/prop-name-casing
-  has_songsheet: {
-    type: Boolean,
-    default: false,
-  },
-});
+import type { Track } from "@/api";
+
+defineProps<Track>();
 </script>
 
 <template>
@@ -43,19 +23,8 @@ defineProps({
       <p>{{ artist.name }}</p>
     </ion-label>
 
-    <ion-button
-      :id="`track-${id}`"
-      slot="end"
-      fill="clear"
-      color="medium"
-      @click.prevent=""
-    >
-      <ion-icon
-        slot="icon-only"
-        size="small"
-        :ios="icons.iosEllipsis"
-        :md="icons.mdEllipsis"
-      />
+    <ion-button :id="`track-${id}`" slot="end" fill="clear" color="medium" @click.prevent="">
+      <ion-icon slot="icon-only" size="small" :ios="icons.iosEllipsis" :md="icons.mdEllipsis" />
     </ion-button>
     <ion-popover
       :trigger="`track-${id}`"
@@ -90,7 +59,7 @@ defineProps({
         >
           View Album
         </ion-item>
-        <share-item lines="none" :router-link="link" :title="title" />
+        <share-item lines="none" :router-link="{ name: 'track', params: { id } }" :title="title" />
       </ion-list>
     </ion-popover>
   </ion-item>

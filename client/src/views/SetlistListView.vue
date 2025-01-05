@@ -1,5 +1,10 @@
-<script setup>
+<script setup lang="ts">
+import type { Setlist } from "@/api";
+import { DataSource } from "@/components";
 import SetlistCard from "@/components/SetlistCard.vue";
+import { useTemplateRef } from "vue";
+
+const dataSource = useTemplateRef("dataSource");
 </script>
 
 <template>
@@ -25,31 +30,26 @@ import SetlistCard from "@/components/SetlistCard.vue";
       </ion-header>
 
       <ion-refresher
-        v-if="$refs.dataSource"
+        v-if="dataSource"
         slot="fixed"
-        @ion-refresh="$refs.dataSource.reload"
+        @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
       >
         <ion-refresher-content />
       </ion-refresher>
 
-      <data-source
-        ref="dataSource"
-        v-slot="{ items }"
-        src="setlists"
-        :params="$route.query"
-      >
+      <DataSource ref="dataSource" v-slot="{ items }" src="setlists">
         <ion-list>
           <div
             class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
           >
             <setlist-card
               v-for="setlist in items"
-              :key="setlist.id"
-              v-bind="setlist"
+              :key="(setlist as Setlist).id"
+              v-bind="setlist as Setlist"
             />
           </div>
         </ion-list>
-      </data-source>
+      </DataSource>
     </ion-content>
   </app-view>
 </template>

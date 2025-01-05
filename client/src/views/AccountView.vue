@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import * as icons from "@/icons";
 import useAuthStore from "@/stores/auth";
 
@@ -29,12 +29,7 @@ const auth = useAuthStore();
           </ion-item>
         </ion-list>
         <div class="ion-padding">
-          <ion-button
-            class="mx-auto"
-            color="medium"
-            fill="outline"
-            @click="auth.signOut"
-          >
+          <ion-button class="mx-auto" color="medium" fill="outline" @click="auth.signOut">
             <ion-icon slot="start" :icon="icons.signout" />
             Sign Out
           </ion-button>

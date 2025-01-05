@@ -2,10 +2,7 @@
   <app-view>
     <Head>
       <title>What's New</title>
-      <meta
-        name="description"
-        content="The latest news and updates from the community."
-      />
+      <meta name="description" content="The latest news and updates from the community." />
     </Head>
     <ion-header>
       <ion-toolbar>

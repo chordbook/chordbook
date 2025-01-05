@@ -1,24 +1,20 @@
-<script setup>
+<script setup lang="ts">
 import Songsheet from "@/components/Songsheet.vue";
 import { useIonPageLifecycle } from "@/composables";
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  setlistId: {
-    type: String,
-    default: null,
-  },
-});
+import type { SongsheetFull } from "@/api";
+
+defineProps<{
+  id: string;
+  setlistId?: string;
+}>();
 
 useIonPageLifecycle();
 </script>
 
 <template>
   <app-view class="pane-container">
-    <data-source v-slot="{ data: songsheet }" :src="`songsheets/${id}`">
+    <data-source v-slot="{ data: songsheet }: { data: SongsheetFull }" :src="`songsheets/${id}`">
       <Head>
         <title v-if="songsheet.track?.artist">
           {{ songsheet.title }}

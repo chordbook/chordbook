@@ -1,21 +1,30 @@
-import js from "@eslint/js";
+import pluginVitest from "@vitest/eslint-plugin";
+import skipFormatting from "@vue/eslint-config-prettier/skip-formatting";
+import vueTsEslintConfig from "@vue/eslint-config-typescript";
+import pluginVue from "eslint-plugin-vue";
 import globals from "globals";
-import prettier from "eslint-config-prettier";
-import vue from "eslint-plugin-vue";
 
 export default [
   {
+    name: "app/files-to-lint",
+    files: ["client/**/*.{ts,mts,tsx,vue}"],
+  },
+
+  {
+    name: "app/files-to-ignore",
     ignores: ["public/"],
   },
-  js.configs.recommended,
-  ...vue.configs["flat/recommended"],
-  prettier,
+
+  ...pluginVue.configs["flat/recommended"],
+  ...vueTsEslintConfig(),
+
   {
-    ignores: ["client/"],
-    languageOptions: { globals: globals.node },
+    ...pluginVitest.configs.recommended,
+    files: ["client/test/*"],
   },
+
   {
-    files: ["client/**/*.{js,vue}"],
+    files: ["client/**/*.{ts,js,vue}"],
     languageOptions: { globals: globals.browser },
     rules: {
       "vue/multi-word-component-names": 0,
@@ -24,4 +33,6 @@ export default [
       "vue/no-deprecated-slot-attribute": "off",
     },
   },
+
+  skipFormatting,
 ];

@@ -1,5 +1,5 @@
-<script setup>
-import { search, library, home } from "@/icons";
+<script setup lang="ts">
+import { home, library, search } from "@/icons";
 </script>
 
 <template>

@@ -1,24 +1,12 @@
-<script setup>
+<script lang="ts" setup>
 import SetlistAvatar from "@/components/SetlistAvatar.vue";
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    default: null,
-  },
-  thumbnails: {
-    type: Array,
-    required: true,
-  },
-});
+defineProps<{
+  id: string;
+  title: string;
+  description?: string;
+  thumbnails: string[];
+}>();
 </script>
 
 <template>
@@ -36,9 +24,7 @@ defineProps({
       <div
         class="relative w-full h-full flex items-end p-4 bg-gradient-to-b from-transparent from-50% to-black/60 to-90%"
       >
-        <div
-          class="text-shadow font-semibold text-white text-balance line-clamp-3"
-        >
+        <div class="text-shadow font-semibold text-white text-balance line-clamp-3">
           {{ title }}
         </div>
       </div>

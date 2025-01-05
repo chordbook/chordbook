@@ -1,17 +1,11 @@
-<script setup>
-import { modalController } from "@ionic/vue";
+<script lang="ts" setup>
 import SongsheetItem from "@/components/SongsheetItem.vue";
+import { modalController } from "@ionic/vue";
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  exclude: {
-    type: String,
-    default: null,
-  },
-});
+defineProps<{
+  id: string;
+  exclude?: string;
+}>();
 </script>
 
 <template>
@@ -20,9 +14,7 @@ defineProps({
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button role="cancel" @click="modalController.dismiss()">
-              Cancel
-            </ion-button>
+            <ion-button role="cancel" @click="modalController.dismiss()"> Cancel </ion-button>
           </ion-buttons>
           <ion-title>Alternate Versions</ion-title>
         </ion-toolbar>

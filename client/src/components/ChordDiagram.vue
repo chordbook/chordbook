@@ -1,33 +1,26 @@
-<script setup>
-import { ChordDefinition } from "chordsheetjs";
-import ChordData from "@/ChordData";
+<script lang="ts" setup>
+import ChordData, { Instrument } from "@/ChordData";
 import ChordBox from "@/components/ChordBox.vue";
+import { ChordDefinition } from "chordsheetjs";
 import { computed } from "vue";
 
-const props = defineProps({
-  chord: {
-    type: String,
-    required: true,
-  },
-  definition: {
-    type: ChordDefinition,
-    default: null,
-  },
-  instrument: {
-    type: String,
-    default: "guitar",
-  },
-  position: {
-    type: Number,
-    default: 0,
-  },
-});
+const {
+  chord,
+  definition,
+  instrument = Instrument.Guitar,
+  position = 0,
+} = defineProps<{
+  chord: string;
+  definition?: ChordDefinition;
+  instrument?: Instrument;
+  position?: number;
+}>();
 
 const data = computed(() => {
-  if(props.definition) {
-    return ChordData.fromDefinition(props.definition);
+  if (definition) {
+    return ChordData.fromDefinition(definition);
   } else {
-    return ChordData.find(props.chord, props.instrument, props.position)
+    return ChordData.find(chord, instrument, position);
   }
 });
 </script>

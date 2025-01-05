@@ -1,18 +1,14 @@
-<script setup>
-import AddToLibraryButton from "../components/AddToLibraryButton.vue";
+<script setup lang="ts">
+import type { AlbumFull } from "@/api";
 import { album as placeholderIcon } from "@/icons";
+import AddToLibraryButton from "../components/AddToLibraryButton.vue";
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-});
+defineProps<{ id: string }>();
 </script>
 
 <template>
   <app-view>
-    <data-source v-slot="{ data }" :src="`albums/${id}`">
+    <data-source v-slot="{ data }: { data: AlbumFull }" :src="`albums/${id}`">
       <Head>
         <title v-if="data">{{ data.title }} by {{ data.artist.name }}</title>
       </Head>
@@ -33,12 +29,8 @@ defineProps({
       </ion-header>
 
       <ion-content fullscreen class="main-content">
-        <div
-          class="ion-padding flex gap-4 md:gap-6 lg:gap-8 flex-col md:flex-row"
-        >
-          <div
-            class="flex place-content-center md:block md:place-content-start"
-          >
+        <div class="ion-padding flex gap-4 md:gap-6 lg:gap-8 flex-col md:flex-row">
+          <div class="flex place-content-center md:block md:place-content-start">
             <div
               class="aspect-square w-3/4 md:w-60 rounded overflow-hidden shadow-lg flex place-content-center items-center bg-slate-100 dark:bg-slate-800"
             >
@@ -88,14 +80,11 @@ defineProps({
             :key="track.id"
             :href="`/tracks/${track.id}`"
             :class="{
-              'text-neutral-500/50 hover:text-current transition-opacity':
-                !track.has_songsheet,
+              'text-neutral-500/50 hover:text-current transition-opacity': !track.has_songsheet,
             }"
           >
             <ion-text slot="start">
-              <span class="text-sm text-muted w-4 text-right inline-block">{{
-                track.number
-              }}</span>
+              <span class="text-sm text-muted w-4 text-right inline-block">{{ track.number }}</span>
             </ion-text>
             <ion-label>
               <h2>{{ track.title }}</h2>

@@ -1,7 +1,7 @@
-<script setup>
+<script lang="ts" setup>
+import { useEventListener, useScroll } from "@vueuse/core";
 import { chevronBackOutline, chevronForwardOutline } from "ionicons/icons";
 import { onMounted, ref } from "vue";
-import { useScroll, useEventListener } from "@vueuse/core";
 
 defineOptions({
   inheritAttrs: false,
@@ -55,11 +55,7 @@ onMounted(() => requestAnimationFrame(measure));
         class="scroll-button -right-3 md:-right-7 lg:-right-10"
         @click="scroll(1)"
       >
-        <ion-icon
-          slot="icon-only"
-          :icon="chevronForwardOutline"
-          class="-mr-0.5"
-        />
+        <ion-icon slot="icon-only" :icon="chevronForwardOutline" class="-mr-0.5" />
       </ion-button>
     </Transition>
   </div>

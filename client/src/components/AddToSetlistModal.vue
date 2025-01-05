@@ -1,17 +1,14 @@
-<script setup>
-import { modalController, toastController } from "@ionic/vue";
-import SetlistItem from "@/components/SetlistItem.vue";
+<script lang="ts" setup>
 import NewSetlistModal from "@/components/NewSetlistModal.vue";
-import { useFetch } from "@/client";
+import SetlistItem from "@/components/SetlistItem.vue";
+import { useFetch } from "@/composables";
+import { modalController, toastController } from "@ionic/vue";
 
-const props = defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps<{
+  id: string;
+}>();
 
-async function add(setlist) {
+async function add(setlist: { id: string; title: string }) {
   await useFetch(`setlists/${setlist.id}/items`).post({ id: props.id });
 
   modalController.dismiss();
@@ -39,20 +36,16 @@ async function newModal() {
       <ion-header>
         <ion-toolbar>
           <ion-buttons slot="start">
-            <ion-button role="cancel" @click="modalController.dismiss()">
-              Cancel
-            </ion-button>
+            <ion-button role="cancel" @click="modalController.dismiss()"> Cancel </ion-button>
           </ion-buttons>
           <ion-title>Add to Setlist</ion-title>
           <ion-buttons slot="end">
-            <ion-button role="cancel" @click="newModal()">
-              New setlist
-            </ion-button>
+            <ion-button role="cancel" @click="newModal()"> New setlist </ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding">
-        <loading>
+      <loading>
+        <ion-content class="ion-padding">
           <data-source v-slot="{ items }" src="setlists">
             <ion-list>
               <setlist-item
@@ -63,8 +56,8 @@ async function newModal() {
               />
             </ion-list>
           </data-source>
-        </loading>
-      </ion-content>
+        </ion-content>
+      </loading>
     </authenticated>
   </ion-modal>
 </template>

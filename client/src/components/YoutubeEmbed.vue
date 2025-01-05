@@ -1,30 +1,18 @@
-<script>
+<script lang="ts" setup>
 import getYoutubeId from "get-youtube-id";
+import { computed } from "vue";
 
-export default {
-  props: {
-    src: {
-      type: String,
-      required: true,
-    },
-  },
+const { src } = defineProps<{
+  src: string;
+}>();
 
-  computed: {
-    id() {
-      return getYoutubeId(this.src);
-    },
-
-    iframeSrc() {
-      return `https://www.youtube.com/embed/${this.id}`;
-    },
-  },
-};
+const id = computed(() => getYoutubeId(src));
 </script>
 
 <template>
   <iframe
     class="aspect-16/9 w-full"
-    :src="iframeSrc"
+    :src="`https://www.youtube.com/embed/${id}`"
     title="YouTube video player"
     frameborder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

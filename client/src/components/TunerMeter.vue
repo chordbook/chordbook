@@ -1,14 +1,11 @@
-<script setup>
-defineProps({
-  cents: {
-    type: [Number, null],
-    required: true,
-  },
-});
+<script lang="ts" setup>
+defineProps<{
+  cents: number | null;
+}>();
 
 const range = 90;
 
-function centsToDegrees(cents) {
+function centsToDegrees(cents: number) {
   return cents * (range / 100) + "deg";
 }
 </script>
@@ -36,8 +33,7 @@ function centsToDegrees(cents) {
         v-if="cents"
         :class="{
           'rounded-md w-0 h-0 transition-all duration-100': true,
-          'h-[20px] border-x-[6px] rounded border-green-500':
-            Math.abs(cents) <= 5,
+          'h-[20px] border-x-[6px] rounded border-green-500': Math.abs(cents) <= 5,
           // Make it a CSS arrow if off by more than 5 cents
           'border-[10.5px] mt-[-1px] border-t-transparent border-b-transparent':
             Math.abs(cents) > 5,

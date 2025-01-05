@@ -1,17 +1,15 @@
-<script setup>
+<script setup lang="ts">
+import type { ArtistFull } from "@/api";
 import AddToLibraryButton from "../components/AddToLibraryButton.vue";
 
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-});
+defineProps<{
+  id: string;
+}>();
 </script>
 
 <template>
   <app-view>
-    <data-source v-slot="{ data }" :src="`artists/${id}`">
+    <data-source v-slot="{ data }: { data: ArtistFull }" :src="`artists/${id}`">
       <Head>
         <title v-if="data">
           {{ data.name }}
@@ -58,9 +56,7 @@ defineProps({
             <ion-list v-if="tracks?.length > 0">
               <ion-list-header>
                 <ion-label>Top Songs</ion-label>
-                <ion-button
-                  :router-link="{ name: 'artist.tracks', params: { id } }"
-                >
+                <ion-button :router-link="{ name: 'artist.tracks', params: { id } }">
                   See All
                 </ion-button>
               </ion-list-header>
@@ -73,9 +69,7 @@ defineProps({
             <ion-list v-if="albums?.length > 0" lines="none">
               <ion-list-header>
                 <ion-label>Top Albums</ion-label>
-                <ion-button
-                  :router-link="{ name: 'artist.albums', params: { id } }"
-                >
+                <ion-button :router-link="{ name: 'artist.albums', params: { id } }">
                   See All
                 </ion-button>
               </ion-list-header>

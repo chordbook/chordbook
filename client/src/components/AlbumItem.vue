@@ -1,45 +1,20 @@
-<script setup>
+<script lang="ts" setup>
 import * as icons from "@/icons";
-import ShareItem from "@/components/ShareItem.vue";
+import ShareItem from "./ShareItem.vue";
 
-const props = defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  cover: {
-    type: Object,
-    required: true,
-  },
-  artist: {
-    type: Object,
-    required: true,
-  },
-  showArtist: {
-    type: Boolean,
-    default: true,
-  },
-  released: {
-    type: [Number, null],
-    required: true,
-  },
-});
+import type { Album } from "@/api";
+
+const props = defineProps<
+  Album & {
+    showArtist?: boolean;
+  }
+>();
 
 const link = { name: "album", params: { id: props.id } };
 </script>
 
 <template>
-  <ion-item
-    button
-    :router-link="link"
-    class="rounded group"
-    :detail="false"
-    lines="none"
-  >
+  <ion-item button :router-link="link" class="rounded group" :detail="false" lines="none">
     <ion-label>
       <div
         class="rounded overflow-hidden relative aspect-square shadow-md bg-slate-100 dark:bg-slate-900 mb-2 flex place-content-center items-center"
@@ -58,7 +33,7 @@ const link = { name: "album", params: { id: props.id } };
         {{ title }}
       </h3>
       <p>
-        <span v-if="showArtist">{{ artist.name }} •</span>
+        <span v-if="showArtist ?? true">{{ artist.name }} •</span>
         {{ released }}
       </p>
     </ion-label>
@@ -80,11 +55,7 @@ const link = { name: "album", params: { id: props.id } };
         >
           View Artist
         </ion-item>
-        <share-item
-          lines="none"
-          :router-link="link"
-          :title="`${title} by ${artist.name}`"
-        />
+        <share-item lines="none" :router-link="link" :title="`${title} by ${artist.name}`" />
       </ion-list>
     </ion-popover>
   </ion-item>

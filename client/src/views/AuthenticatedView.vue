@@ -1,20 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import useAuthStore from "@/stores/auth";
 import UnauthorizedView from "@/views/UnauthorizedView.vue";
-import { defineAsyncComponent, computed } from "vue";
+import { computed, defineAsyncComponent } from "vue";
 
 const auth = useAuthStore();
-const props = defineProps({
-  component: {
-    type: Function,
-    required: true,
-  },
-});
+const props = defineProps<{
+  component: Parameters<typeof defineAsyncComponent>[0];
+}>();
 
 const component = computed(() => {
-  return auth.isAuthenticated
-    ? defineAsyncComponent(props.component)
-    : UnauthorizedView;
+  return auth.isAuthenticated ? defineAsyncComponent(props.component) : UnauthorizedView;
 });
 </script>
 

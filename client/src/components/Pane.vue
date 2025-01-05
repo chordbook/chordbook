@@ -1,66 +1,68 @@
-<script setup>
-import { CupertinoPane } from "cupertino-pane";
+<script lang="ts" setup>
+import { CupertinoPane, type CupertinoSettings } from "cupertino-pane";
 import {
-  ref,
   computed,
-  onMounted,
-  onBeforeUnmount,
-  watchEffect,
   defineExpose,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  useTemplateRef,
+  watchEffect,
 } from "vue";
 
-const props = defineProps({
-  isOpen: {
-    type: Boolean,
-    default: false,
-  },
-  canDismiss: {
-    type: Boolean,
-    default: false,
-  },
-  settings: {
-    type: Object,
-    default: () => ({}),
-  },
-});
+const {
+  isOpen = false,
+  canDismiss = false,
+  settings = {},
+} = defineProps<{
+  isOpen?: boolean;
+  canDismiss?: boolean;
+  settings?: CupertinoSettings;
+}>();
 
-const emit = defineEmits([
-  "will-present",
-  "did-present",
-  "will-dismiss",
-  "did-dismiss",
-  "breakpoint-did-change",
-]);
-const el = ref();
-const pane = ref();
+const emit = defineEmits<{
+  "will-present": [pane: CupertinoPane];
+  "did-present": [pane: CupertinoPane];
+  "will-dismiss": [pane: CupertinoPane];
+  "did-dismiss": [pane: CupertinoPane];
+  "breakpoint-did-change": [breakpoint: Breaks];
+}>();
+
+const el = useTemplateRef("el");
+const pane = ref<CupertinoPane>();
 const height = ref(0);
 const transition = ref("initial");
 
-const settings = computed(() => ({
-  parentElement: el.value?.closest(".pane-container"),
+const config = computed<CupertinoSettings>(() => ({
+  parentElement: el.value?.closest(".pane-container") as HTMLElement,
   buttonDestroy: false,
-  ...props.settings,
+  ...settings,
   events: {
-    onDidDismiss: () => emit("did-dismiss", pane.value),
-    onWillDismiss: () => emit("will-dismiss", pane.value),
-    onWillPresent: () => emit("will-present", pane.value),
-    onDidPresent: () => emit("did-present", pane.value),
+    onDidDismiss: () => emit("did-dismiss", pane.value!),
+    onWillDismiss: () => emit("will-dismiss", pane.value!),
+    onWillPresent: () => emit("will-present", pane.value!),
+    onDidPresent: () => emit("did-present", pane.value!),
     onTransitionEnd: () =>
       requestAnimationFrame(() =>
-        emit("breakpoint-did-change", pane.value.currentBreak()),
+        emit("breakpoint-did-change", pane.value!.currentBreak() as Breaks),
       ),
   },
 }));
 
+enum Breaks {
+  top = "top",
+  middle = "middle",
+  bottom = "bottom",
+}
+
 onMounted(async () => {
-  pane.value = new CupertinoPane(el.value, settings.value);
+  pane.value = new CupertinoPane(el.value!, config.value);
 
   pane.value.on("rendered", () => {
-    const currentBreak = pane.value.settings.breaks[pane.value.currentBreak()];
-    transition.value = pane.value.transitions.buildTransitionValue(
-      currentBreak?.bounce,
-    );
-    height.value = currentBreak?.height ?? 0;
+    const currentBreak = pane.value?.currentBreak() as Breaks;
+    const breakSettings = pane.value!.settings.breaks![currentBreak];
+    transition.value = pane.value!.transitions.buildTransitionValue(breakSettings?.bounce ?? false);
+    height.value = breakSettings?.height ?? 0;
   });
 
   pane.value.on("onWillDismiss", () => {
@@ -68,23 +70,26 @@ onMounted(async () => {
     height.value = 0;
   });
 
-  pane.value.on("onMoveTransitionStart", (ev) => {
+  pane.value.on("onMoveTransitionStart", ({ translateY }: { translateY: number }) => {
     transition.value = "initial";
-    height.value = window.innerHeight - ev.translateY;
+    height.value = window.innerHeight - translateY;
   });
 
-  pane.value.on("onTransitionStart", (ev) => {
-    transition.value = ev.transition;
-    height.value = window.innerHeight - ev.translateY.new;
-  });
+  pane.value.on(
+    "onTransitionStart",
+    ({ transition: t, translateY }: { transition: string; translateY: { new: number } }) => {
+      transition.value = t;
+      height.value = window.innerHeight - translateY.new;
+    },
+  );
 });
 
 watchEffect(() => {
   if (!pane.value) return;
 
-  if (props.isOpen) {
+  if (isOpen) {
     pane.value.present();
-    pane.value.preventDismiss(!props.canDismiss);
+    pane.value.preventDismiss(!canDismiss);
   } else if (!pane.value.isHidden()) {
     pane.value.preventDismiss(false);
     pane.value.hide();
@@ -92,8 +97,8 @@ watchEffect(() => {
 });
 
 onBeforeUnmount(async () => {
-  pane.value.preventDismiss(false);
-  await pane.value.destroy();
+  pane.value?.preventDismiss(false);
+  await pane.value?.destroy();
 });
 
 defineExpose({ pane, height, transition });

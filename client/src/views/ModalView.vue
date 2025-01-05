@@ -1,11 +1,10 @@
-<script setup>
-import { defineAsyncComponent, computed } from "vue";
+<script setup lang="ts">
+import { computed, defineAsyncComponent } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
-
-const routes = {
+const routes: Record<string, Parameters<typeof defineAsyncComponent>[0]> = {
   "#signin": () => import("./UserSigninModal.vue"),
   "#signup": () => import("./UserSignupModal.vue"),
   "#chords": () => import("./ChordsModal.vue"),
@@ -21,7 +20,7 @@ const component = computed(() => routes[route.hash]);
     v-if="component"
     can-dismiss
     :is-open="true"
-    :presenting-element="$parent.$refs.ionRouterOutlet"
+    :presenting-element="$parent?.$refs.ionRouterOutlet"
     @did-dismiss="router.back()"
   />
 </template>

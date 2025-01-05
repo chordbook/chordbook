@@ -1,3 +1,22 @@
+<script lang="ts" setup>
+import * as icons from "@/icons";
+import useAuthStore from "@/stores/auth";
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
+
+const auth = useAuthStore();
+const route = useRoute();
+const selected = ref("discover");
+
+watch(route, () => (selected.value = (route.meta?.selected as string) || selected.value), {
+  immediate: true,
+});
+
+function colorFor(item: string) {
+  return item === selected.value ? "primary" : "";
+}
+</script>
+
 <template>
   <ion-menu>
     <ion-header translucent>
@@ -92,21 +111,11 @@
               <ion-icon slot="start" size="small" :icon="icons.news" />
               What's New
             </ion-item>
-            <ion-item
-              button
-              router-link="#chords"
-              router-direction="root"
-              :detail="false"
-            >
+            <ion-item button router-link="#chords" router-direction="root" :detail="false">
               <ion-icon slot="start" size="small" :icon="icons.chordDiagram" />
               Chords
             </ion-item>
-            <ion-item
-              button
-              router-link="#tuner"
-              router-direction="root"
-              :detail="false"
-            >
+            <ion-item button router-link="#tuner" router-direction="root" :detail="false">
               <ion-icon slot="start" size="small" :icon="icons.tuningFork" />
               Tuner
             </ion-item>
@@ -126,25 +135,6 @@
     </ion-content>
   </ion-menu>
 </template>
-
-<script setup>
-import { ref, watch } from "vue";
-import { useRoute } from "vue-router";
-import * as icons from "@/icons";
-import useAuthStore from "@/stores/auth";
-
-const auth = useAuthStore();
-const route = useRoute();
-const selected = ref("discover");
-
-watch(route, () => (selected.value = route.meta?.selected || selected.value), {
-  immediate: true,
-});
-
-function colorFor(item) {
-  return item === selected.value ? "primary" : "";
-}
-</script>
 
 <style scoped>
 ion-menu {

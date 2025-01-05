@@ -1,30 +1,22 @@
-<script setup>
-import SongsheetContent from "@/components/SongsheetContent.vue";
+<script setup lang="ts">
+import SongsheetEditor from "@/components/Editor";
 import EditorSplitView from "@/components/EditorSplitView.vue";
-import SongsheetEditor from "@/components/Editor.js";
+import SongsheetContent from "@/components/SongsheetContent.vue";
+import { useFetch, useScrollSync, useSongsheetParser } from "@/composables";
 import { alertController, loadingController } from "@ionic/vue";
-import { ref, computed, reactive, toRef } from "vue";
-import { useFetch } from "@/client";
+import { computed, reactive, ref, toRef, useTemplateRef } from "vue";
 import { useRouter } from "vue-router";
-import { useSongsheetParser, useScrollSync } from "@/composables";
 
-const props = defineProps({
-  id: {
-    type: String,
-    default: null,
-  },
-});
+import type { Errors, SongsheetFull } from "@/api";
+
+const props = defineProps<{ id?: string }>();
 
 const router = useRouter();
-const songsheet = ref({ source: "" });
-const errors = ref({});
-const splitView = ref(null); // template ref
-const url = computed(() =>
-  props.id ? `songsheets/${props.id}` : "songsheets",
-);
-const parser = reactive(
-  useSongsheetParser(toRef(() => songsheet.value.source)),
-);
+const songsheet = ref<Partial<SongsheetFull>>({ source: "" });
+const errors = ref<Errors>({});
+const splitView = useTemplateRef("splitView");
+const url = computed(() => (props.id ? `songsheets/${props.id}` : "songsheets"));
+const parser = reactive(useSongsheetParser(toRef(() => songsheet.value?.source ?? "")));
 const editor = ref(); // template ref
 const preview = ref(); // template ref
 
@@ -37,27 +29,30 @@ if (props.id) {
     });
 }
 
-useScrollSync(editor, preview);
+useScrollSync(
+  computed(() => editor.value?.scroller),
+  preview,
+);
 
 async function save() {
   const { metadata } = parser.song?.metadata || {};
   const method = props.id ? "patch" : "post";
   const payload = {
     songsheet: {
-      source: songsheet.value.source,
+      source: songsheet.value?.source,
       metadata,
     },
   };
 
-  const { error, data } = await useFetch(url).json()[method](payload);
+  const { error, data } = await useFetch(url, { updateDataOnError: true }).json()[method](payload);
 
   if (error.value) {
-    console.error(error.value);
+    console.error("Songsheet could not be saved", data.value);
     errors.value = data.value;
   } else {
     router.replace({ name: "songsheet", params: { id: data.value.id } });
   }
-  splitView.value.toggle();
+  splitView.value?.toggle();
 }
 
 async function destroy() {
@@ -93,20 +88,17 @@ async function destroy() {
 <template>
   <app-view>
     <Head>
-      <title v-if="id">Edit: {{ songsheet.title }}</title>
+      <title v-if="id">Edit: {{ songsheet?.title }}</title>
       <title v-else>New Song</title>
     </Head>
     <ion-header translucent>
       <ion-toolbar>
         <ion-buttons slot="secondary">
-          <ion-back-button
-            text="Cancel"
-            :default-href="id ? `/songsheets/${id}` : '/songsheets'"
-          />
+          <ion-back-button text="Cancel" :default-href="id ? `/songsheets/${id}` : '/songsheets'" />
         </ion-buttons>
 
         <ion-buttons slot="primary">
-          <ion-button v-if="splitView?.disabled" @click="splitView.toggle()">
+          <ion-button v-if="splitView?.disabled" @click="splitView?.toggle()">
             <ion-label>Preview</ion-label>
           </ion-button>
           <ion-button v-else @click="save">
@@ -126,22 +118,14 @@ async function destroy() {
 
       <editor-split-view ref="splitView" :disabled="true">
         <template #left>
-          <songsheet-editor
-            ref="editor"
-            v-model="songsheet.source"
-            :error="parser.error"
-          />
+          <songsheet-editor ref="editor" v-model="songsheet.source" :error="parser.error" />
         </template>
         <template #right-toolbar="{ toggle }">
           <ion-toolbar>
             <ion-title>Preview</ion-title>
 
             <ion-buttons slot="secondary">
-              <ion-back-button
-                text="Edit"
-                :default-href="$route.fullPath"
-                @click="toggle()"
-              />
+              <ion-back-button text="Edit" :default-href="$route.fullPath" @click="toggle()" />
             </ion-buttons>
 
             <ion-buttons slot="primary">
@@ -168,9 +152,7 @@ async function destroy() {
     <ion-footer>
       <ion-toolbar>
         <ion-buttons slot="secondary">
-          <ion-button v-if="id" fill="clear" color="danger" @click="destroy">
-            Delete
-          </ion-button>
+          <ion-button v-if="id" fill="clear" color="danger" @click="destroy"> Delete </ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-footer>

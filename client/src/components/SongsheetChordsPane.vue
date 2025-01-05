@@ -1,28 +1,24 @@
-<script setup>
+<script lang="ts" setup>
 import ChordDiagram from "@/components/ChordDiagram.vue";
-import InstrumentControl from "@/components/InstrumentControl.vue";
 import ChordDiagramReference from "@/components/ChordDiagramReference.vue";
-import useSongsheetSettings from "@/stores/songsheet-settings";
+import InstrumentControl from "@/components/InstrumentControl.vue";
 import Pane from "@/components/Pane.vue";
-import { ref, defineExpose, computed } from "vue";
 import { useResponsive } from "@/composables";
-import { Chord } from "chordsheetjs";
+import useSongsheetSettings from "@/stores/songsheet-settings";
+import { Chord, Song } from "chordsheetjs";
+import { computed, defineExpose, ref } from "vue";
 
-const props = defineProps({
-  chords: {
-    type: Array,
-    required: true,
-  },
-  definitions: {
-    type: Object,
-    default: null
-  }
-});
+const props = defineProps<{
+  chords: string[];
+  definitions: ReturnType<Song["getChordDefinitions"]>;
+}>();
 
 const width = ref(54);
 const height = ref(72);
 
-const allChords = computed(() => new Set([...props.chords, ...Object.keys(props.definitions || [])]))
+const allChords = computed(
+  () => new Set([...props.chords, ...Object.keys(props.definitions || [])]),
+);
 
 defineExpose({
   height: computed(() => chordsModal?.value?.height),
@@ -33,17 +29,17 @@ const settings = useSongsheetSettings();
 const sidebar = useResponsive("sm");
 const chordsModal = ref();
 
-function onBreakpointDidChange(breakpoint) {
+function onBreakpointDidChange(breakpoint: string) {
   settings.showChords = breakpoint !== "bottom";
 }
 
-function formattedChord(chord) {
+function formattedChord(chord: string) {
   return Chord.parse(chord)?.toString({ useUnicodeModifier: true }) ?? chord;
 }
 </script>
 
 <template>
-  <div :class="{sidebar: sidebar}">
+  <div :class="{ sidebar: sidebar }">
     <!-- Hidden sprite of chord diagrams -->
     <svg hidden xmlns="http://www.w3.org/2000/svg">
       <chord-diagram
@@ -56,22 +52,16 @@ function formattedChord(chord) {
         :height="height"
       />
     </svg>
-    <div
-      v-if="sidebar"
-      class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto h-full"
-    >
+    <div v-if="sidebar" class="w-[80px] snap-y snap-mandatory flex flex-col overflow-y-auto h-full">
       <div
         v-for="chord in allChords"
         :key="`sidebar-${chord}`"
         class="text-center text-sm snap-start first:pt-6 last:pb-6"
       >
-        <div><span class="chord block">{{ formattedChord(chord) }}</span></div>
-        <chord-diagram-reference
-          :chord="chord"
-          :width="width"
-          :height="height"
-          class="-mt-2"
-         />
+        <div>
+          <span class="chord block">{{ formattedChord(chord) }}</span>
+        </div>
+        <chord-diagram-reference :chord="chord" :width="width" :height="height" class="-mt-2" />
       </div>
     </div>
     <pane
@@ -88,9 +78,7 @@ function formattedChord(chord) {
       }"
       @breakpoint-did-change="onBreakpointDidChange"
     >
-      <div
-        class="flex flex-row flex-nowrap overflow-x-auto w-full py-4 snap-x snap-mandatory"
-      >
+      <div class="flex flex-row flex-nowrap overflow-x-auto w-full py-4 snap-x snap-mandatory">
         <div
           v-for="chord in chords"
           :key="`modal-${chord}`"
@@ -99,12 +87,7 @@ function formattedChord(chord) {
           <div class="chord">
             {{ formattedChord(chord) }}
           </div>
-          <chord-diagram-reference
-            :chord="chord"
-            :width="width"
-            :height="height"
-            class="-mt-1"
-          />
+          <chord-diagram-reference :chord="chord" :width="width" :height="height" class="-mt-1" />
         </div>
       </div>
       <ion-footer>

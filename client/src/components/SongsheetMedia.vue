@@ -1,14 +1,11 @@
-<script setup>
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
+<script lang="ts" setup>
 import YoutubeEmbed from "@/components/YoutubeEmbed.vue";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/vue";
 import { logoYoutube } from "ionicons/icons";
 
-defineProps({
-  media: {
-    type: Array,
-    required: true,
-  },
-});
+defineProps<{
+  media: string[];
+}>();
 </script>
 
 <template>
@@ -26,12 +23,7 @@ defineProps({
         v-show="media.length > 1"
         class="p-2 flex gap-2 bg-slate-100 dark:bg-slate-800 md:border-none"
       >
-        <Tab
-          v-for="src in media"
-          v-slot="{ selected }"
-          :key="src"
-          as="template"
-        >
+        <Tab v-for="src in media" v-slot="{ selected }" :key="src" as="template">
           <button
             :class="[
               'px-4 py-2 rounded inline-flex align-center outline-none active:ring border',

@@ -1,18 +1,14 @@
-<script setup>
-defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-});
+<script setup lang="ts">
+import type { Album, Artist, Genre, Track } from "@/api";
+defineProps<{ id: string }>();
 </script>
 
 <template>
   <app-view>
-    <data-source v-slot="genre" :src="`genres/${id}`">
+    <data-source v-slot="{ data: genre }: { data: Genre }" :src="`genres/${id}`">
       <Head>
-        <title v-if="genre.data">
-          {{ genre.data.name }}
+        <title>
+          {{ genre.name }}
         </title>
       </Head>
       <ion-header translucent>
@@ -20,7 +16,7 @@ defineProps({
           <ion-buttons slot="start">
             <ion-back-button text="" default-href="/discover" />
           </ion-buttons>
-          <ion-title>{{ genre.data?.name }}</ion-title>
+          <ion-title>{{ genre.name }}</ion-title>
         </ion-toolbar>
       </ion-header>
 
@@ -28,7 +24,7 @@ defineProps({
         <ion-header collapse="condense">
           <ion-toolbar>
             <ion-title size="large">
-              {{ genre.data?.name }}
+              {{ genre.name }}
             </ion-title>
           </ion-toolbar>
         </ion-header>
@@ -41,7 +37,7 @@ defineProps({
             </ion-button>
           </ion-list-header>
 
-          <data-source v-slot="{ data }" :src="`genres/${id}/tracks`">
+          <data-source v-slot="{ data }: { data: Track[] }" :src="`genres/${id}/tracks`">
             <model-list :items="data" />
           </data-source>
         </ion-list>
@@ -49,14 +45,12 @@ defineProps({
         <ion-list>
           <ion-list-header>
             <ion-label>Top Artists</ion-label>
-            <ion-button
-              :router-link="{ name: 'genre.artists', params: { id } }"
-            >
+            <ion-button :router-link="{ name: 'genre.artists', params: { id } }">
               See All
             </ion-button>
           </ion-list-header>
 
-          <data-source v-slot="{ data }" :src="`genres/${id}/artists`">
+          <data-source v-slot="{ data }: { data: Artist[] }" :src="`genres/${id}/artists`">
             <model-list :items="data" format="card" />
           </data-source>
         </ion-list>
@@ -69,7 +63,7 @@ defineProps({
             </ion-button>
           </ion-list-header>
 
-          <data-source v-slot="{ data }" :src="`genres/${id}/albums`">
+          <data-source v-slot="{ data }: { data: Album[] }" :src="`genres/${id}/albums`">
             <model-list :items="data" format="card" />
           </data-source>
         </ion-list>

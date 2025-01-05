@@ -1,25 +1,25 @@
-<script setup>
-import { createTuner } from "@chordbook/tuner";
+<script lang="ts" setup>
 import TunerMeter from "@/components/TunerMeter.vue";
+import { createTuner } from "@chordbook/tuner";
+import { useDebounceFn } from "@vueuse/core";
 import { mic, micOff } from "ionicons/icons";
-import debounce from "lodash.debounce";
-import { ref, watch } from "vue";
+import { ref, useTemplateRef, watch } from "vue";
 
-const frequencyBars = ref(null); // template ref
+const frequencyBars = useTemplateRef("frequencyBars"); // template ref
 const tuner = createTuner({
   onNote: (n) => {
     note.value = n;
   },
 });
-const note = ref(tuner.getNote(tuner.config.a4));
+const note = ref(tuner.getNote(tuner.config.a4!));
 const active = ref(false);
 
-let frequencyData = null;
+let frequencyData: Uint8Array = new Uint8Array();
 
 // Clear cents after 1 second
 watch(
   note,
-  debounce((note) => {
+  useDebounceFn((note) => {
     note.cents = null;
   }, 1000),
 );
@@ -34,20 +34,20 @@ async function start() {
 async function stop() {
   active.value = false;
   await tuner.stop();
-  note.value = tuner.getNote(tuner.config.a4);
+  note.value = tuner.getNote(tuner.config.a4!);
 }
 
 function updateFrequencyBars() {
   if (!active.value) return;
 
   tuner.analyser.getByteFrequencyData(frequencyData);
-  const el = frequencyBars.value;
+  const el = frequencyBars.value!;
   const length = Math.sqrt(frequencyData.length) * 2; // low frequency only
   const width = el.width / length - 0.5;
 
   const scale = el.height / 2 / Math.max(...frequencyData.slice(0, length));
 
-  const canvasContext = el.getContext("2d");
+  const canvasContext = el.getContext("2d")!;
   canvasContext.clearRect(0, 0, el.width, el.height);
 
   for (let i = 0; i < length; i += 1) {
@@ -81,19 +81,17 @@ function updateFrequencyBars() {
             <span class="absolute font-normal text-3xl top-2 -right-5">{{
               note.name[1] || ""
             }}</span>
-            <span
-              class="absolute font-normal text-lg opacity-70 bottom-1 -right-5"
-              >{{ note.octave }}</span
-            >
+            <span class="absolute font-normal text-lg opacity-70 bottom-1 -right-5">{{
+              note.octave
+            }}</span>
           </div>
         </div>
         <div
           class="text-gray-500/60 absolute bottom-5 left-0 right-0 text-center whitespace-nowrap"
         >
-          <span
-            class="inline-block font-mono text-sm font-bold w-8 ml-2 mr-1 text-right"
-            >{{ note.frequency.toFixed(0) }}</span
-          >
+          <span class="inline-block font-mono text-sm font-bold w-8 ml-2 mr-1 text-right">{{
+            note.frequency.toFixed(0)
+          }}</span>
           <span class="text-xs">Hz</span>
         </div>
       </div>

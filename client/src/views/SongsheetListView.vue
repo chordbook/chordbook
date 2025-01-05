@@ -1,7 +1,12 @@
-<script setup>
+<script setup lang="ts">
+import type { Songsheet } from "@/api";
+import { DataSource } from "@/components";
 import SongsheetItem from "@/components/SongsheetItem.vue";
-import LibraryPlaceholder from "../components/LibraryPlaceholder.vue";
 import { add } from "ionicons/icons";
+import { useTemplateRef } from "vue";
+import LibraryPlaceholder from "../components/LibraryPlaceholder.vue";
+
+const dataSource = useTemplateRef("dataSource");
 </script>
 
 <template>
@@ -27,9 +32,9 @@ import { add } from "ionicons/icons";
 
     <ion-content fullscreen class="relative main-content">
       <ion-refresher
-        v-if="$refs.dataSource"
+        v-if="dataSource"
         slot="fixed"
-        @ion-refresh="$refs.dataSource.reload"
+        @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
       >
         <ion-refresher-content />
       </ion-refresher>
@@ -40,7 +45,7 @@ import { add } from "ionicons/icons";
           </ion-title>
         </ion-toolbar>
       </ion-header>
-      <data-source ref="dataSource" :src="$route.path" :params="$route.query">
+      <DataSource ref="dataSource" :src="$route.path">
         <template #empty>
           <library-placeholder type="song" />
         </template>
@@ -48,12 +53,12 @@ import { add } from "ionicons/icons";
           <ion-list>
             <songsheet-item
               v-for="songsheet in items"
-              :key="songsheet.id"
-              v-bind="songsheet"
+              :key="(songsheet as Songsheet).id"
+              v-bind="songsheet as Songsheet"
             />
           </ion-list>
         </template>
-      </data-source>
+      </DataSource>
     </ion-content>
   </app-view>
 </template>

@@ -1,16 +1,19 @@
-<script setup>
-import { useFetch } from "@/client";
-import SetlistAvatar from "../components/SetlistAvatar.vue";
-import SongsheetItem from "@/components/SongsheetItem.vue";
-import AddToLibraryButton from "../components/AddToLibraryButton.vue";
-import ShareItem from "@/components/ShareItem.vue";
+<script setup lang="ts">
 import ShareButton from "@/components/ShareButton.vue";
-import { toastController, actionSheetController } from "@ionic/vue";
+import ShareItem from "@/components/ShareItem.vue";
+import SongsheetItem from "@/components/SongsheetItem.vue";
+import { useFetch } from "@/composables";
 import * as icons from "@/icons";
-import { ref } from "vue";
-import { useRouter } from "vue-router";
 import { gradient } from "@/lib/gradient";
 import { pluralize } from "@/util";
+import { actionSheetController, toastController, useIonRouter } from "@ionic/vue";
+import { ref, useTemplateRef } from "vue";
+import AddToLibraryButton from "../components/AddToLibraryButton.vue";
+import SetlistAvatar from "../components/SetlistAvatar.vue";
+
+import type { Songsheet } from "@/api";
+import type { DataSource } from "@/components";
+import type { ItemReorderEventDetail } from "@ionic/core";
 
 const props = defineProps({
   id: {
@@ -19,23 +22,23 @@ const props = defineProps({
   },
 });
 
-const router = useRouter();
+const router = useIonRouter();
 const editing = ref(false);
-const songsheets = ref(null); // element ref
+const songsheets = useTemplateRef<InstanceType<typeof DataSource>>("songsheets"); // element ref
 
-async function reorder(e) {
-  const songsheet = songsheets.value.items[e.detail.from];
+async function reorder({ detail }: { detail: ItemReorderEventDetail }) {
+  const songsheet = (songsheets.value?.items as Songsheet[])[detail.from];
 
   await useFetch(`setlists/${props.id}/items/${songsheet.id}`).patch({
-    item: { position: e.detail.to + 1 },
+    item: { position: detail.to + 1 },
   });
 
-  e.detail.complete(true);
+  detail.complete(true);
 }
 
-async function remove(songsheet) {
+async function remove(songsheet: Songsheet) {
   await useFetch(`setlists/${props.id}/items/${songsheet.id}`).delete();
-  const items = songsheets.value.items;
+  const items = songsheets.value!.items as Songsheet[];
   items.splice(items.indexOf(songsheet), 1);
 
   return (
@@ -56,10 +59,10 @@ async function destroy() {
         icon: icons.trash,
         handler: async () => {
           await useFetch(`setlists/${props.id}`).delete();
-          router.back({ name: "setlists" });
+          router.navigate({ name: "setlists" }, "back");
         },
       },
-      { text: "Cancel", icon: close, role: "cancel" },
+      { text: "Cancel", icon: icons.close, role: "cancel" },
     ],
   });
   await actionSheet.present();
@@ -81,9 +84,7 @@ async function destroy() {
           </ion-buttons>
 
           <ion-buttons slot="end" class="pr-[16px]">
-            <ion-button v-show="editing" @click="editing = false">
-              Done
-            </ion-button>
+            <ion-button v-show="editing" @click="editing = false"> Done </ion-button>
             <ion-button v-show="!editing" :id="`setlist-context-${id}`">
               <ion-icon
                 slot="icon-only"
@@ -99,7 +100,7 @@ async function destroy() {
         <ion-refresher
           v-if="$refs.songsheets"
           slot="fixed"
-          @ion-refresh="$refs.songsheets.reload"
+          @ion-refresh="songsheets?.reload().then(() => $event.target.complete())"
         >
           <ion-refresher-content />
         </ion-refresher>
@@ -110,20 +111,12 @@ async function destroy() {
           class="block bg-slate-700 always-dark main-content"
         >
           <ion-toolbar style="--background: transparent; --padding-top: 1.5rem">
-            <div
-              class="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 ion-padding"
-            >
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 md:gap-8 lg:gap-10 ion-padding">
               <div class="min-w-[200px]">
-                <setlist-avatar
-                  :id="data?.id"
-                  :thumbnails="data?.thumbnails"
-                  class="shadow-xl"
-                />
+                <setlist-avatar :id="data?.id" :thumbnails="data?.thumbnails" class="shadow-xl" />
               </div>
               <div class="text-white text-shadow flex flex-col gap-3">
-                <ion-note
-                  class="text-white text-xs font-semibold uppercase tracking-wide"
-                >
+                <ion-note class="text-white text-xs font-semibold uppercase tracking-wide">
                   Setlist
                 </ion-note>
                 <h1 class="text-4xl font-bold">
@@ -157,25 +150,12 @@ async function destroy() {
                   />
                 </ion-buttons>
 
-                <ion-popover
-                  :trigger="`setlist-context-${id}`"
-                  dismiss-on-select
-                >
+                <ion-popover :trigger="`setlist-context-${id}`" dismiss-on-select>
                   <ion-list>
-                    <ion-item
-                      button
-                      detail
-                      :detail-icon="icons.edit"
-                      @click="editing = true"
-                    >
+                    <ion-item button detail :detail-icon="icons.edit" @click="editing = true">
                       <ion-label>Edit</ion-label>
                     </ion-item>
-                    <ion-item
-                      button
-                      detail
-                      :detail-icon="icons.trash"
-                      @click="destroy"
-                    >
+                    <ion-item button detail :detail-icon="icons.trash" @click="destroy">
                       <ion-label>Delete</ion-label>
                     </ion-item>
                     <share-item
@@ -198,10 +178,7 @@ async function destroy() {
                 v-slot="{ items }"
                 :src="`setlists/${props.id}/songsheets`"
               >
-                <ion-item-sliding
-                  v-for="songsheet in items"
-                  :key="songsheet.id"
-                >
+                <ion-item-sliding v-for="songsheet in items" :key="songsheet.id">
                   <ion-item-options side="end">
                     <ion-item-option color="danger" @click="remove(songsheet)">
                       Remove
