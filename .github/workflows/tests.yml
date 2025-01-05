@@ -52,4 +52,5 @@ jobs:
         with:
           cache: "npm"
       - run: npm ci
+      - run: npm run build:ts
       - run: npm test

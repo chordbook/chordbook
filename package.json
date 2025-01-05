@@ -76,7 +76,8 @@
   "scripts": {
     "dev": "vite",
     "dev:ios": "ionic capacitor run ios -l --external",
-    "build": "vue-tsc --build && vite build && bin/app-icons",
+    "build": "vite build && bin/app-icons",
+    "build:ts": "vue-tsc --build",
     "serve": "vite preview",
     "format": "prettier . --write",
     "format:check": "prettier . --write",
