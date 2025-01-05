@@ -21,7 +21,7 @@ function unrefIonScrollElement(scroller: MaybeElementRef) {
   // Use async function with watchEffect since computed properties can't handle promises
   watchEffect(async () => {
     const value = unrefElement(scroller) as HTMLElement;
-    // if scroller is an <ion-content> element, get the underlying scrollable element
+    // if scroller is an <IonContent> element, get the underlying scrollable element
     if ((value as HTMLIonContentElement)?.getScrollElement) {
       el.value = await (value as HTMLIonContentElement).getScrollElement();
     } else {

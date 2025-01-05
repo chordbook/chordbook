@@ -9,7 +9,7 @@ defineProps<Track>();
 </script>
 
 <template>
-  <ion-item
+  <IonItem
     button
     :router-link="{ name: 'track', params: { id: id } }"
     detail="false"
@@ -17,16 +17,16 @@ defineProps<Track>();
       'opacity-40 hover:opacity-100 transition-opacity': !has_songsheet,
     }"
   >
-    <model-avatar slot="start" :src="album?.cover?.small" type="Track" />
-    <ion-label class="truncate">
+    <ModelAvatar slot="start" :src="album?.cover?.small" type="Track" />
+    <IonLabel class="truncate">
       <h2>{{ title }}</h2>
       <p>{{ artist.name }}</p>
-    </ion-label>
+    </IonLabel>
 
-    <ion-button :id="`track-${id}`" slot="end" fill="clear" color="medium" @click.prevent="">
-      <ion-icon slot="icon-only" size="small" :ios="icons.iosEllipsis" :md="icons.mdEllipsis" />
-    </ion-button>
-    <ion-popover
+    <IonButton :id="`track-${id}`" slot="end" fill="clear" color="medium" @click.prevent="">
+      <IonIcon slot="icon-only" size="small" :ios="icons.iosEllipsis" :md="icons.mdEllipsis" />
+    </IonButton>
+    <IonPopover
       :trigger="`track-${id}`"
       side="bottom"
       alignment="end"
@@ -34,23 +34,23 @@ defineProps<Track>();
       dismiss-on-select
       animated
     >
-      <ion-list lines="full">
-        <ion-item
+      <IonList lines="full">
+        <IonItem
           v-if="!has_songsheet"
           button
           :router-link="{ name: 'songsheet.new', query: { track: id } }"
         >
           Create Songsheet
-        </ion-item>
-        <ion-item
+        </IonItem>
+        <IonItem
           button
           detail
           :detail-icon="icons.artist"
           :router-link="{ name: 'artist', params: { id: artist?.id } }"
         >
           View Artist
-        </ion-item>
-        <ion-item
+        </IonItem>
+        <IonItem
           v-if="album"
           button
           detail
@@ -58,9 +58,9 @@ defineProps<Track>();
           :router-link="{ name: 'album', params: { id: album.id } }"
         >
           View Album
-        </ion-item>
-        <share-item lines="none" :router-link="{ name: 'track', params: { id } }" :title="title" />
-      </ion-list>
-    </ion-popover>
-  </ion-item>
+        </IonItem>
+        <ShareItem lines="none" :router-link="{ name: 'track', params: { id } }" :title="title" />
+      </IonList>
+    </IonPopover>
+  </IonItem>
 </template>

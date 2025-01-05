@@ -16,7 +16,7 @@ defineProps<{
     <TabGroup>
       <TabPanels class="bg-black md:rounded overflow-hidden">
         <TabPanel v-for="src in media" :key="src">
-          <youtube-embed :src="src" />
+          <YoutubeEmbed :src="src" />
         </TabPanel>
       </TabPanels>
       <TabList
@@ -32,7 +32,7 @@ defineProps<{
                 : 'bg-slate-50 text-black hover:bg-slate-200',
             ]"
           >
-            <ion-icon :icon="logoYoutube" />
+            <IonIcon :icon="logoYoutube" />
           </button>
         </Tab>
       </TabList>

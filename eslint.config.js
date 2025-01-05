@@ -1,5 +1,5 @@
 import pluginVitest from "@vitest/eslint-plugin";
-import skipFormatting from "@vue/eslint-config-prettier/skip-formatting";
+import prettier from "@vue/eslint-config-prettier/skip-formatting";
 import vueTsEslintConfig from "@vue/eslint-config-typescript";
 import pluginVue from "eslint-plugin-vue";
 import globals from "globals";
@@ -19,6 +19,19 @@ export default [
   ...vueTsEslintConfig(),
 
   {
+    rules: {
+      "vue/component-name-in-template-casing": [
+        "error",
+        "PascalCase",
+        {
+          ignores: [],
+          registeredComponentsOnly: false,
+        },
+      ],
+    },
+  },
+
+  {
     ...pluginVitest.configs.recommended,
     files: ["client/test/*"],
   },
@@ -34,5 +47,5 @@ export default [
     },
   },
 
-  skipFormatting,
+  prettier,
 ];

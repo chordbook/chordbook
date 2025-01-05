@@ -14,7 +14,7 @@ defineProps<
 </script>
 
 <template>
-  <ion-item
+  <IonItem
     button
     :router-link="{
       name: setlistId ? 'setlistSongsheet' : 'songsheet',
@@ -22,22 +22,22 @@ defineProps<
     }"
     detail="false"
   >
-    <model-avatar slot="start" :src="track?.album?.cover?.medium" type="Songsheet" />
-    <ion-label class="truncate">
+    <ModelAvatar slot="start" :src="track?.album?.cover?.medium" type="Songsheet" />
+    <IonLabel class="truncate">
       <h2>{{ title }}</h2>
       <p v-if="subtitle">
         {{ subtitle }}
       </p>
-    </ion-label>
-    <ion-note v-if="metadata.key || metadata.capo" slot="end" class="text-center w-10 text-nowrap">
+    </IonLabel>
+    <IonNote v-if="metadata.key || metadata.capo" slot="end" class="text-center w-10 text-nowrap">
       <div v-if="metadata.capo" class="text-[0.6rem] uppercase font-semibold opacity-80">
         Capo {{ metadata.capo }}
       </div>
       <span v-if="metadata.key" class="text-sm">
         {{ metadata?.key }}
       </span>
-    </ion-note>
-    <ion-button
+    </IonNote>
+    <IonButton
       :id="`songsheet-${id}`"
       slot="end"
       class="hide-reorder"
@@ -45,22 +45,22 @@ defineProps<
       color="dark"
       @click.prevent=""
     >
-      <ion-icon slot="icon-only" size="small" :ios="icons.iosEllipsis" :md="icons.mdEllipsis" />
-    </ion-button>
-    <ion-reorder slot="end" />
+      <IonIcon slot="icon-only" size="small" :ios="icons.iosEllipsis" :md="icons.mdEllipsis" />
+    </IonButton>
+    <IonReorder slot="end" />
 
-    <ion-popover :trigger="`songsheet-${id}`" translucent dismiss-on-select>
-      <ion-list lines="full">
+    <IonPopover :trigger="`songsheet-${id}`" translucent dismiss-on-select>
+      <IonList lines="full">
         <slot name="actions"></slot>
-        <ion-item
+        <IonItem
           button
           detail
           :detail-icon="icons.setlist"
           @click="$refs.addToSetlistModal?.$el.present()"
         >
-          <ion-label>Add to Setlist…</ion-label>
-        </ion-item>
-        <ion-item
+          <IonLabel>Add to Setlist…</IonLabel>
+        </IonItem>
+        <IonItem
           v-if="track"
           button
           detail
@@ -68,8 +68,8 @@ defineProps<
           :router-link="{ name: 'artist', params: { id: track?.artist?.id } }"
         >
           View Artist
-        </ion-item>
-        <ion-item
+        </IonItem>
+        <IonItem
           v-if="track"
           button
           detail
@@ -77,14 +77,14 @@ defineProps<
           :router-link="{ name: 'album', params: { id: track?.album?.id } }"
         >
           View Album
-        </ion-item>
-        <share-item
+        </IonItem>
+        <ShareItem
           lines="none"
           :router-link="{ name: 'songsheet', params: { id } }"
           :title="[title, subtitle].join(' - ')"
         />
-      </ion-list>
-    </ion-popover>
-    <add-to-setlist-modal :id="id" ref="addToSetlistModal" />
-  </ion-item>
+      </IonList>
+    </IonPopover>
+    <AddToSetlistModal :id="id" ref="addToSetlistModal" />
+  </IonItem>
 </template>

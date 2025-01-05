@@ -19,28 +19,28 @@ function loaded({ data }: { data: Ref<Songsheet[]> }) {
 </script>
 
 <template>
-  <app-view>
+  <AppView>
     <Head>
       <title>Versions</title>
     </Head>
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button text="" default-href="/" />
-        </ion-buttons>
-        <ion-title>Versions</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content fullscreen class="main-content">
-      <ion-list>
-        <data-source
+    <IonHeader>
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonBackButton text="" default-href="/" />
+        </IonButtons>
+        <IonTitle>Versions</IonTitle>
+      </IonToolbar>
+    </IonHeader>
+    <IonContent fullscreen class="main-content">
+      <IonList>
+        <DataSource
           v-slot="{ items }: { items: Songsheet[] }"
           :src="`tracks/${id}/songsheets`"
           @load="loaded"
         >
-          <songsheet-item v-for="songsheet in items" :key="songsheet.id" v-bind="songsheet" />
-        </data-source>
-      </ion-list>
-    </ion-content>
-  </app-view>
+          <SongsheetItem v-for="songsheet in items" :key="songsheet.id" v-bind="songsheet" />
+        </DataSource>
+      </IonList>
+    </IonContent>
+  </AppView>
 </template>

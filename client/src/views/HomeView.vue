@@ -13,30 +13,30 @@ const auth = useAuthStore();
 </script>
 
 <template>
-  <app-view>
+  <AppView>
     <Head>
       <title>Home</title>
       <meta name="description" content="Chord sheets and tab for guitar and ukulele." />
     </Head>
-    <ion-header v-if="auth.isAuthenticated" collapse="fade" translucent>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button />
-        </ion-buttons>
-        <ion-title>Home</ion-title>
-        <ion-buttons slot="end">
-          <ion-button router-link="/account">
-            <ion-icon slot="icon-only" :icon="icons.avatar" />
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-header v-else translucent>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button />
-        </ion-buttons>
-        <ion-title class="flex">
+    <IonHeader v-if="auth.isAuthenticated" collapse="fade" translucent>
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonMenuButton />
+        </IonButtons>
+        <IonTitle>Home</IonTitle>
+        <IonButtons slot="end">
+          <IonButton router-link="/account">
+            <IonIcon slot="icon-only" :icon="icons.avatar" />
+          </IonButton>
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
+    <IonHeader v-else translucent>
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonMenuButton />
+        </IonButtons>
+        <IonTitle class="flex">
           <img :src="icons.logoLight" class="dark:hidden inline-block mr-3" />
           <img :src="icons.logo" class="hidden dark:inline-block mr-3" />
           <img
@@ -49,28 +49,28 @@ const auth = useAuthStore();
             class="hidden dark:inline-block max-w-[150px]"
             :src="icons.wordmark"
           />
-        </ion-title>
+        </IonTitle>
 
-        <ion-buttons slot="end">
-          <ion-button router-link="#signin"> Sign In </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content fullscreen class="main-content">
-      <ion-refresher
+        <IonButtons slot="end">
+          <IonButton router-link="#signin"> Sign In </IonButton>
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
+    <IonContent fullscreen class="main-content">
+      <IonRefresher
         v-if="dataSource"
         slot="fixed"
         @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
       >
-        <ion-refresher-content />
-      </ion-refresher>
+        <IonRefresherContent />
+      </IonRefresher>
 
-      <ion-header v-if="auth.isAuthenticated" collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large"> Home </ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-card
+      <IonHeader v-if="auth.isAuthenticated" collapse="condense">
+        <IonToolbar>
+          <IonTitle size="large"> Home </IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonCard
         v-else
         class="bg-black aspect-square-max-h-screen-1\/2 min-h-screen-1/2 shadow-inner bg-center bg-cover flex flex-col"
         style="
@@ -89,18 +89,18 @@ const auth = useAuthStore();
             Chord sheets and tab for guitar and ukulele.
           </p>
         </div>
-      </ion-card>
+      </IonCard>
 
       <DataSource ref="dataSource" v-slot="{ data }" src="home">
         <div v-for="section in data as Home" :key="section.name">
-          <ion-list-header>
-            <ion-label class="text-2xl">
+          <IonListHeader>
+            <IonLabel class="text-2xl">
               {{ section.name }}
-            </ion-label>
-            <ion-button v-if="section.href" :router-link="section.href"> See All </ion-button>
-          </ion-list-header>
+            </IonLabel>
+            <IonButton v-if="section.href" :router-link="section.href"> See All </IonButton>
+          </IonListHeader>
 
-          <model-list :items="section.items" :format="section.format" />
+          <ModelList :items="section.items" :format="section.format" />
         </div>
       </DataSource>
 
@@ -116,7 +116,7 @@ const auth = useAuthStore();
         </div>
 
         <div class="grid xl:grid-cols-3 xl:mb-6 ion-padding gap-3 md:gap-4 xl:gap-4 2xl:gap-6">
-          <help-card
+          <HelpCard
             image="https://images.pexels.com/photos/1407322/pexels-photo-1407322.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=720"
             audience="Musicians"
             title="Improve Charts"
@@ -126,8 +126,8 @@ const auth = useAuthStore();
           >
             Volunteer to be an editor and get full access to add new charts or make corrections to
             existing ones.
-          </help-card>
-          <help-card
+          </HelpCard>
+          <HelpCard
             image="https://images.pexels.com/photos/48171/guitar-case-street-musicians-donate-donation-48171.jpeg?auto=compress&cs=tinysrgb&w=640"
             audience="Patrons"
             title="Leave a Tip"
@@ -136,8 +136,8 @@ const auth = useAuthStore();
             button-text="Donate"
           >
             Show your appreciation and support the costs of building and running the app.
-          </help-card>
-          <help-card
+          </HelpCard>
+          <HelpCard
             image="https://images.pexels.com/photos/374563/pexels-photo-374563.jpeg?auto=compress&cs=tinysrgb&dpr=3w=640"
             audience="Developers"
             title="Contribute Code"
@@ -147,9 +147,9 @@ const auth = useAuthStore();
           >
             This app is open source! Help us fix bugs, improve features, and make progress on our
             <a href="https://github.com/bkeepers/chordbook/projects/1">roadmap</a>.
-          </help-card>
+          </HelpCard>
         </div>
       </div>
-    </ion-content>
-  </app-view>
+    </IonContent>
+  </AppView>
 </template>

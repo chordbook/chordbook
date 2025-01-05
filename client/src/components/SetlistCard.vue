@@ -10,14 +10,14 @@ defineProps<{
 </script>
 
 <template>
-  <ion-item
+  <IonItem
     button
     :router-link="{ name: 'setlist', params: { id } }"
     class="rounded group @container"
     :detail="false"
     lines="none"
   >
-    <ion-label class="me-0 relative aspect-square rounded-lg overflow-hidden">
+    <IonLabel class="me-0 relative aspect-square rounded-lg overflow-hidden">
       <div class="absolute inset-0 w-full h-full">
         <SetlistAvatar :id="id" :thumbnails="thumbnails" />
       </div>
@@ -28,8 +28,8 @@ defineProps<{
           {{ title }}
         </div>
       </div>
-    </ion-label>
-  </ion-item>
+    </IonLabel>
+  </IonItem>
 </template>
 
 <style scoped>

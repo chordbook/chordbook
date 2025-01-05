@@ -1,7 +1,7 @@
+import arrify from "arrify";
 import LinkHeader from "http-link-header";
 import { computed, reactive, ref } from "vue";
 import { useFetch } from "./useFetch";
-import arrify from "arrify";
 
 import type { UseFetchOptionsWithParams, UseFetchReturn } from "./useFetch";
 

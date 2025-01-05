@@ -3,25 +3,25 @@ import { home, library, search } from "@/icons";
 </script>
 
 <template>
-  <ion-page>
-    <ion-tabs>
-      <ion-router-outlet />
-      <ion-tab-bar slot="bottom" translucent class="lg:hidden">
-        <ion-tab-button tab="home" href="/home">
-          <ion-icon :icon="home" />
-          <ion-label>Home</ion-label>
-        </ion-tab-button>
+  <IonPage>
+    <IonTabs>
+      <IonRouterOutlet />
+      <IonTabBar slot="bottom" translucent class="lg:hidden">
+        <IonTabButton tab="home" href="/home">
+          <IonIcon :icon="home" />
+          <IonLabel>Home</IonLabel>
+        </IonTabButton>
 
-        <ion-tab-button tab="discover" href="/discover">
-          <ion-icon :icon="search" />
-          <ion-label>Discover</ion-label>
-        </ion-tab-button>
+        <IonTabButton tab="discover" href="/discover">
+          <IonIcon :icon="search" />
+          <IonLabel>Discover</IonLabel>
+        </IonTabButton>
 
-        <ion-tab-button tab="library" href="/library">
-          <ion-icon :icon="library" />
-          <ion-label>Library</ion-label>
-        </ion-tab-button>
-      </ion-tab-bar>
-    </ion-tabs>
-  </ion-page>
+        <IonTabButton tab="library" href="/library">
+          <IonIcon :icon="library" />
+          <IonLabel>Library</IonLabel>
+        </IonTabButton>
+      </IonTabBar>
+    </IonTabs>
+  </IonPage>
 </template>

@@ -6,5 +6,5 @@ const auth = useAuthStore();
 
 <template>
   <slot v-if="auth.isAuthenticated" />
-  <unauthorized-view v-else />
+  <UnauthorizedView v-else />
 </template>

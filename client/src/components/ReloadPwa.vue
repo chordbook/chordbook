@@ -43,13 +43,13 @@ function addToHomeScreen() {
 </script>
 
 <template>
-  <ion-toast
+  <IonToast
     :is-open="offlineReady"
     message="Ready to work offline."
     duration="3000"
     :buttons="[{ text: 'Ok', role: 'cancel' }]"
   />
-  <ion-toast
+  <IonToast
     :is-open="showInstallPrompt"
     message="Add to home screen?"
     :buttons="[
@@ -59,7 +59,7 @@ function addToHomeScreen() {
     :duration="5000"
   />
   <UseOnline v-slot="{ isOnline }">
-    <ion-toast
+    <IonToast
       :is-open="!isOnline"
       :icon="offline"
       header="It looks like you are offline"

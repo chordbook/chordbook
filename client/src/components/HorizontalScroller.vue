@@ -32,7 +32,7 @@ onMounted(() => requestAnimationFrame(measure));
 <template>
   <div ref="container" class="relative breakout">
     <Transition name="fade">
-      <ion-button
+      <IonButton
         v-show="enabled && !arrivedState.left"
         fill="clear"
         color="medium"
@@ -40,14 +40,14 @@ onMounted(() => requestAnimationFrame(measure));
         class="scroll-button -left-3 md:-left-7 lg:-left-10"
         @click="scroll(-1)"
       >
-        <ion-icon slot="icon-only" :icon="chevronBackOutline" class="-ml-0.5" />
-      </ion-button>
+        <IonIcon slot="icon-only" :icon="chevronBackOutline" class="-ml-0.5" />
+      </IonButton>
     </Transition>
     <div ref="scroller" class="z-0" v-bind="$attrs">
       <slot />
     </div>
     <Transition name="fade">
-      <ion-button
+      <IonButton
         v-show="enabled && !arrivedState.right"
         fill="clear"
         color="medium"
@@ -55,8 +55,8 @@ onMounted(() => requestAnimationFrame(measure));
         class="scroll-button -right-3 md:-right-7 lg:-right-10"
         @click="scroll(1)"
       >
-        <ion-icon slot="icon-only" :icon="chevronForwardOutline" class="-mr-0.5" />
-      </ion-button>
+        <IonIcon slot="icon-only" :icon="chevronForwardOutline" class="-mr-0.5" />
+      </IonButton>
     </Transition>
   </div>
 </template>

@@ -12,27 +12,27 @@ async function save() {
 </script>
 
 <template>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>New Setlist</ion-title>
-      <ion-buttons slot="start">
-        <ion-button role="cancel" @click="modalController.dismiss()"> Cancel </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content>
-    <ion-item>
-      <ion-label position="stacked"> Setlist title </ion-label>
-      <ion-input v-model="params.title" />
-    </ion-item>
+  <IonHeader>
+    <IonToolbar>
+      <IonTitle>New Setlist</IonTitle>
+      <IonButtons slot="start">
+        <IonButton role="cancel" @click="modalController.dismiss()"> Cancel </IonButton>
+      </IonButtons>
+    </IonToolbar>
+  </IonHeader>
+  <IonContent>
+    <IonItem>
+      <IonLabel position="stacked"> Setlist title </IonLabel>
+      <IonInput v-model="params.title" />
+    </IonItem>
 
-    <ion-item>
-      <ion-label position="stacked"> Description </ion-label>
-      <ion-textarea v-model="params.description" />
-    </ion-item>
+    <IonItem>
+      <IonLabel position="stacked"> Description </IonLabel>
+      <IonTextarea v-model="params.description" />
+    </IonItem>
 
     <div class="ion-padding">
-      <ion-button expand="block" type="submit" @click="save"> Save </ion-button>
+      <IonButton expand="block" type="submit" @click="save"> Save </IonButton>
     </div>
-  </ion-content>
+  </IonContent>
 </template>

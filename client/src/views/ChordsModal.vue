@@ -31,42 +31,42 @@ function positionData(position: ChordPositionData) {
 </script>
 
 <template>
-  <ion-modal>
-    <app-view>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Chord Reference</ion-title>
-          <ion-select
+  <IonModal>
+    <AppView>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Chord Reference</IonTitle>
+          <IonSelect
             slot="start"
             v-model="selectedInstrument"
             aria-label="Instrument"
             interface="popover"
           >
-            <ion-select-option
+            <IonSelectOption
               v-for="instrument in Instrument"
               :key="instrument"
               :value="instrument.toLowerCase()"
             >
               {{ instrument }}
-            </ion-select-option>
-          </ion-select>
-          <ion-buttons slot="end">
-            <ion-back-button role="cancel" icon="" text="Done" default-href="/" />
-          </ion-buttons>
-        </ion-toolbar>
-        <ion-toolbar>
-          <ion-segment v-model="selectedKey" class="mx-auto max-w-4xl" scrollable>
-            <ion-segment-button v-for="key in data?.keys" :key="key" :value="key">
-              <ion-label>{{ Chord.parse(key)!.toString({ useUnicodeModifier: true }) }}</ion-label>
-            </ion-segment-button>
-          </ion-segment>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
+            </IonSelectOption>
+          </IonSelect>
+          <IonButtons slot="end">
+            <IonBackButton role="cancel" icon="" text="Done" default-href="/" />
+          </IonButtons>
+        </IonToolbar>
+        <IonToolbar>
+          <IonSegment v-model="selectedKey" class="mx-auto max-w-4xl" scrollable>
+            <IonSegmentButton v-for="key in data?.keys" :key="key" :value="key">
+              <IonLabel>{{ Chord.parse(key)!.toString({ useUnicodeModifier: true }) }}</IonLabel>
+            </IonSegmentButton>
+          </IonSegment>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent class="ion-padding">
         Key: {{ selectedKey }} Chord: {{ selectedChord }}
-        <ion-list lines="none" class="mt-6 chord-grid">
+        <IonList lines="none" class="mt-6 chord-grid">
           <template v-for="(chord, index) in chords" :key="chord.key + chord.suffix">
-            <ion-item
+            <IonItem
               v-if="normalizeChordName(chord.key + chord.suffix)"
               button
               :detail="false"
@@ -76,36 +76,36 @@ function positionData(position: ChordPositionData) {
                 <h2 class="text-sm">
                   {{ normalizeChordName(chord.key + chord.suffix) }}
                 </h2>
-                <chord-box
+                <ChordBox
                   as="svg"
                   :data="positionData(chord.positions[0])"
                   :width="width"
                   :height="height"
                 />
               </div>
-            </ion-item>
+            </IonItem>
           </template>
-        </ion-list>
-      </ion-content>
-      <ion-modal
+        </IonList>
+      </IonContent>
+      <IonModal
         :is-open="selectedChord !== undefined"
         :initial-breakpoint="0.5"
         :breakpoints="[0, 0.5, 1]"
         @did-dismiss="selectedChord = undefined"
       >
-        <ion-page>
-          <ion-header>
-            <ion-toolbar>
-              <ion-title>
+        <IonPage>
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>
                 {{ normalizeChordName(chordData!.key + chordData!.suffix) }}
-              </ion-title>
-            </ion-toolbar>
-          </ion-header>
-          <ion-content class="ion-padding">
+              </IonTitle>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent class="ion-padding">
             <div class="mt-6 chord-grid text-center">
               <div v-for="(position, index) in chordData!.positions" :key="index" class="flex-grow">
                 <h3>{{ index + 1 }}</h3>
-                <chord-box
+                <ChordBox
                   class="inline"
                   as="svg"
                   :data="positionData(position)"
@@ -114,11 +114,11 @@ function positionData(position: ChordPositionData) {
                 />
               </div>
             </div>
-          </ion-content>
-        </ion-page>
-      </ion-modal>
-    </app-view>
-  </ion-modal>
+          </IonContent>
+        </IonPage>
+      </IonModal>
+    </AppView>
+  </IonModal>
 </template>
 
 <style>

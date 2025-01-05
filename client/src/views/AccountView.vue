@@ -6,35 +6,35 @@ const auth = useAuthStore();
 </script>
 
 <template>
-  <app-view>
+  <AppView>
     <Head>
       <title>Account</title>
     </Head>
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button text="" default-href="/home" />
-        </ion-buttons>
-        <ion-title>Account</ion-title>
-      </ion-toolbar>
-      <ion-content fullscreen>
-        <ion-list>
-          <ion-item class="item-label-stacked">
-            <ion-label position="stacked"> Name </ion-label>
-            <ion-label>{{ auth.user.name }}</ion-label>
-          </ion-item>
-          <ion-item class="item-label-stacked">
-            <ion-label position="stacked"> Email </ion-label>
-            <ion-label>{{ auth.user.email }}</ion-label>
-          </ion-item>
-        </ion-list>
+    <IonHeader>
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonBackButton text="" default-href="/home" />
+        </IonButtons>
+        <IonTitle>Account</IonTitle>
+      </IonToolbar>
+      <IonContent fullscreen>
+        <IonList>
+          <IonItem class="item-label-stacked">
+            <IonLabel position="stacked"> Name </IonLabel>
+            <IonLabel>{{ auth.user.name }}</IonLabel>
+          </IonItem>
+          <IonItem class="item-label-stacked">
+            <IonLabel position="stacked"> Email </IonLabel>
+            <IonLabel>{{ auth.user.email }}</IonLabel>
+          </IonItem>
+        </IonList>
         <div class="ion-padding">
-          <ion-button class="mx-auto" color="medium" fill="outline" @click="auth.signOut">
-            <ion-icon slot="start" :icon="icons.signout" />
+          <IonButton class="mx-auto" color="medium" fill="outline" @click="auth.signOut">
+            <IonIcon slot="start" :icon="icons.signout" />
             Sign Out
-          </ion-button>
+          </IonButton>
         </div>
-      </ion-content>
-    </ion-header>
-  </app-view>
+      </IonContent>
+    </IonHeader>
+  </AppView>
 </template>

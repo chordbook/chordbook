@@ -6,40 +6,40 @@ import type { Artist } from "@/api";
 </script>
 
 <template>
-  <app-view>
+  <AppView>
     <Head>
       <title>Artists</title>
     </Head>
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-title>Artists</ion-title>
+    <IonHeader translucent>
+      <IonToolbar>
+        <IonTitle>Artists</IonTitle>
 
-        <ion-buttons slot="start">
-          <ion-back-button
+        <IonButtons slot="start">
+          <IonBackButton
             class="md:hidden"
             text=""
             :default-href="$route.path.replace('/artists', '') || '/library'"
           />
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
+        </IonButtons>
+      </IonToolbar>
+    </IonHeader>
 
-    <ion-content fullscreen class="main-content">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large"> Artists </ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <data-source :src="$route.path" :params="$route.query">
+    <IonContent fullscreen class="main-content">
+      <IonHeader collapse="condense">
+        <IonToolbar>
+          <IonTitle size="large"> Artists </IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <DataSource :src="$route.path" :params="$route.query">
         <template #empty>
-          <library-placeholder type="artist" />
+          <LibraryPlaceholder type="artist" />
         </template>
         <template #default="{ items }: { items: Artist[] }">
-          <ion-list>
-            <artist-item v-for="artist in items" :key="artist.id" v-bind="artist" />
-          </ion-list>
+          <IonList>
+            <ArtistItem v-for="artist in items" :key="artist.id" v-bind="artist" />
+          </IonList>
         </template>
-      </data-source>
-    </ion-content>
-  </app-view>
+      </DataSource>
+    </IonContent>
+  </AppView>
 </template>

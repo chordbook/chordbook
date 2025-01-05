@@ -57,7 +57,7 @@ const theme = useThemeStore();
                 <div v-if="item.annotation" class="annotation">
                   {{ item.annotation }}
                 </div>
-                <chord v-else :name="item.chords" />
+                <Chord v-else :name="item.chords" />
                 <div v-if="item.lyrics?.trim()" class="lyrics">
                   {{ item.lyrics }}
                 </div>

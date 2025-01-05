@@ -18,11 +18,11 @@ const borderRadius = computed(() => (props.type.toLowerCase() === "artist" ? "50
 </script>
 
 <template>
-  <ion-avatar
+  <IonAvatar
     class="bg-slate-500/20 text-slate-500 flex place-content-center items-center overflow-hidden relative"
     :style="{ '--border-radius': borderRadius }"
   >
     <img v-if="src" :src="src" />
-    <ion-icon v-else :icon="icons[type.toLowerCase() as keyof typeof icons]" size="large" />
-  </ion-avatar>
+    <IonIcon v-else :icon="icons[type.toLowerCase() as keyof typeof icons]" size="large" />
+  </IonAvatar>
 </template>

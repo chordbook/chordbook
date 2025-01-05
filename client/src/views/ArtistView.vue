@@ -8,80 +8,80 @@ defineProps<{
 </script>
 
 <template>
-  <app-view>
-    <data-source v-slot="{ data }: { data: ArtistFull }" :src="`artists/${id}`">
+  <AppView>
+    <DataSource v-slot="{ data }: { data: ArtistFull }" :src="`artists/${id}`">
       <Head>
         <title v-if="data">
           {{ data.name }}
         </title>
       </Head>
-      <ion-header translucent collapse="fade">
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-back-button text="" default-href="/artists" />
-          </ion-buttons>
-          <ion-title>{{ data?.name }}</ion-title>
-          <ion-buttons slot="end">
-            <add-to-library-button :id="id" />
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
+      <IonHeader translucent collapse="fade">
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton text="" default-href="/artists" />
+          </IonButtons>
+          <IonTitle>{{ data?.name }}</IonTitle>
+          <IonButtons slot="end">
+            <AddToLibraryButton :id="id" />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
 
-      <ion-content fullscreen>
-        <ion-header>
+      <IonContent fullscreen>
+        <IonHeader>
           <div
             :style="`background-image: linear-gradient(rgba(0,0,0,0) 33%, rgba(0,0,0,0.8)), url(${data?.banner}); background-position: 50% 25%`"
             class="bg-slate-700 bg-cover aspect-16/9-max-h-screen-1/2"
           >
-            <ion-toolbar
+            <IonToolbar
               class="absolute bottom-0 w-full ion-padding main-content text-white text-shadow"
             >
-              <ion-note
+              <IonNote
                 v-if="data?.genre"
                 button
                 :router-link="{ name: 'genre', params: { id: data?.genre.id } }"
                 class="block text-lg text-white opacity-70 ion-activatable ion-focusable"
               >
                 {{ data?.genre.name }}
-              </ion-note>
+              </IonNote>
               <h1 class="text-4xl font-bold m-0">
                 {{ data?.name }}
               </h1>
-            </ion-toolbar>
+            </IonToolbar>
           </div>
-        </ion-header>
+        </IonHeader>
 
         <div class="main-content">
-          <data-source v-slot="{ data: tracks }" :src="`artists/${id}/tracks`">
-            <ion-list v-if="tracks?.length > 0">
-              <ion-list-header>
-                <ion-label>Top Songs</ion-label>
-                <ion-button :router-link="{ name: 'artist.tracks', params: { id } }">
+          <DataSource v-slot="{ data: tracks }" :src="`artists/${id}/tracks`">
+            <IonList v-if="tracks?.length > 0">
+              <IonListHeader>
+                <IonLabel>Top Songs</IonLabel>
+                <IonButton :router-link="{ name: 'artist.tracks', params: { id } }">
                   See All
-                </ion-button>
-              </ion-list-header>
+                </IonButton>
+              </IonListHeader>
 
-              <model-list :items="tracks" />
-            </ion-list>
-          </data-source>
+              <ModelList :items="tracks" />
+            </IonList>
+          </DataSource>
 
-          <data-source v-slot="{ data: albums }" :src="`artists/${id}/albums`">
-            <ion-list v-if="albums?.length > 0" lines="none">
-              <ion-list-header>
-                <ion-label>Top Albums</ion-label>
-                <ion-button :router-link="{ name: 'artist.albums', params: { id } }">
+          <DataSource v-slot="{ data: albums }" :src="`artists/${id}/albums`">
+            <IonList v-if="albums?.length > 0" lines="none">
+              <IonListHeader>
+                <IonLabel>Top Albums</IonLabel>
+                <IonButton :router-link="{ name: 'artist.albums', params: { id } }">
                   See All
-                </ion-button>
-              </ion-list-header>
+                </IonButton>
+              </IonListHeader>
 
-              <model-list :items="albums" format="card" :show-artist="false" />
-            </ion-list>
-          </data-source>
+              <ModelList :items="albums" format="card" :show-artist="false" />
+            </IonList>
+          </DataSource>
 
           <div v-if="data?.biography">
-            <ion-list-header>
-              <ion-label>About</ion-label>
-            </ion-list-header>
+            <IonListHeader>
+              <IonLabel>About</IonLabel>
+            </IonListHeader>
             <div class="ion-padding">
               <p
                 class="text-sm line-clamp-6 overflow-hidden"
@@ -92,9 +92,9 @@ defineProps<{
             </div>
           </div>
         </div>
-      </ion-content>
-    </data-source>
-  </app-view>
+      </IonContent>
+    </DataSource>
+  </AppView>
 </template>
 
 <style scoped>

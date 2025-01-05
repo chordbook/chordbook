@@ -9,30 +9,30 @@ defineProps<{
 </script>
 
 <template>
-  <ion-modal can-dismiss :breakpoints="[0.5, 1]" :initial-breakpoint="0.5">
-    <app-view>
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-button role="cancel" @click="modalController.dismiss()"> Cancel </ion-button>
-          </ion-buttons>
-          <ion-title>Alternate Versions</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-        <ion-list>
-          <data-source v-slot="{ items }" :src="`tracks/${id}/songsheets`">
+  <IonModal can-dismiss :breakpoints="[0.5, 1]" :initial-breakpoint="0.5">
+    <AppView>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonButton role="cancel" @click="modalController.dismiss()"> Cancel </IonButton>
+          </IonButtons>
+          <IonTitle>Alternate Versions</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+        <IonList>
+          <DataSource v-slot="{ items }" :src="`tracks/${id}/songsheets`">
             <template v-for="version in items" :key="version.id">
-              <songsheet-item
+              <SongsheetItem
                 v-if="version.id !== exclude"
                 v-bind="version"
                 router-direction="replace"
                 @click="modalController.dismiss()"
               />
             </template>
-          </data-source>
-        </ion-list>
-      </ion-content>
-    </app-view>
-  </ion-modal>
+          </DataSource>
+        </IonList>
+      </IonContent>
+    </AppView>
+  </IonModal>
 </template>

@@ -9,13 +9,13 @@ function style(uid: string) {
 
 <template>
   <div>
-    <ion-list-header>Browse by Genre</ion-list-header>
-    <data-source src="genres">
+    <IonListHeader>Browse by Genre</IonListHeader>
+    <DataSource src="genres">
       <template #page="{ data }: { data: Genre[] }">
         <div
           class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8 gap-[32px] ion-margin"
         >
-          <ion-card
+          <IonCard
             v-for="genre in data"
             :key="genre.id"
             button
@@ -29,14 +29,14 @@ function style(uid: string) {
               class="object-cover object-center absolute inset-0 w-full h-full opacity-50 saturate-0 mix-blend-luminosity"
             />
             <div class="aspect-square flex items-end p-4">
-              <ion-card-title class="text-shadow font-bold text-lg sm:text-xl text-white">
+              <IonCardTitle class="text-shadow font-bold text-lg sm:text-xl text-white">
                 {{ genre.name }}
-              </ion-card-title>
+              </IonCardTitle>
             </div>
-          </ion-card>
+          </IonCard>
         </div>
       </template>
-    </data-source>
+    </DataSource>
   </div>
 </template>
 

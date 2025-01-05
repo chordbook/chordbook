@@ -26,5 +26,5 @@ const data = computed(() => {
 </script>
 
 <template>
-  <chord-box v-if="data" :id="`chord-${chord}`" :data="data" v-bind="$attrs" />
+  <ChordBox v-if="data" :id="`chord-${chord}`" :data="data" v-bind="$attrs" />
 </template>
