@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Setlist } from "@/api";
 import { DataSource } from "@/components";
 import SetlistCard from "@/components/SetlistCard.vue";
 import { useTemplateRef } from "vue";
@@ -41,7 +42,11 @@ const dataSource = useTemplateRef("dataSource");
           <div
             class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
           >
-            <setlist-card v-for="setlist in items" :key="setlist.id" v-bind="setlist" />
+            <setlist-card
+              v-for="setlist in items"
+              :key="(setlist as Setlist).id"
+              v-bind="setlist as Setlist"
+            />
           </div>
         </ion-list>
       </DataSource>

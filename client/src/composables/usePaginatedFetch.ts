@@ -49,7 +49,7 @@ export default function usePaginatedFetch<T = unknown>(
       }
     });
 
-    pages.push(page);
+    pages.push(reactive(page));
 
     if (fetchOptions.immediate !== false) {
       page.execute(true /* throw error */);

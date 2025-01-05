@@ -91,8 +91,8 @@ const auth = useAuthStore();
         </div>
       </ion-card>
 
-      <DataSource ref="dataSource" v-slot="{ data }: { data: Home }" src="home">
-        <div v-for="section in data" :key="section.name">
+      <DataSource ref="dataSource" v-slot="{ data }" src="home">
+        <div v-for="section in data as Home" :key="section.name">
           <ion-list-header>
             <ion-label class="text-2xl">
               {{ section.name }}

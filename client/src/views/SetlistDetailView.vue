@@ -27,7 +27,7 @@ const editing = ref(false);
 const songsheets = useTemplateRef<InstanceType<typeof DataSource>>("songsheets"); // element ref
 
 async function reorder({ detail }: { detail: ItemReorderEventDetail }) {
-  const songsheet = songsheets.value?.items[detail.from];
+  const songsheet = (songsheets.value?.items as Songsheet[])[detail.from];
 
   await useFetch(`setlists/${props.id}/items/${songsheet.id}`).patch({
     item: { position: detail.to + 1 },
@@ -38,7 +38,7 @@ async function reorder({ detail }: { detail: ItemReorderEventDetail }) {
 
 async function remove(songsheet: Songsheet) {
   await useFetch(`setlists/${props.id}/items/${songsheet.id}`).delete();
-  const items = songsheets.value!.items;
+  const items = songsheets.value!.items as Songsheet[];
   items.splice(items.indexOf(songsheet), 1);
 
   return (

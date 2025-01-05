@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Songsheet } from "@/api";
 import { DataSource } from "@/components";
 import SongsheetItem from "@/components/SongsheetItem.vue";
 import { add } from "ionicons/icons";
@@ -50,7 +51,11 @@ const dataSource = useTemplateRef("dataSource");
         </template>
         <template #default="{ items }">
           <ion-list>
-            <songsheet-item v-for="songsheet in items" :key="songsheet.id" v-bind="songsheet" />
+            <songsheet-item
+              v-for="songsheet in items"
+              :key="(songsheet as Songsheet).id"
+              v-bind="songsheet as Songsheet"
+            />
           </ion-list>
         </template>
       </DataSource>

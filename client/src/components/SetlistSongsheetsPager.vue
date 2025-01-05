@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { Songsheet } from "@/api";
 import usePaginatedFetch from "@/composables/usePaginatedFetch";
 import * as icons from "@/icons";
 import { computed } from "vue";
@@ -10,19 +11,20 @@ const props = defineProps<{
 }>();
 
 const { items, load } = usePaginatedFetch(`setlists/${props.id}/songsheets`);
+const songsheets = items as Songsheet[];
 
 const currentIndex = computed(() => {
-  const index = items.findIndex(({ id }) => id === props.songsheetId);
+  const index = songsheets.findIndex(({ id }) => id === props.songsheetId);
   // Not found, load more and rely on reactivity to update this calculated value
   if (index < 0) load();
   return index;
 });
 
 // Previous will always be loaded if current is loaded
-const prev = computed(() => currentIndex.value >= 0 && items[currentIndex.value - 1]);
+const prev = computed(() => currentIndex.value >= 0 && songsheets[currentIndex.value - 1]);
 
 const next = computed(() => {
-  const songsheet = currentIndex.value >= 0 && items[currentIndex.value + 1];
+  const songsheet = currentIndex.value >= 0 && songsheets[currentIndex.value + 1];
   // Nothing found, load more and rely on reactivity to update this calculated value
   if (!songsheet) load();
   return songsheet;
