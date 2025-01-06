@@ -43,18 +43,10 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(["load"]);
-
+const auth = useAuthStore();
 const pager = reactive(usePaginatedFetch(props.src, { ...props.options, params: props.params }));
 
-function load() {
-  const page = pager.load();
-  page?.onFetchResponse(() => emit("load", page));
-  return page;
-}
-
-const auth = useAuthStore();
-
-defineExpose(pager);
+pager.onFetchResponse(() => emit("load", pager));
 
 // Reload data when signing in/out
 watch(
@@ -65,21 +57,20 @@ watch(
   },
 );
 
-await load();
+defineExpose(pager);
+
+await pager;
 </script>
 
 <template>
   <slot v-if="$slots.empty && pager.isEmpty" name="empty" />
   <template v-else>
-    <template v-for="page in pager.pages">
-      <slot v-if="$slots.page" name="page" v-bind="page" />
-    </template>
-    <slot v-bind="{ items: pager.items, ...pager.pages[0] }" />
+    <slot v-bind="pager" />
   </template>
 
   <IonInfiniteScroll
     v-if="pager.isPaginating"
-    @ion-infinite="load()?.then(() => $event.target.complete())"
+    @ion-infinite="pager.load()?.then(() => $event.target.complete())"
   >
     <IonInfiniteScrollContent loading-spinner="bubbles" loading-text="Loading…" />
   </IonInfiniteScroll>

@@ -3,16 +3,15 @@ import SongsheetItem from "@/components/SongsheetItem.vue";
 import { useRouter } from "vue-router";
 
 import type { Songsheet } from "@/api";
-import type { Ref } from "vue";
 
 const router = useRouter();
 
 defineProps<{ id: string }>();
 
-function loaded({ data }: { data: Ref<Songsheet[]> }) {
+function loaded({ data }: { data: Songsheet[] }) {
   // Redirect to the only version if there is only one
-  if (data.value.length === 1) {
-    const [{ id }] = data.value;
+  if (data.length === 1) {
+    const [{ id }] = data;
     router.replace(`/songsheets/${id}`);
   }
 }

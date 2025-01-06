@@ -10,21 +10,20 @@ const props = defineProps<{
   songsheetId: string;
 }>();
 
-const { items, load } = usePaginatedFetch(`setlists/${props.id}/songsheets`);
-const songsheets = items as Songsheet[];
+const { items, load } = usePaginatedFetch<Songsheet>(`setlists/${props.id}/songsheets`);
 
 const currentIndex = computed(() => {
-  const index = songsheets.findIndex(({ id }) => id === props.songsheetId);
+  const index = items.value.findIndex(({ id }) => id === props.songsheetId);
   // Not found, load more and rely on reactivity to update this calculated value
   if (index < 0) load();
   return index;
 });
 
 // Previous will always be loaded if current is loaded
-const prev = computed(() => currentIndex.value >= 0 && songsheets[currentIndex.value - 1]);
+const prev = computed(() => currentIndex.value >= 0 && items.value[currentIndex.value - 1]);
 
 const next = computed(() => {
-  const songsheet = currentIndex.value >= 0 && songsheets[currentIndex.value + 1];
+  const songsheet = currentIndex.value >= 0 && items.value[currentIndex.value + 1];
   // Nothing found, load more and rely on reactivity to update this calculated value
   if (!songsheet) load();
   return songsheet;
