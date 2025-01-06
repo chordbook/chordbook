@@ -43,7 +43,7 @@ export default defineConfig({
       manifest,
     }),
     string({ include: "**/*.snippets" }),
-    sentryVitePlugin(),
+    sentryVitePlugin({ disable: !process.env.APP_SENTRY_DSN }),
   ],
   resolve: {
     alias: {
