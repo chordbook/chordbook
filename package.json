@@ -21,7 +21,7 @@
     "@vueuse/router": "^12.1.0",
     "arrify": "^3.0",
     "autoprefixer": "^10.4.20",
-    "chordsheetjs": "^10.11.0",
+    "chordsheetjs": "^11.1.2",
     "cupertino-pane": "^1.4.22",
     "floating-vue": "^5.2.2",
     "get-youtube-id": "^1.0",
