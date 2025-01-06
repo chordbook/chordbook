@@ -1,5 +1,5 @@
 import useAuthStore from "@/stores/auth";
-import { createFetch, type UseFetchOptions } from "@vueuse/core";
+import { createFetch, useEventListener, type UseFetchOptions, type UseFetchReturn } from "@vueuse/core";
 import { computed, toValue, type MaybeRefOrGetter } from "vue";
 
 export type { UseFetchReturn } from "@vueuse/core";
@@ -56,6 +56,30 @@ export function useFetch<T = unknown>(
     options || {},
     useFetchOptions,
   ).json();
+
+  fetch.onFetchResponse(() => {
+    useEventListener(navigator.serviceWorker, 'message', async (event: MessageEvent) => {
+      if (event.data.meta !== 'workbox-broadcast-update') return;
+
+      const { cacheName, updatedURL } = event.data.payload;
+
+      const requestedUrl = fetch.response.value?.url;
+
+      if (!requestedUrl || updatedURL !== requestedUrl) return;
+
+      const cache = await caches.open(cacheName);
+      const response = await cache.match(requestedUrl);
+
+      if (response) {
+        fetch.response.value = response;
+        // useFetch should just update all these when setting response, but it's not internally reactive
+        fetch.statusCode.value = response.status;
+        fetch.data.value = await response.json();
+      }
+    });
+
+    // TODO: unregister listener after a timeout
+  })
 
   // Check for expired token on errors, which will refresh the token and re-execute
   fetch.onFetchError(() => useAuthStore().handleExpiredToken(fetch));
