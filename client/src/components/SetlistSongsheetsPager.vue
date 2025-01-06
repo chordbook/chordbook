@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Songsheet } from "@/api";
-import usePaginatedFetch from "@/composables/usePaginatedFetch";
+import { usePaginatedFetch } from "@/composables";
 import * as icons from "@/icons";
 import { computed } from "vue";
 import ModelAvatar from "./ModelAvatar.vue";

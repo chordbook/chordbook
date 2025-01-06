@@ -30,7 +30,7 @@ Empty placeholder:
   </data-source>
 -->
 <script lang="ts" setup>
-import usePaginatedFetch from "@/composables/usePaginatedFetch";
+import { usePaginatedFetch } from "@/composables";
 import useAuthStore from "@/stores/auth";
 import { reactive, watch } from "vue";
 

@@ -1,9 +1,6 @@
 import useAuthStore from "@/stores/auth";
-import { createFetch } from "@vueuse/core";
-import { computed, toValue } from "vue";
-
-import type { UseFetchOptions } from "@vueuse/core";
-import type { MaybeRefOrGetter } from "vue";
+import { createFetch, type UseFetchOptions } from "@vueuse/core";
+import { computed, toValue, type MaybeRefOrGetter } from "vue";
 
 export type { UseFetchReturn } from "@vueuse/core";
 export type Params = Record<string, string>;

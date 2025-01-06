@@ -1,4 +1,4 @@
-import { detectFormat } from "@/composables/useSongsheetParser";
+import { detectFormat } from "@/composables";
 import { createEditor } from "@chordbook/editor";
 import { linter } from "@codemirror/lint";
 import { EditorState } from "@codemirror/state";
