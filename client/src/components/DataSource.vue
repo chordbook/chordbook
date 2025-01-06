@@ -33,6 +33,7 @@ Empty placeholder:
 import { usePaginatedFetch } from "@/composables";
 import useAuthStore from "@/stores/auth";
 import { reactive, watch } from "vue";
+import PaginatedList from "./PaginatedList.vue";
 
 import type { Params, UseFetchOptionsWithParams } from "@/composables";
 
@@ -63,15 +64,12 @@ await pager;
 </script>
 
 <template>
-  <slot v-if="$slots.empty && pager.isEmpty" name="empty" />
-  <template v-else>
-    <slot v-bind="pager" />
-  </template>
-
-  <IonInfiniteScroll
-    v-if="pager.isPaginating"
-    @ion-infinite="pager.load()?.then(() => $event.target.complete())"
+  <PaginatedList
+    :paginate="pager.isPaginating"
+    @load="$event.waitUntil(pager.load())"
+    @reload="$event.waitUntil(pager.reload())"
   >
-    <IonInfiniteScrollContent loading-spinner="bubbles" loading-text="Loading…" />
-  </IonInfiniteScroll>
+    <slot v-if="$slots.empty && pager.isEmpty" name="empty" />
+    <slot v-else v-bind="pager" />
+  </PaginatedList>
 </template>
