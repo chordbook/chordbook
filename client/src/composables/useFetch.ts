@@ -46,16 +46,16 @@ export const doFetch = createFetch({
 export function useFetch<T = unknown>(
   url: MaybeRefOrGetter<string>,
   { options, params, ...useFetchOptions }: UseFetchOptionsWithParams = {},
-) {
+): UseFetchReturn<T> & PromiseLike<UseFetchReturn<T>> {
   const fullUrl = buildUrl(url, params);
 
   // useFetch from @vueuse/core has a very complicated method signature. Try to simplify it by accepting
   // `options: RequestInit` as a property of `UseFetchOptionsWithParams` instead of an optional second argument.
   const fetch = doFetch<T>(
     fullUrl,
-    options || ({} as RequestInit),
-    useFetchOptions as UseFetchOptions,
-  );
+    options || {},
+    useFetchOptions,
+  ).json();
 
   // Check for expired token on errors, which will refresh the token and re-execute
   fetch.onFetchError(() => useAuthStore().handleExpiredToken(fetch));
