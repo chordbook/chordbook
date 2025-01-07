@@ -36,7 +36,7 @@ registerRoute(
 
 // API requests, checks the network first
 registerRoute(
-  ({ request }) => request.destination === "" && request.mode === "cors",
+  ({ request }) => request.destination === "" && request.mode === "cors" && request.method === "GET",
   new StaleWhileRevalidate({
     cacheName: "api",
     plugins: [
