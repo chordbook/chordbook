@@ -97,14 +97,6 @@ async function destroy() {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonRefresher
-          v-if="$refs.songsheets"
-          slot="fixed"
-          @ion-refresh="songsheets?.reload().then(() => $event.target.complete())"
-        >
-          <IonRefresherContent />
-        </IonRefresher>
-
         <IonHeader
           collapse="condense"
           :style="`background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3) 33%, rgba(0,0,0,0.8)), ${gradient(data?.id)};`"
