@@ -1,4 +1,4 @@
-import { useFetch } from "@/composables";
+import { useFetch } from "@/composables/useFetch";
 import { computed, reactive } from "vue";
 
 const fetch = reactive(useFetch("flipper", { immediate: false }).get().json());
