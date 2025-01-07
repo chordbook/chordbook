@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { DataSource } from "@/components";
 import HelpCard from "@/components/HelpCard.vue";
 import * as icons from "@/icons";
 import useAuthStore from "@/stores/auth";
 import { cashOutline, handLeft, logoGithub } from "ionicons/icons";
-import { useTemplateRef } from "vue";
 
 import type { Home } from "@/api";
 
-const dataSource = useTemplateRef("dataSource");
 const auth = useAuthStore();
 </script>
 
@@ -57,14 +54,6 @@ const auth = useAuthStore();
       </IonToolbar>
     </IonHeader>
     <IonContent fullscreen class="main-content">
-      <IonRefresher
-        v-if="dataSource"
-        slot="fixed"
-        @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
-      >
-        <IonRefresherContent />
-      </IonRefresher>
-
       <IonHeader v-if="auth.isAuthenticated" collapse="condense">
         <IonToolbar>
           <IonTitle size="large"> Home </IonTitle>
@@ -79,7 +68,7 @@ const auth = useAuthStore();
       >
         <div class="my-auto text-center">
           <h2
-            class="text-4xl sm:text-6xl md:text-7xl font-bold text-white font-semibold text-shadow-lg"
+            class="text-4xl sm:text-6xl md:text-7xl text-white font-semibold text-shadow-lg"
           >
             Play all your<br />
             favorite songs.
@@ -91,7 +80,7 @@ const auth = useAuthStore();
         </div>
       </IonCard>
 
-      <DataSource ref="dataSource" v-slot="{ data }" src="home">
+      <DataSource ref v-slot="{ data }" src="home">
         <div v-for="section in data as Home" :key="section.name">
           <IonListHeader>
             <IonLabel class="text-2xl">
