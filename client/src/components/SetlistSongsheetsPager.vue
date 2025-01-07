@@ -10,7 +10,7 @@ const props = defineProps<{
   songsheetId: string;
 }>();
 
-const { items, load } = usePaginatedFetch<Songsheet>(`setlists/${props.id}/songsheets`);
+const { items, load } = usePaginatedFetch<Songsheet[]>(`setlists/${props.id}/songsheets`);
 
 const currentIndex = computed(() => {
   const index = items.value.findIndex(({ id }) => id === props.songsheetId);
