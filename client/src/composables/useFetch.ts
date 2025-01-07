@@ -68,7 +68,7 @@ export function useFetch<T = unknown>(
       if (!requestedUrl || updatedURL !== requestedUrl) return;
 
       const cache = await caches.open(cacheName);
-      const response = await cache.match(requestedUrl);
+      const response = await cache.match(requestedUrl, { ignoreVary: true });
 
       if (response) {
         fetch.response.value = response;
