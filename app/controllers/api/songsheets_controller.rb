@@ -2,6 +2,10 @@ class Api::SongsheetsController < ApiController
   before_action :set_songsheet, only: %i[show update destroy]
   skip_before_action :authenticate!, only: %i[index show]
 
+  # Use the updated_at timestamp of the parent association to determine freshness.
+  # This ensures that reordering a setlist will invalidate the cache.
+  etag { current_scope.proxy_association.owner.updated_at }
+
   # GET /songsheets.json
   def index
     @songsheets = current_scope.includes_track.page(params[:page])
