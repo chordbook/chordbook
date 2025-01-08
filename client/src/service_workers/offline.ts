@@ -5,7 +5,8 @@ import { clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { createHandlerBoundToURL, precacheAndRoute } from "workbox-precaching";
 import { NavigationRoute, registerRoute } from "workbox-routing";
-import { CacheFirst, NetworkFirst } from "workbox-strategies";
+import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
+import { BroadcastUpdatePlugin } from 'workbox-broadcast-update';
 
 declare let self: ServiceWorkerGlobalScope;
 
@@ -35,11 +36,11 @@ registerRoute(
 
 // API requests, checks the network first
 registerRoute(
-  ({ request }) => request.destination === "" && request.mode === "cors",
-  new NetworkFirst({
-    networkTimeoutSeconds: 3,
+  ({ request }) => request.destination === "" && request.mode === "cors" && request.method === "GET",
+  new StaleWhileRevalidate({
     cacheName: "api",
     plugins: [
+      new BroadcastUpdatePlugin(),
       new ExpirationPlugin({ maxEntries: 500 }),
       new CacheableResponsePlugin({ statuses: [0, 200] }),
       new BackgroundSyncPlugin("api"),

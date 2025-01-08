@@ -2,9 +2,6 @@
 import type { Setlist } from "@/api";
 import { DataSource } from "@/components";
 import SetlistCard from "@/components/SetlistCard.vue";
-import { useTemplateRef } from "vue";
-
-const dataSource = useTemplateRef("dataSource");
 </script>
 
 <template>
@@ -28,14 +25,6 @@ const dataSource = useTemplateRef("dataSource");
           <IonTitle size="large"> Setlists </IonTitle>
         </IonToolbar>
       </IonHeader>
-
-      <IonRefresher
-        v-if="dataSource"
-        slot="fixed"
-        @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
-      >
-        <IonRefresherContent />
-      </IonRefresher>
 
       <DataSource ref="dataSource" v-slot="{ items }" src="setlists">
         <IonList>

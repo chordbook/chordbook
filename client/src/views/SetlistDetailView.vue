@@ -1,19 +1,19 @@
 <script setup lang="ts">
+import PaginatedList from "@/components/PaginatedList.vue";
 import ShareButton from "@/components/ShareButton.vue";
 import ShareItem from "@/components/ShareItem.vue";
 import SongsheetItem from "@/components/SongsheetItem.vue";
-import { useFetch } from "@/composables";
+import { useFetch, usePaginatedFetch } from "@/composables";
 import * as icons from "@/icons";
 import { gradient } from "@/lib/gradient";
 import { pluralize } from "@/util";
 import { actionSheetController, toastController, useIonRouter } from "@ionic/vue";
-import { ref, useTemplateRef } from "vue";
+import { reactive, ref } from "vue";
 import AddToLibraryButton from "../components/AddToLibraryButton.vue";
 import SetlistAvatar from "../components/SetlistAvatar.vue";
 
 import type { Songsheet } from "@/api";
-import type { DataSource } from "@/components";
-import type { ItemReorderEventDetail } from "@ionic/core";
+import type { ItemReorderCustomEvent } from "@ionic/core";
 
 const props = defineProps({
   id: {
@@ -24,10 +24,13 @@ const props = defineProps({
 
 const router = useIonRouter();
 const editing = ref(false);
-const songsheets = useTemplateRef<InstanceType<typeof DataSource>>("songsheets"); // element ref
+const removed = reactive<Songsheet[]>([]);
 
-async function reorder({ detail }: { detail: ItemReorderEventDetail }) {
-  const songsheet = (songsheets.value?.items as Songsheet[])[detail.from];
+const dataSource = reactive(usePaginatedFetch<Songsheet[]>(`setlists/${props.id}/songsheets`));
+dataSource.load();
+
+async function reorder({ detail }: ItemReorderCustomEvent) {
+  const songsheet = dataSource.items[detail.from];
 
   await useFetch(`setlists/${props.id}/items/${songsheet.id}`).patch({
     item: { position: detail.to + 1 },
@@ -38,8 +41,7 @@ async function reorder({ detail }: { detail: ItemReorderEventDetail }) {
 
 async function remove(songsheet: Songsheet) {
   await useFetch(`setlists/${props.id}/items/${songsheet.id}`).delete();
-  const items = songsheets.value!.items as Songsheet[];
-  items.splice(items.indexOf(songsheet), 1);
+  removed.push(songsheet);
 
   return (
     await toastController.create({
@@ -97,14 +99,6 @@ async function destroy() {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonRefresher
-          v-if="$refs.songsheets"
-          slot="fixed"
-          @ion-refresh="songsheets?.reload().then(() => $event.target.complete())"
-        >
-          <IonRefresherContent />
-        </IonRefresher>
-
         <IonHeader
           collapse="condense"
           :style="`background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3) 33%, rgba(0,0,0,0.8)), ${gradient(data?.id)};`"
@@ -173,32 +167,36 @@ async function destroy() {
         <div class="main-content">
           <IonList>
             <IonReorderGroup :disabled="!editing" @ion-item-reorder="reorder">
-              <DataSource
-                ref="songsheets"
-                v-slot="{ items }"
-                :src="`setlists/${props.id}/songsheets`"
+              <PaginatedList
+                :paginate="dataSource.isPaginating"
+                @load="$event.waitUntil(dataSource.load())"
+                @reload="$event.waitUntil(dataSource.reload())"
               >
-                <IonItemSliding v-for="songsheet in items" :key="songsheet.id">
-                  <IonItemOptions side="end">
-                    <IonItemOption color="danger" @click="remove(songsheet)">
-                      Remove
-                    </IonItemOption>
-                  </IonItemOptions>
+                <template v-for="{ data: songsheets } in dataSource.pages">
+                  <IonItemSliding v-for="songsheet in songsheets" :key="songsheet.id">
+                    <template v-if="!removed.includes(songsheet)">
+                      <IonItemOptions side="end">
+                        <IonItemOption color="danger" @click="remove(songsheet)">
+                          Remove
+                        </IonItemOption>
+                      </IonItemOptions>
 
-                  <SongsheetItem v-bind="songsheet" :setlist-id="id">
-                    <template #actions>
-                      <IonItem
-                        button
-                        detail
-                        :detail-icon="icons.setlist"
-                        @click="remove(songsheet)"
-                      >
-                        <IonLabel color="danger">Remove</IonLabel>
-                      </IonItem>
+                      <SongsheetItem v-bind="songsheet" :setlist-id="id">
+                        <template #actions>
+                          <IonItem
+                            button
+                            detail
+                            :detail-icon="icons.setlist"
+                            @click="remove(songsheet)"
+                          >
+                            <IonLabel color="danger">Remove</IonLabel>
+                          </IonItem>
+                        </template>
+                      </SongsheetItem>
                     </template>
-                  </SongsheetItem>
-                </IonItemSliding>
-              </DataSource>
+                  </IonItemSliding>
+                </template>
+              </PaginatedList>
             </IonReorderGroup>
           </IonList>
         </div>

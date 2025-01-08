@@ -1,5 +1,5 @@
 import useAuthStore from "@/stores/auth";
-import { createFetch, type UseFetchOptions } from "@vueuse/core";
+import { createFetch, useEventListener, useTimeoutFn, type UseFetchOptions, type UseFetchReturn } from "@vueuse/core";
 import { computed, toValue, type MaybeRefOrGetter } from "vue";
 
 export type { UseFetchReturn } from "@vueuse/core";
@@ -46,16 +46,42 @@ export const doFetch = createFetch({
 export function useFetch<T = unknown>(
   url: MaybeRefOrGetter<string>,
   { options, params, ...useFetchOptions }: UseFetchOptionsWithParams = {},
-) {
+): UseFetchReturn<T> & PromiseLike<UseFetchReturn<T>> {
   const fullUrl = buildUrl(url, params);
 
   // useFetch from @vueuse/core has a very complicated method signature. Try to simplify it by accepting
   // `options: RequestInit` as a property of `UseFetchOptionsWithParams` instead of an optional second argument.
   const fetch = doFetch<T>(
     fullUrl,
-    options || ({} as RequestInit),
-    useFetchOptions as UseFetchOptions,
-  );
+    options || {},
+    useFetchOptions,
+  ).json();
+
+  fetch.onFetchResponse(() => {
+    // Listen for workbox-broadcast-update updates form the service worker that match this request
+    const unregister = useEventListener(navigator.serviceWorker, 'message', async (event: MessageEvent) => {
+      if (event.data.meta !== 'workbox-broadcast-update') return;
+
+      const { cacheName, updatedURL } = event.data.payload;
+
+      const requestedUrl = fetch.response.value?.url;
+
+      if (!requestedUrl || updatedURL !== requestedUrl) return;
+
+      const cache = await caches.open(cacheName);
+      const response = await cache.match(requestedUrl, { ignoreVary: true });
+
+      if (response) {
+        fetch.response.value = response;
+        // useFetch should just update all these when setting response, but it's not internally reactive
+        fetch.statusCode.value = response.status;
+        fetch.data.value = await response.json();
+      }
+    });
+
+    // Unregister listener after 30 seconds
+    useTimeoutFn(unregister, 30 * 1000);
+  })
 
   // Check for expired token on errors, which will refresh the token and re-execute
   fetch.onFetchError(() => useAuthStore().handleExpiredToken(fetch));

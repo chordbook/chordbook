@@ -1,4 +1,3 @@
-import arrify from "arrify";
 import LinkHeader from "http-link-header";
 import { computed, reactive, ref } from "vue";
 import { useFetch } from "./useFetch";
@@ -10,52 +9,43 @@ export default function usePaginatedFetch<T = unknown>(
   fetchOptions: UseFetchOptionsWithParams = {},
 ) {
   const nextUrl = ref<string | null>(url);
-  // FIXME: This should be UseFetchReturn<any>[], but the `pages.push(…)` below gives a bizarre error
   const pages = reactive<UseFetchReturn<T>[]>([]);
-  const items = reactive<T[]>([]);
   const isFetching = computed(() => pages.some((page) => page.isFetching));
   const isEmpty = computed(() => {
-    const page = pages[0];
-    return page?.isFinished && !page.error && items.length === 0;
+    const { isFinished, error } = pages[0];
+    return isFinished && !error && items.value.length === 0;
   });
-  const isPaginating = ref(false);
+  const isPaginating = computed(() => !!nextUrl.value);
+  const items = computed(() => pages.map(({ data }) => data!).filter(Boolean).flat())
 
   // Load the next page
-  function load(reload = false) {
+  async function load(reload = false) {
     if (nextUrl.value === null) return;
 
     if (reload) {
-      // Clear previous accumulator of items
-      items.splice(0);
-
       // Clear previous pages
-      pages.splice(-1);
+      pages.splice(0);
     }
 
-    const page = useFetch(nextUrl.value, { ...fetchOptions, immediate: false })
-      .get()
-      .json();
+    const page = useFetch(nextUrl.value, { ...fetchOptions }).get().json();
 
     page.onFetchResponse(() => {
-      items.push(...arrify(page.data.value));
-
       const links = LinkHeader.parse(page.response.value?.headers.get("Link") ?? "");
       if (links.has("rel", "next")) {
         nextUrl.value = links.get("rel", "next")[0].uri;
-        isPaginating.value = true;
       } else {
         nextUrl.value = null;
-        isPaginating.value = false;
       }
     });
 
     pages.push(reactive(page));
 
-    if (fetchOptions.immediate !== false) {
+    // Explicitly fetch if immediate is set to false
+    if (fetchOptions.immediate === false) {
       page.execute(true /* throw error */);
     }
 
-    return page;
+    return await page;
   }
 
   async function reload() {

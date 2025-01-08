@@ -3,10 +3,7 @@ import type { Songsheet } from "@/api";
 import { DataSource } from "@/components";
 import SongsheetItem from "@/components/SongsheetItem.vue";
 import { add } from "ionicons/icons";
-import { useTemplateRef } from "vue";
 import LibraryPlaceholder from "../components/LibraryPlaceholder.vue";
-
-const dataSource = useTemplateRef("dataSource");
 </script>
 
 <template>
@@ -31,13 +28,6 @@ const dataSource = useTemplateRef("dataSource");
     </IonHeader>
 
     <IonContent fullscreen class="relative main-content">
-      <IonRefresher
-        v-if="dataSource"
-        slot="fixed"
-        @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
-      >
-        <IonRefresherContent />
-      </IonRefresher>
       <IonHeader collapse="condense">
         <IonToolbar>
           <IonTitle size="large">
@@ -45,7 +35,7 @@ const dataSource = useTemplateRef("dataSource");
           </IonTitle>
         </IonToolbar>
       </IonHeader>
-      <DataSource ref="dataSource" :src="$route.path">
+      <DataSource :src="$route.path">
         <template #empty>
           <LibraryPlaceholder type="song" />
         </template>
