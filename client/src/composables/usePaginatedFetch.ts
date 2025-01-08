@@ -1,4 +1,3 @@
-import arrify from "arrify";
 import LinkHeader from "http-link-header";
 import { computed, reactive, ref } from "vue";
 import { useFetch } from "./useFetch";
@@ -31,8 +30,6 @@ export default function usePaginatedFetch<T = unknown>(
     const page = useFetch(nextUrl.value, { ...fetchOptions }).get().json();
 
     page.onFetchResponse(() => {
-      items.value.push(...arrify(page.data.value));
-
       const links = LinkHeader.parse(page.response.value?.headers.get("Link") ?? "");
       if (links.has("rel", "next")) {
         nextUrl.value = links.get("rel", "next")[0].uri;
