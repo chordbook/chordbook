@@ -20,7 +20,7 @@ export default function usePaginatedFetch<T = unknown>(
   const items = computed(() => pages.map(({ data }) => data!).filter(Boolean).flat())
 
   // Load the next page
-  function load(reload = false) {
+  async function load(reload = false) {
     if (nextUrl.value === null) return;
 
     if (reload) {
@@ -43,11 +43,12 @@ export default function usePaginatedFetch<T = unknown>(
 
     pages.push(reactive(page));
 
-    if (fetchOptions.immediate !== false) {
+    // Explicitly fetch if immediate is set to false
+    if (fetchOptions.immediate === false) {
       page.execute(true /* throw error */);
     }
 
-    return page;
+    return await page;
   }
 
   async function reload() {

@@ -33,28 +33,25 @@ Empty placeholder:
 import { usePaginatedFetch } from "@/composables";
 import useAuthStore from "@/stores/auth";
 import { reactive, watch } from "vue";
+import PaginatedList from "./PaginatedList.vue";
 
 import type { Params, UseFetchOptionsWithParams } from "@/composables";
 
-const props = defineProps<{
+const { src, params, options } = defineProps<{
   src: string;
   params?: Params;
   options?: UseFetchOptionsWithParams;
 }>();
 
 const emit = defineEmits(["load"]);
-
-const pager = reactive(usePaginatedFetch(props.src, { ...props.options, params: props.params }));
-
-function load() {
-  const page = pager.load();
-  page?.onFetchResponse(() => emit("load", page));
-  return page;
-}
-
 const auth = useAuthStore();
+const pager = reactive(usePaginatedFetch(src, { ...options, params, immediate: false }));
 
 defineExpose(pager);
+
+async function load() {
+  emit("load", await pager.load());
+}
 
 // Reload data when signing in/out
 watch(
@@ -69,18 +66,15 @@ await load();
 </script>
 
 <template>
-  <slot v-if="$slots.empty && pager.isEmpty" name="empty" />
-  <template v-else>
-    <template v-for="page in pager.pages">
-      <slot v-if="$slots.page" name="page" v-bind="page" />
-    </template>
-    <slot v-bind="{ items: pager.items, ...pager.pages[0] }" />
-  </template>
-
-  <IonInfiniteScroll
-    v-if="pager.isPaginating"
-    @ion-infinite="load()?.then(() => $event.target.complete())"
+  <PaginatedList
+    :paginate="pager.isPaginating"
+    @load="$event.waitUntil(pager.load())"
+    @reload="$event.waitUntil(pager.reload())"
   >
-    <IonInfiniteScrollContent loading-spinner="bubbles" loading-text="Loading…" />
-  </IonInfiniteScroll>
+    <slot v-if="$slots.empty && pager.isEmpty" name="empty" />
+    <template v-else-if="$slots.page">
+      <slot v-for="page in pager.pages" name="page" v-bind="page" />
+    </template>
+    <slot v-else v-bind="{ ...pager.pages[0], ...pager }" />
+  </PaginatedList>
 </template>

@@ -4,11 +4,9 @@ import HelpCard from "@/components/HelpCard.vue";
 import * as icons from "@/icons";
 import useAuthStore from "@/stores/auth";
 import { cashOutline, handLeft, logoGithub } from "ionicons/icons";
-import { useTemplateRef } from "vue";
 
 import type { Home } from "@/api";
 
-const dataSource = useTemplateRef("dataSource");
 const auth = useAuthStore();
 </script>
 
@@ -57,14 +55,6 @@ const auth = useAuthStore();
       </IonToolbar>
     </IonHeader>
     <IonContent fullscreen class="main-content">
-      <IonRefresher
-        v-if="dataSource"
-        slot="fixed"
-        @ion-refresh="dataSource?.reload().then(() => $event.target.complete())"
-      >
-        <IonRefresherContent />
-      </IonRefresher>
-
       <IonHeader v-if="auth.isAuthenticated" collapse="condense">
         <IonToolbar>
           <IonTitle size="large"> Home </IonTitle>
