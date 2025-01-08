@@ -6,7 +6,7 @@ services:
   - type: web
     name: web
     env: static
-    buildCommand: npm run build
+    buildCommand: npm ci && npm run build
     staticPublishPath: ./public
     headers:
       - path: /*
@@ -19,6 +19,8 @@ services:
         destination: /index.html
     envVars:
       - fromGroup: public
+      - key: SKIP_INSTALL_DEPS
+        value: "true"
   - type: web
     name: api
     env: ruby
